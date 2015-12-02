@@ -7,13 +7,93 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		035552FC1C0F5F4200E0FCA7 /* WolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 035552FB1C0F5F4200E0FCA7 /* WolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0355533B1C0F622A00E0FCA7 /* AffineTransformUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553101C0F622A00E0FCA7 /* AffineTransformUtils.swift */; };
+		0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
+		0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */; };
+		0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */; };
+		0355533F1C0F622A00E0FCA7 /* BezierPathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */; };
+		035553401C0F622A00E0FCA7 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553151C0F622A00E0FCA7 /* BundleExtensions.swift */; };
+		035553411C0F622A00E0FCA7 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553161C0F622A00E0FCA7 /* Button.swift */; };
+		035553421C0F622A00E0FCA7 /* CircularList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553171C0F622A00E0FCA7 /* CircularList.swift */; };
+		035553431C0F622A00E0FCA7 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553181C0F622A00E0FCA7 /* ColorExtensions.swift */; };
+		035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553191C0F622A00E0FCA7 /* ControlAction.swift */; };
+		035553451C0F622A00E0FCA7 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531A1C0F622A00E0FCA7 /* DataExtensions.swift */; };
+		035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */; };
+		035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */; };
+		035553481C0F622A00E0FCA7 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531D1C0F622A00E0FCA7 /* Error.swift */; };
+		035553491C0F622A00E0FCA7 /* GeneralError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531E1C0F622A00E0FCA7 /* GeneralError.swift */; };
+		0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */; };
+		0355534B1C0F622A00E0FCA7 /* GestureRecognizerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */; };
+		0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553211C0F622A00E0FCA7 /* HTTPError.swift */; };
+		0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553221C0F622A00E0FCA7 /* HTTPUtils.swift */; };
+		0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553231C0F622A00E0FCA7 /* ImageExtensions.swift */; };
+		0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553241C0F622A00E0FCA7 /* ImageUtils.swift */; };
+		035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553251C0F622A00E0FCA7 /* ImageView.swift */; };
+		035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553271C0F622A00E0FCA7 /* KeyboardAvoidantView.swift */; };
+		035553531C0F622A00E0FCA7 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553281C0F622A00E0FCA7 /* Label.swift */; };
+		035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553291C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift */; };
+		035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355532A1C0F622A00E0FCA7 /* MathUtils.swift */; };
+		035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */; };
+		035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355532C1C0F622A00E0FCA7 /* NotificationUtils.swift */; };
+		035553581C0F622A00E0FCA7 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355532D1C0F622A00E0FCA7 /* PlaceholderView.swift */; };
+		035553591C0F622A00E0FCA7 /* PointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355532E1C0F622A00E0FCA7 /* PointExtensions.swift */; };
+		0355535A1C0F622A00E0FCA7 /* RectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355532F1C0F622A00E0FCA7 /* RectExtensions.swift */; };
+		0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553301C0F622A00E0FCA7 /* ResourceUtils.swift */; };
+		0355535C1C0F622A00E0FCA7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553311C0F622A00E0FCA7 /* Result.swift */; };
+		0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553321C0F622A00E0FCA7 /* StringExtensions.swift */; };
+		0355535F1C0F622A00E0FCA7 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553341C0F622A00E0FCA7 /* Types.swift */; };
+		035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553351C0F622A00E0FCA7 /* UserDefaultsExtensions.swift */; };
+		035553611C0F622A00E0FCA7 /* VectorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553361C0F622A00E0FCA7 /* VectorExtensions.swift */; };
+		035553621C0F622A00E0FCA7 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553371C0F622A00E0FCA7 /* View.swift */; };
+		035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553381C0F622A00E0FCA7 /* ViewDebugging.swift */; };
+		035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553391C0F622A00E0FCA7 /* ViewExtensions.swift */; };
+		035553651C0F622A00E0FCA7 /* WolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0355533A1C0F622A00E0FCA7 /* WolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		035552FB1C0F5F4200E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WolfCore.h; sourceTree = "<group>"; };
-		035552FD1C0F5F4200E0FCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		035552FD1C0F5F4200E0FCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WolfCore/Info.plist; sourceTree = "<group>"; };
+		035553101C0F622A00E0FCA7 /* AffineTransformUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AffineTransformUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553111C0F622A00E0FCA7 /* AnimationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AnimationUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ArrayExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AutolayoutUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BezierPathExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553151C0F622A00E0FCA7 /* BundleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BundleExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553161C0F622A00E0FCA7 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Button.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553171C0F622A00E0FCA7 /* CircularList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CircularList.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553181C0F622A00E0FCA7 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ColorExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553191C0F622A00E0FCA7 /* ControlAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ControlAction.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355531A1C0F622A00E0FCA7 /* DataExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DataExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DateExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DispatchUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355531D1C0F622A00E0FCA7 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Error.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355531E1C0F622A00E0FCA7 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GeneralError.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GeometryUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GestureRecognizerAction.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553211C0F622A00E0FCA7 /* HTTPError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HTTPError.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553221C0F622A00E0FCA7 /* HTTPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HTTPUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553231C0F622A00E0FCA7 /* ImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ImageExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553241C0F622A00E0FCA7 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ImageUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553251C0F622A00E0FCA7 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ImageView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553271C0F622A00E0FCA7 /* KeyboardAvoidantView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = KeyboardAvoidantView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553281C0F622A00E0FCA7 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Label.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553291C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LayoutConstraintsGroup.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355532A1C0F622A00E0FCA7 /* MathUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MathUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NotificationCenterExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355532C1C0F622A00E0FCA7 /* NotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NotificationUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355532D1C0F622A00E0FCA7 /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaceholderView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0355532E1C0F622A00E0FCA7 /* PointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointExtensions.swift; sourceTree = "<group>"; };
+		0355532F1C0F622A00E0FCA7 /* RectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectExtensions.swift; sourceTree = "<group>"; };
+		035553301C0F622A00E0FCA7 /* ResourceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceUtils.swift; sourceTree = "<group>"; };
+		035553311C0F622A00E0FCA7 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		035553321C0F622A00E0FCA7 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		035553341C0F622A00E0FCA7 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		035553351C0F622A00E0FCA7 /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
+		035553361C0F622A00E0FCA7 /* VectorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorExtensions.swift; sourceTree = "<group>"; };
+		035553371C0F622A00E0FCA7 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		035553381C0F622A00E0FCA7 /* ViewDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewDebugging.swift; sourceTree = "<group>"; };
+		035553391C0F622A00E0FCA7 /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		0355533A1C0F622A00E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolfCore.h; path = WolfCore/WolfCore.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				035552FA1C0F5F4200E0FCA7 /* WolfCore */,
+				035553661C0F6E6A00E0FCA7 /* Supporting Files */,
 				035552F91C0F5F4200E0FCA7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,10 +127,89 @@
 		035552FA1C0F5F4200E0FCA7 /* WolfCore */ = {
 			isa = PBXGroup;
 			children = (
-				035552FB1C0F5F4200E0FCA7 /* WolfCore.h */,
-				035552FD1C0F5F4200E0FCA7 /* Info.plist */,
+				035553671C0F6EAE00E0FCA7 /* Types */,
+				035553681C0F6ED100E0FCA7 /* Utilities */,
+				035553691C0F6F3D00E0FCA7 /* Extensions */,
+				0355536A1C0F6F7600E0FCA7 /* Subclasses */,
 			);
 			path = WolfCore;
+			sourceTree = "<group>";
+		};
+		035553661C0F6E6A00E0FCA7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0355533A1C0F622A00E0FCA7 /* WolfCore.h */,
+				035552FD1C0F5F4200E0FCA7 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		035553671C0F6EAE00E0FCA7 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				035553341C0F622A00E0FCA7 /* Types.swift */,
+				035553311C0F622A00E0FCA7 /* Result.swift */,
+				0355531D1C0F622A00E0FCA7 /* Error.swift */,
+				0355531E1C0F622A00E0FCA7 /* GeneralError.swift */,
+			);
+			name = Types;
+			sourceTree = "<group>";
+		};
+		035553681C0F6ED100E0FCA7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				035553101C0F622A00E0FCA7 /* AffineTransformUtils.swift */,
+				035553111C0F622A00E0FCA7 /* AnimationUtils.swift */,
+				035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */,
+				035553171C0F622A00E0FCA7 /* CircularList.swift */,
+				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
+				0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */,
+				0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */,
+				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
+				035553221C0F622A00E0FCA7 /* HTTPUtils.swift */,
+				035553211C0F622A00E0FCA7 /* HTTPError.swift */,
+				035553241C0F622A00E0FCA7 /* ImageUtils.swift */,
+				035553291C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift */,
+				0355532A1C0F622A00E0FCA7 /* MathUtils.swift */,
+				0355532C1C0F622A00E0FCA7 /* NotificationUtils.swift */,
+				035553301C0F622A00E0FCA7 /* ResourceUtils.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		035553691C0F6F3D00E0FCA7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */,
+				035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */,
+				035553151C0F622A00E0FCA7 /* BundleExtensions.swift */,
+				035553181C0F622A00E0FCA7 /* ColorExtensions.swift */,
+				0355531A1C0F622A00E0FCA7 /* DataExtensions.swift */,
+				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
+				035553231C0F622A00E0FCA7 /* ImageExtensions.swift */,
+				0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */,
+				0355532E1C0F622A00E0FCA7 /* PointExtensions.swift */,
+				0355532F1C0F622A00E0FCA7 /* RectExtensions.swift */,
+				035553321C0F622A00E0FCA7 /* StringExtensions.swift */,
+				035553351C0F622A00E0FCA7 /* UserDefaultsExtensions.swift */,
+				035553361C0F622A00E0FCA7 /* VectorExtensions.swift */,
+				035553391C0F622A00E0FCA7 /* ViewExtensions.swift */,
+				035553381C0F622A00E0FCA7 /* ViewDebugging.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		0355536A1C0F6F7600E0FCA7 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				035553161C0F622A00E0FCA7 /* Button.swift */,
+				035553251C0F622A00E0FCA7 /* ImageView.swift */,
+				035553271C0F622A00E0FCA7 /* KeyboardAvoidantView.swift */,
+				035553281C0F622A00E0FCA7 /* Label.swift */,
+				0355532D1C0F622A00E0FCA7 /* PlaceholderView.swift */,
+				035553371C0F622A00E0FCA7 /* View.swift */,
+			);
+			name = Subclasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,7 +219,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				035552FC1C0F5F4200E0FCA7 /* WolfCore.h in Headers */,
+				035553651C0F622A00E0FCA7 /* WolfCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +290,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0355534B1C0F622A00E0FCA7 /* GestureRecognizerAction.swift in Sources */,
+				035553431C0F622A00E0FCA7 /* ColorExtensions.swift in Sources */,
+				035553401C0F622A00E0FCA7 /* BundleExtensions.swift in Sources */,
+				035553421C0F622A00E0FCA7 /* CircularList.swift in Sources */,
+				0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */,
+				0355535F1C0F622A00E0FCA7 /* Types.swift in Sources */,
+				035553491C0F622A00E0FCA7 /* GeneralError.swift in Sources */,
+				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
+				035553611C0F622A00E0FCA7 /* VectorExtensions.swift in Sources */,
+				035553581C0F622A00E0FCA7 /* PlaceholderView.swift in Sources */,
+				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
+				0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
+				035553591C0F622A00E0FCA7 /* PointExtensions.swift in Sources */,
+				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
+				0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */,
+				0355535A1C0F622A00E0FCA7 /* RectExtensions.swift in Sources */,
+				0355535C1C0F622A00E0FCA7 /* Result.swift in Sources */,
+				035553451C0F622A00E0FCA7 /* DataExtensions.swift in Sources */,
+				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
+				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
+				035553411C0F622A00E0FCA7 /* Button.swift in Sources */,
+				035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */,
+				035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */,
+				0355533B1C0F622A00E0FCA7 /* AffineTransformUtils.swift in Sources */,
+				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,
+				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
+				0355533F1C0F622A00E0FCA7 /* BezierPathExtensions.swift in Sources */,
+				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
+				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
+				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
+				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
+				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,
+				035553621C0F622A00E0FCA7 /* View.swift in Sources */,
+				0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
+				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
+				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,
+				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
+				035553481C0F622A00E0FCA7 /* Error.swift in Sources */,
+				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
+				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +428,7 @@
 		035553011C0F5F4200E0FCA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -238,12 +439,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.arciem.WolfCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		035553021C0F5F4200E0FCA7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -276,6 +479,7 @@
 				035553021C0F5F4200E0FCA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
