@@ -11,7 +11,7 @@ import UIKit
 extension UIView {
     public func makeTransparent(debugColor debugColor: UIColor = UIColor.clearColor(), debug: Bool = false) {
         opaque = false
-        backgroundColor = debug ? debugColor.colorWithAlphaComponent(0.25) : UIColor.clearColor()
+        backgroundColor = debug ? debugColor.colorWithAlphaComponent(0.25) : UIColor.clear
     }
     
     public func tranparentPointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

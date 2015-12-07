@@ -12,7 +12,7 @@ public class KeyboardAvoidantView : View {
     // Superview.bottom Equal KeyboardAvoidantView.bottom
     // A positive constant should move the bottom of the KeyboardAvoidantView up.
 
-    private var superviewConstraints: LayoutConstraintsGroup?
+//    private var superviewConstraints: LayoutConstraintsGroup?
     @IBOutlet public var bottomConstraint: NSLayoutConstraint!
     
     var keyboardView: UIView? = nil
@@ -34,25 +34,25 @@ public class KeyboardAvoidantView : View {
     }
     
     public override func didMoveToSuperview() {
-        superviewConstraints?.active = false
+//        superviewConstraints?.active = false
         
-        if let bottomConstraint = bottomConstraint {
-            bottomConstraint.active = false
-        }
-        bottomConstraint = nil
+//        if let bottomConstraint = bottomConstraint {
+//            bottomConstraint.active = false
+//        }
+//        bottomConstraint = nil
 
-        if let superview = superview {
-            let topConstraint = superview.topAnchor == topAnchor
-            let bottomConstraint = superview.bottomAnchor == bottomAnchor =&= UILayoutPriorityDefaultHigh
-            let leadingConstraint = superview.leadingAnchor == leadingAnchor
-            let trailingConstraint = superview.trailingAnchor == trailingAnchor
+//        if let superview = superview {
+//            let topConstraint = superview.topAnchor == topAnchor
+//            let bottomConstraint = superview.bottomAnchor == bottomAnchor =&= UILayoutPriorityDefaultHigh
+//            let leadingConstraint = superview.leadingAnchor == leadingAnchor
+//            let trailingConstraint = superview.trailingAnchor == trailingAnchor
 
-            self.bottomConstraint = bottomConstraint
+//            self.bottomConstraint = bottomConstraint
             
-            superviewConstraints = LayoutConstraintsGroup(constraints: [
-                topConstraint, bottomConstraint, leadingConstraint, trailingConstraint
-                ], active: true)
-        }
+//            superviewConstraints = LayoutConstraintsGroup(constraints: [
+//                topConstraint, bottomConstraint, leadingConstraint, trailingConstraint
+//                ], active: true)
+//        }
     }
 
     private func endKeyboardRectangleFromNotification(notification: NSNotification) -> CGRect {
@@ -87,7 +87,7 @@ public class KeyboardAvoidantView : View {
         if let superview = superview {
             let intersects = keyboardRectangle.intersects(superview.bounds)
             let newMaxY = intersects ? keyboardRectangle.minY : superview.bounds.maxY
-            //            println("\(self) updateBottomConstraintForKeyboardRectangle:\(keyboardRectangle) newMaxY:\(newMaxY)")
+//            print("\(self) updateBottomConstraintForKeyboardRectangle:\(keyboardRectangle) newMaxY:\(newMaxY)")
             bottomConstraint.constant = superview.bounds.maxY - newMaxY
             setNeedsUpdateConstraints()
         }

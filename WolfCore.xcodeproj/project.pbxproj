@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F77AA1C1580B5001FCF2C /* ScrollView.swift */; };
 		0355533B1C0F622A00E0FCA7 /* AffineTransformUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553101C0F622A00E0FCA7 /* AffineTransformUtils.swift */; };
 		0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
 		0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		032F77AA1C1580B5001FCF2C /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		035552FD1C0F5F4200E0FCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WolfCore/Info.plist; sourceTree = "<group>"; };
 		035553101C0F622A00E0FCA7 /* AffineTransformUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AffineTransformUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -208,6 +210,7 @@
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0355532D1C0F622A00E0FCA7 /* PlaceholderView.swift */,
 				035553371C0F622A00E0FCA7 /* View.swift */,
+				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
 			);
 			name = Subclasses;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
 				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
 				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,
+				032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */,
 				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
 				035553481C0F622A00E0FCA7 /* Error.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
