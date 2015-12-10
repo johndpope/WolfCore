@@ -49,6 +49,7 @@
 		035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553381C0F622A00E0FCA7 /* ViewDebugging.swift */; };
 		035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553391C0F622A00E0FCA7 /* ViewExtensions.swift */; };
 		035553651C0F622A00E0FCA7 /* WolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0355533A1C0F622A00E0FCA7 /* WolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		03B063961C191DFF000F4E6D /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B063951C191DFF000F4E6D /* Serializer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		035553381C0F622A00E0FCA7 /* ViewDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewDebugging.swift; sourceTree = "<group>"; };
 		035553391C0F622A00E0FCA7 /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		0355533A1C0F622A00E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolfCore.h; path = WolfCore/WolfCore.h; sourceTree = "<group>"; };
+		03B063951C191DFF000F4E6D /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 				0355532A1C0F622A00E0FCA7 /* MathUtils.swift */,
 				0355532C1C0F622A00E0FCA7 /* NotificationUtils.swift */,
 				035553301C0F622A00E0FCA7 /* ResourceUtils.swift */,
+				03B063951C191DFF000F4E6D /* Serializer.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
+				03B063961C191DFF000F4E6D /* Serializer.swift in Sources */,
 				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,
 				035553621C0F622A00E0FCA7 /* View.swift in Sources */,
 				0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
