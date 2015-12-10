@@ -50,6 +50,7 @@
 		035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553391C0F622A00E0FCA7 /* ViewExtensions.swift */; };
 		035553651C0F622A00E0FCA7 /* WolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0355533A1C0F622A00E0FCA7 /* WolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
+		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		035553391C0F622A00E0FCA7 /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		0355533A1C0F622A00E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolfCore.h; path = WolfCore/WolfCore.h; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				0355532C1C0F622A00E0FCA7 /* NotificationUtils.swift */,
 				035553301C0F622A00E0FCA7 /* ResourceUtils.swift */,
 				0362A1A61C19FBD20005371F /* Log.swift */,
+				0362A1A81C1A22710005371F /* Serializer.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */,
 				0355533B1C0F622A00E0FCA7 /* AffineTransformUtils.swift in Sources */,
 				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,
+				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
 				0355533F1C0F622A00E0FCA7 /* BezierPathExtensions.swift in Sources */,
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
