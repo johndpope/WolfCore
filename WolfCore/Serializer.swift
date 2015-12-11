@@ -63,11 +63,3 @@ public class Serializer {
         return result!
     }
 }
-
-public func testSerializer() {
-    let ser = Serializer(name: "ser1")
-    ser.dispatch() {
-        print("1")
-    }
-    print("2")
-}

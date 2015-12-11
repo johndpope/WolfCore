@@ -28,16 +28,13 @@ public class LayoutConstraintsGroup {
     private func syncToActive() {
         switch active {
         case true:
-//            print("Activating Constraints \(debugName ?? ""): \(constraints)")
             NSLayoutConstraint.activateConstraints(constraints)
         case false:
-//            print("Deactivating Constraints \(debugName ?? ""): \(constraints)")
             NSLayoutConstraint.deactivateConstraints(constraints)
         }
     }
     
     deinit {
-//        print("\(self) deinit")
         active = false
     }
 }

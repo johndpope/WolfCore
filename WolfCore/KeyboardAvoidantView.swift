@@ -100,7 +100,7 @@ public class KeyboardAvoidantView : View {
                 //            println("startTrackingKeyboard: \(keyboardView)")
                 kv.addObserver(self, forKeyPath: "center", options: .New, context: nil)
             } else {
-                print("Could not find keyboard view.")
+                log?.error("Could not find keyboard view.")
             }
         }
     }

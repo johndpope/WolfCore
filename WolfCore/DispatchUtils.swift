@@ -34,11 +34,11 @@ public func dispatchTimeSinceNow(offsetInSeconds: NSTimeInterval) -> dispatch_ti
 // Dispatch a block synchronously on the given queue. Blocks dispatched synchronously block the current thread until they complete.
 //
 // Example:
-//   println("1")
+//   print("1")
 //   dispatchSyncOn(queue: backgroundQueue) {
-//     println("2")
+//     print("2")
 //   }
-//   println("3")
+//   print("3")
 //
 // Since the dispatch is synchronous, this example is guaranteed to print:
 // 1

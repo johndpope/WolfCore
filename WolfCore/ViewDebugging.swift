@@ -40,7 +40,7 @@ extension UIView {
         let auxInfoString = auxInfoStrings.joinWithSeparator(" ")
         let prefix = "\(scrollViewPrefix) \(translatesPrefix) \(ambiguousPrefix)"
         let s = NSString(format: "%@%@%3d %@%@ %@", prefix, indent, level, debugNameString, view, auxInfoString)
-        Swift.print(s)
+        print(s)
         
         let nextIndent = indent + "  |"
         for subview in view.subviews {
@@ -61,11 +61,11 @@ extension UIView {
         let viewString = NSString(format: "%@<%p>", NSStringFromClass(view.dynamicType), view)
         let frameString = NSString(format: "(%g %g; %g %g)", Float(view.frame.origin.x), Float(view.frame.origin.y), Float(view.frame.size.width), Float(view.frame.size.height))
         let s = NSString(format: "%@ ⬜️ %@%3d %@%@ %@", prefix, indent, level, debugNameString, viewString, frameString)
-        Swift.print(s)
+        print(s)
         for constraint in view.constraints {
             let layoutGroupName: String? = "" // constraint.layoutGroupName
             let layoutGroupNameString = layoutGroupName == nil ? "" : "\(layoutGroupName): "
-            Swift.print("⬜️ ⬜️ 🔵 \(indent)  │    \(layoutGroupNameString)\(constraint)")
+            print("⬜️ ⬜️ 🔵 \(indent)  │    \(layoutGroupNameString)\(constraint)")
         }
         
         let nextIndent = indent + "  |"

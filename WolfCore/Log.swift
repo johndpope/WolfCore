@@ -21,27 +21,39 @@ public class Log {
     public var level = LogLevel.Info
     public private(set) var groups = Set<String>()
     
-    public func print(@autoclosure message: () -> String, level: LogLevel, group: String? = nil) {
+    public func print(@autoclosure message: () -> String, level: LogLevel, obj: Any? = nil, group: String? = nil) {
         if level.rawValue >= self.level.rawValue {
             if group == nil || groups.contains(group!) {
-                Swift.print("\(level) \(group): \(message())")
+                var e = [String]()
+                e.append("\(level)")
+                if let group = group {
+                    e.append("\(group)")
+                }
+                if let obj = obj {
+                    e.append("\(obj)")
+                }
+                Swift.print("[\(e.joinWithSeparator(" "))]: \(message())")
             }
         }
     }
     
-    public func trace(@autoclosure message: () -> String, group: String? = nil) {
-        self.print(message, level: .Trace, group: group)
+    public func trace(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
+        self.print(message, level: .Trace, obj: obj, group: group)
     }
     
-    public func info(@autoclosure message: () -> String, group: String? = nil) {
-        self.print(message, level: .Info, group: group)
+    public func info(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
+        self.print(message, level: .Info, obj: obj, group: group)
     }
     
-    public func warning(@autoclosure message: () -> String, group: String? = nil) {
-        self.print(message, level: .Warning, group: group)
+    public func warning(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
+        self.print(message, level: .Warning, obj: obj, group: group)
     }
     
-    public func error(@autoclosure message: () -> String, group: String? = nil) {
-        self.print(message, level: .Error, group: group)
+    public func error(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
+        self.print(message, level: .Error, obj: obj, group: group)
+    }
+    
+    public func error(error: ErrorType, obj: Any? = nil, group: String? = nil) {
+        self.print("\(error)", level: .Error, obj: obj, group: group)
     }
 }
