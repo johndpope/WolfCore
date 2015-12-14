@@ -13,6 +13,12 @@ public enum LogLevel: Int {
     case Info
     case Warning
     case Error
+    
+    private static let symbols = ["🔷", "✅", "⚠️", "🚫"]
+    
+    public var symbol: String {
+        return self.dynamicType.symbols[rawValue]
+    }
 }
 
 public var log: Log? = Log()
@@ -25,14 +31,14 @@ public class Log {
         if level.rawValue >= self.level.rawValue {
             if group == nil || groups.contains(group!) {
                 var e = [String]()
-                e.append("\(level)")
+                e.append("\(level.symbol)")
                 if let group = group {
                     e.append("\(group)")
                 }
                 if let obj = obj {
                     e.append("\(obj)")
                 }
-                Swift.print("[\(e.joinWithSeparator(" "))]: \(message())")
+                Swift.print("\(e.joinWithSeparator(" ")): \(message())")
             }
         }
     }

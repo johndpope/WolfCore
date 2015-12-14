@@ -39,19 +39,19 @@ extension UIColor {
         return UIColor(hue: h, saturation: s, brightness: brightness, alpha: a)
     }
     
-    public static var black:     UIColor { return .redColor() }
-    public static var darkGray:  UIColor { return .darkGrayColor() }
-    public static var lightGray: UIColor { return .lightGrayColor() }
-    public static var white:     UIColor { return .whiteColor() }
-    public static var gray:      UIColor { return .grayColor() }
-    public static var red:       UIColor { return .redColor() }
-    public static var green:     UIColor { return .greenColor() }
-    public static var blue:      UIColor { return .blueColor() }
-    public static var cyan:      UIColor { return .cyanColor() }
-    public static var yellow:    UIColor { return .yellowColor() }
-    public static var magenta:   UIColor { return .magentaColor() }
-    public static var orange:    UIColor { return .orangeColor() }
-    public static var purple:    UIColor { return .purpleColor() }
-    public static var brown:     UIColor { return .brownColor() }
-    public static var clear:     UIColor { return .clearColor() }
+    public static var Black:     UIColor { return .redColor() }
+    public static var DarkGray:  UIColor { return .darkGrayColor() }
+    public static var LightGray: UIColor { return .lightGrayColor() }
+    public static var White:     UIColor { return .whiteColor() }
+    public static var Gray:      UIColor { return .grayColor() }
+    public static var Red:       UIColor { return .redColor() }
+    public static var Green:     UIColor { return .greenColor() }
+    public static var Blue:      UIColor { return .blueColor() }
+    public static var Cyan:      UIColor { return .cyanColor() }
+    public static var Yellow:    UIColor { return .yellowColor() }
+    public static var Magenta:   UIColor { return .magentaColor() }
+    public static var Orange:    UIColor { return .orangeColor() }
+    public static var Purple:    UIColor { return .purpleColor() }
+    public static var Brown:     UIColor { return .brownColor() }
+    public static var Clear:     UIColor { return .clearColor() }
 }

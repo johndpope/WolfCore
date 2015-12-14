@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F77AA1C1580B5001FCF2C /* ScrollView.swift */; };
+		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
+		034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */; };
 		0355533B1C0F622A00E0FCA7 /* AffineTransformUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553101C0F622A00E0FCA7 /* AffineTransformUtils.swift */; };
 		0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
 		0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */; };
@@ -55,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		032F77AA1C1580B5001FCF2C /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraitCollectionExtensions.swift; sourceTree = "<group>"; };
+		034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintExtensions.swift; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		035552FD1C0F5F4200E0FCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WolfCore/Info.plist; sourceTree = "<group>"; };
 		035553101C0F622A00E0FCA7 /* AffineTransformUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AffineTransformUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -195,10 +199,12 @@
 				0355531A1C0F622A00E0FCA7 /* DataExtensions.swift */,
 				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
 				035553231C0F622A00E0FCA7 /* ImageExtensions.swift */,
+				034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */,
 				0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */,
 				0355532E1C0F622A00E0FCA7 /* PointExtensions.swift */,
 				0355532F1C0F622A00E0FCA7 /* RectExtensions.swift */,
 				035553321C0F622A00E0FCA7 /* StringExtensions.swift */,
+				0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */,
 				035553351C0F622A00E0FCA7 /* UserDefaultsExtensions.swift */,
 				035553361C0F622A00E0FCA7 /* VectorExtensions.swift */,
 				035553391C0F622A00E0FCA7 /* ViewExtensions.swift */,
@@ -309,6 +315,7 @@
 				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
 				0362A1A71C19FBD20005371F /* Log.swift in Sources */,
 				035553611C0F622A00E0FCA7 /* VectorExtensions.swift in Sources */,
+				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				035553581C0F622A00E0FCA7 /* PlaceholderView.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
 				0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
@@ -331,6 +338,7 @@
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
+				034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
 				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,
 				035553621C0F622A00E0FCA7 /* View.swift in Sources */,
