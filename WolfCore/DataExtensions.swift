@@ -45,7 +45,7 @@ extension NSData {
         do {
             return try NSJSONSerialization.JSONObjectWithData(self, options: [])
         } catch(let error) {
-            log?.error(error)
+            logError(error)
             return nil
         }
     }
@@ -55,7 +55,7 @@ extension NSData {
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: [])
             self.init(data: data)
         } catch(let error) {
-            log?.error(error)
+            logError(error)
             return nil
         }
     }

@@ -56,7 +56,7 @@ public func retrieveURLRequest(request: NSMutableURLRequest,
 
         let session = NSURLSession.sharedSession()
         
-        log?.trace("request :\(request)")
+        logTrace("request :\(request)")
         
         let task = session.dataTaskWithRequest(request) { (let data, let response, let error) in
             guard error == nil else {
@@ -90,7 +90,7 @@ public func retrieveJSONURLRequest(request: NSMutableURLRequest,
         request.setValue(ContentType.JSON.rawValue, forHTTPHeaderField: HeaderField.Accept.rawValue)
         
         retrieveURLRequest(request, success: { (response, data) -> Void in
-            log?.trace(String(data: data, encoding: NSUTF8StringEncoding)!)
+            logTrace(String(data: data, encoding: NSUTF8StringEncoding)!)
             if let json = data.json {
                 success(response, json)
             } else {

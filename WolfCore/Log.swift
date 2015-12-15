@@ -27,7 +27,7 @@ public class Log {
     public var level = LogLevel.Info
     public private(set) var groups = Set<String>()
     
-    public func print(@autoclosure message: () -> String, level: LogLevel, obj: Any? = nil, group: String? = nil) {
+    public func print<T>(@autoclosure message: () -> T, level: LogLevel, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
         if level.rawValue >= self.level.rawValue {
             if group == nil || groups.contains(group!) {
                 var e = [String]()
@@ -43,23 +43,43 @@ public class Log {
         }
     }
     
-    public func trace(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
-        self.print(message, level: .Trace, obj: obj, group: group)
+    public func trace<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+        self.print(message, level: .Trace, obj: obj, group: group, file, line, function)
     }
     
-    public func info(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
-        self.print(message, level: .Info, obj: obj, group: group)
+    public func info<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+        self.print(message, level: .Info, obj: obj, group: group, file, line, function)
     }
     
-    public func warning(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
-        self.print(message, level: .Warning, obj: obj, group: group)
+    public func warning<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+        self.print(message, level: .Warning, obj: obj, group: group, file, line, function)
     }
     
-    public func error(@autoclosure message: () -> String, obj: Any? = nil, group: String? = nil) {
-        self.print(message, level: .Error, obj: obj, group: group)
+    public func error<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+        self.print(message, level: .Error, obj: obj, group: group, file, line, function)
     }
-    
-    public func error(error: ErrorType, obj: Any? = nil, group: String? = nil) {
-        self.print("\(error)", level: .Error, obj: obj, group: group)
-    }
+}
+
+public func logTrace<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+    #if !NO_LOG
+        logTrace(message, obj: obj, group: group, file, line, function)
+    #endif
+}
+
+public func logInfo<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+    #if !NO_LOG
+        logInfo(message, obj: obj, group: group, file, line, function)
+    #endif
+}
+
+public func logWarning<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+    #if !NO_LOG
+        logWarning(message, obj: obj, group: group, file, line, function)
+    #endif
+}
+
+public func logError<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
+    #if !NO_LOG
+        logError(message, obj: obj, group: group, file, line, function)
+    #endif
 }
