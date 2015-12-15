@@ -62,24 +62,24 @@ public class Log {
 
 public func logTrace<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        logTrace(message, obj: obj, group: group, file, line, function)
+        log?.trace(message, obj: obj, group: group, file, line, function)
     #endif
 }
 
 public func logInfo<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        logInfo(message, obj: obj, group: group, file, line, function)
+        log?.info(message, obj: obj, group: group, file, line, function)
     #endif
 }
 
 public func logWarning<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        logWarning(message, obj: obj, group: group, file, line, function)
+        log?.warning(message, obj: obj, group: group, file, line, function)
     #endif
 }
 
 public func logError<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        logError(message, obj: obj, group: group, file, line, function)
+        log?.error(message, obj: obj, group: group, file, line, function)
     #endif
 }
