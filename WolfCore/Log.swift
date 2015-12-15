@@ -31,16 +31,38 @@ public class Log {
         if level.rawValue >= self.level.rawValue {
             if group == nil || groups.contains(group!) {
                 var e = [String]()
-                e.append("\(level.symbol)")
+                e.append("\(level.symbol) \(message())")
+                e.append("[")
                 if let group = group {
                     e.append("\(group)")
                 }
                 if let obj = obj {
                     e.append("\(obj)")
                 }
-                Swift.print("\(e.joinWithSeparator(" ")): \(message())")
+                e.append("\(shortenFile(file)) line: \(line), \(function)")
+                e.append("]")
+                Swift.print(e.joinWithSeparator(" "))
             }
         }
+    }
+    
+    public func setGroup(group: String, active: Bool = true) {
+        if active {
+            groups.insert(group)
+        } else {
+            groups.remove(group)
+        }
+    }
+    
+    private func shortenFile(file: String) -> String {
+        let components = (file as NSString).pathComponents
+        let originalCount = components.count
+        let newCount = min(3, components.count)
+        let end = originalCount
+        let begin = end - newCount
+        let lastComponents = components[begin..<end]
+        let result = NSString.pathWithComponents(Array<String>(lastComponents))
+        return result
     }
     
     public func trace<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
