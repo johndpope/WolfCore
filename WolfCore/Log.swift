@@ -6,8 +6,6 @@
 //  Copyright © 2015 Arciem. All rights reserved.
 //
 
-import Foundation
-
 public enum LogLevel: Int {
     case Trace
     case Info
@@ -25,23 +23,41 @@ public var log: Log? = Log()
 
 public class Log {
     public var level = LogLevel.Info
+    public var location: Bool = false
     public private(set) var groups = Set<String>()
     
     public func print<T>(@autoclosure message: () -> T, level: LogLevel, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
         if level.rawValue >= self.level.rawValue {
             if group == nil || groups.contains(group!) {
-                var e = [String]()
-                e.append("\(level.symbol) \(message())")
-                e.append("[")
+                let a = Joiner("", "", " ", level.symbol)
+                
+                var secondSymbol = false
+                
                 if let group = group {
-                    e.append("\(group)")
+                    let b = Joiner("[", "]", ", ")
+                    b.append(group)
+                    a.append(b)
+                    secondSymbol = true
                 }
+                
                 if let obj = obj {
-                    e.append("\(obj)")
+                    let c = Joiner("<", ">", ", ")
+                    c.append(obj)
+                    a.append(c)
+                    secondSymbol = true
                 }
-                e.append("\(shortenFile(file)) line: \(line), \(function)")
-                e.append("]")
-                Swift.print(e.joinWithSeparator(" "))
+                
+                if secondSymbol {
+                    a.append("\t", level.symbol)
+                }
+                a.append(message())
+                
+                Swift.print(a)
+                
+                if location {
+                    let d = Joiner("", "", ", ", shortenFile(file), "line: \(line)", function)
+                    Swift.print("\t", d)
+                }
             }
         }
     }

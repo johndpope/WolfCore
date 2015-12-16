@@ -22,6 +22,6 @@ public struct HTTPError: Error {
 
 extension HTTPError: CustomStringConvertible {
     public var description: String {
-        return "HTTPError(\(message))"
+        return "HTTPError(\(response.statusCode) \(message))"
     }
 }
