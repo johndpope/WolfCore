@@ -54,6 +54,8 @@
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
 		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
+		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
+		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +108,8 @@
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
+		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
+		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +182,8 @@
 				0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */,
 				0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
+				03B218961C20F2900081CE39 /* Heartbeat.swift */,
+				03B218981C20F3F20081CE39 /* Hysteresis.swift */,
 				035553221C0F622A00E0FCA7 /* HTTPUtils.swift */,
 				035553211C0F622A00E0FCA7 /* HTTPError.swift */,
 				035553241C0F622A00E0FCA7 /* ImageUtils.swift */,
@@ -331,6 +337,7 @@
 				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				035553411C0F622A00E0FCA7 /* Button.swift in Sources */,
+				03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */,
 				035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */,
 				035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */,
 				0355533B1C0F622A00E0FCA7 /* AffineTransformUtils.swift in Sources */,
@@ -353,6 +360,7 @@
 				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
 				035553481C0F622A00E0FCA7 /* Error.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
+				03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
