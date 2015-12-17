@@ -41,9 +41,13 @@ extension NSData {
 // Provide conversions of NSData objects to and from JSON objects
 
 extension NSData {
+    public func toJSON() throws -> JSONObject {
+        return try NSJSONSerialization.JSONObjectWithData(self, options: [])
+    }
+    
     public var json: JSONObject? {
         do {
-            return try NSJSONSerialization.JSONObjectWithData(self, options: [])
+            return try toJSON()
         } catch(let error) {
             logError(error)
             return nil
