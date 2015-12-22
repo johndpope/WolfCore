@@ -9,9 +9,19 @@
 import UIKit
 
 extension CGVector {
-    public init(_ p1: CGPoint, _ p2: CGPoint) {
-        dx = p2.x - p1.x
-        dy = p2.y - p1.y
+    public init(_ point1: CGPoint, _ point2: CGPoint) {
+        dx = point2.x - point1.x
+        dy = point2.y - point1.y
+    }
+    
+    public init(point: CGPoint) {
+        dx = point.x
+        dy = point.y
+    }
+    
+    public init(size: CGSize) {
+        dx = size.width
+        dy = size.height
     }
     
     public var magnitude: CGFloat {
@@ -41,8 +51,16 @@ public func / (lhs: CGVector, rhs: CGFloat) -> CGVector {
     return CGVector(dx: lhs.dx / rhs, dy: lhs.dy / rhs)
 }
 
+public func / (lhs: CGVector, rhs: CGVector) -> CGVector {
+    return CGVector(dx: lhs.dx / rhs.dx, dy: lhs.dy / rhs.dy)
+}
+
 public func * (lhs: CGVector, rhs: CGFloat) -> CGVector {
     return CGVector(dx: lhs.dx * rhs, dy: lhs.dy * rhs)
+}
+
+public func * (lhs: CGVector, rhs: CGVector) -> CGVector {
+    return CGVector(dx: lhs.dx * rhs.dx, dy: lhs.dy * rhs.dy)
 }
 
 public func dot(v1: CGVector, _ v2: CGVector) -> CGFloat {
