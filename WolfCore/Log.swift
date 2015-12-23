@@ -23,7 +23,7 @@ public var log: Log? = Log()
 
 public class Log {
     public var level = LogLevel.Info
-    public var location: Bool = false
+    public var locationLevel = LogLevel.Error
     public private(set) var groups = Set<String>()
     
     public func print<T>(@autoclosure message: () -> T, level: LogLevel, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
@@ -54,7 +54,7 @@ public class Log {
                 
                 Swift.print(a)
                 
-                if location {
+                if level.rawValue >= self.locationLevel.rawValue {
                     let d = Joiner("", "", ", ", shortenFile(file), "line: \(line)", function)
                     Swift.print("\t", d)
                 }
