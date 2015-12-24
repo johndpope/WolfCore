@@ -9,7 +9,7 @@
 public typealias Bytes = [UInt8]
 
 public typealias JSONObject = AnyObject
-public typealias JSONDictionary = [String: AnyObject]
+public typealias JSONDictionary = [String: JSONObject]
 public typealias JSONDictionaryOfStrings = [String: String]
-public typealias JSONArray = [AnyObject]
+public typealias JSONArray = [JSONObject]
 public typealias JSONArrayOfDictionaries = [JSONDictionary]
