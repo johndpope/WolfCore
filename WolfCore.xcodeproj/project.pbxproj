@@ -58,6 +58,7 @@
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
+		03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,7 @@
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
+		03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIDs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */,
 				0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
+				03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */,
 				03B218961C20F2900081CE39 /* Heartbeat.swift */,
 				03B218981C20F3F20081CE39 /* Hysteresis.swift */,
 				035553221C0F622A00E0FCA7 /* HTTPUtils.swift */,
@@ -368,6 +371,7 @@
 				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
 				035553481C0F622A00E0FCA7 /* Error.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
+				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
 				03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 			);
