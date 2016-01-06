@@ -235,9 +235,18 @@ public class BSONDocument: BSONBuffer {
 }
 
 extension BSONDocument {
-//    public func parse() throws -> BSONObject {
-//        
-//    }
+    public func decode() throws -> BSONObject {
+        mark = 0
+        let size = Int(try readInt32())
+        if size != bytes.count {
+            throw GeneralError(message: "Expected buffer of size: \(size), got: \(bytes.count)")
+        }
+        return try decodeObject()
+    }
+    
+    func decodeObject() throws -> BSONObject {
+        // TODO
+    }
 }
 
 extension BSONDocument: CustomStringConvertible {
