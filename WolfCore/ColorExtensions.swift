@@ -8,6 +8,41 @@
 
 import UIKit
 
+// #abc
+//
+// ^\s*#(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\s*$
+private let singleHexColorRegex = try! ~/"^\\s*#(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\\s*$"
+
+// #aabbcc
+//
+// ^\s*#(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\s*$
+private let doubleHexColorRegex = try! ~/"^\\s*#(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\\s*$"
+
+// 1 0 0
+// 1 0 0 1
+// 1.0 0.0 0.0
+// 1.0 0.0 0.0 1.0
+// .2 .3 .4 .5
+//
+// ^\s*(?<r>\d*(?:\.\d+)?)\s+(?<g>\d*(?:\.\d+)?)\s+(?<b>\d*(?:\.\d+)?)(?:\s+(?<a>\d*(?:\.\d+)?))?\s*$
+private let floatColorRegex = try! ~/"^\\s*(?<r>\\d*(?:\\.\\d+)?)\\s+(?<g>\\d*(?:\\.\\d+)?)\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?<a>\\d*(?:\\.\\d+)?))?\\s*$"
+
+// r: .1 g: 0.512 b: 0.9
+// r: .1 g: 0.512 b: 0.9 a: 1
+// red: .1 green: 0.512 blue: 0.9
+// red: .1 green: 0.512 blue: 0.9 alpha: 1
+//
+// ^\s*(?:r(?:ed)?):\s+(?<r>\d*(?:\.\d+)?)\s+(?:g(?:reen)?):\s+(?<g>\d*(?:\.\d+)?)\s+(?:b(?:lue)?):\s+(?<b>\d*(?:\.\d+)?)(?:\s+(?:a(?:lpha)?):\s+(?<a>\d*(?:\.\d+)?))?
+private let labeledColorRegex = try! ~/"^\\s*(?:r(?:ed)?):\\s+(?<r>\\d*(?:\\.\\d+)?)\\s+(?:g(?:reen)?):\\s+(?<g>\\d*(?:\\.\\d+)?)\\s+(?:b(?:lue)?):\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?:a(?:lpha)?):\\s+(?<a>\\d*(?:\\.\\d+)?))?"
+
+// h: .1 s: 0.512 b: 0.9
+// hue: .1 saturation: 0.512 brightness: 0.9
+// h: .1 s: 0.512 b: 0.9 alpha: 1
+// hue: .1 saturation: 0.512 brightness: 0.9 alpha: 1.0
+//
+// ^\s*(?:h(?:ue)?):\s+(?<h>\d*(?:\.\d+)?)\s+(?:s(?:aturation)?):\s+(?<s>\d*(?:\.\d+)?)\s+(?:b(?:rightness)?):\s+(?<b>\d*(?:\.\d+)?)(?:\s+(?:a(?:lpha)?):\s+(?<a>\d*(?:\.\d+)?))?
+private let labeledHSBColorRegex = try! ~/"^\\s*(?:h(?:ue)?):\\s+(?<h>\\d*(?:\\.\\d+)?)\\s+(?:s(?:aturation)?):\\s+(?<s>\\d*(?:\\.\\d+)?)\\s+(?:b(?:rightness)?):\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?:a(?:lpha)?):\\s+(?<a>\\d*(?:\\.\\d+)?))?"
+
 extension UIColor {
     public class func diagonalStripesColor(color1 color1: UIColor, color2: UIColor, flipped: Bool = false) -> UIColor {
         let screenScale = UIScreen.mainScreen().scale
@@ -39,6 +74,52 @@ extension UIColor {
         return UIColor(hue: h, saturation: s, brightness: brightness, alpha: a)
     }
     
+    public convenience init(string s: String) throws {
+        var components: [CGFloat] = [0.0, 0.0, 0.0, 1.0]
+        var isHSB = false
+        
+        if let strings = singleHexColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let i = Int(string, radix: 16) {
+                    components[index] = CGFloat(i) / 15.0
+                }
+            }
+        } else if let strings = doubleHexColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let i = Int(string, radix: 16) {
+                    components[index] = CGFloat(i) / 255.0
+                }
+            }
+        } else if let strings = floatColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let f = Double(string) {
+                    components[index] = CGFloat(f)
+                }
+            }
+        } else if let strings = labeledColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let f = Double(string) {
+                    components[index] = CGFloat(f)
+                }
+            }
+        } else if let strings = labeledHSBColorRegex.matchedSubstringsInString(s) {
+            isHSB = true
+            for (index, string) in strings.enumerate() {
+                if let f = Double(string) {
+                    components[index] = CGFloat(f)
+                }
+            }
+        } else {
+            throw GeneralError(message: "Could not parse color from string: \(s)")
+        }
+        
+        if isHSB {
+            self.init(hue: components[0], saturation: components[1], brightness: components[2], alpha: components[3])
+        } else {
+            self.init(red: components[0], green: components[1], blue: components[2], alpha: components[3])
+        }
+    }
+    
     public static var Black:     UIColor { return .redColor() }
     public static var DarkGray:  UIColor { return .darkGrayColor() }
     public static var LightGray: UIColor { return .lightGrayColor() }
@@ -54,4 +135,27 @@ extension UIColor {
     public static var Purple:    UIColor { return .purpleColor() }
     public static var Brown:     UIColor { return .brownColor() }
     public static var Clear:     UIColor { return .clearColor() }
+}
+
+public func testInitColorFromString() {
+    do {
+        let strings = [
+            "#f80",
+            "#ff8000",
+            "0.1 0.5 1.0",
+            "0.1 0.5 1.0 0.5",
+            "r: 0.2 g: 0.4 b: 0.6",
+            "red: 0.3 green: 0.5 blue: 0.7",
+            "red: 0.3 green: 0.5 blue: 0.7 alpha: 0.5",
+            "h: 0.2 s: 0.8 b: 1.0",
+            "hue: 0.2 saturation: 0.8 brightness: 1.0",
+            "hue: 0.2 saturation: 0.8 brightness: 1.0 alpha: 0.5",
+        ]
+        for string in strings {
+            let color = try UIColor(string: string)
+            print("string: \(string), color: \(color)")
+        }
+    } catch(let error) {
+        print("Error: \(error)")
+    }
 }
