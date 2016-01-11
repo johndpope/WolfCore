@@ -9,6 +9,8 @@
 public typealias Byte = UInt8
 public typealias Bytes = [Byte]
 
+public typealias Frac = Double // 0.0...1.0
+
 public typealias JSONObject = AnyObject
 public typealias JSONDictionary = [String: JSONObject]
 public typealias JSONDictionaryOfStrings = [String: String]

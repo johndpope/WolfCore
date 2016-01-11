@@ -19,7 +19,7 @@ public enum LogLevel: Int {
     }
 }
 
-public var log: Log? = Log()
+public var logger: Log? = Log()
 
 public class Log {
     public var level = LogLevel.Info
@@ -100,24 +100,24 @@ public class Log {
 
 public func logTrace<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        log?.trace(message, obj: obj, group: group, file, line, function)
+        logger?.trace(message, obj: obj, group: group, file, line, function)
     #endif
 }
 
 public func logInfo<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        log?.info(message, obj: obj, group: group, file, line, function)
+        logger?.info(message, obj: obj, group: group, file, line, function)
     #endif
 }
 
 public func logWarning<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        log?.warning(message, obj: obj, group: group, file, line, function)
+        logger?.warning(message, obj: obj, group: group, file, line, function)
     #endif
 }
 
 public func logError<T>(@autoclosure message: () -> T, obj: Any? = nil, group: String? = nil, _ file: String = __FILE__, _ line: Int = __LINE__, _ function: String = __FUNCTION__) {
     #if !NO_LOG
-        log?.error(message, obj: obj, group: group, file, line, function)
+        logger?.error(message, obj: obj, group: group, file, line, function)
     #endif
 }
