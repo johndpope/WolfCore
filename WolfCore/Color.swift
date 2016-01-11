@@ -7,12 +7,12 @@
 //
 
 public struct Color {
-    public let red: Float
-    public let green: Float
-    public let blue: Float
-    public let alpha: Float
+    public let red: Frac
+    public let green: Frac
+    public let blue: Frac
+    public let alpha: Frac
     
-    public init(red: Float, green: Float, blue: Float, alpha: Float = 1.0) {
+    public init(red: Frac, green: Frac, blue: Frac, alpha: Frac = 1.0) {
         self.red = red
         self.green = green
         self.blue = blue
@@ -20,32 +20,33 @@ public struct Color {
     }
     
     public init(redByte: Byte, greenByte: Byte, blueByte: Byte, alphaByte: Byte = 255) {
-        self.init(red: Float(redByte) / 255.0,
-            green: Float(greenByte) / 255.0,
-            blue: Float(blueByte) / 255.0,
-            alpha: Float(alphaByte) / 255.0
+        self.init(red: Double(redByte) / 255.0,
+            green: Double(greenByte) / 255.0,
+            blue: Double(blueByte) / 255.0,
+            alpha: Double(alphaByte) / 255.0
         )
+    }
+    
+    public init(white: Frac, alpha: Frac = 1.0) {
+        self.init(red: white, green: white, blue: white, alpha: alpha)
     }
     
     public init(bytes: Bytes) {
         let redByte = bytes[0]
         let greenByte = bytes[1]
         let blueByte = bytes[2]
-        var alphaByte: UInt8 = 255
-        if bytes.count >= 4 {
-            alphaByte = bytes[3]
-        }
+        let alphaByte = bytes.count >= 4 ? bytes[3] : 255
         self.init(redByte: redByte, greenByte: greenByte, blueByte: blueByte, alphaByte: alphaByte)
     }
     
-    public init(color: Color, alpha: Float) {
+    public init(color: Color, alpha: Frac) {
         self.red = color.red
         self.green = color.green
         self.blue = color.blue
         self.alpha = alpha
     }
     
-    public init(var hue h: Float, var saturation s: Float, var brightness v: Float, alpha a: Float = 1.0) {
+    public init(var hue h: Frac, var saturation s: Frac, var brightness v: Frac, alpha a: Frac = 1.0) {
         v = Math.clamp(v, 0.0...1.0)
         s = Math.clamp(s, 0.0...1.0)
         alpha = a
@@ -57,8 +58,8 @@ public struct Color {
             h %= 1.0
             if h < 0.0 { h += 1.0 }
             h *= 6.0
-            let i = Int(floorf(h))
-            let f = h - Float(i)
+            let i = Int(floor(h))
+            let f = h - Double(i)
             let p = v * (1.0 - s)
             let q = v * (1.0 - (s * f))
             let t = v * (1.0 - (s * (1.0 - f)))
@@ -74,16 +75,16 @@ public struct Color {
         }
     }
     
-    public static func randomColor(random: Random = Random.sharedInstance, alpha: Float = 1.0) -> Color {
+    public static func randomColor(random: Random = Random.sharedInstance, alpha: Frac = 1.0) -> Color {
         return Color(
-            red: random.randomFloat(),
-            green: random.randomFloat(),
-            blue: random.randomFloat(),
+            red: random.randomDouble(),
+            green: random.randomDouble(),
+            blue: random.randomDouble(),
             alpha: alpha
         )
     }
     
-    public func multipliedBy(🅡: Float) -> Color {
+    public func multipliedBy(🅡: Frac) -> Color {
         return Color(red: red * 🅡, green: green * 🅡, blue: blue * 🅡, alpha: alpha * 🅡)
     }
     
@@ -91,19 +92,39 @@ public struct Color {
         return Color(red: red + 🅡.red, green: green + 🅡.green, blue: blue + 🅡.blue, alpha: alpha + 🅡.alpha)
     }
     
-    public func lightened(frac: Float) -> Color {
+    public func lightened(frac: Frac) -> Color {
         return Color(
-            red: Math.denormalize(frac, red, Float(1)),
-            green: Math.denormalize(frac, green, Float(1)),
-            blue: Math.denormalize(frac, blue, Float(1)),
+            red: Math.denormalize(frac, red, 1),
+            green: Math.denormalize(frac, green, 1),
+            blue: Math.denormalize(frac, blue, 1),
             alpha: alpha)
     }
     
-    public func darkened(frac: Float) -> Color {
+    public func darkened(frac: Frac) -> Color {
         return Color(
-            red: Math.denormalize(frac, red, Float(0)),
-            green: Math.denormalize(frac, green, Float(0)),
-            blue: Math.denormalize(frac, blue, Float(0)),
+            red: Math.denormalize(frac, red, 0),
+            green: Math.denormalize(frac, green, 0),
+            blue: Math.denormalize(frac, blue, 0),
+            alpha: alpha)
+    }
+    
+    // Identity fraction is 0.0
+    public func dodged(frac: Frac) -> Color {
+        let f = max(1.0 - frac, 1.0e-7)
+        return Color(
+            red: min(red / f, 1.0),
+            green: min(green / f, 1.0),
+            blue: min(blue / f, 1.0),
+            alpha: alpha)
+    }
+    
+    // Identity fraction is 0.0
+    public func burned(frac: Frac) -> Color {
+        let f = max(1.0 - frac, 1.0e-7)
+        return Color(
+            red: min(1.0 - (1.0 - red) / f, 1.0),
+            green: min(1.0 - (1.0 - green) / f, 1.0),
+            blue: min(1.0 - (1.0 - blue) / f, 1.0),
             alpha: alpha)
     }
     
@@ -148,7 +169,7 @@ extension Color : CustomStringConvertible {
     }
 }
 
-public func *(🅛: Color, 🅡: Float) -> Color {
+public func *(🅛: Color, 🅡: Frac) -> Color {
     return 🅛.multipliedBy(🅡)
 }
 

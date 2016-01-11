@@ -7,8 +7,8 @@
 //
 
 
-public typealias ColorFrac = (color: Color, frac: Float)
-public typealias ColorFracHandle = (color: Color, frac: Float, handle: Float)
+public typealias ColorFrac = (color: Color, frac: Double)
+public typealias ColorFracHandle = (color: Color, frac: Double, handle: Double)
 
 public struct Gradient {
     
@@ -151,7 +151,7 @@ public struct Gradient {
         ])
     
     // Spectra
-    //public static let hues = { (#frac: Float) -> Color in return Color(hue: frac, saturation: 1, brightness: 1) }
+    //public static let hues = { (#frac: Double) -> Color in return Color(hue: frac, saturation: 1, brightness: 1) }
     public static let redYellowBlue = threeColor(.Red, .Yellow, .Blue)
     public static let spectrum = blend(colors:[
         Color(redByte:   0, greenByte: 168, blueByte: 222),
@@ -163,7 +163,7 @@ public struct Gradient {
         ])
     
     
-    public static func hues(frac frac: Float) -> Color {
+    public static func hues(frac frac: Double) -> Color {
         return Color(hue: frac, saturation: 1, brightness: 1)
     }
     
