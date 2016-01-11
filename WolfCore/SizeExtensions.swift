@@ -8,6 +8,8 @@
 
 import Foundation
 
+public let NoSize = UIViewNoIntrinsicMetric
+
 extension CGSize {
     public init(vector: CGVector) {
         width = vector.dx
@@ -19,20 +21,32 @@ extension CGSize {
     }
     
     public func scaleForAspectFitWithinSize(size: CGSize) -> CGFloat {
-        return min(size.width / width, size.height / height)
+        if size.width != NoSize && size.height != NoSize {
+            return min(size.width / width, size.height / height)
+        } else if size.width != NoSize {
+            return size.width / width
+        } else {
+            return size.height / height
+        }
     }
     
     public func scaleForAspectFillWithinSize(size: CGSize) -> CGFloat {
-        return max(size.width / width, size.height / height)
+        if size.width != NoSize && size.height != NoSize {
+            return max(size.width / width, size.height / height)
+        } else if size.width != NoSize {
+            return size.width / width
+        } else {
+            return size.height / height
+        }
     }
     
     public func aspectFitWithinSize(size: CGSize) -> CGSize {
         let scale = scaleForAspectFitWithinSize(size)
-        return CGSize(vector: CGVector(size: size) * scale)
+        return CGSize(vector: CGVector(size: self) * scale)
     }
     
     public func aspectFillWithinSize(size: CGSize) -> CGSize {
         let scale = scaleForAspectFillWithinSize(size)
-        return CGSize(vector: CGVector(size: size) * scale)
+        return CGSize(vector: CGVector(size: self) * scale)
     }
 }

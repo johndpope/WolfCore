@@ -58,6 +58,7 @@
 		035553651C0F622A00E0FCA7 /* WolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0355533A1C0F622A00E0FCA7 /* WolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
 		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
+		036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B833F1C40909700491AFF /* DictionaryExtensions.swift */; };
 		038CAF121C28E4F000D254D7 /* SizeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038CAF111C28E4F000D254D7 /* SizeExtensions.swift */; };
 		038CAF141C28E52500D254D7 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038CAF131C28E52500D254D7 /* PDF.swift */; };
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
@@ -120,6 +121,7 @@
 		0355533A1C0F622A00E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolfCore.h; path = WolfCore/WolfCore.h; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
+		036B833F1C40909700491AFF /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		038CAF111C28E4F000D254D7 /* SizeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeExtensions.swift; sourceTree = "<group>"; };
 		038CAF131C28E52500D254D7 /* PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				035553181C0F622A00E0FCA7 /* ColorExtensions.swift */,
 				0355531A1C0F622A00E0FCA7 /* DataExtensions.swift */,
 				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
+				036B833F1C40909700491AFF /* DictionaryExtensions.swift */,
 				035553231C0F622A00E0FCA7 /* ImageExtensions.swift */,
 				034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */,
 				0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */,
@@ -367,6 +370,7 @@
 				03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */,
 				035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */,
 				035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */,
+				036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */,
 				03206B2D1C3B1B02001A463B /* BSON.swift in Sources */,
 				0355533B1C0F622A00E0FCA7 /* AffineTransformUtils.swift in Sources */,
 				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,

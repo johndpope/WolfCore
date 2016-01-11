@@ -17,9 +17,9 @@ public class PDF {
         pageCount = CGPDFDocumentGetNumberOfPages(pdf)
     }
     
-    public convenience init(named name: String, fromBundleForClass aClass: AnyClass) {
+    public convenience init(named name: String, inSubdirectory subdirectory: String? = nil, fromBundleForClass aClass: AnyClass) {
         let bundle = NSBundle.findBundle(forClass: aClass)
-        let url = bundle.URLForResource(name, withExtension: "pdf")!
+        let url = bundle.URLForResource(name, withExtension: "pdf", subdirectory: subdirectory)!
         self.init(url: url)
     }
     
@@ -31,11 +31,19 @@ public class PDF {
         let page = pageAtIndex(index)
         let size = size ?? sizeOfPageAtIndex(index)
         let bounds = CGRect(origin: .zero, size: size)
-        let transform = CGPDFPageGetDrawingTransform(page, .CropBox, bounds, 0, true)
-        return imageWithSize(size, opaque: false, scale: scale, renderingMode: renderingMode) { context in
+        let cropBox = CGPDFPageGetBoxRect(page, .CropBox)
+        let scaling = CGVector(size: bounds.size) / CGVector(size: cropBox.size)
+        let transform = CGAffineTransform.scaling(scaling)
+        return imageWithSize(size, opaque: false, scale: scale, flipped: true, renderingMode: renderingMode) { context in
             CGContextConcatCTM(context, transform)
             CGContextDrawPDFPage(context, page)
         }
+    }
+    
+    public func imageForPageAtIndex(index: Int, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
+        let size = sizeOfPageAtIndex(index)
+        let newSize = size.aspectFitWithinSize(fittingSize)
+        return imageForPageAtIndex(index, size: newSize, scale: scale, renderingMode: renderingMode)
     }
     
     public func image() -> UIImage {

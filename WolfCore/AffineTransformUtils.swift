@@ -22,6 +22,10 @@ extension CGAffineTransform {
         return CGAffineTransformMakeScale(sx, sy)
     }
     
+    public static func scaling(v: CGVector) -> CGAffineTransform {
+        return scaling(v.dx, v.dy)
+    }
+
     public static func rotation(angle: CGFloat) -> CGAffineTransform {
         return CGAffineTransformMakeRotation(angle)
     }

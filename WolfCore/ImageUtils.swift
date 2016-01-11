@@ -9,8 +9,13 @@
 import UIKit
 import CoreGraphics
 
-public func imageWithSize(size: CGSize, opaque: Bool, scale: CGFloat, renderingMode: UIImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> UIImage {
+public func imageWithSize(size: CGSize, opaque: Bool, scale: CGFloat, flipped: Bool = false, renderingMode: UIImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
-    drawing(UIGraphicsGetCurrentContext()!)
+    let context = UIGraphicsGetCurrentContext()!
+    if flipped {
+        CGContextTranslateCTM(context, 0.0, size.height)
+        CGContextScaleCTM(context, 1.0, -1.0)
+    }
+    drawing(context)
     return UIGraphicsGetImageFromCurrentImageContext().imageWithRenderingMode(renderingMode)
 }
