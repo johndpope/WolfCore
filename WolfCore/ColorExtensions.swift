@@ -44,7 +44,7 @@ private let labeledColorRegex = try! ~/"^\\s*(?:r(?:ed)?):\\s+(?<r>\\d*(?:\\.\\d
 private let labeledHSBColorRegex = try! ~/"^\\s*(?:h(?:ue)?):\\s+(?<h>\\d*(?:\\.\\d+)?)\\s+(?:s(?:aturation)?):\\s+(?<s>\\d*(?:\\.\\d+)?)\\s+(?:b(?:rightness)?):\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?:a(?:lpha)?):\\s+(?<a>\\d*(?:\\.\\d+)?))?"
 
 extension UIColor {
-    public class func diagonalStripesColor(color1 color1: UIColor, color2: UIColor, flipped: Bool = false) -> UIColor {
+    public class func diagonalStripesPattern(color1 color1: UIColor, color2: UIColor, flipped: Bool = false) -> UIColor {
         let screenScale = UIScreen.mainScreen().scale
         let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 64, height: 64))
         let image = imageWithSize(bounds.size, opaque: true, scale: screenScale, renderingMode: .AlwaysOriginal) { context in
@@ -62,16 +62,34 @@ extension UIColor {
         return UIColor(patternImage: image)
     }
     
-    public func colorWithSaturation(saturation: CGFloat) -> UIColor {
+    public func settingSaturation(saturation: CGFloat) -> UIColor {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         return UIColor(hue: h, saturation: saturation, brightness: b, alpha: a)
     }
     
-    public func colorWithBrightness(brightness: CGFloat) -> UIColor {
+    public func settingBrightness(brightness: CGFloat) -> UIColor {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         return UIColor(hue: h, saturation: s, brightness: brightness, alpha: a)
+    }
+    
+    public func darkened(frac: Frac) -> UIColor {
+        return UIColor(CGColor: CGColorCreateByDarkening(color: self.CGColor, frac: frac))
+    }
+    
+    public func lightened(frac: Frac) -> UIColor {
+        return UIColor(CGColor: CGColorCreateByLightening(color: self.CGColor, frac: frac))
+    }
+    
+    // Identity fraction is 0.0
+    public func dodged(frac: Frac) -> UIColor {
+        return UIColor(CGColor: CGColorCreateByDodging(color: self.CGColor, frac: frac))
+    }
+    
+    // Identity fraction is 0.0
+    public func burned(frac: Frac) -> UIColor {
+        return UIColor(CGColor: CGColorCreateByBurning(color: self.CGColor, frac: frac))
     }
     
     public convenience init(string s: String) throws {
