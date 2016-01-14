@@ -44,6 +44,19 @@ private let labeledColorRegex = try! ~/"^\\s*(?:r(?:ed)?):\\s+(?<r>\\d*(?:\\.\\d
 private let labeledHSBColorRegex = try! ~/"^\\s*(?:h(?:ue)?):\\s+(?<h>\\d*(?:\\.\\d+)?)\\s+(?:s(?:aturation)?):\\s+(?<s>\\d*(?:\\.\\d+)?)\\s+(?:b(?:rightness)?):\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?:a(?:lpha)?):\\s+(?<a>\\d*(?:\\.\\d+)?))?"
 
 extension UIColor {
+    public convenience init(color: Color) {
+        self.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(color.alpha))
+    }
+    
+    public var color: Color {
+        return ColorWithCGColor(CGColor)
+    }
+    
+    // NOTE: Not gamma-corrected
+    public var luminance: CGFloat {
+        return CGFloat(color.luminance)
+    }
+    
     public class func diagonalStripesPattern(color1 color1: UIColor, color2: UIColor, flipped: Bool = false) -> UIColor {
         let screenScale = UIScreen.mainScreen().scale
         let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 64, height: 64))
@@ -75,21 +88,21 @@ extension UIColor {
     }
     
     public func darkened(frac: Frac) -> UIColor {
-        return UIColor(CGColor: CGColorCreateByDarkening(color: self.CGColor, frac: frac))
+        return UIColor(color: color.darkened(frac))
     }
     
     public func lightened(frac: Frac) -> UIColor {
-        return UIColor(CGColor: CGColorCreateByLightening(color: self.CGColor, frac: frac))
+        return UIColor(color: color.lightened(frac))
     }
     
     // Identity fraction is 0.0
     public func dodged(frac: Frac) -> UIColor {
-        return UIColor(CGColor: CGColorCreateByDodging(color: self.CGColor, frac: frac))
+        return UIColor(color: color.dodged(frac))
     }
     
     // Identity fraction is 0.0
     public func burned(frac: Frac) -> UIColor {
-        return UIColor(CGColor: CGColorCreateByBurning(color: self.CGColor, frac: frac))
+        return UIColor(color: color.burned(frac))
     }
     
     public convenience init(string s: String) throws {
@@ -138,7 +151,7 @@ extension UIColor {
         }
     }
     
-    public static var Black:     UIColor { return .redColor() }
+    public static var Black:     UIColor { return .blackColor() }
     public static var DarkGray:  UIColor { return .darkGrayColor() }
     public static var LightGray: UIColor { return .lightGrayColor() }
     public static var White:     UIColor { return .whiteColor() }

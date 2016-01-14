@@ -84,6 +84,11 @@ public struct Color {
         )
     }
     
+    // NOTE: Not gamma-corrected
+    public var luminance: Frac {
+        return red * 0.2126 + green * 0.7152 + blue * 0.0722
+    }
+
     public func multipliedBy(🅡: Frac) -> Color {
         return Color(red: red * 🅡, green: green * 🅡, blue: blue * 🅡, alpha: alpha * 🅡)
     }
@@ -159,6 +164,14 @@ extension Color {
         return CGColorCreate(sharedColorSpaceRGB, [CGFloat(red), CGFloat(green), CGFloat(blue), CGFloat(alpha)])!
     }
 }
+#endif
+
+#if os(iOS) || os(tvOS)
+    extension Color {
+        public var uiColor: UIColor {
+            return UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
+        }
+    }
 #endif
 
 extension Color : CustomStringConvertible {

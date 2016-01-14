@@ -70,6 +70,7 @@
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
 		03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
+		03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B11C485F6000B124A3 /* UUID.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,7 @@
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
 		03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIDs.swift; sourceTree = "<group>"; };
+		03F5A8B11C485F6000B124A3 /* UUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +233,7 @@
 				03206B301C3C7C5D001A463B /* RegexUtils.swift */,
 				035553301C0F622A00E0FCA7 /* ResourceUtils.swift */,
 				0362A1A81C1A22710005371F /* Serializer.swift */,
+				03F5A8B11C485F6000B124A3 /* UUID.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
 				036B834F1C43221600491AFF /* CGColorUtils.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
+				03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */,
 				035553411C0F622A00E0FCA7 /* Button.swift in Sources */,
 				03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */,
 				035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */,

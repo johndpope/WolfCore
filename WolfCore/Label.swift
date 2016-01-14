@@ -10,6 +10,18 @@ import UIKit
 
 public class Label: UILabel {
     public var transparentToTouches: Bool = false
+    public var followsTintColor: Bool = false {
+        didSet {
+            syncToTintColor()
+        }
+    }
+    
+    public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if superview != nil {
+            syncToTintColor()
+        }
+    }
     
     public convenience init() {
         self.init(frame: .zero)
@@ -39,5 +51,18 @@ public class Label: UILabel {
         } else {
             return super.pointInside(point, withEvent: event)
         }
+    }
+}
+
+extension Label {
+    func syncToTintColor() {
+        if followsTintColor {
+            textColor = tintColor ?? .Black
+        }
+    }
+    
+    public override func tintColorDidChange() {
+        super.tintColorDidChange()
+        syncToTintColor()
     }
 }
