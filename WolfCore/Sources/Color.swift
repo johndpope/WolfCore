@@ -6,19 +6,23 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+#if os(Linux)
+    import Glibc
+#endif
+
 public struct Color {
     public let red: Frac
     public let green: Frac
     public let blue: Frac
     public let alpha: Frac
-    
+
     public init(red: Frac, green: Frac, blue: Frac, alpha: Frac = 1.0) {
         self.red = red
         self.green = green
         self.blue = blue
         self.alpha = alpha
     }
-    
+
     public init(redByte: Byte, greenByte: Byte, blueByte: Byte, alphaByte: Byte = 255) {
         self.init(red: Double(redByte) / 255.0,
             green: Double(greenByte) / 255.0,
@@ -26,11 +30,11 @@ public struct Color {
             alpha: Double(alphaByte) / 255.0
         )
     }
-    
+
     public init(white: Frac, alpha: Frac = 1.0) {
         self.init(red: white, green: white, blue: white, alpha: alpha)
     }
-    
+
     public init(bytes: Bytes) {
         let redByte = bytes[0]
         let greenByte = bytes[1]
@@ -38,24 +42,24 @@ public struct Color {
         let alphaByte = bytes.count >= 4 ? bytes[3] : 255
         self.init(redByte: redByte, greenByte: greenByte, blueByte: blueByte, alphaByte: alphaByte)
     }
-    
+
     public init(color: Color, alpha: Frac) {
         self.red = color.red
         self.green = color.green
         self.blue = color.blue
         self.alpha = alpha
     }
-    
-    public init(var hue h: Frac, var saturation s: Frac, var brightness v: Frac, alpha a: Frac = 1.0) {
-        v = Math.clamp(v, 0.0...1.0)
-        s = Math.clamp(s, 0.0...1.0)
+
+    public init(hue h: Frac, saturation s: Frac, brightness v: Frac, alpha a: Frac = 1.0) {
+        let v = Math.clamp(v, 0.0...1.0)
+        let s = Math.clamp(s, 0.0...1.0)
         alpha = a
         if(s <= 0.0) {
             red = v
             green = v
             blue = v
         } else {
-            h %= 1.0
+            var h = h % 1.0
             if h < 0.0 { h += 1.0 }
             h *= 6.0
             let i = Int(floor(h))
@@ -74,7 +78,7 @@ public struct Color {
             }
         }
     }
-    
+
     public static func randomColor(random: Random = Random.sharedInstance, alpha: Frac = 1.0) -> Color {
         return Color(
             red: random.randomDouble(),
@@ -83,7 +87,7 @@ public struct Color {
             alpha: alpha
         )
     }
-    
+
     // NOTE: Not gamma-corrected
     public var luminance: Frac {
         return red * 0.2126 + green * 0.7152 + blue * 0.0722
@@ -92,11 +96,11 @@ public struct Color {
     public func multipliedBy(🅡: Frac) -> Color {
         return Color(red: red * 🅡, green: green * 🅡, blue: blue * 🅡, alpha: alpha * 🅡)
     }
-    
+
     public func addedTo(🅡: Color) -> Color {
         return Color(red: red + 🅡.red, green: green + 🅡.green, blue: blue + 🅡.blue, alpha: alpha + 🅡.alpha)
     }
-    
+
     public func lightened(frac: Frac) -> Color {
         return Color(
             red: Math.denormalize(frac, red, 1),
@@ -104,7 +108,7 @@ public struct Color {
             blue: Math.denormalize(frac, blue, 1),
             alpha: alpha)
     }
-    
+
     public func darkened(frac: Frac) -> Color {
         return Color(
             red: Math.denormalize(frac, red, 0),
@@ -112,7 +116,7 @@ public struct Color {
             blue: Math.denormalize(frac, blue, 0),
             alpha: alpha)
     }
-    
+
     // Identity fraction is 0.0
     public func dodged(frac: Frac) -> Color {
         let f = max(1.0 - frac, 1.0e-7)
@@ -122,7 +126,7 @@ public struct Color {
             blue: min(blue / f, 1.0),
             alpha: alpha)
     }
-    
+
     // Identity fraction is 0.0
     public func burned(frac: Frac) -> Color {
         let f = max(1.0 - frac, 1.0e-7)
@@ -132,7 +136,7 @@ public struct Color {
             blue: min(1.0 - (1.0 - blue) / f, 1.0),
             alpha: alpha)
     }
-    
+
     public static let Black = Color(red: 0, green: 0, blue: 0)
     public static let DarkGray = Color(red: 1 / 3.0, green: 1 / 3.0, blue: 1 / 3.0)
     public static let LightGray = Color(red: 2 / 3.0, green: 2 / 3.0, blue: 2 / 3.0)
@@ -149,13 +153,13 @@ public struct Color {
     public static let Purple = Color(red: 0.5, green: 0, blue: 0.5)
     public static let Brown = Color(red: 0.6, green: 0.4, blue: 0.2)
     public static let Clear = Color(red: 0, green: 0, blue: 0, alpha: 0)
-    
+
     public static let Chartreuse = blend(.Yellow, .Green, frac: 0.5)
     public static let Gold = Color(redByte: 251, greenByte: 212, blueByte: 55)
     public static let BlueGreen = Color(redByte: 0, greenByte: 169, blueByte: 149)
     public static let MediumBlue = Color(redByte: 0, greenByte: 110, blueByte: 185)
     public static let DeepBlue = Color(redByte: 60, greenByte: 55, blueByte: 149)
-    
+
 }
 
 #if os(OSX) || os(iOS) || os(tvOS)

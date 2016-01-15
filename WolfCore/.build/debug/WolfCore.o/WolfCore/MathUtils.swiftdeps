@@ -1,0 +1,152 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "Math"
+provides-nominal:
+- "C8WolfCore4Math"
+provides-member:
+- ["C8WolfCore4Math", ""]
+- ["C8WolfCore4Math", "normalize"]
+- ["C8WolfCore4Math", "denormalize"]
+- ["C8WolfCore4Math", "interpolate"]
+- ["C8WolfCore4Math", "map"]
+- ["C8WolfCore4Math", "clamp"]
+- ["C8WolfCore4Math", "clamp"]
+- ["C8WolfCore4Math", "sign"]
+- ["C8WolfCore4Math", "fract"]
+- ["C8WolfCore4Math", "circularInterpolate"]
+- ["C8WolfCore4Math", "normalize"]
+- ["C8WolfCore4Math", "denormalize"]
+- ["C8WolfCore4Math", "interpolate"]
+- ["C8WolfCore4Math", "map"]
+- ["C8WolfCore4Math", "clamp"]
+- ["C8WolfCore4Math", "clamp"]
+- ["C8WolfCore4Math", "sign"]
+- ["C8WolfCore4Math", "fract"]
+- ["C8WolfCore4Math", "circularInterpolate"]
+depends-top-level:
+- !private "+="
+- !private "<="
+- "ClosedInterval"
+- "IntegerLiteralType"
+- !private ">="
+- "Double"
+- !private "..."
+- "FloatLiteralType"
+- !private "+"
+- !private "/"
+- "Float"
+- !private "floorf"
+- !private "*"
+- !private "<"
+- !private "floor"
+- !private ">"
+- !private "-="
+- !private "-"
+- "Int"
+- "Math"
+depends-member:
+- !private ["Ps16AbsoluteValuable", "abs"]
+- !private ["Ps9AnyObject", "Double"]
+- !private ["Ps9AnyObject", "Float"]
+- !private ["Ps9AnyObject", "denormalize"]
+- !private ["Ps9AnyObject", "floor"]
+- !private ["Ps9AnyObject", "floorf"]
+- ["Ps9AnyObject", ""]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["Ps25BooleanLiteralConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps11BooleanType", "_getBuiltinLogicValue"]
+- !private ["Vs14ClosedInterval", "clamp"]
+- !private ["Vs14ClosedInterval", "end"]
+- !private ["Vs14ClosedInterval", "start"]
+- !private ["Ps10Comparable", "abs"]
+- !private ["Ps28CustomDebugStringConvertible", "clamp"]
+- !private ["Ps28CustomDebugStringConvertible", "end"]
+- !private ["Ps28CustomDebugStringConvertible", "start"]
+- !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps23CustomStringConvertible", "abs"]
+- !private ["Ps23CustomStringConvertible", "clamp"]
+- !private ["Ps23CustomStringConvertible", "end"]
+- !private ["Ps23CustomStringConvertible", "start"]
+- !private ["Sd", "abs"]
+- !private ["Ps9Equatable", "_getBuiltinLogicValue"]
+- !private ["Ps9Equatable", "abs"]
+- !private ["Ps9Equatable", "clamp"]
+- !private ["Ps9Equatable", "end"]
+- !private ["Ps9Equatable", "start"]
+- !private ["Sf", "abs"]
+- !private ["Ps23FloatLiteralConvertible", "abs"]
+- !private ["Ps17FloatingPointType", "abs"]
+- !private ["Ps8Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps8Hashable", "abs"]
+- !private ["Ps25IntegerLiteralConvertible", "abs"]
+- !private ["Ps12IntervalType", "clamp"]
+- !private ["Ps12IntervalType", "end"]
+- !private ["Ps12IntervalType", "start"]
+- ["C8WolfCore4Math", "ClosedInterval"]
+- ["C8WolfCore4Math", "Double"]
+- ["C8WolfCore4Math", "Float"]
+- ["C8WolfCore4Math", "Int"]
+- ["C8WolfCore4Math", "circularInterpolate"]
+- ["C8WolfCore4Math", "clamp"]
+- ["C8WolfCore4Math", "deinit"]
+- ["C8WolfCore4Math", "denormalize"]
+- !private ["C8WolfCore4Math", "floor"]
+- !private ["C8WolfCore4Math", "floorf"]
+- ["C8WolfCore4Math", "fract"]
+- ["C8WolfCore4Math", "init"]
+- ["C8WolfCore4Math", "interpolate"]
+- ["C8WolfCore4Math", "map"]
+- ["C8WolfCore4Math", "normalize"]
+- ["C8WolfCore4Math", "sign"]
+- !private ["Ps16SignedNumberType", "abs"]
+- !private ["Ps10Strideable", "abs"]
+- !private ["Ps33_BuiltinBooleanLiteralConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps31_BuiltinFloatLiteralConvertible", "abs"]
+- !private ["Ps33_BuiltinIntegerLiteralConvertible", "abs"]
+- !private ["Ps12_Reflectable", "_getBuiltinLogicValue"]
+- !private ["Ps12_Reflectable", "abs"]
+- !private ["Ps12_Reflectable", "clamp"]
+- !private ["Ps12_Reflectable", "end"]
+- !private ["Ps12_Reflectable", "start"]
+depends-nominal:
+- !private "Ps16AbsoluteValuable"
+- "Ps9AnyObject"
+- !private "Sb"
+- !private "Ps25BooleanLiteralConvertible"
+- !private "Ps11BooleanType"
+- !private "Vs14ClosedInterval"
+- !private "Ps10Comparable"
+- !private "Ps28CustomDebugStringConvertible"
+- !private "Ps23CustomStringConvertible"
+- !private "Sd"
+- !private "Ps9Equatable"
+- !private "Sf"
+- !private "Ps23FloatLiteralConvertible"
+- !private "Ps17FloatingPointType"
+- !private "Ps8Hashable"
+- !private "Ps25IntegerLiteralConvertible"
+- !private "Ps12IntervalType"
+- "C8WolfCore4Math"
+- !private "Ps16SignedNumberType"
+- !private "Ps10Strideable"
+- !private "Ps33_BuiltinBooleanLiteralConvertible"
+- !private "Ps31_BuiltinFloatLiteralConvertible"
+- !private "Ps33_BuiltinIntegerLiteralConvertible"
+- !private "Ps12_Reflectable"
+depends-dynamic-lookup:
+depends-external:
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/linux/x86_64/Swift.swiftmodule"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/UnicodeShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/SwiftStdint.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/SwiftStddef.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/LibcShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/RuntimeStubs.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/RuntimeShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/RefCount.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/HeapObject.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/GlobalObjects.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/FoundationShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/CoreFoundationShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/module.map"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/linux/x86_64/Glibc.swiftmodule"
+interface-hash: "f6a1df6bd288082cb2cf9f9537fd23e4"

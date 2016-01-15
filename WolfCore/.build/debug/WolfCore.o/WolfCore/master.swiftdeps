@@ -1,0 +1,19 @@
+version: "Swift version 2.2-dev (LLVM 46be9ff861, Clang 4deb154edc, Swift 778f82939c)"
+options: "1c65bde593363583ed1863e1296f671e"
+build_time: [506135871, 833520000]
+inputs:
+  "/code/WolfCore/WolfCore/Sources/ArrayExtensions.swift": [506130006, 0]
+  "/code/WolfCore/WolfCore/Sources/BSON.swift": [506130006, 0]
+  "/code/WolfCore/WolfCore/Sources/CircularList.swift": [9223372036854775807, 0]
+  "/code/WolfCore/WolfCore/Sources/Color.swift": [506133250, 0]
+  "/code/WolfCore/WolfCore/Sources/ColorFunc.swift": [506133835, 0]
+  "/code/WolfCore/WolfCore/Sources/Error.swift": [506130006, 0]
+  "/code/WolfCore/WolfCore/Sources/Gradient.swift": [506130006, 0]
+  "/code/WolfCore/WolfCore/Sources/HashIDs.swift": [506134445, 0]
+  "/code/WolfCore/WolfCore/Sources/Joiner.swift": [506134483, 0]
+  "/code/WolfCore/WolfCore/Sources/Log.swift": [506135799, 0]
+  "/code/WolfCore/WolfCore/Sources/MathUtils.swift": [506133189, 0]
+  "/code/WolfCore/WolfCore/Sources/Random.swift": [506133215, 0]
+  "/code/WolfCore/WolfCore/Sources/Result.swift": [506130006, 0]
+  "/code/WolfCore/WolfCore/Sources/StringExtensions.swift": [506135613, 0]
+  "/code/WolfCore/WolfCore/Sources/Types.swift": [506130746, 0]

@@ -1,0 +1,144 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ColorFrac"
+- "ColorFracHandle"
+- "Gradient"
+provides-nominal:
+- "V8WolfCore8Gradient"
+provides-member:
+- ["V8WolfCore8Gradient", ""]
+depends-top-level:
+- "threeColor"
+- "Gradient"
+- "ColorFracHandle"
+- "Double"
+- "ColorFrac"
+- "twoColor"
+- "Color"
+- "Array"
+- "blend"
+depends-member:
+- ["Sa", "Element"]
+- ["Ps23ArrayLiteralConvertible", "Element"]
+- ["Ps14CollectionType", "Element"]
+- ["V8WolfCore5Color", "Black"]
+- ["V8WolfCore5Color", "Blue"]
+- ["V8WolfCore5Color", "BlueGreen"]
+- ["V8WolfCore5Color", "Chartreuse"]
+- ["V8WolfCore5Color", "DarkGreen"]
+- ["V8WolfCore5Color", "DeepBlue"]
+- ["V8WolfCore5Color", "Gold"]
+- ["V8WolfCore5Color", "Magenta"]
+- ["V8WolfCore5Color", "MediumBlue"]
+- ["V8WolfCore5Color", "Orange"]
+- ["V8WolfCore5Color", "Purple"]
+- ["V8WolfCore5Color", "Red"]
+- ["V8WolfCore5Color", "White"]
+- ["V8WolfCore5Color", "Yellow"]
+- ["V8WolfCore5Color", "init"]
+- ["Ps28CustomDebugStringConvertible", "Element"]
+- ["Ps23CustomStringConvertible", "Black"]
+- ["Ps23CustomStringConvertible", "Blue"]
+- ["Ps23CustomStringConvertible", "BlueGreen"]
+- ["Ps23CustomStringConvertible", "Chartreuse"]
+- ["Ps23CustomStringConvertible", "DarkGreen"]
+- ["Ps23CustomStringConvertible", "DeepBlue"]
+- ["Ps23CustomStringConvertible", "Element"]
+- ["Ps23CustomStringConvertible", "Gold"]
+- ["Ps23CustomStringConvertible", "Magenta"]
+- ["Ps23CustomStringConvertible", "MediumBlue"]
+- ["Ps23CustomStringConvertible", "Orange"]
+- ["Ps23CustomStringConvertible", "Purple"]
+- ["Ps23CustomStringConvertible", "Red"]
+- ["Ps23CustomStringConvertible", "White"]
+- ["Ps23CustomStringConvertible", "Yellow"]
+- ["Ps23CustomStringConvertible", "init"]
+- ["V8WolfCore8Gradient", "Color"]
+- ["V8WolfCore8Gradient", "Double"]
+- ["V8WolfCore8Gradient", "Gradient"]
+- ["V8WolfCore8Gradient", "autumn"]
+- ["V8WolfCore8Gradient", "blend"]
+- ["V8WolfCore8Gradient", "blueMagentaRed"]
+- ["V8WolfCore8Gradient", "bluePurpleOrange"]
+- ["V8WolfCore8Gradient", "bluegreenBlueGreen"]
+- ["V8WolfCore8Gradient", "bluegreenRedOrange"]
+- ["V8WolfCore8Gradient", "chartreuseBlueOrange"]
+- ["V8WolfCore8Gradient", "chartreuseBlueRed"]
+- ["V8WolfCore8Gradient", "chartreusePurple"]
+- ["V8WolfCore8Gradient", "chartreuseYellowGreen"]
+- ["V8WolfCore8Gradient", "coffee"]
+- ["V8WolfCore8Gradient", "deepblueOrange"]
+- ["V8WolfCore8Gradient", "goldPurpleOrange"]
+- ["V8WolfCore8Gradient", "goldRedOrange"]
+- ["V8WolfCore8Gradient", "gradients"]
+- ["V8WolfCore8Gradient", "grayscale"]
+- ["V8WolfCore8Gradient", "greenMagentaOrange"]
+- ["V8WolfCore8Gradient", "greenOrange"]
+- ["V8WolfCore8Gradient", "hues"]
+- ["V8WolfCore8Gradient", "init"]
+- ["V8WolfCore8Gradient", "orangeBlueOrange"]
+- ["V8WolfCore8Gradient", "orangeMediumblue"]
+- ["V8WolfCore8Gradient", "purpleGold"]
+- ["V8WolfCore8Gradient", "redGreen"]
+- ["V8WolfCore8Gradient", "redYellowBlue"]
+- ["V8WolfCore8Gradient", "sky1"]
+- ["V8WolfCore8Gradient", "sky2"]
+- ["V8WolfCore8Gradient", "sky3"]
+- ["V8WolfCore8Gradient", "sky4"]
+- ["V8WolfCore8Gradient", "spectrum"]
+- ["V8WolfCore8Gradient", "spring"]
+- ["V8WolfCore8Gradient", "strata1"]
+- ["V8WolfCore8Gradient", "strata2"]
+- ["V8WolfCore8Gradient", "strata3"]
+- ["V8WolfCore8Gradient", "summer"]
+- ["V8WolfCore8Gradient", "threeColor"]
+- ["V8WolfCore8Gradient", "twoColor"]
+- ["V8WolfCore8Gradient", "valentine"]
+- ["V8WolfCore8Gradient", "water1"]
+- ["V8WolfCore8Gradient", "water2"]
+- ["V8WolfCore8Gradient", "winter"]
+- ["V8WolfCore8Gradient", "yellowBluePurple"]
+- ["V8WolfCore8Gradient", "yellowGoldGreen"]
+- ["Ps9Indexable", "Element"]
+- ["Ps21MutableCollectionType", "Element"]
+- ["Ps16MutableIndexable", "Element"]
+- ["Ps16MutableSliceable", "Element"]
+- ["Ps30RangeReplaceableCollectionType", "Element"]
+- ["Ps12SequenceType", "Element"]
+- ["Ps10_ArrayType", "Element"]
+- ["Ps24_DestructorSafeContainer", "Element"]
+- ["Ps12_Reflectable", "Element"]
+depends-nominal:
+- "Sa"
+- "Ps23ArrayLiteralConvertible"
+- "Ps14CollectionType"
+- "V8WolfCore5Color"
+- "Ps28CustomDebugStringConvertible"
+- "Ps23CustomStringConvertible"
+- "V8WolfCore8Gradient"
+- "Ps9Indexable"
+- "Ps21MutableCollectionType"
+- "Ps16MutableIndexable"
+- "Ps16MutableSliceable"
+- "Ps30RangeReplaceableCollectionType"
+- "Ps12SequenceType"
+- "Ps10_ArrayType"
+- "Ps24_DestructorSafeContainer"
+- "Ps12_Reflectable"
+depends-dynamic-lookup:
+depends-external:
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/linux/x86_64/Swift.swiftmodule"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/UnicodeShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/SwiftStdint.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/SwiftStddef.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/LibcShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/RuntimeStubs.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/RuntimeShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/RefCount.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/HeapObject.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/GlobalObjects.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/FoundationShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/CoreFoundationShims.h"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/shims/module.map"
+- "/opt/swift-2.2-SNAPSHOT-2015-12-01-b-ubuntu14.04/usr/lib/swift/linux/x86_64/Glibc.swiftmodule"
+interface-hash: "5b3d786b7f015feb8bc2ab7b53ef135c"
