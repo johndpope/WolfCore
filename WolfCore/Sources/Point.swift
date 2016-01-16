@@ -38,6 +38,12 @@ public struct Point {
     }
 #endif
 
+extension Point: CustomStringConvertible {
+    public var description: String {
+        return("(\(x), \(y))")
+    }
+}
+
 extension Point {
     public static let zero = Point()
     public static let infinite = Point(x: Double.infinity, y: Double.infinity)

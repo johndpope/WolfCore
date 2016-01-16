@@ -39,6 +39,12 @@ public struct Size {
     }
 #endif
 
+extension Size: CustomStringConvertible {
+    public var description: String {
+        return("(\(width), \(height))")
+    }
+}
+
 extension Size {
     public static let zero = Size()
     public static let infinite = Size(width: Double.infinity, height: Double.infinity)
