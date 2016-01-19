@@ -10,7 +10,8 @@ import Foundation
 
 extension NSRegularExpression {
     public func matchedSubstringsInString(string: String, options: NSMatchingOptions = [], range: NSRange? = nil) -> [String]? {
-        let nsString = string as NSString
+        // let nsString = string as NSString
+        let nsString = NSString(string: string)
         let range: NSRange = range ?? NSRange(0..<nsString.length)
         var result: [String]! = nil
         if let textCheckingResult = self.firstMatchInString(string, options: options, range: range) {

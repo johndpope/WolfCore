@@ -17,7 +17,7 @@ extension NSData {
         getBytes(&a, length: length)
         return a
     }
-    
+
     public convenience init(byteArray: Bytes) {
         self.init(bytes: byteArray, length: byteArray.count)
     }
@@ -30,7 +30,7 @@ extension NSData {
     public var string: String? {
         return String(data: self, encoding: NSUTF8StringEncoding)
     }
-    
+
     public convenience init?(string: String) {
         let bytes = string.bytes
         self.init(bytes: bytes, length: bytes.count)
@@ -42,9 +42,9 @@ extension NSData {
 
 extension NSData {
     public func toJSON() throws -> JSONObject {
-        return try NSJSONSerialization.JSONObjectWithData(self, options: [])
+        return try NSJSONSerialization.JSONObjectWithData(self, options: []) as! AnyObject
     }
-    
+
     public var json: JSONObject? {
         do {
             return try toJSON()
@@ -53,7 +53,7 @@ extension NSData {
             return nil
         }
     }
-    
+
     public convenience init?(json: JSONObject) {
         do {
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: [])

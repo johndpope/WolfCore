@@ -8,34 +8,36 @@
 
 public struct CircularList<T> {
     public typealias ElementType = T
-    
+
     private var elements = [ElementType]()
     public var currentIndex: Int = 0
-    
+
     public init(elements: [ElementType]) {
         self.elements = elements
     }
-    
+
     public subscript(index: Int) -> ElementType? {
         get { return elements.elementAtCircularIndex(index) }
         set { elements.replaceElementAtCircularIndex(index, withElement: newValue!) }
     }
-    
+
     public func currentElement() -> ElementType? {
         guard !elements.isEmpty else { return nil }
         return self[currentIndex]
     }
-    
+
     public mutating func nextElement() -> ElementType? {
         guard !elements.isEmpty else { return nil }
-        return self[++currentIndex]
+        currentIndex += 1
+        return self[currentIndex]
     }
-    
+
     public mutating func previousElement() -> ElementType? {
         guard !elements.isEmpty else { return nil }
-        return self[--currentIndex]
+        currentIndex -= 1
+        return self[currentIndex]
     }
-    
+
     public func elementAtOffset(offset: Int) -> ElementType? {
         guard !elements.isEmpty else { return nil }
         return self[currentIndex + offset]

@@ -10,6 +10,41 @@
     import Glibc
 #endif
 
+// #abc
+//
+// ^\s*#(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\s*$
+private let singleHexColorRegex = try! ~/"^\\s*#(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\\s*$"
+
+// #aabbcc
+//
+// ^\s*#(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\s*$
+private let doubleHexColorRegex = try! ~/"^\\s*#(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\\s*$"
+
+// 1 0 0
+// 1 0 0 1
+// 1.0 0.0 0.0
+// 1.0 0.0 0.0 1.0
+// .2 .3 .4 .5
+//
+// ^\s*(?<r>\d*(?:\.\d+)?)\s+(?<g>\d*(?:\.\d+)?)\s+(?<b>\d*(?:\.\d+)?)(?:\s+(?<a>\d*(?:\.\d+)?))?\s*$
+private let floatColorRegex = try! ~/"^\\s*(?<r>\\d*(?:\\.\\d+)?)\\s+(?<g>\\d*(?:\\.\\d+)?)\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?<a>\\d*(?:\\.\\d+)?))?\\s*$"
+
+// r: .1 g: 0.512 b: 0.9
+// r: .1 g: 0.512 b: 0.9 a: 1
+// red: .1 green: 0.512 blue: 0.9
+// red: .1 green: 0.512 blue: 0.9 alpha: 1
+//
+// ^\s*(?:r(?:ed)?):\s+(?<r>\d*(?:\.\d+)?)\s+(?:g(?:reen)?):\s+(?<g>\d*(?:\.\d+)?)\s+(?:b(?:lue)?):\s+(?<b>\d*(?:\.\d+)?)(?:\s+(?:a(?:lpha)?):\s+(?<a>\d*(?:\.\d+)?))?
+private let labeledColorRegex = try! ~/"^\\s*(?:r(?:ed)?):\\s+(?<r>\\d*(?:\\.\\d+)?)\\s+(?:g(?:reen)?):\\s+(?<g>\\d*(?:\\.\\d+)?)\\s+(?:b(?:lue)?):\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?:a(?:lpha)?):\\s+(?<a>\\d*(?:\\.\\d+)?))?"
+
+// h: .1 s: 0.512 b: 0.9
+// hue: .1 saturation: 0.512 brightness: 0.9
+// h: .1 s: 0.512 b: 0.9 alpha: 1
+// hue: .1 saturation: 0.512 brightness: 0.9 alpha: 1.0
+//
+// ^\s*(?:h(?:ue)?):\s+(?<h>\d*(?:\.\d+)?)\s+(?:s(?:aturation)?):\s+(?<s>\d*(?:\.\d+)?)\s+(?:b(?:rightness)?):\s+(?<b>\d*(?:\.\d+)?)(?:\s+(?:a(?:lpha)?):\s+(?<a>\d*(?:\.\d+)?))?
+private let labeledHSBColorRegex = try! ~/"^\\s*(?:h(?:ue)?):\\s+(?<h>\\d*(?:\\.\\d+)?)\\s+(?:s(?:aturation)?):\\s+(?<s>\\d*(?:\\.\\d+)?)\\s+(?:b(?:rightness)?):\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?:a(?:lpha)?):\\s+(?<a>\\d*(?:\\.\\d+)?))?"
+
 public struct Color {
     public let red: Frac
     public let green: Frac
@@ -79,6 +114,52 @@ public struct Color {
         }
     }
 
+    public init(string s: String) throws {
+        var components: [Double] = [0.0, 0.0, 0.0, 1.0]
+        var isHSB = false
+
+        if let strings = singleHexColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let i = Int(string, radix: 16) {
+                    components[index] = Double(i) / 15.0
+                }
+            }
+        } else if let strings = doubleHexColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let i = Int(string, radix: 16) {
+                    components[index] = Double(i) / 255.0
+                }
+            }
+        } else if let strings = floatColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let f = Double(string) {
+                    components[index] = Double(f)
+                }
+            }
+        } else if let strings = labeledColorRegex.matchedSubstringsInString(s) {
+            for (index, string) in strings.enumerate() {
+                if let f = Double(string) {
+                    components[index] = Double(f)
+                }
+            }
+        } else if let strings = labeledHSBColorRegex.matchedSubstringsInString(s) {
+            isHSB = true
+            for (index, string) in strings.enumerate() {
+                if let f = Double(string) {
+                    components[index] = Double(f)
+                }
+            }
+        } else {
+            throw GeneralError(message: "Could not parse color from string: \(s)")
+        }
+
+        if isHSB {
+            self.init(hue: components[0], saturation: components[1], brightness: components[2], alpha: components[3])
+        } else {
+            self.init(red: components[0], green: components[1], blue: components[2], alpha: components[3])
+        }
+    }
+
     public static func randomColor(random: Random = Random.sharedInstance, alpha: Frac = 1.0) -> Color {
         return Color(
             red: random.randomDouble(),
@@ -93,12 +174,12 @@ public struct Color {
         return red * 0.2126 + green * 0.7152 + blue * 0.0722
     }
 
-    public func multipliedBy(🅡: Frac) -> Color {
-        return Color(red: red * 🅡, green: green * 🅡, blue: blue * 🅡, alpha: alpha * 🅡)
+    public func multipliedBy(rhs: Frac) -> Color {
+        return Color(red: red * rhs, green: green * rhs, blue: blue * rhs, alpha: alpha * rhs)
     }
 
-    public func addedTo(🅡: Color) -> Color {
-        return Color(red: red + 🅡.red, green: green + 🅡.green, blue: blue + 🅡.blue, alpha: alpha + 🅡.alpha)
+    public func addedTo(rhs: Color) -> Color {
+        return Color(red: red + rhs.red, green: green + rhs.green, blue: blue + rhs.blue, alpha: alpha + rhs.alpha)
     }
 
     public func lightened(frac: Frac) -> Color {
@@ -186,10 +267,10 @@ extension Color : CustomStringConvertible {
     }
 }
 
-public func *(🅛: Color, 🅡: Frac) -> Color {
-    return 🅛.multipliedBy(🅡)
+public func *(lhs: Color, rhs: Frac) -> Color {
+    return lhs.multipliedBy(rhs)
 }
 
-public func +(🅛: Color, 🅡: Color) -> Color {
-    return 🅛.addedTo(🅡)
+public func +(lhs: Color, rhs: Color) -> Color {
+    return lhs.addedTo(rhs)
 }

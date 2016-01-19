@@ -6,15 +6,19 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+#if os(Linux)
+    import Glibc
+#endif
+
 public struct Rect {
     public var origin: Point
     public var size: Size
-    
+
     public init() {
         origin = Point.zero
         size = Size.zero
     }
-    
+
     public init(origin: Point, size: Size) {
         self.origin = origin
         self.size = size
@@ -27,7 +31,7 @@ public struct Rect {
             origin = Point(x: Double(r.origin.x), y: Double(r.origin.y))
             size = Size(width: Double(r.size.width), height: Double(r.size.height))
         }
-        
+
         public var cgRect: CGRect {
             return CGRect(x: CGFloat(origin.x), y: CGFloat(origin.y), width: CGFloat(size.width), height: CGFloat(size.height))
         }
@@ -50,11 +54,11 @@ extension Rect {
     public init(x: Double, y: Double, width: Double, height: Double) {
         self.init(origin: Point(x: x, y: y), size: Size(width: width, height: height))
     }
-    
+
     public init(x: Float, y: Float, width: Float, height: Float) {
         self.init(origin: Point(x: x, y: y), size: Size(width: width, height: height))
     }
-    
+
     public init(x: Int, y: Int, width: Int, height: Int) {
         self.init(origin: Point(x: x, y: y), size: Size(width: width, height: height))
     }
@@ -71,7 +75,7 @@ extension Rect {
         get { return size.width }
         mutating set { size.width = newValue }
     }
-    
+
     public var height: Double {
         get { return size.height }
         mutating set { size.height = newValue }
@@ -83,27 +87,27 @@ extension Rect {
         get { return origin.x }
         mutating set { origin.x = newValue }
     }
-    
+
     public var midX: Double {
         get { return minX + width / 2.0 }
         mutating set { origin.x = newValue - width / 2.0 }
     }
-    
+
     public var maxX: Double {
         get { return minX + width }
         mutating set { origin.x = newValue - width }
     }
-    
+
     public var minY: Double {
         get { return origin.y }
         mutating set { origin.y = newValue }
     }
-    
+
     public var midY: Double {
         get { return minY + height / 2.0 }
         mutating set { origin.y = newValue - height / 2.0 }
     }
-    
+
     public var maxY: Double {
         get { return minY + height }
         mutating set { origin.y = newValue - height }
@@ -116,43 +120,43 @@ extension Rect {
         get { return origin }
         mutating set { origin = newValue }
     }
-    
+
     public var maxXminY: Point {
         get { return Point(x: maxX, y: minY) }
         mutating set { maxX = newValue.x; minY = newValue.y }
     }
-    
+
     public var minXmaxY: Point {
         get { return Point(x: minX, y: maxY) }
         mutating set { minX = newValue.x; maxY = newValue.y }
     }
-    
+
     public var maxXmaxY: Point {
         get { return Point(x: maxX, y: maxY) }
         mutating set { maxX = newValue.x; maxY = newValue.y }
     }
-    
+
     // Sides
     public var midXminY: Point {
         get { return Point(x: midX, y: minY) }
         mutating set { midX = newValue.x; minY = newValue.y }
     }
-    
+
     public var midXmaxY: Point {
         get { return Point(x: midX, y: maxY) }
         mutating set { midX = newValue.x; maxY = newValue.y }
     }
-    
+
     public var maxXmidY: Point {
         get { return Point(x: maxX, y: midY) }
         mutating set { maxX = newValue.x; midY = newValue.y }
     }
-    
+
     public var minXmidY: Point {
         get { return Point(x: minX, y: midY) }
         mutating set { minX = newValue.x; midY = newValue.y }
     }
-    
+
     // Center
     public var midXmidY: Point {
         get { return Point(x: midX, y: midY) }
@@ -184,7 +188,7 @@ extension Rect {
     public mutating func standardizeInPlace() {
         self = self.standardized
     }
-    
+
     public var integral: Rect {
         guard !isNull else { return self }
         return Rect(x: floor(minX), y: floor(minY), width: ceil(width), height: ceil(width))
@@ -204,7 +208,7 @@ extension Rect {
     public mutating func offsetInPlace(dx dx: Double, dy: Double) {
         self = offsetBy(dx: dx, dy: dy)
     }
-    
+
     public func insetBy(dx dx: Double, dy: Double) -> Rect {
         guard !isNull else { return self }
         var r = self.standardized
@@ -217,7 +221,7 @@ extension Rect {
         }
         return r
     }
-    
+
     public mutating func insetInPlace(dx dx: Double, dy: Double) {
         self = insetBy(dx: dx, dy: dy)
     }
@@ -239,7 +243,7 @@ extension Rect {
     public mutating func unionInPlace(rect: Rect) {
         self = self.union(rect)
     }
-    
+
     public func intersect(rect: Rect) -> Rect {
         guard !self.isNull else { return .null }
         guard !rect.isNull else { return .null }
@@ -255,11 +259,11 @@ extension Rect {
         let y2 = min(r1.maxY, r2.maxY)
         return Rect(x: x1, y: y1, width: x2 - x1, height: y2 - y1)
     }
-    
+
     public mutating func intersectInPlace(rect: Rect) {
         self = self.intersect(rect)
     }
-    
+
     public func intersects(rect: Rect) -> Bool {
         guard !self.isNull else { return false }
         guard !rect.isNull else { return false }
@@ -284,7 +288,7 @@ extension Rect {
         guard point.y < r.maxY else { return false }
         return true
     }
-    
+
     public func contains(rect: Rect) -> Bool {
         guard !self.isNull else { return false }
         guard !rect.isNull else { return false }

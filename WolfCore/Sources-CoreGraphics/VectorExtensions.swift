@@ -13,37 +13,37 @@ extension CGVector {
         dx = point2.x - point1.x
         dy = point2.y - point1.y
     }
-    
+
     public init(point: CGPoint) {
         dx = point.x
         dy = point.y
     }
-    
+
     public init(size: CGSize) {
         dx = size.width
         dy = size.height
     }
-    
+
     public var magnitude: CGFloat {
         return hypot(dx, dy)
     }
-    
+
     public var angle: CGFloat {
         return atan2(dy, dx)
     }
-    
+
     public func normalized() -> CGVector {
         let m = magnitude
         assert(m > 0.0)
         return self / m
     }
-    
+
     public func rotatedByAngle(theta: CGFloat) -> CGVector {
         let sinTheta = sin(theta)
         let cosTheta = cos(theta)
         return CGVector(dx: dx * cosTheta - dy * sinTheta, dy: dx * sinTheta + dy * cosTheta)
     }
-    
+
     public static var unit = CGVector(dx: 1, dy: 0)
 }
 

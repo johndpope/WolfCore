@@ -67,7 +67,7 @@ public func blend(colorFracs colorFracs: [ColorFrac]) -> (frac: Frac) -> Color {
                 return colorFracs.first!.color
             } else {
                 let segments = count - 1
-                for var segment = 0; segment < segments; ++segment {
+                for segment in 0..<segments {
                     let (color1, frac1) = colorFracs[segment]
                     let (color2, frac2) = colorFracs[segment + 1]
                     if frac >= frac1 && frac < frac2 {

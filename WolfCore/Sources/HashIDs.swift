@@ -284,7 +284,8 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
                 var tokenValue = 0.0;
                 if let token_index = alphabet.indexOf(token as Char)
                 {
-                    let mul = pow(Double(alphabetLength), Double(--hashLength));
+                    hashLength -= 1
+                    let mul = pow(Double(alphabetLength), Double(hashLength));
                     tokenValue = Double(token_index) * mul;
                 }
                 return value + tokenValue;

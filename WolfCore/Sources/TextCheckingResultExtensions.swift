@@ -11,7 +11,7 @@ import Foundation
 extension NSTextCheckingResult {
     public var captureRanges: [NSRange] {
         var result = [NSRange]()
-        for var i = 1; i < self.numberOfRanges; ++i {
+        for i in 1..<self.numberOfRanges {
             result.append(self.rangeAtIndex(i))
         }
         return result
