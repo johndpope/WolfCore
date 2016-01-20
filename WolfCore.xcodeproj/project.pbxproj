@@ -70,6 +70,9 @@
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
 		03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
+		03E13B841C4FEE720074E447 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B831C4FEE720074E447 /* Grid.swift */; };
+		03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B851C4FF35C0074E447 /* IntPoint.swift */; };
+		03E13B881C4FF37C0074E447 /* IntSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B871C4FF37C0074E447 /* IntSize.swift */; };
 		03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B11C485F6000B124A3 /* UUID.swift */; };
 		03F5A8B61C496D1100B124A3 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B51C496D1100B124A3 /* Point.swift */; };
 		03F5A8B81C496F2400B124A3 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B71C496F2400B124A3 /* Size.swift */; };
@@ -143,6 +146,9 @@
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
 		03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HashIDs.swift; path = Sources/HashIDs.swift; sourceTree = "<group>"; };
+		03E13B831C4FEE720074E447 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		03E13B851C4FF35C0074E447 /* IntPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntPoint.swift; sourceTree = "<group>"; };
+		03E13B871C4FF37C0074E447 /* IntSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntSize.swift; sourceTree = "<group>"; };
 		03F5A8B11C485F6000B124A3 /* UUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
 		03F5A8B51C496D1100B124A3 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		03F5A8B71C496F2400B124A3 /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -208,9 +214,12 @@
 				0355531D1C0F622A00E0FCA7 /* Error.swift */,
 				0355531E1C0F622A00E0FCA7 /* GeneralError.swift */,
 				03F5A8B51C496D1100B124A3 /* Point.swift */,
+				03E13B851C4FF35C0074E447 /* IntPoint.swift */,
 				03F5A8B71C496F2400B124A3 /* Size.swift */,
+				03E13B871C4FF37C0074E447 /* IntSize.swift */,
 				03F5A8B91C4970DF00B124A3 /* Vector.swift */,
 				03F5A8BB1C49746500B124A3 /* Rect.swift */,
+				03E13B831C4FEE720074E447 /* Grid.swift */,
 			);
 			name = "Types-Portable";
 			path = Sources;
@@ -415,6 +424,7 @@
 				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
 				036B834F1C43221600491AFF /* CGColorUtils.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
+				03E13B841C4FEE720074E447 /* Grid.swift in Sources */,
 				03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */,
 				035553411C0F622A00E0FCA7 /* Button.swift in Sources */,
 				03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */,
@@ -433,12 +443,14 @@
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
 				03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */,
 				0355533F1C0F622A00E0FCA7 /* BezierPathExtensions.swift in Sources */,
+				03E13B881C4FF37C0074E447 /* IntSize.swift in Sources */,
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
 				034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
 				03F5A8B61C496D1100B124A3 /* Point.swift in Sources */,
+				03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */,
 				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,
 				035553621C0F622A00E0FCA7 /* View.swift in Sources */,
 				03F5A8B81C496F2400B124A3 /* Size.swift in Sources */,

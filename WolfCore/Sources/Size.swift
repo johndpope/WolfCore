@@ -41,7 +41,7 @@ public struct Size {
 
 extension Size: CustomStringConvertible {
     public var description: String {
-        return("(\(width), \(height))")
+        return("Size(\(width), \(height))")
     }
 }
 

@@ -40,7 +40,7 @@ public struct Point {
 
 extension Point: CustomStringConvertible {
     public var description: String {
-        return("(\(x), \(y))")
+        return("Point(\(x), \(y))")
     }
 }
 
