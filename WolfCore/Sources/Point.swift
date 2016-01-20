@@ -29,7 +29,7 @@ public struct Point {
 
 #if os(iOS) || os(OSX) || os(tvOS)
 extension Point {
-    public init(p: CGPoint) {
+    public init(cgPoint p: CGPoint) {
         x = Double(p.x)
         y = Double(p.y)
     }

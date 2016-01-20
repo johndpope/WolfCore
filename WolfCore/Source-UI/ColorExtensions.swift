@@ -13,8 +13,8 @@ extension UIColor {
         self.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(color.alpha))
     }
 
-    public convenience init(string: String) {
-        self.init(color: Color(string: string))
+    public convenience init(string: String) throws {
+        self.init(color: try Color(string: string))
     }
 
     public var color: Color {

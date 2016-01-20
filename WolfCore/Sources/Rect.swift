@@ -40,7 +40,7 @@ public struct Rect {
 
 extension Rect: CustomStringConvertible {
     public var description: String {
-        return("(\(minX), \(minY), \(width), \(height))")
+        return("Rect(\(minX), \(minY), \(width), \(height))")
     }
 }
 

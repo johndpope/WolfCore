@@ -35,7 +35,7 @@ public struct Size {
         }
 
         public var cgSize: CGSize {
-            return CGSize(width: Double(width), height: CGFloat(height))
+            return CGSize(width: CGFloat(width), height: CGFloat(height))
         }
     }
 #endif

@@ -52,14 +52,14 @@ extension UIBezierPath {
             }
         } else {
             for index in 0..<corners.count {
-                let p1 = corners.elementAtCircularIndex(index - 1)
-                let p2 = corners[index]
-                let p3 = corners.elementAtCircularIndex(index + 1)
-                let (center, startPoint, startAngle, _ /*endPoint*/, endAngle, clockwise) = infoForRoundedCornerArcAtVertexWithRadius(radius: cornerRadius, p1, p2, p3)
+                let p1 = Point(cgPoint: corners.elementAtCircularIndex(index - 1))
+                let p2 = Point(cgPoint: corners[index])
+                let p3 = Point(cgPoint: corners.elementAtCircularIndex(index + 1))
+                let (center, startPoint, startAngle, _ /*endPoint*/, endAngle, clockwise) = infoForRoundedCornerArcAtVertexWithRadius(radius: Double(cornerRadius), p1, p2, p3)
                 if index == 0 {
-                    path.moveToPoint(startPoint)
+                    path.moveToPoint(startPoint.cgPoint)
                 }
-                path.addArcWithCenter(center, radius: cornerRadius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
+                path.addArcWithCenter(center.cgPoint, radius: cornerRadius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise)
             }
         }
         path.closePath()

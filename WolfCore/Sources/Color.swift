@@ -262,7 +262,7 @@ extension Color {
 extension Color : CustomStringConvertible {
     public var description: String {
         get {
-            return "Color(red:\(red) green:\(green) blue:\(blue) alpha:\(alpha))"
+            return "Color(\(red), \(green), \(blue), \(alpha))"
         }
     }
 }

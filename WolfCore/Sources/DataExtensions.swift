@@ -42,7 +42,7 @@ extension NSData {
 
 extension NSData {
     public func toJSON() throws -> JSONObject {
-        return try NSJSONSerialization.JSONObjectWithData(self, options: []) as! AnyObject
+        return try NSJSONSerialization.JSONObjectWithData(self, options: []) // as! AnyObject
     }
 
     public var json: JSONObject? {
