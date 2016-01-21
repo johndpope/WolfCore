@@ -11,18 +11,8 @@
 #endif
 
 public struct Point {
-    public var x: Double
-    public var y: Double
-    
-    public init() {
-        x = 0
-        y = 0
-    }
-    
-    public init(x: Double, y: Double) {
-        self.x = x
-        self.y = y
-    }
+    public var x: Double = 0
+    public var y: Double = 0
 }
 
 #if os(iOS) || os(OSX) || os(tvOS)

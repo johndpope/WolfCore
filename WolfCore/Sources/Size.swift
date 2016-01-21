@@ -12,18 +12,8 @@
 
 
 public struct Size {
-    public var width: Double
-    public var height: Double
-    
-    public init() {
-        width = 0.0
-        height = 0.0
-    }
-    
-    public init(width: Double, height: Double) {
-        self.width = width
-        self.height = height
-    }
+    public var width: Double = 0
+    public var height: Double = 0
 }
 
 #if os(iOS) || os(OSX) || os(tvOS)

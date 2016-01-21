@@ -10,12 +10,7 @@ import Foundation
 
 extension Array {
     public func circularIndex(index: Int) -> Int {
-        guard count > 0 else {
-            return 0
-        }
-
-        let i = index % count
-        return i >= 0 ? i : i + count
+        return WolfCore.circularIndex(index, count: count)
     }
     
     public func elementAtCircularIndex(index: Int) -> Element {
@@ -25,4 +20,13 @@ extension Array {
     public mutating func replaceElementAtCircularIndex(index: Index, withElement element: Element) {
         self[circularIndex(index)] = element
     }
+}
+
+public func circularIndex(index: Int, count: Int) -> Int {
+    guard count > 0 else {
+        return 0
+    }
+    
+    let i = index % count
+    return i >= 0 ? i : i + count
 }

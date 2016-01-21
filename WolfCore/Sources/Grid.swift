@@ -29,21 +29,74 @@ public class Grid<T: Equatable>: Equatable {
     public func checkCoodinateValid(point: IntPoint) throws {
         guard isCoordinateValid(point) else { throw GeneralError(message: "Invalid coordinate: \(point)") }
     }
-
-    public func get(point: Point) throws -> T {
+    
+    public func get(point: IntPoint) throws -> T {
         try checkCoodinateValid(point)
-        return rows[Int(point.y)][Int(point.x)]
+        return rows[point.y][point.x]
     }
     
-    public func set(point: Point, value: T) throws {
+    public func set(point: IntPoint, value: T) throws {
         try checkCoodinateValid(point)
-        rows[Int(point.y)][Int(point.x)] = value
+        rows[point.y][point.x] = value
+    }
+    
+    public func getCircular(point: IntPoint) -> T {
+        let cx = circularIndex(point.y, count: size.height)
+        let cy = circularIndex(point.x, count: size.width)
+        return try! get(IntPoint(x: cx, y: cy))
+    }
+    
+    public func setCircular(point: IntPoint, value: T) {
+        let cx = circularIndex(point.y, count: size.height)
+        let cy = circularIndex(point.x, count: size.width)
+        try! set(IntPoint(x: cx, y: cy), value: value)
+    }
+    
+    public func forAll(f: (IntPoint) -> Void) {
+        for y in 0..<size.height {
+            for x in 0..<size.width {
+                f(IntPoint(x: x, y: y))
+            }
+        }
+    }
+    
+    public func setAll(value: T) {
+        forAll { p in
+            self[p] = value
+        }
+    }
+    
+    public func forNeighborhoodAtPoint(point: IntPoint, f: (o: IntPoint, p: IntPoint) -> Void) {
+        for oy in -1..<1 {
+            for ox in -1..<1 {
+                let o = IntPoint(x: ox, y: oy)
+                let p = IntPoint(x: circularIndex(ox + point.x, count: size.width), y: circularIndex(oy + point.y, count: size.height))
+                f(o: o, p: p)
+            }
+        }
+    }
+    
+    public subscript(point: IntPoint) -> T {
+        get { return try! self.get(point) }
+        set { try! self.set(point, value: newValue) }
+    }
+    
+    public subscript(x: Int, y: Int) -> T {
+        get { return self[IntPoint(x: x, y: y)] }
+        set { self[IntPoint(x: x, y: y)] = newValue }
     }
     
     public func equals(g: Grid<T>) -> Bool {
-        guard width == g.width else { return false }
-        guard height == g.height else { return false }
+        guard size == g.size else { return false }
         return true
+    }
+    
+    public var stringRepresentation: String {
+        return rows.map { $0.map { return "\($0)" }.joinWithSeparator(" ") }.joinWithSeparator("\n")
+    }
+    
+    public func print() {
+        Swift.print(stringRepresentation)
     }
 }
 

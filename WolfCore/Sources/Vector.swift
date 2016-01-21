@@ -11,18 +11,8 @@
 #endif
 
 public struct Vector {
-    public var dx: Double
-    public var dy: Double
-    
-    public init() {
-        dx = 0
-        dy = 0
-    }
-    
-    public init(dx: Double, dy: Double) {
-        self.dx = dx
-        self.dy = dy
-    }
+    public var dx: Double = 0
+    public var dy: Double = 0
 }
 
 #if os(iOS) || os(OSX) || os(tvOS)
@@ -37,6 +27,12 @@ public struct Vector {
         }
     }
 #endif
+
+extension Vector: CustomStringConvertible {
+    public var description: String {
+        return("Vector(\(dx), \(dy))")
+    }
+}
 
 extension Vector {
     public static let zero = Vector()

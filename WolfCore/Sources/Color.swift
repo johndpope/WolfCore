@@ -178,6 +178,15 @@ extension Color {
     }
 #endif
 
+extension Color : Equatable { }
+
+public func ==(🅛: Color, 🅡: Color) -> Bool {
+    return 🅛.red == 🅡.red &&
+    🅛.green == 🅡.green &&
+    🅛.blue == 🅡.blue &&
+    🅛.alpha == 🅡.alpha
+}
+
 extension Color : CustomStringConvertible {
     public var description: String {
         get {
