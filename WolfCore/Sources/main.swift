@@ -1,1 +1,2 @@
-UUID.test()
+// UUID.test()
+SHA256.test()
