@@ -11,8 +11,8 @@
 #endif
 
 public struct Size {
-    public var width: Double
-    public var height: Double
+    public var width: Double = 0
+    public var height: Double = 0
 
     public static let None = -1.0
 

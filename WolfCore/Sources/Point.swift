@@ -13,8 +13,8 @@
 #endif
 
 public struct Point {
-    public var x: Double
-    public var y: Double
+    public var x: Double = 0
+    public var y: Double = 0
 
     public init() {
         x = 0

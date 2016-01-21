@@ -78,6 +78,16 @@ extension String {
 }
 #endif
 
+extension String {
+    public func paddedToCount(finalCount: Int, onRight: Bool = false, withCharacter character: Character = " ") -> String {
+        let count = self.characters.count
+        let padCount = finalCount - count
+        guard padCount > 0 else { return self }
+        let pad = String(count: padCount, repeatedValue: character)
+        return onRight ? (self + pad) : (pad + self)
+    }
+}
+
 #if os(iOS) || os(OSX) || os(tvOS)
 public extension NSString {
     var cgFloatValue: CGFloat {

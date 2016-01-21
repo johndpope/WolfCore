@@ -13,8 +13,8 @@
 #endif
 
 public struct Vector {
-    public var dx: Double
-    public var dy: Double
+    public var dx: Double = 0
+    public var dy: Double = 0
 
     public init() {
         dx = 0
@@ -40,6 +40,12 @@ public struct Vector {
     }
 #endif
 
+extension Vector: CustomStringConvertible {
+    public var description: String {
+        return("Vector(\(dx), \(dy))")
+    }
+}
+
 extension Vector {
     public static let zero = Vector()
 
@@ -51,12 +57,6 @@ extension Vector {
     public init(dx: Float, dy: Float) {
         self.dx = Double(dx)
         self.dy = Double(dy)
-    }
-}
-
-extension Vector: CustomStringConvertible {
-    public var description: String {
-        return("Vector(\(dx), \(dy))")
     }
 }
 
