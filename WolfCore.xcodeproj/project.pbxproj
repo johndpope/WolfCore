@@ -54,6 +54,7 @@
 		035553651C0F622A00E0FCA7 /* WolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0355533A1C0F622A00E0FCA7 /* WolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035C36651C500333000C04D0 /* LifeHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36641C500333000C04D0 /* LifeHash.swift */; };
 		035C36671C505DB0000C04D0 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36661C505DB0000C04D0 /* SHA256.swift */; };
+		035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36761C514A26000C04D0 /* CryptoUtils.swift */; };
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
 		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
 		036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B833F1C40909700491AFF /* DictionaryExtensions.swift */; };
@@ -132,6 +133,7 @@
 		0355533A1C0F622A00E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolfCore.h; path = WolfCore/WolfCore.h; sourceTree = "<group>"; };
 		035C36641C500333000C04D0 /* LifeHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifeHash.swift; sourceTree = "<group>"; };
 		035C36661C505DB0000C04D0 /* SHA256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
+		035C36761C514A26000C04D0 /* CryptoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoUtils.swift; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
 		036B833F1C40909700491AFF /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
@@ -139,9 +141,6 @@
 		036B83481C431FDF00491AFF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		036B834A1C4320AC00491AFF /* ColorFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFunc.swift; sourceTree = "<group>"; };
 		036B834C1C4320F300491AFF /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
-		036B834E1C43221600491AFF /* CGColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGColorUtils.swift; sourceTree = "<group>"; };
-		038CAF111C28E4F000D254D7 /* SizeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeExtensions.swift; sourceTree = "<group>"; };
-		038CAF131C28E52500D254D7 /* PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
@@ -299,6 +298,7 @@
 				035553171C0F622A00E0FCA7 /* CircularList.swift */,
 				036B83461C431F2A00491AFF /* Color.swift */,
 				036B834A1C4320AC00491AFF /* ColorFunc.swift */,
+				035C36761C514A26000C04D0 /* CryptoUtils.swift */,
 				036B834C1C4320F300491AFF /* Gradient.swift */,
 				03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */,
 				03B218941C20E90A0081CE39 /* Joiner.swift */,
@@ -309,7 +309,6 @@
 				0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */,
 				035553211C0F622A00E0FCA7 /* HTTPError.swift */,
 				03206B301C3C7C5D001A463B /* RegexUtils.swift */,
-				03F5A8B11C485F6000B124A3 /* UUID.swift */,
 				0355531A1C0F622A00E0FCA7 /* DataExtensions.swift */,
 				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
 				036B833F1C40909700491AFF /* DictionaryExtensions.swift */,
@@ -460,6 +459,7 @@
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
 				035C36651C500333000C04D0 /* LifeHash.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
+				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
 				03E13B7F1C4F28F60074E447 /* PointExtensions.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
 				034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */,
