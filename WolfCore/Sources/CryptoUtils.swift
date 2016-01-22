@@ -24,9 +24,17 @@ public class Crypto {
     }
 
     public static func testRandom() {
-        for _ in 1...10 {
-            let bytes = generateRandomBytes(100)
+        for _ in 1...3 {
+            let bytes = generateRandomBytes(50)
             print(bytes)
         }
+    }
+    
+    public static func generateKeyPair() {
+        var publicKey: SecKey?
+        var privateKey: SecKey?
+        let parameters: [NSString: AnyObject] = [kSecAttrKeyType: kSecAttrKeyTypeRSA, kSecAttrKeySizeInBits: 1024]
+        let result = SecKeyGeneratePair(parameters, &publicKey, &privateKey)
+        print(result)
     }
 }
