@@ -120,15 +120,13 @@ public struct Color {
 
         if let strings = singleHexColorRegex.matchedSubstringsInString(s) {
             for (index, string) in strings.enumerate() {
-                if let i = Int(string, radix: 16) {
-                    components[index] = Double(i) / 15.0
-                }
+                let i = try Hex.decode(string)
+                components[index] = Double(i) / 15.0
             }
         } else if let strings = doubleHexColorRegex.matchedSubstringsInString(s) {
             for (index, string) in strings.enumerate() {
-                if let i = Int(string, radix: 16) {
-                    components[index] = Double(i) / 255.0
-                }
+                let i = try Hex.decode(string)
+                components[index] = Double(i) / 255.0
             }
         } else if let strings = floatColorRegex.matchedSubstringsInString(s) {
             for (index, string) in strings.enumerate() {

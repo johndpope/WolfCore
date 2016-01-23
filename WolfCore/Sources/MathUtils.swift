@@ -13,6 +13,9 @@
 #endif
 
 
+public typealias Frac = Double // 0.0...1.0
+
+
 public class Math {
 }
 

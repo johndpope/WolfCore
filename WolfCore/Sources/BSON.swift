@@ -386,7 +386,7 @@ extension BSONDocument: CustomStringConvertible {
     public var description: String {
         var s = [String]()
         for byte in bytes {
-            let t = String(byte, radix: 16, uppercase: false)
+            let t = Hex.encode(byte)
             s.append(t)
         }
         return "<BSONDocument \(s.joinWithSeparator(" "))>"

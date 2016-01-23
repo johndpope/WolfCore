@@ -91,25 +91,27 @@ extension UIColor {
     public static var Clear:     UIColor { return .clearColor() }
 }
 
-public func testInitColorFromString() {
-    do {
-        let strings = [
-            "#f80",
-            "#ff8000",
-            "0.1 0.5 1.0",
-            "0.1 0.5 1.0 0.5",
-            "r: 0.2 g: 0.4 b: 0.6",
-            "red: 0.3 green: 0.5 blue: 0.7",
-            "red: 0.3 green: 0.5 blue: 0.7 alpha: 0.5",
-            "h: 0.2 s: 0.8 b: 1.0",
-            "hue: 0.2 saturation: 0.8 brightness: 1.0",
-            "hue: 0.2 saturation: 0.8 brightness: 1.0 alpha: 0.5",
-        ]
-        for string in strings {
-            let color = try UIColor(string: string)
-            print("string: \(string), color: \(color)")
+extension UIColor {
+    public static func testInitFromString() {
+        do {
+            let strings = [
+                "#f80",
+                "#ff8000",
+                "0.1 0.5 1.0",
+                "0.1 0.5 1.0 0.5",
+                "r: 0.2 g: 0.4 b: 0.6",
+                "red: 0.3 green: 0.5 blue: 0.7",
+                "red: 0.3 green: 0.5 blue: 0.7 alpha: 0.5",
+                "h: 0.2 s: 0.8 b: 1.0",
+                "hue: 0.2 saturation: 0.8 brightness: 1.0",
+                "hue: 0.2 saturation: 0.8 brightness: 1.0 alpha: 0.5",
+            ]
+            for string in strings {
+                let color = try UIColor(string: string)
+                print("string: \(string), color: \(color)")
+            }
+        } catch(let error) {
+            logError(error)
         }
-    } catch(let error) {
-        print("Error: \(error)")
     }
 }

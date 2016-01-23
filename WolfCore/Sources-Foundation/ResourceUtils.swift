@@ -8,12 +8,18 @@
 
 import UIKit
 
-public func loadDataNamed(name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) -> NSData {
-    return NSData(contentsOfURL: NSBundle.findBundle(forClass: aClass).URLForResource(name, withExtension: anExtension, subdirectory: subpath)!)!
+public func loadDataNamed(name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> NSData {
+    
+    if let data = NSData(contentsOfURL: NSBundle.findBundle(forClass: aClass).URLForResource(name, withExtension: anExtension, subdirectory: subpath)!) {
+        return data
+    } else {
+        throw GeneralError(message: "Loading data failed.")
+    }
 }
 
-public func loadJSONNamed(name: String, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) -> JSONObject {
-    return loadDataNamed(name, withExtension: "json", subdirectory: subpath, fromBundleForClass: aClass).json!
+public func loadJSONNamed(name: String, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> JSONObject {
+    let data = try loadDataNamed(name, withExtension: "json", subdirectory: subpath, fromBundleForClass: aClass)
+    return try JSON.decode(data)
 }
 
 public func loadStoryboardNamed(name: String, fromBundleForClass aClass: AnyClass? = nil) -> UIStoryboard {

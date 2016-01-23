@@ -90,11 +90,12 @@ public func retrieveJSONURLRequest(request: NSMutableURLRequest,
         request.setValue(ContentType.JSON.rawValue, forHTTPHeaderField: HeaderField.Accept.rawValue)
         
         retrieveURLRequest(request, success: { (response, data) -> Void in
-            logTrace(String(data: data, encoding: NSUTF8StringEncoding)!)
-            if let json = data.json {
+            do {
+                let json = try JSON.decode(data)
+                logTrace(try! UTF8.decode(data))
                 success(response, json)
-            } else {
-                failure(GeneralError(message: "Could not parse JSON."))
+            } catch(let error) {
+                failure(error)
             }
             },
             failure: failure,

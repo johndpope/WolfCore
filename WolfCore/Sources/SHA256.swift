@@ -31,7 +31,7 @@ public class SHA256 {
         // $ openssl dgst -sha256 -hex
         // The quick brown fox\n^d
         // 35fb7cc2337d10d618a1bad35c7a9e957c213f00d0ed32f2454b2a99a971c0d8
-        let message = "The quick brown fox\n".bytes
+        let message: Bytes = UTF8.encode("The quick brown fox\n")
         let sha256 = SHA256(message: message)
         print(sha256)
         // prints 35fb7cc2337d10d618a1bad35c7a9e957c213f0d0ed32f2454b2a99a971c0d8
@@ -42,10 +42,6 @@ public class SHA256 {
 
 extension SHA256: CustomStringConvertible {
     public var description: String {
-        var s = ""
-        for byte in digest {
-            s += String(byte, radix: 16).paddedToCount(2, withCharacter: "0")
-        }
-        return s
+        return Hex.encode(digest)
     }
 }
