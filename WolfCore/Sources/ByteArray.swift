@@ -6,6 +6,8 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+import Foundation
+
 public typealias Byte = UInt8
 public typealias Bytes = [Byte]
 
@@ -15,7 +17,7 @@ public class ByteArray {
         data.getBytes(&bytes, length: data.length)
         return bytes
     }
-    
+
     public static func dataWithBytes(byteArray: Bytes) -> NSData {
         return NSData(bytes: byteArray, length: byteArray.count)
     }

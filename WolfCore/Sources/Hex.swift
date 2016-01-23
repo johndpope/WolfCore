@@ -6,6 +6,8 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+import Foundation
+
 public class Hex {
     public static func encode(data: NSData) -> String {
         let bytes = ByteArray.bytesWithData(data)
@@ -15,15 +17,15 @@ public class Hex {
         }
         return s
     }
-    
+
     public static func encode(bytes: Bytes) -> String {
         return encode(ByteArray.dataWithBytes(bytes))
     }
-    
+
     public static func encode(byte: Byte) -> String {
         return String(byte, radix: 16, uppercase: false).paddedToCount(2, withCharacter: "0")
     }
-    
+
     public static func decode(string: String) throws -> Int {
         if let i = Int(string, radix: 16) {
             return i
