@@ -1,3 +1,5 @@
 // UUID.test()
-SHA256.test()
-Crypto.testRandom()
+// SHA256.test()
+// Crypto.testRandom()
+Crypto.setup()
+Crypto.testGenerateKeyPair()

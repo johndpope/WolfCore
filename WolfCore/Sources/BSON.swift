@@ -15,9 +15,21 @@ public typealias BSONDictionary = [String: BSONValue]
 public typealias BSONArray = [BSONValue]
 
 
+public class BSON {
+    public static func encode(dict: BSONDictionary) throws -> Bytes {
+        let doc = try BSONDocument(dict: dict)
+        return doc.bytes
+    }
+
+    public static func decode(bytes: Bytes) throws -> BSONDictionary {
+        let doc = BSONDocument(bytes: bytes)
+        return try doc.decode()
+    }
+}
+
 public struct BSONError: Error {
     public var message: String
-    
+
     public init(message: String) {
         self.message = message
     }
@@ -114,7 +126,7 @@ public class BSONBuffer {
         bytes = Bytes()
         bytes.reserveCapacity(1000)
     }
-    
+
     init(bytes: Bytes, mark: Int = 0) {
         self.bytes = bytes
         self.mark = 0
@@ -125,56 +137,56 @@ extension BSONBuffer {
     func appendByte(byte: Byte) {
         bytes.append(byte)
     }
-    
+
     func appendBytes(inBytes: Bytes) {
         bytes.appendContentsOf(inBytes)
     }
-    
+
     func appendBytes(p: UnsafePointer<Byte>, count: Int) {
         for index in 0..<count {
             appendByte(p[index])
         }
     }
-    
+
     func appendBytes(inBytes: ContiguousArray<Byte>) {
         bytes.appendContentsOf(inBytes)
     }
-    
+
     func appendInt32(int: Int32) {
         var i = int.littleEndian
         withUnsafePointer(&i) {
             appendBytes(UnsafePointer<Byte>($0), count: sizeof(Int32))
         }
     }
-    
+
     func appendInt(int: Int) {
         var i = int.littleEndian
         withUnsafePointer(&i) {
             appendBytes(UnsafePointer<Byte>($0), count: sizeof(Int))
         }
     }
-    
+
     func appendDouble(double: Double) {
         var d = double
         withUnsafePointer(&d) {
             appendBytes(UnsafePointer<Byte>($0), count: sizeof(Double))
         }
     }
-    
+
     func appendCString(string: String) {
         bytes.appendContentsOf(string.nulTerminatedUTF8)
     }
-    
+
     func appendString(string: String) {
         let utf8 = string.nulTerminatedUTF8
         appendInt32(Int32(utf8.count))
         appendBytes(utf8)
     }
-    
+
     func appendBuffer(buffer: BSONBuffer) {
         bytes.appendContentsOf(buffer.bytes)
     }
-    
+
     func appendDocument(document: BSONDocument) {
         appendInt32(Int32(document.elementList.bytes.count + sizeof(Int32) + 1))
         appendBuffer(document.elementList)
@@ -192,12 +204,12 @@ extension BSONBuffer {
         mark += count
         return p
     }
-    
+
     func readByte() throws -> Byte {
         let p = try readBytes(1)
         return p[0]
     }
-    
+
     func readBytesUntilNul() throws -> Bytes {
         var bytes = Bytes()
         while true {
@@ -209,24 +221,24 @@ extension BSONBuffer {
         }
         return bytes
     }
-    
+
     func readInt32() throws -> Int32 {
         let p = try readBytes(sizeof(Int32))
         let i = UnsafePointer<Int32>(p)[0]
         return Int32(littleEndian: i)
     }
-    
+
     func readInt() throws -> Int {
         let p = try readBytes(sizeof(Int))
         let i = UnsafePointer<Int>(p)[0]
         return Int(littleEndian: i)
     }
-    
+
     func readDouble() throws -> Double {
         let p = try readBytes(sizeof(Double))
         return UnsafePointer<Double>(p)[0]
     }
-    
+
     func readBoolean() throws -> Bool {
         let b = try readByte()
         switch b {
@@ -238,7 +250,7 @@ extension BSONBuffer {
             throw BSONError(message: "Expected Boolean value 0 or 1, got: \(b)")
         }
     }
-    
+
     private func decodeString(p: UnsafePointer<Byte>) throws -> String {
         let s = String.fromCString(UnsafePointer<CChar>(p))
         if let s = s {
@@ -247,22 +259,22 @@ extension BSONBuffer {
             throw BSONError(message: "Could not decode UTF-8 string.")
         }
     }
-    
+
     func readCString() throws -> String {
         var bytes = try readBytesUntilNul()
         return try decodeString(&bytes)
     }
-    
+
     func readElementName() throws -> String {
         return try readCString()
     }
-    
+
     func readString() throws -> String {
         let count = Int(try readInt32())
         let p = try readBytes(count)
         return try decodeString(p)
     }
-    
+
     func readBinary() throws -> Any {
         let count = Int(try readInt32())
         let rawSubtype = try readByte()
@@ -278,7 +290,7 @@ extension BSONBuffer {
             throw BSONError(message: "Unknown binary subtype: \(rawSubtype).")
         }
     }
-    
+
     func readElement() throws -> (name: String, value: BSONValue)? {
         let rawElementType = try readByte()
         guard let elementType = BSONElementType(rawValue: rawElementType) else {
@@ -315,7 +327,7 @@ extension BSONBuffer {
         }
         return (name, value)
     }
-    
+
     func readDocument() throws -> BSONDictionary {
         var dict = BSONDictionary()
         while true {
@@ -329,7 +341,7 @@ extension BSONBuffer {
         }
         return dict
     }
-    
+
     func readArray() throws -> BSONArray {
         var array = BSONArray()
         while true {
@@ -348,25 +360,25 @@ public class BSONDocument: BSONBuffer {
 
     public init(dict: BSONDictionary) throws {
         super.init()
-        
+
         for (name, value) in dict {
             try elementList.appendElementWithName(name, value: value)
         }
         appendDocument(self)
     }
-    
+
     public init(array: BSONArray) throws {
         super.init()
-        
+
         for (index, value) in array.enumerate() {
             try elementList.appendElementWithName(String(index), value: value)
         }
         appendDocument(self)
     }
-    
+
     public init(bytes: Bytes) {
         super.init()
-        
+
         self.bytes = bytes
     }
 }
@@ -384,12 +396,8 @@ extension BSONDocument {
 
 extension BSONDocument: CustomStringConvertible {
     public var description: String {
-        var s = [String]()
-        for byte in bytes {
-            let t = Hex.encode(byte)
-            s.append(t)
-        }
-        return "<BSONDocument \(s.joinWithSeparator(" "))>"
+        let s = Hex.encode(bytes)
+        return "<BSONDocument \(s))>"
     }
 }
 
@@ -420,39 +428,39 @@ class BSONElementList: BSONBuffer {
             appendNullWithName(name)
         }
     }
-    
+
     //
     // MARK: - Primitives
     //
-    
+
     private func appendElementName(name: String) {
         appendCString(name)
     }
-    
+
     private func appendBinarySubtype(subtype: BSONBinarySubtype) {
         appendByte(subtype.rawValue)
     }
-    
+
     private func appendElementType(type: BSONElementType) {
         appendByte(type.rawValue)
     }
-   
+
     //
     // MARK: - Elements
     //
-    
+
     private func appendDoubleWithName(name: String, double: Double) {
         appendElementType(.Double)
         appendElementName(name)
         appendDouble(double)
     }
-    
+
     private func appendStringWithName(name: String, string: String) {
         appendElementType(.String)
         appendElementName(name)
         appendString(string)
     }
-    
+
     private func appendBinaryWithName(name: String, bytes: Bytes, subtype: BSONBinarySubtype = .UserDefined) {
         appendElementType(.Binary)
         appendElementName(name)
@@ -460,56 +468,56 @@ class BSONElementList: BSONBuffer {
         appendBinarySubtype(subtype)
         appendBytes(bytes)
     }
-    
+
     private func appendBooleanWithName(name: String, boolean: Bool) {
         appendElementType(.Boolean)
         appendElementName(name)
         appendByte(boolean ? 0x01 : 0x00)
     }
-    
+
     private func appendUTCDatetimeWithName(name: String, datetime: Int) {
         appendElementType(.Datetime)
         appendElementName(name)
         appendInt(datetime)
     }
-    
+
     private func appendNullWithName(name: String) {
         appendElementType(.Null)
         appendElementName(name)
     }
-    
+
     private func appendRegexWithName(name: String, pattern: String, options: String) {
         appendElementType(.Regex)
         appendElementName(name)
         appendCString(pattern)
         appendCString(options)
     }
-    
+
     private func appendJavaScriptWithName(name: String, javaScript: String) {
         appendElementType(.JavaScript)
         appendElementName(name)
         appendString(javaScript)
     }
-    
+
     private func appendInt32WithName(name: String, int: Int32) {
         appendElementType(.Int32)
         appendElementName(name)
         appendInt32(int)
     }
-    
+
     private func appendIntWithName(name: String, int: Int) {
         appendElementType(.Int)
         appendElementName(name)
         appendInt(int)
     }
-    
+
     private func appendDictionaryWithName(name: String, dict: BSONDictionary) throws {
         let document = try BSONDocument(dict: dict)
         appendElementType(.Document)
         appendElementName(name)
         appendDocument(document)
     }
-    
+
     private func appendArrayWithName(name: String, array: BSONArray) throws {
         let arr = try BSONDocument(array: array)
         appendElementType(.Array)
@@ -533,34 +541,36 @@ private func printBSONArray(array: BSONArray, indent: String = "", level: Int = 
 private func printBSONElementWithName(name: String, value: BSONValue, indent: String, level: Int) {
     let type: String
     let valueStr: String
+    let pfx = "✅  "
+    let err = "🚫  "
     if let value = value {
         switch value {
         case is Int:
-            type = "Int"
+            type = "\(pfx) Int"
             valueStr = "\(value)"
         case is Int32:
-            type = "Int32"
+            type = "\(pfx) Int32"
             valueStr = "\(value)"
         case is String:
-            type = "String"
+            type = "\(pfx) String"
             valueStr = "\"\(value)\""
         case is Double:
-            type = "Double"
+            type = "\(pfx) Double"
             valueStr = "\(value)"
         case is BSONDictionary:
-            type = "Document"
+            type = "\(pfx) Document"
             valueStr = ""
         case is BSONArray:
-            type = "Array"
+            type = "\(pfx) Array"
             valueStr = ""
         case is Bool:
-            type = "Boolean"
+            type = "\(pfx) Boolean"
             valueStr = "\(value)"
         case is Bytes:
-            type = "Binary"
+            type = "\(pfx) Binary"
             valueStr = "\(value)"
         default:
-            type = "UNKNOWN"
+            type = "\(err) UNKNOWN"
             valueStr = "\(value)"
         }
     } else {
