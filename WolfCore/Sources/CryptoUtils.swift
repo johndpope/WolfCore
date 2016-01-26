@@ -340,7 +340,7 @@ public class Crypto {
             let keyPair = try generateKeyPair()
 
             let publicJSON = try keyPair.publicKey.json(true)
-            let publicJSONEncoded = try JSON.encode(CFDictionary(publicJSON))
+            let publicJSONEncoded = try JSON.encode(publicJSON)
             print("publicKey: count \(publicJSONEncoded.length): \(publicJSON)")
             print("publicKey:")
             let publicBSON = try keyPair.publicKey.bson(true)

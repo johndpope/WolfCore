@@ -8,21 +8,17 @@
 
 import Foundation
 
-#if os(Linux)
-    public typealias JSONObject = AnyObject
-#else
-    public typealias JSONObject = AnyObject
-#endif
+public typealias JSONObject = AnyObject
 public typealias JSONDictionary = [String: JSONObject]
 public typealias JSONDictionaryOfStrings = [String: String]
 public typealias JSONArray = [JSONObject]
 public typealias JSONArrayOfDictionaries = [JSONDictionary]
 
 public class JSON {
-    public static func encode(json: JSONObject) throws -> NSData {
+    public static func encode(json: JSONDictionary) throws -> NSData {
         #if os(Linux)
-            // throw Unimplemented()
-            return try NSJSONSerialization.dataWithJSONObject(json, options: [])
+            throw Unimplemented()
+            // return try NSJSONSerialization.dataWithJSONObject(j, options: [])
         #else
             return try NSJSONSerialization.dataWithJSONObject(json, options: [])
         #endif
@@ -30,8 +26,8 @@ public class JSON {
 
     public static func decode(data: NSData) throws -> JSONObject {
         #if os(Linux)
-            // throw Unimplemented()
-            return try NSJSONSerialization.JSONObjectWithData(data, options: []) as! JSONObject
+            throw Unimplemented()
+            // return try NSJSONSerialization.JSONObjectWithData(data, options: []) as! JSONObject
         #else
             return try NSJSONSerialization.JSONObjectWithData(data, options: [])
         #endif
