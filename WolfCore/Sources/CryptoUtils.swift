@@ -32,7 +32,7 @@ public struct CryptoError: Error, CustomStringConvertible {
     }
 }
 
-public class CryptoKey {
+public class CryptoKey: CustomStringConvertible {
     private let keyRef: SecKey
     
     public init(keyRef: SecKey) {
@@ -77,7 +77,8 @@ public class CryptoKey {
         }
         
         parser.foundBytes = { bytes in
-            let fieldName = fieldNames[nextFieldIndex++]
+            let fieldName = fieldNames[nextFieldIndex]
+            nextFieldIndex++
             if !fieldName.hasPrefix("-") {
                 dict[fieldName] = Base64URL.encode(bytes)
             }
@@ -91,18 +92,32 @@ public class CryptoKey {
         
         return dict
     }
-}
 
-extension CryptoKey: CustomStringConvertible {
     public var description: String {
-        return Hex.encode(try! bytes())
+        return "\(keyRef)"
     }
 }
 
 public class PublicKey: CryptoKey {
+    public override var description: String {
+        do {
+            return try UTF8.decode(try JSON.encode(try json(true)))
+        } catch(let error) {
+            logError(error)
+            return "invalid"
+        }
+    }
 }
 
 public class PrivateKey: CryptoKey {
+    public override var description: String {
+        do {
+            return try UTF8.decode(try JSON.encode(try json(false)))
+        } catch(let error) {
+            logError(error)
+            return "invalid"
+        }
+    }
 }
 
 public class KeyPair {
