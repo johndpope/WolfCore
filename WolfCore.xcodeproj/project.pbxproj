@@ -63,6 +63,7 @@
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
 		03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
+		03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDBACF1C5A9D5400A8CDAE /* Position.swift */; };
 		03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */; };
 		03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B761C4F28F60074E447 /* CGColorUtils.swift */; };
 		03E13B7E1C4F28F60074E447 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B771C4F28F60074E447 /* PDF.swift */; };
@@ -147,6 +148,7 @@
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
 		03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIDs.swift; sourceTree = "<group>"; };
+		03DDBACF1C5A9D5400A8CDAE /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AffineTransformUtils.swift; path = "Sources-CoreGraphics/AffineTransformUtils.swift"; sourceTree = "<group>"; };
 		03E13B761C4F28F60074E447 /* CGColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGColorUtils.swift; path = "Sources-CoreGraphics/CGColorUtils.swift"; sourceTree = "<group>"; };
 		03E13B771C4F28F60074E447 /* PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDF.swift; path = "Sources-CoreGraphics/PDF.swift"; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				03F5A8B91C4970DF00B124A3 /* Vector.swift */,
 				03F5A8BB1C49746500B124A3 /* Rect.swift */,
 				03E13B831C4FEE720074E447 /* Grid.swift */,
+				03DDBACF1C5A9D5400A8CDAE /* Position.swift */,
 			);
 			name = "Types-Portable";
 			path = Sources;
@@ -302,36 +305,36 @@
 		03F5A8B31C496C4900B124A3 /* Utilities-Portable */ = {
 			isa = PBXGroup;
 			children = (
+				03FAF77A1C532A640045BB37 /* ASN1Parser.swift */,
+				03FAF77E1C538C3E0045BB37 /* Base64.swift */,
+				03FAF7801C53F6DB0045BB37 /* Base64URL.swift */,
 				03206B2C1C3B1B02001A463B /* BSON.swift */,
+				03FAF7861C53F7230045BB37 /* ByteArray.swift */,
 				035553171C0F622A00E0FCA7 /* CircularList.swift */,
 				036B83461C431F2A00491AFF /* Color.swift */,
 				036B834A1C4320AC00491AFF /* ColorFunc.swift */,
 				035C36761C514A26000C04D0 /* CryptoUtils.swift */,
+				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
+				036B833F1C40909700491AFF /* DictionaryExtensions.swift */,
+				0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */,
 				036B834C1C4320F300491AFF /* Gradient.swift */,
 				03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */,
+				03FAF7881C53F7340045BB37 /* Hex.swift */,
+				035553211C0F622A00E0FCA7 /* HTTPError.swift */,
+				03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */,
 				03B218941C20E90A0081CE39 /* Joiner.swift */,
+				03FAF7841C53F6FF0045BB37 /* JSON.swift */,
 				035C36641C500333000C04D0 /* LifeHash.swift */,
 				0362A1A61C19FBD20005371F /* Log.swift */,
 				0355532A1C0F622A00E0FCA7 /* MathUtils.swift */,
 				036B83481C431FDF00491AFF /* Random.swift */,
-				0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */,
-				035553211C0F622A00E0FCA7 /* HTTPError.swift */,
-				03206B301C3C7C5D001A463B /* RegexUtils.swift */,
-				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
-				03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */,
-				036B833F1C40909700491AFF /* DictionaryExtensions.swift */,
 				03206B321C3CBA7E001A463B /* RangeExtensions.swift */,
+				03206B301C3C7C5D001A463B /* RegexUtils.swift */,
 				03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */,
-				03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */,
 				035C36661C505DB0000C04D0 /* SHA256.swift */,
-				03F5A8B11C485F6000B124A3 /* UUID.swift */,
-				03FAF77A1C532A640045BB37 /* ASN1Parser.swift */,
-				03FAF77E1C538C3E0045BB37 /* Base64.swift */,
+				03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */,
 				03FAF7821C53F6EF0045BB37 /* UTF8.swift */,
-				03FAF7841C53F6FF0045BB37 /* JSON.swift */,
-				03FAF7861C53F7230045BB37 /* ByteArray.swift */,
-				03FAF7881C53F7340045BB37 /* Hex.swift */,
-				03FAF7801C53F6DB0045BB37 /* Base64URL.swift */,
+				03F5A8B11C485F6000B124A3 /* UUID.swift */,
 			);
 			name = "Utilities-Portable";
 			path = Sources;
@@ -497,6 +500,7 @@
 				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
 				035553481C0F622A00E0FCA7 /* Error.swift in Sources */,
 				03FAF7831C53F6EF0045BB37 /* UTF8.swift in Sources */,
+				03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
 				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
 				03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */,

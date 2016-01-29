@@ -65,12 +65,6 @@ extension Rect {
 }
 
 extension Rect {
-    public init(minX: Double, minY: Double, maxX: Double, maxY: Double) {
-        self.init(origin: Point(x: minX, y: minY), size: Size(width: maxX - minX, height: maxY - minY))
-    }
-}
-
-extension Rect {
     public var width: Double {
         get { return size.width }
         mutating set { size.width = newValue }

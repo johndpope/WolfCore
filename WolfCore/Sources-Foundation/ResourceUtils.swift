@@ -29,3 +29,8 @@ public func loadStoryboardNamed(name: String, fromBundleForClass aClass: AnyClas
 public func loadNibNamed(name: String, fromBundleForClass aClass: AnyClass? = nil) -> UINib {
     return UINib(nibName: name, bundle: NSBundle.findBundle(forClass: aClass))
 }
+
+public func loadViewFromNibNamed<T: UIView>(name: String, fromBundleForClass aClass: AnyClass? = nil, owner: AnyObject? = nil) -> T {
+    let nib = loadNibNamed(name, fromBundleForClass: aClass)
+    return nib.instantiateWithOwner(owner, options: nil)[0] as! T
+}
