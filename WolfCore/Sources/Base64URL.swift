@@ -6,23 +6,25 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+import Foundation
+
 public class Base64URL {
     public static func encode(data: NSData) -> String {
         return base64URLStringWithBase64String(Base64.encode(data))
     }
-    
+
     public static func encode(bytes: Bytes) -> String {
         return encode(ByteArray.dataWithBytes(bytes))
     }
-    
+
     public static func decode(string: String) throws -> NSData {
         return try Base64.decode(base64StringWithBase64URLString(string))
     }
-    
+
     public static func decode(string: String) throws -> Bytes {
         return ByteArray.bytesWithData(try decode(string))
     }
-    
+
     private static func base64URLStringWithBase64String(base64String: String) -> String {
         var s2 = ""
         for c in base64String.characters {
@@ -39,7 +41,7 @@ public class Base64URL {
         }
         return s2
     }
-    
+
     private static func base64StringWithBase64URLString(base64URLString: String) -> String {
         var s2 = ""
         let chars = base64URLString.characters

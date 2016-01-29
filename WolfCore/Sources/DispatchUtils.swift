@@ -8,6 +8,15 @@
 
 import Foundation
 
+#if os(Linux)
+    import CDispatch
+    public typealias dispatch_block_t = () -> Void
+#endif
+
+// #define DISPATCH_QUEUE_CONCURRENT \
+                // DISPATCH_GLOBAL_OBJECT(dispatch_queue_attr_t, \
+                // _dispatch_queue_attr_concurrent)
+
 // A Canceler is returned by functions in this file that either execute a block after a delay, or execute a block at intervals. If the <isCanceled> variable is set to true, the block will never be executed, or the calling of the block at intervals will stop.
 public class Canceler {
     public var isCanceled = false
@@ -24,7 +33,11 @@ public typealias ErrorBlock = (🚫: ErrorType) -> Void
 public typealias CancelableBlock = (canceler: Canceler) -> Void
 
 public let mainQueue = dispatch_get_main_queue()
-public let backgroundQueue = dispatch_queue_create("background", DISPATCH_QUEUE_CONCURRENT)
+#if os(Linux)
+    public let backgroundQueue = dispatch_queue_create("background", &_dispatch_queue_attr_concurrent)
+#else
+    public let backgroundQueue = dispatch_queue_create("background", DISPATCH_QUEUE_CONCURRENT)
+#endif
 
 // A utility function to convert a time since now as a Double (NSTimeInterval) representing a number of seconds to a dispatch_time_t used by GCD.
 public func dispatchTimeSinceNow(offsetInSeconds: NSTimeInterval) -> dispatch_time_t {
