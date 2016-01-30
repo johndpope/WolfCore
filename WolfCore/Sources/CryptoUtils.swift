@@ -215,6 +215,36 @@ public class CryptoKey: CustomStringConvertible {
 
             return dict
         }
+    
+    func bson(onlyPublic: Bool, keyID: String? = nil) throws -> BSONDictionary {
+        var dict = BSONDictionary()
+        
+        let bytes = try self.bytes()
+        
+        let fieldNames: [String] = onlyPublic ? ["n", "e"] : ["-version", "n", "e", "d", "p", "q", "dp", "dq", "qi"]
+        var nextFieldIndex = 0
+        
+        let parser = ASN1Parser(bytes: bytes)
+        
+        dict["kty"] = Optional("RSA")
+        dict["kid"] = keyID
+        
+        parser.foundBytes = { bytes in
+            let fieldName = fieldNames[nextFieldIndex]
+            nextFieldIndex++
+            if !fieldName.hasPrefix("-") {
+                dict[fieldName] = bytes
+            }
+            //println("BYTES \(fieldName) (\(bytes.count)) \(bytes)")
+        }
+        parser.didEndDocument = {
+            //println("END DOCUMENT")
+        }
+        
+        try parser.parse()
+        
+        return dict
+    }
     #endif
 
     public var description: String {
@@ -338,22 +368,22 @@ public class Crypto {
         do {
             try setup()
             let keyPair = try generateKeyPair()
-
-            let publicJSON = try keyPair.publicKey.json(true)
-            let publicJSONEncoded = try JSON.encode(publicJSON)
-            print("publicKey: count \(publicJSONEncoded.length): \(publicJSON)")
+            
+//            let publicJSON = try keyPair.publicKey.json(true)
+//            let publicJSONEncoded = try JSON.encode(publicJSON)
+//            print("publicKey: count \(publicJSONEncoded.length): \(publicJSON)")
             print("publicKey:")
             let publicBSON = try keyPair.publicKey.bson(true)
-            // printBSONDictionary(publicBSON)
+            printBSONDictionary(publicBSON)
             let publicBSONBytes = try BSON.encode(publicBSON)
             print("publicBSONBytes: count \(publicBSONBytes.count): \(publicBSONBytes)")
-
-            let privateJSON = try keyPair.privateKey.json(false)
-            let privateJSONEncoded = try JSON.encode(privateJSON)
-            print("privateKey: count \(privateJSONEncoded.length): \(privateJSON)")
+            
+//            let privateJSON = try keyPair.privateKey.json(false)
+//            let privateJSONEncoded = try JSON.encode(privateJSON)
+//            print("privateKey: count \(privateJSONEncoded.length): \(privateJSON)")
             print("privateKey:")
             let privateBSON = try keyPair.privateKey.bson(false)
-            // printBSONDictionary(privateBSON)
+            printBSONDictionary(privateBSON)
             let privateBSONBytes = try BSON.encode(privateBSON)
             print("privateBSONBytes: count \(privateBSONBytes.count): \(privateBSONBytes)")
         } catch(let error) {

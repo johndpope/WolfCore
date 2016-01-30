@@ -23,6 +23,10 @@ public struct Rect {
         self.origin = origin
         self.size = size
     }
+    
+    public init(minX: Double, minY: Double, maxX: Double, maxY: Double) {
+        self.init(origin: Point(x: minX, y: minY), size: Size(width: maxX - minX, height: maxY - minY))
+    }
 }
 
 #if os(iOS) || os(OSX) || os(tvOS)

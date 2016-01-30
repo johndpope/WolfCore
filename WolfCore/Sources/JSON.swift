@@ -15,7 +15,7 @@ public typealias JSONArray = [JSONObject]
 public typealias JSONArrayOfDictionaries = [JSONDictionary]
 
 public class JSON {
-    public static func encode(json: JSONDictionary) throws -> NSData {
+    public static func encode(json: JSONObject) throws -> NSData {
         #if os(Linux)
             throw Unimplemented()
             // return try NSJSONSerialization.dataWithJSONObject(j, options: [])

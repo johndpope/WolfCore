@@ -568,7 +568,7 @@ private func printBSONElementWithName(name: String, value: BSONValue, indent: St
             valueStr = "\(value)"
         case is Bytes:
             type = "\(pfx) Binary"
-            valueStr = "\(value)"
+            valueStr = Hex.encode(value as! Bytes)
         default:
             type = "\(err) UNKNOWN"
             valueStr = "\(value)"
