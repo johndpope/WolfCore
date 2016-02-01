@@ -62,6 +62,7 @@
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
+		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
 		03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDBACF1C5A9D5400A8CDAE /* Position.swift */; };
 		03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */; };
@@ -147,6 +148,7 @@
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
+		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIDs.swift; sourceTree = "<group>"; };
 		03DDBACF1C5A9D5400A8CDAE /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AffineTransformUtils.swift; path = "Sources-CoreGraphics/AffineTransformUtils.swift"; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				035C36641C500333000C04D0 /* LifeHash.swift */,
 				0362A1A61C19FBD20005371F /* Log.swift */,
 				0355532A1C0F622A00E0FCA7 /* MathUtils.swift */,
+				03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */,
 				036B83481C431FDF00491AFF /* Random.swift */,
 				03206B321C3CBA7E001A463B /* RangeExtensions.swift */,
 				03206B301C3C7C5D001A463B /* RegexUtils.swift */,
@@ -445,6 +448,7 @@
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
 				035553581C0F622A00E0FCA7 /* PlaceholderView.swift in Sources */,
+				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
 				03E13B811C4F28F60074E447 /* SizeExtensions.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
 				0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
