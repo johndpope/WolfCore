@@ -12,7 +12,6 @@
     typealias Bignum = bignum_st
     typealias BignumRef = UnsafePointer<Bignum>
     typealias BignumGenCallback = bn_gencb_st
-    let OPENSSL_free = CRYPTO_free
 #else
     import Security
 #endif
@@ -215,20 +214,20 @@ public class CryptoKey: CustomStringConvertible {
 
             return dict
         }
-    
+
     func bson(onlyPublic: Bool, keyID: String? = nil) throws -> BSONDictionary {
         var dict = BSONDictionary()
-        
+
         let bytes = try self.bytes()
-        
+
         let fieldNames: [String] = onlyPublic ? ["n", "e"] : ["-version", "n", "e", "d", "p", "q", "dp", "dq", "qi"]
         var nextFieldIndex = 0
-        
+
         let parser = ASN1Parser(bytes: bytes)
-        
+
         dict["kty"] = Optional("RSA")
         dict["kid"] = keyID
-        
+
         parser.foundBytes = { bytes in
             let fieldName = fieldNames[nextFieldIndex]
             nextFieldIndex++
@@ -244,9 +243,9 @@ public class CryptoKey: CustomStringConvertible {
         parser.didEndDocument = {
             //println("END DOCUMENT")
         }
-        
+
         try parser.parse()
-        
+
         return dict
     }
     #endif
@@ -299,8 +298,14 @@ public class KeyPair {
 }
 
 public class Crypto {
+    #if os(Linux)
+        private static var didSetup: Bool = false
+    #endif
+
     public static func setup() throws {
         #if os(Linux)
+            guard !didSetup else { return }
+
             ERR_load_crypto_strings()
             OPENSSL_add_all_algorithms_conf()
             OPENSSL_config(nil)
@@ -310,6 +315,7 @@ public class Crypto {
             if bytesRead != maxBytes {
                 throw CryptoError(message: "Seeding RNG.")
             }
+            didSetup = true
         #endif
     }
 
@@ -372,7 +378,7 @@ public class Crypto {
         do {
             try setup()
             let keyPair = try generateKeyPair()
-            
+
 //            let publicJSON = try keyPair.publicKey.json(true)
 //            let publicJSONEncoded = try JSON.encode(publicJSON)
 //            print("publicKey: count \(publicJSONEncoded.length): \(publicJSON)")
@@ -381,7 +387,7 @@ public class Crypto {
             printBSONDictionary(publicBSON)
             let publicBSONBytes = try BSON.encode(publicBSON)
             print("publicBSONBytes: count \(publicBSONBytes.count): \(publicBSONBytes)")
-            
+
 //            let privateJSON = try keyPair.privateKey.json(false)
 //            let privateJSONEncoded = try JSON.encode(privateJSON)
 //            print("privateKey: count \(privateJSONEncoded.length): \(privateJSON)")

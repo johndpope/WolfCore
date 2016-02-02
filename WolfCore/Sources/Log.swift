@@ -19,6 +19,7 @@ public enum LogLevel: Int {
     }
 }
 
+public var logOutputStream: OutputStreamType = standardErrorOutputStream
 public var logger: Log? = Log()
 
 public class Log {
@@ -52,7 +53,7 @@ public class Log {
                 }
                 a.append(message())
 
-                Swift.print(a)
+                logOutputStream.write(a.description)
 
                 if level.rawValue >= self.locationLevel.rawValue {
                     let d = Joiner("", "", ", ", shortenFile(file), "line: \(line)", function)
