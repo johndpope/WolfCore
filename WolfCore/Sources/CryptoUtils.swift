@@ -233,7 +233,11 @@ public class CryptoKey: CustomStringConvertible {
             let fieldName = fieldNames[nextFieldIndex]
             nextFieldIndex++
             if !fieldName.hasPrefix("-") {
-                dict[fieldName] = bytes
+                if bytes.count == 3 && fieldName == "e" {
+                    dict[fieldName] = Int(bytes[0]) << 16 | Int(bytes[1]) << 8 | Int(bytes[2])
+                } else {
+                    dict[fieldName] = bytes
+                }
             }
             //println("BYTES \(fieldName) (\(bytes.count)) \(bytes)")
         }
