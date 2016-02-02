@@ -37,7 +37,7 @@ public struct UUID {
     public init(string: String) throws {
         #if os(iOS) || os(OSX) || os(tvOS)
             guard let u = NSUUID(UUIDString: string) else {
-                throw GeneralError(message: "Invalid UUID string: \(string).")
+                throw ValidationError(message: "Invalid UUID string: \(string).")
             }
             self.init(bytes: UUID.convert(u))
         #elseif os(Linux)
@@ -45,7 +45,7 @@ public struct UUID {
             defer { buf.dealloc(UUID.bufSize) }
             let result = string.withCString { uuid_parse($0, buf) }
             guard result != -1 else {
-                throw GeneralError(message: "Invalid UUID string: \(string).")
+                throw ValidationError(message: "Invalid UUID string: \(string).")
             }
             let bytes = Bytes(UnsafeBufferPointer<Byte>(start: buf, count: UUID.bufSize))
             self.init(bytes: bytes)

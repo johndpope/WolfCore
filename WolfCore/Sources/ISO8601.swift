@@ -26,7 +26,7 @@ public class ISO8601 {
             let timeInterval = date.timeIntervalSinceReferenceDate
             return NSDate(timeIntervalSinceReferenceDate: timeInterval)
         } else {
-            throw GeneralError(message: "Invalid ISO8601 string: \(string).")
+            throw ValidationError(message: "Invalid ISO8601 string: \(string).")
         }
     }
 }

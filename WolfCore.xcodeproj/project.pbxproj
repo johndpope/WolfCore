@@ -75,6 +75,9 @@
 		03E13B841C4FEE720074E447 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B831C4FEE720074E447 /* Grid.swift */; };
 		03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B851C4FF35C0074E447 /* IntPoint.swift */; };
 		03E13B881C4FF37C0074E447 /* IntSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B871C4FF37C0074E447 /* IntSize.swift */; };
+		03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */; };
+		03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */; };
+		03ECD6221C60CE4600173FD1 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD6211C60CE4600173FD1 /* ValidationError.swift */; };
 		03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B11C485F6000B124A3 /* UUID.swift */; };
 		03F5A8B61C496D1100B124A3 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B51C496D1100B124A3 /* Point.swift */; };
 		03F5A8B81C496F2400B124A3 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B71C496F2400B124A3 /* Size.swift */; };
@@ -161,6 +164,9 @@
 		03E13B831C4FEE720074E447 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		03E13B851C4FF35C0074E447 /* IntPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntPoint.swift; sourceTree = "<group>"; };
 		03E13B871C4FF37C0074E447 /* IntSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntSize.swift; sourceTree = "<group>"; };
+		03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPAddress4.swift; sourceTree = "<group>"; };
+		03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPAddress6.swift; sourceTree = "<group>"; };
+		03ECD6211C60CE4600173FD1 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		03F5A8B11C485F6000B124A3 /* UUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
 		03F5A8B51C496D1100B124A3 /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		03F5A8B71C496F2400B124A3 /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -323,6 +329,8 @@
 				03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */,
 				03FAF7881C53F7340045BB37 /* Hex.swift */,
 				035553211C0F622A00E0FCA7 /* HTTPError.swift */,
+				03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */,
+				03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */,
 				03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */,
 				03B218941C20E90A0081CE39 /* Joiner.swift */,
 				03FAF7841C53F6FF0045BB37 /* JSON.swift */,
@@ -336,6 +344,7 @@
 				03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */,
 				035C36661C505DB0000C04D0 /* SHA256.swift */,
 				03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */,
+				03ECD6211C60CE4600173FD1 /* ValidationError.swift */,
 				03FAF7821C53F6EF0045BB37 /* UTF8.swift */,
 				03F5A8B11C485F6000B124A3 /* UUID.swift */,
 			);
@@ -474,6 +483,7 @@
 				03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */,
 				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
 				036B834D1C4320F300491AFF /* Gradient.swift in Sources */,
+				03ECD6221C60CE4600173FD1 /* ValidationError.swift in Sources */,
 				03FAF7851C53F6FF0045BB37 /* JSON.swift in Sources */,
 				03F5A8BC1C49746500B124A3 /* Rect.swift in Sources */,
 				03B218951C20E90A0081CE39 /* Joiner.swift in Sources */,
@@ -489,6 +499,7 @@
 				03E13B7F1C4F28F60074E447 /* PointExtensions.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
 				034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */,
+				03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
 				03F5A8B61C496D1100B124A3 /* Point.swift in Sources */,
 				03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */,
@@ -497,6 +508,7 @@
 				03F5A8B81C496F2400B124A3 /* Size.swift in Sources */,
 				03E13B821C4F28F60074E447 /* VectorExtensions.swift in Sources */,
 				0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
+				03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */,
 				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
 				03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */,
 				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,

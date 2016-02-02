@@ -54,6 +54,7 @@ public class Log {
                 a.append(message())
 
                 logOutputStream.write(a.description)
+                logOutputStream.write("\n")
 
                 if level.rawValue >= self.locationLevel.rawValue {
                     let d = Joiner("", "", ", ", shortenFile(file), "line: \(line)", function)
