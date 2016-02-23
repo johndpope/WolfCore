@@ -56,6 +56,17 @@ extension UIView {
         return constraints
     }
     
+    public func constrainCenterToViewCenter(view: UIView, active: Bool = true) -> [NSLayoutConstraint] {
+        let constraints = [
+            centerXAnchor == view.centerXAnchor,
+            centerYAnchor == view.centerYAnchor
+        ]
+        if active {
+            NSLayoutConstraint.activateConstraints(constraints)
+        }
+        return constraints
+    }
+
     public func constrainCenterToSuperviewCenter(active active: Bool = true) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         let sv = superview!

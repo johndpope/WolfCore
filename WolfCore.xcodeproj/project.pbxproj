@@ -14,6 +14,7 @@
 		03206B3B1C3CBB36001A463B /* TextCheckingResultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */; };
 		032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F77AA1C1580B5001FCF2C /* ScrollView.swift */; };
 		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
+		033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033E14FC1C7CC71C00BA3E63 /* Matrix.swift */; };
 		034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */; };
 		0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
 		0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */; };
@@ -59,6 +60,8 @@
 		036B83491C431FDF00491AFF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83481C431FDF00491AFF /* Random.swift */; };
 		036B834B1C4320AC00491AFF /* ColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834A1C4320AC00491AFF /* ColorFunc.swift */; };
 		036B834D1C4320F300491AFF /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834C1C4320F300491AFF /* Gradient.swift */; };
+		036FECAD1C73D74200B09489 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 036FECA31C73CFB100B09489 /* libsqlite3.tbd */; };
+		036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonAction.swift */; };
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
@@ -101,6 +104,7 @@
 		03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCheckingResultExtensions.swift; sourceTree = "<group>"; };
 		032F77AA1C1580B5001FCF2C /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraitCollectionExtensions.swift; sourceTree = "<group>"; };
+		033E14FC1C7CC71C00BA3E63 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintExtensions.swift; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		035552FD1C0F5F4200E0FCA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = WolfCore/Info.plist; sourceTree = "<group>"; };
@@ -148,6 +152,9 @@
 		036B83481C431FDF00491AFF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		036B834A1C4320AC00491AFF /* ColorFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFunc.swift; sourceTree = "<group>"; };
 		036B834C1C4320F300491AFF /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
+		036FEC9E1C73CEA800B09489 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
+		036FECA31C73CFB100B09489 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		036FECB01C766E6B00B09489 /* BarButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonAction.swift; sourceTree = "<group>"; };
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
@@ -187,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				036FECAD1C73D74200B09489 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +206,7 @@
 			children = (
 				035552FA1C0F5F4200E0FCA7 /* WolfCore */,
 				035553661C0F6E6A00E0FCA7 /* Supporting Files */,
+				036FECA21C73CF2000B09489 /* Libraries */,
 				035552F91C0F5F4200E0FCA7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -213,6 +222,7 @@
 		035552FA1C0F5F4200E0FCA7 /* WolfCore */ = {
 			isa = PBXGroup;
 			children = (
+				036FEC9D1C73CE5F00B09489 /* Utilities */,
 				035553671C0F6EAE00E0FCA7 /* Types-Portable */,
 				03F5A8B31C496C4900B124A3 /* Utilities-Portable */,
 				03F5A8B41C496CBA00B124A3 /* Extensions-Portable */,
@@ -287,6 +297,7 @@
 			children = (
 				035553111C0F622A00E0FCA7 /* AnimationUtils.swift */,
 				035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */,
+				036FECB01C766E6B00B09489 /* BarButtonAction.swift */,
 				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
 				035553241C0F622A00E0FCA7 /* ImageUtils.swift */,
@@ -308,6 +319,22 @@
 			);
 			name = UI;
 			path = "Source-UI";
+			sourceTree = "<group>";
+		};
+		036FEC9D1C73CE5F00B09489 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				036FEC9E1C73CEA800B09489 /* SQLite.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		036FECA21C73CF2000B09489 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				036FECA31C73CFB100B09489 /* libsqlite3.tbd */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		03F5A8B31C496C4900B124A3 /* Utilities-Portable */ = {
@@ -337,6 +364,7 @@
 				035C36641C500333000C04D0 /* LifeHash.swift */,
 				0362A1A61C19FBD20005371F /* Log.swift */,
 				0355532A1C0F622A00E0FCA7 /* MathUtils.swift */,
+				033E14FC1C7CC71C00BA3E63 /* Matrix.swift */,
 				03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */,
 				036B83481C431FDF00491AFF /* Random.swift */,
 				03206B321C3CBA7E001A463B /* RangeExtensions.swift */,
@@ -462,6 +490,7 @@
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
 				0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
 				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
+				033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */,
 				0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */,
 				03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */,
 				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
@@ -496,6 +525,7 @@
 				035C36651C500333000C04D0 /* LifeHash.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
+				036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */,
 				03E13B7F1C4F28F60074E447 /* PointExtensions.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
 				034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */,
