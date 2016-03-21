@@ -18,10 +18,14 @@ public struct HTTPError: Error {
     public var message: String {
         return NSHTTPURLResponse.localizedStringForStatusCode(response.statusCode)
     }
+    
+    public var code: Int {
+        return response.statusCode
+    }
 }
 
 extension HTTPError: CustomStringConvertible {
     public var description: String {
-        return "HTTPError(\(response.statusCode) \(message))"
+        return "HTTPError(\(code) \(message))"
     }
 }

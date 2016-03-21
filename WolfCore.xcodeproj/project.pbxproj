@@ -50,6 +50,7 @@
 		035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553381C0F622A00E0FCA7 /* ViewDebugging.swift */; };
 		035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553391C0F622A00E0FCA7 /* ViewExtensions.swift */; };
 		035553651C0F622A00E0FCA7 /* WolfCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0355533A1C0F622A00E0FCA7 /* WolfCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035AD78D1C9B66DA00BFEC4A /* Result.swift */; };
 		035C36651C500333000C04D0 /* LifeHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36641C500333000C04D0 /* LifeHash.swift */; };
 		035C36671C505DB0000C04D0 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36661C505DB0000C04D0 /* SHA256.swift */; };
 		035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36761C514A26000C04D0 /* CryptoUtils.swift */; };
@@ -142,6 +143,7 @@
 		035553381C0F622A00E0FCA7 /* ViewDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewDebugging.swift; sourceTree = "<group>"; };
 		035553391C0F622A00E0FCA7 /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		0355533A1C0F622A00E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolfCore.h; path = WolfCore/WolfCore.h; sourceTree = "<group>"; };
+		035AD78D1C9B66DA00BFEC4A /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		035C36641C500333000C04D0 /* LifeHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifeHash.swift; sourceTree = "<group>"; };
 		035C36661C505DB0000C04D0 /* SHA256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
 		035C36761C514A26000C04D0 /* CryptoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoUtils.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 		035553671C0F6EAE00E0FCA7 /* Types-Portable */ = {
 			isa = PBXGroup;
 			children = (
+				035AD78D1C9B66DA00BFEC4A /* Result.swift */,
 				0355531D1C0F622A00E0FCA7 /* Error.swift */,
 				0355531E1C0F622A00E0FCA7 /* GeneralError.swift */,
 				03F5A8B51C496D1100B124A3 /* Point.swift */,
@@ -553,6 +556,7 @@
 				03E13B801C4F28F60074E447 /* RectExtensions.swift in Sources */,
 				03FAF7871C53F7230045BB37 /* ByteArray.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
+				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,7 +601,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -640,7 +643,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/CommonCrypto";

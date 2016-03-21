@@ -20,18 +20,16 @@ import Foundation
 
 public struct CryptoError: Error, CustomStringConvertible {
     public let message: String
-    public let code: Int?
+    public let code: Int
 
-    public init(message: String, code: Int? = nil) {
+    public init(message: String, code: Int = 1) {
         self.message = message
         self.code = code
     }
 
     public var description: String {
         var c = [message]
-        if let code = code {
-            c.append("[\(code)]")
-        }
+        c.append("[\(code)]")
 
         return "CryptoError(\(c.joinWithSeparator(" ")))"
     }

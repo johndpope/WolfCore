@@ -12,6 +12,8 @@
     import Glibc
 #endif
 
+
+/// Represents a 2-dimensional point, with Double precision.
 public struct Point {
     public var x: Double = 0
     public var y: Double = 0
@@ -29,11 +31,13 @@ public struct Point {
 
 #if os(iOS) || os(OSX) || os(tvOS)
 extension Point {
+    /// Provides conversion from iOS and MacOSX CGPoint types.
     public init(cgPoint p: CGPoint) {
         x = Double(p.x)
         y = Double(p.y)
     }
 
+    /// Provides conversion to iOS and MacOSX CGPoint types.
     public var cgPoint: CGPoint {
         return CGPoint(x: CGFloat(x), y: CGFloat(y))
     }
@@ -41,11 +45,19 @@ extension Point {
 #endif
 
 extension Point {
+    /// Provides conversion from Vector.
     public init(vector: Vector) {
         x = vector.dx
         y = vector.dy
     }
 
+    /// Provides conversion from polar coordinates.
+    ///
+    /// - Parameter center: The `Point` to be considered as the origin.
+    ///
+    /// - Parameter angle: The angle from the angular origin, in radians.
+    ///
+    /// - Parameter radius: The distance from the origin, as scalar units.
     public init(center: Point, angle theta: Double, radius: Double) {
         x = center.x + cos(theta) * radius
         y = center.y + sin(theta) * radius

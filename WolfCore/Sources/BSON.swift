@@ -28,10 +28,12 @@ public class BSON {
 }
 
 public struct BSONError: Error {
-    public var message: String
+    public let message: String
+    public let code: Int
 
-    public init(message: String) {
+    public init(message: String, code: Int = 1) {
         self.message = message
+        self.code = code
     }
 }
 

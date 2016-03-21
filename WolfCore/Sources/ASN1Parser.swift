@@ -10,9 +10,11 @@ import Foundation
 
 public struct ASN1Error: Error, CustomStringConvertible {
     public let message: String
+    public let code: Int
 
-    public init(_ message: String) {
+    public init(_ message: String, code: Int = 1) {
         self.message = message
+        self.code = code
     }
 
     public var description: String {
