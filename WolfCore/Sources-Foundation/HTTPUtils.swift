@@ -6,7 +6,7 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public enum HTTPMethod: String {
     case GET = "GET"
@@ -104,7 +104,7 @@ public func retrieveJSONURLRequest(request: NSMutableURLRequest,
 }
 
 public func retrieveImageURL(url: NSURL,
-    success: (UIImage) -> Void,
+    success: (OSImage) -> Void,
     failure: (ErrorType) -> Void,
     finally: (() -> Void)? = nil) {
  
@@ -114,7 +114,7 @@ public func retrieveImageURL(url: NSURL,
         
         retrieveURLRequest(request,
             success: { (response, data) -> Void in
-                if let image = UIImage(data: data) {
+                if let image = OSImage(data: data) {
                     success(image)
                 } else {
                     failure(HTTPError(response: response))

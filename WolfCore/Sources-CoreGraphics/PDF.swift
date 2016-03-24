@@ -8,6 +8,15 @@
 
 import Foundation
 
+import CoreGraphics
+
+#if os(iOS) || os(tvOS)
+    import UIKit
+#elseif os(OSX)
+    import Cocoa
+#endif
+
+
 public class PDF {
     private let pdf: CGPDFDocument
     public let pageCount: Int
@@ -27,6 +36,7 @@ public class PDF {
         return sizeOfPage(pageAtIndex(index))
     }
     
+    #if os(iOS) || os(tvOS)
     public func imageForPageAtIndex(index: Int, size: CGSize? = nil, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
         let page = pageAtIndex(index)
         let size = size ?? sizeOfPageAtIndex(index)
@@ -39,16 +49,21 @@ public class PDF {
             CGContextDrawPDFPage(context, page)
         }
     }
+    #endif
     
+    #if os(iOS) || os(tvOS)
     public func imageForPageAtIndex(index: Int, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
         let size = sizeOfPageAtIndex(index)
         let newSize = size.aspectFitWithinSize(fittingSize)
         return imageForPageAtIndex(index, size: newSize, scale: scale, renderingMode: renderingMode)
     }
+    #endif
     
+    #if os(iOS) || os(tvOS)
     public func image() -> UIImage {
         return imageForPageAtIndex(0)
     }
+    #endif
     
     //
     // MARK: - Private

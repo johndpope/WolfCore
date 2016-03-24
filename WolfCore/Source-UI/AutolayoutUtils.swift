@@ -6,8 +6,13 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
-
+#if os(iOS)
+    import UIKit
+    public typealias OSLayoutPriority = UILayoutPriority
+#else
+    import Cocoa
+    public typealias OSLayoutPriority = NSLayoutPriority
+#endif
 
 public func + (left: NSLayoutAnchor!, right: CGFloat) -> (anchor: NSLayoutAnchor, constant: CGFloat) {
     return (left, right)
@@ -99,20 +104,22 @@ public func <= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, mult
 }
 
 
-public func =&= (left: NSLayoutConstraint, right: UILayoutPriority) -> NSLayoutConstraint {
+public func =&= (left: NSLayoutConstraint, right: OSLayoutPriority) -> NSLayoutConstraint {
     left.priority = right
     return left
 }
 
-public prefix func ~<T: UIView> (right: T) -> T {
-    right.translatesAutoresizingMaskIntoConstraints = false
-    return right
-}
+#if os(iOS)
+    public prefix func ~<T: OSView> (right: T) -> T {
+        right.translatesAutoresizingMaskIntoConstraints = false
+        return right
+    }
 
-prefix operator ~~ { }
+    prefix operator ~~ { }
 
-public prefix func ~~<T: UIView> (right: T) -> T {
-    right.translatesAutoresizingMaskIntoConstraints = false
-    right.makeTransparent()
-    return right
-}
+    public prefix func ~~<T: OSView> (right: T) -> T {
+        right.translatesAutoresizingMaskIntoConstraints = false
+        right.makeTransparent()
+        return right
+    }
+#endif

@@ -7,7 +7,7 @@
 //
 
 #if os(iOS) || os(OSX) || os(tvOS)
-    import UIKit
+    import CoreGraphics
 #elseif os(Linux)
     import Glibc
 #endif

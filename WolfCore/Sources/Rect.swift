@@ -8,6 +8,8 @@
 
 #if os(Linux)
     import Glibc
+#elseif os(iOS) || os(OSX) || os(tvOS)
+    import CoreGraphics
 #endif
 
 public struct Rect {

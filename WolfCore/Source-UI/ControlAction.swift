@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let controlActionSelector = Selector("controlAction")
+private let controlActionSelector = #selector(ControlAction.controlAction)
 
 public class ControlAction: NSObject {
     private let action: DispatchBlock

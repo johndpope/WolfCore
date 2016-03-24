@@ -198,7 +198,7 @@ public class CryptoKey: CustomStringConvertible {
 
             parser.foundBytes = { bytes in
                 let fieldName = fieldNames[nextFieldIndex]
-                nextFieldIndex++
+                nextFieldIndex += 1
                 if !fieldName.hasPrefix("-") {
                     dict[fieldName] = Base64URL.encode(bytes)
                 }
@@ -228,7 +228,7 @@ public class CryptoKey: CustomStringConvertible {
 
         parser.foundBytes = { bytes in
             let fieldName = fieldNames[nextFieldIndex]
-            nextFieldIndex++
+            nextFieldIndex += 1
             if !fieldName.hasPrefix("-") {
                 if bytes.count == 3 && fieldName == "e" {
                     dict[fieldName] = Int(bytes[0]) << 16 | Int(bytes[1]) << 8 | Int(bytes[2])

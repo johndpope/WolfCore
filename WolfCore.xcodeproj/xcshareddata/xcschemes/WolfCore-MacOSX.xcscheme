@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "035552F71C0F5F4200E0FCA7"
+               BlueprintIdentifier = "033F5E811CA3096700647A0A"
                BuildableName = "WolfCore.framework"
-               BlueprintName = "WolfCore"
+               BlueprintName = "WolfCore-MacOSX"
                ReferencedContainer = "container:WolfCore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "035552F71C0F5F4200E0FCA7"
+            BlueprintIdentifier = "033F5E811CA3096700647A0A"
             BuildableName = "WolfCore.framework"
-            BlueprintName = "WolfCore"
+            BlueprintName = "WolfCore-MacOSX"
             ReferencedContainer = "container:WolfCore.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "035552F71C0F5F4200E0FCA7"
+            BlueprintIdentifier = "033F5E811CA3096700647A0A"
             BuildableName = "WolfCore.framework"
-            BlueprintName = "WolfCore"
+            BlueprintName = "WolfCore-MacOSX"
             ReferencedContainer = "container:WolfCore.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

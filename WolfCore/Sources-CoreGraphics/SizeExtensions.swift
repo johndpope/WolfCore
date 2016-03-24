@@ -7,9 +7,18 @@
 //
 
 import Foundation
+import CoreGraphics
+
+#if os(iOS) || os(tvOS)
+    import UIKit
+#endif
 
 extension CGSize {
-    public static let None = UIViewNoIntrinsicMetric
+    #if os(iOS) || os(tvOS)
+        public static let None = UIViewNoIntrinsicMetric
+    #else
+        public static let None: CGFloat = -1.0
+    #endif
 
     public init(vector: CGVector) {
         width = vector.dx

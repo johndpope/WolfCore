@@ -8,7 +8,9 @@
 
 //import UIKit
 #if os(Linux)
-import Glibc
+    import Glibc
+#else
+    import Darwin.C
 #endif
 
 public func degreesForRadians(radians: Double) -> Double {

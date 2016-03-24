@@ -18,7 +18,7 @@ public class IPAddress6 {
                 // print("index: \(index), word: \(word)")
                 if word == 0 {
                     if currentRun == nil {
-                        currentRun = Run(start: index, end: index)
+                        currentRun = index..<index
                         // print("started currentRun: \(currentRun!)")
                     }
                 }
@@ -31,7 +31,7 @@ public class IPAddress6 {
                         }
 
                         // print("currentRun: \(currentRun!), longestRun: \(longestRun!)")
-                        currentRun = Run(start: currentRun!.startIndex, end: currentRun!.endIndex + 1)
+                        currentRun = currentRun!.startIndex ..< currentRun!.endIndex + 1
                         // print("extended currentRun: \(currentRun!)")
 
                         let currentLength = currentRun!.endIndex - currentRun!.startIndex

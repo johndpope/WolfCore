@@ -10,6 +10,8 @@
     import Glibc
 #else
     import Darwin.C
+    import CoreGraphics
+    import Security
 #endif
 
 private var _instance = Random()

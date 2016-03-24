@@ -6,9 +6,27 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+#if os(iOS) || os(tvOS)
+    import UIKit
+    public typealias OSBezierPath = UIBezierPath
+#elseif os(OSX)
+    import Cocoa
+    public typealias OSBezierPath = NSBezierPath
+#endif
 
-extension UIBezierPath {
+#if os(OSX)
+    extension OSBezierPath {
+        public func addLineToPoint(point: CGPoint) {
+            lineToPoint(point)
+        }
+        
+        public func addArcWithCenter(center: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
+            appendBezierPathWithArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle)
+        }
+    }
+#endif
+
+extension OSBezierPath {
     public func addClosedPolygon(points: [CGPoint]) {
         for (index, point) in points.enumerate() {
             switch index {
@@ -27,13 +45,51 @@ extension UIBezierPath {
     }
 }
 
-extension UIBezierPath {
+#if os(OSX)
+    extension NSBezierPath
+    {
+        var CGPath: CGPathRef
+        {
+            let path = CGPathCreateMutable()
+            let elementsCount = self.elementCount
+            
+            let pointsArray = NSPointArray.alloc( 3 )
+            
+            for index in 0 ..< elementsCount
+            {
+                switch elementAtIndex( index, associatedPoints: pointsArray )
+                {
+                case NSBezierPathElement.MoveToBezierPathElement:
+                    CGPathMoveToPoint( path, nil, pointsArray[0].x, pointsArray[0].y )
+                    
+                case NSBezierPathElement.LineToBezierPathElement:
+                    CGPathAddLineToPoint( path, nil, pointsArray[0].x, pointsArray[0].y )
+                    
+                case NSBezierPathElement.CurveToBezierPathElement:
+                    CGPathAddCurveToPoint( path, nil, pointsArray[0].x, pointsArray[0].y,
+                                           pointsArray[1].x, pointsArray[1].y,
+                                           pointsArray[2].x, pointsArray[2].y )
+                    
+                case NSBezierPathElement.ClosePathBezierPathElement:
+                    CGPathCloseSubpath( path )
+                }
+            }
+            
+            return CGPathCreateCopy( path )!
+        }
+    }
+#endif
+
+extension OSBezierPath {
     public convenience init(sides: Int, radius: CGFloat, center: CGPoint = .zero, rotationAngle: CGFloat = 0.0, cornerRadius: CGFloat = 0.0) {
+        
+        self.init()
+        
         let theta = 2 * M_PI / Double(sides)
         let r = Double(radius)
 
         var corners = [CGPoint]()
-        for var side = 0; side < sides; ++side {
+        for side in 0 ..< sides {
             let alpha = Double(side) * theta + Double(rotationAngle)
             let cornerX = cos(alpha) * r + Double(center.x)
             let cornerY = sin(alpha) * r + Double(center.y)
@@ -41,13 +97,12 @@ extension UIBezierPath {
             corners.append(corner)
         }
         
-        let path = UIBezierPath()
         if cornerRadius <= 0.0 {
             for (index, corner) in corners.enumerate() {
                 if index == 0 {
-                    path.moveToPoint(corner)
+                    moveToPoint(corner)
                 } else {
-                    path.addLineToPoint(corner)
+                    addLineToPoint(corner)
                 }
             }
         } else {
@@ -57,13 +112,11 @@ extension UIBezierPath {
                 let p3 = Point(cgPoint: corners.elementAtCircularIndex(index + 1))
                 let (center, startPoint, startAngle, _ /*endPoint*/, endAngle, clockwise) = infoForRoundedCornerArcAtVertexWithRadius(radius: Double(cornerRadius), p1, p2, p3)
                 if index == 0 {
-                    path.moveToPoint(startPoint.cgPoint)
+                    moveToPoint(startPoint.cgPoint)
                 }
-                path.addArcWithCenter(center.cgPoint, radius: cornerRadius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise)
+                addArcWithCenter(center.cgPoint, radius: cornerRadius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise)
             }
         }
-        path.closePath()
-        
-        self.init(CGPath: path.CGPath)
+        closePath()
     }
 }

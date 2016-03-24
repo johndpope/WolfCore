@@ -6,7 +6,15 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+#if os(iOS)
+    import UIKit
+    public typealias OSStoryboard = UIStoryboard
+    public typealias OSNib = UINib
+#else
+    import Cocoa
+    public typealias OSStoryboard = NSStoryboard
+    public typealias OSNib = NSNib
+#endif
 
 public func loadDataNamed(name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> NSData {
     
@@ -22,15 +30,25 @@ public func loadJSONNamed(name: String, subdirectory subpath: String? = nil, fro
     return try JSON.decode(data)
 }
 
-public func loadStoryboardNamed(name: String, fromBundleForClass aClass: AnyClass? = nil) -> UIStoryboard {
-    return UIStoryboard(name: name, bundle: NSBundle.findBundle(forClass: aClass))
+public func loadStoryboardNamed(name: String, fromBundleForClass aClass: AnyClass? = nil) -> OSStoryboard {
+    return OSStoryboard(name: name, bundle: NSBundle.findBundle(forClass: aClass))
 }
 
-public func loadNibNamed(name: String, fromBundleForClass aClass: AnyClass? = nil) -> UINib {
-    return UINib(nibName: name, bundle: NSBundle.findBundle(forClass: aClass))
+public func loadNibNamed(name: String, fromBundleForClass aClass: AnyClass? = nil) -> OSNib {
+    #if os(iOS) || os(tvOS)
+        return UINib(nibName: name, bundle: NSBundle.findBundle(forClass: aClass))
+    #else
+        return NSNib(nibNamed: name, bundle: NSBundle.findBundle(forClass: aClass))!
+    #endif
 }
 
-public func loadViewFromNibNamed<T: UIView>(name: String, fromBundleForClass aClass: AnyClass? = nil, owner: AnyObject? = nil) -> T {
+public func loadViewFromNibNamed<T: OSView>(name: String, fromBundleForClass aClass: AnyClass? = nil, owner: AnyObject? = nil) -> T {
     let nib = loadNibNamed(name, fromBundleForClass: aClass)
-    return nib.instantiateWithOwner(owner, options: nil)[0] as! T
+    #if os(iOS) || os(tvOS)
+        return nib.instantiateWithOwner(owner, options: nil)[0] as! T
+    #else
+        var objs: NSArray? = nil
+        nib.instantiateWithOwner(owner, topLevelObjects: &objs)
+        return objs![0] as! T
+    #endif
 }
