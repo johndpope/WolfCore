@@ -44,7 +44,7 @@ public class Heartbeat {
     
     public func reset() {
         cancel()
-        canceler = dispatchOnMainAfterDelay(interval) { [unowned self] canceler in
+        canceler = dispatchOnMain(afterDelay: interval) { [unowned self] canceler in
             self.expired()
         }
     }

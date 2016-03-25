@@ -6,23 +6,39 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+#if os(iOS)
+    import UIKit
+    public typealias OSGestureRecognizer = UIGestureRecognizer
+#else
+    import Cocoa
+    public typealias OSGestureRecognizer = NSGestureRecognizer
+#endif
 
-private let gestureActionSelector = Selector("gestureAction")
+private let gestureActionSelector = #selector(GestureRecognizerAction.gestureAction)
 
 public class GestureRecognizerAction: NSObject {
     private let action: DispatchBlock
-    private let gestureRecognizer: UIGestureRecognizer
+    private let gestureRecognizer: OSGestureRecognizer
     
-    public init(gestureRecognizer: UIGestureRecognizer, action: DispatchBlock) {
+    public init(gestureRecognizer: OSGestureRecognizer, action: DispatchBlock) {
         self.gestureRecognizer = gestureRecognizer
         self.action = action
         super.init()
-        gestureRecognizer.addTarget(self, action: gestureActionSelector)
+        #if os(iOS)
+            gestureRecognizer.addTarget(self, action: gestureActionSelector)
+        #else
+            gestureRecognizer.target = self
+            gestureRecognizer.action = gestureActionSelector
+        #endif
     }
     
     deinit {
-        gestureRecognizer.removeTarget(self, action: gestureActionSelector)
+        #if os(iOS)
+            gestureRecognizer.removeTarget(self, action: gestureActionSelector)
+        #else
+            gestureRecognizer.target = nil
+            gestureRecognizer.action = nil
+        #endif
     }
     
     public func gestureAction() {
@@ -30,8 +46,8 @@ public class GestureRecognizerAction: NSObject {
     }
 }
 
-extension UIView {
-    public func addGestureRecognizerAction(gestureRecognizer: UIGestureRecognizer, action: DispatchBlock) -> GestureRecognizerAction {
+extension OSView {
+    public func addAction(forGestureRecognizer gestureRecognizer: OSGestureRecognizer, action: DispatchBlock) -> GestureRecognizerAction {
         self.addGestureRecognizer(gestureRecognizer)
         return GestureRecognizerAction(gestureRecognizer: gestureRecognizer, action: action)
     }

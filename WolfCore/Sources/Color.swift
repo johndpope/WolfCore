@@ -8,6 +8,11 @@
 
 #if os(Linux)
     import Glibc
+#elseif os(iOS) || os(tvOS)
+    import UIKit
+    import CoreGraphics
+#elseif os(OSX)
+    import Cocoa
 #endif
 
 // #abc
@@ -249,13 +254,17 @@ extension Color {
 }
 #endif
 
-#if os(iOS) || os(tvOS)
-    extension Color {
-        public var uiColor: UIColor {
-            return UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
-        }
+extension Color {
+    #if os(iOS) || os(tvOS)
+    public var uiColor: UIColor {
+        return UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
     }
-#endif
+    #elseif os(OSX)
+    public var nsColor: NSColor {
+        return NSColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
+    }
+    #endif
+}
 
 extension Color : Equatable { }
 

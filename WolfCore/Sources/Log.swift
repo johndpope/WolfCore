@@ -6,6 +6,8 @@
 //  Copyright © 2015 Arciem. All rights reserved.
 //
 
+import Foundation
+
 public enum LogLevel: Int {
     case Trace
     case Info

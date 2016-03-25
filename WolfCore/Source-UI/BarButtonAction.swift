@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let barButtonActionSelector = Selector("itemAction")
+private let barButtonActionSelector = #selector(BarButtonItemAction.itemAction)
 
 public class BarButtonItemAction: NSObject {
     private let action: DispatchBlock

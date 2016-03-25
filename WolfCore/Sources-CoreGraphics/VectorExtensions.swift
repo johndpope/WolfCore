@@ -6,7 +6,7 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 extension CGVector {
     public init(_ point1: CGPoint, _ point2: CGPoint) {

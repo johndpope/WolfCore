@@ -6,6 +6,8 @@
 //  Copyright © 2015 Arciem. All rights reserved.
 //
 
+import Foundation
+
 let serializerKey:String = "Serializer"
 var nextQueueContext: Int = 1
 
@@ -15,7 +17,8 @@ public class Serializer {
     
     public init(name: NSString? = nil) {
         self.queue = dispatch_queue_create(name?.UTF8String ?? nil, DISPATCH_QUEUE_SERIAL)
-        self.queueContext = NSNumber(integer: ++nextQueueContext)
+        nextQueueContext += 1
+        self.queueContext = NSNumber(integer: nextQueueContext)
 //        dispatch_queue_set_specific_glue(self.queue, serializerKey, self.queueContext)
     }
     
@@ -31,7 +34,7 @@ public class Serializer {
         if(isExecutingOnMyQueue) {
             f()
         } else {
-            dispatchSyncOnQueue(queue, f)
+            dispatchSync(onQueue: queue, f)
         }
     }
     
@@ -41,7 +44,7 @@ public class Serializer {
         if(self.isExecutingOnMyQueue) {
             result = f()
         } else {
-            dispatchSyncOnQueue(self.queue) {
+            dispatchSync(onQueue: self.queue) {
                 result = f()
             }
         }

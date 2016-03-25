@@ -6,7 +6,11 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+#if os(iOS) || os(tvOS)
+    import UIKit
+#elseif os(OSX)
+    import Cocoa
+#endif
 
 public class LayoutConstraintsGroup {
     private let constraints: [NSLayoutConstraint]

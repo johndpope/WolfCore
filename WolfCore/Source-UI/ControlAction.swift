@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let controlActionSelector = Selector("controlAction")
+private let controlActionSelector = #selector(ControlAction.controlAction)
 
 public class ControlAction: NSObject {
     private let action: DispatchBlock
@@ -33,7 +33,7 @@ public class ControlAction: NSObject {
 }
 
 extension UIControl {
-    public func addControlActionForControlEvents(controlEvents: UIControlEvents, action: DispatchBlock) -> ControlAction {
+    public func addControlAction(forControlEvents controlEvents: UIControlEvents, action: DispatchBlock) -> ControlAction {
         return ControlAction(control: self, forControlEvents: controlEvents, action: action)
     }
 }

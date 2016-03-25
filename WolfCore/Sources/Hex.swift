@@ -10,7 +10,7 @@ import Foundation
 
 public class Hex {
     public static func encode(data: NSData) -> String {
-        let bytes = ByteArray.bytesWithData(data)
+        let bytes = ByteArray.bytes(withData: data)
         var s = String()
         for byte in bytes {
             s += encode(byte)
@@ -19,7 +19,7 @@ public class Hex {
     }
 
     public static func encode(bytes: Bytes) -> String {
-        return encode(ByteArray.dataWithBytes(bytes))
+        return encode(ByteArray.data(withBytes: bytes))
     }
 
     public static func encode(byte: Byte) -> String {

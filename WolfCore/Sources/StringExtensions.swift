@@ -8,6 +8,10 @@
 
 import Foundation
 
+#if os(iOS) || os(OSX) || os(tvOS)
+    import CoreGraphics
+#endif
+
 // Provide concise versions of NSLocalizedString.
 
 #if os(iOS) || os(OSX) || os(tvOS)

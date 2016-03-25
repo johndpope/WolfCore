@@ -8,7 +8,9 @@
 
 //import UIKit
 #if os(Linux)
-import Glibc
+    import Glibc
+#else
+    import Darwin.C
 #endif
 
 public func degreesForRadians(radians: Double) -> Double {
@@ -48,7 +50,7 @@ public func partingAngleAtVertex(p1: Point, _ p2: Point, _ p3: Point) -> Double 
 //
 // http://math.stackexchange.com/questions/797828/calculate-center-of-circle-tangent-to-two-lines-in-space
 //
-public func infoForRoundedCornerArcAtVertexWithRadius(radius radius: Double, _ p1: Point, _ p2: Point, _ p3: Point) -> (center: Point, startPoint: Point, startAngle: Double, endPoint: Point, endAngle: Double, clockwise: Bool) {
+public func infoForRoundedCornerArcAtVertex(withRadius radius: Double, _ p1: Point, _ p2: Point, _ p3: Point) -> (center: Point, startPoint: Point, startAngle: Double, endPoint: Point, endAngle: Double, clockwise: Bool) {
     let alpha = partingAngleAtVertex(p1, p2, p3)
     let distanceFromVertexToCenter = radius / (sin(alpha / 2))
 

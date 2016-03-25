@@ -20,6 +20,8 @@
 
 #if os(Linux)
     import Glibc
+#else
+    import Darwin.C
 #endif
 
 public struct HashidsOptions
@@ -42,7 +44,7 @@ public struct HashidsOptions
 
 public protocol HashidsGenerator
 {
-    typealias Char;
+    associatedtype Char;
 
     func encode(value:Int...) -> String?
 

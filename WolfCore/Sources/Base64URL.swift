@@ -14,7 +14,7 @@ public class Base64URL {
     }
 
     public static func encode(bytes: Bytes) -> String {
-        return encode(ByteArray.dataWithBytes(bytes))
+        return encode(ByteArray.data(withBytes: bytes))
     }
 
     public static func decode(string: String) throws -> NSData {
@@ -22,7 +22,7 @@ public class Base64URL {
     }
 
     public static func decode(string: String) throws -> Bytes {
-        return ByteArray.bytesWithData(try decode(string))
+        return ByteArray.bytes(withData: try decode(string))
     }
 
     private static func base64URLStringWithBase64String(base64String: String) -> String {

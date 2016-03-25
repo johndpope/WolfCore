@@ -6,6 +6,8 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
+import Foundation
+
 /// Classes that represent errors may conform to this protocol.
 public protocol Error: ErrorType, CustomStringConvertible {
     /// A human-readable error message.
