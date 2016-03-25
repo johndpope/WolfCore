@@ -16,7 +16,7 @@
 
 extension OSImage {
     public func tintWithColor(color: OSColor) -> OSImage {
-        return imageWithSize(self.size, opaque: false, scale: self.scale, renderingMode: .AlwaysOriginal) { context in
+        return newImage(withSize: self.size, opaque: false, scale: self.scale, renderingMode: .AlwaysOriginal) { context in
             let bounds = CGRect(origin: CGPoint.zero, size: self.size)
             self.drawInRect(bounds)
             CGContextSetFillColorWithColor(context, color.CGColor)

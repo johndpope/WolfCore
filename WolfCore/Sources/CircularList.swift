@@ -38,7 +38,7 @@ public struct CircularList<T> {
         return self[currentIndex]
     }
 
-    public func elementAtOffset(offset: Int) -> ElementType? {
+    public func element(atOffset offset: Int) -> ElementType? {
         guard !elements.isEmpty else { return nil }
         return self[currentIndex + offset]
     }

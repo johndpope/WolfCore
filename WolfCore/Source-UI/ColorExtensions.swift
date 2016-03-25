@@ -39,7 +39,7 @@ extension OSColor {
             let screenScale: CGFloat = 1.0
         #endif
         let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 64, height: 64))
-        let image = imageWithSize(bounds.size, opaque: true, scale: screenScale, renderingMode: .AlwaysOriginal) { context in
+        let image = newImage(withSize: bounds.size, opaque: true, scale: screenScale, renderingMode: .AlwaysOriginal) { context in
             CGContextSetFillColorWithColor(context, color1.CGColor)
             CGContextFillRect(context, bounds)
             let path = OSBezierPath()

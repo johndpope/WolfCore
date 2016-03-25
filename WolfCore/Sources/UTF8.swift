@@ -18,7 +18,7 @@ public class UTF8 {
     }
 
     public static func encode(string: String) -> NSData {
-        return ByteArray.dataWithBytes(encode(string))
+        return ByteArray.data(withBytes: encode(string))
     }
 
     public static func decode(data: NSData) throws -> String {
@@ -30,6 +30,6 @@ public class UTF8 {
     }
 
     public static func decode(bytes: Bytes) throws -> String {
-        return try decode(ByteArray.dataWithBytes(bytes))
+        return try decode(ByteArray.data(withBytes: bytes))
     }
 }

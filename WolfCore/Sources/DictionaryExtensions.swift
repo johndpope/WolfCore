@@ -7,7 +7,7 @@
 //
 
 extension Dictionary {
-    mutating func updateFromDictionary(dict: Dictionary) {
+    mutating func update(fromDictionary dict: Dictionary) {
         for (key, value) in dict {
             self.updateValue(value, forKey: key)
         }

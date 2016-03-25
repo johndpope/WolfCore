@@ -32,19 +32,19 @@ public class PDF {
         self.init(url: url)
     }
     
-    public func sizeOfPageAtIndex(index: Int) -> CGSize {
-        return sizeOfPage(pageAtIndex(index))
+    public func sizeOfPage(atIndex index: Int) -> CGSize {
+        return sizeOfPage(getPage(atIndex: index))
     }
     
     #if os(iOS) || os(tvOS)
-    public func imageForPageAtIndex(index: Int, size: CGSize? = nil, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
-        let page = pageAtIndex(index)
-        let size = size ?? sizeOfPageAtIndex(index)
+    public func imageForPage(atIndex index: Int, size: CGSize? = nil, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
+        let page = getPage(atIndex: index)
+        let size = size ?? sizeOfPage(atIndex: index)
         let bounds = CGRect(origin: .zero, size: size)
         let cropBox = CGPDFPageGetBoxRect(page, .CropBox)
         let scaling = CGVector(size: bounds.size) / CGVector(size: cropBox.size)
         let transform = CGAffineTransform.scaling(scaling)
-        return imageWithSize(size, opaque: false, scale: scale, flipped: true, renderingMode: renderingMode) { context in
+        return newImage(withSize: size, opaque: false, scale: scale, flipped: true, renderingMode: renderingMode) { context in
             CGContextConcatCTM(context, transform)
             CGContextDrawPDFPage(context, page)
         }
@@ -52,16 +52,16 @@ public class PDF {
     #endif
     
     #if os(iOS) || os(tvOS)
-    public func imageForPageAtIndex(index: Int, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
-        let size = sizeOfPageAtIndex(index)
+    public func imageForPage(atIndex index: Int, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
+        let size = sizeOfPage(atIndex: index)
         let newSize = size.aspectFitWithinSize(fittingSize)
-        return imageForPageAtIndex(index, size: newSize, scale: scale, renderingMode: renderingMode)
+        return imageForPage(atIndex: index, size: newSize, scale: scale, renderingMode: renderingMode)
     }
     #endif
     
     #if os(iOS) || os(tvOS)
     public func image() -> UIImage {
-        return imageForPageAtIndex(0)
+        return imageForPage(atIndex: 0)
     }
     #endif
     
@@ -69,7 +69,7 @@ public class PDF {
     // MARK: - Private
     //
     
-    private func pageAtIndex(index: Int) -> CGPDFPage {
+    private func getPage(atIndex index: Int) -> CGPDFPage {
         assert(index < pageCount)
         return CGPDFDocumentGetPage(pdf, index + 1)!
     }

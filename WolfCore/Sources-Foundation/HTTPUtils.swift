@@ -30,6 +30,8 @@ public enum ContentType: String {
 public enum HeaderField: String {
     case Accept = "Accept"
     case ContentType = "Content-Type"
+    case Encoding = "Encoding"
+    case Authorization = "Authorization"
 }
 
 public enum ResponseCode: Int {
@@ -49,11 +51,12 @@ public enum ResponseCode: Int {
     case GatewayTimeout = 504
 }
 
-public func retrieveURLRequest(request: NSMutableURLRequest,
-    success: (NSHTTPURLResponse, NSData) -> Void,
-    failure: (ErrorType) -> Void,
-    finally: (() -> Void)? = nil) {
-
+public class HTTP {
+    public static func retrieve(withRequest request: NSMutableURLRequest,
+                                            success: (NSHTTPURLResponse, NSData) -> Void,
+                                            failure: (ErrorType) -> Void,
+                                            finally: (() -> Void)? = nil) {
+        
         let session = NSURLSession.sharedSession()
         
         logTrace("request :\(request)")
@@ -64,11 +67,11 @@ public func retrieveURLRequest(request: NSMutableURLRequest,
                 dispatchOnMain { finally?() }
                 return
             }
-
+            
             guard let httpResponse = response as? NSHTTPURLResponse else {
                 fatalError("improper response type: \(response)")
             }
-
+            
             guard data != nil else {
                 dispatchOnMain { failure(HTTPError(response: httpResponse)) }
                 dispatchOnMain { finally?() }
@@ -80,16 +83,16 @@ public func retrieveURLRequest(request: NSMutableURLRequest,
         }
         
         task.resume()
-}
-
-public func retrieveJSONURLRequest(request: NSMutableURLRequest,
-    success: (NSHTTPURLResponse, JSONObject) -> Void,
-    failure: (ErrorType) -> Void,
-    finally: (() -> Void)? = nil) {
+    }
+    
+    public static func retrieveJSON(withRequest request: NSMutableURLRequest,
+                                                success: (NSHTTPURLResponse, JSONObject) -> Void,
+                                                failure: (ErrorType) -> Void,
+                                                finally: (() -> Void)? = nil) {
         
         request.setValue(ContentType.JSON.rawValue, forHTTPHeaderField: HeaderField.Accept.rawValue)
         
-        retrieveURLRequest(request, success: { (response, data) -> Void in
+        retrieve(withRequest: request, success: { (response, data) -> Void in
             do {
                 let json = try JSON.decode(data)
                 logTrace(try! UTF8.decode(data))
@@ -98,29 +101,30 @@ public func retrieveJSONURLRequest(request: NSMutableURLRequest,
                 failure(error)
             }
             },
-            failure: failure,
-            finally: finally
+                 failure: failure,
+                 finally: finally
         )
-}
-
-public func retrieveImageURL(url: NSURL,
-    success: (OSImage) -> Void,
-    failure: (ErrorType) -> Void,
-    finally: (() -> Void)? = nil) {
- 
+    }
+    
+    public static func retrieveImage(withURL url: NSURL,
+                                             success: (OSImage) -> Void,
+                                             failure: (ErrorType) -> Void,
+                                             finally: (() -> Void)? = nil) {
+        
         let request = NSMutableURLRequest()
         request.HTTPMethod = HTTPMethod.GET.rawValue
         request.URL = url
         
-        retrieveURLRequest(request,
-            success: { (response, data) -> Void in
-                if let image = OSImage(data: data) {
-                    success(image)
-                } else {
-                    failure(HTTPError(response: response))
-                }
+        retrieve(withRequest: request,
+                 success: { (response, data) -> Void in
+                    if let image = OSImage(data: data) {
+                        success(image)
+                    } else {
+                        failure(HTTPError(response: response))
+                    }
             },
-            failure: failure,
-            finally: finally
+                 failure: failure,
+                 finally: finally
         )
+    }
 }

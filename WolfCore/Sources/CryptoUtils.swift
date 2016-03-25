@@ -177,7 +177,7 @@ public class CryptoKey: CustomStringConvertible {
             try CryptoError.checkCode(SecItemAdd(attributes, &item), message: "Adding temp key to keychain.")
             let keyInfo = item! as! NSData
             try CryptoError.checkCode(SecItemDelete(query), message: "Deleting temp key from keychain.")
-            return ByteArray.bytesWithData(keyInfo)
+            return ByteArray.bytes(withData: keyInfo)
         }
 
         func json(onlyPublic: Bool, keyID: String? = nil) throws -> JSONDictionary {

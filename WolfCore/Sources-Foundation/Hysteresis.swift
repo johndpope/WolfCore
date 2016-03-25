@@ -47,7 +47,7 @@ public class Hysteresis {
             self.causeCount += 1
             if self.causeCount == 1 {
                 self.effectEndCanceler?.cancel()
-                self.effectStartCanceler = dispatchOnBackgroundAfterDelay(self.effectStartLag) {
+                self.effectStartCanceler = dispatchOnBackground(afterDelay: self.effectStartLag) {
                     if !self.effectStarted {
                         self.effectStart()
                         self.effectStarted = true
@@ -63,7 +63,7 @@ public class Hysteresis {
             self.causeCount -= 1
             if self.causeCount == 0 {
                 self.effectStartCanceler?.cancel()
-                self.effectEndCanceler = dispatchOnBackgroundAfterDelay(self.effectEndLag) {
+                self.effectEndCanceler = dispatchOnBackground(afterDelay: self.effectEndLag) {
                     if self.effectStarted {
                         self.effectEnd()
                         self.effectStarted = false

@@ -110,7 +110,7 @@ extension OSBezierPath {
                 let p1 = Point(cgPoint: corners.elementAtCircularIndex(index - 1))
                 let p2 = Point(cgPoint: corners[index])
                 let p3 = Point(cgPoint: corners.elementAtCircularIndex(index + 1))
-                let (center, startPoint, startAngle, _ /*endPoint*/, endAngle, clockwise) = infoForRoundedCornerArcAtVertexWithRadius(radius: Double(cornerRadius), p1, p2, p3)
+                let (center, startPoint, startAngle, _ /*endPoint*/, endAngle, clockwise) = infoForRoundedCornerArcAtVertex(withRadius: Double(cornerRadius), p1, p2, p3)
                 if index == 0 {
                     moveToPoint(startPoint.cgPoint)
                 }

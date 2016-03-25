@@ -33,7 +33,7 @@ public class ControlAction: NSObject {
 }
 
 extension UIControl {
-    public func addControlActionForControlEvents(controlEvents: UIControlEvents, action: DispatchBlock) -> ControlAction {
+    public func addControlAction(forControlEvents controlEvents: UIControlEvents, action: DispatchBlock) -> ControlAction {
         return ControlAction(control: self, forControlEvents: controlEvents, action: action)
     }
 }

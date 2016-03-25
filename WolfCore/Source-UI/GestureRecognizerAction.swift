@@ -47,7 +47,7 @@ public class GestureRecognizerAction: NSObject {
 }
 
 extension OSView {
-    public func addGestureRecognizerAction(gestureRecognizer: OSGestureRecognizer, action: DispatchBlock) -> GestureRecognizerAction {
+    public func addAction(forGestureRecognizer gestureRecognizer: OSGestureRecognizer, action: DispatchBlock) -> GestureRecognizerAction {
         self.addGestureRecognizer(gestureRecognizer)
         return GestureRecognizerAction(gestureRecognizer: gestureRecognizer, action: action)
     }
