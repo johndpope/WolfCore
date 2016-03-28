@@ -22,7 +22,7 @@ public class Matrix<T> {
         columnsCount = 0
     }
     
-    public func objectAtPosition(position: Position) -> ValueType? {
+    public func object(atPosition position: Position) -> ValueType? {
         guard position.row < rowsCount else {
             return nil
         }
@@ -35,12 +35,12 @@ public class Matrix<T> {
         return row[position.column]
     }
     
-    public func setObject(value: ValueType?, atPosition position: Position) {
-        while position.row <= rowsCount {
+    public func set(object value: ValueType?, atPosition position: Position) {
+        while rowsCount <= position.row {
             rows.append(RowType())
         }
         
-        while position.column <= rows[position.row].count {
+        while rows[position.row].count <= position.column {
             rows[position.row].append(nil)
             if rows[position.row].count > columnsCount {
                 columnsCount = rows[position.row].count
