@@ -8,9 +8,11 @@
 
 import Foundation
 
-// Similar to NSBundle.bundleForClass, except if aClass is nil (or omitted) the main bundle is returned
+/// WolfCore.BundleClass.self can be used as an argument to the NSBundle.findBundle(forClass:) method to search within this framework bundle.
+public class BundleClass { }
 
 extension NSBundle {
+    /// Similar to NSBundle.bundleForClass, except if aClass is nil (or omitted) the main bundle is returned
     public static func findBundle(forClass aClass: AnyClass? = nil) -> NSBundle {
         let bundle: NSBundle
         if let aClass = aClass {

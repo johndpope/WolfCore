@@ -16,15 +16,52 @@ import Foundation
 
 #if os(iOS) || os(OSX) || os(tvOS)
 extension String {
-    public var localized: String {
-        return NSLocalizedString(self, comment: "")
-    }
-
-    public func localized(comment: String) -> String {
-        return NSLocalizedString(self, comment: comment)
+    public func localized(inBundleForClass aClass: AnyClass? = nil, replacingPlaceholdersWithReplacements replacements: [String : Any]? = nil) -> String {
+        let bundle = NSBundle.findBundle(forClass: aClass)
+        var s = bundle.localizedStringForKey(self, value: nil, table: nil)
+        if s == self {
+            s = NSBundle.findBundle(forClass: BundleClass.self).localizedStringForKey(self, value: nil, table: nil)
+        }
+        if let replacements = replacements {
+            s = s.replacing(placeholdersWithReplacements: replacements)
+        }
+        return s
     }
 }
 #endif
+
+extension String {
+    public func range(fromNSRange range: NSRange) -> Range<String.Index> {
+        let s = self.startIndex.advancedBy(range.location)
+        let e = self.startIndex.advancedBy(range.location + range.length)
+        return s..<e
+    }
+    
+    public var nsRange: NSRange {
+        return NSRange(location: 0, length: (self as NSString).length)
+    }
+}
+
+private let _placeholderReplacementRegex = try! ~/"(?:(?<!\\\\)#\\{(\\w+)\\})"
+
+extension String {
+    public func replacing(placeholdersWithReplacements replacements: [String : Any]) -> String {
+        var mutatedSelf = self
+        // (?:(?<!\\)#{(\w+)})
+        let matches = _placeholderReplacementRegex.matchesInString(self, options: [], range: nsRange) as Array<NSTextCheckingResult>
+        for match in matches.reverse() {
+            let matchRange = range(fromNSRange: match.range)
+            let placeholderRange = range(fromNSRange: match.rangeAtIndex(1))
+            let replacementName = mutatedSelf[placeholderRange]
+            if let replacement = replacements[replacementName] {
+                mutatedSelf.replaceRange(matchRange, with: "\(replacement)")
+            } else {
+                logError("Replacement in \"\(self)\" not found for placeholder \"\(replacementName)\".")
+            }
+        }
+        return mutatedSelf
+    }
+}
 
 extension String {
     public func paddedToCount(finalCount: Int, onRight: Bool = false, withCharacter character: Character = " ") -> String {

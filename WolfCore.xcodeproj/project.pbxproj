@@ -137,6 +137,8 @@
 		036B834D1C4320F300491AFF /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834C1C4320F300491AFF /* Gradient.swift */; };
 		036FECAD1C73D74200B09489 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 036FECA31C73CFB100B09489 /* libsqlite3.tbd */; };
 		036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonAction.swift */; };
+		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
+		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
@@ -170,6 +172,16 @@
 		03FAF7891C53F7340045BB37 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7881C53F7340045BB37 /* Hex.swift */; };
 		03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03A146741CAF5E0600FD6261 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 035552EF1C0F5F4200E0FCA7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 035552F71C0F5F4200E0FCA7;
+			remoteInfo = "WolfCore-iOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		03206B2C1C3B1B02001A463B /* BSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BSON.swift; sourceTree = "<group>"; };
@@ -233,6 +245,9 @@
 		036FEC9E1C73CEA800B09489 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		036FECA31C73CFB100B09489 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		036FECB01C766E6B00B09489 /* BarButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonAction.swift; sourceTree = "<group>"; };
+		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03A146791CAF5E3900FD6261 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
@@ -284,6 +299,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03A1466B1CAF5E0600FD6261 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -293,6 +316,7 @@
 				035552FA1C0F5F4200E0FCA7 /* WolfCore */,
 				035553661C0F6E6A00E0FCA7 /* Supporting Files */,
 				036FECA21C73CF2000B09489 /* Libraries */,
+				03A1466F1CAF5E0600FD6261 /* WolfCoreTests-iOS */,
 				035552F91C0F5F4200E0FCA7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -302,6 +326,7 @@
 			children = (
 				035552F81C0F5F4200E0FCA7 /* WolfCore.framework */,
 				033F5EE11CA3096700647A0A /* WolfCore.framework */,
+				03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -426,6 +451,15 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
+		03A1466F1CAF5E0600FD6261 /* WolfCoreTests-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				03A146791CAF5E3900FD6261 /* StringTests.swift */,
+				03A146721CAF5E0600FD6261 /* Info.plist */,
+			);
+			path = "WolfCoreTests-iOS";
+			sourceTree = "<group>";
+		};
 		03F5A8B31C496C4900B124A3 /* Utilities-Portable */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,19 +569,40 @@
 			productReference = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		03A1466D1CAF5E0600FD6261 /* WolfCoreTests-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03A146781CAF5E0600FD6261 /* Build configuration list for PBXNativeTarget "WolfCoreTests-iOS" */;
+			buildPhases = (
+				03A1466A1CAF5E0600FD6261 /* Sources */,
+				03A1466B1CAF5E0600FD6261 /* Frameworks */,
+				03A1466C1CAF5E0600FD6261 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03A146751CAF5E0600FD6261 /* PBXTargetDependency */,
+			);
+			name = "WolfCoreTests-iOS";
+			productName = "WolfCoreTests-iOS";
+			productReference = 03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		035552EF1C0F5F4200E0FCA7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Arciem;
 				TargetAttributes = {
 					035552F71C0F5F4200E0FCA7 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 92TUA8H52D;
+					};
+					03A1466D1CAF5E0600FD6261 = {
+						CreatedOnToolsVersion = 7.3;
 					};
 				};
 			};
@@ -565,6 +620,7 @@
 			targets = (
 				035552F71C0F5F4200E0FCA7 /* WolfCore-iOS */,
 				033F5E811CA3096700647A0A /* WolfCore-MacOSX */,
+				03A1466D1CAF5E0600FD6261 /* WolfCoreTests-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -578,6 +634,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		035552F61C0F5F4200E0FCA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03A1466C1CAF5E0600FD6261 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -761,7 +824,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03A1466A1CAF5E0600FD6261 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03A146751CAF5E0600FD6261 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 035552F71C0F5F4200E0FCA7 /* WolfCore-iOS */;
+			targetProxy = 03A146741CAF5E0600FD6261 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		033F5EDF1CA3096700647A0A /* Debug */ = {
@@ -953,6 +1032,34 @@
 			};
 			name = Release;
 		};
+		03A146761CAF5E0600FD6261 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "WolfCoreTests-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arciem.WolfCoreTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		03A146771CAF5E0600FD6261 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "WolfCoreTests-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arciem.WolfCoreTests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -982,6 +1089,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		03A146781CAF5E0600FD6261 /* Build configuration list for PBXNativeTarget "WolfCoreTests-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03A146761CAF5E0600FD6261 /* Debug */,
+				03A146771CAF5E0600FD6261 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
