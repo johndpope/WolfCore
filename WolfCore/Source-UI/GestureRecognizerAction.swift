@@ -17,10 +17,10 @@
 private let gestureActionSelector = #selector(GestureRecognizerAction.gestureAction)
 
 public class GestureRecognizerAction: NSObject {
-    private let action: DispatchBlock
+    public var action: DispatchBlock?
     private let gestureRecognizer: OSGestureRecognizer
     
-    public init(gestureRecognizer: OSGestureRecognizer, action: DispatchBlock) {
+    public init(gestureRecognizer: OSGestureRecognizer, action: DispatchBlock? = nil) {
         self.gestureRecognizer = gestureRecognizer
         self.action = action
         super.init()
@@ -42,7 +42,7 @@ public class GestureRecognizerAction: NSObject {
     }
     
     public func gestureAction() {
-        action()
+        action?()
     }
 }
 

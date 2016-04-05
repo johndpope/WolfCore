@@ -11,11 +11,11 @@ import UIKit
 private let controlActionSelector = #selector(ControlAction.controlAction)
 
 public class ControlAction: NSObject {
-    private let action: DispatchBlock
+    public var action: DispatchBlock?
     private let control: UIControl
     private let controlEvents: UIControlEvents
     
-    public init(control: UIControl, forControlEvents controlEvents: UIControlEvents, action: DispatchBlock) {
+    public init(control: UIControl, forControlEvents controlEvents: UIControlEvents, action: DispatchBlock? = nil) {
         self.control = control
         self.action = action
         self.controlEvents = controlEvents
@@ -28,7 +28,7 @@ public class ControlAction: NSObject {
     }
     
     public func controlAction() {
-        action()
+        action?()
     }
 }
 
