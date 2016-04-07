@@ -32,11 +32,6 @@ public func + (left: (anchor: NSLayoutDimension, multiplier: CGFloat), right: CG
 }
 
 
-// ⦿
-// CIRCLED BULLET
-// Unicode: U+29BF, UTF-8: E2 A6 BF
-//
-
 // "priority assign"
 infix operator =&= { associativity left precedence 95 }
 
@@ -109,15 +104,23 @@ public func =&= (left: NSLayoutConstraint, right: OSLayoutPriority) -> NSLayoutC
     return left
 }
 
+public func activateConstraints(constraints: [NSLayoutConstraint]) {
+    NSLayoutConstraint.activateConstraints(constraints)
+}
+
+public func deactivateConstraints(constraints: [NSLayoutConstraint]) {
+    NSLayoutConstraint.deactivateConstraints(constraints)
+}
+
 #if os(iOS)
-    public prefix func ~<T: OSView> (right: T) -> T {
+    public prefix func ~<T: UIView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false
         return right
     }
 
     prefix operator ~~ { }
 
-    public prefix func ~~<T: OSView> (right: T) -> T {
+    public prefix func ~~<T: UIView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false
         right.makeTransparent()
         return right

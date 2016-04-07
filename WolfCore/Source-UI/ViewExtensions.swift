@@ -9,9 +9,13 @@
 #if os(iOS)
     import UIKit
     public typealias OSView = UIView
+    public typealias OSEdgeInsets = UIEdgeInsets
+    public let OSEdgeInsetsZero = UIEdgeInsetsZero
 #elseif os(OSX)
     import Cocoa
     public typealias OSView = NSView
+    public typealias OSEdgeInsets = NSEdgeInsets
+    public let OSEdgeInsetsZero = NSEdgeInsetsZero
 #endif
 
 extension OSView {
@@ -35,49 +39,48 @@ extension OSView {
 }
 
 extension OSView {
-    public func constrainToSuperview(active active: Bool = true) -> [NSLayoutConstraint] {
+    public func constrainToSuperview(active active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         let sv = superview!
         let constraints = [
-            leadingAnchor == sv.leadingAnchor,
-            trailingAnchor == sv.trailingAnchor,
-            topAnchor == sv.topAnchor,
-            bottomAnchor == sv.bottomAnchor
+            leadingAnchor == sv.leadingAnchor + insets.left,
+            trailingAnchor == sv.trailingAnchor - insets.right,
+            topAnchor == sv.topAnchor + insets.top,
+            bottomAnchor == sv.bottomAnchor - insets.bottom
         ]
         if active {
-            NSLayoutConstraint.activateConstraints(constraints)
+            activateConstraints(constraints)
         }
         return constraints
     }
     
-    public func constrainToView(view: OSView, active: Bool = true) -> [NSLayoutConstraint] {
+    public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         assert(view.superview != nil, "View must have a superview.")
-        assert(superview == view.superview, "Views must have same superview.")
         let constraints = [
-            centerXAnchor == view.centerXAnchor,
-            centerYAnchor == view.centerYAnchor,
-            widthAnchor == view.widthAnchor,
-            heightAnchor == view.heightAnchor
+            leadingAnchor == view.leadingAnchor + insets.left,
+            trailingAnchor == view.trailingAnchor - insets.right,
+            topAnchor == view.topAnchor + insets.top,
+            bottomAnchor == view.bottomAnchor - insets.bottom
         ]
         if active {
-            NSLayoutConstraint.activateConstraints(constraints)
+            activateConstraints(constraints)
         }
         return constraints
     }
     
-    public func constrainCenterToViewCenter(view: OSView, active: Bool = true) -> [NSLayoutConstraint] {
+    public func constrainCenter(toCenterOfView view: OSView, active: Bool = true) -> [NSLayoutConstraint] {
         let constraints = [
             centerXAnchor == view.centerXAnchor,
             centerYAnchor == view.centerYAnchor
         ]
         if active {
-            NSLayoutConstraint.activateConstraints(constraints)
+            activateConstraints(constraints)
         }
         return constraints
     }
-
-    public func constrainCenterToSuperviewCenter(active active: Bool = true) -> [NSLayoutConstraint] {
+    
+    public func constrainCenterToCenterOfSuperview(active active: Bool = true) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         let sv = superview!
         let constraints = [
@@ -85,7 +88,18 @@ extension OSView {
             centerYAnchor == sv.centerYAnchor
         ]
         if active {
-            NSLayoutConstraint.activateConstraints(constraints)
+            activateConstraints(constraints)
+        }
+        return constraints
+    }
+    
+    public func constrain(toSize size: CGSize, active: Bool = true) -> [NSLayoutConstraint] {
+        let constraints = [
+            widthAnchor == size.width,
+            heightAnchor == size.height
+        ]
+        if active {
+            activateConstraints(constraints)
         }
         return constraints
     }
