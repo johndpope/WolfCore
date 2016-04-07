@@ -16,11 +16,13 @@
 
 private let gestureActionSelector = #selector(GestureRecognizerAction.gestureAction)
 
+public typealias GestureBlock = (OSGestureRecognizer) -> Void
+
 public class GestureRecognizerAction: NSObject {
-    public var action: DispatchBlock?
+    public var action: GestureBlock?
     private let gestureRecognizer: OSGestureRecognizer
     
-    public init(gestureRecognizer: OSGestureRecognizer, action: DispatchBlock? = nil) {
+    public init(gestureRecognizer: OSGestureRecognizer, action: GestureBlock? = nil) {
         self.gestureRecognizer = gestureRecognizer
         self.action = action
         super.init()
@@ -42,12 +44,12 @@ public class GestureRecognizerAction: NSObject {
     }
     
     public func gestureAction() {
-        action?()
+        action?(gestureRecognizer)
     }
 }
 
 extension OSView {
-    public func addAction(forGestureRecognizer gestureRecognizer: OSGestureRecognizer, action: DispatchBlock) -> GestureRecognizerAction {
+    public func addAction(forGestureRecognizer gestureRecognizer: OSGestureRecognizer, action: GestureBlock) -> GestureRecognizerAction {
         self.addGestureRecognizer(gestureRecognizer)
         return GestureRecognizerAction(gestureRecognizer: gestureRecognizer, action: action)
     }

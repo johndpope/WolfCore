@@ -131,6 +131,12 @@
 		035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36761C514A26000C04D0 /* CryptoUtils.swift */; };
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
 		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
+		036307D01CB6DA7F00DC7070 /* NotificationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307CF1CB6DA7F00DC7070 /* NotificationAction.swift */; };
+		036307D21CB6DAA500DC7070 /* ApplicationNotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D11CB6DAA500DC7070 /* ApplicationNotificationActions.swift */; };
+		036307D41CB6DAF700DC7070 /* NotificationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307CF1CB6DA7F00DC7070 /* NotificationAction.swift */; };
+		036307D61CB6DB0D00DC7070 /* OrientationNotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */; };
+		036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */; };
+		036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D91CB6DE0600DC7070 /* TVControllerActions.swift */; };
 		036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B833F1C40909700491AFF /* DictionaryExtensions.swift */; };
 		036B83471C431F2A00491AFF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83461C431F2A00491AFF /* Color.swift */; };
 		036B83491C431FDF00491AFF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83481C431FDF00491AFF /* Random.swift */; };
@@ -140,6 +146,8 @@
 		036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonAction.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
 		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
+		03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D01CB4869800F25335 /* GestureActions.swift */; };
+		03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */; };
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
@@ -239,6 +247,11 @@
 		035C36761C514A26000C04D0 /* CryptoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoUtils.swift; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
+		036307CF1CB6DA7F00DC7070 /* NotificationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationAction.swift; sourceTree = "<group>"; };
+		036307D11CB6DAA500DC7070 /* ApplicationNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationNotificationActions.swift; sourceTree = "<group>"; };
+		036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationNotificationActions.swift; sourceTree = "<group>"; };
+		036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationActions.swift; sourceTree = "<group>"; };
+		036307D91CB6DE0600DC7070 /* TVControllerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVControllerActions.swift; sourceTree = "<group>"; };
 		036B833F1C40909700491AFF /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		036B83461C431F2A00491AFF /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		036B83481C431FDF00491AFF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
@@ -250,6 +263,8 @@
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A146791CAF5E3900FD6261 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
+		03AB94D01CB4869800F25335 /* GestureActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureActions.swift; sourceTree = "<group>"; };
+		03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewGestureActions.swift; sourceTree = "<group>"; };
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joiner.swift; sourceTree = "<group>"; };
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
@@ -400,6 +415,7 @@
 				03B218981C20F3F20081CE39 /* Hysteresis.swift */,
 				0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */,
 				0355532C1C0F622A00E0FCA7 /* NotificationUtils.swift */,
+				036307CF1CB6DA7F00DC7070 /* NotificationAction.swift */,
 				035553301C0F622A00E0FCA7 /* ResourceUtils.swift */,
 				0362A1A81C1A22710005371F /* Serializer.swift */,
 				035553351C0F622A00E0FCA7 /* UserDefaultsExtensions.swift */,
@@ -411,11 +427,17 @@
 		0355536A1C0F6F7600E0FCA7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				036307D11CB6DAA500DC7070 /* ApplicationNotificationActions.swift */,
+				036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */,
+				036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */,
 				035553111C0F622A00E0FCA7 /* AnimationUtils.swift */,
 				035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */,
 				036FECB01C766E6B00B09489 /* BarButtonAction.swift */,
 				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
+				03AB94D01CB4869800F25335 /* GestureActions.swift */,
+				036307D91CB6DE0600DC7070 /* TVControllerActions.swift */,
+				03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */,
 				035553241C0F622A00E0FCA7 /* ImageUtils.swift */,
 				035553291C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift */,
 				035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */,
@@ -731,6 +753,7 @@
 				033F5ED51CA3096700647A0A /* ByteArray.swift in Sources */,
 				033F5ED61CA3096700647A0A /* Random.swift in Sources */,
 				033F5ED71CA3096700647A0A /* Result.swift in Sources */,
+				036307D41CB6DAF700DC7070 /* NotificationAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,15 +775,20 @@
 				03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */,
 				036B83471C431F2A00491AFF /* Color.swift in Sources */,
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
+				036307D01CB6DA7F00DC7070 /* NotificationAction.swift in Sources */,
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
 				035553581C0F622A00E0FCA7 /* PlaceholderView.swift in Sources */,
+				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
 				03E13B811C4F28F60074E447 /* SizeExtensions.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
 				0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
 				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
+				036307D21CB6DAA500DC7070 /* ApplicationNotificationActions.swift in Sources */,
+				036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */,
 				033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */,
 				0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */,
+				03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */,
 				03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */,
 				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
 				03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */,
@@ -797,6 +825,7 @@
 				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
 				036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */,
 				03E13B7F1C4F28F60074E447 /* PointExtensions.swift in Sources */,
+				036307D61CB6DB0D00DC7070 /* OrientationNotificationActions.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
 				034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */,
 				03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */,
@@ -821,6 +850,7 @@
 				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
 				03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */,
 				03E13B801C4F28F60074E447 /* RectExtensions.swift in Sources */,
+				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
 				03FAF7871C53F7230045BB37 /* ByteArray.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
