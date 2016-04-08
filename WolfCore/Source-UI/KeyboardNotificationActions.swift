@@ -20,8 +20,8 @@ public class KeyboardNotificationActions : NotificationActions {
     }
     
     public var willHide: NotificationBlock? {
-        get { return getAction(forName: UIApplicationWillEnterForegroundNotification) }
-        set { setAction(newValue, object: nil, name: UIApplicationWillEnterForegroundNotification) }
+        get { return getAction(forName: UIKeyboardWillHideNotification) }
+        set { setAction(newValue, object: nil, name: UIKeyboardWillHideNotification) }
     }
     
     public var didHide: NotificationBlock? {
