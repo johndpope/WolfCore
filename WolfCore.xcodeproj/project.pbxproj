@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031C5BBF1CC18977007166BA /* CardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BBE1CC18977007166BA /* CardProtocol.swift */; };
+		031C5BC11CC18992007166BA /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC01CC18992007166BA /* Pile.swift */; };
+		031C5BC31CC189F5007166BA /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC21CC189F5007166BA /* PlayingCard.swift */; };
+		031C5BC51CC18AC9007166BA /* CardFacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC41CC18AC9007166BA /* CardFacing.swift */; };
+		031C5BC71CC18B27007166BA /* CardBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC61CC18B27007166BA /* CardBack.swift */; };
+		031C5BC91CC18D38007166BA /* TarotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC81CC18D38007166BA /* TarotCard.swift */; };
+		031C5BCB1CC1D6DF007166BA /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BCA1CC1D6DF007166BA /* Card.swift */; };
 		03206B2D1C3B1B02001A463B /* BSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B2C1C3B1B02001A463B /* BSON.swift */; };
 		03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B301C3C7C5D001A463B /* RegexUtils.swift */; };
 		03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B321C3CBA7E001A463B /* RangeExtensions.swift */; };
@@ -144,6 +151,7 @@
 		036B834D1C4320F300491AFF /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834C1C4320F300491AFF /* Gradient.swift */; };
 		036FECAD1C73D74200B09489 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 036FECA31C73CFB100B09489 /* libsqlite3.tbd */; };
 		036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonAction.swift */; };
+		039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
 		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
 		03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D01CB4869800F25335 /* GestureActions.swift */; };
@@ -193,6 +201,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031C5BBE1CC18977007166BA /* CardProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardProtocol.swift; sourceTree = "<group>"; };
+		031C5BC01CC18992007166BA /* Pile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
+		031C5BC21CC189F5007166BA /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
+		031C5BC41CC18AC9007166BA /* CardFacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardFacing.swift; sourceTree = "<group>"; };
+		031C5BC61CC18B27007166BA /* CardBack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBack.swift; sourceTree = "<group>"; };
+		031C5BC81CC18D38007166BA /* TarotCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarotCard.swift; sourceTree = "<group>"; };
+		031C5BCA1CC1D6DF007166BA /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		03206B2C1C3B1B02001A463B /* BSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BSON.swift; sourceTree = "<group>"; };
 		03206B301C3C7C5D001A463B /* RegexUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexUtils.swift; sourceTree = "<group>"; };
 		03206B321C3CBA7E001A463B /* RangeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeExtensions.swift; sourceTree = "<group>"; };
@@ -260,6 +275,7 @@
 		036FEC9E1C73CEA800B09489 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		036FECA31C73CFB100B09489 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		036FECB01C766E6B00B09489 /* BarButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonAction.swift; sourceTree = "<group>"; };
+		039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A146791CAF5E3900FD6261 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
@@ -386,6 +402,13 @@
 				03F5A8BB1C49746500B124A3 /* Rect.swift */,
 				03E13B831C4FEE720074E447 /* Grid.swift */,
 				03DDBACF1C5A9D5400A8CDAE /* Position.swift */,
+				031C5BBE1CC18977007166BA /* CardProtocol.swift */,
+				031C5BCA1CC1D6DF007166BA /* Card.swift */,
+				031C5BC41CC18AC9007166BA /* CardFacing.swift */,
+				031C5BC61CC18B27007166BA /* CardBack.swift */,
+				031C5BC21CC189F5007166BA /* PlayingCard.swift */,
+				031C5BC81CC18D38007166BA /* TarotCard.swift */,
+				031C5BC01CC18992007166BA /* Pile.swift */,
 			);
 			name = "Types-Portable";
 			path = Sources;
@@ -434,6 +457,7 @@
 				035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */,
 				036FECB01C766E6B00B09489 /* BarButtonAction.swift */,
 				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
+				039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
 				03AB94D01CB4869800F25335 /* GestureActions.swift */,
 				036307D91CB6DE0600DC7070 /* TVControllerActions.swift */,
@@ -776,9 +800,11 @@
 				036B83471C431F2A00491AFF /* Color.swift in Sources */,
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				036307D01CB6DA7F00DC7070 /* NotificationAction.swift in Sources */,
+				031C5BC11CC18992007166BA /* Pile.swift in Sources */,
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
 				035553581C0F622A00E0FCA7 /* PlaceholderView.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
+				031C5BBF1CC18977007166BA /* CardProtocol.swift in Sources */,
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
 				03E13B811C4F28F60074E447 /* SizeExtensions.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
@@ -790,8 +816,10 @@
 				0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */,
 				03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */,
 				03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */,
+				031C5BC51CC18AC9007166BA /* CardFacing.swift in Sources */,
 				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
 				03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */,
+				031C5BC91CC18D38007166BA /* TarotCard.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */,
 				03E13B841C4FEE720074E447 /* Grid.swift in Sources */,
@@ -801,8 +829,10 @@
 				035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */,
 				035C36671C505DB0000C04D0 /* SHA256.swift in Sources */,
 				035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */,
+				031C5BCB1CC1D6DF007166BA /* Card.swift in Sources */,
 				036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */,
 				03206B2D1C3B1B02001A463B /* BSON.swift in Sources */,
+				031C5BC71CC18B27007166BA /* CardBack.swift in Sources */,
 				03F5A8BA1C4970DF00B124A3 /* Vector.swift in Sources */,
 				036B834B1C4320AC00491AFF /* ColorFunc.swift in Sources */,
 				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,
@@ -832,6 +862,7 @@
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
 				03F5A8B61C496D1100B124A3 /* Point.swift in Sources */,
 				03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */,
+				031C5BC31CC189F5007166BA /* PlayingCard.swift in Sources */,
 				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,
 				035553621C0F622A00E0FCA7 /* View.swift in Sources */,
 				03F5A8B81C496F2400B124A3 /* Size.swift in Sources */,
@@ -839,6 +870,7 @@
 				0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
 				03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */,
 				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
+				039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */,
 				03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */,
 				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,
 				032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */,

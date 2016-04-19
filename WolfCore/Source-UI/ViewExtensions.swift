@@ -6,7 +6,7 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSView = UIView
     public typealias OSEdgeInsets = UIEdgeInsets
@@ -104,3 +104,39 @@ extension OSView {
         return constraints
     }
 }
+
+extension OSView {
+    public func descendentViews<T: OSView>(ofClass aClass: AnyClass) -> [T] {
+        var resultViews = [T]()
+        
+        var queue: [OSView] = [self]
+        while !queue.isEmpty {
+            let view = queue.removeFirst()
+            if view.dynamicType == aClass {
+                resultViews.append(view as! T)
+            }
+            queue.appendContentsOf(view.subviews)
+        }
+        
+        return resultViews
+    }
+}
+
+#if os(iOS) || os(tvOS)
+extension UIAlertController {
+    /// This is a hack to set the accessibilityIdentifier attribute of a button created by a UIAlertAction on a UIAlertController. It is coded conservatively so as not to crash if Apple changes the view hierarchy of UIAlertController.view at some future date.
+    public func setAction(accessibilityIdentifier identifier: String, atIndex index: Int) {
+        let collectionViews: [UICollectionView] = view.descendentViews(ofClass: UICollectionView.self)
+        let collectionView = collectionViews[0]
+        if let cell /* :_UIAlertControllerCollectionViewCell */ = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) {
+            if cell.subviews.count > 0 {
+                let subview /* :UIView */ = cell.subviews[0]
+                if subview.subviews.count > 0 {
+                    let actionView /* :_UIAlertControllerActionView */ = subview.subviews[0]
+                    actionView.accessibilityIdentifier = identifier
+                }
+            }
+        }
+    }
+}
+#endif

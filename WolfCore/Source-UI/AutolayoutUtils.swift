@@ -104,8 +104,9 @@ public func =&= (left: NSLayoutConstraint, right: OSLayoutPriority) -> NSLayoutC
     return left
 }
 
-public func activateConstraints(constraints: [NSLayoutConstraint]) {
+public func activateConstraints(constraints: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
     NSLayoutConstraint.activateConstraints(constraints)
+    return constraints
 }
 
 public func deactivateConstraints(constraints: [NSLayoutConstraint]) {

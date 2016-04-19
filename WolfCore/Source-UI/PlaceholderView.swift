@@ -15,7 +15,7 @@ import UIKit
         super.didMoveToSuperview()
         
         if superview != nil {
-            makeTransparent(debugColor: UIColor.greenColor(), debug: true)
+            makeTransparent(debugColor: .Green, debug: false)
         }
     }
     
