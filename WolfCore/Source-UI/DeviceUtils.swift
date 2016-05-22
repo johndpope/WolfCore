@@ -23,3 +23,21 @@ public let isTV: Bool = {
 public let isCarPlay: Bool = {
     return UIDevice.currentDevice().userInterfaceIdiom == .CarPlay
 }()
+
+public var osVersion: String {
+    let os = NSProcessInfo().operatingSystemVersion
+    return "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+}
+
+public var deviceModel: String? {
+    var systemInfo = [UInt8](count: sizeof(utsname), repeatedValue: 0)
+    
+    let model = systemInfo.withUnsafeMutableBufferPointer { (inout body: UnsafeMutableBufferPointer<UInt8>) -> String? in
+        if uname(UnsafeMutablePointer(body.baseAddress)) != 0 {
+            return nil
+        }
+        return String.fromCString(UnsafePointer(body.baseAddress.advancedBy(Int(_SYS_NAMELEN * 4))))
+    }
+    
+    return model
+}

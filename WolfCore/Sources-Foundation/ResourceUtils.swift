@@ -40,8 +40,18 @@ public func loadJSON(named name: String, subdirectory subpath: String? = nil, fr
     return try JSON.decode(data)
 }
 
-public func loadStoryboardNamed(name: String, fromBundleForClass aClass: AnyClass? = nil) -> OSStoryboard {
-    return OSStoryboard(name: name, bundle: NSBundle.findBundle(forClass: aClass))
+public func loadStoryboard(named name: String, fromBundleForClass aClass: AnyClass? = nil) -> UIStoryboard {
+    return UIStoryboard(name: name, bundle: NSBundle.findBundle(forClass: aClass))
+}
+
+public func loadViewController<T: UIViewController>(withIdentifier identifier: String, fromStoryboardNamed storyboardName: String, fromBundleForClass aClass: AnyClass? = nil) -> T {
+    let storyboard = loadStoryboard(named: storyboardName, fromBundleForClass: aClass)
+    return storyboard.instantiateViewControllerWithIdentifier(identifier) as! T
+}
+
+public func loadInitialViewController<T: UIViewController>(fromStoryboardNamed storyboardName: String, fromBundleForClass aClass: AnyClass? = nil) -> T {
+    let storyboard = loadStoryboard(named: storyboardName, fromBundleForClass: aClass)
+    return storyboard.instantiateInitialViewController() as! T
 }
 
 public func loadNib(named name: String, fromBundleForClass aClass: AnyClass? = nil) -> OSNib {

@@ -127,3 +127,65 @@ public func deactivateConstraints(constraints: [NSLayoutConstraint]) {
         return right
     }
 #endif
+
+public func string(forRelation relation: NSLayoutRelation) -> String {
+    let result: String
+    switch relation {
+    case .Equal:
+        result = "=="
+    case .LessThanOrEqual:
+        result = "<="
+    case .GreaterThanOrEqual:
+        result = ">="
+    }
+    return result
+}
+
+public func string(forAttribute attribute: NSLayoutAttribute) -> String {
+    let result: String
+    switch attribute {
+    case .Left:
+        result = "left"
+    case .Right:
+        result = "right"
+    case .Top:
+        result = "top"
+    case .Bottom:
+        result = "bottom"
+    case .Leading:
+        result = "leading"
+    case .Trailing:
+        result = "trailing"
+    case .Width:
+        result = "width"
+    case .Height:
+        result = "height"
+    case .CenterX:
+        result = "centerX"
+    case .CenterY:
+        result = "centerY"
+    case .Baseline:
+        result = "baseline"
+    case .FirstBaseline:
+        result = "firstBaseline"
+    case .LeftMargin:
+        result = "leftMargin"
+    case .RightMargin:
+        result = "rightMargin"
+    case .TopMargin:
+        result = "topMargin"
+    case .BottomMargin:
+        result = "bottomMargin"
+    case .LeadingMargin:
+        result = "leadingMargin"
+    case .TrailingMargin:
+        result = "trailingMargin"
+    case .CenterXWithinMargins:
+        result = "centerXWithinMargins"
+    case .CenterYWithinMargins:
+        result = "centerYWithinMargins"
+    case .NotAnAttribute:
+        result = "notAnAttribute"
+    }
+    return result
+}

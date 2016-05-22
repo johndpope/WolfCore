@@ -64,7 +64,7 @@ extension String {
 }
 
 extension String {
-    public func paddedToCount(finalCount: Int, onRight: Bool = false, withCharacter character: Character = " ") -> String {
+    public func padded(toCount finalCount: Int, onRight: Bool = false, withCharacter character: Character = " ") -> String {
         let count = self.characters.count
         let padCount = finalCount - count
         guard padCount > 0 else { return self }

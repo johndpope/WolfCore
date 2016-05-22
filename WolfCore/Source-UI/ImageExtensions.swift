@@ -26,12 +26,12 @@ extension OSImage {
     }
     
     #if os(iOS)
-    public convenience init?(named name: String, fromBundleForClass aClass: AnyClass, compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) {
+    public convenience init?(named name: String, fromBundleForClass aClass: AnyClass?, compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) {
         let bundle = NSBundle.findBundle(forClass: aClass)
         self.init(named: name, inBundle: bundle, compatibleWithTraitCollection: traitCollection)
     }
     #elseif os(OSX)
-    public convenience init?(named name: String, fromBundleForClass aClass: AnyClass) {
+    public convenience init?(named name: String, fromBundleForClass aClass: AnyClass?) {
         let bundle = NSBundle.findBundle(forClass: aClass)
         guard let image = bundle.imageForResource(name) else {
             return nil

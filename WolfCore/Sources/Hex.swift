@@ -23,7 +23,7 @@ public class Hex {
     }
 
     public static func encode(byte: Byte) -> String {
-        return String(byte, radix: 16, uppercase: false).paddedToCount(2, withCharacter: "0")
+        return String(byte, radix: 16, uppercase: false).padded(toCount: 2, withCharacter: "0")
     }
 
     public static func decode(string: String) throws -> Int {
