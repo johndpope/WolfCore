@@ -2,8 +2,8 @@
 //  WolfCore.h
 //  WolfCore
 //
-//  Created by Robert McNally on 7/1/15.
-//  Copyright © 2015 Arciem. All rights reserved.
+//  Created by Robert McNally on 5/22/16.
+//  Copyright © 2016 Arciem. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -15,3 +15,5 @@ FOUNDATION_EXPORT double WolfCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char WolfCoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <WolfCore/PublicHeader.h>
+
+

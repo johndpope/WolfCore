@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "033F5E811CA3096700647A0A"
                BuildableName = "WolfCore.framework"
-               BlueprintName = "WolfCore-MacOSX"
+               BlueprintName = "WolfCore-OSX"
                ReferencedContainer = "container:WolfCore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,7 +47,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "033F5E811CA3096700647A0A"
             BuildableName = "WolfCore.framework"
-            BlueprintName = "WolfCore-MacOSX"
+            BlueprintName = "WolfCore-OSX"
             ReferencedContainer = "container:WolfCore.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,7 +65,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "033F5E811CA3096700647A0A"
             BuildableName = "WolfCore.framework"
-            BlueprintName = "WolfCore-MacOSX"
+            BlueprintName = "WolfCore-OSX"
             ReferencedContainer = "container:WolfCore.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

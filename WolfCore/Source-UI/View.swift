@@ -99,7 +99,9 @@ public class View: OSView {
         contentMode = view.contentMode
         tag = view.tag
         userInteractionEnabled = view.userInteractionEnabled
-        multipleTouchEnabled = view.multipleTouchEnabled
+        #if os(iOS)
+            multipleTouchEnabled = view.multipleTouchEnabled
+        #endif
         alpha = view.alpha
         backgroundColor = view.backgroundColor
         tintColor = view.tintColor

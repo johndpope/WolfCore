@@ -6,7 +6,7 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSColor = UIColor
 #else
@@ -33,7 +33,7 @@ extension OSColor {
     }
 
     public class func diagonalStripesPattern(color1 color1: OSColor, color2: OSColor, flipped: Bool = false) -> OSColor {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             let screenScale = UIScreen.mainScreen().scale
         #elseif os(OSX)
             let screenScale: CGFloat = 1.0

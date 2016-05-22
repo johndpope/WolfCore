@@ -6,7 +6,7 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSGestureRecognizer = UIGestureRecognizer
 #else
@@ -26,7 +26,7 @@ public class GestureRecognizerAction: NSObject {
         self.gestureRecognizer = gestureRecognizer
         self.action = action
         super.init()
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             gestureRecognizer.addTarget(self, action: gestureActionSelector)
         #else
             gestureRecognizer.target = self
@@ -35,7 +35,7 @@ public class GestureRecognizerAction: NSObject {
     }
     
     deinit {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             gestureRecognizer.removeTarget(self, action: gestureActionSelector)
         #else
             gestureRecognizer.target = nil

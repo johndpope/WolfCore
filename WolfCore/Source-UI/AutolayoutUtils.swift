@@ -6,7 +6,7 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSLayoutPriority = UILayoutPriority
 #else
@@ -113,7 +113,7 @@ public func deactivateConstraints(constraints: [NSLayoutConstraint]) {
     NSLayoutConstraint.deactivateConstraints(constraints)
 }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     public prefix func ~<T: UIView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false
         return right

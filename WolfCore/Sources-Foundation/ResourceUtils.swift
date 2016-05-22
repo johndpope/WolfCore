@@ -6,7 +6,7 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSStoryboard = UIStoryboard
     public typealias OSNib = UINib
