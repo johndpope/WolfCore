@@ -6,12 +6,17 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+#if os(iOS) || os(tvOS)
+    import UIKit
+#elseif os(OSX)
+    import Cocoa
+#endif
 
-public class View: UIView {
+public class View: OSView {
+#if os(iOS) || os(tvOS)
     /// Can be set from Interface Builder
     public var transparentToTouches: Bool = false
-    
+
     /// Can be set from Interface Builder
     public var transparentBackground: Bool = false {
         didSet {
@@ -43,6 +48,13 @@ public class View: UIView {
         super.awakeFromNib()
         loadContentFromNib()
     }
+    #endif
+    
+#if os(OSX)
+    public override var flipped: Bool {
+        return true
+    }
+#endif
 
     public convenience init() {
         self.init(frame: .zero)
@@ -66,6 +78,7 @@ public class View: UIView {
     // Override in subclasses
     public func setup() { }
     
+#if os(iOS) || os(tvOS)
     override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if transparentToTouches {
             return tranparentPointInside(point, withEvent: event)
@@ -122,4 +135,38 @@ public class View: UIView {
             addConstraint(NSLayoutConstraint(item: firstItem, attribute: firstAttribute, relatedBy: relation, toItem: secondItem, attribute: secondAttribute, multiplier: multiplier, constant: constant))
         }
     }
+#endif
+}
+
+extension View {
+    public func osDidSetNeedsDisplay() {
+    }
+    
+    #if os(iOS) || os(tvOS)
+    override public func setNeedsDisplay() {
+        super.setNeedsDisplay()
+        osDidSetNeedsDisplay()
+    }
+    
+    public func osSetNeedsDisplay() {
+        setNeedsDisplay()
+    }
+    #endif
+    
+    #if os(OSX)
+    override public var needsDisplay: Bool {
+    didSet {
+    osDidSetNeedsDisplay()
+    }
+    }
+    
+    public func osSetNeedsDisplay() {
+    needsDisplay = true
+    }
+    
+    public override func setNeedsDisplayInRect(rect: CGRect) {
+    super.setNeedsDisplayInRect(rect)
+    osDidSetNeedsDisplay()
+    }
+    #endif
 }

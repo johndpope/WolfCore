@@ -19,14 +19,14 @@
 #endif
 
 extension OSView {
-    #if os(iOS)
-    public func makeTransparent(debugColor debugColor: OSColor = OSColor.clearColor(), debug: Bool = false) {
+#if os(iOS) || os(tvOS)
+    public func makeTransparent(debugColor debugColor: OSColor = OSColor.Clear, debug: Bool = false) {
         opaque = false
         backgroundColor = debug ? debugColor.colorWithAlphaComponent(0.25) : OSColor.Clear
     }
-    #endif
+#endif
     
-    #if os(iOS)
+#if os(iOS) || os(tvOS)
     public func tranparentPointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         for subview in subviews {
             if !subview.hidden && subview.alpha > 0 && subview.userInteractionEnabled && subview.pointInside(convertPoint(point, toView: subview), withEvent: event) {
@@ -35,7 +35,7 @@ extension OSView {
         }
         return false
     }
-    #endif
+#endif
 }
 
 extension OSView {
@@ -139,4 +139,18 @@ extension UIAlertController {
         }
     }
 }
+#endif
+
+#if os(OSX)
+    extension NSView {
+        public var alpha: CGFloat {
+            get {
+                return alphaValue
+            }
+            
+            set {
+                alphaValue = newValue
+            }
+        }
+    }
 #endif

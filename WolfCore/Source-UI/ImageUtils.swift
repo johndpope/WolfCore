@@ -24,18 +24,20 @@ import CoreGraphics
 #endif
 
 #if os(iOS) || os(tvOS)
-public func newImage(withSize size: CGSize, opaque: Bool, scale: CGFloat, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> UIImage {
+public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
-    let context = UIGraphicsGetCurrentContext()!
+    let context = getCurrentGraphicsContext()
     if flipped {
         CGContextTranslateCTM(context, 0.0, size.height)
         CGContextScaleCTM(context, 1.0, -1.0)
     }
     drawing(context)
-    return UIGraphicsGetImageFromCurrentImageContext().imageWithRenderingMode(renderingMode)
+    let image = UIGraphicsGetImageFromCurrentImageContext().imageWithRenderingMode(renderingMode)
+    UIGraphicsEndImageContext()
+    return image
 }
 #elseif os(OSX)
-    public func newImage(withSize size: CGSize, opaque: Bool, scale: CGFloat, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> NSImage {
+    public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> NSImage {
         let image = NSImage.init(size: size)
         
         let rep = NSBitmapImageRep.init(bitmapDataPlanes: nil,

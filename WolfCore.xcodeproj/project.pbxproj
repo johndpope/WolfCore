@@ -151,6 +151,7 @@
 		036CA8171CC945C900E40098 /* PDFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CA8161CC945C900E40098 /* PDFImageView.swift */; };
 		036FECAD1C73D74200B09489 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 036FECA31C73CFB100B09489 /* libsqlite3.tbd */; };
 		036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonAction.swift */; };
+		0375EC391CF1B19A001E6D45 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553371C0F622A00E0FCA7 /* View.swift */; };
 		0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
 		0384578B1CED0C810012BCCE /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
 		0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */; };
@@ -168,6 +169,8 @@
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
 		03BC18CF1CF104D9005AF3C3 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
 		03BC18D01CF1054C005AF3C3 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
+		03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
+		03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
 		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
 		03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDBACF1C5A9D5400A8CDAE /* Position.swift */; };
@@ -299,6 +302,7 @@
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heartbeat.swift; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hysteresis.swift; sourceTree = "<group>"; };
 		03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoDict.swift; sourceTree = "<group>"; };
+		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIDs.swift; sourceTree = "<group>"; };
 		03DDBACF1C5A9D5400A8CDAE /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
@@ -434,6 +438,7 @@
 			children = (
 				03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */,
 				03E13B761C4F28F60074E447 /* CGColorUtils.swift */,
+				03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */,
 				03E13B771C4F28F60074E447 /* PDF.swift */,
 				03E13B781C4F28F60074E447 /* PointExtensions.swift */,
 				03E13B791C4F28F60074E447 /* RectExtensions.swift */,
@@ -756,6 +761,7 @@
 				033F5EA61CA3096700647A0A /* DictionaryExtensions.swift in Sources */,
 				033F5EA71CA3096700647A0A /* BSON.swift in Sources */,
 				0384578B1CED0C810012BCCE /* ObjectAliaser.swift in Sources */,
+				0375EC391CF1B19A001E6D45 /* View.swift in Sources */,
 				038457921CED55690012BCCE /* RunLoopUtils.swift in Sources */,
 				033F5EA81CA3096700647A0A /* Vector.swift in Sources */,
 				033F5EA91CA3096700647A0A /* ColorFunc.swift in Sources */,
@@ -799,6 +805,7 @@
 				033F5ED41CA3096700647A0A /* RectExtensions.swift in Sources */,
 				033F5EE41CA3217100647A0A /* ImageUtils.swift in Sources */,
 				033F5ED51CA3096700647A0A /* ByteArray.swift in Sources */,
+				03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				033F5ED61CA3096700647A0A /* Random.swift in Sources */,
 				033F5ED71CA3096700647A0A /* Result.swift in Sources */,
 				036307D41CB6DAF700DC7070 /* NotificationAction.swift in Sources */,
@@ -846,6 +853,7 @@
 				03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */,
 				031C5BC91CC18D38007166BA /* TarotCard.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
+				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */,
 				03E13B841C4FEE720074E447 /* Grid.swift in Sources */,
 				03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */,
@@ -955,6 +963,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.arciem.WolfCore;
 				PRODUCT_NAME = WolfCore;
 				SDKROOT = macosx;
@@ -980,6 +989,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.arciem.WolfCore;
 				PRODUCT_NAME = WolfCore;
 				SDKROOT = macosx;

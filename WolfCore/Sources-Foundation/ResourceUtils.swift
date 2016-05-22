@@ -40,6 +40,7 @@ public func loadJSON(named name: String, subdirectory subpath: String? = nil, fr
     return try JSON.decode(data)
 }
 
+#if os(iOS) || os(tvOS)
 public func loadStoryboard(named name: String, fromBundleForClass aClass: AnyClass? = nil) -> UIStoryboard {
     return UIStoryboard(name: name, bundle: NSBundle.findBundle(forClass: aClass))
 }
@@ -53,6 +54,7 @@ public func loadInitialViewController<T: UIViewController>(fromStoryboardNamed s
     let storyboard = loadStoryboard(named: storyboardName, fromBundleForClass: aClass)
     return storyboard.instantiateInitialViewController() as! T
 }
+#endif
 
 public func loadNib(named name: String, fromBundleForClass aClass: AnyClass? = nil) -> OSNib {
     #if os(iOS) || os(tvOS)

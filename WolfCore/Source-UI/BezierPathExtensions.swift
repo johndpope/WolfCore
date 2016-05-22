@@ -48,7 +48,12 @@ extension OSBezierPath {
 #if os(OSX)
     extension NSBezierPath
     {
-        var CGPath: CGPathRef
+        public convenience init (arcCenter center: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
+            self.init()
+            appendBezierPathWithArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
+        }
+
+        public var CGPath: CGPathRef
         {
             let path = CGPathCreateMutable()
             let elementsCount = self.elementCount

@@ -141,6 +141,7 @@ public func string(forRelation relation: NSLayoutRelation) -> String {
     return result
 }
 
+#if os(iOS) || os(tvOS)
 public func string(forAttribute attribute: NSLayoutAttribute) -> String {
     let result: String
     switch attribute {
@@ -168,6 +169,8 @@ public func string(forAttribute attribute: NSLayoutAttribute) -> String {
         result = "baseline"
     case .FirstBaseline:
         result = "firstBaseline"
+    case .NotAnAttribute:
+        result = "notAnAttribute"
     case .LeftMargin:
         result = "leftMargin"
     case .RightMargin:
@@ -184,8 +187,40 @@ public func string(forAttribute attribute: NSLayoutAttribute) -> String {
         result = "centerXWithinMargins"
     case .CenterYWithinMargins:
         result = "centerYWithinMargins"
-    case .NotAnAttribute:
-        result = "notAnAttribute"
     }
     return result
 }
+#elseif os(OSX)
+    public func string(forAttribute attribute: NSLayoutAttribute) -> String {
+        let result: String
+        switch attribute {
+        case .Left:
+            result = "left"
+        case .Right:
+            result = "right"
+        case .Top:
+            result = "top"
+        case .Bottom:
+            result = "bottom"
+        case .Leading:
+            result = "leading"
+        case .Trailing:
+            result = "trailing"
+        case .Width:
+            result = "width"
+        case .Height:
+            result = "height"
+        case .CenterX:
+            result = "centerX"
+        case .CenterY:
+            result = "centerY"
+        case .Baseline:
+            result = "baseline"
+        case .FirstBaseline:
+            result = "firstBaseline"
+        case .NotAnAttribute:
+            result = "notAnAttribute"
+        }
+        return result
+    }
+#endif

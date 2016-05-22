@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension NSRunLoop {
     public func runOnce() {
