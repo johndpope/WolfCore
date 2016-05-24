@@ -101,18 +101,16 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
 
             var newSepsLength = Int(ceil(Double(alphabetLength) / HashidsOptions.SEP_DIV));
 
-            if(1 == newSepsLength) {
+            if 1 == newSepsLength {
                 newSepsLength += 1;
             }
 
-            if(newSepsLength > sepsLength)
-            {
+            if newSepsLength > sepsLength {
                 let diff = self.alphabet.startIndex.advancedBy(newSepsLength - sepsLength);
                 let range = 0..<diff;
                 self.seps += self.alphabet[range];
                 self.alphabet.removeRange(range);
-            } else
-            {
+            } else {
                 let pos = self.seps.startIndex.advancedBy(newSepsLength);
                 self.seps.removeRange(pos+1..<self.seps.count);
             }
@@ -121,14 +119,12 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
         shuffle(&self.alphabet, self.salt);
 
         let guard_i = Int(ceil(Double(alphabetLength)/HashidsOptions.GUARD_DIV));
-        if(alphabetLength < 3)
-        {
+        if alphabetLength < 3 {
             let seps_guard = self.seps.startIndex.advancedBy(guard_i);
             let range = 0..<seps_guard;
             self.guards += self.seps[range];
             self.seps.removeRange(range);
-        } else
-        {
+        } else {
             let alphabet_guard = self.alphabet.startIndex.advancedBy(guard_i);
             let range = 0..<alphabet_guard;
             self.guards += self.alphabet[range];
@@ -189,8 +185,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
             let lastIndex = hash.endIndex;
             _hash(&hash, value, alphabet);
 
-            if(index + 1 < numbers.count)
-            {
+            if index + 1 < numbers.count {
                 let number = value % (numericCast(hash[lastIndex]) + index);
                 let seps_index = number % self.seps.count;
                 hash.append(self.seps[seps_index]);
@@ -201,14 +196,12 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
 
         let minLength:Int = numericCast(self.minHashLength);
 
-        if(hash.count < minLength)
-        {
+        if hash.count < minLength {
             let guard_index = (numbers_hash_int + numericCast(hash[0])) % self.guards.count;
             let guard_t = self.guards[guard_index];
             hash.insert(guard_t, atIndex: 0);
 
-            if(hash.count < minLength)
-            {
+            if hash.count < minLength {
                 let guard_index = (numbers_hash_int + numericCast(hash[2])) % self.guards.count;
                 let guard_t = self.guards[guard_index];
                 hash.append(guard_t);
@@ -224,8 +217,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
             hash = alphabet[rrange] + hash + alphabet[lrange];
 
             let excess = hash.count - minLength;
-            if( excess > 0 )
-            {
+            if excess > 0 {
                 let start = excess >> 1;
                 hash = [Char](hash[start..<(start+minLength)])
             }
@@ -244,8 +236,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
         let hashesCount = hashes.count, i = ((hashesCount == 2) || (hashesCount == 3)) ? 1 : 0;
         let hash = hashes[i];
 
-        if(hash.count > 0)
-        {
+        if hash.count > 0 {
             let lottery = hash[0];
             let valuesHashes = hash[1..<hash.count];
 
@@ -331,8 +322,7 @@ internal func unique<T:CollectionType where T.Generator.Element:Equatable>(a:T) 
 {
     return transform(a, a) { (c, a, b, e) in
         var c = c
-        if(!contains(c, e))
-        {
+        if !contains(c, e) {
             c.append(e);
         };
     }
@@ -342,8 +332,7 @@ internal func intersection<T:CollectionType where T.Generator.Element:Equatable>
 {
     return transform(a, b) { (c, a, b, e) in
         var c = c
-        if(contains(b, e))
-        {
+        if contains(b, e) {
             c.append(e);
         };
     }
@@ -353,8 +342,7 @@ internal func difference<T:CollectionType where T.Generator.Element:Equatable>(a
 {
     return transform(a, b) { (c, a, b, e) in
         var c = c
-        if(!contains(b, e))
-        {
+        if !contains(b, e) {
             c.append(e);
         };
     }

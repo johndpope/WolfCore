@@ -31,7 +31,7 @@ public class Serializer {
     }
     
     public func dispatch(f: DispatchBlock) {
-        if(isExecutingOnMyQueue) {
+        if isExecutingOnMyQueue {
             f()
         } else {
             dispatchSync(onQueue: queue, f)
@@ -41,10 +41,10 @@ public class Serializer {
     public func dispatchWithReturn<🍒>(f: () -> 🍒) -> 🍒 {
         var result: 🍒!
         
-        if(self.isExecutingOnMyQueue) {
+        if isExecutingOnMyQueue {
             result = f()
         } else {
-            dispatchSync(onQueue: self.queue) {
+            dispatchSync(onQueue: queue) {
                 result = f()
             }
         }

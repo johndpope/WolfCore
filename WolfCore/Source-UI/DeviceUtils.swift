@@ -24,6 +24,12 @@ public let isCarPlay: Bool = {
     return UIDevice.currentDevice().userInterfaceIdiom == .CarPlay
 }()
 
+#if arch(i386) || arch(x86_64)
+    public let isSimulator = true
+#else
+    public let isSimulator = false
+#endif
+
 public var osVersion: String {
     let os = NSProcessInfo().operatingSystemVersion
     return "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"

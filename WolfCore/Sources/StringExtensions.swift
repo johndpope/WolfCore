@@ -15,6 +15,28 @@ import Foundation
 // Provide concise versions of NSLocalizedString.
 
 #if os(iOS) || os(OSX) || os(tvOS)
+    postfix operator ¶ { }
+    
+    public postfix func ¶ (left: String) -> String {
+        return left.localized()
+    }
+    
+    infix operator ¶ { associativity left precedence 95 }
+    
+    public func ¶ (left: String, right: [String : Any]) -> String {
+        return left.localized(replacingPlaceholdersWithReplacements: right)
+    }
+    
+    public func ¶ (left: String, right: AnyClass) -> String {
+        return left.localized(inBundleForClass: right)
+    }
+    
+    public func ¶ (left: String, right: (aClass: AnyClass, replacements: [String: Any])) -> String {
+        return left.localized(inBundleForClass: right.aClass, replacingPlaceholdersWithReplacements: right.replacements)
+    }
+#endif
+
+#if os(iOS) || os(OSX) || os(tvOS)
 extension String {
     public func localized(inBundleForClass aClass: AnyClass? = nil, replacingPlaceholdersWithReplacements replacements: [String : Any]? = nil) -> String {
         let bundle = NSBundle.findBundle(forClass: aClass)

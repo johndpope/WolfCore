@@ -109,7 +109,16 @@ public func activateConstraints(constraints: [NSLayoutConstraint]) -> [NSLayoutC
     return constraints
 }
 
+public func activateConstraints(constraints: NSLayoutConstraint...) -> [NSLayoutConstraint] {
+    NSLayoutConstraint.activateConstraints(constraints)
+    return constraints
+}
+
 public func deactivateConstraints(constraints: [NSLayoutConstraint]) {
+    NSLayoutConstraint.deactivateConstraints(constraints)
+}
+
+public func deactivateConstraints(constraints: NSLayoutConstraint...) {
     NSLayoutConstraint.deactivateConstraints(constraints)
 }
 

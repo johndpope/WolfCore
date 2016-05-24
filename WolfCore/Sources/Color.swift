@@ -94,7 +94,7 @@ public struct Color {
         let v = Math.clamp(v, 0.0...1.0)
         let s = Math.clamp(s, 0.0...1.0)
         alpha = a
-        if(s <= 0.0) {
+        if s <= 0.0 {
             red = v
             green = v
             blue = v

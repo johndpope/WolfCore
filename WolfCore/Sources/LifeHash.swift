@@ -24,7 +24,7 @@ public class LifeHash {
         }
         
         static func isAliveInNextGeneration(currentAlive currentAlive: Bool, neighborsCount: Int) -> Bool {
-            if(currentAlive) {
+            if currentAlive {
                 return neighborsCount == 2 || neighborsCount == 3
             } else {
                 return neighborsCount == 3

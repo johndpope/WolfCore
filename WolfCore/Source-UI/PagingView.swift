@@ -153,12 +153,12 @@ public class PagingView : View {
             contentView.addSubview(view)
             let leadingConstraint = view.leadingAnchor == contentView.leadingAnchor
             arrangedViewsLeadingConstraints.append(leadingConstraint)
-            activateConstraints([
+            activateConstraints(
                 view.topAnchor == topAnchor,
                 view.heightAnchor == heightAnchor,
                 view.widthAnchor == widthAnchor,
                 leadingConstraint
-                ])
+                )
         }
     }
     
@@ -183,10 +183,10 @@ public class PagingView : View {
         contentView.constrainToSuperview()
         contentWidthConstraint = contentView.widthAnchor == 500
         let contentHeightConstraint = contentView.heightAnchor == scrollView.heightAnchor - 0.5
-        activateConstraints([
+        activateConstraints(
             contentWidthConstraint,
             contentHeightConstraint
-            ])
+            )
     }
     
     private func setupPageControl() {
@@ -194,10 +194,10 @@ public class PagingView : View {
         pageControl.userInteractionEnabled = false
         addSubview(pageControl)
         pageControlBottomConstraint = pageControl.bottomAnchor == bottomAnchor - 20
-        activateConstraints([
+        activateConstraints(
             pageControl.centerXAnchor == centerXAnchor,
             pageControlBottomConstraint
-            ])
+            )
     }
     
     private func syncSlots() {

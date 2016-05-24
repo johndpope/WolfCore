@@ -174,7 +174,7 @@ class ASN1Parser {
             currentLocation += 1
 
             var tagType = ASN1Type(rawValue: tag & 0x1f)
-            if(tagType == nil) {
+            if tagType == nil {
                 throw ASN1Error("Unknown tag \(tag) encountered.")
             }
 
@@ -208,7 +208,7 @@ class ASN1Parser {
             if tagConstructed {
                 didStartContainerWithType?(tagType!)
 
-                if(subRangeLength > 0) {
+                if subRangeLength > 0 {
                     try parse(subRange)
                 }
 
