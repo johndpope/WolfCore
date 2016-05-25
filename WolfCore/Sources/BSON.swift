@@ -293,6 +293,8 @@ extension BSONBuffer {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
+
     func readElement() throws -> (name: String, value: BSONValue)? {
         let rawElementType = try readByte()
         guard let elementType = BSONElementType(rawValue: rawElementType) else {
@@ -329,6 +331,8 @@ extension BSONBuffer {
         }
         return (name, value)
     }
+
+    // swiftlint:enable cyclomatic_complexity
 
     func readDocument() throws -> BSONDictionary {
         var dict = BSONDictionary()
@@ -540,6 +544,8 @@ private func printBSONArray(array: BSONArray, indent: String = "", level: Int = 
     }
 }
 
+// swiftlint:disable cyclomatic_complexity
+
 private func printBSONElementWithName(name: String, value: BSONValue, indent: String, level: Int) {
     let type: String
     let valueStr: String
@@ -593,3 +599,5 @@ private func printBSONElementWithName(name: String, value: BSONValue, indent: St
         }
     }
 }
+
+// swiftlint:enable cyclomatic_complexity

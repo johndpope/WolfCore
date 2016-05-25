@@ -22,7 +22,7 @@ public struct ASN1Error: Error, CustomStringConvertible {
     }
 }
 
-class ASN1BitString : CustomStringConvertible {
+class ASN1BitString: CustomStringConvertible {
     let data: Bytes
     let unusedBits: Int
     let numberOfBits: Int
@@ -33,13 +33,13 @@ class ASN1BitString : CustomStringConvertible {
         numberOfBits = data.count * 8 - unusedBits
     }
 
-    var description : String {
+    var description: String {
         get {
             return "data: \(data.description) unusedBits:\(unusedBits)"
         }
     }
 
-    var stringWithBits : String {
+    var stringWithBits: String {
         get {
             var s = String()
             for bitIndex in 0..<numberOfBits {
@@ -53,14 +53,14 @@ class ASN1BitString : CustomStringConvertible {
     func bitAtIndex(bitIndex: Int) -> Bool {
         assert(bitIndex >= 0 && bitIndex < numberOfBits)
 
-        let byteIndex = bitIndex / 8;
-        let bitIndexInByte = 7 - bitIndex % 8;
+        let byteIndex = bitIndex / 8
+        let bitIndexInByte = 7 - bitIndex % 8
         let bit = data[byteIndex] & UInt8(1 << bitIndexInByte)
         return bit != 0
     }
 }
 
-enum ASN1Type : UInt8, CustomStringConvertible {
+enum ASN1Type: UInt8, CustomStringConvertible {
     case EOC = 0x00
     case Boolean = 0x01
     case Integer = 0x02
@@ -90,7 +90,7 @@ enum ASN1Type : UInt8, CustomStringConvertible {
     case BitmapString = 0x1e
     case UsesLongForm = 0x1f
 
-    var description : String {
+    var description: String {
         get {
             switch self {
             case .EOC: return "EOC"
@@ -148,7 +148,7 @@ class ASN1Parser {
     var foundObjectIdentifier: ((String) -> ())?
     var foundString: ((String) -> ())?
     var foundBytes: ((Bytes) -> ())?
-    var foundBitString:((ASN1BitString) -> ())?
+    var foundBitString: ((ASN1BitString) -> ())?
     var foundInt: ((Int) -> ())?
     var foundBool: ((Bool) -> ())?
 

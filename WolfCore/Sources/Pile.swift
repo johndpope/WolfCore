@@ -13,26 +13,26 @@ public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
     public typealias TrumpType = T
     public typealias RankType = R
     public typealias SuitType = S
-    
+
     public typealias CardType = Card<TrumpType, RankType, SuitType>
-    
+
     public var cards = [CardType?]()
-    
+
     public init() {
     }
-    
+
     public init(cards: [CardType?]) {
         self.cards = cards
     }
-    
+
     public init(pile: Pile) {
         cards = pile.cards
     }
-    
+
     public init(placeholdersCount: Int) {
         cards = [CardType?](count: placeholdersCount, repeatedValue: nil)
     }
-    
+
     public func shuffled() -> Pile {
         var newCards = [CardType?]()
         var oldCards = cards
@@ -44,7 +44,7 @@ public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
         }
         return Pile(cards: newCards)
     }
-    
+
     public func draw(withFacing facing: CardFacing = .faceDown, isReversed: Bool = false) -> CardType {
         var card = cards[0]!
         card.facing = facing
@@ -52,25 +52,25 @@ public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
         cards.removeAtIndex(0)
         return card
     }
-    
+
     public func deal(toPile pile: Pile, count: Int = 1, facing: CardFacing = .faceDown, isReversed: Bool = false) {
         for _ in 1...count {
             pile.cards.insert(draw(withFacing: facing, isReversed: isReversed), atIndex: 0)
         }
     }
-    
+
     public func deal(toPile pile: Pile, atIndex index: Int, facing: CardFacing = .faceDown, isReversed: Bool = false) {
         pile.cards[index] = draw(withFacing: facing, isReversed: isReversed)
     }
-    
+
     public subscript(index: Int) -> CardType? {
         return cards[index]
     }
-    
+
     public func removeAll() {
         cards.removeAll()
     }
-    
+
     public var count: Int {
         return cards.count
     }
@@ -86,7 +86,7 @@ extension Pile {
             "cards": jsonCards
         ]
     }
-    
+
     public convenience init(json: JSONDictionary) {
         assert(json["type"] as! String == "Pile")
         let jsonCards = json["cards"] as! JSONArray

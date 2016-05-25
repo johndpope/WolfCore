@@ -16,21 +16,21 @@ import Foundation
 
 #if os(iOS) || os(OSX) || os(tvOS)
     postfix operator ¶ { }
-    
+
     public postfix func ¶ (left: String) -> String {
         return left.localized()
     }
-    
+
     infix operator ¶ { associativity left precedence 95 }
-    
+
     public func ¶ (left: String, right: [String : Any]) -> String {
         return left.localized(replacingPlaceholdersWithReplacements: right)
     }
-    
+
     public func ¶ (left: String, right: AnyClass) -> String {
         return left.localized(inBundleForClass: right)
     }
-    
+
     public func ¶ (left: String, right: (aClass: AnyClass, replacements: [String: Any])) -> String {
         return left.localized(inBundleForClass: right.aClass, replacingPlaceholdersWithReplacements: right.replacements)
     }
@@ -58,7 +58,7 @@ extension String {
         let e = self.startIndex.advancedBy(range.location + range.length)
         return s..<e
     }
-    
+
     public var nsRange: NSRange {
         return NSRange(location: 0, length: (self as NSString).length)
     }

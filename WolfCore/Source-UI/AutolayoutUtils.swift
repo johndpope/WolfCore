@@ -150,6 +150,8 @@ public func string(forRelation relation: NSLayoutRelation) -> String {
     return result
 }
 
+// swiftlint:disable cyclomatic_complexity
+
 #if os(iOS) || os(tvOS)
 public func string(forAttribute attribute: NSLayoutAttribute) -> String {
     let result: String
@@ -233,3 +235,5 @@ public func string(forAttribute attribute: NSLayoutAttribute) -> String {
         return result
     }
 #endif
+
+// swiftlint:enable cyclomatic_complexity

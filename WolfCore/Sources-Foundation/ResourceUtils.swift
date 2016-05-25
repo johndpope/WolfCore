@@ -25,7 +25,7 @@ public func loadData(atURL url: NSURL) throws -> NSData {
 }
 
 public func loadData(named name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> NSData {
-    
+
     let url = NSBundle.findBundle(forClass: aClass).URLForResource(name, withExtension: anExtension, subdirectory: subpath)!
     return try loadData(atURL: url)
 }

@@ -8,20 +8,20 @@
 
 import Foundation
 
-let serializerKey:String = "Serializer"
+let serializerKey: String = "Serializer"
 var nextQueueContext: Int = 1
 
 public class Serializer {
     let queue: DispatchQueue
     let queueContext: NSNumber
-    
+
     public init(name: NSString? = nil) {
         self.queue = dispatch_queue_create(name?.UTF8String ?? nil, DISPATCH_QUEUE_SERIAL)
         nextQueueContext += 1
         self.queueContext = NSNumber(integer: nextQueueContext)
 //        dispatch_queue_set_specific_glue(self.queue, serializerKey, self.queueContext)
     }
-    
+
     var isExecutingOnMyQueue: Bool {
         get {
 //            let context = dispatch_get_specific_glue(serializerKey)
@@ -29,7 +29,7 @@ public class Serializer {
             return false
         }
     }
-    
+
     public func dispatch(f: DispatchBlock) {
         if isExecutingOnMyQueue {
             f()
@@ -37,10 +37,10 @@ public class Serializer {
             dispatchSync(onQueue: queue, f)
         }
     }
-    
+
     public func dispatchWithReturn<🍒>(f: () -> 🍒) -> 🍒 {
         var result: 🍒!
-        
+
         if isExecutingOnMyQueue {
             result = f()
         } else {
@@ -48,21 +48,21 @@ public class Serializer {
                 result = f()
             }
         }
-        
+
         return result!
     }
-    
+
     public func dispatchOnMain(f: DispatchBlock) {
         dispatchSyncOnMain(f)
     }
-    
+
     public func dispatchOnMainWithReturn<🍒>(f: () -> 🍒) -> 🍒 {
         var result: 🍒!
-        
+
         dispatchSyncOnMain() {
             result = f()
         }
-        
+
         return result!
     }
 }

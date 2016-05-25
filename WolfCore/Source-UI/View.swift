@@ -25,12 +25,12 @@ public class View: OSView {
             }
         }
     }
-    
+
     /// Can be set from Interface Builder, or in the subclass's Setup() function.
     public var contentNibName: String? = nil
-    
+
     private var endEditingAction: GestureRecognizerAction!
-    
+
     /// Can be set from Interface Builder
     public var endsEditingWhenTapped: Bool = false {
         didSet {
@@ -43,13 +43,13 @@ public class View: OSView {
             }
         }
     }
-    
+
     public override func awakeFromNib() {
         super.awakeFromNib()
         loadContentFromNib()
     }
     #endif
-    
+
 #if os(OSX)
     public override var flipped: Bool {
         return true
@@ -59,17 +59,17 @@ public class View: OSView {
     public convenience init() {
         self.init(frame: .zero)
     }
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
     }
-    
+
     private func _setup() {
         translatesAutoresizingMaskIntoConstraints = false
         setup()
@@ -77,7 +77,7 @@ public class View: OSView {
 
     // Override in subclasses
     public func setup() { }
-    
+
 #if os(iOS) || os(tvOS)
     override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if transparentToTouches {
@@ -86,14 +86,14 @@ public class View: OSView {
             return super.pointInside(point, withEvent: event)
         }
     }
-    
+
     private func loadContentFromNib() {
         if let contentNibName = contentNibName {
             let view = ~loadViewFromNib(named: contentNibName, owner: self)
             transferContentFromView(view)
         }
     }
-    
+
     private func transferContentFromView(view: UIView) {
         // These are attributes that can be set from Interface Builder
         contentMode = view.contentMode
@@ -110,15 +110,15 @@ public class View: OSView {
         clearsContextBeforeDrawing = view.clearsContextBeforeDrawing
         clipsToBounds = view.clipsToBounds
         autoresizesSubviews = view.autoresizesSubviews
-        
+
         // Copy these arrays because the act of moving the subviews will remove constraints
         let constraints = view.constraints
         let subviews = view.subviews
-        
+
         for subview in subviews {
             addSubview(subview)
         }
-        
+
         for constraint in constraints {
             var firstItem = constraint.firstItem
             let firstAttribute = constraint.firstAttribute
@@ -127,7 +127,7 @@ public class View: OSView {
             let secondAttribute = constraint.secondAttribute
             let multiplier = constraint.multiplier
             let constant = constraint.constant
-            
+
             if firstItem === view {
                 firstItem = self
             }
@@ -143,29 +143,29 @@ public class View: OSView {
 extension View {
     public func osDidSetNeedsDisplay() {
     }
-    
+
     #if os(iOS) || os(tvOS)
     override public func setNeedsDisplay() {
         super.setNeedsDisplay()
         osDidSetNeedsDisplay()
     }
-    
+
     public func osSetNeedsDisplay() {
         setNeedsDisplay()
     }
     #endif
-    
+
     #if os(OSX)
     override public var needsDisplay: Bool {
     didSet {
     osDidSetNeedsDisplay()
     }
     }
-    
+
     public func osSetNeedsDisplay() {
     needsDisplay = true
     }
-    
+
     public override func setNeedsDisplayInRect(rect: CGRect) {
     super.setNeedsDisplayInRect(rect)
     osDidSetNeedsDisplay()

@@ -10,11 +10,11 @@
     import COpenSSL
 #else
     import CommonCrypto
-    private let SHA256_DIGEST_LENGTH = CC_SHA256_DIGEST_LENGTH
+    private let sha256DigestLength = CC_SHA256_DIGEST_LENGTH
 #endif
 
 public class SHA256 {
-    private(set) var digest = Bytes(count: Int(SHA256_DIGEST_LENGTH), repeatedValue: 0)
+    private(set) var digest = Bytes(count: Int(sha256DigestLength), repeatedValue: 0)
 
     public init(message: Bytes) {
 #if os(Linux)

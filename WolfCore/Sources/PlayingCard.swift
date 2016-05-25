@@ -9,7 +9,7 @@
 
 public enum PlayingCardTrump: Int, CardTrump {
     case joker = 0
-    
+
     public static let orderedTrumps: [CardTrump] = [PlayingCardTrump.joker]
     public static let trumpStrings = ["Joker"]
 }
@@ -34,7 +34,7 @@ public enum PlayingCardRank: Int, CardRank {
     case jack
     case queen
     case king
-    
+
     public static let orderedRanks: [CardRank] = [
         PlayingCardRank.ace,
         PlayingCardRank.two,
@@ -50,7 +50,7 @@ public enum PlayingCardRank: Int, CardRank {
         PlayingCardRank.queen,
         PlayingCardRank.king
     ]
-    
+
     public static let rankStrings = [
         "A",
         "2",
@@ -66,7 +66,7 @@ public enum PlayingCardRank: Int, CardRank {
         "Q",
         "K"
     ]
-    
+
     public static let rankSuitConnector = ""
 }
 
@@ -81,7 +81,7 @@ public enum PlayingCardSuit: Int, CardSuit {
     case diamonds
     case clubs
     case hearts
-    
+
     public static let orderedSuits: [CardSuit] = [PlayingCardSuit.spades, PlayingCardSuit.diamonds, PlayingCardSuit.clubs, PlayingCardSuit.hearts]
     public static let suitStrings = ["Spades", "Diamonds", "Clubs", "Hearts"]
     public static let suitSymbols = ["♠️", "♦️", "♣️", "♥️"]

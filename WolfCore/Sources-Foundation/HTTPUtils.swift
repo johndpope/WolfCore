@@ -39,11 +39,11 @@ public enum ResponseCode: Int {
     case Created = 201
     case Accepted = 202
     case NoContent = 204
-    
+
     case BadRequest = 400
     case Forbidden = 403
     case NotFound = 404
-    
+
     case InternalServerError = 500
     case NotImplemented = 501
     case BadGateway = 502
@@ -56,42 +56,42 @@ public class HTTP {
                                             success: (NSHTTPURLResponse, NSData) -> Void,
                                             failure: (ErrorType) -> Void,
                                             finally: (() -> Void)? = nil) {
-        
+
         let session = NSURLSession.sharedSession()
-        
+
         logTrace("request :\(request)")
-        
+
         let task = session.dataTaskWithRequest(request) { (let data, let response, let error) in
             guard error == nil else {
                 dispatchOnMain { failure(error!) }
                 dispatchOnMain { finally?() }
                 return
             }
-            
+
             guard let httpResponse = response as? NSHTTPURLResponse else {
                 fatalError("improper response type: \(response)")
             }
-            
+
             guard data != nil else {
                 dispatchOnMain { failure(HTTPError(response: httpResponse)) }
                 dispatchOnMain { finally?() }
                 return
             }
-            
+
             dispatchOnMain { success(httpResponse, data!) }
             dispatchOnMain { finally?() }
         }
-        
+
         task.resume()
     }
-    
+
     public static func retrieveJSON(withRequest request: NSMutableURLRequest,
                                                 success: (NSHTTPURLResponse, JSONObject) -> Void,
                                                 failure: (ErrorType) -> Void,
                                                 finally: (() -> Void)? = nil) {
-        
+
         request.setValue(ContentType.JSON.rawValue, forHTTPHeaderField: HeaderField.Accept.rawValue)
-        
+
         retrieve(withRequest: request, success: { (response, data) -> Void in
             do {
                 let json = try JSON.decode(data)
@@ -105,16 +105,16 @@ public class HTTP {
                  finally: finally
         )
     }
-    
+
     public static func retrieveImage(withURL url: NSURL,
                                              success: (OSImage) -> Void,
                                              failure: (ErrorType) -> Void,
                                              finally: (() -> Void)? = nil) {
-        
+
         let request = NSMutableURLRequest()
         request.HTTPMethod = HTTPMethod.GET.rawValue
         request.URL = url
-        
+
         retrieve(withRequest: request,
                  success: { (response, data) -> Void in
                     if let image = OSImage(data: data) {

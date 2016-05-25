@@ -54,7 +54,7 @@ public enum TarotCardTrump: Int, CardTrump {
         TarotCardTrump.judgement,
         TarotCardTrump.world
     ]
-    
+
     public static let trumpStrings = [
         "The Fool",
         "The Magician",
@@ -79,7 +79,7 @@ public enum TarotCardTrump: Int, CardTrump {
         "Judgement",
         "The World"
     ]
-    
+
     public static let trumpNumeralStrings = [
         "0",
         "I",
@@ -117,7 +117,7 @@ public enum TarotCardSuit: Int, CardSuit {
     case pentacles
     case wands
     case cups
-    
+
     public static let orderedSuits: [CardSuit] = [TarotCardSuit.swords, TarotCardSuit.pentacles, TarotCardSuit.wands, TarotCardSuit.cups]
     public static let suitStrings = ["Swords", "Pentacles", "Wands", "Cups"]
     public static let suitSymbols = ["🜁", "🜃", "🜂", "🜄"]
@@ -126,7 +126,7 @@ public enum TarotCardSuit: Int, CardSuit {
 public enum TarotCardRank: Int, CardRank {
     case ace = 1, two, three, four, five, six, seven, eight, nine, ten
     case page, knight, queen, king
-    
+
     public static let orderedRanks: [CardRank] = [TarotCardRank.ace, TarotCardRank.two, TarotCardRank.three, TarotCardRank.four, TarotCardRank.five, TarotCardRank.six, TarotCardRank.seven, TarotCardRank.eight, TarotCardRank.nine, TarotCardRank.ten, TarotCardRank.page, TarotCardRank.knight, TarotCardRank.queen, TarotCardRank.king]
     public static let rankStrings = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Page", "Knight", "Queen", "King"]
     public static let rankSuitConnector = " of "
@@ -150,4 +150,3 @@ public typealias TarotCardPile = Pile<TarotCardTrump, TarotCardRank, TarotCardSu
 public func newTarotCardDeck() -> TarotCardPile {
     return TarotCardPile.newDeck()
 }
-

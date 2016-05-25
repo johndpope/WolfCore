@@ -13,7 +13,7 @@ import CoreGraphics
     public typealias OSImageRenderingMode = UIImageRenderingMode
 #elseif os(OSX)
     import Cocoa
-    public enum OSImageRenderingMode : Int {
+    public enum OSImageRenderingMode: Int {
         case Automatic
         case AlwaysOriginal
         case AlwaysTemplate
@@ -24,7 +24,7 @@ import CoreGraphics
 #endif
 
 #if os(iOS) || os(tvOS)
-public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> UIImage {
+public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: CGContextBlock) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
     let context = getCurrentGraphicsContext()
     if flipped {
@@ -39,7 +39,7 @@ public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat
 #elseif os(OSX)
     public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> NSImage {
         let image = NSImage.init(size: size)
-        
+
         let rep = NSBitmapImageRep.init(bitmapDataPlanes: nil,
                                         pixelsWide: Int(size.width),
                                         pixelsHigh: Int(size.height),
@@ -50,10 +50,10 @@ public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat
                                         colorSpaceName: NSCalibratedRGBColorSpace,
                                         bytesPerRow: 0,
                                         bitsPerPixel: 0)
-        
+
         image.addRepresentation(rep!)
         image.lockFocus()
-        
+
         let bounds = CGRect(origin: .zero, size: size)
         let context = NSGraphicsContext.currentContext()!.CGContext
 
@@ -63,14 +63,14 @@ public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat
         } else {
             CGContextClearRect(context, bounds)
         }
-        
+
         if flipped {
             CGContextTranslateCTM(context, 0.0, size.height)
             CGContextScaleCTM(context, 1.0, -1.0)
         }
 
         drawing(context)
-        
+
         image.unlockFocus()
         return image
     }

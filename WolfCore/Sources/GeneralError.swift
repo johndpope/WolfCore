@@ -10,10 +10,10 @@
 public struct GeneralError: Error {
     /// A human-readable error message
     public var message: String
-    
+
     /// A numeric code for the error
     public var code: Int
-    
+
     public init(message: String, code: Int = 1) {
         self.message = message
         self.code = code

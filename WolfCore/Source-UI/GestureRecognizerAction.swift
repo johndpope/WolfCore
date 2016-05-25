@@ -21,7 +21,7 @@ public typealias GestureBlock = (OSGestureRecognizer) -> Void
 public class GestureRecognizerAction: NSObject {
     public var action: GestureBlock?
     private let gestureRecognizer: OSGestureRecognizer
-    
+
     public init(gestureRecognizer: OSGestureRecognizer, action: GestureBlock? = nil) {
         self.gestureRecognizer = gestureRecognizer
         self.action = action
@@ -33,7 +33,7 @@ public class GestureRecognizerAction: NSObject {
             gestureRecognizer.action = gestureActionSelector
         #endif
     }
-    
+
     deinit {
         #if os(iOS) || os(tvOS)
             gestureRecognizer.removeTarget(self, action: gestureActionSelector)
@@ -42,7 +42,7 @@ public class GestureRecognizerAction: NSObject {
             gestureRecognizer.action = nil
         #endif
     }
-    
+
     public func gestureAction() {
         action?(gestureRecognizer)
     }

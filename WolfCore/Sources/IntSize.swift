@@ -20,6 +20,6 @@ extension IntSize: CustomStringConvertible {
 extension IntSize : Equatable {
 }
 
-public func ==(lhs: IntSize, rhs: IntSize) -> Bool {
+public func == (lhs: IntSize, rhs: IntSize) -> Bool {
     return lhs.width == rhs.width && lhs.height == rhs.height
 }

@@ -9,7 +9,7 @@
 public enum CardFacing {
     case faceUp
     case faceDown
-    
+
     public var flipped: CardFacing {
         switch self {
         case .faceUp:
@@ -18,7 +18,7 @@ public enum CardFacing {
             return .faceUp
         }
     }
-    
+
     public var facingString: String {
         switch self {
         case .faceUp:

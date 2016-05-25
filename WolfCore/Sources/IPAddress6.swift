@@ -7,10 +7,28 @@
 //
 
 public class IPAddress6 {
+    typealias Run = Range<Int>
+
+    private static func replace(longestRun longestRun: Run?, wordsCount: Int, inout components: [String]) {
+        if let longestRun = longestRun {
+            let replacement: [String]
+            // all zeroes
+            if longestRun.startIndex == 0 && longestRun.endIndex == wordsCount {
+                replacement = ["", "", ""]
+                // zeroes at beginning or end
+            } else if longestRun.startIndex == 0 || longestRun.endIndex == wordsCount {
+                replacement = ["", ""]
+                // zeroes somewhere in the middle
+            } else {
+                replacement = [""]
+            }
+            components.replaceRange(longestRun, with: replacement)
+        }
+    }
+
     public static func encode(words: [UInt16], padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
         assert(words.count == 8)
 
-        typealias Run = Range<Int>
         var longestRun: Run? = nil
         if collapseLongestZeroRun {
             var currentRun: Run? = nil
@@ -58,20 +76,7 @@ public class IPAddress6 {
             components.append(component)
         }
 
-        if let longestRun = longestRun {
-            let replacement: [String]
-            // all zeroes
-            if longestRun.startIndex == 0 && longestRun.endIndex == words.count {
-                replacement = ["", "", ""]
-            // zeroes at beginning or end
-            } else if longestRun.startIndex == 0 || longestRun.endIndex == words.count {
-                replacement = ["", ""]
-            // zeroes somewhere in the middle
-            } else {
-                replacement = [""]
-            }
-            components.replaceRange(longestRun, with: replacement)
-        }
+        replace(longestRun: longestRun, wordsCount: words.count, components: &components)
 
         return components.joinWithSeparator(":")
     }
@@ -88,7 +93,7 @@ public class IPAddress6 {
         }
         return words
     }
-    
+
     private static func toBytes(words: [UInt16]) -> Bytes {
         assert(words.count == 8)
         var bytes = Bytes()
@@ -103,15 +108,15 @@ public class IPAddress6 {
         }
         return bytes
     }
-    
+
     public static func encode(bytes: Bytes, padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
         return encode(toWords(bytes), padWithZeroes: padWithZeroes, collapseLongestZeroRun: collapseLongestZeroRun)
     }
-    
+
     public static func decode(string: String) throws -> [UInt16] {
         var components = string.componentsSeparatedByString(":")
         guard components.count >= 3 else {
-            throw ValidationError(message: "Invalid IP address.")
+            throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
         }
 //        print(components)
         if components == ["", "", ""] {
@@ -124,35 +129,35 @@ public class IPAddress6 {
             components.append("#")
         } else if let index = components.indexOf("") {
             guard index != 0 && index != components.endIndex - 1 else {
-                throw ValidationError(message: "Invalid IP address.")
+                throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
             }
             components.replaceRange(index...index, with: ["#"])
         }
 //        print(components)
-        
+
         if let index = components.indexOf("#") {
             let count = 9 - components.count
             components.replaceRange(index...index, with: [String](count: count, repeatedValue: "0"))
         }
 //        print(components)
         guard components.count == 8 else {
-            throw ValidationError(message: "Invalid IP address.")
+            throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
         }
 
         var words = [UInt16]()
         words.reserveCapacity(8)
         for component in components {
             guard let i = UInt16(component, radix: 16) else {
-                throw ValidationError(message: "Invalid IP address.")
+                throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
             }
             words.append(i)
         }
-        
+
 //        print("words: \(words)")
-        
+
         return words
     }
-    
+
     public static func decode(string: String) throws -> Bytes {
         return toBytes(try decode(string))
     }
@@ -165,15 +170,15 @@ public class IPAddress6 {
         test([0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0],
             encodedLong: "0000:0000:0000:0000:0000:0000:0000:0000",
             encodedShort: "::")
-        
+
         test([0x1, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3],
             encodedLong: "0001:0000:0000:0002:0000:0000:0000:0003",
             encodedShort: "1:0:0:2::3")
-        
+
         test([0x1, 0x0, 0x0, 0x2, 0x3, 0x0, 0x0, 0x0],
             encodedLong: "0001:0000:0000:0002:0003:0000:0000:0000",
             encodedShort: "1:0:0:2:3::")
-        
+
         do {
             print(try [UInt16](IPAddress6.decode("::f:a:1")))
             print(IPAddress6.encode([UInt16]([0, 0, 0, 0, 0, 2, 3, 1])))
@@ -181,23 +186,23 @@ public class IPAddress6 {
             logError(error)
         }
     }
-    
+
     public static func test(words: [UInt16], encodedLong: String, encodedShort: String) {
         do {
             logInfo("words: \(words), encodedLong: \(encodedLong), encodedShort: \(encodedShort)")
-            
+
             let encoded1 = IPAddress6.encode(words, padWithZeroes: true, collapseLongestZeroRun: false)
             assert(encoded1 == encodedLong)
             let encoded2 = IPAddress6.encode(words)
             assert(encoded2 == encodedShort)
-            
+
             let bytes = toBytes(words)
             let encoded3 = IPAddress6.encode(bytes, padWithZeroes: true, collapseLongestZeroRun: false)
             assert(encoded3 == encoded1)
-            
+
             let decodeWords: [UInt16] = try IPAddress6.decode(encoded2)
             assert(decodeWords == words)
-            
+
             logInfo("Passed.")
         } catch(let error) {
             logError(error)

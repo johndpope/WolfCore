@@ -27,21 +27,21 @@ public class Heartbeat {
     public var interval: NSTimeInterval
     public var expired: DispatchBlock
     private var canceler: Canceler?
-    
+
     public init(interval: NSTimeInterval, expired: DispatchBlock) {
         self.interval = interval
         self.expired = expired
     }
-    
+
     deinit {
         cancel()
     }
-    
+
     public func cancel() {
         canceler?.cancel()
         canceler = nil
     }
-    
+
     public func reset() {
         cancel()
         canceler = dispatchOnMain(afterDelay: interval) { [unowned self] canceler in

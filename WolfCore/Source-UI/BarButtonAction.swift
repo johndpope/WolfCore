@@ -13,7 +13,7 @@ private let barButtonActionSelector = #selector(BarButtonItemAction.itemAction)
 public class BarButtonItemAction: NSObject {
     public var action: DispatchBlock?
     public let item: UIBarButtonItem
-    
+
     public init(item: UIBarButtonItem, action: DispatchBlock? = nil) {
         self.item = item
         self.action = action
@@ -21,7 +21,7 @@ public class BarButtonItemAction: NSObject {
         item.target = self
         item.action = barButtonActionSelector
     }
-    
+
     public func itemAction() {
         action?()
     }

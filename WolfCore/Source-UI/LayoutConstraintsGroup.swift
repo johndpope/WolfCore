@@ -15,20 +15,20 @@
 public class LayoutConstraintsGroup {
     private let constraints: [NSLayoutConstraint]
     private let debugName: String?
-    
+
     public init(constraints: [NSLayoutConstraint], active: Bool = false, debugName: String? = nil) {
         self.constraints = constraints
         self.active = active
         self.debugName = debugName
         syncToActive()
     }
-    
+
     public var active: Bool = false {
         didSet {
             syncToActive()
         }
     }
-    
+
     private func syncToActive() {
         switch active {
         case true:
@@ -37,7 +37,7 @@ public class LayoutConstraintsGroup {
             NSLayoutConstraint.deactivateConstraints(constraints)
         }
     }
-    
+
     deinit {
         active = false
     }

@@ -30,7 +30,7 @@ public class Hex {
         if let i = Int(string, radix: 16) {
             return i
         } else {
-            throw ValidationError(message: "Invalid hex string: \(string).")
+            throw ValidationError(message: "Invalid hex string: \(string).", identifier: "hexFormat")
         }
     }
 }

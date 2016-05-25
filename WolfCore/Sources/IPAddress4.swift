@@ -19,15 +19,15 @@ public class IPAddress4 {
     public static func decode(string: String) throws -> Bytes {
         let components = string.componentsSeparatedByString(".")
         guard components.count == 4 else {
-            throw ValidationError(message: "Invalid IP address.")
+            throw ValidationError(message: "Invalid IP address.", identifier: "ipv4Format")
         }
         var bytes = Bytes()
         for component in components {
             guard let i = Int(component) else {
-                throw ValidationError(message: "Invalid IP address.")
+                throw ValidationError(message: "Invalid IP address.", identifier: "ipv4Format")
             }
             guard i >= 0 && i <= 255 else {
-                throw ValidationError(message: "Invalid IP address.")
+                throw ValidationError(message: "Invalid IP address.", identifier: "ipv4Format")
             }
             bytes.append(Byte(i))
         }

@@ -10,14 +10,14 @@ import Foundation
 
 public class NotificationActions {
     var notificationActions = [String: NotificationAction]()
-    
+
     public init() {
     }
-    
+
     func getAction(forName name: String) -> NotificationBlock? {
         return notificationActions[name]?.action
     }
-    
+
     func setAction(action: NotificationBlock?, object: AnyObject?, name: String) {
         if let action = action {
             let notificationAction = NotificationAction(name: name, object: object, action: action)
@@ -26,7 +26,7 @@ public class NotificationActions {
             removeAction(forName: name)
         }
     }
-    
+
     func removeAction(forName name: String) {
         notificationActions.removeValueForKey(name)
     }

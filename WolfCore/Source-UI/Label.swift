@@ -15,36 +15,35 @@ public class Label: UILabel {
             syncToTintColor()
         }
     }
-    
+
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        if superview != nil {
-            syncToTintColor()
-        }
+        guard superview != nil else { return }
+        syncToTintColor()
     }
-    
+
     public convenience init() {
         self.init(frame: .zero)
     }
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         _setup()
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
     }
-    
+
     private func _setup() {
         translatesAutoresizingMaskIntoConstraints = false
         setup()
     }
-    
+
     // Override in subclasses
     public func setup() { }
-    
+
     override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if transparentToTouches {
             return tranparentPointInside(point, withEvent: event)
@@ -60,7 +59,7 @@ extension Label {
             textColor = tintColor ?? .Black
         }
     }
-    
+
     public override func tintColorDidChange() {
         super.tintColorDidChange()
         syncToTintColor()

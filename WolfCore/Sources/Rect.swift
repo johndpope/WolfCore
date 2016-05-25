@@ -25,7 +25,7 @@ public struct Rect {
         self.origin = origin
         self.size = size
     }
-    
+
     public init(minX: Double, minY: Double, maxX: Double, maxY: Double) {
         self.init(origin: Point(x: minX, y: minY), size: Size(width: maxX - minX, height: maxY - minY))
     }
@@ -354,6 +354,6 @@ extension Rect {
 extension Rect: Equatable {
 }
 
-public func ==(lhs: Rect, rhs: Rect) -> Bool {
+public func == (lhs: Rect, rhs: Rect) -> Bool {
     return lhs.origin == rhs.origin && lhs.size == rhs.size
 }

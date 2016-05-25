@@ -11,7 +11,7 @@ import WolfCore
 
 class StringTests: XCTestCase {
     func testReplacing() {
-        let s = "The #{subjectAdjective} #{subjectColor} #{subjectSpecies} #{action} the #{objectAdjective} #{objectSpecies}."
+        let s = "The #{subjectAdjective} #{subjectColor} #{subjectSpecies} #{action} the #{objectAdjective} #{objectSpecies}." // swiftlint:disable:this line_length
         let replacements: [String: Any] = [
             "subjectAdjective": "quick",
             "subjectColor": "brown",

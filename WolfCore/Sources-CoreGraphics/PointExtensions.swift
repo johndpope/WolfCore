@@ -13,20 +13,20 @@ extension CGPoint {
         x = vector.dx
         y = vector.dy
     }
-    
+
     public init(center: CGPoint, angle theta: CGFloat, radius: CGFloat) {
         x = center.x + cos(theta) * radius
         y = center.y + sin(theta) * radius
     }
-    
+
     public var magnitude: CGFloat {
         return hypot(x, y)
     }
-    
+
     public var angle: CGFloat {
         return atan2(y, x)
     }
-    
+
     public func rotatedByAngle(theta: CGFloat, aroundCenter center: CGPoint) -> CGPoint {
         let v = center - self
         let v2 = v.rotatedByAngle(theta)

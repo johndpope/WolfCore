@@ -85,21 +85,21 @@ extension OSColor {
         return OSColor(color: color.burned(frac))
     }
 
-    public static var Black:     OSColor { return .blackColor() }
-    public static var DarkGray:  OSColor { return .darkGrayColor() }
+    public static var Black: OSColor { return .blackColor() }
+    public static var DarkGray: OSColor { return .darkGrayColor() }
     public static var LightGray: OSColor { return .lightGrayColor() }
-    public static var White:     OSColor { return .whiteColor() }
-    public static var Gray:      OSColor { return .grayColor() }
-    public static var Red:       OSColor { return .redColor() }
-    public static var Green:     OSColor { return .greenColor() }
-    public static var Blue:      OSColor { return .blueColor() }
-    public static var Cyan:      OSColor { return .cyanColor() }
-    public static var Yellow:    OSColor { return .yellowColor() }
-    public static var Magenta:   OSColor { return .magentaColor() }
-    public static var Orange:    OSColor { return .orangeColor() }
-    public static var Purple:    OSColor { return .purpleColor() }
-    public static var Brown:     OSColor { return .brownColor() }
-    public static var Clear:     OSColor { return .clearColor() }
+    public static var White: OSColor { return .whiteColor() }
+    public static var Gray: OSColor { return .grayColor() }
+    public static var Red: OSColor { return .redColor() }
+    public static var Green: OSColor { return .greenColor() }
+    public static var Blue: OSColor { return .blueColor() }
+    public static var Cyan: OSColor { return .cyanColor() }
+    public static var Yellow: OSColor { return .yellowColor() }
+    public static var Magenta: OSColor { return .magentaColor() }
+    public static var Orange: OSColor { return .orangeColor() }
+    public static var Purple: OSColor { return .purpleColor() }
+    public static var Brown: OSColor { return .brownColor() }
+    public static var Clear: OSColor { return .clearColor() }
 }
 
 extension OSColor {

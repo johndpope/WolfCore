@@ -16,12 +16,12 @@
 public struct UUID {
     private let bytes: Bytes
     private static let bufSize = 16
-    
+
     public init(bytes: Bytes) {
         assert(bytes.count == UUID.bufSize)
         self.bytes = bytes
     }
-    
+
     public init() {
         #if os(iOS) || os(OSX) || os(tvOS)
             self.init(bytes: UUID.convert(NSUUID()))
@@ -33,11 +33,11 @@ public struct UUID {
             self.init(bytes: bytes)
         #endif
     }
-    
+
     public init(string: String) throws {
         #if os(iOS) || os(OSX) || os(tvOS)
             guard let u = NSUUID(UUIDString: string) else {
-                throw ValidationError(message: "Invalid UUID string: \(string).")
+                throw ValidationError(message: "Invalid UUID string: \(string).", identifier: "uuidFormat")
             }
             self.init(bytes: UUID.convert(u))
         #elseif os(Linux)
@@ -51,7 +51,7 @@ public struct UUID {
             self.init(bytes: bytes)
         #endif
     }
-    
+
     #if os(iOS) || os(OSX) || os(tvOS)
     private static func convert(u: NSUUID) -> Bytes {
         var buf = Bytes(count: 16, repeatedValue: 0)
@@ -64,7 +64,7 @@ public struct UUID {
 extension UUID: Equatable {
 }
 
-public func ==(lhs: UUID, rhs: UUID) -> Bool {
+public func == (lhs: UUID, rhs: UUID) -> Bool {
     return lhs.bytes == rhs.bytes
 }
 

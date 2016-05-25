@@ -9,15 +9,15 @@
 import Foundation
 
 /**
- 
+
  hys·ter·e·sis
  ˌhistəˈrēsis/
  noun
  Physics
- 
+
  noun: hysteresis
  the phenomenon in which the value of a physical property lags behind changes in the effect causing it, as for instance when magnetic induction lags behind the magnetizing force.
- 
+
  **/
 
 public class Hysteresis {
@@ -30,18 +30,18 @@ public class Hysteresis {
     private var effectEndCanceler: Canceler?
     private var effectStarted: Bool = false
     private let serializer = Serializer(name: "Hysteresis")
-    
+
     public init(effectStart: DispatchBlock, effectEnd: DispatchBlock, effectStartLag: NSTimeInterval, effectEndLag: NSTimeInterval) {
         self.effectStart = effectStart
         self.effectEnd = effectEnd
         self.effectStartLag = effectStartLag
         self.effectEndLag = effectEndLag
     }
-    
+
     public func makeCause() -> Cause {
         return Cause(self)
     }
-    
+
     private func incrementCauseCount() {
         serializer.dispatch() { [unowned self] in
             self.causeCount += 1
@@ -56,7 +56,7 @@ public class Hysteresis {
             }
         }
     }
-    
+
     private func decrementCauseCount() {
         serializer.dispatch() { [unowned self] in
             assert(self.causeCount > 0, "Attempt to decrement causeCount below zero.")
@@ -72,15 +72,15 @@ public class Hysteresis {
             }
         }
     }
-    
+
     public class Cause {
         private weak var h: Hysteresis?
-        
+
         private init(_ h: Hysteresis) {
             self.h = h
             h.incrementCauseCount()
         }
-        
+
         deinit {
             h?.decrementCauseCount()
         }

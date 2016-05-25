@@ -103,14 +103,14 @@ extension Point {
 extension Point: Equatable {
 }
 
-public func ==(lhs: Point, rhs: Point) -> Bool {
+public func == (lhs: Point, rhs: Point) -> Bool {
     return lhs.x == rhs.x && lhs.y == rhs.y
 }
 
-public func -(lhs: Point, rhs: Point) -> Vector {
+public func - (lhs: Point, rhs: Point) -> Vector {
     return Vector(dx: rhs.x - lhs.x, dy: rhs.y - lhs.y)
 }
 
-public func +(lhs: Point, rhs: Vector) -> Point {
+public func + (lhs: Point, rhs: Vector) -> Point {
     return Point(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy)
 }

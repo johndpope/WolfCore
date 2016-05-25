@@ -16,7 +16,7 @@ extension NSNotificationCenter {
     public func post(name: String) {
         self.postNotificationName(name, object: nil)
     }
-    
+
     public func addObserver(name: String, object: AnyObject? = nil, action: NotificationBlock) -> NotificationObserver {
         return self.addObserverForName(name, object: object, queue: nil, usingBlock: action)
     }

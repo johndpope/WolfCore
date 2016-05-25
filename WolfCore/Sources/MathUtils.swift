@@ -47,8 +47,7 @@ extension Math {
     // returns fractional part
     public class func fract(value: Float) -> Float { return value - floorf(value) }
 
-    public class func circularInterpolate(value: Float, _ i1: Float, _ i2: Float) -> Float
-    {
+    public class func circularInterpolate(value: Float, _ i1: Float, _ i2: Float) -> Float {
         let c = Float.abs(i2 - i1)
         if c <= 0.5 {
             return denormalize(value, i1, i2)
@@ -94,8 +93,7 @@ extension Math {
     // returns fractional part
     public class func fract(value: Double) -> Double { return value - floor(value) }
 
-    public class func circularInterpolate(value: Double, _ i1: Double, _ i2: Double) -> Double
-    {
+    public class func circularInterpolate(value: Double, _ i1: Double, _ i2: Double) -> Double {
         let c = Double.abs(i2 - i1)
         if c <= 0.5 {
             return denormalize(value, i1, i2)
@@ -142,8 +140,7 @@ extension Math {
     // returns fractional part
     public class func fract(value: CGFloat) -> CGFloat { return value - floor(value) }
 
-    public class func circularInterpolate(value: CGFloat, _ i1: CGFloat, _ i2: CGFloat) -> CGFloat
-    {
+    public class func circularInterpolate(value: CGFloat, _ i1: CGFloat, _ i2: CGFloat) -> CGFloat {
         let c = CGFloat.abs(i2 - i1)
         if c <= 0.5 {
             return denormalize(value, i1, i2)

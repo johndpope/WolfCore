@@ -8,17 +8,17 @@
 
 import UIKit
 
-public class PDFImageView : ImageView {
+public class PDFImageView: ImageView {
     public var pdf: PDF! {
         didSet {
             setNeedsLayout()
         }
     }
-    
+
     private func syncToPDF() {
         image = pdf.imageForPage(atIndex: 0, fittingSize: bounds.size)
     }
-    
+
     public override func layoutSubviews() {
         super.layoutSubviews()
         syncToPDF()

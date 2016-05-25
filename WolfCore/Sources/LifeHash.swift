@@ -10,7 +10,7 @@ public class LifeHash {
     struct Cell {
         var alive: Bool = false
     }
-    
+
     class CellGrid: Grid<Cell> {
         func countNeighbors(g: IntPoint) -> Int {
             var count = 0
@@ -22,7 +22,7 @@ public class LifeHash {
             }
             return count
         }
-        
+
         static func isAliveInNextGeneration(currentAlive currentAlive: Bool, neighborsCount: Int) -> Bool {
             if currentAlive {
                 return neighborsCount == 2 || neighborsCount == 3
@@ -30,7 +30,7 @@ public class LifeHash {
                 return neighborsCount == 3
             }
         }
-        
+
         func nextGeneration(currentChangeGrid: ChangeGrid, nextCellGrid: CellGrid, nextChangeGrid: ChangeGrid) {
             forAll { p in
                 if currentChangeGrid[p].changed {
@@ -47,23 +47,23 @@ public class LifeHash {
             }
         }
     }
-    
+
     struct Change {
         var changed: Bool = false
     }
-    
+
     class ChangeGrid: Grid<Change> {
         func setChanged(g: IntPoint) {
             forNeighborhoodAtPoint(g) { (o, p) in
                 self[p] = true
             }
         }
-        
+
         func setAll() {
             setAll(true)
         }
     }
-    
+
     class ColorGrid: Grid<Color> {
         func transformPoint(p: IntPoint, transpose: Bool, reflectX: Bool, reflectY: Bool) -> IntPoint {
             var x = p.x
@@ -80,14 +80,14 @@ public class LifeHash {
             return IntPoint(x: x, y: y)
         }
     }
-    
+
     struct Counter {
         var count: Int = 0
     }
-    
+
     class CounterGrid: Grid<Counter> {
         private(set) var maxValue = 0
-        
+
         func add(cellGrid: CellGrid) {
             forAll { p in
                 if cellGrid[p].alive {
@@ -98,7 +98,7 @@ public class LifeHash {
             }
         }
     }
-    
+
     class FracGrid: Grid<Frac> {
         func setAll(counterGrid: CounterGrid) {
             let maxValue = Double(counterGrid.maxValue)
@@ -116,7 +116,7 @@ extension LifeHash.Cell: CustomStringConvertible {
 
 extension LifeHash.Cell: Equatable { }
 
-func ==(lhs: LifeHash.Cell, rhs: LifeHash.Cell) -> Bool {
+func == (lhs: LifeHash.Cell, rhs: LifeHash.Cell) -> Bool {
     return lhs.alive == rhs.alive
 }
 
@@ -132,7 +132,7 @@ extension LifeHash.Change: CustomStringConvertible {
 
 extension LifeHash.Change: Equatable { }
 
-func ==(lhs: LifeHash.Change, rhs: LifeHash.Change) -> Bool {
+func == (lhs: LifeHash.Change, rhs: LifeHash.Change) -> Bool {
     return lhs.changed == rhs.changed
 }
 
@@ -148,10 +148,10 @@ extension LifeHash.Counter: CustomStringConvertible {
 
 extension LifeHash.Counter: Equatable { }
 
-func ==(lhs: LifeHash.Counter, rhs: LifeHash.Counter) -> Bool {
+func == (lhs: LifeHash.Counter, rhs: LifeHash.Counter) -> Bool {
     return lhs.count == rhs.count
 }
 
-func +=(lhs: LifeHash.Counter, rhs: Int) -> LifeHash.Counter {
+func += (lhs: LifeHash.Counter, rhs: Int) -> LifeHash.Counter {
     return LifeHash.Counter(count: lhs.count + rhs)
 }

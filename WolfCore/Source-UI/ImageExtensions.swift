@@ -24,7 +24,7 @@ extension OSImage {
             CGContextFillRect(context, bounds)
         }
     }
-    
+
     #if os(iOS)
     public convenience init?(named name: String, fromBundleForClass aClass: AnyClass?, compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) {
         let bundle = NSBundle.findBundle(forClass: aClass)

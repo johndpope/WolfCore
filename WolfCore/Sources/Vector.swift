@@ -110,23 +110,23 @@ extension Vector {
 extension Vector: Equatable {
 }
 
-public func ==(lhs: Vector, rhs: Vector) -> Bool {
+public func == (lhs: Vector, rhs: Vector) -> Bool {
     return lhs.dx == rhs.dx && lhs.dy == rhs.dy
 }
 
-public func /(lhs: Vector, rhs: Double) -> Vector {
+public func / (lhs: Vector, rhs: Double) -> Vector {
     return Vector(dx: lhs.dx / rhs, dy: lhs.dy / rhs)
 }
 
-public func /(lhs: Vector, rhs: Vector) -> Vector {
+public func / (lhs: Vector, rhs: Vector) -> Vector {
     return Vector(dx: lhs.dx / rhs.dx, dy: lhs.dy / rhs.dy)
 }
 
-public func *(lhs: Vector, rhs: Double) -> Vector {
+public func * (lhs: Vector, rhs: Double) -> Vector {
     return Vector(dx: lhs.dx * rhs, dy: lhs.dy * rhs)
 }
 
-public func *(lhs: Vector, rhs: Vector) -> Vector {
+public func * (lhs: Vector, rhs: Vector) -> Vector {
     return Vector(dx: lhs.dx * rhs.dx, dy: lhs.dy * rhs.dy)
 }
 

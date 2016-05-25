@@ -11,26 +11,26 @@ public typealias ColorFrac = (color: Color, frac: Double)
 public typealias ColorFracHandle = (color: Color, frac: Double, handle: Double)
 
 public struct Gradient {
-    
+
     public static let grayscale = blend(.Black, .White)
-    
+
     // Color Harmonies, Analogous
     public static let goldRedOrange = threeColor(.Gold, .Red, .Orange)
     public static let bluegreenBlueGreen = threeColor(.BlueGreen, .MediumBlue, .DarkGreen)
     public static let blueMagentaRed = threeColor(.DeepBlue, .Magenta, .Red)
     public static let yellowGoldGreen = threeColor(.Yellow, .Gold, .DarkGreen)
     public static let chartreuseYellowGreen = threeColor(.Chartreuse, .Yellow, .DarkGreen)
-    
+
     // Color Harmonies, Primary Complementary
     public static let orangeMediumblue = twoColor(.Orange, .MediumBlue)
     public static let purpleGold = twoColor(.Purple, .Gold)
     public static let redGreen = twoColor(.Red, .DarkGreen)
-    
+
     // Color Harmonies, Secondary Complementary
     public static let chartreusePurple = twoColor(.Chartreuse, .Purple)
     public static let greenOrange = twoColor(.DarkGreen, .Orange)
     public static let deepblueOrange = twoColor(.DeepBlue, .Orange)
-    
+
     // Color Harmonies, Split Complementary
     public static let bluePurpleOrange = threeColor(.MediumBlue, .Purple, .Orange)
     public static let yellowBluePurple = threeColor(.Yellow, .MediumBlue, .Purple)
@@ -40,7 +40,7 @@ public struct Gradient {
     public static let orangeBlueOrange = threeColor(.Orange, .MediumBlue, .Orange)
     public static let goldPurpleOrange = threeColor(.Gold, .Purple, .Orange)
     public static let chartreuseBlueOrange = threeColor(.Chartreuse, .DeepBlue, .Orange)
-    
+
     // Earth Tones
     public static let coffee = threeColor(
         Color(redByte: 250, greenByte: 243, blueByte: 232),
@@ -74,7 +74,7 @@ public struct Gradient {
         (color: Color(redByte: 110, greenByte:  79, blueByte:  14), frac: 0.70),
         (color: Color(redByte: 135, greenByte: 119, blueByte: 116), frac: 1.00)
         ])
-    
+
     // Seasons
     public static let spring = blend(colorFracHandles:[
         (color: Color(redByte: 172, greenByte: 202, blueByte: 234), frac: 0.00, handle: 0.50),
@@ -107,7 +107,7 @@ public struct Gradient {
         (color: Color(redByte: 207, greenByte: 223, blueByte: 223), frac: 0.70, handle: 0.50),
         (color: Color(redByte: 237, greenByte: 217, blueByte: 227), frac: 1.00, handle: 0.50)
         ])
-    
+
     // Nature
     public static let sky1 = blend(colorFracHandles:[
         (color: Color(redByte: 108, greenByte: 181, blueByte: 228), frac: 0.00, handle: 0.60),
@@ -149,7 +149,7 @@ public struct Gradient {
         Color(redByte: 124, greenByte: 187, blueByte: 230),
         Color(redByte: 199, greenByte: 234, blueByte: 251)
         ])
-    
+
     // Spectra
     //public static let hues = { (#frac: Double) -> Color in return Color(hue: frac, saturation: 1, brightness: 1) }
     public static let redYellowBlue = threeColor(.Red, .Yellow, .Blue)
@@ -161,29 +161,29 @@ public struct Gradient {
         Color(redByte: 253, greenByte: 233, blueByte:  43),
         Color(redByte:   0, greenByte: 158, blueByte:  84)
         ])
-    
-    
+
+
     public static func hues(frac frac: Double) -> Color {
         return Color(hue: frac, saturation: 1, brightness: 1)
     }
-    
+
     public static let gradients = [
         Gradient.grayscale,
-        
+
         Gradient.goldRedOrange,
         Gradient.bluegreenBlueGreen,
         Gradient.blueMagentaRed,
         Gradient.yellowGoldGreen,
         Gradient.chartreuseYellowGreen,
-        
+
         Gradient.orangeMediumblue,
         Gradient.purpleGold,
         Gradient.redGreen,
-        
+
         Gradient.chartreusePurple,
         Gradient.greenOrange,
         Gradient.deepblueOrange,
-        
+
         Gradient.bluePurpleOrange,
         Gradient.yellowBluePurple,
         Gradient.chartreuseBlueRed,
@@ -192,25 +192,25 @@ public struct Gradient {
         Gradient.orangeBlueOrange,
         Gradient.goldPurpleOrange,
         Gradient.chartreuseBlueOrange,
-        
+
         Gradient.coffee,
         Gradient.valentine,
         Gradient.strata1,
         Gradient.strata2,
         Gradient.strata3,
-        
+
         Gradient.spring,
         Gradient.summer,
         Gradient.autumn,
         Gradient.winter,
-        
+
         Gradient.sky1,
         Gradient.sky2,
         Gradient.sky3,
         Gradient.sky4,
         Gradient.water1,
         Gradient.water2,
-        
+
         Gradient.hues,
         Gradient.redYellowBlue,
         Gradient.spectrum,

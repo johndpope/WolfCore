@@ -90,6 +90,8 @@ public struct Color {
         self.alpha = alpha
     }
 
+    // swiftlint:disable cyclomatic_complexity
+
     public init(hue h: Frac, saturation s: Frac, brightness v: Frac, alpha a: Frac = 1.0) {
         let v = Math.clamp(v, 0.0...1.0)
         let s = Math.clamp(s, 0.0...1.0)
@@ -107,7 +109,7 @@ public struct Color {
             let p = v * (1.0 - s)
             let q = v * (1.0 - (s * f))
             let t = v * (1.0 - (s * (1.0 - f)))
-            switch(i) {
+            switch i {
             case 0: red = v; green = t; blue = p
             case 1: red = q; green = v; blue = p
             case 2: red = p; green = v; blue = t
@@ -119,41 +121,63 @@ public struct Color {
         }
     }
 
+    // swiftlint:enable cyclomatic_complexity
+
+    private static func components(forSingleHexStrings strings: [String], inout components: [Double]) throws {
+        for (index, string) in strings.enumerate() {
+            let i = try Hex.decode(string)
+            components[index] = Double(i) / 15.0
+        }
+    }
+
+    private static func components(forDoubleHexStrings strings: [String], inout components: [Double]) throws {
+        for (index, string) in strings.enumerate() {
+            let i = try Hex.decode(string)
+            components[index] = Double(i) / 255.0
+        }
+    }
+
+    private static func components(forFloatStrings strings: [String], inout components: [Double]) throws {
+        for (index, string) in strings.enumerate() {
+            if let f = Double(string) {
+                components[index] = Double(f)
+            }
+        }
+    }
+
+    private static func components(forLabeledStrings strings: [String], inout components: [Double]) throws {
+        for (index, string) in strings.enumerate() {
+            if let f = Double(string) {
+                components[index] = Double(f)
+            }
+        }
+    }
+
+    private static func components(forLabeledHSBStrings strings: [String], inout components: [Double]) throws {
+        for (index, string) in strings.enumerate() {
+            if let f = Double(string) {
+                components[index] = Double(f)
+            }
+        }
+    }
+
     public init(string s: String) throws {
         var components: [Double] = [0.0, 0.0, 0.0, 1.0]
         var isHSB = false
 
         if let strings = singleHexColorRegex.matchedSubstringsInString(s) {
-            for (index, string) in strings.enumerate() {
-                let i = try Hex.decode(string)
-                components[index] = Double(i) / 15.0
-            }
+            try self.dynamicType.components(forSingleHexStrings: strings, components: &components)
         } else if let strings = doubleHexColorRegex.matchedSubstringsInString(s) {
-            for (index, string) in strings.enumerate() {
-                let i = try Hex.decode(string)
-                components[index] = Double(i) / 255.0
-            }
+            try self.dynamicType.components(forDoubleHexStrings: strings, components: &components)
         } else if let strings = floatColorRegex.matchedSubstringsInString(s) {
-            for (index, string) in strings.enumerate() {
-                if let f = Double(string) {
-                    components[index] = Double(f)
-                }
-            }
+            try self.dynamicType.components(forFloatStrings: strings, components: &components)
         } else if let strings = labeledColorRegex.matchedSubstringsInString(s) {
-            for (index, string) in strings.enumerate() {
-                if let f = Double(string) {
-                    components[index] = Double(f)
-                }
-            }
+            try self.dynamicType.components(forLabeledStrings: strings, components: &components)
         } else if let strings = labeledHSBColorRegex.matchedSubstringsInString(s) {
             isHSB = true
-            for (index, string) in strings.enumerate() {
-                if let f = Double(string) {
-                    components[index] = Double(f)
-                }
-            }
+            try self.dynamicType.components(forLabeledHSBStrings: strings, components: &components)
         } else {
-            throw GeneralError(message: "Could not parse color from string: \(s)")
+            throw ValidationError(message: "Could not parse color from string: \(s)", identifier: "colorStringFormat")
         }
 
         if isHSB {
@@ -268,11 +292,11 @@ extension Color {
 
 extension Color : Equatable { }
 
-public func ==(🅛: Color, 🅡: Color) -> Bool {
-    return 🅛.red == 🅡.red &&
-    🅛.green == 🅡.green &&
-    🅛.blue == 🅡.blue &&
-    🅛.alpha == 🅡.alpha
+public func == (left: Color, right: Color) -> Bool {
+    return left.red == right.red &&
+    left.green == right.green &&
+    left.blue == right.blue &&
+    left.alpha == right.alpha
 }
 
 extension Color : CustomStringConvertible {
@@ -283,10 +307,10 @@ extension Color : CustomStringConvertible {
     }
 }
 
-public func *(lhs: Color, rhs: Frac) -> Color {
+public func * (lhs: Color, rhs: Frac) -> Color {
     return lhs.multipliedBy(rhs)
 }
 
-public func +(lhs: Color, rhs: Color) -> Color {
+public func + (lhs: Color, rhs: Color) -> Color {
     return lhs.addedTo(rhs)
 }

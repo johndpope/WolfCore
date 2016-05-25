@@ -12,7 +12,7 @@ import Foundation
 public protocol Error: ErrorType, CustomStringConvertible {
     /// A human-readable error message.
     var message: String { get }
-    
+
     /// A numeric code for the error.
     var code: Int { get }
 }

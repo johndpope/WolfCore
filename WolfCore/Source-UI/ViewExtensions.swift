@@ -25,7 +25,7 @@ extension OSView {
         backgroundColor = debug ? debugColor.colorWithAlphaComponent(0.25) : OSColor.Clear
     }
 #endif
-    
+
 #if os(iOS) || os(tvOS)
     public func tranparentPointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         for subview in subviews {
@@ -53,7 +53,7 @@ extension OSView {
         }
         return constraints
     }
-    
+
     public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         assert(view.superview != nil, "View must have a superview.")
@@ -68,7 +68,7 @@ extension OSView {
         }
         return constraints
     }
-    
+
     public func constrainCenter(toCenterOfView view: OSView, active: Bool = true) -> [NSLayoutConstraint] {
         let constraints = [
             centerXAnchor == view.centerXAnchor,
@@ -79,7 +79,7 @@ extension OSView {
         }
         return constraints
     }
-    
+
     public func constrainCenterToCenterOfSuperview(active active: Bool = true) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         let sv = superview!
@@ -92,7 +92,7 @@ extension OSView {
         }
         return constraints
     }
-    
+
     public func constrain(toSize size: CGSize, active: Bool = true) -> [NSLayoutConstraint] {
         let constraints = [
             widthAnchor == size.width,
@@ -108,7 +108,7 @@ extension OSView {
 extension OSView {
     public func descendentViews<T: OSView>(ofClass aClass: AnyClass) -> [T] {
         var resultViews = [T]()
-        
+
         var queue: [OSView] = [self]
         while !queue.isEmpty {
             let view = queue.removeFirst()
@@ -117,35 +117,10 @@ extension OSView {
             }
             queue.appendContentsOf(view.subviews)
         }
-        
+
         return resultViews
     }
 }
-
-#if os(iOS) || os(tvOS)
-    extension UIAlertController {
-        /// This is a hack to set the accessibilityIdentifier attribute of a button created by a UIAlertAction on a UIAlertController. It is coded conservatively so as not to crash if Apple changes the view hierarchy of UIAlertController.view at some future date.
-        public func setAction(identifier identifier: String, atIndex index: Int) {
-            let collectionViews: [UICollectionView] = view.descendentViews(ofClass: UICollectionView.self)
-            let collectionView = collectionViews[0]
-            if let cell /* :_UIAlertControllerCollectionViewCell */ = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) {
-                if cell.subviews.count > 0 {
-                    let subview /* :UIView */ = cell.subviews[0]
-                    if subview.subviews.count > 0 {
-                        let actionView /* :_UIAlertControllerActionView */ = subview.subviews[0]
-                        actionView.accessibilityIdentifier = identifier
-                    }
-                }
-            }
-        }
-        
-        public func setAction(accessibilityIdentifiers identifiers: [String]) {
-            for index in 0..<actions.count {
-                setAction(identifier: identifiers[index], atIndex: index)
-            }
-        }
-    }
-#endif
 
 #if os(OSX)
     extension NSView {
@@ -153,7 +128,7 @@ extension OSView {
             get {
                 return alphaValue
             }
-            
+
             set {
                 alphaValue = newValue
             }

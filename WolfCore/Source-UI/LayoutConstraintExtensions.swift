@@ -16,7 +16,7 @@ extension NSLayoutConstraint {
     public func activate() {
         activateConstraints([self])
     }
-    
+
     public func deactivate() {
         deactivateConstraints([self])
     }

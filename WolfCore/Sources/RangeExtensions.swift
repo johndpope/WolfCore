@@ -12,7 +12,7 @@ extension NSRange {
     public var isFound: Bool {
         return location != Int(Foundation.NSNotFound)
     }
-    
+
     public var isNotFound: Bool {
         return location == Int(Foundation.NSNotFound)
     }

@@ -8,51 +8,51 @@
 
 import UIKit
 
-public class KeyboardAvoidantView : View {
+public class KeyboardAvoidantView: View {
     // Superview.bottom Equal KeyboardAvoidantView.bottom
     // A positive constant should move the bottom of the KeyboardAvoidantView up.
 
-//    private var superviewConstraints: LayoutConstraintsGroup?
+    private var superviewConstraints: LayoutConstraintsGroup?
     @IBOutlet public var bottomConstraint: NSLayoutConstraint!
-    
-    var keyboardView: UIView? = nil
+
+    var keyboardView: UIView?
     var keyboardWillMoveAction: NotificationAction!
-    
+
     public override func setup() {
         super.setup()
-        
+
         makeTransparent()
         keyboardWillMoveAction = NotificationAction(name: UIKeyboardWillChangeFrameNotification, object: nil) { notification in
             self.keyboardWillMove(notification)
         }
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillMove:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
-    
+
     deinit {
-//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillChangeFrameNotification, object: nil)
         stopTrackingKeyboard()
     }
-    
+
     public override func didMoveToSuperview() {
-//        superviewConstraints?.active = false
-        
-//        if let bottomConstraint = bottomConstraint {
-//            bottomConstraint.active = false
-//        }
-//        bottomConstraint = nil
+        super.didMoveToSuperview()
 
-//        if let superview = superview {
-//            let topConstraint = superview.topAnchor == topAnchor
-//            let bottomConstraint = superview.bottomAnchor == bottomAnchor =&= UILayoutPriorityDefaultHigh
-//            let leadingConstraint = superview.leadingAnchor == leadingAnchor
-//            let trailingConstraint = superview.trailingAnchor == trailingAnchor
+        superviewConstraints?.active = false
 
-//            self.bottomConstraint = bottomConstraint
-            
-//            superviewConstraints = LayoutConstraintsGroup(constraints: [
-//                topConstraint, bottomConstraint, leadingConstraint, trailingConstraint
-//                ], active: true)
-//        }
+        if let bottomConstraint = bottomConstraint {
+            bottomConstraint.active = false
+        }
+        bottomConstraint = nil
+
+        if let superview = superview {
+            let topConstraint = superview.topAnchor == topAnchor
+            let bottomConstraint = superview.bottomAnchor == bottomAnchor =&= UILayoutPriorityDefaultHigh
+            let leadingConstraint = superview.leadingAnchor == leadingAnchor
+            let trailingConstraint = superview.trailingAnchor == trailingAnchor
+
+            self.bottomConstraint = bottomConstraint
+
+            superviewConstraints = LayoutConstraintsGroup(constraints: [
+                topConstraint, bottomConstraint, leadingConstraint, trailingConstraint
+                ], active: true)
+        }
     }
 
     private func endKeyboardRectangleFromNotification(notification: NSNotification) -> CGRect {
@@ -63,18 +63,18 @@ public class KeyboardAvoidantView : View {
         }
         fatalError("Could not get keyboard rectangle from notification")
     }
-    
+
     func keyboardWillMove(notification: NSNotification) {
         assert(bottomConstraint != nil, "bottomConstraint not set")
         if superview != nil {
             let endKeyboardRectangle = endKeyboardRectangleFromNotification(notification)
             updateBottomConstraintForKeyboardRectangle(endKeyboardRectangle)
-            
+
             let duration = NSTimeInterval((notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
             let animationCurveValue = (notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.integerValue ?? UIViewAnimationCurve.Linear.rawValue
             //let animationCurve = UIViewAnimationCurve(rawValue: animationCurveValue & 3)!
             let options = UIViewAnimationOptions(rawValue: UInt(animationCurveValue) << 16)
-            
+
             UIView.animateWithDuration(duration, delay: 0.0, options: options, animations: {
                 self.layoutSubviews()
                 }, completion: { (Bool) in
@@ -82,17 +82,17 @@ public class KeyboardAvoidantView : View {
             })
         }
     }
-    
+
     private func updateBottomConstraintForKeyboardRectangle(keyboardRectangle: CGRect) {
         if let superview = superview {
             let intersects = keyboardRectangle.intersects(superview.bounds)
             let newMaxY = intersects ? keyboardRectangle.minY : superview.bounds.maxY
-//            print("\(self) updateBottomConstraintForKeyboardRectangle:\(keyboardRectangle) newMaxY:\(newMaxY)")
+            //            println("\(self) updateBottomConstraintForKeyboardRectangle:\(keyboardRectangle) newMaxY:\(newMaxY)")
             bottomConstraint.constant = superview.bounds.maxY - newMaxY
             setNeedsUpdateConstraints()
         }
     }
-    
+
     private func startTrackingKeyboard() {
         if keyboardView == nil {
             if let kv = findKeyboardView() {
@@ -104,21 +104,21 @@ public class KeyboardAvoidantView : View {
             }
         }
     }
-    
+
     private func stopTrackingKeyboard() {
         keyboardView?.removeObserver(self, forKeyPath: "center", context: nil)
         keyboardView = nil
     }
-    
+
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if let keyboardRectangle = keyboardView?.frame {
             updateBottomConstraintForKeyboardRectangle(keyboardRectangle)
         }
     }
-    
+
     func findKeyboardView() -> UIView? {
         var result: UIView? = nil
-        
+
         let windows = UIApplication.sharedApplication().windows
         for window in windows {
             if window.description.hasPrefix("<UITextEffectsWindow") {
@@ -136,7 +136,7 @@ public class KeyboardAvoidantView : View {
                 break
             }
         }
-        
+
         return result
     }
 }

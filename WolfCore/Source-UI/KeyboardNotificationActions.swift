@@ -8,22 +8,22 @@
 
 import UIKit
 
-public class KeyboardNotificationActions : NotificationActions {
+public class KeyboardNotificationActions: NotificationActions {
     public var willShow: NotificationBlock? {
         get { return getAction(forName: UIKeyboardWillShowNotification) }
         set { setAction(newValue, object: nil, name: UIKeyboardWillShowNotification) }
     }
-    
+
     public var didShow: NotificationBlock? {
         get { return getAction(forName: UIKeyboardDidShowNotification) }
         set { setAction(newValue, object: nil, name: UIKeyboardDidShowNotification) }
     }
-    
+
     public var willHide: NotificationBlock? {
         get { return getAction(forName: UIKeyboardWillHideNotification) }
         set { setAction(newValue, object: nil, name: UIKeyboardWillHideNotification) }
     }
-    
+
     public var didHide: NotificationBlock? {
         get { return getAction(forName: UIKeyboardDidHideNotification) }
         set { setAction(newValue, object: nil, name: UIKeyboardDidHideNotification) }

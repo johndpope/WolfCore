@@ -9,7 +9,7 @@
 #if os(Linux)
     import Glibc
     import COpenSSL
-    let OPENSSL_free = CRYPTO_free
+    let OPENSSL_free = CRYPTO_free  // swiftlint:disable:this variable_name
     typealias SSLContextRef = UnsafeMutablePointer<SSL_CTX>
     typealias HostEntRef = UnsafeMutablePointer<hostent>
 #endif

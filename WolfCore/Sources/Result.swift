@@ -10,10 +10,10 @@
 public protocol ResultSummary {
     /// Returns true if the process completed successfully; false otherwise.
     var isSuccess: Bool { get }
-    
+
     /// Returns a human-readable error message, or `nil` if none was provided.
     var message: String? { get }
-    
+
     /// Returns a numeric error code, or `nil` if none was provided.
     var code: Int? { get }
 }
@@ -24,30 +24,30 @@ public protocol ResultSummary {
 public enum Result<T>: ResultSummary {
     case Success(T)
     case Failure(Error)
-    
+
     /// Returns true if the process completed successfully; false otherwise.
     public var isSuccess: Bool {
-        switch(self) {
+        switch self {
         case .Success:
             return true
         case .Failure:
             return false
         }
     }
-    
+
     /// Returns a human-readable error message, or `nil` if none was provided.
     public var message: String? {
-        switch(self) {
+        switch self {
         case .Success:
             return nil
         case .Failure(let error):
             return error.message
         }
     }
-    
+
     /// Returns a numeric error code, or `nil` if none was provided.
     public var code: Int? {
-        switch(self) {
+        switch self {
         case .Success:
             return nil
         case .Failure(let error):

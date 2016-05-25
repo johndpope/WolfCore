@@ -25,7 +25,7 @@ public class UTF8 {
         if let s = String(data: data, encoding: NSUTF8StringEncoding) {
             return s
         } else {
-            throw ValidationError(message: "Invalid UTF-8.")
+            throw ValidationError(message: "Invalid UTF-8.", identifier: "utf8Format")
         }
     }
 

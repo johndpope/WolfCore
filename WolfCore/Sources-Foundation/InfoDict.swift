@@ -12,31 +12,31 @@ public let infoDict = InfoDict(bundle: NSBundle.mainBundle())
 
 public class InfoDict {
     private let bundle: NSBundle
-    
+
     public init(bundle: NSBundle) {
         self.bundle = bundle
     }
-    
+
     public func object<T: AnyObject>(forKey key: String) -> T? {
         return bundle.objectForInfoDictionaryKey(key) as? T
     }
-    
+
     public subscript(key: String) -> AnyObject? {
         return object(forKey: key)
     }
-    
+
     public subscript(key: CFString) -> AnyObject? {
         return object(forKey: key as String)
     }
-    
+
     public var bundleIdentifier: String {
         return self["CFBundleIdentifier"] as! String
     }
-    
+
     public var version: String {
         return self["CFBundleShortVersionString"] as! String
     }
-    
+
     public var build: String {
         return self[kCFBundleVersionKey] as! String
     }

@@ -10,15 +10,15 @@ import Foundation
 
 public struct HTTPError: Error {
     public let response: NSHTTPURLResponse
-    
+
     public init(response: NSHTTPURLResponse) {
         self.response = response
     }
-    
+
     public var message: String {
         return NSHTTPURLResponse.localizedStringForStatusCode(response.statusCode)
     }
-    
+
     public var code: Int {
         return response.statusCode
     }

@@ -14,7 +14,7 @@ import Foundation
 
 public enum SQLiteReturnCode: Int32 {
     case OK = 0     /* Successful result */
-    
+
     case Error      /* SQL error or missing database */
     case Internal   /* Internal logic error in SQLite */
     case Perm       /* Access permission denied */
@@ -50,8 +50,8 @@ public enum SQLiteStepResult: Int32 {
     case Done       /* sqlite3_step() has finished executing */
 }
 
-let SQLITE_STATIC = unsafeBitCast(0, sqlite3_destructor_type.self)
-let SQLITE_TRANSIENT = unsafeBitCast(-1, sqlite3_destructor_type.self)
+let SQLITE_STATIC = unsafeBitCast(0, sqlite3_destructor_type.self) // swiftlint:disable:this variable_name
+let SQLITE_TRANSIENT = unsafeBitCast(-1, sqlite3_destructor_type.self) // swiftlint:disable:this variable_name
 
 extension SQLiteReturnCode: Error {
     public var message: String {
@@ -67,46 +67,46 @@ extension SQLiteReturnCode : CustomStringConvertible {
 
 public class SQLite {
     private var db: COpaquePointer = nil
-    
+
     public init(fileURL: NSURL) throws {
         let error = SQLiteReturnCode(rawValue: sqlite3_open(fileURL.path!, &db))!
         guard error == .OK else {
             throw error
         }
     }
-    
+
     deinit {
         sqlite3_close(db)
     }
-    
+
     public func exec(sql: String) throws {
         let error = SQLiteReturnCode(rawValue: sqlite3_exec(db, sql, nil, nil, nil))!
         guard error == .OK else {
             throw error
         }
     }
-    
+
     public func prepare(sql: String) throws -> Statement {
         return try Statement(db: self, sql: sql)
     }
-    
+
     public func beginTransaction() {
         try! exec("BEGIN")
     }
-    
+
     public func commitTransaction() {
         try! exec("COMMIT")
     }
-    
+
     public func rollbackTransaction() {
         try! exec("ROLLBACK")
     }
-    
+
     public class Statement {
         let db: SQLite
         let sql: String
         var statement: COpaquePointer = nil
-        
+
         init(db: SQLite, sql: String) throws {
             self.db = db
             self.sql = sql
@@ -115,39 +115,39 @@ public class SQLite {
                 throw error
             }
         }
-        
+
         deinit {
             sqlite3_finalize(statement)
         }
-        
+
         private func indexForParameterName(name: String) -> Int {
             return Int(sqlite3_bind_parameter_index(statement, ":\(name)"))
         }
-        
+
         public func bindParameterIndex(index: Int, toInt n: Int) {
             sqlite3_bind_int(statement, Int32(index), Int32(n))
         }
-        
+
         public func bindParameterIndex(index: Int, toURL url: NSURL) {
             sqlite3_bind_text(statement, Int32(index), url.absoluteString, -1, SQLITE_TRANSIENT)
         }
-        
+
         public func bindParameterIndex(index: Int, toBLOB data: NSData) {
             sqlite3_bind_blob(statement, Int32(index), UnsafePointer<Void>(data.bytes), Int32(data.length), SQLITE_TRANSIENT)
         }
-        
+
         public func bindParameterName(name: String, toInt n: Int) {
             bindParameterIndex(indexForParameterName(name), toInt: n)
         }
-        
+
         public func bindParameterName(name: String, toURL url: NSURL) {
             bindParameterIndex(indexForParameterName(name), toURL: url)
         }
-        
+
         public func bindParameterName(name: String, toBLOB data: NSData) {
             bindParameterIndex(indexForParameterName(name), toBLOB: data)
         }
-        
+
         public func step() throws -> SQLiteStepResult {
             let rawReturnCode = sqlite3_step(statement)
             if let stepResult = SQLiteStepResult(rawValue: rawReturnCode) {
@@ -156,24 +156,24 @@ public class SQLite {
                 throw SQLiteReturnCode(rawValue: rawReturnCode)!
             }
         }
-        
+
         public func reset() {
             sqlite3_reset(statement)
         }
-        
+
         public var columnCount: Int {
             return Int(sqlite3_column_count(statement))
         }
-        
+
         public func columnNameForIndex(index: Int) -> String {
             let s = sqlite3_column_name(statement, Int32(index))
             return String.fromCString(s)!
         }
-        
+
         public func intValueForColumnIndex(index: Int) -> Int {
             return Int(sqlite3_column_int(statement, Int32(index)))
         }
-        
+
         public func stringValueForColumnIndex(index: Int) -> String? {
             let s = sqlite3_column_text(statement, Int32(index))
             if s != nil {
@@ -182,7 +182,7 @@ public class SQLite {
                 return nil
             }
         }
-        
+
         public func urlValueForColumnIndex(index: Int) -> NSURL? {
             if let string = stringValueForColumnIndex(index) {
                 return NSURL(string: string)
@@ -190,7 +190,7 @@ public class SQLite {
                 return nil
             }
         }
-        
+
         public func blobValueForColumnIndex(index: Int) -> NSData? {
             let b = sqlite3_column_blob(statement, Int32(index))
             if b != nil {

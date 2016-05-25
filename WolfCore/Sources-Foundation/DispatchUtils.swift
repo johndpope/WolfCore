@@ -120,7 +120,7 @@ public func dispatchOnBackground(afterDelay delay: NSTimeInterval, f: DispatchBl
     return dispatch(onQueue: backgroundQueue, afterDelay: delay, f: f)
 }
 
-func _dispatchRepeated(onQueue queue: DispatchQueue, atInterval interval: NSTimeInterval, canceler: Canceler, _ f:CancelableBlock) {
+func _dispatchRepeated(onQueue queue: DispatchQueue, atInterval interval: NSTimeInterval, canceler: Canceler, _ f: CancelableBlock) {
     _dispatch(onQueue: queue, afterDelay: interval, c: canceler) { canceler in
         if !canceler.isCanceled {
             f(canceler: canceler)
@@ -132,7 +132,7 @@ func _dispatchRepeated(onQueue queue: DispatchQueue, atInterval interval: NSTime
 }
 
 // Dispatch the block immediately, and then again after each interval passes. An interval of 0.0 means dispatch the block only once.
-public func dispatchRepeated(onQueue queue: DispatchQueue, atInterval interval: NSTimeInterval, f:CancelableBlock) -> Canceler {
+public func dispatchRepeated(onQueue queue: DispatchQueue, atInterval interval: NSTimeInterval, f: CancelableBlock) -> Canceler {
     let canceler = Canceler()
     _dispatch(onQueue: queue, canceler: canceler) { canceler in
         if !canceler.isCanceled {
@@ -147,10 +147,10 @@ public func dispatchRepeated(onQueue queue: DispatchQueue, atInterval interval: 
     return canceler
 }
 
-public func dispatchRepeatedOnMain(atInterval interval: NSTimeInterval, f:CancelableBlock) -> Canceler {
+public func dispatchRepeatedOnMain(atInterval interval: NSTimeInterval, f: CancelableBlock) -> Canceler {
     return dispatchRepeated(onQueue: mainQueue, atInterval: interval, f: f)
 }
 
-public func dispatchRepeatedOnBackground(atInterval interval: NSTimeInterval, f:CancelableBlock) -> Canceler {
+public func dispatchRepeatedOnBackground(atInterval interval: NSTimeInterval, f: CancelableBlock) -> Canceler {
     return dispatchRepeated(onQueue: backgroundQueue, atInterval: interval, f: f)
 }

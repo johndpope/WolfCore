@@ -24,6 +24,6 @@ extension IntPoint {
 extension IntPoint: Equatable {
 }
 
-public func ==(lhs: IntPoint, rhs: IntPoint) -> Bool {
+public func == (lhs: IntPoint, rhs: IntPoint) -> Bool {
     return lhs.x == rhs.x && lhs.y == rhs.y
 }

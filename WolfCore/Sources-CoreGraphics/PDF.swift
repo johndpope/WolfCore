@@ -20,22 +20,22 @@ import CoreGraphics
 public class PDF {
     private let pdf: CGPDFDocument
     public let pageCount: Int
-    
+
     public init(url: NSURL) {
         pdf = CGPDFDocumentCreateWithURL(url)!
         pageCount = CGPDFDocumentGetNumberOfPages(pdf)
     }
-    
+
     public convenience init(named name: String, inSubdirectory subdirectory: String? = nil, fromBundleForClass aClass: AnyClass) {
         let bundle = NSBundle.findBundle(forClass: aClass)
         let url = bundle.URLForResource(name, withExtension: "pdf", subdirectory: subdirectory)!
         self.init(url: url)
     }
-    
+
     public func sizeOfPage(atIndex index: Int) -> CGSize {
         return sizeOfPage(getPage(atIndex: index))
     }
-    
+
     #if os(iOS) || os(tvOS)
     public func imageForPage(atIndex index: Int, size: CGSize? = nil, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
         let page = getPage(atIndex: index)
@@ -50,7 +50,7 @@ public class PDF {
         }
     }
     #endif
-    
+
     #if os(iOS) || os(tvOS)
     public func imageForPage(atIndex index: Int, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
         let size = sizeOfPage(atIndex: index)
@@ -58,22 +58,22 @@ public class PDF {
         return imageForPage(atIndex: index, size: newSize, scale: scale, renderingMode: renderingMode)
     }
     #endif
-    
+
     #if os(iOS) || os(tvOS)
     public func image() -> UIImage {
         return imageForPage(atIndex: 0)
     }
     #endif
-    
+
     //
     // MARK: - Private
     //
-    
+
     private func getPage(atIndex index: Int) -> CGPDFPage {
         assert(index < pageCount)
         return CGPDFDocumentGetPage(pdf, index + 1)!
     }
-    
+
     private func sizeOfPage(page: CGPDFPage) -> CGSize {
         var rect = CGPDFPageGetBoxRect(page, .CropBox)
         let rotationAngle = CGPDFPageGetRotationAngle(page)

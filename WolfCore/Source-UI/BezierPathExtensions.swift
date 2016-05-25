@@ -19,7 +19,7 @@
         public func addLineToPoint(point: CGPoint) {
             lineToPoint(point)
         }
-        
+
         public func addArcWithCenter(center: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
             appendBezierPathWithArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle)
         }
@@ -38,7 +38,7 @@ extension OSBezierPath {
         }
         closePath()
     }
-    
+
     public convenience init(closedPolygon: [CGPoint]) {
         self.init()
         addClosedPolygon(closedPolygon)
@@ -46,40 +46,36 @@ extension OSBezierPath {
 }
 
 #if os(OSX)
-    extension NSBezierPath
-    {
+    extension NSBezierPath {
         public convenience init (arcCenter center: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
             self.init()
             appendBezierPathWithArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         }
 
-        public var CGPath: CGPathRef
-        {
+        public var CGPath: CGPathRef {
             let path = CGPathCreateMutable()
             let elementsCount = self.elementCount
-            
+
             let pointsArray = NSPointArray.alloc( 3 )
-            
-            for index in 0 ..< elementsCount
-            {
-                switch elementAtIndex( index, associatedPoints: pointsArray )
-                {
+
+            for index in 0 ..< elementsCount {
+                switch elementAtIndex( index, associatedPoints: pointsArray ) {
                 case NSBezierPathElement.MoveToBezierPathElement:
                     CGPathMoveToPoint( path, nil, pointsArray[0].x, pointsArray[0].y )
-                    
+
                 case NSBezierPathElement.LineToBezierPathElement:
                     CGPathAddLineToPoint( path, nil, pointsArray[0].x, pointsArray[0].y )
-                    
+
                 case NSBezierPathElement.CurveToBezierPathElement:
                     CGPathAddCurveToPoint( path, nil, pointsArray[0].x, pointsArray[0].y,
                                            pointsArray[1].x, pointsArray[1].y,
                                            pointsArray[2].x, pointsArray[2].y )
-                    
+
                 case NSBezierPathElement.ClosePathBezierPathElement:
                     CGPathCloseSubpath( path )
                 }
             }
-            
+
             return CGPathCreateCopy( path )!
         }
     }
@@ -87,9 +83,9 @@ extension OSBezierPath {
 
 extension OSBezierPath {
     public convenience init(sides: Int, radius: CGFloat, center: CGPoint = .zero, rotationAngle: CGFloat = 0.0, cornerRadius: CGFloat = 0.0) {
-        
+
         self.init()
-        
+
         let theta = 2 * M_PI / Double(sides)
         let r = Double(radius)
 
@@ -101,7 +97,7 @@ extension OSBezierPath {
             let corner = CGPoint(x: cornerX, y: cornerY)
             corners.append(corner)
         }
-        
+
         if cornerRadius <= 0.0 {
             for (index, corner) in corners.enumerate() {
                 if index == 0 {

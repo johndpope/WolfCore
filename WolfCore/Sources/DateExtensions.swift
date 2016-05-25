@@ -14,9 +14,9 @@ extension NSDate {
         let dayRange = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: self)
         let dayCount = dayRange.length
         let comp = calendar.components([.Year, .Month, .Day], fromDate: self)
-        
+
         comp.day = dayCount
-        
+
         return calendar.dateFromComponents(comp)!
     }
 }

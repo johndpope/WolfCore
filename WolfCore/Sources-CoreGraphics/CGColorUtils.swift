@@ -67,13 +67,13 @@ public func CGColorCreateByBurning(color color: CGColor, frac: Frac) -> CGColor 
 
 public func CGColorCreateByInterpolating(color1 color1: CGColor, color2: CGColor, frac: CGFloat) -> CGColor! {
     var result: CGColor? = nil
-    
+
     let oldc1 = CGColorGetComponents(color1)
     let oldc2 = CGColorGetComponents(color2)
-    
+
     let colorSpaceModel1 = CGColorSpaceGetModel(CGColorGetColorSpace(color1))
     let colorSpaceModel2 = CGColorSpaceGetModel(CGColorGetColorSpace(color2))
-    
+
     if colorSpaceModel1 == colorSpaceModel2 {
         switch colorSpaceModel1 {
         case .Monochrome:
@@ -92,7 +92,7 @@ public func CGColorCreateByInterpolating(color1 color1: CGColor, color2: CGColor
     } else {
         fatalError("color space mismatch")
     }
-    
+
     return result
 }
 
@@ -115,9 +115,9 @@ public func CGColorCreateRandom(random: Random = Random.sharedInstance) -> CGCol
 
 public func CGColorConvertToRGB(color: CGColor) -> CGColor {
     var result: CGColor! = color
-    
+
     let oldc = CGColorGetComponents(color)
-    
+
     switch CGColorSpaceGetModel(CGColorGetColorSpace(color)) {
     case .Monochrome:
         let gray = oldc[0]
@@ -128,11 +128,11 @@ public func CGColorConvertToRGB(color: CGColor) -> CGColor {
     default:
         fatalError("unsupported color model")
     }
-    
+
     return result
 }
 
-public func CGGradientWithColors(colorFracs:[ColorFrac]) -> CGGradient {
+public func CGGradientWithColors(colorFracs: [ColorFrac]) -> CGGradient {
     var cgColors = [CGColor]()
     var locations = [CGFloat]()
     for colorFrac in colorFracs {

@@ -160,6 +160,7 @@
 		038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
 		038457921CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
 		038457971CED57E80012BCCE /* WindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457961CED57E80012BCCE /* WindowExtensions.swift */; };
+		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
 		039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
 		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
@@ -402,6 +403,7 @@
 		0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerDebugging.swift; sourceTree = "<group>"; };
 		038457901CED55690012BCCE /* RunLoopUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunLoopUtils.swift; sourceTree = "<group>"; };
 		038457961CED57E80012BCCE /* WindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowExtensions.swift; sourceTree = "<group>"; };
+		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertControllerExtensions.swift; sourceTree = "<group>"; };
 		039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 				035553371C0F622A00E0FCA7 /* View.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
 				038457961CED57E80012BCCE /* WindowExtensions.swift */,
+				0389BD301CF5130600390914 /* AlertControllerExtensions.swift */,
 			);
 			name = UI;
 			path = "Source-UI";
@@ -755,6 +758,7 @@
 			buildConfigurationList = 033F5EDE1CA3096700647A0A /* Build configuration list for PBXNativeTarget "WolfCore-OSX" */;
 			buildPhases = (
 				033F5E821CA3096700647A0A /* Sources */,
+				036A2D211CF59AA2006C109B /* Lint */,
 				033F5ED91CA3096700647A0A /* Frameworks */,
 				033F5EDB1CA3096700647A0A /* Headers */,
 				033F5EDD1CA3096700647A0A /* Resources */,
@@ -773,6 +777,7 @@
 			buildConfigurationList = 035553001C0F5F4200E0FCA7 /* Build configuration list for PBXNativeTarget "WolfCore-iOS" */;
 			buildPhases = (
 				035552F31C0F5F4200E0FCA7 /* Sources */,
+				036A2D201CF59A87006C109B /* Lint */,
 				035552F41C0F5F4200E0FCA7 /* Frameworks */,
 				035552F51C0F5F4200E0FCA7 /* Headers */,
 				035552F61C0F5F4200E0FCA7 /* Resources */,
@@ -809,6 +814,7 @@
 			buildConfigurationList = 03E172BC1CF1C8020073F383 /* Build configuration list for PBXNativeTarget "WolfCore-tvOS" */;
 			buildPhases = (
 				03E172B01CF1C8020073F383 /* Sources */,
+				036A2D221CF59AB4006C109B /* Lint */,
 				03E172B11CF1C8020073F383 /* Frameworks */,
 				03E172B21CF1C8020073F383 /* Headers */,
 				03E172B31CF1C8020073F383 /* Resources */,
@@ -894,6 +900,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		036A2D201CF59A87006C109B /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/RunLint.sh\n";
+		};
+		036A2D211CF59AA2006C109B /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/RunLint.sh\n";
+		};
+		036A2D221CF59AB4006C109B /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/RunLint.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		033F5E821CA3096700647A0A /* Sources */ = {
@@ -1026,6 +1077,7 @@
 				031C5BC91CC18D38007166BA /* TarotCard.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
+				0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */,
 				03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */,
 				03E13B841C4FEE720074E447 /* Grid.swift in Sources */,
 				03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */,

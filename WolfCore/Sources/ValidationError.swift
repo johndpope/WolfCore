@@ -7,17 +7,29 @@
 //
 
 public struct ValidationError: Error {
-    public let message: String
-    public let code: Int
-    
-    public init(message: String, code: Int = 1) {
+    public var message: String
+    private var aIdentifier: String
+    public var fieldIdentifier: String?
+    public var code: Int
+
+    public init(message: String, identifier: String, fieldIdentifier: String? = nil, code: Int = 1) {
         self.message = message
+        self.aIdentifier = identifier
+        self.fieldIdentifier = fieldIdentifier
         self.code = code
+    }
+
+    public var identifier: String {
+        if let fieldIdentifier = fieldIdentifier {
+            return "\(fieldIdentifier)-\(aIdentifier)"
+        } else {
+            return "\(aIdentifier)"
+        }
     }
 }
 
 extension ValidationError: CustomStringConvertible {
     public var description: String {
-        return "ValidationError(\(message))"
+        return "ValidationError(\(message) [\(identifier)])"
     }
 }
