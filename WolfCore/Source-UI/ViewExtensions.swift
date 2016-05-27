@@ -18,6 +18,8 @@
     public let OSEdgeInsetsZero = NSEdgeInsetsZero
 #endif
 
+public typealias ViewBlock = (OSView) -> Void
+
 extension OSView {
 #if os(iOS) || os(tvOS)
     public func makeTransparent(debugColor debugColor: OSColor = OSColor.Clear, debug: Bool = false) {
@@ -108,17 +110,23 @@ extension OSView {
 extension OSView {
     public func descendentViews<T: OSView>(ofClass aClass: AnyClass) -> [T] {
         var resultViews = [T]()
-
-        var queue: [OSView] = [self]
-        while !queue.isEmpty {
-            let view = queue.removeFirst()
+        self.forViewsInHierachy { view in
             if view.dynamicType == aClass {
                 resultViews.append(view as! T)
             }
-            queue.appendContentsOf(view.subviews)
         }
-
         return resultViews
+    }
+
+    public func forViewsInHierachy(operate: ViewBlock) {
+        var stack = [self]
+        repeat {
+            let view = stack.removeLast()
+            operate(view)
+            view.subviews.reverse().forEach { subview in
+                stack.append(subview)
+            }
+        } while !stack.isEmpty
     }
 }
 

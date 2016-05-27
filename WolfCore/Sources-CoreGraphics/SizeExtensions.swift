@@ -13,12 +13,14 @@ import CoreGraphics
     import UIKit
 #endif
 
+#if os(iOS) || os(tvOS)
+    public let noSize = UIViewNoIntrinsicMetric
+#else
+    public let noSize: CGFloat = -1.0
+#endif
+
 extension CGSize {
-    #if os(iOS) || os(tvOS)
-        public static let None = UIViewNoIntrinsicMetric
-    #else
-        public static let None: CGFloat = -1.0
-    #endif
+    public static var none = CGSize(width: noSize, height: noSize)
 
     public init(vector: CGVector) {
         width = vector.dx
@@ -30,22 +32,22 @@ extension CGSize {
     }
 
     public func scaleForAspectFitWithinSize(size: CGSize) -> CGFloat {
-        if size.width != CGSize.None && size.height != CGSize.None {
+        if size.width != noSize && size.height != noSize {
             return min(size.width / width, size.height / height)
-        } else if size.width != CGSize.None {
+        } else if size.width != noSize {
             return size.width / width
         } else {
-            return size.height / height
+            return 1.0
         }
     }
 
     public func scaleForAspectFillWithinSize(size: CGSize) -> CGFloat {
-        if size.width != CGSize.None && size.height != CGSize.None {
+        if size.width != noSize && size.height != noSize {
             return max(size.width / width, size.height / height)
-        } else if size.width != CGSize.None {
+        } else if size.width != noSize {
             return size.width / width
         } else {
-            return size.height / height
+            return 1.0
         }
     }
 

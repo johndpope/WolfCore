@@ -9,7 +9,54 @@
 import UIKit
 
 public class ImageView: UIImageView {
-    public var transparentToTouches: Bool = false
+    public var transparentToTouches = false
+
+    public var pdf: PDF? {
+        didSet {
+            makeTransparent(debugColor: .Green, debug: false)
+            updatePDFImage()
+            setNeedsLayout()
+        }
+    }
+
+    private var lastFittingSize: CGSize?
+    private weak var lastPDF: PDF?
+
+    private func updatePDFImage() {
+        let fittingSize = bounds.size
+        if lastFittingSize != fittingSize || lastPDF !== pdf {
+            let newImage = self.pdf?.getImage(fittingSize: fittingSize)
+            self.image = newImage
+//            dispatchOnBackground {
+//                let newImage = self.pdf?.getImage(fittingSize: fittingSize)
+//                dispatchOnMain {
+//                    self.image = newImage
+//                }
+//            }
+            lastFittingSize = fittingSize
+            lastPDF = pdf
+        }
+    }
+
+    var canceler: Canceler?
+
+    public override func layoutSubviews() {
+        canceler?.cancel()
+        canceler = dispatchOnMain(afterDelay: 0.1) {
+            self.updatePDFImage()
+        }
+        super.layoutSubviews()
+    }
+
+    public override func intrinsicContentSize() -> CGSize {
+        let size: CGSize
+        if let pdf = pdf {
+            size = pdf.getSize()
+        } else {
+            size = super.intrinsicContentSize()
+        }
+        return size
+    }
 
     public convenience init() {
         self.init(frame: .zero)
@@ -17,6 +64,11 @@ public class ImageView: UIImageView {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        _setup()
+    }
+
+    public override init(image: UIImage?) {
+        super.init(image: image)
         _setup()
     }
 
@@ -30,8 +82,17 @@ public class ImageView: UIImageView {
         setup()
     }
 
-    // Override in subclasses
+    public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard superview != nil else { return }
+        updateAppearance()
+    }
+
+    /// Override in subclasses
     public func setup() { }
+
+    /// Override in subclasses
+    public func updateAppearance() { }
 
     override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if transparentToTouches {

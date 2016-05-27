@@ -22,6 +22,11 @@ public class Label: UILabel {
         syncToTintColor()
     }
 
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        text = text?.localized(onlyIfTagged: true)
+    }
+
     public convenience init() {
         self.init(frame: .zero)
     }

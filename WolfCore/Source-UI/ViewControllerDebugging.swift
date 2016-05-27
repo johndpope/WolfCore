@@ -49,6 +49,10 @@ extension UIViewController {
             joiner.append( indent, "\(level)".padded(toCount: 2) )
             joiner.append(aliaser.name(forObject: controller))
 
+            if controller.automaticallyAdjustsScrollViewInsets {
+                joiner.append("automaticallyAdjustsScrollViewInsets:\(controller.automaticallyAdjustsScrollViewInsets)")
+            }
+
             if let presentedViewController = controller.presentedViewController {
                 joiner.append("presents:\(aliaser.name(forObject: presentedViewController))")
             }

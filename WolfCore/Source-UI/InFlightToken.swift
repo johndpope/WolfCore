@@ -1,0 +1,30 @@
+//
+//  InFlightToken.swift
+//  WolfCore
+//
+//  Created by Robert McNally on 5/26/16.
+//  Copyright © 2016 Arciem. All rights reserved.
+//
+
+public class InFlightToken: Equatable, Hashable, CustomStringConvertible {
+    private static var nextID = 1
+    public let id: Int
+    public let name: String
+    var result: ResultSummary?
+
+    init(name: String) {
+        id = InFlightToken.nextID
+        InFlightToken.nextID += 1
+        self.name = name
+    }
+
+    public var hashValue: Int { return id }
+
+    public var description: String {
+        return "InFlightToken(id: \(id), name: \(name), result: \(result))"
+    }
+}
+
+public func == (lhs: InFlightToken, rhs: InFlightToken) -> Bool {
+    return lhs.id == rhs.id
+}

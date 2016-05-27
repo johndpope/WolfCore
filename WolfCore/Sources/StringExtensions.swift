@@ -37,19 +37,46 @@ import Foundation
 #endif
 
 #if os(iOS) || os(OSX) || os(tvOS)
-extension String {
-    public func localized(inBundleForClass aClass: AnyClass? = nil, replacingPlaceholdersWithReplacements replacements: [String : Any]? = nil) -> String {
-        let bundle = NSBundle.findBundle(forClass: aClass)
-        var s = bundle.localizedStringForKey(self, value: nil, table: nil)
-        if s == self {
-            s = NSBundle.findBundle(forClass: BundleClass.self).localizedStringForKey(self, value: nil, table: nil)
+    extension String {
+        public func localized(onlyIfTagged mustHaveTag: Bool = false, inBundleForClass aClass: AnyClass? = nil, inLanguage language: String? = nil, replacingPlaceholdersWithReplacements replacements: [String : Any]? = nil) -> String {
+
+            let untaggedKey: String
+            let taggedKey: String
+            let hasTag: Bool
+            if self.hasSuffix("¶") {
+                untaggedKey = substringToIndex(self.endIndex.predecessor())
+                taggedKey = self
+                hasTag = true
+            } else {
+                untaggedKey = self
+                taggedKey = self + "¶"
+                hasTag = false
+            }
+
+            guard !mustHaveTag || hasTag else { return self }
+
+            var bundle = NSBundle.findBundle(forClass: aClass)
+            if let language = language {
+                if let path = bundle.pathForResource(language, ofType: "lproj") {
+                    if let langBundle = NSBundle(path: path) {
+                        bundle = langBundle
+                    }
+                }
+            }
+            var localized = bundle.localizedStringForKey(taggedKey, value: nil, table: nil)
+            if localized == taggedKey {
+                localized = NSBundle.findBundle(forClass: BundleClass.self).localizedStringForKey(taggedKey, value: nil, table: nil)
+            }
+            if localized == taggedKey {
+                logWarning("No localization found for: \"\(taggedKey)\".")
+                localized = untaggedKey
+            }
+            if let replacements = replacements {
+                localized = localized.replacing(placeholdersWithReplacements: replacements)
+            }
+            return localized
         }
-        if let replacements = replacements {
-            s = s.replacing(placeholdersWithReplacements: replacements)
-        }
-        return s
     }
-}
 #endif
 
 extension String {

@@ -18,6 +18,11 @@ public class Button: UIButton {
         }
     }
 
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        setTitle(titleForState(.Normal)?.localized(onlyIfTagged: true), forState: .Normal)
+    }
+
     public convenience init() {
         self.init(frame: .zero)
     }
@@ -54,8 +59,12 @@ public class Button: UIButton {
     }
 
     func syncToHighlighted() {
-        dispatchAnimated(duration: 0.1) {
-            self.customView?.tintColor = self.titleColorForState(self.highlighted ? .Highlighted : .Normal)!.colorWithAlphaComponent(self.highlighted ? 0.4 : 1.0)
+        let highlighted = self.highlighted
+        if let customView = self.customView {
+            customView.tintColor = self.titleColorForState(highlighted ? .Highlighted : .Normal)!.colorWithAlphaComponent(highlighted ? 0.4 : 1.0)
+            customView.forViewsInHierachy { view in
+                (view as? UIImageView)?.highlighted = highlighted
+            }
         }
     }
 

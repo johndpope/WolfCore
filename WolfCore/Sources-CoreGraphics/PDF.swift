@@ -26,20 +26,23 @@ public class PDF {
         pageCount = CGPDFDocumentGetNumberOfPages(pdf)
     }
 
-    public convenience init(named name: String, inSubdirectory subdirectory: String? = nil, fromBundleForClass aClass: AnyClass) {
+    public convenience init?(named name: String, inSubdirectory subdirectory: String? = nil, fromBundleForClass aClass: AnyClass) {
         let bundle = NSBundle.findBundle(forClass: aClass)
-        let url = bundle.URLForResource(name, withExtension: "pdf", subdirectory: subdirectory)!
-        self.init(url: url)
+        if let url = bundle.URLForResource(name, withExtension: "pdf", subdirectory: subdirectory) {
+            self.init(url: url)
+        } else {
+            return nil
+        }
     }
 
-    public func sizeOfPage(atIndex index: Int) -> CGSize {
-        return sizeOfPage(getPage(atIndex: index))
+    public func getSize(ofPageAtIndex index: Int = 0) -> CGSize {
+        return getSize(ofPage: getPage(atIndex: index))
     }
 
     #if os(iOS) || os(tvOS)
-    public func imageForPage(atIndex index: Int, size: CGSize? = nil, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
+    public func getImage(forPageAtIndex index: Int = 0, size: CGSize? = nil, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
         let page = getPage(atIndex: index)
-        let size = size ?? sizeOfPage(atIndex: index)
+        let size = size ?? getSize(ofPageAtIndex: index)
         let bounds = CGRect(origin: .zero, size: size)
         let cropBox = CGPDFPageGetBoxRect(page, .CropBox)
         let scaling = CGVector(size: bounds.size) / CGVector(size: cropBox.size)
@@ -52,16 +55,17 @@ public class PDF {
     #endif
 
     #if os(iOS) || os(tvOS)
-    public func imageForPage(atIndex index: Int, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage {
-        let size = sizeOfPage(atIndex: index)
+    public func getImage(forPageAtIndex index: Int = 0, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .Automatic) -> UIImage? {
+        guard fittingSize.width > 0 && fittingSize.height > 0 else { return nil }
+        let size = getSize(ofPageAtIndex: index)
         let newSize = size.aspectFitWithinSize(fittingSize)
-        return imageForPage(atIndex: index, size: newSize, scale: scale, renderingMode: renderingMode)
+        return getImage(forPageAtIndex: index, size: newSize, scale: scale, renderingMode: renderingMode)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    public func image() -> UIImage {
-        return imageForPage(atIndex: 0)
+    public func getImage() -> UIImage {
+        return getImage(forPageAtIndex: 0)
     }
     #endif
 
@@ -74,7 +78,7 @@ public class PDF {
         return CGPDFDocumentGetPage(pdf, index + 1)!
     }
 
-    private func sizeOfPage(page: CGPDFPage) -> CGSize {
+    private func getSize(ofPage page: CGPDFPage) -> CGSize {
         var rect = CGPDFPageGetBoxRect(page, .CropBox)
         let rotationAngle = CGPDFPageGetRotationAngle(page)
         if rotationAngle == 90 || rotationAngle == 270 {

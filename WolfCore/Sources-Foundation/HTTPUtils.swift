@@ -34,7 +34,7 @@ public enum HeaderField: String {
     case Authorization = "Authorization"
 }
 
-public enum ResponseCode: Int {
+public enum StatusCode: Int {
     case OK = 200
     case Created = 201
     case Accepted = 202
@@ -52,31 +52,79 @@ public enum ResponseCode: Int {
 }
 
 public class HTTP {
-    public static func retrieve(withRequest request: NSMutableURLRequest,
+    public static func retrieve(withRequest request: NSMutableURLRequest, successStatusCodes: [StatusCode], name: String,
                                             success: (NSHTTPURLResponse, NSData) -> Void,
-                                            failure: (ErrorType) -> Void,
-                                            finally: (() -> Void)? = nil) {
+                                            failure: ErrorBlock,
+                                            finally: DispatchBlock? = nil) {
 
         let session = NSURLSession.sharedSession()
 
-        logTrace("request :\(request)")
+        #if !os(tvOS)
+            let token = inFlightTracker.startWithName(name)
+        #endif
 
         let task = session.dataTaskWithRequest(request) { (let data, let response, let error) in
             guard error == nil else {
+
+                #if !os(tvOS)
+                    inFlightTracker.endWithToken(token, result: Result<NSError>.Failure(error!))
+                    logError("\(token) dataTaskWithRequest returned error")
+                #endif
+
                 dispatchOnMain { failure(error!) }
                 dispatchOnMain { finally?() }
                 return
             }
 
             guard let httpResponse = response as? NSHTTPURLResponse else {
-                fatalError("improper response type: \(response)")
+                #if !os(tvOS)
+                    fatalError("\(token) improper response type: \(response)")
+                #else
+                    return
+                #endif
             }
 
             guard data != nil else {
-                dispatchOnMain { failure(HTTPError(response: httpResponse)) }
+                let error = HTTPError(response: httpResponse)
+
+                #if !os(tvOS)
+                    inFlightTracker.endWithToken(token, result: Result<HTTPError>.Failure(error))
+                    logError("\(token) No data returned")
+                #endif
+
+                dispatchOnMain { failure(error) }
                 dispatchOnMain { finally?() }
                 return
             }
+
+            guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
+                let error = HTTPError(response: httpResponse)
+
+                #if !os(tvOS)
+                    inFlightTracker.endWithToken(token, result: Result<HTTPError>.Failure(error))
+                    logError("\(token) Unknown response code: \(httpResponse.statusCode)")
+                #endif
+                dispatchOnMain { failure(error) }
+                dispatchOnMain { finally?() }
+                return
+            }
+
+            guard successStatusCodes.contains(statusCode) else {
+                let error = HTTPError(response: httpResponse)
+
+                #if !os(tvOS)
+                    inFlightTracker.endWithToken(token, result: Result<HTTPError>.Failure(error))
+                    logError("\(token) Failure response code: \(statusCode)")
+                #endif
+
+                dispatchOnMain { failure(error) }
+                dispatchOnMain { finally?() }
+                return
+            }
+
+            #if !os(tvOS)
+                inFlightTracker.endWithToken(token, result: Result<NSHTTPURLResponse>.Success(httpResponse))
+            #endif
 
             dispatchOnMain { success(httpResponse, data!) }
             dispatchOnMain { finally?() }
@@ -85,38 +133,38 @@ public class HTTP {
         task.resume()
     }
 
-    public static func retrieveJSON(withRequest request: NSMutableURLRequest,
+    public static func retrieveJSON(withRequest request: NSMutableURLRequest, successStatusCodes: [StatusCode], name: String,
                                                 success: (NSHTTPURLResponse, JSONObject) -> Void,
-                                                failure: (ErrorType) -> Void,
-                                                finally: (() -> Void)? = nil) {
+                                                failure: ErrorBlock,
+                                                finally: DispatchBlock? = nil) {
 
         request.setValue(ContentType.JSON.rawValue, forHTTPHeaderField: HeaderField.Accept.rawValue)
 
-        retrieve(withRequest: request, success: { (response, data) -> Void in
-            do {
-                let json = try JSON.decode(data)
-                logTrace(try! UTF8.decode(data))
-                success(response, json)
-            } catch(let error) {
-                failure(error)
-            }
+        retrieve(withRequest: request, successStatusCodes: successStatusCodes, name: name,
+                 success: { (response, data) in
+                    do {
+                        let json = try JSON.decode(data)
+                        success(response, json)
+                    } catch(let error) {
+                        failure(error)
+                    }
             },
                  failure: failure,
                  finally: finally
         )
     }
 
-    public static func retrieveImage(withURL url: NSURL,
+    public static func retrieveImage(withURL url: NSURL, successStatusCodes: [StatusCode], name: String,
                                              success: (OSImage) -> Void,
-                                             failure: (ErrorType) -> Void,
-                                             finally: (() -> Void)? = nil) {
+                                             failure: ErrorBlock,
+                                             finally: DispatchBlock? = nil) {
 
         let request = NSMutableURLRequest()
         request.HTTPMethod = HTTPMethod.GET.rawValue
         request.URL = url
 
-        retrieve(withRequest: request,
-                 success: { (response, data) -> Void in
+        retrieve(withRequest: request, successStatusCodes: successStatusCodes, name: name,
+                 success: { (response, data) in
                     if let image = OSImage(data: data) {
                         success(image)
                     } else {

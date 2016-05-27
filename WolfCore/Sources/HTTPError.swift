@@ -22,6 +22,14 @@ public struct HTTPError: Error {
     public var code: Int {
         return response.statusCode
     }
+
+    public var statusCode: StatusCode? {
+        return StatusCode(rawValue: code)
+    }
+
+    public var identifier: String {
+        return "HTTPError(\(code))"
+    }
 }
 
 extension HTTPError: CustomStringConvertible {

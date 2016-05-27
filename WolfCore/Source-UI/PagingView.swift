@@ -13,19 +13,19 @@ class PagingContentView: View { }
 public class PagingView: View {
     public typealias IndexDispatchBlock = (Int) -> Void
 
-    public var debug: Bool = false
+    public var debug = false
 
     public var arrangedViewAtIndexDidBecomeVisible: IndexDispatchBlock?
     public var arrangedViewAtIndexDidBecomeInvisible: IndexDispatchBlock?
     public var willBeginDragging: DispatchBlock?
     public var didEndDragging: DispatchBlock?
+    public private(set) var pageControl: UIPageControl!
 
     private var scrollView: ScrollView!
     private var contentView: PagingContentView!
     private var contentWidthConstraint: NSLayoutConstraint!
     private var pageControlBottomConstraint: NSLayoutConstraint!
     private var arrangedViewsLeadingConstraints = [NSLayoutConstraint]()
-    private var pageControl: UIPageControl!
     private var slotsCount: Int = 0
 
     private var visibleViewIndexes = Set<Int>() {
@@ -44,16 +44,6 @@ public class PagingView: View {
     public var isCircular = false {
         didSet {
             syncSlots()
-        }
-    }
-
-    public var pageControlBottomInset: CGFloat {
-        get {
-            return -pageControlBottomConstraint.constant
-        }
-
-        set {
-            pageControlBottomConstraint.constant = -newValue
         }
     }
 
@@ -158,7 +148,7 @@ public class PagingView: View {
                 view.heightAnchor == heightAnchor,
                 view.widthAnchor == widthAnchor,
                 leadingConstraint
-                )
+            )
         }
     }
 
@@ -186,18 +176,19 @@ public class PagingView: View {
         activateConstraints(
             contentWidthConstraint,
             contentHeightConstraint
-            )
+        )
     }
 
     private func setupPageControl() {
         pageControl = ~UIPageControl()
+        pageControl.makeTransparent(debugColor: .Red, debug: false)
         pageControl.userInteractionEnabled = false
         addSubview(pageControl)
-        pageControlBottomConstraint = pageControl.bottomAnchor == bottomAnchor - 20
+        pageControlBottomConstraint = pageControl.bottomAnchor == bottomAnchor - 20 =&= UILayoutPriorityDefaultLow
         activateConstraints(
             pageControl.centerXAnchor == centerXAnchor,
             pageControlBottomConstraint
-            )
+        )
     }
 
     private func syncSlots() {

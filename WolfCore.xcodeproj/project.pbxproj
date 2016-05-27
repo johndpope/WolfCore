@@ -19,6 +19,12 @@
 		03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B321C3CBA7E001A463B /* RangeExtensions.swift */; };
 		03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */; };
 		03206B3B1C3CBB36001A463B /* TextCheckingResultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */; };
+		0324AEF61CF81EB30080DFF6 /* InFlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */; };
+		0324AEF81CF81ED50080DFF6 /* InFlightToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */; };
+		0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */; };
+		0324AEFC1CF81F350080DFF6 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFB1CF81F350080DFF6 /* StackView.swift */; };
+		0324AEFE1CF81F7D0080DFF6 /* InFlightTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */; };
+		0324AF001CF81FD40080DFF6 /* DevOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */; };
 		032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F77AA1C1580B5001FCF2C /* ScrollView.swift */; };
 		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
 		0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */; };
@@ -150,7 +156,6 @@
 		036B83491C431FDF00491AFF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83481C431FDF00491AFF /* Random.swift */; };
 		036B834B1C4320AC00491AFF /* ColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834A1C4320AC00491AFF /* ColorFunc.swift */; };
 		036B834D1C4320F300491AFF /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834C1C4320F300491AFF /* Gradient.swift */; };
-		036CA8171CC945C900E40098 /* PDFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CA8161CC945C900E40098 /* PDFImageView.swift */; };
 		036FECAD1C73D74200B09489 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 036FECA31C73CFB100B09489 /* libsqlite3.tbd */; };
 		036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonAction.swift */; };
 		0375EC391CF1B19A001E6D45 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553371C0F622A00E0FCA7 /* View.swift */; };
@@ -274,7 +279,6 @@
 		03E173121CF1C8FB0073F383 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
 		03E173131CF1C8FB0073F383 /* GestureRecognizerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */; };
 		03E173141CF1C8FB0073F383 /* GestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D01CB4869800F25335 /* GestureActions.swift */; };
-		03E173151CF1C8FB0073F383 /* PDFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CA8161CC945C900E40098 /* PDFImageView.swift */; };
 		03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D91CB6DE0600DC7070 /* TVControllerActions.swift */; };
 		03E173171CF1C8FB0073F383 /* ViewGestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */; };
 		03E173181CF1C8FB0073F383 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553241C0F622A00E0FCA7 /* ImageUtils.swift */; };
@@ -335,6 +339,12 @@
 		03206B321C3CBA7E001A463B /* RangeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeExtensions.swift; sourceTree = "<group>"; };
 		03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularExpressionExtensions.swift; sourceTree = "<group>"; };
 		03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCheckingResultExtensions.swift; sourceTree = "<group>"; };
+		0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightTracker.swift; sourceTree = "<group>"; };
+		0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightToken.swift; sourceTree = "<group>"; };
+		0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightView.swift; sourceTree = "<group>"; };
+		0324AEFB1CF81F350080DFF6 /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightTokenView.swift; sourceTree = "<group>"; };
+		0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevOverlayView.swift; sourceTree = "<group>"; };
 		032F77AA1C1580B5001FCF2C /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraitCollectionExtensions.swift; sourceTree = "<group>"; };
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceExtensions.swift; sourceTree = "<group>"; };
@@ -395,7 +405,6 @@
 		036B83481C431FDF00491AFF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		036B834A1C4320AC00491AFF /* ColorFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFunc.swift; sourceTree = "<group>"; };
 		036B834C1C4320F300491AFF /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
-		036CA8161CC945C900E40098 /* PDFImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFImageView.swift; sourceTree = "<group>"; };
 		036FEC9E1C73CEA800B09489 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		036FECA31C73CFB100B09489 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		036FECB01C766E6B00B09489 /* BarButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarButtonAction.swift; sourceTree = "<group>"; };
@@ -597,17 +606,20 @@
 			isa = PBXGroup;
 			children = (
 				036307D11CB6DAA500DC7070 /* ApplicationNotificationActions.swift */,
-				036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */,
-				036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */,
 				035553111C0F622A00E0FCA7 /* AnimationUtils.swift */,
 				035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */,
 				036FECB01C766E6B00B09489 /* BarButtonAction.swift */,
 				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
 				039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */,
+				0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */,
 				035EB4541CF3CC2D006D73ED /* EmailUtils.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
 				03AB94D01CB4869800F25335 /* GestureActions.swift */,
-				036CA8161CC945C900E40098 /* PDFImageView.swift */,
+				0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */,
+				0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */,
+				0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */,
+				0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */,
+				036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */,
 				036307D91CB6DE0600DC7070 /* TVControllerActions.swift */,
 				03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */,
 				035553241C0F622A00E0FCA7 /* ImageUtils.swift */,
@@ -615,6 +627,7 @@
 				035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */,
 				035553181C0F622A00E0FCA7 /* ColorExtensions.swift */,
 				035553231C0F622A00E0FCA7 /* ImageExtensions.swift */,
+				036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */,
 				034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
 				0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */,
@@ -627,6 +640,7 @@
 				035553271C0F622A00E0FCA7 /* KeyboardAvoidantView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				038457901CED55690012BCCE /* RunLoopUtils.swift */,
+				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
 				035553371C0F622A00E0FCA7 /* View.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
 				038457961CED57E80012BCCE /* WindowExtensions.swift */,
@@ -1040,7 +1054,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0355534B1C0F622A00E0FCA7 /* GestureRecognizerAction.swift in Sources */,
-				036CA8171CC945C900E40098 /* PDFImageView.swift in Sources */,
 				03206B3B1C3CBB36001A463B /* TextCheckingResultExtensions.swift in Sources */,
 				035553431C0F622A00E0FCA7 /* ColorExtensions.swift in Sources */,
 				03AC919C1CEB3DF3006AED00 /* PagingView.swift in Sources */,
@@ -1050,10 +1063,12 @@
 				03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */,
 				035553491C0F622A00E0FCA7 /* GeneralError.swift in Sources */,
 				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
+				0324AEF81CF81ED50080DFF6 /* InFlightToken.swift in Sources */,
 				0362A1A71C19FBD20005371F /* Log.swift in Sources */,
 				03FAF77B1C532A640045BB37 /* ASN1Parser.swift in Sources */,
 				03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */,
 				036B83471C431F2A00491AFF /* Color.swift in Sources */,
+				0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */,
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				036307D01CB6DA7F00DC7070 /* NotificationAction.swift in Sources */,
 				031C5BC11CC18992007166BA /* Pile.swift in Sources */,
@@ -1112,6 +1127,7 @@
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
 				035C36651C500333000C04D0 /* LifeHash.swift in Sources */,
 				038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */,
+				0324AEFC1CF81F350080DFF6 /* StackView.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
 				036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */,
@@ -1120,7 +1136,9 @@
 				035553571C0F622A00E0FCA7 /* NotificationUtils.swift in Sources */,
 				034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */,
 				03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */,
+				0324AEFE1CF81F7D0080DFF6 /* InFlightTokenView.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
+				0324AEF61CF81EB30080DFF6 /* InFlightTracker.swift in Sources */,
 				03F5A8B61C496D1100B124A3 /* Point.swift in Sources */,
 				03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */,
 				031C5BC31CC189F5007166BA /* PlayingCard.swift in Sources */,
@@ -1134,6 +1152,7 @@
 				039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */,
 				03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */,
 				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,
+				0324AF001CF81FD40080DFF6 /* DevOverlayView.swift in Sources */,
 				032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */,
 				035EB4551CF3CC2D006D73ED /* EmailUtils.swift in Sources */,
 				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
@@ -1172,7 +1191,6 @@
 				03E172E91CF1C8B60073F383 /* OutputStreamUtils.swift in Sources */,
 				03E172C01CF1C8AD0073F383 /* Point.swift in Sources */,
 				03E173241CF1C8FB0073F383 /* ImageView.swift in Sources */,
-				03E173151CF1C8FB0073F383 /* PDFImageView.swift in Sources */,
 				03E172C51CF1C8AD0073F383 /* Rect.swift in Sources */,
 				03E172CB1CF1C8AD0073F383 /* CardBack.swift in Sources */,
 				03E172CA1CF1C8AD0073F383 /* CardFacing.swift in Sources */,
