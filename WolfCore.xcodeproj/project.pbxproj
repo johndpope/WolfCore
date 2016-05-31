@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0302D2F81CF8F34300717170 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302D2F71CF8F34300717170 /* TextView.swift */; };
 		031C5BBF1CC18977007166BA /* CardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BBE1CC18977007166BA /* CardProtocol.swift */; };
 		031C5BC11CC18992007166BA /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC01CC18992007166BA /* Pile.swift */; };
 		031C5BC31CC189F5007166BA /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC21CC189F5007166BA /* PlayingCard.swift */; };
@@ -298,6 +299,9 @@
 		03E173281CF1C8FB0073F383 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553371C0F622A00E0FCA7 /* View.swift */; };
 		03E173291CF1C8FB0073F383 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F77AA1C1580B5001FCF2C /* ScrollView.swift */; };
 		03E1732A1CF1C8FB0073F383 /* WindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457961CED57E80012BCCE /* WindowExtensions.swift */; };
+		03E1732E1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */; };
+		03E1732F1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */; };
+		03E173311CF8CCD20073F383 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E173301CF8CCD20073F383 /* CollectionViewCell.swift */; };
 		03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */; };
 		03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */; };
 		03ECD6221C60CE4600173FD1 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD6211C60CE4600173FD1 /* ValidationError.swift */; };
@@ -327,6 +331,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		031C5BBE1CC18977007166BA /* CardProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardProtocol.swift; sourceTree = "<group>"; };
 		031C5BC01CC18992007166BA /* Pile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
 		031C5BC21CC189F5007166BA /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
@@ -441,6 +446,8 @@
 		03E172B51CF1C8020073F383 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E172B71CF1C8020073F383 /* WolfCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WolfCore.h; sourceTree = "<group>"; };
 		03E172B91CF1C8020073F383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringExtensions.swift; sourceTree = "<group>"; };
+		03E173301CF8CCD20073F383 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPAddress4.swift; sourceTree = "<group>"; };
 		03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPAddress6.swift; sourceTree = "<group>"; };
 		03ECD6211C60CE4600173FD1 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -607,8 +614,10 @@
 			children = (
 				036307D11CB6DAA500DC7070 /* ApplicationNotificationActions.swift */,
 				035553111C0F622A00E0FCA7 /* AnimationUtils.swift */,
+				03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */,
 				035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */,
 				036FECB01C766E6B00B09489 /* BarButtonAction.swift */,
+				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
 				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
 				039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */,
 				0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */,
@@ -641,6 +650,7 @@
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				038457901CED55690012BCCE /* RunLoopUtils.swift */,
 				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
+				0302D2F71CF8F34300717170 /* TextView.swift */,
 				035553371C0F622A00E0FCA7 /* View.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
 				038457961CED57E80012BCCE /* WindowExtensions.swift */,
@@ -1015,6 +1025,7 @@
 				033F5EB41CA3096700647A0A /* PDF.swift in Sources */,
 				033F5EB61CA3096700647A0A /* IntSize.swift in Sources */,
 				033F5EB81CA3096700647A0A /* LifeHash.swift in Sources */,
+				03E1732F1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
 				033F5EB91CA3096700647A0A /* MathUtils.swift in Sources */,
 				033F5EBA1CA3096700647A0A /* CryptoUtils.swift in Sources */,
 				033F5EBC1CA3096700647A0A /* PointExtensions.swift in Sources */,
@@ -1062,6 +1073,7 @@
 				0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */,
 				03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */,
 				035553491C0F622A00E0FCA7 /* GeneralError.swift in Sources */,
+				0302D2F81CF8F34300717170 /* TextView.swift in Sources */,
 				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
 				0324AEF81CF81ED50080DFF6 /* InFlightToken.swift in Sources */,
 				0362A1A71C19FBD20005371F /* Log.swift in Sources */,
@@ -1115,6 +1127,7 @@
 				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
 				036B834D1C4320F300491AFF /* Gradient.swift in Sources */,
 				03ECD6221C60CE4600173FD1 /* ValidationError.swift in Sources */,
+				03E1732E1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
 				03FAF7851C53F6FF0045BB37 /* JSON.swift in Sources */,
 				03F5A8BC1C49746500B124A3 /* Rect.swift in Sources */,
 				03B218951C20E90A0081CE39 /* Joiner.swift in Sources */,
@@ -1139,6 +1152,7 @@
 				0324AEFE1CF81F7D0080DFF6 /* InFlightTokenView.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
 				0324AEF61CF81EB30080DFF6 /* InFlightTracker.swift in Sources */,
+				03E173311CF8CCD20073F383 /* CollectionViewCell.swift in Sources */,
 				03F5A8B61C496D1100B124A3 /* Point.swift in Sources */,
 				03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */,
 				031C5BC31CC189F5007166BA /* PlayingCard.swift in Sources */,

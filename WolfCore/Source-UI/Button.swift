@@ -38,7 +38,7 @@ public class Button: UIButton {
     }
 
     private func _setup() {
-        translatesAutoresizingMaskIntoConstraints = false
+        ~~self
         setup()
     }
 

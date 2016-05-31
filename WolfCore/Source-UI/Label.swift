@@ -42,7 +42,7 @@ public class Label: UILabel {
     }
 
     private func _setup() {
-        translatesAutoresizingMaskIntoConstraints = false
+        ~~self
         setup()
     }
 

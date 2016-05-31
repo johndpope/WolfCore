@@ -1,23 +1,16 @@
 //
-//  StackView.swift
+//  CollectionViewCell.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 5/26/16.
+//  Created by Robert McNally on 5/27/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
 import UIKit
 
-public class StackView: UIStackView {
-    public var transparentToTouches = false
-
+public class CollectionViewCell: UICollectionViewCell {
     public convenience init() {
         self.init(frame: .zero)
-    }
-
-    public override init(arrangedSubviews views: [UIView]) {
-        super.init(arrangedSubviews: views)
-        _setup()
     }
 
     public override init(frame: CGRect) {
@@ -46,12 +39,4 @@ public class StackView: UIStackView {
 
     /// Override in subclasses
     public func updateAppearance() { }
-
-    override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        if transparentToTouches {
-            return tranparentPointInside(point, withEvent: event)
-        } else {
-            return super.pointInside(point, withEvent: event)
-        }
-    }
 }

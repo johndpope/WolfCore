@@ -29,3 +29,34 @@ cyclomatic_complexity:
 function_parameter_count:
     warning: 15
     error: 20
+
+custom_rules:
+    ns_localized_string:
+        name: "NSLocalizedString"
+        regex: "NSLocalizedString"
+        match_kinds:
+            - identifier
+        message: "Use ¶ operators instead of NSLocalizedString."
+        severity: warning
+    ns_attributed_string:
+        name: "NSAttributedString"
+        regex: "NS(Mutable)?AttributedString\W"
+        match_kinds:
+            - typeidentifier
+        message: "Use AttributedString and § operators instead of NSAttributedString."
+        severity: warning
+    ns_layout_constraint:
+        name: "NSLayoutConstraint"
+        regex: "NSLayoutConstraint\s*\("
+        message: "Use conveniences in AutolayoutUtils.swift instead of manually creating NSLayoutConstraints."
+        severity: warning
+    with_completion:
+        name: "withCompletion:"
+        regex: "withCompletion\s*:\s\{"
+        message: "Use trailing closure syntax instead."
+        severity: warning
+    activate_constraints_array:
+        name: "activate constraints array"
+        regex: "activateConstraints\s*\(\s*\["
+        message: "Use variadic version of activateConstraints."
+        severity: warning

@@ -27,12 +27,6 @@ public class ImageView: UIImageView {
         if lastFittingSize != fittingSize || lastPDF !== pdf {
             let newImage = self.pdf?.getImage(fittingSize: fittingSize)
             self.image = newImage
-//            dispatchOnBackground {
-//                let newImage = self.pdf?.getImage(fittingSize: fittingSize)
-//                dispatchOnMain {
-//                    self.image = newImage
-//                }
-//            }
             lastFittingSize = fittingSize
             lastPDF = pdf
         }
@@ -42,8 +36,10 @@ public class ImageView: UIImageView {
 
     public override func layoutSubviews() {
         canceler?.cancel()
-        canceler = dispatchOnMain(afterDelay: 0.1) {
-            self.updatePDFImage()
+        if pdf != nil {
+            canceler = dispatchOnMain(afterDelay: 0.1) {
+                self.updatePDFImage()
+            }
         }
         super.layoutSubviews()
     }
@@ -78,7 +74,7 @@ public class ImageView: UIImageView {
     }
 
     private func _setup() {
-        translatesAutoresizingMaskIntoConstraints = false
+        ~~self
         setup()
     }
 

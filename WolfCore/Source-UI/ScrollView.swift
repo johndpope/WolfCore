@@ -26,7 +26,7 @@ public class ScrollView: UIScrollView {
     }
 
     private func _setup() {
-        translatesAutoresizingMaskIntoConstraints = false
+        ~self
         setup()
     }
 

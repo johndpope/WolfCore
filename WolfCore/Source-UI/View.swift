@@ -99,9 +99,7 @@ public class View: OSView {
         contentMode = view.contentMode
         tag = view.tag
         userInteractionEnabled = view.userInteractionEnabled
-        #if os(iOS)
-            multipleTouchEnabled = view.multipleTouchEnabled
-        #endif
+        multipleTouchEnabled = view.multipleTouchEnabled
         alpha = view.alpha
         backgroundColor = view.backgroundColor
         tintColor = view.tintColor
@@ -134,6 +132,8 @@ public class View: OSView {
             if secondItem === view {
                 secondItem = self
             }
+
+            // swiftlint:disable:next custom_rules
             addConstraint(NSLayoutConstraint(item: firstItem, attribute: firstAttribute, relatedBy: relation, toItem: secondItem, attribute: secondAttribute, multiplier: multiplier, constant: constant))
         }
     }

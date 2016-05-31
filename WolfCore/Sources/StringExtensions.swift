@@ -12,6 +12,9 @@ import Foundation
     import CoreGraphics
 #endif
 
+public typealias StringIndex = String.Index
+public typealias StringRange = Range<StringIndex>
+
 // Provide concise versions of NSLocalizedString.
 
 #if os(iOS) || os(OSX) || os(tvOS)
@@ -80,35 +83,103 @@ import Foundation
 #endif
 
 extension String {
-    public func range(fromNSRange range: NSRange) -> Range<String.Index> {
-        let s = self.startIndex.advancedBy(range.location)
-        let e = self.startIndex.advancedBy(range.location + range.length)
-        return s..<e
+    public func range(fromNSRange nsRange: NSRange?) -> StringRange? {
+        guard let nsRange = nsRange else { return nil }
+        let utf16view = utf16
+        let from16 = utf16view.startIndex.advancedBy(nsRange.location, limit: utf16view.endIndex)
+        let to16 = from16.advancedBy(nsRange.length, limit: utf16view.endIndex)
+        if let from = StringIndex(from16, within: self),
+            let to = StringIndex(to16, within: self) {
+            return from ..< to
+        }
+        return nil
+    }
+
+    public func nsRange(fromRange range: StringRange?) -> NSRange? {
+        guard let range = range else { return nil }
+        let utf16view = utf16
+        let from = String.UTF16View.Index(range.startIndex, within: utf16view)
+        let to = String.UTF16View.Index(range.endIndex, within: utf16view)
+        return NSRange(location: utf16view.startIndex.distanceTo(from), length: from.distanceTo(to))
+    }
+
+    public func location(fromIndex index: StringIndex) -> Int {
+        return nsRange(fromRange: index..<index)!.location
+    }
+
+    public func index(fromLocation location: Int) -> StringIndex {
+        return range(fromNSRange: NSRange(location: location, length: 0))!.startIndex
     }
 
     public var nsRange: NSRange {
-        return NSRange(location: 0, length: (self as NSString).length)
+        return nsRange(fromRange: range)!
+    }
+
+    public var range: StringRange {
+        return startIndex..<endIndex
+    }
+
+    public func range(start start: Int, end: Int? = nil) -> StringRange {
+        let s = startIndex.advancedBy(start)
+        let e = startIndex.advancedBy(end ?? start)
+        return s..<e
     }
 }
 
-private let _placeholderReplacementRegex = try! ~/"(?:(?<!\\\\)#\\{(\\w+)\\})"
+extension String {
+    public func replacing(ranges ranges: [StringRange], withReplacements replacements: [String]) -> (string: String, ranges: [StringRange]) {
+        var mutatedSelf = self
+        var replacedRanges = [StringRange]()
+
+        var cumOffset = 0
+        for (index, range) in ranges.enumerate() {
+            let replacement = replacements[index]
+            let replacementCount = replacement.characters.count
+            let rangeCount = range.count
+            let offset = replacementCount - rangeCount
+            let startIndex = range.startIndex.advancedBy(cumOffset)
+            let replacementRange = startIndex..<startIndex.advancedBy(rangeCount)
+            mutatedSelf.replaceRange(replacementRange, with: replacement)
+            for i in 0..<replacedRanges.count {
+                let r = replacedRanges[i]
+                if r.startIndex >= range.startIndex {
+                    let adjustedStart = r.startIndex.advancedBy(offset)
+                    let adjustedEnd = adjustedStart.advancedBy(replacementCount)
+                    replacedRanges[i] = adjustedStart..<adjustedEnd
+                }
+            }
+            let replacedRange = startIndex..<startIndex.advancedBy(replacementCount)
+            replacedRanges.append(replacedRange)
+            cumOffset = cumOffset + offset
+        }
+
+        return (mutatedSelf, replacedRanges)
+    }
+}
+
+// (?:(?<!\\)#\{(\w+)\})
+// The quick #{color} fox #{action} over #{subject}.
+private let placeholderReplacementRegex = try! ~/"(?:(?<!\\\\)#\\{(\\w+)\\})"
 
 extension String {
-    public func replacing(placeholdersWithReplacements replacements: [String : Any]) -> String {
-        var mutatedSelf = self
-        // (?:(?<!\\)#{(\w+)})
-        let matches = _placeholderReplacementRegex.matchesInString(self, options: [], range: nsRange) as Array<NSTextCheckingResult>
-        for match in matches.reverse() {
-            let matchRange = range(fromNSRange: match.range)
-            let placeholderRange = range(fromNSRange: match.rangeAtIndex(1))
-            let replacementName = mutatedSelf[placeholderRange]
-            if let replacement = replacements[replacementName] {
-                mutatedSelf.replaceRange(matchRange, with: "\(replacement)")
+    public func replacing(placeholdersWithReplacements replacementsDict: [String : Any]) -> String {
+        var ranges = [StringRange]()
+        var replacements = [String]()
+
+        let matches = placeholderReplacementRegex ~~= self
+        for match in matches {
+            let matchRange = range(fromNSRange: match.range)!
+            let placeholderRange = range(fromNSRange: match.rangeAtIndex(1))!
+            let replacementName = self[placeholderRange]
+            if let replacement = replacementsDict[replacementName] {
+                ranges.append(matchRange)
+                replacements.append("\(replacement)")
             } else {
                 logError("Replacement in \"\(self)\" not found for placeholder \"\(replacementName)\".")
             }
         }
-        return mutatedSelf
+
+        return replacing(ranges: ranges, withReplacements: replacements).string
     }
 }
 
@@ -120,6 +191,39 @@ extension String {
         let pad = String(count: padCount, repeatedValue: character)
         return onRight ? (self + pad) : (pad + self)
     }
+}
+
+extension String {
+    public init(value: Double, precision: Int) {
+        let f = NSNumberFormatter()
+        f.numberStyle = .DecimalStyle
+        f.usesGroupingSeparator = false
+        f.minimumFractionDigits = 0
+        f.maximumFractionDigits = precision
+        self.init(f.stringFromNumber(value)!)
+    }
+
+    public init(value: Float, precision: Int) {
+        self.init(value: Double(value), precision: precision)
+    }
+
+    public init(value: CGFloat, precision: Int) {
+        self.init(value: Double(value), precision: precision)
+    }
+}
+
+infix operator %% { }
+
+public func %% (left: Double, right: Int) -> String {
+    return String(value: left, precision: right)
+}
+
+public func %% (left: Float, right: Int) -> String {
+    return String(value: left, precision: right)
+}
+
+public func %% (left: CGFloat, right: Int) -> String {
+    return String(value: left, precision: right)
 }
 
 #if os(iOS) || os(OSX) || os(tvOS)

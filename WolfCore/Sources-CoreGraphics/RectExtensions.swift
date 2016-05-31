@@ -127,3 +127,11 @@ extension CGRect {
     public mutating func setMinYIndependent(y: CGFloat) { let dy = minY - y; setMinY(y); size.height += dy; standardizeInPlace() }
     public mutating func setMaxYIndependent(y: CGFloat) { let dy = maxY - y; setMaxY(y); size.height += dy; standardizeInPlace() }
 }
+
+extension CGRect {
+    public var debugName: String {
+        let joiner = Joiner("(", ")", " ")
+        joiner.append(minX %% 3, minY %% 3, width %% 3, height %% 3)
+        return joiner.description
+    }
+}

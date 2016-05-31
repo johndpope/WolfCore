@@ -102,6 +102,12 @@ extension OSColor {
     public static var Clear: OSColor { return .clearColor() }
 }
 
+extension UIColor {
+    public var debugName: String {
+        return color.debugName
+    }
+}
+
 extension OSColor {
     public static func testInitFromString() {
         do {

@@ -40,7 +40,7 @@ extension UIView {
 
             joiner.append(aliaser.name(forObject: view))
 
-            joiner.append("frame:\(view.frame)")
+            joiner.append("frame:\(view.frame.debugName)")
 
             appendAttributes(forView: view, toJoiner: joiner)
 
@@ -92,29 +92,66 @@ extension UIView {
     }
 
     private func appendAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+        appendScrollViewAttributes(forView: view, toJoiner: joiner)
+        appendColorAttributes(forView: view, toJoiner: joiner)
+        appendTextAttributes(forView: view, toJoiner: joiner)
+        appendInteractionAttributes(forView: view, toJoiner: joiner)
+        appendOpacityAttributes(forView: view, toJoiner: joiner)
+    }
+
+    private func appendScrollViewAttributes(forView view: UIView, toJoiner joiner: Joiner) {
         if let scrollView = view as? UIScrollView {
             joiner.append("contentSize:\(scrollView.contentSize)")
             joiner.append("contentOffset:\(scrollView.contentOffset)")
         }
+    }
 
-        #if os(iOS) || os(tvOS)
-            if let backgroundColor = view.backgroundColor {
-                joiner.append("backgroundColor:(\(backgroundColor))")
+    private func appendColorAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+        if let backgroundColor = view.backgroundColor {
+            if backgroundColor != .Clear {
+                joiner.append("backgroundColor:\(backgroundColor.debugName)")
             }
-            if let label = view as? UILabel {
-                joiner.append("textColor:\(label.textColor)")
-            }
-            if view == self || (view.superview != nil && view.tintColor != view.superview!.tintColor) {
-                joiner.append("tintColor:(\(view.tintColor))")
-            }
-        #endif
-
-        if !view.userInteractionEnabled {
-            joiner.append("userInteractionEnabled:\(view.userInteractionEnabled)")
         }
 
-        if !view.opaque {
-            joiner.append("opaque:\(view.opaque)")
+        if view == self || (view.superview != nil && view.tintColor != view.superview!.tintColor) {
+            joiner.append("tintColor:\(view.tintColor.debugName)")
+        }
+    }
+
+    private func appendTextAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+        if let label = view as? UILabel {
+            joiner.append("textColor:\(label.textColor.debugName)")
+            if let text = label.text {
+                joiner.append("text:\"\(text)\"")
+            }
+        } else if let textView = view as? UITextView {
+            if let textColor = textView.textColor {
+                joiner.append("textColor:\(textColor.debugName)")
+            }
+            if let text = textView.text {
+                joiner.append("text:\"\(text)\"")
+            }
+        }
+    }
+
+    private func appendInteractionAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+        let userInteractionEnabledDefault: Bool
+        if view is UILabel || view is UIImageView {
+            userInteractionEnabledDefault = false
+        } else {
+            userInteractionEnabledDefault = true
+        }
+
+        if view.userInteractionEnabled != userInteractionEnabledDefault {
+            joiner.append("userInteractionEnabled:\(view.userInteractionEnabled)")
+        }
+    }
+
+    private func appendOpacityAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+        if !(view is UIStackView) {
+            if view.opaque {
+                joiner.append("opaque:\(view.opaque)")
+            }
         }
 
         if view.alpha < 1.0 {

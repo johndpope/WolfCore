@@ -302,8 +302,44 @@ public func == (left: Color, right: Color) -> Bool {
 extension Color : CustomStringConvertible {
     public var description: String {
         get {
-            return "Color(\(red), \(green), \(blue), \(alpha))"
+            return "Color(\(debugName))"
         }
+    }
+}
+
+extension Color {
+    public var debugName: String {
+        let joiner = Joiner("(", ")", " ")
+        var needAlpha = true
+        switch (red, green, blue, alpha) {
+        case (0, 0, 0, 0):
+            joiner.append("clear")
+            needAlpha = false
+        case (0, 0, 0, _):
+            joiner.append("black")
+        case (1, 1, 1, _):
+            joiner.append("white")
+        case (0.5, 0.5, 0.5, _):
+            joiner.append("gray")
+        case (1, 0, 0, _):
+            joiner.append("red")
+        case (0, 1, 0, _):
+            joiner.append("green")
+        case (0, 0, 1, _):
+            joiner.append("blue")
+        case (0, 1, 1, _):
+            joiner.append("cyan")
+        case (1, 0, 1, _):
+            joiner.append("magenta")
+        case (1, 1, 0, _):
+            joiner.append("yellow")
+        default:
+            joiner.append("r:\(red %% 2) g:\(green %% 2) b:\(blue %% 2)")
+        }
+        if needAlpha && alpha < 1.0 {
+            joiner.append("a: \(alpha %% 2)")
+        }
+        return joiner.description
     }
 }
 

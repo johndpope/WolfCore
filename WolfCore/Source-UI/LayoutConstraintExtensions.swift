@@ -14,10 +14,10 @@
 
 extension NSLayoutConstraint {
     public func activate() {
-        activateConstraints([self])
+        activateConstraints(self)
     }
 
     public func deactivate() {
-        deactivateConstraints([self])
+        deactivateConstraints(self)
     }
 }
