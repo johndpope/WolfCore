@@ -39,9 +39,7 @@ public var deviceModel: String? {
     var systemInfo = [UInt8](count: sizeof(utsname), repeatedValue: 0)
 
     let model = systemInfo.withUnsafeMutableBufferPointer { (inout body: UnsafeMutableBufferPointer<UInt8>) -> String? in
-        if uname(UnsafeMutablePointer(body.baseAddress)) != 0 {
-            return nil
-        }
+        guard uname(UnsafeMutablePointer(body.baseAddress)) == 0 else { return nil }
         return String.fromCString(UnsafePointer(body.baseAddress.advancedBy(Int(_SYS_NAMELEN * 4))))
     }
 

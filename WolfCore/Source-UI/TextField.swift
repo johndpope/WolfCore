@@ -10,6 +10,7 @@ import UIKit
 
 public class TextField: UITextField {
     private var tintedClearImage: UIImage?
+    private var lastTintColor: UIColor?
 
     public var followsTintColor = false {
         didSet {
@@ -59,24 +60,22 @@ public class TextField: UITextField {
 
 extension TextField {
     private func syncToTintColor() {
-        if followsTintColor {
-            textColor = tintColor ?? .Black
-            tintClearImage()
-        }
+        guard followsTintColor else { return }
+        textColor = tintColor ?? .Black
+        tintClearImage()
     }
 
     private func tintClearImage() {
+        guard followsTintColor else { return }
+        guard lastTintColor != tintColor else { return }
         let buttons: [UIButton] = self.descendentViews(ofClass: UIButton.self)
-        if !buttons.isEmpty {
-            let button = buttons[0]
-            if let image = button.imageForState(.Highlighted) {
-                if tintedClearImage == nil {
-                    tintedClearImage = image.tintWithColor(tintColor)
-                }
-                button.setImage(tintedClearImage, forState: .Normal)
-                button.setImage(tintedClearImage, forState: .Highlighted)
-            }
-        }
+        guard !buttons.isEmpty else { return }
+        let button = buttons[0]
+        guard let image = button.imageForState(.Highlighted) else { return }
+        tintedClearImage = image.tintWithColor(tintColor)
+        button.setImage(tintedClearImage, forState: .Normal)
+        button.setImage(tintedClearImage, forState: .Highlighted)
+        lastTintColor = tintColor
     }
 
     public override func tintColorDidChange() {

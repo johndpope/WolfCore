@@ -77,33 +77,30 @@ public class InFlightView: View {
     }
 
     private func moveViewToRight(forToken token: InFlightToken) {
-        if let tokenView = self.tokenViewsByID[token.id] {
-            if let index = self.leftTokenViews.indexOf(tokenView) {
-                serializer.dispatch {
-                    self.leftTokenViews.removeAtIndex(index)
-                    self.rightTokenViews.insert(tokenView, atIndex: 0)
-                }
-                self.needsTokenViewLayout = true
+        guard let tokenView = self.tokenViewsByID[token.id] else { return }
+        if let index = self.leftTokenViews.indexOf(tokenView) {
+            serializer.dispatch {
+                self.leftTokenViews.removeAtIndex(index)
+                self.rightTokenViews.insert(tokenView, atIndex: 0)
             }
-            dispatchOnMain(afterDelay: 10.0) {
-                self.removeView(forToken: token)
-            }
+            self.needsTokenViewLayout = true
+        }
+        dispatchOnMain(afterDelay: 10.0) {
+            self.removeView(forToken: token)
         }
     }
 
     private func updateView(forToken token: InFlightToken) {
-        if let tokenView = self.tokenViewsByID[token.id] {
-            tokenView.tokenChanged()
-        }
+        guard let tokenView = self.tokenViewsByID[token.id] else { return }
+        tokenView.tokenChanged()
     }
 
     private func removeView(forToken token: InFlightToken) {
-        if let tokenView = self.tokenViewsByID[token.id] {
-            serializer.dispatch {
-                self.leavingTokenViews.append(tokenView)
-            }
-            self.needsTokenViewLayout = true
+        guard let tokenView = self.tokenViewsByID[token.id] else { return }
+        serializer.dispatch {
+            self.leavingTokenViews.append(tokenView)
         }
+        self.needsTokenViewLayout = true
     }
 
     private func layoutTokenViews(animated animated: Bool) {

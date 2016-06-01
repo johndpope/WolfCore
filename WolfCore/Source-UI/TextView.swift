@@ -41,7 +41,7 @@ public class TextView: UITextView {
     private func _setup() {
         ~~self
         setup()
-0    }
+    }
 
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
