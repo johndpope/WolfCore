@@ -10,14 +10,15 @@ import Foundation
 
 // Regex matching operators
 
-infix operator ~~= { }
+infix operator ~? { }
+infix operator ~?? { }
 
-public func ~~= (regex: NSRegularExpression, str: String) -> [NSTextCheckingResult] {
+public func ~?? (regex: NSRegularExpression, str: String) -> [NSTextCheckingResult] {
     return regex.matchesInString(str, options: [], range: str.nsRange) as [NSTextCheckingResult]
 }
 
-public func ~= (regex: NSRegularExpression, str: String) -> Bool {
-    return (regex ~~= str).count > 0
+public func ~? (regex: NSRegularExpression, str: String) -> Bool {
+    return (regex ~?? str).count > 0
 }
 
 // Regex creation operator
@@ -32,5 +33,5 @@ public func testRegex() -> Bool {
     let regex = try! ~/"\\wpple"
     let str = "Foo"
 
-    return regex ~= str
+    return regex ~? str
 }

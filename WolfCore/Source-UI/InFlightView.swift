@@ -25,7 +25,7 @@ public class InFlightView: View {
     public override var hidden: Bool {
         didSet {
             if !hidden {
-                layoutTokenViewsAnimated(false)
+                layoutTokenViews(animated: false)
             }
         }
     }
@@ -38,7 +38,7 @@ public class InFlightView: View {
                 if layoutCanceler == nil {
                     layoutCanceler = dispatchOnMain(afterDelay: 0.1) {
                         self.layoutCanceler = nil
-                        self.layoutTokenViewsAnimated(true)
+                        self.layoutTokenViews(animated: true)
                     }
                 }
             } else {
@@ -58,7 +58,7 @@ public class InFlightView: View {
         setupColumnViews()
     }
 
-    private func addViewForToken(token: InFlightToken) {
+    private func addView(forToken token: InFlightToken) {
         let tokenView = InFlightTokenView()
 
         serializer.dispatch {
@@ -69,14 +69,14 @@ public class InFlightView: View {
 
         self.addSubview(tokenView)
         tokenView.token = token
-        self.layoutTokenView(tokenView, index: 0, referenceView: self.leftColumnView)
+        self.layout(tokenView: tokenView, index: 0, referenceView: self.leftColumnView)
         tokenView.alpha = 0.0
         tokenView.setNeedsLayout()
         tokenView.layoutIfNeeded()
         self.needsTokenViewLayout = true
     }
 
-    private func moveViewToRightForToken(token: InFlightToken) {
+    private func moveViewToRight(forToken token: InFlightToken) {
         if let tokenView = self.tokenViewsByID[token.id] {
             if let index = self.leftTokenViews.indexOf(tokenView) {
                 serializer.dispatch {
@@ -86,18 +86,18 @@ public class InFlightView: View {
                 self.needsTokenViewLayout = true
             }
             dispatchOnMain(afterDelay: 10.0) {
-                self.removeViewForToken(token)
+                self.removeView(forToken: token)
             }
         }
     }
 
-    private func updateViewForToken(token: InFlightToken) {
+    private func updateView(forToken token: InFlightToken) {
         if let tokenView = self.tokenViewsByID[token.id] {
             tokenView.tokenChanged()
         }
     }
 
-    private func removeViewForToken(token: InFlightToken) {
+    private func removeView(forToken token: InFlightToken) {
         if let tokenView = self.tokenViewsByID[token.id] {
             serializer.dispatch {
                 self.leavingTokenViews.append(tokenView)
@@ -106,7 +106,7 @@ public class InFlightView: View {
         }
     }
 
-    private func layoutTokenViewsAnimated(animated: Bool) {
+    private func layoutTokenViews(animated animated: Bool) {
         for tokenView in leavingTokenViews {
             dispatchAnimated(animated, duration: 0.3, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseOut],
                              animations: {
@@ -127,11 +127,11 @@ public class InFlightView: View {
         }
 
         for (index, tokenView) in leftTokenViews.enumerate() {
-            layoutTokenView(tokenView, index: index, referenceView: leftColumnView)
+            layout(tokenView: tokenView, index: index, referenceView: leftColumnView)
         }
 
         for (index, tokenView) in rightTokenViews.enumerate() {
-            layoutTokenView(tokenView, index: index, referenceView: rightColumnView)
+            layout(tokenView: tokenView, index: index, referenceView: rightColumnView)
         }
 
         for tokenView in enteringTokenViews {
@@ -148,7 +148,7 @@ public class InFlightView: View {
         }
     }
 
-    private func layoutTokenView(tokenView: InFlightTokenView, index: Int, referenceView: UIView) {
+    private func layout(tokenView tokenView: InFlightTokenView, index: Int, referenceView: UIView) {
         let token = tokenView.token
         tokenViewConstraintsByID[token.id]?.active = false
         let viewY = CGFloat(index) * (InFlightTokenView.viewHeight + spacing)
@@ -160,16 +160,16 @@ public class InFlightView: View {
         tokenViewConstraintsByID[token.id] = LayoutConstraintsGroup(constraints: constraints, active: true)
     }
 
-    private func didStart(token: InFlightToken) {
+    private func didStart(withToken token: InFlightToken) {
         dispatchOnMain {
-            self.addViewForToken(token)
+            self.addView(forToken: token)
         }
     }
 
-    private func didEnd(token: InFlightToken) {
+    private func didEnd(withToken token: InFlightToken) {
         dispatchOnMain {
-            self.updateViewForToken(token)
-            self.moveViewToRightForToken(token)
+            self.updateView(forToken: token)
+            self.moveViewToRight(forToken: token)
         }
     }
 

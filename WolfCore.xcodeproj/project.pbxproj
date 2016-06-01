@@ -28,6 +28,7 @@
 		0324AF001CF81FD40080DFF6 /* DevOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */; };
 		032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F77AA1C1580B5001FCF2C /* ScrollView.swift */; };
 		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
+		033882241CFF97C200C8972B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033882231CFF97C200C8972B /* TextField.swift */; };
 		0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */; };
 		033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033E14FC1C7CC71C00BA3E63 /* Matrix.swift */; };
 		033F5E831CA3096700647A0A /* GestureRecognizerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */; };
@@ -352,6 +353,7 @@
 		0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevOverlayView.swift; sourceTree = "<group>"; };
 		032F77AA1C1580B5001FCF2C /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraitCollectionExtensions.swift; sourceTree = "<group>"; };
+		033882231CFF97C200C8972B /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceExtensions.swift; sourceTree = "<group>"; };
 		033E14FC1C7CC71C00BA3E63 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -650,6 +652,7 @@
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				038457901CED55690012BCCE /* RunLoopUtils.swift */,
 				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
+				033882231CFF97C200C8972B /* TextField.swift */,
 				0302D2F71CF8F34300717170 /* TextView.swift */,
 				035553371C0F622A00E0FCA7 /* View.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
@@ -1065,6 +1068,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0355534B1C0F622A00E0FCA7 /* GestureRecognizerAction.swift in Sources */,
+				033882241CFF97C200C8972B /* TextField.swift in Sources */,
 				03206B3B1C3CBB36001A463B /* TextCheckingResultExtensions.swift in Sources */,
 				035553431C0F622A00E0FCA7 /* ColorExtensions.swift in Sources */,
 				03AC919C1CEB3DF3006AED00 /* PagingView.swift in Sources */,

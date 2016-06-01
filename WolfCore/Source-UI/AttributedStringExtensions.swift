@@ -845,7 +845,7 @@ extension String {
         var replacements = [String]()
         var tags = [String]()
 
-        let matches = tagsReplacementRegex ~~= self
+        let matches = tagsReplacementRegex ~?? self
         for match in matches {
             let matchRange = range(fromNSRange: match.range)!
 

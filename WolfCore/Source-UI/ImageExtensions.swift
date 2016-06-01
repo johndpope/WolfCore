@@ -20,7 +20,7 @@ extension OSImage {
             let bounds = CGRect(origin: CGPoint.zero, size: self.size)
             self.drawInRect(bounds)
             CGContextSetFillColorWithColor(context, color.CGColor)
-            CGContextSetBlendMode(context, .SourceAtop)
+            CGContextSetBlendMode(context, .SourceIn)
             CGContextFillRect(context, bounds)
         }
     }

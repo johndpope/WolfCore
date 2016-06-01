@@ -39,7 +39,7 @@ public class InFlightTracker {
         inFlightView.hidden = hidden
     }
 
-    public func startWithName(name: String) -> InFlightToken {
+    public func start(withName name: String) -> InFlightToken {
         let token = InFlightToken(name: name)
         tokens.insert(token)
         didStart?(token)
@@ -47,7 +47,7 @@ public class InFlightTracker {
         return token
     }
 
-    public func endWithToken(token: InFlightToken, result: ResultSummary) {
+    public func end(withToken token: InFlightToken, result: ResultSummary) {
         token.result = result
         if tokens.remove(token) != nil {
             didEnd?(token)
@@ -64,14 +64,14 @@ public func testInFlightTracker() {
     dispatchRepeatedOnMain(atInterval: 0.5) { canceler in
         switch Random.randomDouble() {
         case 0.0..<0.4:
-            let token = inFlightTracker.startWithName("Test")
+            let token = inFlightTracker.start(withName: "Test")
             testTokens.append(token)
         case 0.4..<0.8:
             if testTokens.count > 0 {
                 let index = Random.randomInt(0..<testTokens.count)
                 let token = testTokens.removeAtIndex(index)
                 let result = Random.randomBoolean() ? Result<Int>.Success(0) : Result<Int>.Failure(GeneralError(message: "err"))
-                inFlightTracker.endWithToken(token, result: result)
+                inFlightTracker.end(withToken: token, result: result)
             }
         case 0.8..<1.0:
             // do nothing

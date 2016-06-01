@@ -166,7 +166,7 @@ extension String {
         var ranges = [StringRange]()
         var replacements = [String]()
 
-        let matches = placeholderReplacementRegex ~~= self
+        let matches = placeholderReplacementRegex ~?? self
         for match in matches {
             let matchRange = range(fromNSRange: match.range)!
             let placeholderRange = range(fromNSRange: match.rangeAtIndex(1))!
