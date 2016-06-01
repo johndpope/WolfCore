@@ -87,8 +87,10 @@ extension TextView {
         if tagTapActions.count == 0 {
             tapAction = nil
         } else {
-            tapAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] recognizer in
-                self.handleTap(fromRecognizer: recognizer)
+            if tapAction == nil {
+                tapAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] recognizer in
+                    self.handleTap(fromRecognizer: recognizer)
+                }
             }
         }
     }

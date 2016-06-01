@@ -61,3 +61,27 @@ extension CGSize {
         return CGSize(vector: CGVector(size: self) * scale)
     }
 }
+
+public func + (left: CGSize, right: CGSize) -> CGVector {
+    return CGVector(dx: left.width + right.width, dy: left.height + right.height)
+}
+
+public func - (left: CGSize, right: CGSize) -> CGVector {
+    return CGVector(dx: left.width - right.width, dy: left.height - right.height)
+}
+
+public func + (left: CGSize, right: CGVector) -> CGSize {
+    return CGSize(width: left.width + right.dx, height: left.height + right.dy)
+}
+
+public func - (left: CGSize, right: CGVector) -> CGSize {
+    return CGSize(width: left.width - right.dx, height: left.height - right.dy)
+}
+
+public func + (left: CGVector, right: CGSize) -> CGSize {
+    return CGSize(width: left.dx + right.width, height: left.dy + right.height)
+}
+
+public func - (left: CGVector, right: CGSize) -> CGSize {
+    return CGSize(width: left.dx - right.width, height: left.dy - right.height)
+}

@@ -35,10 +35,26 @@ extension CGPoint {
     }
 }
 
-public func - (lhs: CGPoint, rhs: CGPoint) -> CGVector {
-    return CGVector(dx: rhs.x - lhs.x, dy: rhs.y - lhs.y)
+public func + (left: CGPoint, right: CGPoint) -> CGVector {
+    return CGVector(dx: left.x + right.x, dy: left.y + right.y)
 }
 
-public func + (lhs: CGPoint, rhs: CGVector) -> CGPoint {
-    return CGPoint(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy)
+public func - (left: CGPoint, right: CGPoint) -> CGVector {
+    return CGVector(dx: left.x - right.x, dy: left.y - right.y)
+}
+
+public func + (left: CGPoint, right: CGVector) -> CGPoint {
+    return CGPoint(x: left.x + right.dx, y: left.y + right.dy)
+}
+
+public func - (left: CGPoint, right: CGVector) -> CGPoint {
+    return CGPoint(x: left.x - right.dx, y: left.y - right.dy)
+}
+
+public func + (left: CGVector, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.dx + right.x, y: left.dy + right.y)
+}
+
+public func - (left: CGVector, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.dx - right.x, y: left.dy - right.y)
 }

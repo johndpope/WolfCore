@@ -9,8 +9,17 @@
 import UIKit
 
 public class Label: UILabel {
+    private var tagTapActions = [String: TagAction]()
+    private var tapAction: GestureRecognizerAction!
+
     public var transparentToTouches: Bool = false
     public var followsTintColor: Bool = false {
+        didSet {
+            syncToTintColor()
+        }
+    }
+
+    public override var text: String? {
         didSet {
             syncToTintColor()
         }
@@ -60,13 +69,79 @@ public class Label: UILabel {
 
 extension Label {
     func syncToTintColor() {
+        let tintColor = self.tintColor ?? .Black
         if followsTintColor {
-            textColor = tintColor ?? .Black
+            if let attributedText = attributedText {
+                let attributedText = attributedText§
+                attributedText.enumerateAttribute(named: overrideTintColorTag) { (value, _, substring) -> Bool in
+                    if value == nil {
+                        substring.foregroundColor = tintColor
+                    }
+                    return false
+                }
+                self.attributedText = attributedText
+            } else {
+                textColor = tintColor
+            }
         }
     }
 
     public override func tintColorDidChange() {
         super.tintColorDidChange()
         syncToTintColor()
+    }
+}
+
+extension Label {
+    public func setTapAction(forTag tag: String, action: TagAction) {
+        tagTapActions[tag] = action
+        syncToTagTapActions()
+    }
+
+    public func removeTapAction(forTag tag: String) {
+        tagTapActions[tag] = nil
+        syncToTagTapActions()
+    }
+
+    private func syncToTagTapActions() {
+        if tagTapActions.count == 0 {
+            tapAction = nil
+        } else {
+            if tapAction == nil {
+                userInteractionEnabled = true
+
+                tapAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] recognizer in
+                    self.handleTap(fromRecognizer: recognizer)
+                }
+            }
+        }
+    }
+
+    private func handleTap(fromRecognizer recognizer: UIGestureRecognizer) {
+        let layoutManager = NSLayoutManager()
+        let textContainer = NSTextContainer()
+        let textStorage = NSTextStorage(attributedString: attributedText!)
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        textContainer.lineFragmentPadding = 0.0
+        textContainer.lineBreakMode = lineBreakMode
+        textContainer.maximumNumberOfLines = numberOfLines
+        textContainer.size = bounds.size
+
+        let locationOfTouchInLabel = recognizer.locationInView(self)
+        let labelSize = bounds.size
+        let textBoundingBox = layoutManager.usedRectForTextContainer(textContainer)
+        let textContainerOffset = (labelSize - textBoundingBox.size) * 0.5 - textBoundingBox.minXminY
+        let locationOfTouchInTextContainer = CGPoint(vector: locationOfTouchInLabel - textContainerOffset)
+        let charIndex = layoutManager.characterIndexForPoint(locationOfTouchInTextContainer, inTextContainer: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        if charIndex < textStorage.length {
+            let attributedText = (self.attributedText!)§
+            for (tag, action) in tagTapActions {
+                let index = attributedText.string.index(fromLocation: charIndex)
+                if let tappedText = attributedText.getString(forTag: tag, atIndex: index) {
+                    action(tappedText)
+                }
+            }
+        }
     }
 }

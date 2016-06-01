@@ -47,3 +47,7 @@ public var deviceModel: String? {
 
     return model
 }
+
+public var defaultTintColor: UIColor = {
+    return UIView().tintColor!
+}()

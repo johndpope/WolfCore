@@ -9,6 +9,7 @@
 import UIKit
 
 public typealias StringAttributes = [String : AnyObject]
+public let overrideTintColorTag = "overrideTintColor"
 
 //
 // Attributed String Conveniences
@@ -515,19 +516,19 @@ extension AttributedString {
         return (attr, range)
     }
 
-    public func enumerateAttributes(inRange range: StringRange? = nil, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (StringAttributes, StringRange) -> Bool) {
+    public func enumerateAttributes(inRange range: StringRange? = nil, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (StringAttributes, StringRange, AttributedSubstring) -> Bool) {
         let nsRange = string.nsRange(fromRange: range) ?? string.nsRange
         enumerateAttributesInRange(nsRange, options: opts) { (attrs, nsRange, stop) in
             let range = self.string.range(fromNSRange: nsRange)!
-            stop[0] = ObjCBool(block(attrs, range))
+            stop[0] = ObjCBool(block(attrs, range, self.substring(forRange: range)))
         }
     }
 
-    public func enumerateAttribute(named attrName: String, inRange enumerationRange: StringRange? = nil, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (AnyObject?, StringRange) -> Bool) {
+    public func enumerateAttribute(named attrName: String, inRange enumerationRange: StringRange? = nil, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (AnyObject?, StringRange, AttributedSubstring) -> Bool) {
         let nsEnumerationRange = string.nsRange(fromRange: enumerationRange) ?? string.nsRange
-        enumerateAttribute(attrName, inRange: nsEnumerationRange, options: opts) { (attr, nsRange, stop) in
+        enumerateAttribute(attrName, inRange: nsEnumerationRange, options: opts) { (value, nsRange, stop) in
             let range = self.string.range(fromNSRange: nsRange)!
-            stop[0] = ObjCBool(block(attr, range))
+            stop[0] = ObjCBool(block(value, range, self.substring(forRange: range)))
         }
     }
 
@@ -597,7 +598,9 @@ extension AttributedString {
 
         return result
     }
+}
 
+extension AttributedString {
     public var font: UIFont {
         get { return substring().font }
         set { substring().font = newValue }
@@ -611,6 +614,11 @@ extension AttributedString {
     public var paragraphStyle: NSMutableParagraphStyle {
         get { return substring().paragraphStyle }
         set { substring().paragraphStyle = newValue }
+    }
+
+    public var textAlignment: NSTextAlignment {
+        get { return substring().textAlignment }
+        set { substring().textAlignment = newValue }
     }
 
     public var tag: String {
@@ -703,11 +711,11 @@ public class AttributedSubstring {
         return attrString.attributeWithRange(named: attrName, atIndex: strRange.startIndex, inRange: rangeLimit)
     }
 
-    public func enumerateAttributes(options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (StringAttributes, StringRange) -> Bool) {
+    public func enumerateAttributes(options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (StringAttributes, StringRange, AttributedSubstring) -> Bool) {
         attrString.enumerateAttributes(inRange: strRange, options: opts, usingBlock: block)
     }
 
-    public func enumerateAttribute(named attrName: String, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (AnyObject?, StringRange) -> Bool) {
+    public func enumerateAttribute(named attrName: String, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (AnyObject?, StringRange, AttributedSubstring) -> Bool) {
         attrString.enumerateAttribute(named: attrName, inRange: strRange, options: opts, usingBlock: block)
     }
 
@@ -725,6 +733,13 @@ public class AttributedSubstring {
 
     public func remove(attributeNamed attrName: String) {
         attrString.remove(attributeNamed: attrName, fromRange: strRange)
+    }
+}
+
+extension AttributedSubstring : CustomStringConvertible {
+    public var description: String {
+        let s = attrString.string.substringWithRange(strRange)
+        return "(AttributedSubstring attrString:\(s), strRange:\(strRange))"
     }
 }
 
@@ -788,9 +803,31 @@ extension AttributedSubstring {
         set { add(attributeNamed: NSParagraphStyleAttributeName, value: newValue) }
     }
 
+    public var textAlignment: NSTextAlignment {
+        get {
+            return self.paragraphStyle.alignment
+        }
+        set {
+            let paragraphStyle = self.paragraphStyle
+            paragraphStyle.alignment = newValue
+            self.paragraphStyle = paragraphStyle
+        }
+    }
+
     public var tag: String {
         get { fatalError("Unimplemented.") }
         set { addTag(newValue) }
+    }
+
+    public var overrideTintColor: Bool {
+        get { return has(tag: overrideTintColorTag) }
+        set {
+            if newValue {
+                addTag(overrideTintColorTag)
+            } else {
+                remove(attributeNamed: overrideTintColorTag)
+            }
+        }
     }
 }
 
