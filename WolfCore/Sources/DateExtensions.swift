@@ -77,3 +77,13 @@ extension NSDate {
         try self.init(iso8601: "\(yearString)-\(monthString)-\(dayString)T00:00:00.0Z")
     }
 }
+
+extension NSDate {
+    public convenience init(millisecondsSince1970 ms: Double) {
+        self.init(timeIntervalSince1970: ms / 1000.0)
+    }
+
+    public var millisecondsSince1970: Double {
+        return timeIntervalSince1970 * 1000.0
+    }
+}

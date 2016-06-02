@@ -18,6 +18,10 @@ public struct GeneralError: Error {
         self.message = message
         self.code = code
     }
+
+    public var identifier: String {
+        return "GeneralError(\(code))"
+    }
 }
 
 /// Provides string conversion for GeneralError.

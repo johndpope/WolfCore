@@ -86,8 +86,21 @@ extension UIViewController {
         presentAlert(withMessage: message, identifier: identifier, actions: [AlertAction.newOKAction()], completion: completion)
     }
 
-    public func presentAlert(forError error: ErrorType, completion: DispatchBlock? = nil) {
-        logError(error)
-        presentOKAlert(withTitle: "Something Went Wrong"¶, message: "Please try again later."¶, identifier: "error", completion: completion)
+    public func presentAlert(forError errorType: ErrorType, withTitle title: String, message: String, identifier: String, completion: DispatchBlock? = nil) {
+        logError(errorType)
+        presentOKAlert(withTitle: title, message: message, identifier: identifier, completion: completion)
+    }
+
+    public func presentAlert(forError errorType: ErrorType, withMessage message: String, identifier: String, completion: DispatchBlock? = nil) {
+        logError(errorType)
+        presentOKAlert(withMessage: message, identifier: identifier, completion: completion)
+    }
+
+    public func presentAlert(forError errorType: ErrorType, completion: DispatchBlock? = nil) {
+        if let error = errorType as? Error {
+            presentAlert(forError: error, withMessage: error.message, identifier: error.identifier, completion: completion)
+        } else {
+            presentAlert(forError: errorType, withTitle: "Something Went Wrong"¶, message: "Please try again later."¶, identifier: "error", completion: completion)
+        }
     }
 }

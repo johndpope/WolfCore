@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ASN1Error: Error, CustomStringConvertible {
+public struct ASN1Error: Error {
     public let message: String
     public let code: Int
 
@@ -17,6 +17,12 @@ public struct ASN1Error: Error, CustomStringConvertible {
         self.code = code
     }
 
+    public var identifier: String {
+        return "ASN1Error(\(code))"
+    }
+}
+
+extension ASN1Error: CustomStringConvertible {
     public var description: String {
         return "ASN1Error(\(message))"
     }
@@ -55,12 +61,12 @@ class ASN1BitString: CustomStringConvertible {
 
         let byteIndex = bitIndex / 8
         let bitIndexInByte = 7 - bitIndex % 8
-        let bit = data[byteIndex] & UInt8(1 << bitIndexInByte)
+        let bit = data[byteIndex] & Byte(1 << bitIndexInByte)
         return bit != 0
     }
 }
 
-enum ASN1Type: UInt8, CustomStringConvertible {
+enum ASN1Type: Byte, CustomStringConvertible {
     case EOC = 0x00
     case Boolean = 0x01
     case Integer = 0x02

@@ -10,9 +10,11 @@ import Foundation
 
 public struct HTTPError: Error {
     public let response: NSHTTPURLResponse
+    public let data: NSData?
 
-    public init(response: NSHTTPURLResponse) {
+    public init(response: NSHTTPURLResponse, data: NSData? = nil) {
         self.response = response
+        self.data = data
     }
 
     public var message: String {
@@ -29,6 +31,15 @@ public struct HTTPError: Error {
 
     public var identifier: String {
         return "HTTPError(\(code))"
+    }
+
+    public var json: JSONObject? {
+        guard let data = data else { return nil }
+        do {
+            return try JSON.decode(data)
+        } catch {
+            return nil
+        }
     }
 }
 

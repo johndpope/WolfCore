@@ -44,7 +44,7 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 //    func example() -> AttributedString {
 //        let followersCount = 20
-//        let template = "#{followersCount} followers."¶["followersCount": followersCount]
+//        let template = "#{followersCount} followers." ¶ ["followersCount": followersCount]
 //        return template§
 //    }
 //

@@ -15,13 +15,18 @@ public protocol Error: ErrorType, CustomStringConvertible {
 
     /// A numeric code for the error.
     var code: Int { get }
+
+    /// A non-user-facing identifier used for automated UI testing
+    var identifier: String { get }
 }
 
 // Conforms NSError to the Error protocol.
 extension NSError: Error {
     public var message: String {
-        get {
-            return localizedDescription
-        }
+        return localizedDescription
+    }
+
+    public var identifier: String {
+        return "NSError(\(code))"
     }
 }

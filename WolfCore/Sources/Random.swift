@@ -32,7 +32,7 @@ public class Random {
 #if os(iOS) || os(OSX) || os(tvOS)
     public func cryptoRandom() -> Int32 {
         let a: UnsafeMutablePointer<Int32>! = .alloc(1)
-        SecRandomCopyBytes(kSecRandomDefault, 4, UnsafeMutablePointer<UInt8>(a))
+        SecRandomCopyBytes(kSecRandomDefault, 4, UnsafeMutablePointer<Byte>(a))
         let n = a.memory
         a.dealloc(1)
         return n

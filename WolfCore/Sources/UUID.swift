@@ -26,7 +26,7 @@ public struct UUID {
         #if os(iOS) || os(OSX) || os(tvOS)
             self.init(bytes: UUID.convert(NSUUID()))
         #elseif os(Linux)
-            let buf = UnsafeMutablePointer<UInt8>.alloc(UUID.bufSize)
+            let buf = UnsafeMutablePointer<Byte>.alloc(UUID.bufSize)
             defer { buf.dealloc(UUID.bufSize) }
             uuid_generate_random(buf)
             let bytes = Bytes(UnsafeBufferPointer<Byte>(start: buf, count: UUID.bufSize))
@@ -41,7 +41,7 @@ public struct UUID {
             }
             self.init(bytes: UUID.convert(u))
         #elseif os(Linux)
-            let buf = UnsafeMutablePointer<UInt8>.alloc(UUID.bufSize)
+            let buf = UnsafeMutablePointer<Byte>.alloc(UUID.bufSize)
             defer { buf.dealloc(UUID.bufSize) }
             let result = string.withCString { uuid_parse($0, buf) }
             guard result != -1 else {

@@ -35,6 +35,10 @@ public struct BSONError: Error {
         self.message = message
         self.code = code
     }
+
+    public var identifier: String {
+        return "BSONError(\(code))"
+    }
 }
 
 extension BSONError: CustomStringConvertible {

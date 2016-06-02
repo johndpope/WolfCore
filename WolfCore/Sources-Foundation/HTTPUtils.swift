@@ -98,7 +98,7 @@ public class HTTP {
             }
 
             guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
-                let error = HTTPError(response: httpResponse)
+                let error = HTTPError(response: httpResponse, data: data)
 
                 #if !os(tvOS)
                     inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
@@ -110,7 +110,7 @@ public class HTTP {
             }
 
             guard successStatusCodes.contains(statusCode) else {
-                let error = HTTPError(response: httpResponse)
+                let error = HTTPError(response: httpResponse, data: data)
 
                 #if !os(tvOS)
                     inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
@@ -168,7 +168,7 @@ public class HTTP {
                     if let image = OSImage(data: data) {
                         success(image)
                     } else {
-                        failure(HTTPError(response: response))
+                        failure(HTTPError(response: response, data: data))
                     }
             },
                  failure: failure,

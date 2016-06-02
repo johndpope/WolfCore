@@ -18,7 +18,7 @@
 
 import Foundation
 
-public struct CryptoError: Error, CustomStringConvertible {
+public struct CryptoError: Error {
     public let message: String
     public let code: Int
 
@@ -27,11 +27,8 @@ public struct CryptoError: Error, CustomStringConvertible {
         self.code = code
     }
 
-    public var description: String {
-        var c = [message]
-        c.append("[\(code)]")
-
-        return "CryptoError(\(c.joinWithSeparator(" ")))"
+    public var identifier: String {
+        return "CryptoError(\(code))"
     }
 
     #if os(Linux)
@@ -57,6 +54,15 @@ public struct CryptoError: Error, CustomStringConvertible {
             }
         }
     #endif
+}
+
+extension CryptoError: CustomStringConvertible {
+    public var description: String {
+        var c = [message]
+        c.append("[\(code)]")
+
+        return "CryptoError(\(c.joinWithSeparator(" ")))"
+    }
 }
 
 public class CryptoKey: CustomStringConvertible {
