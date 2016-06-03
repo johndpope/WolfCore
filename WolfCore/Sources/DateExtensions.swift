@@ -57,19 +57,19 @@ extension NSDate {
             let timeInterval = date.timeIntervalSinceReferenceDate
             self.init(timeIntervalSinceReferenceDate: timeInterval)
         } else {
-            throw ValidationError(message: "Invalid ISO8601 format", identifier: "8601Format")
+            throw ValidationError(message: "Invalid ISO8601 format", violation: "8601Format")
         }
     }
 
     public convenience init(year: Int, month: Int, day: Int) throws {
         guard year > 0 else {
-            throw ValidationError(message: "Invalid year", identifier: "dateFormat")
+            throw ValidationError(message: "Invalid year", violation: "dateFormat")
         }
         guard 1...12 ~= month else {
-            throw ValidationError(message: "Invalid month", identifier: "dateFormat")
+            throw ValidationError(message: "Invalid month", violation: "dateFormat")
         }
         guard 1...31 ~= day else {
-            throw ValidationError(message: "Invalid day", identifier: "dateFormat")
+            throw ValidationError(message: "Invalid day", violation: "dateFormat")
         }
         let yearString = "\(year)"
         let monthString = "\(month)".padded(toCount: 2, withCharacter: "0")

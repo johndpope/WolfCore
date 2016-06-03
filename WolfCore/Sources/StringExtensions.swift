@@ -14,6 +14,9 @@ import Foundation
 
 public typealias StringIndex = String.Index
 public typealias StringRange = Range<StringIndex>
+public typealias Replacements = [String: String]
+
+public let localizationLogGroup = "Localization"
 
 // Provide concise versions of NSLocalizedString.
 
@@ -26,7 +29,7 @@ public typealias StringRange = Range<StringIndex>
 
     infix operator ¶ { associativity left precedence 95 }
 
-    public func ¶ (left: String, right: [String : Any]) -> String {
+    public func ¶ (left: String, right: Replacements) -> String {
         return left.localized(replacingPlaceholdersWithReplacements: right)
     }
 
@@ -34,14 +37,14 @@ public typealias StringRange = Range<StringIndex>
         return left.localized(inBundleForClass: right)
     }
 
-    public func ¶ (left: String, right: (aClass: AnyClass, replacements: [String: Any])) -> String {
+    public func ¶ (left: String, right: (aClass: AnyClass, replacements: Replacements)) -> String {
         return left.localized(inBundleForClass: right.aClass, replacingPlaceholdersWithReplacements: right.replacements)
     }
 #endif
 
 #if os(iOS) || os(OSX) || os(tvOS)
     extension String {
-        public func localized(onlyIfTagged mustHaveTag: Bool = false, inBundleForClass aClass: AnyClass? = nil, inLanguage language: String? = nil, replacingPlaceholdersWithReplacements replacements: [String : Any]? = nil) -> String {
+        public func localized(onlyIfTagged mustHaveTag: Bool = false, inBundleForClass aClass: AnyClass? = nil, inLanguage language: String? = nil, replacingPlaceholdersWithReplacements replacements: Replacements? = nil) -> String {
 
             let untaggedKey: String
             let taggedKey: String
@@ -71,11 +74,11 @@ public typealias StringRange = Range<StringIndex>
                 localized = NSBundle.findBundle(forClass: BundleClass.self).localizedStringForKey(taggedKey, value: nil, table: nil)
             }
             if localized == taggedKey {
-                logWarning("No localization found for: \"\(taggedKey)\".")
+                logWarning("No localization found for: \"\(taggedKey)\".", group: localizationLogGroup)
                 localized = untaggedKey
             }
             if let replacements = replacements {
-                localized = localized.replacing(placeholdersWithReplacements: replacements)
+                localized = localized.replacingPlaceholders(withReplacements: replacements)
             }
             return localized
         }
@@ -127,13 +130,12 @@ extension String {
 }
 
 extension String {
-    public func replacing(ranges ranges: [StringRange], withReplacements replacements: [String]) -> (string: String, ranges: [StringRange]) {
+    public func replacing(replacements replacements: [(StringRange, String)]) -> (string: String, ranges: [StringRange]) {
         var mutatedSelf = self
         var replacedRanges = [StringRange]()
 
         var cumOffset = 0
-        for (index, range) in ranges.enumerate() {
-            let replacement = replacements[index]
+        for (range, replacement) in replacements {
             let replacementCount = replacement.characters.count
             let rangeCount = range.count
             let offset = replacementCount - rangeCount
@@ -148,7 +150,8 @@ extension String {
                     replacedRanges[i] = adjustedStart..<adjustedEnd
                 }
             }
-            let replacedRange = startIndex..<startIndex.advancedBy(replacementCount)
+            let endIndex = startIndex.advancedBy(replacementCount)
+            let replacedRange = startIndex..<endIndex
             replacedRanges.append(replacedRange)
             cumOffset = cumOffset + offset
         }
@@ -162,24 +165,21 @@ extension String {
 private let placeholderReplacementRegex = try! ~/"(?:(?<!\\\\)#\\{(\\w+)\\})"
 
 extension String {
-    public func replacing(placeholdersWithReplacements replacementsDict: [String : Any]) -> String {
-        var ranges = [StringRange]()
-        var replacements = [String]()
-
+    public func replacingPlaceholders(withReplacements replacementsDict: Replacements) -> String {
+        var replacements = [(StringRange, String)]()
         let matches = placeholderReplacementRegex ~?? self
         for match in matches {
             let matchRange = range(fromNSRange: match.range)!
             let placeholderRange = range(fromNSRange: match.rangeAtIndex(1))!
             let replacementName = self[placeholderRange]
             if let replacement = replacementsDict[replacementName] {
-                ranges.append(matchRange)
-                replacements.append("\(replacement)")
+                replacements.append((matchRange, replacement))
             } else {
                 logError("Replacement in \"\(self)\" not found for placeholder \"\(replacementName)\".")
             }
         }
 
-        return replacing(ranges: ranges, withReplacements: replacements).string
+        return replacing(replacements: replacements).string
     }
 }
 

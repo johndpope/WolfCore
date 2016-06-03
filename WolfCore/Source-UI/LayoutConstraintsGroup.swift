@@ -12,6 +12,8 @@
     import Cocoa
 #endif
 
+public let layoutLogGroup = "Layout"
+
 public class LayoutConstraintsGroup {
     private let constraints: [NSLayoutConstraint]
     private let debugName: String?
@@ -23,7 +25,7 @@ public class LayoutConstraintsGroup {
         syncToActive()
     }
 
-    public var active: Bool = false {
+    public var active = false {
         didSet {
             syncToActive()
         }
@@ -32,13 +34,16 @@ public class LayoutConstraintsGroup {
     private func syncToActive() {
         switch active {
         case true:
-            NSLayoutConstraint.activateConstraints(constraints)
+            logTrace("Activating Constraints \(debugName ?? ""): \(constraints)", obj: self, group: layoutLogGroup)
+            activateConstraints(constraints)
         case false:
+            logTrace("Deactivating Constraints \(debugName ?? ""): \(constraints)", obj: self, group: layoutLogGroup)
             NSLayoutConstraint.deactivateConstraints(constraints)
         }
     }
 
     deinit {
+        logTrace("\(self) deinit", obj: self, group: layoutLogGroup)
         active = false
     }
 }

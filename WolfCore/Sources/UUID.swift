@@ -37,7 +37,7 @@ public struct UUID {
     public init(string: String) throws {
         #if os(iOS) || os(OSX) || os(tvOS)
             guard let u = NSUUID(UUIDString: string) else {
-                throw ValidationError(message: "Invalid UUID string: \(string).", identifier: "uuidFormat")
+                throw ValidationError(message: "Invalid UUID string: \(string).", violation: "uuidFormat")
             }
             self.init(bytes: UUID.convert(u))
         #elseif os(Linux)

@@ -177,7 +177,7 @@ public struct Color {
             isHSB = true
             try self.dynamicType.components(forLabeledHSBStrings: strings, components: &components)
         } else {
-            throw ValidationError(message: "Could not parse color from string: \(s)", identifier: "colorStringFormat")
+            throw ValidationError(message: "Could not parse color from string: \(s)", violation: "colorStringFormat")
         }
 
         if isHSB {

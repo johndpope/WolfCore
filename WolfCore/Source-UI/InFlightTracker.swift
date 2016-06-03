@@ -9,6 +9,8 @@
 public internal(set) var inFlightTracker = InFlightTracker()
 public internal(set) var inFlightView: InFlightView!
 
+public let inFlightLogGroup = "InFlight"
+
 public class InFlightTracker {
     private var tokens = Set<InFlightToken>()
     public var didStart: ((InFlightToken) -> Void)?
@@ -21,21 +23,18 @@ public class InFlightTracker {
         }
     }
 
-    public func setup(withView withView: Bool, withLog: Bool) {
+    public func setup(withView withView: Bool) {
         inFlightTracker = InFlightTracker()
         if withView {
             inFlightView = InFlightView()
             devOverlay.addSubview(inFlightView)
             inFlightView.constrainToSuperview()
         }
-        if withLog {
-            logger?.setGroup("InFlight")
-        }
         syncToHidden()
     }
 
     public func syncToHidden() {
-        logTrace("syncToHidden: \(hidden)", group: "InFlight")
+        logTrace("syncToHidden: \(hidden)", group: inFlightLogGroup)
         inFlightView.hidden = hidden
     }
 
@@ -43,7 +42,7 @@ public class InFlightTracker {
         let token = InFlightToken(name: name)
         tokens.insert(token)
         didStart?(token)
-        logTrace("started: \(token)", group: "InFlight")
+        logTrace("started: \(token)", group: inFlightLogGroup)
         return token
     }
 
@@ -51,7 +50,7 @@ public class InFlightTracker {
         token.result = result
         if tokens.remove(token) != nil {
             didEnd?(token)
-            logTrace("ended: \(token)", group: "InFlight")
+            logTrace("ended: \(token)", group: inFlightLogGroup)
         } else {
             fatalError("Token \(token) not found.")
         }

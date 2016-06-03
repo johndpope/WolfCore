@@ -53,15 +53,17 @@ public class PagingView: View {
         }
 
         pageControl.hidden = false
-        let duration: NSTimeInterval = animated ? 0.4 : 0.0
 
-        dispatchAnimated(duration: duration, animations: {
-            if hidden {
-                self.pageControl.alpha = 0.0
-            } else {
-                self.pageControl.alpha = 1.0
-            }
-            }, completion: { _ in
+        dispatchAnimated(
+            animated,
+            animations: {
+                if hidden {
+                    self.pageControl.alpha = 0.0
+                } else {
+                    self.pageControl.alpha = 1.0
+                }
+            },
+            completion: { _ in
                 self.pageControl.hidden = hidden
             }
         )

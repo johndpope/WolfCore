@@ -7,23 +7,23 @@
 //
 
 public struct ValidationError: Error {
-    public var message: String
-    private var aIdentifier: String
-    public var fieldIdentifier: String?
-    public var code: Int
+    public let message: String
+    public let violation: String
+    public let source: String?
+    public let code: Int
 
-    public init(message: String, identifier: String, fieldIdentifier: String? = nil, code: Int = 1) {
+    public init(message: String, violation: String, source: String? = nil, code: Int = 1) {
         self.message = message
-        self.aIdentifier = identifier
-        self.fieldIdentifier = fieldIdentifier
+        self.violation = violation
+        self.source = source
         self.code = code
     }
 
     public var identifier: String {
-        if let fieldIdentifier = fieldIdentifier {
-            return "\(fieldIdentifier)-\(aIdentifier)"
+        if let fieldIdentifier = source {
+            return "\(fieldIdentifier)-\(violation)"
         } else {
-            return "\(aIdentifier)"
+            return "\(violation)"
         }
     }
 }

@@ -841,12 +841,10 @@ extension String {
     }
 
     public func attributedStringWithTags(tagEditBlock tagEditBlock: ((tag: String, substring: AttributedSubstring) -> Void)? = nil) -> AttributedString {
-        var ranges = [StringRange]()
-        var replacements = [String]()
         var tags = [String]()
 
         let matches = tagsReplacementRegex ~?? self
-        for match in matches {
+        let replacements = matches.map { match -> (StringRange, String) in
             let matchRange = range(fromNSRange: match.range)!
 
             let textRange = range(fromNSRange: match.rangeAtIndex(1))!
@@ -855,12 +853,11 @@ extension String {
             let text = self.substringWithRange(textRange)
             let tag = self.substringWithRange(tagRange)
 
-            ranges.append(matchRange)
-            replacements.append(text)
             tags.append(tag)
+            return (matchRange, text)
         }
 
-        let (string, replacedRanges) = replacing(ranges: ranges, withReplacements: replacements)
+        let (string, replacedRanges) = replacing(replacements: replacements)
         let attributedString = string§
 
         tagEditBlock?(tag: "", substring: attributedString.substring())

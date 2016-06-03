@@ -21,7 +21,7 @@ public class Base64 {
         if let data = NSData(base64EncodedString: string, options: [.IgnoreUnknownCharacters]) {
             return data
         } else {
-            throw ValidationError(message: "Invalid base64 string.", identifier: "base64Format")
+            throw ValidationError(message: "Invalid base64 string.", violation: "base64Format")
         }
     }
 

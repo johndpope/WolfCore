@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let animationDuration: NSTimeInterval = 0.3
+
 public class InFlightView: View {
     private var columnsStackView: StackView!
     private var leftColumnView: View!
@@ -105,20 +107,23 @@ public class InFlightView: View {
 
     private func layoutTokenViews(animated animated: Bool) {
         for tokenView in leavingTokenViews {
-            dispatchAnimated(animated, duration: 0.3, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseOut],
-                             animations: {
-                                tokenView.alpha = 0.0
+            dispatchAnimated(
+                animated,
+                duration: animationDuration,
+                options: [.BeginFromCurrentState, .CurveEaseOut],
+                animations: {
+                    tokenView.alpha = 0.0
                 },
-                             completion: { finished in
-                                tokenView.removeFromSuperview()
-                                self.tokenViewsByID.removeValueForKey(tokenView.token.id)
-                                if let index = self.leftTokenViews.indexOf(tokenView) {
-                                    self.leftTokenViews.removeAtIndex(index)
-                                }
-                                if let index = self.rightTokenViews.indexOf(tokenView) {
-                                    self.rightTokenViews.removeAtIndex(index)
-                                }
-                                self.needsTokenViewLayout = true
+                completion: { finished in
+                    tokenView.removeFromSuperview()
+                    self.tokenViewsByID.removeValueForKey(tokenView.token.id)
+                    if let index = self.leftTokenViews.indexOf(tokenView) {
+                        self.leftTokenViews.removeAtIndex(index)
+                    }
+                    if let index = self.rightTokenViews.indexOf(tokenView) {
+                        self.rightTokenViews.removeAtIndex(index)
+                    }
+                    self.needsTokenViewLayout = true
                 }
             )
         }
@@ -132,17 +137,29 @@ public class InFlightView: View {
         }
 
         for tokenView in enteringTokenViews {
-            dispatchAnimated(animated, duration: 0.3, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseOut]) {
-                tokenView.alpha = 1.0
-            }
+            dispatchAnimated(
+                animated,
+                duration: animationDuration,
+                delay: 0.0,
+                options: [.BeginFromCurrentState, .CurveEaseOut],
+                animations: {
+                    tokenView.alpha = 1.0
+                }
+            )
         }
         enteringTokenViews.removeAll()
 
         setNeedsLayout()
 
-        dispatchAnimated(animated, duration: 0.3, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseOut]) {
-            self.layoutIfNeeded()
-        }
+        dispatchAnimated(
+            animated,
+            duration: animationDuration,
+            delay: 0.0,
+            options: [.BeginFromCurrentState, .CurveEaseOut],
+            animations: {
+                self.layoutIfNeeded()
+            }
+        )
     }
 
     private func layout(tokenView tokenView: InFlightTokenView, index: Int, referenceView: UIView) {

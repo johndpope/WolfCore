@@ -116,7 +116,7 @@ public class IPAddress6 {
     public static func decode(string: String) throws -> [UInt16] {
         var components = string.componentsSeparatedByString(":")
         guard components.count >= 3 else {
-            throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
+            throw ValidationError(message: "Invalid IP address.", violation: "ipv6Format")
         }
 //        print(components)
         if components == ["", "", ""] {
@@ -129,7 +129,7 @@ public class IPAddress6 {
             components.append("#")
         } else if let index = components.indexOf("") {
             guard index != 0 && index != components.endIndex - 1 else {
-                throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
+                throw ValidationError(message: "Invalid IP address.", violation: "ipv6Format")
             }
             components.replaceRange(index...index, with: ["#"])
         }
@@ -141,14 +141,14 @@ public class IPAddress6 {
         }
 //        print(components)
         guard components.count == 8 else {
-            throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
+            throw ValidationError(message: "Invalid IP address.", violation: "ipv6Format")
         }
 
         var words = [UInt16]()
         words.reserveCapacity(8)
         for component in components {
             guard let i = UInt16(component, radix: 16) else {
-                throw ValidationError(message: "Invalid IP address.", identifier: "ipv6Format")
+                throw ValidationError(message: "Invalid IP address.", violation: "ipv6Format")
             }
             words.append(i)
         }

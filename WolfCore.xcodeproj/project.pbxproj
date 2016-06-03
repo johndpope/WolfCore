@@ -107,6 +107,9 @@
 		033F5EE41CA3217100647A0A /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553241C0F622A00E0FCA7 /* ImageUtils.swift */; };
 		033F5EE51CA339C800647A0A /* BezierPathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */; };
 		034B2F001C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */; };
+		034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
+		034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
+		034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
 		0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */; };
 		0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */; };
@@ -359,6 +362,7 @@
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		033F5EE21CA3096700647A0A /* Info-MacOSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-MacOSX.plist"; path = "/Users/ironwolf/Dropbox/DevProjects/KagiProcess2/WolfCore/WolfCore/Info-MacOSX.plist"; sourceTree = "<absolute>"; };
 		034B2EFF1C1D9DCB00BE90A6 /* LayoutConstraintExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintExtensions.swift; sourceTree = "<group>"; };
+		034F48931D02490E0010ED1B /* HTTPDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPDebugging.swift; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		035552FD1C0F5F4200E0FCA7 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-iOS.plist"; path = "WolfCore/Info-iOS.plist"; sourceTree = "<group>"; };
 		035553111C0F622A00E0FCA7 /* AnimationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AnimationUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -598,6 +602,7 @@
 				0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */,
 				03B218961C20F2900081CE39 /* Heartbeat.swift */,
 				035553221C0F622A00E0FCA7 /* HTTPUtils.swift */,
+				034F48931D02490E0010ED1B /* HTTPDebugging.swift */,
 				03B218981C20F3F20081CE39 /* Hysteresis.swift */,
 				03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */,
 				0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */,
@@ -979,6 +984,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				033F5E831CA3096700647A0A /* GestureRecognizerAction.swift in Sources */,
+				034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
 				033F5E841CA3096700647A0A /* TextCheckingResultExtensions.swift in Sources */,
 				033F5E851CA3096700647A0A /* ColorExtensions.swift in Sources */,
 				033F5E861CA3096700647A0A /* BundleExtensions.swift in Sources */,
@@ -1165,6 +1171,7 @@
 				03F5A8B81C496F2400B124A3 /* Size.swift in Sources */,
 				03E13B821C4F28F60074E447 /* VectorExtensions.swift in Sources */,
 				0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
+				034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
 				03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */,
 				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
 				039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */,
@@ -1213,6 +1220,7 @@
 				03E172CB1CF1C8AD0073F383 /* CardBack.swift in Sources */,
 				03E172CA1CF1C8AD0073F383 /* CardFacing.swift in Sources */,
 				03E172DF1CF1C8B60073F383 /* IPAddress4.swift in Sources */,
+				034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */,
 				03E1731C1CF1C8FB0073F383 /* ImageExtensions.swift in Sources */,
 				03E172D61CF1C8B60073F383 /* ColorFunc.swift in Sources */,
 				03E172D11CF1C8B60073F383 /* Base64URL.swift in Sources */,

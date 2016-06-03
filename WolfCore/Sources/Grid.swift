@@ -27,7 +27,7 @@ public class Grid<T: Equatable>: Equatable {
     }
 
     public func checkCoodinateValid(point: IntPoint) throws {
-        guard isCoordinateValid(point) else { throw ValidationError(message: "Invalid coordinate: \(point)", identifier: "gridCoord") }
+        guard isCoordinateValid(point) else { throw ValidationError(message: "Invalid coordinate: \(point)", violation: "gridCoord") }
     }
 
     public func get(point: IntPoint) throws -> T {

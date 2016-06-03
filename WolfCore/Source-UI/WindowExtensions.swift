@@ -13,17 +13,20 @@ extension UIWindow {
         let oldRootView = rootViewController?.view
         let newRootView = newController.view
         if animated {
-            dispatchAnimated(duration: 0.4, animations: {
-                oldRootView?.alpha = 0.0
-                }, completion: { _ in
+            dispatchAnimated(
+                animations: {
+                    oldRootView?.alpha = 0.0
+                },
+                completion: { _ in
                     newRootView.alpha = 0.0
                     self.rootViewController = newController
                     NSRunLoop.currentRunLoop().runOnce()
                     oldRootView?.alpha = 1.0
-                    dispatchAnimated(duration: 0.4) {
+                    dispatchAnimated {
                         newRootView.alpha = 1.0
                     }
-            })
+                }
+            )
         } else {
             rootViewController = newController
         }
