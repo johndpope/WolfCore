@@ -69,7 +69,7 @@ public let overrideTintColorTag = "overrideTintColor"
 // public typealias StringIndex = String.Index
 // public typealias StringRange = Range<StringIndex>
 //
-// StringRange instances must be created in the context of the particular string to which they apply.
+// StringRange instances must be created in the context of the particular string to which they apply. Internally, a StringIndex carries a reference to the String from which it was created. Therefore, applying a StringIndex or StringRange created in the context of one string to another string without first converting it produces undefined results. Convenience methods are provided in StringExtensions.swift to convert StringIndex and StringRange instances between strings. Also, if you create a StringIndex or StringRange on a String and then mutate that string, the existing StringIndex or StringRange instances should be considered invalid for the mutated String.
 //
 //    func example() {
 //        let string = "🐺❤️🇺🇸"

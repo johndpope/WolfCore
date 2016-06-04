@@ -130,33 +130,67 @@ extension String {
 }
 
 extension String {
+    public func convert(index index: StringIndex, fromString string: String, offset: Int = 0) -> StringIndex {
+        let distance = string.startIndex.distanceTo(index) + offset
+        return self.startIndex.advancedBy(distance)
+    }
+
+    public func convert(index index: StringIndex, toString string: String, offset: Int = 0) -> StringIndex {
+        let distance = self.startIndex.distanceTo(index) + offset
+        return string.startIndex.advancedBy(distance)
+    }
+
+    public func convert(range range: StringRange, fromString string: String, offset: Int = 0) -> StringRange {
+        let s = convert(index: range.startIndex, fromString: string, offset: offset)
+        let e = convert(index: range.endIndex, fromString: string, offset: offset)
+        return s..<e
+    }
+
+    public func convert(range range: StringRange, toString string: String, offset: Int = 0) -> StringRange {
+        let s = convert(index: range.startIndex, toString: string, offset: offset)
+        let e = convert(index: range.endIndex, toString: string, offset: offset)
+        return s..<e
+    }
+}
+
+extension String {
     public func replacing(replacements replacements: [(StringRange, String)]) -> (string: String, ranges: [StringRange]) {
-        var mutatedSelf = self
-        var replacedRanges = [StringRange]()
+        let source = self
+        var target = self
+        var targetReplacedRanges = [StringRange]()
 
         var cumOffset = 0
-        for (range, replacement) in replacements {
+        for (sourceRange, replacement) in replacements {
             let replacementCount = replacement.characters.count
-            let rangeCount = range.count
+            let rangeCount = sourceRange.count
             let offset = replacementCount - rangeCount
-            let startIndex = range.startIndex.advancedBy(cumOffset)
-            let replacementRange = startIndex..<startIndex.advancedBy(rangeCount)
-            mutatedSelf.replaceRange(replacementRange, with: replacement)
-            for i in 0..<replacedRanges.count {
-                let r = replacedRanges[i]
-                if r.startIndex >= range.startIndex {
-                    let adjustedStart = r.startIndex.advancedBy(offset)
-                    let adjustedEnd = adjustedStart.advancedBy(replacementCount)
-                    replacedRanges[i] = adjustedStart..<adjustedEnd
-                }
+
+            let newTargetStartIndex: StringIndex
+            let originalTarget = target
+            do {
+                let targetStartIndex = target.convert(index: sourceRange.startIndex, fromString: source, offset: cumOffset)
+                let targetEndIndex = targetStartIndex.advancedBy(rangeCount)
+                let targetReplacementRange = targetStartIndex..<targetEndIndex
+                target.replaceRange(targetReplacementRange, with: replacement)
+                newTargetStartIndex = target.convert(index: targetStartIndex, fromString: originalTarget)
             }
-            let endIndex = startIndex.advancedBy(replacementCount)
-            let replacedRange = startIndex..<endIndex
-            replacedRanges.append(replacedRange)
+
+            targetReplacedRanges = targetReplacedRanges.map { originalTargetReplacedRange in
+                let targetReplacedRange = target.convert(range: originalTargetReplacedRange, fromString: originalTarget)
+                guard targetReplacedRange.startIndex >= newTargetStartIndex else {
+                    return targetReplacedRange
+                }
+                let adjustedStart = targetReplacedRange.startIndex.advancedBy(offset)
+                let adjustedEnd = adjustedStart.advancedBy(replacementCount)
+                return adjustedStart..<adjustedEnd
+            }
+            let targetEndIndex = newTargetStartIndex.advancedBy(replacementCount)
+            let targetReplacedRange = newTargetStartIndex..<targetEndIndex
+            targetReplacedRanges.append(targetReplacedRange)
             cumOffset = cumOffset + offset
         }
 
-        return (mutatedSelf, replacedRanges)
+        return (target, targetReplacedRanges)
     }
 }
 
