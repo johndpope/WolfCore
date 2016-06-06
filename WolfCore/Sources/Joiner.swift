@@ -10,13 +10,12 @@ public class Joiner {
     private var left: String
     private var right: String
     private var separator: String
-    private var objs: [Any]
+    private var objs = [Any]()
 
-    public init(_ left: String, _ right: String, _ separator: String, _ objs: Any...) {
+    public init(left: String = "", separator: String = " ", right: String = "") {
         self.left = left
         self.right = right
         self.separator = separator
-        self.objs = objs
     }
 
     public func append(objs: Any...) {

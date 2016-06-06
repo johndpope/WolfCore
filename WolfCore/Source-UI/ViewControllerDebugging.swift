@@ -19,7 +19,7 @@ extension UIViewController {
         repeat {
             let (controller, level, indent) = stack.removeLast()
 
-            let joiner = Joiner("", "", " ")
+            let joiner = Joiner()
 
             var isRootPrefix = "⬜️"
             for window in UIApplication.sharedApplication().windows {

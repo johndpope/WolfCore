@@ -30,7 +30,7 @@ public class ObjectAliaser {
     // swiftlint:disable cyclomatic_complexity
 
     func name(forObject object: AnyObject) -> String {
-        let joiner = Joiner("(", ")", " ")
+        let joiner = Joiner(left: "(", right: ")")
 
         joiner.append("0x\(String(alias(forObject: object), radix: 16).padded(toCount: 2, withCharacter: "0"))")
 
@@ -84,7 +84,7 @@ public class ObjectAliaser {
     }
 
     private func getID(forFont font: UIFont) -> String {
-        let idJoiner = Joiner("", "", " ")
+        let idJoiner = Joiner()
         idJoiner.append("\"\(font.familyName)\"")
         let traits = font.fontDescriptor().symbolicTraits
         if traits.contains(.TraitBold) {

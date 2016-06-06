@@ -17,8 +17,8 @@ extension UIView {
         repeat {
             let (view, level, indent) = stack.removeLast()
 
-            let prefixJoiner = Joiner("", "", " ")
-            let constraintPrefixJoiner = Joiner("", "", " ")
+            let prefixJoiner = Joiner()
+            let constraintPrefixJoiner = Joiner()
 
             appendScrollViewPrefix(forView: view, prefixJoiner: prefixJoiner, constraintPrefixJoiner: constraintPrefixJoiner)
 
@@ -30,7 +30,7 @@ extension UIView {
 
             appendFocusedPrefix(forView: view, prefixJoiner: prefixJoiner, constraintPrefixJoiner: constraintPrefixJoiner)
 
-            let joiner = Joiner("", "", " ")
+            let joiner = Joiner()
             joiner.append(prefixJoiner)
 
             joiner.append( indent, "\(level)".padded(toCount: 2) )
@@ -79,7 +79,7 @@ extension UIView {
             print("\(constraintPrefixJoiner.description) \(indent)  │")
         }
         for constraint in constraints {
-            let constraintJoiner = Joiner("", "", " ")
+            let constraintJoiner = Joiner()
             constraintJoiner.append(constraintPrefixJoiner, indent, " │  \(prefix)")
 
             appendAttributes(forConstraint: constraint, withCurrentView: view, toJoiner: constraintJoiner, withAliaser: aliaser)

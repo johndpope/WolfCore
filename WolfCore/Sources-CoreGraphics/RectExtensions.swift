@@ -130,7 +130,7 @@ extension CGRect {
 
 extension CGRect {
     public var debugSummary: String {
-        let joiner = Joiner("(", ")", " ")
+        let joiner = Joiner(left: "(", right: ")")
         joiner.append(minX %% 3, minY %% 3, width %% 3, height %% 3)
         return joiner.description
     }

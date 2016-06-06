@@ -104,7 +104,7 @@ public struct Card<T: CardTrump, R: CardRank, S: CardSuit> : CardProtocol {
 
 extension Card: CustomStringConvertible {
     public var description: String {
-        let joiner = Joiner("", "", " ")
+        let joiner = Joiner()
         if let trump = trump {
             joiner.append(trump)
         }

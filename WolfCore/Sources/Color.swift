@@ -309,7 +309,7 @@ extension Color : CustomStringConvertible {
 
 extension Color {
     public var debugSummary: String {
-        let joiner = Joiner("(", ")", " ")
+        let joiner = Joiner(left: "(", right: ")")
         var needAlpha = true
         switch (red, green, blue, alpha) {
         case (0, 0, 0, 0):

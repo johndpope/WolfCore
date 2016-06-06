@@ -32,19 +32,20 @@ public class Log {
     public func print<T>(@autoclosure message: () -> T, level: LogLevel, obj: Any? = nil, group: String? = nil, _ file: String = #file, _ line: Int = #line, _ function: String = #function) {
         if level.rawValue >= self.level.rawValue {
             if group == nil || groups.contains(group!) {
-                let a = Joiner("", "", " ", level.symbol)
+                let a = Joiner()
+                a.append(level.symbol)
 
                 var secondSymbol = false
 
                 if let group = group {
-                    let b = Joiner("[", "]", ", ")
+                    let b = Joiner(left: "[", separator: ", ", right: "]")
                     b.append(group)
                     a.append(b)
                     secondSymbol = true
                 }
 
                 if let obj = obj {
-                    let c = Joiner("<", ">", ", ")
+                    let c = Joiner(left: "<", separator: ", ", right: ">")
                     c.append(obj)
                     a.append(c)
                     secondSymbol = true
@@ -59,7 +60,8 @@ public class Log {
                 logOutputStream.write("\n")
 
                 if level.rawValue >= self.locationLevel.rawValue {
-                    let d = Joiner("", "", ", ", shortenFile(file), "line: \(line)", function)
+                    let d = Joiner(separator: ", ")
+                    d.append(shortenFile(file), "line: \(line)", function)
                     Swift.print("\t", d)
                 }
             }

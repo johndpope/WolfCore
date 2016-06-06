@@ -657,7 +657,7 @@ extension AttributedString {
         let aliaser = ObjectAliaser()
         for (index, char) in string.characters.enumerate() {
             let strIndex = string.startIndex.advancedBy(index)
-            let joiner = Joiner("", "", " ")
+            let joiner = Joiner()
             joiner.append(char)
             let attrs = attributes(atIndex: strIndex)
             for(attrName, value) in attrs {
