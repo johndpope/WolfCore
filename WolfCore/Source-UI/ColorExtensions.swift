@@ -103,8 +103,8 @@ extension OSColor {
 }
 
 extension UIColor {
-    public var debugName: String {
-        return color.debugName
+    public var debugSummary: String {
+        return color.debugSummary
     }
 }
 

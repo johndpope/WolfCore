@@ -14,6 +14,7 @@
     public typealias OSLayoutPriority = NSLayoutPriority
 #endif
 
+
 public func + (left: NSLayoutAnchor!, right: CGFloat) -> (anchor: NSLayoutAnchor, constant: CGFloat) {
     return (left, right)
 }
@@ -30,10 +31,6 @@ public func * (left: NSLayoutDimension!, right: CGFloat) -> (anchor: NSLayoutDim
 public func + (left: (anchor: NSLayoutDimension, multiplier: CGFloat), right: CGFloat) -> (anchor: NSLayoutDimension, multiplier: CGFloat, constant: CGFloat) {
     return (anchor: left.anchor, multiplier: left.multiplier, constant: right)
 }
-
-
-// "priority assign"
-infix operator =&= { associativity left precedence 95 }
 
 
 public func == (left: NSLayoutAnchor, right: NSLayoutAnchor) -> NSLayoutConstraint {
@@ -99,17 +96,52 @@ public func <= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, mult
 }
 
 
+// "priority assign"
+infix operator =&= { associativity left precedence 95 }
+
 public func =&= (left: NSLayoutConstraint, right: OSLayoutPriority) -> NSLayoutConstraint {
     left.priority = right
     return left
 }
 
+
+// "identifier assign"
+infix operator =%= { associativity left precedence 95 }
+
+public func =%= (left: NSLayoutConstraint, right: String) -> NSLayoutConstraint {
+    left.identifier = right
+    return left
+}
+
+public func =%= (left: NSLayoutConstraint, right: [Any?]) -> NSLayoutConstraint {
+    let filtered = right.reduce ([String]()) { (accum, elem) in
+        var accum = accum
+        if let elem = elem {
+            accum.append("\(elem)")
+        }
+        return accum
+    }
+    return left =%= filtered.joinWithSeparator("")
+}
+
+public func warnForNoIdentifier(inConstraints constraints: [NSLayoutConstraint]) {
+    guard let logger = logger else { return }
+    guard logger.groups.contains(layoutLogGroup) else { return }
+    for constraint in constraints {
+        if constraint.identifier == nil {
+            logWarning("No identifier for: \(constraint)", group: layoutLogGroup)
+        }
+    }
+}
+
 public func activateConstraints(constraints: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
+    warnForNoIdentifier(inConstraints: constraints)
     NSLayoutConstraint.activateConstraints(constraints)
     return constraints
 }
 
 public func activateConstraints(constraints: NSLayoutConstraint...) -> [NSLayoutConstraint] {
+    warnForNoIdentifier(inConstraints: constraints)
     NSLayoutConstraint.activateConstraints(constraints)
     return constraints
 }

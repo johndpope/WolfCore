@@ -844,7 +844,7 @@ extension String {
         var tags = [String]()
 
         let matches = tagsReplacementRegex ~?? self
-        let replacements = matches.map { match -> (StringRange, String) in
+        let replacements = matches.map { match -> RangeReplacement in
             let matchRange = range(fromNSRange: match.range)!
 
             let textRange = range(fromNSRange: match.rangeAtIndex(1))!

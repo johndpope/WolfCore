@@ -27,6 +27,8 @@ public class ObjectAliaser {
         return alias
     }
 
+    // swiftlint:disable cyclomatic_complexity
+
     func name(forObject object: AnyObject) -> String {
         let joiner = Joiner("(", ")", " ")
 
@@ -50,7 +52,14 @@ public class ObjectAliaser {
             id = getID(forFont: font)
         } else if let color = object as? UIColor {
             className = "Color"
-            id = color.debugName
+            id = color.debugSummary
+        } else if let layoutConstraint = object as? NSLayoutConstraint {
+            if let identifier = layoutConstraint.identifier {
+                id = "\"\(identifier)\""
+            }
+            if layoutConstraint.dynamicType == NSLayoutConstraint.self {
+                className = nil
+            }
         }
 
         if let className = className {
@@ -63,6 +72,8 @@ public class ObjectAliaser {
 
         return joiner.description
     }
+
+    // swiftlint:enable cyclomatic_complexity
 
     private func getID(forNumber number: NSNumber) -> String {
         if CFGetTypeID(number) == CFBooleanGetTypeID() {

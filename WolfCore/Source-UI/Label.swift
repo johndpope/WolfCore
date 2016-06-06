@@ -12,11 +12,32 @@ public class Label: UILabel {
     private var tagTapActions = [String: TagAction]()
     private var tapAction: GestureRecognizerAction!
 
+    /// Can be set in Interface Builder
+    public var scalesFontSize: Bool = false
+
+    /// Can be set in Interface Builder
     public var transparentToTouches: Bool = false
+
+    /// Can be set in Interface Builder
     public var followsTintColor: Bool = false {
         didSet {
             syncToTintColor()
         }
+    }
+
+    private var baseFont: UIFontDescriptor!
+
+    public func resetBaseFont() {
+        guard scalesFontSize else { return }
+
+        baseFont = font.fontDescriptor()
+    }
+
+    public func syncFontSize(toFactor factor: CGFloat) {
+        guard scalesFontSize else { return }
+
+        let pointSize = baseFont.pointSize * factor
+        font = UIFont(descriptor: baseFont, size: pointSize)
     }
 
     public override var text: String? {

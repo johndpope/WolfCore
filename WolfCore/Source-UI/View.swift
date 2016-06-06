@@ -47,14 +47,42 @@ public class View: OSView {
     public override func awakeFromNib() {
         super.awakeFromNib()
         loadContentFromNib()
+        setupSublabelScaling()
     }
-    #endif
+#endif
 
 #if os(OSX)
     public override var flipped: Bool {
         return true
     }
 #endif
+
+    private var baseSize: CGSize!
+    public var managesSublabelScaling = false
+
+    private func setupSublabelScaling() {
+        guard managesSublabelScaling else { return }
+
+        baseSize = bounds.size
+        for label in descendentViews(ofClass: Label.self) as [Label] {
+            label.resetBaseFont()
+        }
+        setNeedsLayout()
+    }
+
+    private func syncSublabelScaling() {
+        guard managesSublabelScaling else { return }
+
+        let factor = bounds.height / baseSize.height
+        for label in descendentViews(ofClass: Label.self) as [Label] {
+            label.syncFontSize(toFactor: factor)
+        }
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        syncSublabelScaling()
+    }
 
     public convenience init() {
         self.init(frame: .zero)

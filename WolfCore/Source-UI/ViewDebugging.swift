@@ -9,10 +9,11 @@
 import UIKit
 
 extension UIView {
-    public func printViewHierarchy(includingConstraints includeConstraints: Bool = false) {
+    public func printViewHierarchy(includingConstraints includeOwnedConstraints: Bool = false, includingConstraintsAffectingHorizontal includeHConstraints: Bool = false, includingConstraintsAffectingVertical includeVConstraints: Bool = false) {
         let aliaser = ObjectAliaser()
         var stack = [(view: UIView, level: Int, indent: String)]()
         stack.append((self, 0, ""))
+        let includeConstraints = includeOwnedConstraints || includeHConstraints || includeVConstraints
         repeat {
             let (view, level, indent) = stack.removeLast()
 
@@ -40,20 +41,29 @@ extension UIView {
 
             joiner.append(aliaser.name(forObject: view))
 
-            joiner.append("frame:\(view.frame.debugName)")
+            joiner.append("frame:\(view.frame.debugSummary)")
 
             appendAttributes(forView: view, toJoiner: joiner)
 
             print(joiner)
 
             if includeConstraints {
-                for constraint in view.constraints {
-                    let constraintJoiner = Joiner("", "", " ")
-                    constraintJoiner.append(constraintPrefixJoiner, indent, " │  🔳")
+                var needBlankLines = [Bool]()
 
-                    appendAttributes(forConstraint: constraint, toJoiner: constraintJoiner, withAliaser: aliaser)
+                if includeOwnedConstraints {
+                    needBlankLines.append(printConstraints(view.constraints, withPrefix: "🔳", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                }
 
-                    Swift.print(constraintJoiner)
+                if includeHConstraints {
+                    needBlankLines.append(printConstraints(view.constraintsAffectingLayoutForAxis(.Horizontal), withPrefix: "H:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                }
+
+                if includeVConstraints {
+                    needBlankLines.append(printConstraints(view.constraintsAffectingLayoutForAxis(.Vertical), withPrefix: "V:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                }
+
+                if needBlankLines.contains(true) {
+                    print("\(constraintPrefixJoiner.description) \(indent)  │")
                 }
             }
 
@@ -61,6 +71,22 @@ extension UIView {
                 stack.append((subview, level + 1, indent + "  |"))
             }
         } while !stack.isEmpty
+    }
+
+    private func printConstraints(constraints: [NSLayoutConstraint], withPrefix prefix: String, currentView view: UIView, constraintPrefixJoiner: Joiner, indent: String, aliaser: ObjectAliaser) -> Bool {
+        let needBlankLines = constraints.count > 0
+        if needBlankLines {
+            print("\(constraintPrefixJoiner.description) \(indent)  │")
+        }
+        for constraint in constraints {
+            let constraintJoiner = Joiner("", "", " ")
+            constraintJoiner.append(constraintPrefixJoiner, indent, " │  \(prefix)")
+
+            appendAttributes(forConstraint: constraint, withCurrentView: view, toJoiner: constraintJoiner, withAliaser: aliaser)
+
+            print(constraintJoiner)
+        }
+        return needBlankLines
     }
 
     private func appendScrollViewPrefix(forView view: UIView, prefixJoiner: Joiner, constraintPrefixJoiner: Joiner) {
@@ -109,27 +135,27 @@ extension UIView {
     private func appendColorAttributes(forView view: UIView, toJoiner joiner: Joiner) {
         if let backgroundColor = view.backgroundColor {
             if backgroundColor != .Clear {
-                joiner.append("backgroundColor:\(backgroundColor.debugName)")
+                joiner.append("backgroundColor:\(backgroundColor.debugSummary)")
             }
         }
 
         if view == self || (view.superview != nil && view.tintColor != view.superview!.tintColor) {
-            joiner.append("tintColor:\(view.tintColor.debugName)")
+            joiner.append("tintColor:\((view.tintColor ?? defaultTintColor).debugSummary)")
         }
     }
 
     private func appendTextAttributes(forView view: UIView, toJoiner joiner: Joiner) {
         if let label = view as? UILabel {
-            joiner.append("textColor:\(label.textColor.debugName)")
+            joiner.append("textColor:\(label.textColor.debugSummary)")
             if let text = label.text {
-                joiner.append("text:\"\(text)\"")
+                joiner.append("text:\"\(text.debugSummary)\"")
             }
         } else if let textView = view as? UITextView {
             if let textColor = textView.textColor {
-                joiner.append("textColor:\(textColor.debugName)")
+                joiner.append("textColor:\(textColor.debugSummary)")
             }
             if let text = textView.text {
-                joiner.append("text:\"\(text)\"")
+                joiner.append("text:\"\(text.debugSummary)\"")
             }
         }
     }
@@ -159,17 +185,67 @@ extension UIView {
         }
     }
 
-    private func appendAttributes(forConstraint constraint: NSLayoutConstraint, toJoiner constraintJoiner: Joiner, withAliaser aliaser: ObjectAliaser) {
-        if constraint.dynamicType != NSLayoutConstraint.self {
-            constraintJoiner.append("\(NSStringFromClass(constraint.dynamicType)):")
+    private func descriptor(forRelationship relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
+        switch relationship {
+        case .unrelated:
+            return "❌"
+        case .same:
+            return "✅"
+        case .sibling:
+            return "⚫️"
+        case .ancestor:
+            return "🚺"
+        case .descendant:
+            return "🚼"
+        case .cousin(let commonAncestor):
+            return "🚹 \(aliaser.name(forObject: commonAncestor))"
         }
+    }
 
-        constraintJoiner.append("\(aliaser.name(forObject: constraint.firstItem)).\(string(forAttribute: constraint.firstAttribute))")
+    private func appendDescriptor(forRelationship relationship: ViewRelationship, toJoiner joiner: Joiner, aliaser: ObjectAliaser) {
+        switch relationship {
+        case .same:
+            break
+        default:
+            joiner.append(descriptor(forRelationship: relationship, aliaser: aliaser))
+        }
+    }
+
+    private func name(forView view: UIView, forRelationshipToCurrentView relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
+        var viewName = ""
+        switch relationship {
+        case .same:
+            break
+        default:
+            viewName = aliaser.name(forObject: view)
+        }
+        return viewName
+    }
+
+    private func appendAttributes(forConstraint constraint: NSLayoutConstraint, withCurrentView currentView: UIView, toJoiner constraintJoiner: Joiner, withAliaser aliaser: ObjectAliaser) {
+
+        constraintJoiner.append("\(aliaser.name(forObject: constraint)):")
+
+        let firstView = constraint.firstItem as! UIView
+        let firstToCurrentRelationship: ViewRelationship = firstView.relationship(toView: currentView)
+
+        let firstViewName = name(forView: firstView, forRelationshipToCurrentView: firstToCurrentRelationship, aliaser: aliaser)
+
+        constraintJoiner.append("\(firstViewName).\(string(forAttribute: constraint.firstAttribute))")
+
+        appendDescriptor(forRelationship: firstToCurrentRelationship, toJoiner: constraintJoiner, aliaser: aliaser)
 
         constraintJoiner.append(string(forRelation: constraint.relation))
 
-        if let secondItem = constraint.secondItem {
-            constraintJoiner.append("\(aliaser.name(forObject: secondItem)).\(string(forAttribute: constraint.secondAttribute))")
+        if let secondView = constraint.secondItem as? UIView {
+            let secondToCurrentRelationship = secondView.relationship(toView: currentView)
+
+            let secondViewName = name(forView: secondView, forRelationshipToCurrentView: secondToCurrentRelationship, aliaser: aliaser)
+
+            constraintJoiner.append("\(secondViewName).\(string(forAttribute: constraint.secondAttribute))")
+
+            appendDescriptor(forRelationship: secondToCurrentRelationship, toJoiner: constraintJoiner, aliaser: aliaser)
+
             if constraint.multiplier != 1.0 {
                 constraintJoiner.append("×", constraint.multiplier)
             }
@@ -184,6 +260,6 @@ extension UIView {
     }
 }
 
-public func printWindowViewHierarchy(includingConstraints includeConstraints: Bool = false) {
-    UIApplication.sharedApplication().windows[0].printViewHierarchy(includingConstraints: includeConstraints)
+public func printWindowViewHierarchy(includingConstraints includeConstraints: Bool = false, includingConstraintsAffectingHorizontal includeHConstraints: Bool = false, includingConstraintsAffectingVertical includeVConstraints: Bool = false) {
+    UIApplication.sharedApplication().windows[0].printViewHierarchy(includingConstraints: includeConstraints, includingConstraintsAffectingHorizontal: includeHConstraints, includingConstraintsAffectingVertical: includeVConstraints)
 }

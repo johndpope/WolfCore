@@ -15,6 +15,7 @@ import Foundation
 public typealias StringIndex = String.Index
 public typealias StringRange = Range<StringIndex>
 public typealias Replacements = [String: String]
+public typealias RangeReplacement = (StringRange, String)
 
 public let localizationLogGroup = "Localization"
 
@@ -154,7 +155,7 @@ extension String {
 }
 
 extension String {
-    public func replacing(replacements replacements: [(StringRange, String)]) -> (string: String, ranges: [StringRange]) {
+    public func replacing(replacements replacements: [RangeReplacement]) -> (string: String, ranges: [StringRange]) {
         let source = self
         var target = self
         var targetReplacedRanges = [StringRange]()
@@ -194,13 +195,45 @@ extension String {
     }
 }
 
+extension String {
+    public func replacing(matchesTo regex: NSRegularExpression, usingBlock block: RangeReplacement -> String) -> (string: String, ranges: [StringRange]) {
+        let results = (regex ~?? self).map { match -> RangeReplacement in
+            let matchRange = match.range(atIndex: 0, inString: self)
+            let substring = self.substringWithRange(matchRange)
+            let replacement = block(matchRange, substring)
+            return (matchRange, replacement)
+        }
+        return replacing(replacements: results)
+    }
+}
+
+private let newlinesRegex = try! ~/"\n"
+
+extension String {
+    public func escapingNewlines() -> String {
+        return replacing(matchesTo: newlinesRegex) { (string, range) -> String in
+            return "\\n"
+        }.string
+    }
+
+    public func truncate(afterCount count: Int, addingSignifier signifier: String = "…") -> String {
+        guard characters.count > count else { return self }
+        let substring = substringWithRange(startIndex..<startIndex.advancedBy(count))
+        return "\(substring)\(signifier)"
+    }
+
+    public var debugSummary: String {
+        return escapingNewlines().truncate(afterCount: 20)
+    }
+}
+
 // (?:(?<!\\)#\{(\w+)\})
 // The quick #{color} fox #{action} over #{subject}.
 private let placeholderReplacementRegex = try! ~/"(?:(?<!\\\\)#\\{(\\w+)\\})"
 
 extension String {
     public func replacingPlaceholders(withReplacements replacementsDict: Replacements) -> String {
-        var replacements = [(StringRange, String)]()
+        var replacements = [RangeReplacement]()
         let matches = placeholderReplacementRegex ~?? self
         for match in matches {
             let matchRange = range(fromNSRange: match.range)!

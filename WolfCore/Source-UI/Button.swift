@@ -49,12 +49,12 @@ public class Button: UIButton {
         customView?.removeFromSuperview()
     }
 
-    func addCustomView() {
+    func addCustomView(constraintsIdentifier identifier: String? = nil) {
         guard let customView = customView else { return }
 
         addSubview(customView)
         customView.makeTransparent()
-        customView.constrainToSuperview()
+        customView.constrainToSuperview(identifier: identifier ?? "button")
         customView.userInteractionEnabled = false
     }
 
@@ -62,8 +62,9 @@ public class Button: UIButton {
         let highlighted = self.highlighted
         if let customView = self.customView {
             customView.tintColor = self.titleColorForState(highlighted ? .Highlighted : .Normal)!.colorWithAlphaComponent(highlighted ? 0.4 : 1.0)
-            customView.forViewsInHierachy { view in
+            customView.forViewsInHierachy { view -> Bool in
                 (view as? UIImageView)?.highlighted = highlighted
+                return false
             }
         }
     }

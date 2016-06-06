@@ -302,13 +302,13 @@ public func == (left: Color, right: Color) -> Bool {
 extension Color : CustomStringConvertible {
     public var description: String {
         get {
-            return "Color(\(debugName))"
+            return "Color(\(debugSummary))"
         }
     }
 }
 
 extension Color {
-    public var debugName: String {
+    public var debugSummary: String {
         let joiner = Joiner("(", ")", " ")
         var needAlpha = true
         switch (red, green, blue, alpha) {

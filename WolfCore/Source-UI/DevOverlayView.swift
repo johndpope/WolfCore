@@ -19,7 +19,7 @@ public class DevOverlayView: View {
         window.addSubview(self)
         transparentToTouches = true
         bounds = window.frame
-        constrainToSuperview()
+        constrainToSuperview(identifier: "DevOverlay")
         makeTransparent(debugColor: UIColor.redColor(), debug: false)
         dispatchRepeatedOnMain(atInterval: 0.2) { canceler in
             window.bringSubviewToFront(self)

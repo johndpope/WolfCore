@@ -18,7 +18,7 @@
     public let OSEdgeInsetsZero = NSEdgeInsetsZero
 #endif
 
-public typealias ViewBlock = (OSView) -> Void
+public typealias ViewBlock = (OSView) -> Bool
 
 extension OSView {
 #if os(iOS) || os(tvOS)
@@ -41,14 +41,17 @@ extension OSView {
 }
 
 extension OSView {
-    public func constrainToSuperview(active active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero) -> [NSLayoutConstraint] {
+    public func constrainToSuperview(active active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
-        let sv = superview!
+        return constrain(toView: superview!, active: active, insets: insets, identifier: identifier)
+    }
+
+    public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
-            leadingAnchor == sv.leadingAnchor + insets.left,
-            trailingAnchor == sv.trailingAnchor - insets.right,
-            topAnchor == sv.topAnchor + insets.top,
-            bottomAnchor == sv.bottomAnchor - insets.bottom
+            leadingAnchor == view.leadingAnchor + insets.left =%= [identifier, "Leading"],
+            trailingAnchor == view.trailingAnchor - insets.right =%= [identifier, "Trailing"],
+            topAnchor == view.topAnchor + insets.top =%= [identifier, "Top"],
+            bottomAnchor == view.bottomAnchor - insets.bottom =%= [identifier, "Bottom"]
         ]
         if active {
             activateConstraints(constraints)
@@ -56,14 +59,15 @@ extension OSView {
         return constraints
     }
 
-    public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero) -> [NSLayoutConstraint] {
+    public func constrainCenterToCenterOfSuperview(active active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
-        assert(view.superview != nil, "View must have a superview.")
+        return constrainCenter(toCenterOfView: superview!, active: active, identifier: identifier)
+    }
+
+    public func constrainCenter(toCenterOfView view: OSView, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
-            leadingAnchor == view.leadingAnchor + insets.left,
-            trailingAnchor == view.trailingAnchor - insets.right,
-            topAnchor == view.topAnchor + insets.top,
-            bottomAnchor == view.bottomAnchor - insets.bottom
+            centerXAnchor == view.centerXAnchor =%= [identifier, "CenterY"],
+            centerYAnchor == view.centerYAnchor =%= [identifier, "CenterX"]
         ]
         if active {
             activateConstraints(constraints)
@@ -71,34 +75,10 @@ extension OSView {
         return constraints
     }
 
-    public func constrainCenter(toCenterOfView view: OSView, active: Bool = true) -> [NSLayoutConstraint] {
+    public func constrain(toSize size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
-            centerXAnchor == view.centerXAnchor,
-            centerYAnchor == view.centerYAnchor
-        ]
-        if active {
-            activateConstraints(constraints)
-        }
-        return constraints
-    }
-
-    public func constrainCenterToCenterOfSuperview(active active: Bool = true) -> [NSLayoutConstraint] {
-        assert(superview != nil, "View must have a superview.")
-        let sv = superview!
-        let constraints = [
-            centerXAnchor == sv.centerXAnchor,
-            centerYAnchor == sv.centerYAnchor
-        ]
-        if active {
-            activateConstraints(constraints)
-        }
-        return constraints
-    }
-
-    public func constrain(toSize size: CGSize, active: Bool = true) -> [NSLayoutConstraint] {
-        let constraints = [
-            widthAnchor == size.width,
-            heightAnchor == size.height
+            widthAnchor == size.width =%= [identifier, "CenterY"],
+            heightAnchor == size.height =%= [identifier, "CenterY"]
         ]
         if active {
             activateConstraints(constraints)
@@ -110,10 +90,11 @@ extension OSView {
 extension OSView {
     public func descendentViews<T: OSView>(ofClass aClass: AnyClass) -> [T] {
         var resultViews = [T]()
-        self.forViewsInHierachy { view in
+        self.forViewsInHierachy { view -> Bool in
             if view.dynamicType == aClass {
                 resultViews.append(view as! T)
             }
+            return false
         }
         return resultViews
     }
@@ -122,11 +103,71 @@ extension OSView {
         var stack = [self]
         repeat {
             let view = stack.removeLast()
-            operate(view)
+            let stop = operate(view)
+            guard !stop else { return }
             view.subviews.reverse().forEach { subview in
                 stack.append(subview)
             }
         } while !stack.isEmpty
+    }
+
+    public func allDescendants() -> [OSView] {
+        var descendants = [OSView]()
+        forViewsInHierachy { currentView -> Bool in
+            if currentView !== self {
+                descendants.append(currentView)
+            }
+            return false
+        }
+        return descendants
+    }
+
+    public func allAncestors() -> [OSView] {
+        var parents = [OSView]()
+        var currentParent: OSView? = superview
+        while currentParent != nil {
+            parents.append(currentParent!)
+            currentParent = currentParent!.superview
+        }
+        return parents
+    }
+}
+
+public enum ViewRelationship {
+    case unrelated
+    case same
+    case sibling
+    case ancestor
+    case descendant
+    case cousin(OSView)
+}
+
+extension OSView {
+    public func relationship(toView view: OSView) -> ViewRelationship {
+        guard self !== view else { return .same }
+
+        if let superview = superview {
+            for sibling in superview.subviews {
+                guard sibling !== self else { continue }
+                if sibling === view { return .sibling }
+            }
+        }
+
+        let ancestors = allAncestors()
+
+        if ancestors.contains(view) {
+            return .descendant
+        }
+
+        if let commonAncestor = (ancestors as NSArray).firstObjectCommonWithArray(view.allAncestors()) as? OSView {
+            return .cousin(commonAncestor)
+        }
+
+        if allDescendants().contains(view) {
+            return .ancestor
+        }
+
+        return .unrelated
     }
 }
 
