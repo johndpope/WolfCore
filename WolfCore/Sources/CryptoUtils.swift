@@ -263,7 +263,7 @@ public class PublicKey: CryptoKey {
     public override var description: String {
         do {
             return "\(try json(true))"
-        } catch(let error) {
+        } catch let error {
             logError(error)
             return "invalid"
         }
@@ -274,7 +274,7 @@ public class PrivateKey: CryptoKey {
     public override var description: String {
         do {
             return "\(try json(false))"
-        } catch(let error) {
+        } catch let error {
             logError(error)
             return "invalid"
         }
@@ -400,7 +400,7 @@ public class Crypto {
             printBSONDictionary(privateBSON)
             let privateBSONBytes = try BSON.encode(privateBSON)
             print("privateBSONBytes: count \(privateBSONBytes.count): \(privateBSONBytes)")
-        } catch(let error) {
+        } catch let error {
             logError(error)
         }
     }

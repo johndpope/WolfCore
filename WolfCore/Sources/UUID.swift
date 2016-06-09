@@ -94,7 +94,7 @@ extension UUID {
         do {
             let z = try UUID(string: "dog")
             print(z)
-        } catch(let error) {
+        } catch let error {
             logError(error)
         } // prints "Invalid UUID string: "dog"."
     }

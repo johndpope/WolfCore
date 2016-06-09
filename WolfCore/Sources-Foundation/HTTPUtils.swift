@@ -145,7 +145,7 @@ public class HTTP {
                     do {
                         let json = try JSON.decode(data)
                         success(response, json)
-                    } catch(let error) {
+                    } catch let error {
                         failure(error)
                     }
             },

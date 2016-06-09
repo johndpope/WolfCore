@@ -127,7 +127,7 @@ extension OSColor {
                 let color = try OSColor(string: string)
                 print("string: \(string), color: \(color)")
             }
-        } catch(let error) {
+        } catch let error {
             logError(error)
         }
     }

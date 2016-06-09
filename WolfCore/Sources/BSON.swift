@@ -89,7 +89,7 @@ private func testBSON(encodeDict: BSONDictionary) {
         printBSONDictionary(decodeDict)
         let bson2 = try BSONDocument(dict: decodeDict)
         print("bson2: \(bson2)")
-    } catch(let error) {
+    } catch let error {
         print("error: \(error)")
     }
 }

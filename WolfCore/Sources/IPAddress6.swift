@@ -182,7 +182,7 @@ public class IPAddress6 {
         do {
             print(try [UInt16](IPAddress6.decode("::f:a:1")))
             print(IPAddress6.encode([UInt16]([0, 0, 0, 0, 0, 2, 3, 1])))
-        } catch(let error) {
+        } catch let error {
             logError(error)
         }
     }
@@ -204,7 +204,7 @@ public class IPAddress6 {
             assert(decodeWords == words)
 
             logInfo("Passed.")
-        } catch(let error) {
+        } catch let error {
             logError(error)
         }
     }

@@ -43,7 +43,7 @@ public class IPAddress4 {
             let decoded = try IPAddress4.decode(encoded)
             assert(decoded == bytes)
             print(decoded)
-        } catch(let error) {
+        } catch let error {
             logError(error)
         }
     }
