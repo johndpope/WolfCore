@@ -22,7 +22,7 @@ public class KeyboardAvoidantView: View {
         super.setup()
 
         makeTransparent()
-        keyboardWillMoveAction = NotificationAction(name: UIKeyboardWillChangeFrameNotification, object: nil) { notification in
+        keyboardWillMoveAction = NotificationAction(name: UIKeyboardWillChangeFrameNotification, object: nil) { [unowned self] notification in
             self.keyboardWillMove(notification)
         }
     }

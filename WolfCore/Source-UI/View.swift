@@ -153,6 +153,8 @@ public class View: OSView {
             let secondAttribute = constraint.secondAttribute
             let multiplier = constraint.multiplier
             let constant = constraint.constant
+            let priority = constraint.priority
+            let identifier = constraint.identifier
 
             if firstItem === view {
                 firstItem = self
@@ -162,7 +164,10 @@ public class View: OSView {
             }
 
             // swiftlint:disable:next custom_rules
-            addConstraint(NSLayoutConstraint(item: firstItem, attribute: firstAttribute, relatedBy: relation, toItem: secondItem, attribute: secondAttribute, multiplier: multiplier, constant: constant))
+            let newConstraint = NSLayoutConstraint(item: firstItem, attribute: firstAttribute, relatedBy: relation, toItem: secondItem, attribute: secondAttribute, multiplier: multiplier, constant: constant)
+            newConstraint.priority = priority
+            newConstraint.identifier = identifier
+            addConstraint(newConstraint)
         }
     }
 #endif

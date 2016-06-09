@@ -2,32 +2,27 @@
 //  NotificationAction.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 4/7/16.
-//  Copyright © 2016 Arciem. All rights reserved.
+//  Created by Robert McNally on 7/17/15.
+//  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
 import Foundation
 
-public class NotificationActions {
-    var notificationActions = [String: NotificationAction]()
+public class NotificationAction {
+    private let observer: NotificationObserver
+    public let action: NotificationBlock
 
-    public init() {
+    public init(name: String, action: NotificationBlock) {
+        self.action = action
+        observer = notificationCenter.addObserver(name, action: action)
     }
 
-    func getAction(forName name: String) -> NotificationBlock? {
-        return notificationActions[name]?.action
+    public init(name: String, object: AnyObject?, action: NotificationBlock) {
+        self.action = action
+        observer = notificationCenter.addObserverForName(name, object: object, queue: nil, usingBlock: action)
     }
 
-    func setAction(action: NotificationBlock?, object: AnyObject?, name: String) {
-        if let action = action {
-            let notificationAction = NotificationAction(name: name, object: object, action: action)
-            notificationActions[name] = notificationAction
-        } else {
-            removeAction(forName: name)
-        }
-    }
-
-    func removeAction(forName name: String) {
-        notificationActions.removeValueForKey(name)
+    deinit {
+        notificationCenter.removeObserver(observer)
     }
 }
