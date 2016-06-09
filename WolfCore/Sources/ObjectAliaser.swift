@@ -9,6 +9,8 @@
 import Foundation
 #if os(iOS)
     import UIKit
+#elseif os(OSX)
+    import Cocoa
 #endif
 
 /// Creates short, unique, descriptive names for a set of related objects.
@@ -36,30 +38,48 @@ public class ObjectAliaser {
 
         var id: String?
         var className: String? = NSStringFromClass(object.dynamicType)
-        if let view = object as? UIView {
-            if let accessibilityIdentifier = view.accessibilityIdentifier {
-                id = "\"\(accessibilityIdentifier)\""
+        #if os(iOS) || os(tvOS)
+            switch object {
+            case let view as UIView:
+                if let accessibilityIdentifier = view.accessibilityIdentifier {
+                    id = "\"\(accessibilityIdentifier)\""
+                }
+
+            case let barItem as UIBarItem:
+                id = "\"\(barItem.accessibilityIdentifier)\""
+
+            case let image as UIImage:
+                id = "\"\(image.accessibilityIdentifier)\""
+
+            default:
+                break
             }
-        } else if let barItem = object as? UIBarItem {
-            id = "\"\(barItem.accessibilityIdentifier)\""
-        } else if let image = object as? UIImage {
-            id = "\"\(image.accessibilityIdentifier)\""
-        } else if let number = object as? NSNumber {
-            className = nil
-            id = getID(forNumber: number)
-        } else if let font = object as? UIFont {
-            className = "Font"
-            id = getID(forFont: font)
-        } else if let color = object as? UIColor {
+        #endif
+
+        switch object {
+
+        case let color as OSColor:
             className = "Color"
             id = color.debugSummary
-        } else if let layoutConstraint = object as? NSLayoutConstraint {
+
+        case let font as OSFont:
+            className = "Font"
+            id = getID(forFont: font)
+
+        case let number as NSNumber:
+            className = nil
+            id = getID(forNumber: number)
+
+        case let layoutConstraint as NSLayoutConstraint:
             if let identifier = layoutConstraint.identifier {
                 id = "\"\(identifier)\""
             }
             if layoutConstraint.dynamicType == NSLayoutConstraint.self {
                 className = nil
             }
+
+        default:
+            break
         }
 
         if let className = className {
@@ -83,14 +103,13 @@ public class ObjectAliaser {
         }
     }
 
-    private func getID(forFont font: UIFont) -> String {
+    private func getID(forFont font: OSFont) -> String {
         let idJoiner = Joiner()
         idJoiner.append("\"\(font.familyName)\"")
-        let traits = font.fontDescriptor().symbolicTraits
-        if traits.contains(.TraitBold) {
+        if font.isBold {
             idJoiner.append("bold")
         }
-        if traits.contains(.TraitItalic) {
+        if font.isItalic {
             idJoiner.append("italic")
         }
         idJoiner.append(font.pointSize)

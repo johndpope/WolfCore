@@ -6,7 +6,11 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+#if os(iOS)
+    import UIKit
+#elseif os(OSX)
+    import Cocoa
+#endif
 
 public typealias StringAttributes = [String : AnyObject]
 public let overrideTintColorTag = "overrideTintColor"
@@ -601,12 +605,12 @@ extension AttributedString {
 }
 
 extension AttributedString {
-    public var font: UIFont {
+    public var font: OSFont {
         get { return substring().font }
         set { substring().font = newValue }
     }
 
-    public var foregroundColor: UIColor {
+    public var foregroundColor: OSColor {
         get { return substring().foregroundColor }
         set { substring().foregroundColor = newValue }
     }
@@ -782,13 +786,13 @@ extension AttributedSubstring {
         }
     }
 
-    public var font: UIFont {
-        get { return attribute(named: NSFontAttributeName) as? UIFont ?? UIFont.systemFontOfSize(12) }
+    public var font: OSFont {
+        get { return attribute(named: NSFontAttributeName) as? OSFont ?? OSFont.systemFontOfSize(12) }
         set { add(attributeNamed: NSFontAttributeName, value: newValue) }
     }
 
-    public var foregroundColor: UIColor {
-        get { return attribute(named: NSForegroundColorAttributeName) as? UIColor ?? .Black }
+    public var foregroundColor: OSColor {
+        get { return attribute(named: NSForegroundColorAttributeName) as? OSColor ?? .Black }
         set { add(attributeNamed: NSForegroundColorAttributeName, value: newValue) }
     }
 

@@ -12,53 +12,82 @@
     import Cocoa
 #endif
 
-public class View: OSView {
-#if os(iOS) || os(tvOS)
-    /// Can be set from Interface Builder
-    public var transparentToTouches: Bool = false
-
-    /// Can be set from Interface Builder
-    public var transparentBackground: Bool = false {
-        didSet {
-            if transparentBackground {
-                makeTransparent()
-            }
+    public class View: OSView {
+        public convenience init() {
+            self.init(frame: .zero)
         }
-    }
 
-    /// Can be set from Interface Builder, or in the subclass's Setup() function.
-    public var contentNibName: String? = nil
+        public override init(frame: CGRect) {
+            super.init(frame: frame)
+            _setup()
+        }
 
-    private var endEditingAction: GestureRecognizerAction!
+        public required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            _setup()
+        }
 
-    /// Can be set from Interface Builder
-    public var endsEditingWhenTapped: Bool = false {
-        didSet {
-            if endsEditingWhenTapped {
-                endEditingAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in
-                    self.window?.endEditing(false)
+        private func _setup() {
+            translatesAutoresizingMaskIntoConstraints = false
+            setup()
+        }
+
+        // Override in subclasses
+        public func setup() { }
+
+        #if os(iOS) || os(tvOS)
+
+        private var baseSize: CGSize!
+        public var managesSublabelScaling = false
+
+        /// Can be set from Interface Builder
+        public var transparentToTouches: Bool = false
+
+        /// Can be set from Interface Builder
+        public var transparentBackground: Bool = false {
+            didSet {
+                if transparentBackground {
+                    makeTransparent()
                 }
-            } else {
-                endEditingAction = nil
             }
         }
-    }
 
-    public override func awakeFromNib() {
-        super.awakeFromNib()
-        loadContentFromNib()
-        setupSublabelScaling()
+        /// Can be set from Interface Builder, or in the subclass's Setup() function.
+        public var contentNibName: String? = nil
+
+        private var endEditingAction: GestureRecognizerAction!
+
+        /// Can be set from Interface Builder
+        public var endsEditingWhenTapped: Bool = false {
+            didSet {
+                if endsEditingWhenTapped {
+                    endEditingAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in
+                        self.window?.endEditing(false)
+                    }
+                } else {
+                    endEditingAction = nil
+                }
+            }
+        }
+
+        public override func awakeFromNib() {
+            super.awakeFromNib()
+            loadContentFromNib()
+            setupSublabelScaling()
+        }
+        #endif
     }
-#endif
 
 #if os(OSX)
-    public override var flipped: Bool {
-        return true
+    extension View {
+        public override var flipped: Bool {
+            return true
+        }
     }
 #endif
 
-    private var baseSize: CGSize!
-    public var managesSublabelScaling = false
+#if os(iOS) || os(tvOS)
+extension View {
 
     private func setupSublabelScaling() {
         guard managesSublabelScaling else { return }
@@ -83,28 +112,10 @@ public class View: OSView {
         super.layoutSubviews()
         syncSublabelScaling()
     }
+}
+#endif
 
-    public convenience init() {
-        self.init(frame: .zero)
-    }
-
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        _setup()
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        _setup()
-    }
-
-    private func _setup() {
-        translatesAutoresizingMaskIntoConstraints = false
-        setup()
-    }
-
-    // Override in subclasses
-    public func setup() { }
+extension View {
 
 #if os(iOS) || os(tvOS)
     override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

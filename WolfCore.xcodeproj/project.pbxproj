@@ -24,6 +24,10 @@
 		0314DD131D09032400E23C67 /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0314DD101D09032400E23C67 /* Serializable.swift */; };
 		0314DD151D09044D00E23C67 /* NavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */; };
 		0314DD171D09048C00E23C67 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0314DD161D09048C00E23C67 /* TableViewCell.swift */; };
+		031631A11D09639F00DCBB3B /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031631A01D09639F00DCBB3B /* FontExtensions.swift */; };
+		031631A21D09639F00DCBB3B /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031631A01D09639F00DCBB3B /* FontExtensions.swift */; };
+		031631A31D0969C600DCBB3B /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
+		031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031631A01D09639F00DCBB3B /* FontExtensions.swift */; };
 		031C5BBF1CC18977007166BA /* CardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BBE1CC18977007166BA /* CardProtocol.swift */; };
 		031C5BC11CC18992007166BA /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC01CC18992007166BA /* Pile.swift */; };
 		031C5BC31CC189F5007166BA /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031C5BC21CC189F5007166BA /* PlayingCard.swift */; };
@@ -181,7 +185,6 @@
 		036FECB11C766E6B00B09489 /* BarButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonAction.swift */; };
 		0375EC391CF1B19A001E6D45 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553371C0F622A00E0FCA7 /* View.swift */; };
 		0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
-		0384578B1CED0C810012BCCE /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
 		0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */; };
 		038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
 		038457921CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
@@ -360,6 +363,7 @@
 		0314DD101D09032400E23C67 /* Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
 		0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarExtensions.swift; sourceTree = "<group>"; };
 		0314DD161D09048C00E23C67 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = "Source-UI/TableViewCell.swift"; sourceTree = "<group>"; };
+		031631A01D09639F00DCBB3B /* FontExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
 		031C5BBE1CC18977007166BA /* CardProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardProtocol.swift; path = Sources/CardProtocol.swift; sourceTree = "<group>"; };
 		031C5BC01CC18992007166BA /* Pile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pile.swift; path = Sources/Pile.swift; sourceTree = "<group>"; };
 		031C5BC21CC189F5007166BA /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCard.swift; path = Sources/PlayingCard.swift; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 			isa = PBXGroup;
 			children = (
 				03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */,
+				031631A01D09639F00DCBB3B /* FontExtensions.swift */,
 				03B218941C20E90A0081CE39 /* Joiner.swift */,
 				03206B301C3C7C5D001A463B /* RegexUtils.swift */,
 				03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */,
@@ -1151,6 +1156,7 @@
 				033F5E8A1CA3096700647A0A /* GeneralError.swift in Sources */,
 				033F5E8C1CA3096700647A0A /* Log.swift in Sources */,
 				033F5E8D1CA3096700647A0A /* ASN1Parser.swift in Sources */,
+				031631A31D0969C600DCBB3B /* ObjectAliaser.swift in Sources */,
 				033F5E8E1CA3096700647A0A /* Base64URL.swift in Sources */,
 				033F5E8F1CA3096700647A0A /* Color.swift in Sources */,
 				033F5E911CA3096700647A0A /* Hex.swift in Sources */,
@@ -1172,9 +1178,9 @@
 				033F5EA41CA3096700647A0A /* SHA256.swift in Sources */,
 				03E172FE1CF1C8D50073F383 /* SequenceExtensions.swift in Sources */,
 				033F5EA51CA3096700647A0A /* NotificationCenterExtensions.swift in Sources */,
+				031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */,
 				033F5EA61CA3096700647A0A /* DictionaryExtensions.swift in Sources */,
 				033F5EA71CA3096700647A0A /* BSON.swift in Sources */,
-				0384578B1CED0C810012BCCE /* ObjectAliaser.swift in Sources */,
 				0375EC391CF1B19A001E6D45 /* View.swift in Sources */,
 				038457921CED55690012BCCE /* RunLoopUtils.swift in Sources */,
 				033F5EA81CA3096700647A0A /* Vector.swift in Sources */,
@@ -1275,6 +1281,7 @@
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */,
+				031631A11D09639F00DCBB3B /* FontExtensions.swift in Sources */,
 				03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */,
 				03E13B841C4FEE720074E447 /* Grid.swift in Sources */,
 				03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */,
@@ -1398,6 +1405,7 @@
 				03E173291CF1C8FB0073F383 /* ScrollView.swift in Sources */,
 				03E173141CF1C8FB0073F383 /* GestureActions.swift in Sources */,
 				0314DCF61D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
+				031631A21D09639F00DCBB3B /* FontExtensions.swift in Sources */,
 				03E173031CF1C8E70073F383 /* Hysteresis.swift in Sources */,
 				03E172D31CF1C8B60073F383 /* ByteArray.swift in Sources */,
 				03E172F61CF1C8CC0073F383 /* AffineTransformUtils.swift in Sources */,

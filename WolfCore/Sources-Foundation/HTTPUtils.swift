@@ -59,14 +59,14 @@ public class HTTP {
 
         let session = NSURLSession.sharedSession()
 
-        #if !os(tvOS)
+        #if os(iOS)
             let token = inFlightTracker.start(withName: name)
         #endif
 
         let task = session.dataTaskWithRequest(request) { (let data, let response, let error) in
             guard error == nil else {
 
-                #if !os(tvOS)
+                #if os(iOS)
                     inFlightTracker.end(withToken: token, result: Result<NSError>.Failure(error!))
                     logError("\(token) dataTaskWithRequest returned error")
                 #endif
@@ -77,7 +77,7 @@ public class HTTP {
             }
 
             guard let httpResponse = response as? NSHTTPURLResponse else {
-                #if !os(tvOS)
+                #if os(iOS)
                     fatalError("\(token) improper response type: \(response)")
                 #else
                     return
@@ -87,7 +87,7 @@ public class HTTP {
             guard data != nil else {
                 let error = HTTPError(response: httpResponse)
 
-                #if !os(tvOS)
+                #if os(iOS)
                     inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
                     logError("\(token) No data returned")
                 #endif
@@ -100,7 +100,7 @@ public class HTTP {
             guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
                 let error = HTTPError(response: httpResponse, data: data)
 
-                #if !os(tvOS)
+                #if os(iOS)
                     inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
                     logError("\(token) Unknown response code: \(httpResponse.statusCode)")
                 #endif
@@ -112,7 +112,7 @@ public class HTTP {
             guard successStatusCodes.contains(statusCode) else {
                 let error = HTTPError(response: httpResponse, data: data)
 
-                #if !os(tvOS)
+                #if os(iOS)
                     inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
                     logError("\(token) Failure response code: \(statusCode)")
                 #endif
@@ -122,7 +122,7 @@ public class HTTP {
                 return
             }
 
-            #if !os(tvOS)
+            #if os(iOS)
                 inFlightTracker.end(withToken: token, result: Result<NSHTTPURLResponse>.Success(httpResponse))
             #endif
 

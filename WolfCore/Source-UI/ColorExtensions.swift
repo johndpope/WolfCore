@@ -102,7 +102,7 @@ extension OSColor {
     public static var Clear: OSColor { return .clearColor() }
 }
 
-extension UIColor {
+extension OSColor {
     public var debugSummary: String {
         return color.debugSummary
     }

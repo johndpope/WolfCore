@@ -87,6 +87,16 @@ extension OSView {
     }
 }
 
+#if os(iOS) || os(tvOS)
+extension UIView {
+    public func setBorder(cornerRadius radius: CGFloat? = nil, width: CGFloat? = nil, color: UIColor? = nil) {
+        if let radius = radius { layer.cornerRadius = radius }
+        if let width = width { layer.borderWidth = width }
+        if let color = color { layer.borderColor = color.CGColor }
+    }
+}
+#endif
+
 extension OSView {
     public func descendentViews<T: OSView>(ofClass aClass: AnyClass) -> [T] {
         var resultViews = [T]()
