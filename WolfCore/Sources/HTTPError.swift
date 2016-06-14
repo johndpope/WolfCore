@@ -25,8 +25,8 @@ public struct HTTPError: Error {
         return response.statusCode
     }
 
-    public var statusCode: StatusCode? {
-        return StatusCode(rawValue: code)
+    public var statusCode: StatusCode {
+        return StatusCode(rawValue: code)!
     }
 
     public var identifier: String {

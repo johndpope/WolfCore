@@ -77,7 +77,7 @@ public class KeyboardAvoidantView: View {
 
             UIView.animateWithDuration(duration, delay: 0.0, options: options, animations: {
                 self.layoutSubviews()
-                }, completion: { (Bool) in
+                }, completion: { _ in
                     self.startTrackingKeyboard()
             })
         }
