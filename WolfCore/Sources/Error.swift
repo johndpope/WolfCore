@@ -9,7 +9,7 @@
 import Foundation
 
 /// Classes that represent errors may conform to this protocol.
-public protocol Error: ErrorType, CustomStringConvertible {
+public protocol Error: ErrorProtocol, CustomStringConvertible {
     /// A human-readable error message.
     var message: String { get }
 

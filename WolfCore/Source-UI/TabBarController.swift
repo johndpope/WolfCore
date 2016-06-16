@@ -14,7 +14,7 @@ public class TabBarController: UITabBarController {
         _setup()
     }
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         _setup()
     }
@@ -40,7 +40,7 @@ public class TabBarController: UITabBarController {
         super.viewDidLoad()
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         updateAppearance()

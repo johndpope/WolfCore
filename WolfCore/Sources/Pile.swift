@@ -30,7 +30,7 @@ public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
     }
 
     public init(placeholdersCount: Int) {
-        cards = [CardType?](count: placeholdersCount, repeatedValue: nil)
+        cards = [CardType?](repeating: nil, count: placeholdersCount)
     }
 
     public func shuffled() -> Pile {
@@ -40,7 +40,7 @@ public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
             let index = Int(arc4random_uniform(UInt32(oldCards.count)))
             let card = oldCards[index]
             newCards.append(card)
-            oldCards.removeAtIndex(index)
+            oldCards.remove(at: index)
         }
         return Pile(cards: newCards)
     }
@@ -49,13 +49,13 @@ public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
         var card = cards[0]!
         card.facing = facing
         card.isReversed = isReversed
-        cards.removeAtIndex(0)
+        cards.remove(at: 0)
         return card
     }
 
     public func deal(toPile pile: Pile, count: Int = 1, facing: CardFacing = .faceDown, isReversed: Bool = false) {
         for _ in 1...count {
-            pile.cards.insert(draw(withFacing: facing, isReversed: isReversed), atIndex: 0)
+            pile.cards.insert(draw(withFacing: facing, isReversed: isReversed), at: 0)
         }
     }
 
@@ -103,12 +103,12 @@ extension Pile: CustomStringConvertible {
         for c in cards {
             a.append(c?.description ?? "PLACEHOLDER")
         }
-        return "[" + a.joinWithSeparator(",") + "]"
+        return "[" + a.joined(separator: ",") + "]"
     }
 }
 
 extension Pile {
-    public static func newDeck(includeTrumps includeTrumps: Bool = true, includePips: Bool = true) -> Pile {
+    public static func newDeck(includeTrumps: Bool = true, includePips: Bool = true) -> Pile {
         var cards = [CardType?]()
         if includeTrumps {
             for trump in CardType.TrumpType.orderedTrumps {

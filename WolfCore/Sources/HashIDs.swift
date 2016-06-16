@@ -45,13 +45,13 @@ public struct HashidsOptions
 public protocol HashidsGenerator {
     associatedtype Char
 
-    func encode(value: Int...) -> String?
+    func encode(_ value: Int...) -> String?
 
-    func encode(values: [Int]) -> String?
+    func encode(_ values: [Int]) -> String?
 
-    func decode(value: String!) -> [Int]
+    func decode(_ value: String!) -> [Int]
 
-    func decode(value: [Char]) -> [Int]
+    func decode(_ value: [Char]) -> [Int]
 
 }
 
@@ -63,7 +63,7 @@ public typealias Hashids = Hashids_<UInt32>
 
 // MARK: Hashids generic class
 
-public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGenerator {
+public class Hashids_<T where T:Equatable, T:UnsignedInteger> : HashidsGenerator {
     public typealias Char = T
 
     private var minHashLength: UInt
@@ -103,13 +103,13 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
             }
 
             if newSepsLength > sepsLength {
-                let diff = self.alphabet.startIndex.advancedBy(newSepsLength - sepsLength)
+                let diff = self.alphabet.index(self.alphabet.startIndex, offsetBy: newSepsLength - sepsLength)
                 let range = 0..<diff
                 self.seps += self.alphabet[range]
-                self.alphabet.removeRange(range)
+                self.alphabet.removeSubrange(range)
             } else {
-                let pos = self.seps.startIndex.advancedBy(newSepsLength)
-                self.seps.removeRange(pos+1..<self.seps.count)
+                let pos = self.seps.index(self.seps.startIndex, offsetBy: newSepsLength)
+                self.seps.removeSubrange(pos+1..<self.seps.count)
             }
         }
 
@@ -117,25 +117,25 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
 
         let guard_i = Int(ceil(Double(alphabetLength)/HashidsOptions.guardDiv))
         if alphabetLength < 3 {
-            let seps_guard = self.seps.startIndex.advancedBy(guard_i)
+            let seps_guard = self.seps.index(self.seps.startIndex, offsetBy: guard_i)
             let range = 0..<seps_guard
             self.guards += self.seps[range]
-            self.seps.removeRange(range)
+            self.seps.removeSubrange(range)
         } else {
-            let alphabet_guard = self.alphabet.startIndex.advancedBy(guard_i)
+            let alphabet_guard = self.alphabet.index(self.alphabet.startIndex, offsetBy: guard_i)
             let range = 0..<alphabet_guard
             self.guards += self.alphabet[range]
-            self.alphabet.removeRange(range)
+            self.alphabet.removeSubrange(range)
         }
     }
 
     // MARK: public api
 
-    public func encode(value: Int...) -> String? {
+    public func encode(_ value: Int...) -> String? {
         return encode(value)
     }
 
-    public func encode(values: [Int]) -> String? {
+    public func encode(_ values: [Int]) -> String? {
         let ret = _encode(values)
         return ret.reduce(String(), combine: { (so, i) in
             let scalar: UInt32 = numericCast(i)
@@ -145,22 +145,22 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
         })
     }
 
-    public func decode(value: String!) -> [Int] {
+    public func decode(_ value: String!) -> [Int] {
         let hash: [Char] = value.unicodeScalars.map() { numericCast($0.value) }
         return self.decode(hash)
     }
 
-    public func decode(value: [Char]) -> [Int] {
+    public func decode(_ value: [Char]) -> [Int] {
         return self._decode(value)
     }
 
     // MARK: private funcitons
 
-    private func _encode(numbers: [Int]) -> [Char] {
+    private func _encode(_ numbers: [Int]) -> [Char] {
         var alphabet = self.alphabet
         var numbers_hash_int = 0
 
-        for (index, value) in numbers.enumerate() {
+        for (index, value) in numbers.enumerated() {
             numbers_hash_int += ( value  % ( index + 100 ) )
         }
 
@@ -170,7 +170,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
         var lsalt = [Char]()
         let (lsaltARange, lsaltRange) = _saltify(&lsalt, lottery, alphabet)
 
-        for (index, value) in numbers.enumerate() {
+        for (index, value) in numbers.enumerated() {
             shuffle(&alphabet, lsalt, lsaltRange)
             let lastIndex = hash.endIndex
             _hash(&hash, value, alphabet)
@@ -181,7 +181,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
                 hash.append(self.seps[seps_index])
             }
 
-            lsalt.replaceRange(lsaltARange, with: alphabet)
+            lsalt.replaceSubrange(lsaltARange, with: alphabet)
         }
 
         let minLength: Int = numericCast(self.minHashLength)
@@ -189,7 +189,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
         if hash.count < minLength {
             let guard_index = (numbers_hash_int + numericCast(hash[0])) % self.guards.count
             let guard_t = self.guards[guard_index]
-            hash.insert(guard_t, atIndex: 0)
+            hash.insert(guard_t, at: 0)
 
             if hash.count < minLength {
                 let guard_index = (numbers_hash_int + numericCast(hash[2])) % self.guards.count
@@ -198,12 +198,14 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
             }
         }
 
-        let half_length = alphabet.count >> 1
+        let half_length: Int = alphabet.count >> 1
         while hash.count < minLength {
             shuffle(&alphabet, alphabet)
-            let lrange = 0..<half_length
-            let rrange = half_length..<(alphabet.count)
-            hash = alphabet[rrange] + hash + alphabet[lrange]
+            let lrange = alphabet.startIndex..<alphabet.index(alphabet.startIndex, offsetBy: half_length)
+            let rrange = alphabet.index(alphabet.startIndex, offsetBy: half_length)..<alphabet.endIndex
+            let a = alphabet[rrange]
+            let b = alphabet[lrange]
+            hash = a + hash + b
 
             let excess = hash.count - minLength
             if excess > 0 {
@@ -215,12 +217,13 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
         return hash
     }
 
-    private func _decode(hash: [Char]) -> [Int] {
+    private func _decode(_ hash: [Char]) -> [Int] {
         var ret = [Int]()
 
         var alphabet = self.alphabet
 
-        var hashes = hash.split( hash.count, allowEmptySlices: true) { contains(self.guards, $0) }
+        var hashes = hash.split(omittingEmptySubsequences: false) { contains(self.guards, $0) }
+//        var hashes = hash.split( hash.count, allowEmptySlices: true) { contains(self.guards, $0) }
         let hashesCount = hashes.count, i = ((hashesCount == 2) || (hashesCount == 3)) ? 1 : 0
         let hash = hashes[i]
 
@@ -228,30 +231,31 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
             let lottery = hash[0]
             let valuesHashes = hash[1..<hash.count]
 
-            let valueHashes = valuesHashes.split(valuesHashes.count, allowEmptySlices: true) { contains(self.seps, $0) }
+            let valueHashes = valuesHashes.split(omittingEmptySubsequences: false) { contains(self.seps, $0) }
+//            let valueHashes = valuesHashes.split(valuesHashes.count, allowEmptySlices: true) { contains(self.seps, $0) }
             var lsalt = [Char]()
             let (lsaltARange, lsaltRange) = _saltify(&lsalt, lottery, alphabet)
 
             for subHash in valueHashes {
                 shuffle(&alphabet, lsalt, lsaltRange)
                 ret.append(self._unhash(subHash, alphabet))
-                lsalt.replaceRange(lsaltARange, with: alphabet)
+                lsalt.replaceSubrange(lsaltARange, with: alphabet)
             }
         }
 
         return ret
     }
 
-    private func _hash(inout hash: [Char], _ number: Int, _ alphabet: [Char]) {
+    private func _hash(_ hash: inout [Char], _ number: Int, _ alphabet: [Char]) {
         let length = alphabet.count, index = hash.count
         var number = number
         repeat {
-            hash.insert(alphabet[number % length], atIndex: index)
+            hash.insert(alphabet[number % length], at: index)
             number = number / length
         } while( number != 0 )
     }
 
-    private func _unhash<U: CollectionType where U.Index == Int, U.Generator.Element == Char>(hash: U, _ alphabet: [Char]) -> Int {
+    private func _unhash<U: Collection where U.Index == Int, U.IndexDistance == Int, U.Iterator.Element == Char>(_ hash: U, _ alphabet: [Char]) -> Int {
         var value: Double = 0
 
         var hashLength = hash.count
@@ -259,8 +263,8 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
             let alphabetLength = alphabet.count
             value = hash.reduce(0) { value, token in
                 var tokenValue = 0.0
-                if let token_index = alphabet.indexOf(token as Char) {
-                    hashLength -= 1
+                if let token_index = alphabet.index(of: token as Char) {
+                    hashLength = hashLength - 1
                     let mul = pow(Double(alphabetLength), Double(hashLength))
                     tokenValue = Double(token_index) * mul
                 }
@@ -271,7 +275,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
         return Int(trunc(value))
     }
 
-    private func _saltify(inout salt: [Char], _ lottery: Char, _ alphabet: [Char]) -> (Range<Int>, Range<Int>) {
+    private func _saltify(_ salt: inout [Char], _ lottery: Char, _ alphabet: [Char]) -> (CountableRange<Int>, CountableRange<Int>) {
         salt.append(lottery)
         salt = salt + self.salt
         salt = salt + alphabet
@@ -284,11 +288,11 @@ public class Hashids_<T where T:Equatable, T:UnsignedIntegerType> : HashidsGener
 
 // MARK: Internal functions
 
-internal func contains<T: CollectionType where T.Generator.Element:Equatable>(a: T, _ e: T.Generator.Element) -> Bool {
-    return (a.indexOf(e) != nil)
+internal func contains<T: Collection where T.Iterator.Element:Equatable>(_ a: T, _ e: T.Iterator.Element) -> Bool {
+    return (a.index(of: e) != nil)
 }
 
-internal func transform<T: CollectionType where T.Generator.Element:Equatable>(a: T, _ b: T, _ cmpr: (inout Array<T.Generator.Element>, T, T, T.Generator.Element ) -> Void ) -> [T.Generator.Element] {
+internal func transform<T: Collection where T.Iterator.Element:Equatable>(_ a: T, _ b: T, _ cmpr: (inout Array<T.Iterator.Element>, T, T, T.Iterator.Element ) -> Void ) -> [T.Iterator.Element] {
     typealias U = T.Generator.Element
     var c = [U]()
     for i in a {
@@ -297,7 +301,7 @@ internal func transform<T: CollectionType where T.Generator.Element:Equatable>(a
     return c
 }
 
-internal func unique<T: CollectionType where T.Generator.Element:Equatable>(a: T) -> [T.Generator.Element] {
+internal func unique<T: Collection where T.Iterator.Element:Equatable>(_ a: T) -> [T.Iterator.Element] {
     return transform(a, a) { (c, a, b, e) in
         var c = c
         if !contains(c, e) {
@@ -306,7 +310,7 @@ internal func unique<T: CollectionType where T.Generator.Element:Equatable>(a: T
     }
 }
 
-internal func intersection<T: CollectionType where T.Generator.Element:Equatable>(a: T, _ b: T) -> [T.Generator.Element] {
+internal func intersection<T: Collection where T.Iterator.Element:Equatable>(_ a: T, _ b: T) -> [T.Iterator.Element] {
     return transform(a, b) { (c, a, b, e) in
         var c = c
         if contains(b, e) {
@@ -315,7 +319,7 @@ internal func intersection<T: CollectionType where T.Generator.Element:Equatable
     }
 }
 
-internal func difference<T: CollectionType where T.Generator.Element:Equatable>(a: T, _ b: T) -> [T.Generator.Element] {
+internal func difference<T: Collection where T.Iterator.Element:Equatable>(_ a: T, _ b: T) -> [T.Iterator.Element] {
     return transform(a, b) { (c, a, b, e) in
         var c = c
         if !contains(b, e) {
@@ -323,13 +327,15 @@ internal func difference<T: CollectionType where T.Generator.Element:Equatable>(
         }
     }
 }
-internal func shuffle<T: MutableCollectionType, U: CollectionType where T.Index == Int, T.Generator.Element:UnsignedIntegerType, T.Generator.Element == U.Generator.Element, T.Index == U.Index>(inout source: T, _ salt: U) {
+internal func shuffle<T: MutableCollection, U: Collection where T.Index == Int, T.IndexDistance == Int, T.Iterator.Element:UnsignedInteger, T.Iterator.Element == U.Iterator.Element, U.IndexDistance == Int, T.Index == U.Index>(_ source: inout T, _ salt: U) {
     return shuffle(&source, salt, 0..<salt.count)
 }
 
-internal func shuffle<T: MutableCollectionType, U: CollectionType where T.Index == Int, T.Generator.Element:UnsignedIntegerType, T.Generator.Element == U.Generator.Element, T.Index == U.Index>(inout source: T, _ salt: U, _ saltRange: Range<Int>) {
-    let sidx0 = saltRange.startIndex, scnt = (saltRange.endIndex - saltRange.startIndex)
-    var sidx = source.count - 1, v = 0, _p = 0
+internal func shuffle<T: MutableCollection, U: Collection where T.Index == Int, T.IndexDistance == Int, T.Iterator.Element:UnsignedInteger, T.Iterator.Element == U.Iterator.Element, T.Index == U.Index>(_ source: inout T, _ salt: U, _ saltRange: CountableRange<Int>) {
+    let sidx0 = saltRange.lowerBound, scnt = (saltRange.upperBound - saltRange.lowerBound)
+    var sidx: Int = source.count - 1
+    var v = 0
+    var _p = 0
     while sidx > 0 {
         v = v % scnt
         let _i: Int = numericCast(salt[sidx0 + v])
@@ -339,6 +345,6 @@ internal func shuffle<T: MutableCollectionType, U: CollectionType where T.Index 
         source[sidx] = source[_j]
         source[_j] = tmp
         v += 1
-        sidx -= 1
+        sidx = sidx - 1
     }
 }

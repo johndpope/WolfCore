@@ -41,14 +41,14 @@ public struct CryptoError: Error {
             }
         }
 
-        public static func checkCode(ret: Int32, message: String) throws {
+        public static func check(code ret: Int32, message: String) throws {
             if ret != 1 {
                 let code = Int(ERR_get_error())
                 throw CryptoError(message: message, code: code)
             }
         }
     #else
-        public static func checkCode(code: OSStatus, message: String) throws {
+        public static func check(code: OSStatus, message: String) throws {
             if code != 0 {
                 throw CryptoError(message: message, code: Int(code))
             }
@@ -61,7 +61,7 @@ extension CryptoError: CustomStringConvertible {
         var c = [message]
         c.append("[\(code)]")
 
-        return "CryptoError(\(c.joinWithSeparator(" ")))"
+        return "CryptoError(\(c.joined(separator: " ")))"
     }
 }
 
@@ -98,13 +98,13 @@ public class CryptoKey: CustomStringConvertible {
             return Base64URL.encode(bignumToBytes(bn))
         }
 
-        static func addKeyFieldAsBase64URLToDict(inout dict: JSONDictionary, field: String, value: BignumRef) {
+        static func addKeyFieldAsBase64URLToDict(dict: inout JSONDictionary, field: String, value: BignumRef) {
             if value != nil {
                 dict[field] = NSString(UTF8String: bignumToBase64URL(value))
             }
         }
 
-        static func addKeyFieldAsBytesToDict(inout dict: BSONDictionary, field: String, value: BignumRef) {
+        static func addKeyFieldAsBytesToDict(dict: inout BSONDictionary, field: String, value: BignumRef) {
             if value != nil {
                 dict[field] = bignumToBytes(value)
             }
@@ -167,7 +167,7 @@ public class CryptoKey: CustomStringConvertible {
 
         func bytes() throws -> Bytes {
             let tag = "tempkey.\(UUID())"
-            let tagData: NSData = UTF8.encode(tag)
+            let tagData = tag |> String.utf8Data
 
             let query: [NSString: AnyObject] = [
                 kSecClass: kSecClassKey,
@@ -180,10 +180,10 @@ public class CryptoKey: CustomStringConvertible {
             attributes[kSecReturnData] = true
 
             var item: AnyObject?
-            try CryptoError.checkCode(SecItemAdd(attributes, &item), message: "Adding temp key to keychain.")
-            let keyInfo = item! as! NSData
-            try CryptoError.checkCode(SecItemDelete(query), message: "Deleting temp key from keychain.")
-            return ByteArray.bytes(withData: keyInfo)
+            try CryptoError.check(code: SecItemAdd(attributes, &item), message: "Adding temp key to keychain.")
+            let keyInfo = item! as! Data
+            try CryptoError.check(code: SecItemDelete(query), message: "Deleting temp key from keychain.")
+            return keyInfo.bytes
         }
 
         func json(onlyPublic: Bool, keyID: String? = nil) throws -> JSONDictionary {
@@ -206,7 +206,7 @@ public class CryptoKey: CustomStringConvertible {
                 let fieldName = fieldNames[nextFieldIndex]
                 nextFieldIndex += 1
                 if !fieldName.hasPrefix("-") {
-                    dict[fieldName] = Base64URL.encode(bytes)
+                    dict[fieldName] = bytes |> Bytes.base64URL
                 }
                 //println("BYTES \(fieldName) (\(bytes.count)) \(bytes)")
             }
@@ -262,7 +262,7 @@ public class CryptoKey: CustomStringConvertible {
 public class PublicKey: CryptoKey {
     public override var description: String {
         do {
-            return "\(try json(true))"
+            return "\(try json(onlyPublic: true))"
         } catch let error {
             logError(error)
             return "invalid"
@@ -273,7 +273,7 @@ public class PublicKey: CryptoKey {
 public class PrivateKey: CryptoKey {
     public override var description: String {
         do {
-            return "\(try json(false))"
+            return "\(try json(onlyPublic: false))"
         } catch let error {
             logError(error)
             return "invalid"
@@ -323,12 +323,12 @@ public class Crypto {
         #endif
     }
 
-    public static func generateRandomBytes(count: Int) -> Bytes {
-        var bytes = Bytes(count: count, repeatedValue: 0)
+    public static func generateRandomBytes(_ count: Int) -> Bytes {
+        var bytes = Bytes(repeating: 0, count: count)
 #if os(Linux)
         RAND_bytes(&bytes, Int32(count))
 #else
-        SecRandomCopyBytes(kSecRandomDefault, count, &bytes)
+        let _ = SecRandomCopyBytes(kSecRandomDefault, count, &bytes)
 #endif
         return bytes
     }
@@ -373,7 +373,7 @@ public class Crypto {
             var publicKey: SecKey?
             var privateKey: SecKey?
             let parameters: [NSString: AnyObject] = [kSecAttrKeyType: kSecAttrKeyTypeRSA, kSecAttrKeySizeInBits: keySize]
-            try CryptoError.checkCode(SecKeyGeneratePair(parameters, &publicKey, &privateKey), message: "Generating key pair.")
+            try CryptoError.check(code: SecKeyGeneratePair(parameters, &publicKey, &privateKey), message: "Generating key pair.")
             return KeyPair(publicKey: publicKey!, privateKey: privateKey!)
         #endif
     }
@@ -383,22 +383,16 @@ public class Crypto {
             try setup()
             let keyPair = try generateKeyPair()
 
-//            let publicJSON = try keyPair.publicKey.json(true)
-//            let publicJSONEncoded = try JSON.encode(publicJSON)
-//            print("publicKey: count \(publicJSONEncoded.length): \(publicJSON)")
             print("publicKey:")
-            let publicBSON = try keyPair.publicKey.bson(true)
-            printBSONDictionary(publicBSON)
-            let publicBSONBytes = try BSON.encode(publicBSON)
+            let publicBSON = try keyPair.publicKey.bson(onlyPublic: true)
+            print(bsonDict: publicBSON)
+            let publicBSONBytes = try publicBSON |> BSON.bytes
             print("publicBSONBytes: count \(publicBSONBytes.count): \(publicBSONBytes)")
 
-//            let privateJSON = try keyPair.privateKey.json(false)
-//            let privateJSONEncoded = try JSON.encode(privateJSON)
-//            print("privateKey: count \(privateJSONEncoded.length): \(privateJSON)")
             print("privateKey:")
-            let privateBSON = try keyPair.privateKey.bson(false)
-            printBSONDictionary(privateBSON)
-            let privateBSONBytes = try BSON.encode(privateBSON)
+            let privateBSON = try keyPair.privateKey.bson(onlyPublic: false)
+            print(bsonDict: privateBSON)
+            let privateBSONBytes = try privateBSON |> BSON.bytes
             print("privateBSONBytes: count \(privateBSONBytes.count): \(privateBSONBytes)")
         } catch let error {
             logError(error)

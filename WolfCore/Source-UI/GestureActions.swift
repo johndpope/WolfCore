@@ -24,42 +24,42 @@ public class GestureActions {
         return gestureRecognizerActions[name]?.action
     }
 
-    func setAction(action: GestureBlock, gestureRecognizer: OSGestureRecognizer, name: String) {
+    func set(action: GestureBlock, gestureRecognizer: OSGestureRecognizer, name: String) {
         gestureRecognizerActions[name] = view.addAction(forGestureRecognizer: gestureRecognizer) { recognizer in
             action(recognizer)
         }
     }
 
-    func setSwipeAction(action: GestureBlock?, forDirection direction: UISwipeGestureRecognizerDirection, name: String) {
+    func set(swipeAction action: GestureBlock?, forDirection direction: UISwipeGestureRecognizerDirection, name: String) {
         if let action = action {
             let recognizer = UISwipeGestureRecognizer()
             recognizer.direction = direction
-            setAction(action, gestureRecognizer: recognizer, name: name)
+            set(action: action, gestureRecognizer: recognizer, name: name)
         } else {
             removeAction(forName: name)
         }
     }
 
-    func setPressAction(action: GestureBlock?, forPress press: UIPressType, name: String) {
+    func set(pressAction action: GestureBlock?, forPress press: UIPressType, name: String) {
         if let action = action {
             let recognizer = UITapGestureRecognizer()
             recognizer.allowedPressTypes = [press.rawValue]
-            setAction(action, gestureRecognizer: recognizer, name: name)
+            set(action: action, gestureRecognizer: recognizer, name: name)
         } else {
             removeAction(forName: name)
         }
     }
 
-    func setTapAction(action: GestureBlock?, name: String) {
+    func set(tapAction action: GestureBlock?, name: String) {
         if let action = action {
             let recognizer = UITapGestureRecognizer()
-            setAction(action, gestureRecognizer: recognizer, name: name)
+            set(action: action, gestureRecognizer: recognizer, name: name)
         } else {
             removeAction(forName: name)
         }
     }
 
     func removeAction(forName name: String) {
-        gestureRecognizerActions.removeValueForKey(name)
+        gestureRecognizerActions.removeValue(forKey: name)
     }
 }

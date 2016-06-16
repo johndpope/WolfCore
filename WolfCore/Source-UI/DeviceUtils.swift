@@ -9,19 +9,19 @@
 import UIKit
 
 public let isPad: Bool = {
-    return UIDevice.currentDevice().userInterfaceIdiom == .Pad
+    return UIDevice.current().userInterfaceIdiom == .pad
 }()
 
 public let isPhone: Bool = {
-    return UIDevice.currentDevice().userInterfaceIdiom == .Phone
+    return UIDevice.current().userInterfaceIdiom == .phone
 }()
 
 public let isTV: Bool = {
-    return UIDevice.currentDevice().userInterfaceIdiom == .TV
+    return UIDevice.current().userInterfaceIdiom == .TV
 }()
 
 public let isCarPlay: Bool = {
-    return UIDevice.currentDevice().userInterfaceIdiom == .CarPlay
+    return UIDevice.current().userInterfaceIdiom == .carPlay
 }()
 
 #if arch(i386) || arch(x86_64)
@@ -31,16 +31,16 @@ public let isCarPlay: Bool = {
 #endif
 
 public var osVersion: String {
-    let os = NSProcessInfo().operatingSystemVersion
+    let os = ProcessInfo().operatingSystemVersion
     return "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
 }
 
 public var deviceModel: String? {
-    var systemInfo = Bytes(count: sizeof(utsname), repeatedValue: 0)
+    var systemInfo = Bytes(repeating: 0, count: sizeof(utsname))
 
-    let model = systemInfo.withUnsafeMutableBufferPointer { (inout body: UnsafeMutableBufferPointer<Byte>) -> String? in
+    let model = systemInfo.withUnsafeMutableBufferPointer { (body: inout UnsafeMutableBufferPointer<Byte>) -> String? in
         guard uname(UnsafeMutablePointer(body.baseAddress)) == 0 else { return nil }
-        return String.fromCString(UnsafePointer(body.baseAddress.advancedBy(Int(_SYS_NAMELEN * 4))))
+        return String(cString: UnsafePointer(body.baseAddress!.advanced(by: Int(_SYS_NAMELEN * 4))))
     }
 
     return model

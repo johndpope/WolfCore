@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension NSTextCheckingResult {
+extension TextCheckingResult {
     public func range(atIndex index: Int, inString string: String) -> StringRange {
-        return string.range(fromNSRange: rangeAtIndex(index))!
+        return string.range(from: range(at: index))!
     }
 
     public func captureRanges(inString string: String) -> [StringRange] {
@@ -22,10 +22,10 @@ extension NSTextCheckingResult {
     }
 }
 
-extension NSTextCheckingResult {
+extension TextCheckingResult {
     public func get(atIndex index: Int, inString string: String) -> (StringRange, String) {
         let range = self.range(atIndex: index, inString: string)
-        let text = string.substringWithRange(range)
+        let text = string.substring(with: range)
         return (range, text)
     }
 }

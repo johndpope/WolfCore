@@ -68,7 +68,7 @@ extension SQLiteReturnCode : CustomStringConvertible {
 public class SQLite {
     private var db: COpaquePointer = nil
 
-    public init(fileURL: NSURL) throws {
+    public init(fileURL: URL) throws {
         let error = SQLiteReturnCode(rawValue: sqlite3_open(fileURL.path!, &db))!
         guard error == .OK else {
             throw error
@@ -128,11 +128,11 @@ public class SQLite {
             sqlite3_bind_int(statement, Int32(index), Int32(n))
         }
 
-        public func bindParameterIndex(index: Int, toURL url: NSURL) {
+        public func bindParameterIndex(index: Int, toURL url: URL) {
             sqlite3_bind_text(statement, Int32(index), url.absoluteString, -1, SQLITE_TRANSIENT)
         }
 
-        public func bindParameterIndex(index: Int, toBLOB data: NSData) {
+        public func bindParameterIndex(index: Int, toBLOB data: Data) {
             sqlite3_bind_blob(statement, Int32(index), UnsafePointer<Void>(data.bytes), Int32(data.length), SQLITE_TRANSIENT)
         }
 
@@ -140,11 +140,11 @@ public class SQLite {
             bindParameterIndex(indexForParameterName(name), toInt: n)
         }
 
-        public func bindParameterName(name: String, toURL url: NSURL) {
+        public func bindParameterName(name: String, toURL url: URL) {
             bindParameterIndex(indexForParameterName(name), toURL: url)
         }
 
-        public func bindParameterName(name: String, toBLOB data: NSData) {
+        public func bindParameterName(name: String, toBLOB data: Data) {
             bindParameterIndex(indexForParameterName(name), toBLOB: data)
         }
 
@@ -183,19 +183,19 @@ public class SQLite {
             }
         }
 
-        public func urlValueForColumnIndex(index: Int) -> NSURL? {
+        public func urlValueForColumnIndex(index: Int) -> URL? {
             if let string = stringValueForColumnIndex(index) {
-                return NSURL(string: string)
+                return URL(string: string)
             } else {
                 return nil
             }
         }
 
-        public func blobValueForColumnIndex(index: Int) -> NSData? {
+        public func blobValueForColumnIndex(index: Int) -> Data? {
             let b = sqlite3_column_blob(statement, Int32(index))
             if b != nil {
                 let len = Int(sqlite3_column_bytes(statement, Int32(index)))
-                return NSData(bytes: b, length: len)
+                return Data(bytes: b, length: len)
             } else {
                 return nil
             }

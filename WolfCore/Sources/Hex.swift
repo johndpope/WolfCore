@@ -8,29 +8,32 @@
 
 import Foundation
 
-public class Hex {
-    public static func encode(data: NSData) -> String {
-        let bytes = ByteArray.bytes(withData: data)
+extension Array {
+    public static func hex(from bytes: Bytes) -> String {
         var s = String()
         for byte in bytes {
-            s += encode(byte)
+            s += Hex.string(from: byte)
         }
         return s
     }
+}
 
-    public static func encode(bytes: Bytes) -> String {
-        return encode(ByteArray.data(withBytes: bytes))
+extension Data {
+    public static func hex(from data: Data) -> String {
+        return data |> Data.bytes |> Bytes.hex
+    }
+}
+
+public class Hex {
+    public static func string(from byte: Byte) -> String {
+        return String(byte, radix: 16, uppercase: false) |> String.padded(toCount: 2, withCharacter: "0")
     }
 
-    public static func encode(byte: Byte) -> String {
-        return String(byte, radix: 16, uppercase: false).padded(toCount: 2, withCharacter: "0")
-    }
-
-    public static func decode(string: String) throws -> Int {
-        if let i = Int(string, radix: 16) {
+    public static func int(from hexString: String) throws -> Int {
+        if let i = Int(hexString, radix: 16) {
             return i
         } else {
-            throw ValidationError(message: "Invalid hex string: \(string).", violation: "hexFormat")
+            throw ValidationError(message: "Invalid hex string: \(hexString).", violation: "hexFormat")
         }
     }
 }

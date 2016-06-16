@@ -54,10 +54,10 @@ public class Matrix<T> {
         columnsCount = 0
         var removingRows = true
 
-        for rowIndex in (0..<rowsCount).reverse() {
+        for rowIndex in (0..<rowsCount).reversed() {
             let originalColumnsCount = rows[rowIndex].count
             var newColumnsCount = originalColumnsCount
-            for columnIndex in (0..<originalColumnsCount).reverse() {
+            for columnIndex in (0..<originalColumnsCount).reversed() {
                 if rows[rowIndex][columnIndex] == nil {
                     rows[rowIndex].removeLast()
                     newColumnsCount -= 1

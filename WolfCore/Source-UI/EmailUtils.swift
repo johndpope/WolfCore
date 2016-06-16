@@ -35,13 +35,13 @@ public class MailComposer: NSObject {
         viewController.setSubject(subject)
         viewController.setMessageBody(body ?? "", isHTML: false)
 
-        presentingViewController.presentViewController(viewController, animated: true, completion: nil)
+        presentingViewController.present(viewController, animated: true, completion: nil)
     }
 }
 
 extension MailComposer : MFMailComposeViewControllerDelegate {
-    public func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        viewController.dismissViewControllerAnimated(true) {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: NSError?) {
+        viewController.dismiss(animated: true) {
             self.viewController = nil
         }
     }

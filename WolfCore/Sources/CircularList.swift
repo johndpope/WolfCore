@@ -17,8 +17,8 @@ public struct CircularList<T> {
     }
 
     public subscript(index: Int) -> ElementType? {
-        get { return elements.elementAtCircularIndex(index) }
-        set { elements.replaceElementAtCircularIndex(index, withElement: newValue!) }
+        get { return elements.element(atCircularIndex: index) }
+        set { elements.replaceElement(atCircularIndex: index, withElement: newValue!) }
     }
 
     public func currentElement() -> ElementType? {

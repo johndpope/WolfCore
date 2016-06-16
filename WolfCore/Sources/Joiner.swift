@@ -18,8 +18,8 @@ public class Joiner {
         self.separator = separator
     }
 
-    public func append(objs: Any...) {
-        self.objs.appendContentsOf(objs)
+    public func append(_ objs: Any...) {
+        self.objs.append(contentsOf: objs)
     }
 }
 
@@ -29,7 +29,7 @@ extension Joiner: CustomStringConvertible {
         for o in objs {
             s.append("\(o)")
         }
-        let t = s.joinWithSeparator(separator)
+        let t = s.joined(separator: separator)
         return "\(left)\(t)\(right)"
     }
 }

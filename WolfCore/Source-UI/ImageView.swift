@@ -13,7 +13,7 @@ public class ImageView: UIImageView {
 
     public var pdf: PDF? {
         didSet {
-            makeTransparent(debugColor: .Green, debug: false)
+            makeTransparent(debugColor: .green, debug: false)
             updatePDFImage()
             setNeedsLayout()
         }
@@ -90,11 +90,11 @@ public class ImageView: UIImageView {
     /// Override in subclasses
     public func updateAppearance() { }
 
-    override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
-            return tranparentPointInside(point, withEvent: event)
+            return isTransparentToTouch(at: point, with: event)
         } else {
-            return super.pointInside(point, withEvent: event)
+            return super.point(inside: point, with: event)
         }
     }
 }

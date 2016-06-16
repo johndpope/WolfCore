@@ -27,9 +27,9 @@ extension CGPoint {
         return atan2(y, x)
     }
 
-    public func rotatedByAngle(theta: CGFloat, aroundCenter center: CGPoint) -> CGPoint {
+    public func rotated(by theta: CGFloat, aroundCenter center: CGPoint) -> CGPoint {
         let v = center - self
-        let v2 = v.rotatedByAngle(theta)
+        let v2 = v.rotated(by: theta)
         let p = center + v2
         return p
     }

@@ -79,22 +79,22 @@ public class Label: UILabel {
     // Override in subclasses
     public func setup() { }
 
-    override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
-            return tranparentPointInside(point, withEvent: event)
+            return isTransparentToTouch(at: point, with: event)
         } else {
-            return super.pointInside(point, withEvent: event)
+            return super.point(inside: point, with: event)
         }
     }
 }
 
 extension Label {
     func syncToTintColor() {
-        let tintColor = self.tintColor ?? .Black
+        let tintColor = self.tintColor ?? .black
         if followsTintColor {
             if let attributedText = attributedText {
                 let attributedText = attributedText§
-                attributedText.enumerateAttribute(named: overrideTintColorTag) { (value, _, substring) -> Bool in
+                attributedText.enumerateAttribute(overrideTintColorTag) { (value, _, substring) -> Bool in
                     if value == nil {
                         substring.foregroundColor = tintColor
                     }
@@ -129,7 +129,7 @@ extension Label {
             tapAction = nil
         } else {
             if tapAction == nil {
-                userInteractionEnabled = true
+                isUserInteractionEnabled = true
 
                 tapAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] recognizer in
                     self.handleTap(fromRecognizer: recognizer)
@@ -149,12 +149,12 @@ extension Label {
         textContainer.maximumNumberOfLines = numberOfLines
         textContainer.size = bounds.size
 
-        let locationOfTouchInLabel = recognizer.locationInView(self)
+        let locationOfTouchInLabel = recognizer.location(in: self)
         let labelSize = bounds.size
-        let textBoundingBox = layoutManager.usedRectForTextContainer(textContainer)
+        let textBoundingBox = layoutManager.usedRect(for: textContainer)
         let textContainerOffset = (labelSize - textBoundingBox.size) * 0.5 - textBoundingBox.minXminY
         let locationOfTouchInTextContainer = CGPoint(vector: locationOfTouchInLabel - textContainerOffset)
-        let charIndex = layoutManager.characterIndexForPoint(locationOfTouchInTextContainer, inTextContainer: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        let charIndex = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
         if charIndex < textStorage.length {
             let attributedText = (self.attributedText!)§
             for (tag, action) in tagTapActions {

@@ -19,11 +19,11 @@
 #if os(iOS) || os(tvOS)
     extension UIFont {
         public var isBold: Bool {
-            return fontDescriptor().symbolicTraits.contains(.TraitBold)
+            return fontDescriptor().symbolicTraits.contains(.traitBold)
         }
 
         public var isItalic: Bool {
-            return fontDescriptor().symbolicTraits.contains(.TraitItalic)
+            return fontDescriptor().symbolicTraits.contains(.traitItalic)
         }
     }
 #elseif os(OSX)
@@ -41,29 +41,29 @@
 #if os(iOS) || os(tvOS)
     extension UIFont {
         public var plainVariant: UIFont {
-            return UIFont(descriptor: fontDescriptor().fontDescriptorWithSymbolicTraits([]), size: 0)
+            return UIFont(descriptor: fontDescriptor().withSymbolicTraits([])!, size: 0)
         }
 
         public var boldVariant: UIFont {
-            return UIFont(descriptor: fontDescriptor().fontDescriptorWithSymbolicTraits([.TraitBold]), size: 0)
+            return UIFont(descriptor: fontDescriptor().withSymbolicTraits([.traitBold])!, size: 0)
         }
 
         public var italicVariant: UIFont {
-            return UIFont(descriptor: fontDescriptor().fontDescriptorWithSymbolicTraits([.TraitItalic]), size: 0)
+            return UIFont(descriptor: fontDescriptor().withSymbolicTraits([.traitItalic])!, size: 0)
         }
     }
 #elseif os(OSX)
     extension NSFont {
         public var plainVariant: NSFont {
-            return NSFont(descriptor: fontDescriptor.fontDescriptorWithSymbolicTraits(0), size: 0)!
+            return NSFont(descriptor: fontDescriptor.withSymbolicTraits(0), size: 0)!
         }
 
         public var boldVariant: NSFont {
-            return NSFont(descriptor: fontDescriptor.fontDescriptorWithSymbolicTraits(NSFontSymbolicTraits(NSFontBoldTrait)), size: 0)!
+            return NSFont(descriptor: fontDescriptor.withSymbolicTraits(NSFontSymbolicTraits(NSFontBoldTrait)), size: 0)!
         }
 
         public var italicVariant: NSFont {
-            return NSFont(descriptor: fontDescriptor.fontDescriptorWithSymbolicTraits(NSFontSymbolicTraits(NSFontItalicTrait)), size: 0)!
+            return NSFont(descriptor: fontDescriptor.withSymbolicTraits(NSFontSymbolicTraits(NSFontItalicTrait)), size: 0)!
         }
     }
 #endif

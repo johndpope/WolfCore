@@ -22,8 +22,8 @@ public class KeyboardAvoidantView: View {
         super.setup()
 
         makeTransparent()
-        keyboardWillMoveAction = NotificationAction(name: UIKeyboardWillChangeFrameNotification, object: nil) { [unowned self] notification in
-            self.keyboardWillMove(notification)
+        keyboardWillMoveAction = NotificationAction(name: .UIKeyboardWillChangeFrame, object: nil) { [unowned self] notification in
+            self.keyboardWillMove(withNotification: notification)
         }
     }
 
@@ -34,10 +34,10 @@ public class KeyboardAvoidantView: View {
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
 
-        superviewConstraints?.active = false
+        superviewConstraints?.isActive = false
 
         if let bottomConstraint = bottomConstraint {
-            bottomConstraint.active = false
+            bottomConstraint.isActive = false
         }
         bottomConstraint = nil
 
@@ -55,27 +55,27 @@ public class KeyboardAvoidantView: View {
         }
     }
 
-    private func endKeyboardRectangleFromNotification(notification: NSNotification) -> CGRect {
-        if let keyboardScreenFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
-            if let keyboardSuperviewFrame = superview?.convertRect(keyboardScreenFrame, fromView: nil) {
+    private func endKeyboardRectangle(fromNotification notification: NSNotification) -> CGRect {
+        if let keyboardScreenFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue() {
+            if let keyboardSuperviewFrame = superview?.convert(keyboardScreenFrame, from: nil) {
                 return keyboardSuperviewFrame
             }
         }
         fatalError("Could not get keyboard rectangle from notification")
     }
 
-    func keyboardWillMove(notification: NSNotification) {
+    func keyboardWillMove(withNotification notification: NSNotification) {
         assert(bottomConstraint != nil, "bottomConstraint not set")
         if superview != nil {
-            let endKeyboardRectangle = endKeyboardRectangleFromNotification(notification)
-            updateBottomConstraintForKeyboardRectangle(endKeyboardRectangle)
+            let endKeyboardRectangle = self.endKeyboardRectangle(fromNotification: notification)
+            updateBottomConstraint(forKeyboardRectangle: endKeyboardRectangle)
 
-            let duration = NSTimeInterval((notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
-            let animationCurveValue = (notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.integerValue ?? UIViewAnimationCurve.Linear.rawValue
+            let duration = TimeInterval((notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
+            let animationCurveValue = (notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue ?? UIViewAnimationCurve.linear.rawValue
             //let animationCurve = UIViewAnimationCurve(rawValue: animationCurveValue & 3)!
             let options = UIViewAnimationOptions(rawValue: UInt(animationCurveValue) << 16)
 
-            UIView.animateWithDuration(duration, delay: 0.0, options: options, animations: {
+            UIView.animate(withDuration: duration, delay: 0.0, options: options, animations: {
                 self.layoutSubviews()
                 }, completion: { _ in
                     self.startTrackingKeyboard()
@@ -83,7 +83,7 @@ public class KeyboardAvoidantView: View {
         }
     }
 
-    private func updateBottomConstraintForKeyboardRectangle(keyboardRectangle: CGRect) {
+    private func updateBottomConstraint(forKeyboardRectangle keyboardRectangle: CGRect) {
         if let superview = superview {
             let intersects = keyboardRectangle.intersects(superview.bounds)
             let newMaxY = intersects ? keyboardRectangle.minY : superview.bounds.maxY
@@ -98,7 +98,7 @@ public class KeyboardAvoidantView: View {
             if let kv = findKeyboardView() {
                 keyboardView = kv
                 //            println("startTrackingKeyboard: \(keyboardView)")
-                kv.addObserver(self, forKeyPath: "center", options: .New, context: nil)
+                kv.addObserver(self, forKeyPath: "center", options: .new, context: nil)
             } else {
                 logError("Could not find keyboard view.")
             }
@@ -110,16 +110,16 @@ public class KeyboardAvoidantView: View {
         keyboardView = nil
     }
 
-    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    public override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
         if let keyboardRectangle = keyboardView?.frame {
-            updateBottomConstraintForKeyboardRectangle(keyboardRectangle)
+            updateBottomConstraint(forKeyboardRectangle: keyboardRectangle)
         }
     }
 
     func findKeyboardView() -> UIView? {
         var result: UIView? = nil
 
-        let windows = UIApplication.sharedApplication().windows
+        let windows = UIApplication.shared().windows
         for window in windows {
             if window.description.hasPrefix("<UITextEffectsWindow") {
                 for subview in window.subviews {

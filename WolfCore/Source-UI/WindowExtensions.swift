@@ -11,7 +11,7 @@ import UIKit
 extension UIWindow {
     public func replaceRootViewController(withController newController: UIViewController, animated: Bool = true) {
         let oldRootView = rootViewController?.view
-        let newRootView = newController.view
+        let newRootView: UIView = newController.view
         if animated {
             dispatchAnimated(
                 animations: {
@@ -20,7 +20,7 @@ extension UIWindow {
                 completion: { _ in
                     newRootView.alpha = 0.0
                     self.rootViewController = newController
-                    NSRunLoop.currentRunLoop().runOnce()
+                    RunLoop.current().runOnce()
                     oldRootView?.alpha = 1.0
                     dispatchAnimated {
                         newRootView.alpha = 1.0

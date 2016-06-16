@@ -23,32 +23,27 @@ extension OSColor {
         self.init(color: try Color(string: string))
     }
 
-    public var color: Color {
-        return ColorWithCGColor(CGColor)
+    public static func toColor(osColor: OSColor) -> Color {
+        return osColor.cgColor |> CGColor.toColor
     }
 
-    // NOTE: Not gamma-corrected
-    public var luminance: CGFloat {
-        return CGFloat(color.luminance)
-    }
-
-    public class func diagonalStripesPattern(color1 color1: OSColor, color2: OSColor, flipped: Bool = false) -> OSColor {
+    public class func diagonalStripesPattern(color1: OSColor, color2: OSColor, flipped: Bool = false) -> OSColor {
         #if os(iOS) || os(tvOS)
-            let screenScale = UIScreen.mainScreen().scale
+            let screenScale = UIScreen.main().scale
         #elseif os(OSX)
             let screenScale: CGFloat = 1.0
         #endif
         let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 64, height: 64))
-        let image = newImage(withSize: bounds.size, opaque: true, scale: screenScale, renderingMode: .AlwaysOriginal) { context in
-            CGContextSetFillColorWithColor(context, color1.CGColor)
-            CGContextFillRect(context, bounds)
+        let image = newImage(withSize: bounds.size, opaque: true, scale: screenScale, renderingMode: .alwaysOriginal) { context in
+            context.setFillColor(color1.cgColor)
+            context.fill(bounds)
             let path = OSBezierPath()
             if flipped {
-                path.addClosedPolygon([bounds.maxXmidY, bounds.maxXminY, bounds.midXminY])
-                path.addClosedPolygon([bounds.maxXmaxY, bounds.minXminY, bounds.minXmidY, bounds.midXmaxY])
+                path.addClosedPolygon(withPoints: [bounds.maxXmidY, bounds.maxXminY, bounds.midXminY])
+                path.addClosedPolygon(withPoints: [bounds.maxXmaxY, bounds.minXminY, bounds.minXmidY, bounds.midXmaxY])
             } else {
-                path.addClosedPolygon([bounds.midXminY, bounds.minXminY, bounds.minXmidY])
-                path.addClosedPolygon([bounds.maxXminY, bounds.minXmaxY, bounds.midXmaxY, bounds.maxXmidY])
+                path.addClosedPolygon(withPoints: [bounds.midXminY, bounds.minXminY, bounds.minXmidY])
+                path.addClosedPolygon(withPoints: [bounds.maxXminY, bounds.minXmaxY, bounds.midXmaxY, bounds.maxXmidY])
             }
             color2.set(); path.fill()
         }
@@ -67,44 +62,26 @@ extension OSColor {
         return OSColor(hue: h, saturation: s, brightness: brightness, alpha: a)
     }
 
-    public func darkened(frac: Frac) -> OSColor {
-        return OSColor(color: color.darkened(frac))
-    }
-
-    public func lightened(frac: Frac) -> OSColor {
-        return OSColor(color: color.lightened(frac))
-    }
-
-    // Identity fraction is 0.0
-    public func dodged(frac: Frac) -> OSColor {
-        return OSColor(color: color.dodged(frac))
-    }
-
-    // Identity fraction is 0.0
-    public func burned(frac: Frac) -> OSColor {
-        return OSColor(color: color.burned(frac))
-    }
-
-    public static var Black: OSColor { return .blackColor() }
-    public static var DarkGray: OSColor { return .darkGrayColor() }
-    public static var LightGray: OSColor { return .lightGrayColor() }
-    public static var White: OSColor { return .whiteColor() }
-    public static var Gray: OSColor { return .grayColor() }
-    public static var Red: OSColor { return .redColor() }
-    public static var Green: OSColor { return .greenColor() }
-    public static var Blue: OSColor { return .blueColor() }
-    public static var Cyan: OSColor { return .cyanColor() }
-    public static var Yellow: OSColor { return .yellowColor() }
-    public static var Magenta: OSColor { return .magentaColor() }
-    public static var Orange: OSColor { return .orangeColor() }
-    public static var Purple: OSColor { return .purpleColor() }
-    public static var Brown: OSColor { return .brownColor() }
-    public static var Clear: OSColor { return .clearColor() }
+    public static var black: OSColor { return .black() }
+    public static var darkGray: OSColor { return .darkGray() }
+    public static var lightGray: OSColor { return .lightGray() }
+    public static var white: OSColor { return .white() }
+    public static var gray: OSColor { return .gray() }
+    public static var red: OSColor { return .red() }
+    public static var green: OSColor { return .green() }
+    public static var blue: OSColor { return .blue() }
+    public static var cyan: OSColor { return .cyan() }
+    public static var yellow: OSColor { return .yellow() }
+    public static var magenta: OSColor { return .magenta() }
+    public static var orange: OSColor { return .orange() }
+    public static var purple: OSColor { return .purple() }
+    public static var brown: OSColor { return .brown() }
+    public static var clear: OSColor { return .clear() }
 }
 
 extension OSColor {
     public var debugSummary: String {
-        return color.debugSummary
+        return (self |> OSColor.toColor).debugSummary
     }
 }
 

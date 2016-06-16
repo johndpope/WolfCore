@@ -20,7 +20,7 @@ public protocol ResultSummary {
 
 /// Represents a process result with a specific type returned upon success.
 /// On success it is associated with a generic, process-dependent type.
-/// On failure it is associated with an ErrorType.
+/// On failure it is associated with an ErrorProtocol.
 public enum Result<T>: ResultSummary {
     case Success(T)
     case Failure(Error)

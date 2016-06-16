@@ -13,35 +13,35 @@
     import Darwin.C
 #endif
 
-public func degreesForRadians(radians: Double) -> Double {
-    return Double(Double(radians) / M_PI * 180.0)
+public func degrees(forRadians radians: Double) -> Double {
+    return radians / M_PI * 180.0
 }
 
-public func radiansForDegrees(degrees: Double) -> Double {
-    return Double(Double(degrees) / 180.0 * M_PI)
+public func radians(forDegrees degrees: Double) -> Double {
+    return degrees / 180.0 * M_PI
 }
 
-public func angleOfLineSegment(p1: Point, _ p2: Point) -> Double {
+public func angleOfLineSegment(_ p1: Point, _ p2: Point) -> Double {
     return Vector(p1, p2).angle
 }
 
-public func angleBetweenVectors(v1: Vector, _ v2: Vector) -> Double {
+public func angleBetweenVectors(_ v1: Vector, _ v2: Vector) -> Double {
     return atan2(cross(v1, v2), dot(v1, v2))
 }
 
-public func turningAngleAtVertex(p1: Point, _ p2: Point, _ p3: Point) -> Double {
+public func turningAngleAtVertex(_ p1: Point, _ p2: Point, _ p3: Point) -> Double {
     let v1 = Vector(p1, p2)
     let v2 = Vector(p2, p3)
     return angleBetweenVectors(v1, v2)
 }
 
-public func meetingAngleAtVertex(p1: Point, _ p2: Point, _ p3: Point) -> Double {
+public func meetingAngleAtVertex(_ p1: Point, _ p2: Point, _ p3: Point) -> Double {
     let v1 = Vector(p1, p2)
     let v2 = Vector(p3, p2)
     return angleBetweenVectors(v1, v2)
 }
 
-public func partingAngleAtVertex(p1: Point, _ p2: Point, _ p3: Point) -> Double {
+public func partingAngleAtVertex(_ p1: Point, _ p2: Point, _ p3: Point) -> Double {
     let v1 = Vector(p2, p1)
     let v2 = Vector(p2, p3)
     return angleBetweenVectors(v1, v2)

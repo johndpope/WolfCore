@@ -8,8 +8,8 @@
 
 import Foundation
 
-public class UTF8 {
-    public static func encode(string: String) -> Bytes {
+extension String {
+    public static func utf8Bytes(from string: String) -> Bytes {
         var bytes = Bytes()
         for c in string.utf8 {
             bytes.append(c)
@@ -17,19 +17,16 @@ public class UTF8 {
         return bytes
     }
 
-    public static func encode(string: String) -> NSData {
-        return ByteArray.data(withBytes: encode(string))
+    public static func utf8Data(from string: String) -> Data {
+        return string |> utf8Bytes |> Bytes.data
     }
+}
 
-    public static func decode(data: NSData) throws -> String {
-        if let s = String(data: data, encoding: NSUTF8StringEncoding) {
-            return s
-        } else {
+public struct UTF8 {
+    public static func string(from utf8Data: Data) throws -> String {
+        guard let s = String(data: utf8Data, encoding: .utf8) else {
             throw ValidationError(message: "Invalid UTF-8.", violation: "utf8Format")
         }
-    }
-
-    public static func decode(bytes: Bytes) throws -> String {
-        return try decode(ByteArray.data(withBytes: bytes))
+        return s
     }
 }

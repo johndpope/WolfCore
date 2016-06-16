@@ -10,7 +10,7 @@ import Foundation
 
 public struct KeyChain {
 
-    public static func add(data data: NSData, forKey key: String, inAccount account: String) throws {
+    public static func add(data: Data, forKey key: String, inAccount account: String) throws {
         let query: [NSString : AnyObject] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
@@ -24,11 +24,11 @@ public struct KeyChain {
         }
     }
 
-    public static func add(string string: String, forKey key: String, inAccount account: String) throws {
-        try add(data: UTF8.encode(string), forKey: key, inAccount: account)
+    public static func add(string: String, forKey key: String, inAccount account: String) throws {
+        try add(data: string |> String.utf8Data, forKey: key, inAccount: account)
     }
 
-    public static func delete(key key: String, account: String) throws {
+    public static func delete(key: String, account: String) throws {
         let query: [NSString : AnyObject] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
@@ -43,7 +43,7 @@ public struct KeyChain {
         }
     }
 
-    public static func update(data data: NSData, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
+    public static func update(data: Data, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
         let query: [NSString : AnyObject] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrAccount : account,
@@ -67,19 +67,19 @@ public struct KeyChain {
         }
     }
 
-    public static func update(string string: String, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
-        try update(data: UTF8.encode(string), forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
+    public static func update(string: String, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
+        try update(data: string |> String.utf8Data, forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
     }
 
-    public static func update(number number: NSNumber, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
-        try update(data: NSKeyedArchiver.archivedDataWithRootObject(number), forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
+    public static func update(number: NSNumber, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
+        try update(data: NSKeyedArchiver.archivedData(withRootObject: number), forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
     }
 
-    public static func update(bool bool: Bool, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
+    public static func update(bool: Bool, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
         try update(number:(bool as NSNumber), forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
     }
 
-    public static func readData(forKey key: String, inAccount account: String) throws -> NSData? {
+    public static func readData(forKey key: String, inAccount account: String) throws -> Data? {
         let query: [NSString : AnyObject] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
@@ -96,7 +96,7 @@ public struct KeyChain {
         guard let dict = value as? [NSString: AnyObject] else {
             throw GeneralError(message: "Key chain data wrong type.")
         }
-        guard let data = dict[kSecValueData] as? NSData else {
+        guard let data = dict[kSecValueData] as? Data else {
             return nil
         }
         return data
@@ -106,14 +106,14 @@ public struct KeyChain {
         guard let data = try readData(forKey: key, inAccount: account) else {
             return nil
         }
-        return try UTF8.decode(data)
+        return try data |> UTF8.string
     }
 
     public static func readNumber(forKey key: String, inAccount account: String) throws -> NSNumber? {
         guard let data = try readData(forKey: key, inAccount: account) else {
             return nil
         }
-        return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? NSNumber
+        return NSKeyedUnarchiver.unarchiveObject(with: data) as? NSNumber
     }
 
     public static func readBool(forKey key: String, inAccount account: String) throws -> Bool? {

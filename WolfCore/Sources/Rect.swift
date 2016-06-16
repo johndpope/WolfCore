@@ -200,16 +200,16 @@ extension Rect {
 }
 
 extension Rect {
-    public func offsetBy(dx dx: Double, dy: Double) -> Rect {
+    public func offsetBy(dx: Double, dy: Double) -> Rect {
         guard !isNull else { return self }
         return Rect(x: minX + dx, y: minY + dy, width: width, height: height)
     }
 
-    public mutating func offsetInPlace(dx dx: Double, dy: Double) {
+    public mutating func offsetInPlace(dx: Double, dy: Double) {
         self = offsetBy(dx: dx, dy: dy)
     }
 
-    public func insetBy(dx dx: Double, dy: Double) -> Rect {
+    public func insetBy(dx: Double, dy: Double) -> Rect {
         guard !isNull else { return self }
         var r = self.standardized
         r.minX += dx
@@ -222,13 +222,13 @@ extension Rect {
         return r
     }
 
-    public mutating func insetInPlace(dx dx: Double, dy: Double) {
+    public mutating func insetInPlace(dx: Double, dy: Double) {
         self = insetBy(dx: dx, dy: dy)
     }
 }
 
 extension Rect {
-    public func union(rect: Rect) -> Rect {
+    public func union(_ rect: Rect) -> Rect {
         guard !self.isNull else { return rect }
         guard !rect.isNull else { return self }
         let r1 = self.standardized
@@ -240,11 +240,11 @@ extension Rect {
         return Rect(x: x1, y: y1, width: x2 - x1, height: y2 - y1)
     }
 
-    public mutating func unionInPlace(rect: Rect) {
+    public mutating func formUnion(rect: Rect) {
         self = self.union(rect)
     }
 
-    public func intersect(rect: Rect) -> Rect {
+    public func intersect(_ rect: Rect) -> Rect {
         guard !self.isNull else { return .null }
         guard !rect.isNull else { return .null }
         let r1 = self.standardized
@@ -260,11 +260,11 @@ extension Rect {
         return Rect(x: x1, y: y1, width: x2 - x1, height: y2 - y1)
     }
 
-    public mutating func intersectInPlace(rect: Rect) {
+    public mutating func formIntersection(_ rect: Rect) {
         self = self.intersect(rect)
     }
 
-    public func intersects(rect: Rect) -> Bool {
+    public func intersects(_ rect: Rect) -> Bool {
         guard !self.isNull else { return false }
         guard !rect.isNull else { return false }
         let r1 = self.standardized
@@ -278,7 +278,7 @@ extension Rect {
 }
 
 extension Rect {
-    public func contains(point: Point) -> Bool {
+    public func contains(_ point: Point) -> Bool {
         guard !self.isNull else { return false }
         guard !self.isEmpty else { return false }
         let r = self.standardized
@@ -289,7 +289,7 @@ extension Rect {
         return true
     }
 
-    public func contains(rect: Rect) -> Bool {
+    public func contains(_ rect: Rect) -> Bool {
         guard !self.isNull else { return false }
         guard !rect.isNull else { return false }
         return self.union(rect) == self
@@ -297,20 +297,20 @@ extension Rect {
 }
 
 public enum RectEdge {
-    case MinX
-    case MinY
-    case MaxX
-    case MaxY
+    case minX
+    case minY
+    case maxX
+    case maxY
 }
 
 extension Rect {
-    public func divideFromEdge(edge: RectEdge, atDistance distance: Double) -> (slice: Rect, remainder: Rect) {
+    public func divide(atDistance distance: Double, fromEdge edge: RectEdge) -> (slice: Rect, remainder: Rect) {
         guard !self.isNull else { return (.null, .null) }
         guard distance > 0.0 else { return (.null, self) }
         let slice: Rect
         let remainder: Rect
         switch edge {
-        case .MinX:
+        case .minX:
             guard distance < width else { return (self, .null) }
             let x1 = minX
             let x2 = x1 + distance
@@ -319,7 +319,7 @@ extension Rect {
             let y2 = maxY
             slice = Rect(minX: x1, minY: y1, maxX: x2, maxY: y2)
             remainder = Rect(minX: x2, minY: y1, maxX: x3, maxY: y2)
-        case .MinY:
+        case .minY:
             guard distance < height else { return (self, .null) }
             let y1 = minY
             let y2 = y1 + distance
@@ -328,7 +328,7 @@ extension Rect {
             let x2 = maxX
             slice = Rect(minX: x1, minY: y1, maxX: x2, maxY: y2)
             remainder = Rect(minX: x1, minY: y2, maxX: x2, maxY: y3)
-        case .MaxX:
+        case .maxX:
             guard distance < width else { return (self, .null) }
             let x3 = maxX
             let x2 = x3 - distance
@@ -337,7 +337,7 @@ extension Rect {
             let y2 = maxY
             slice = Rect(minX: x2, minY: y1, maxX: x3, maxY: y2)
             remainder = Rect(minX: x1, minY: y1, maxX: x2, maxY: y2)
-        case .MaxY:
+        case .maxY:
             guard distance < height else { return (self, .null) }
             let y3 = maxY
             let y2 = y3 - distance

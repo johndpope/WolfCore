@@ -16,16 +16,16 @@ import CoreGraphics
 public typealias CGContextBlock = (CGContext) -> Void
 
 public func draw(intoContext context: CGContext, drawing: CGContextBlock) {
-    CGContextSaveGState(context)
+    context.saveGState()
     drawing(context)
-    CGContextRestoreGState(context)
+    context.restoreGState()
 }
 
 public func drawIntoCurrentContext(drawing: CGContextBlock) {
     draw(intoContext: getCurrentGraphicsContext(), drawing: drawing)
 }
 
-public func getCurrentGraphicsContext() -> CGContextRef {
+public func getCurrentGraphicsContext() -> CGContext {
     #if os(iOS) || os(tvOS)
         return UIGraphicsGetCurrentContext()!
     #elseif os(OSX)

@@ -12,9 +12,9 @@ public class LifeHash {
     }
 
     class CellGrid: Grid<Cell> {
-        func countNeighbors(g: IntPoint) -> Int {
+        func countNeighbors(_ g: IntPoint) -> Int {
             var count = 0
-            forNeighborhoodAtPoint(g) { (o, p) in
+            forNeighborhood(at: g) { (o, p) in
                 guard o != .zero else { return }
                 if self[p].alive {
                     count += 1
@@ -23,7 +23,7 @@ public class LifeHash {
             return count
         }
 
-        static func isAliveInNextGeneration(currentAlive currentAlive: Bool, neighborsCount: Int) -> Bool {
+        static func isAliveInNextGeneration(_ currentAlive: Bool, neighborsCount: Int) -> Bool {
             if currentAlive {
                 return neighborsCount == 2 || neighborsCount == 3
             } else {
@@ -36,7 +36,7 @@ public class LifeHash {
                 if currentChangeGrid[p].changed {
                     let currentAlive = self[p].alive
                     let neighborsCount = self.countNeighbors(p)
-                    let nextAlive = CellGrid.isAliveInNextGeneration(currentAlive: currentAlive, neighborsCount: neighborsCount)
+                    let nextAlive = CellGrid.isAliveInNextGeneration(currentAlive, neighborsCount: neighborsCount)
                     if nextAlive {
                         nextCellGrid[p] = true
                     }
@@ -53,8 +53,8 @@ public class LifeHash {
     }
 
     class ChangeGrid: Grid<Change> {
-        func setChanged(g: IntPoint) {
-            forNeighborhoodAtPoint(g) { (o, p) in
+        func setChanged(_ g: IntPoint) {
+            forNeighborhood(at: g) { (o, p) in
                 self[p] = true
             }
         }
@@ -104,7 +104,7 @@ public class LifeHash {
             let maxValue = Double(counterGrid.maxValue)
             forAll { p in
                 let count = Double(counterGrid[p].count)
-                self[p] = Math.normalize(count, 0.0, maxValue)
+                self[p] = count.mapped(from: 0.0..maxValue)
             }
         }
     }

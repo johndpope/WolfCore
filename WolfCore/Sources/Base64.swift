@@ -8,24 +8,22 @@
 
 import Foundation
 
-public class Base64 {
-    public static func encode(data: NSData) -> String {
-        return data.base64EncodedStringWithOptions([])
-    }
-
-    public static func encode(bytes: Bytes) -> String {
-        return encode(ByteArray.data(withBytes: bytes))
-    }
-
-    public static func decode(string: String) throws -> NSData {
-        if let data = NSData(base64EncodedString: string, options: [.IgnoreUnknownCharacters]) {
+public struct Base64 {
+    public static func data(from base64String: String) throws -> Data {
+        if let data = Data(base64Encoded: base64String) {
             return data
         } else {
             throw ValidationError(message: "Invalid base64 string.", violation: "base64Format")
         }
     }
+}
 
-    public static func decode(string: String) throws -> Bytes {
-        return ByteArray.bytes(withData: try decode(string))
+extension Data {
+    public var base64: String {
+        return base64EncodedString()
+    }
+
+    public static func base64(from data: Data) -> String {
+        return data.base64
     }
 }

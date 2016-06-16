@@ -94,14 +94,14 @@ extension Vector {
         self = self.normalized
     }
 
-    public func rotatedByAngle(theta: Double) -> Vector {
+    public func rotated(by theta: Double) -> Vector {
         let sinTheta = sin(theta)
         let cosTheta = cos(theta)
         return Vector(dx: dx * cosTheta - dy * sinTheta, dy: dx * sinTheta + dy * cosTheta)
     }
 
-    public mutating func rotateByAngle(theta: Double) {
-        self = rotatedByAngle(theta)
+    public mutating func rotate(byAngle theta: Double) {
+        self = rotated(by: theta)
     }
 
     public static var unit = Vector(dx: 1, dy: 0)
@@ -130,10 +130,10 @@ public func * (lhs: Vector, rhs: Vector) -> Vector {
     return Vector(dx: lhs.dx * rhs.dx, dy: lhs.dy * rhs.dy)
 }
 
-public func dot(v1: Vector, _ v2: Vector) -> Double {
+public func dot(_ v1: Vector, _ v2: Vector) -> Double {
     return v1.dx * v2.dx + v1.dy * v2.dy
 }
 
-public func cross(v1: Vector, _ v2: Vector) -> Double {
+public func cross(_ v1: Vector, _ v2: Vector) -> Double {
     return v1.dx * v2.dy - v1.dy * v2.dx
 }

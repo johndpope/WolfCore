@@ -22,38 +22,38 @@ extension OSImage {
 
 extension OSImage {
     public func tinted(withColor color: OSColor) -> OSImage {
-        return newImage(withSize: self.size, opaque: false, scale: self.scale, renderingMode: .AlwaysOriginal) { context in
+        return newImage(withSize: self.size, opaque: false, scale: self.scale, renderingMode: .alwaysOriginal) { context in
             let bounds = CGRect(origin: CGPoint.zero, size: self.size)
-            self.drawInRect(bounds)
-            CGContextSetFillColorWithColor(context, color.CGColor)
-            CGContextSetBlendMode(context, .SourceIn)
-            CGContextFillRect(context, bounds)
+            self.draw(in: bounds)
+            context.setFillColor(color.cgColor)
+            context.setBlendMode(.sourceIn)
+            context.fill(bounds)
         }
     }
 
     public convenience init(size: CGSize, color: UIColor, opaque: Bool = false, scale: CGFloat = 0.0) {
         let image = newImage(withSize: size, opaque: opaque, scale: scale) { context in
             let bounds = CGRect(origin: CGPoint.zero, size: size)
-            CGContextSetFillColorWithColor(context, color.CGColor)
-            CGContextFillRect(context, bounds)
+            context.setFillColor(color.cgColor)
+            context.fill(bounds)
         }
-        self.init(CGImage: image.CGImage!)
+        self.init(cgImage: image.cgImage!)
     }
 
     public func scaled(toSize size: CGSize, opaque: Bool = false) -> OSImage {
         return newImage(withSize: size, opaque: opaque, scale: scale) { context in
-            self.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         }
     }
 
     public func cropped(toRect rect: CGRect, opaque: Bool = false) -> OSImage {
         return newImage(withSize: rect.size, opaque: opaque, scale: scale) { context in
-            self.drawInRect(CGRect(x: -rect.minX, y: -rect.minY, width: rect.width, height: rect.height))
+            self.draw(in: CGRect(x: -rect.minX, y: -rect.minY, width: rect.width, height: rect.height))
         }
     }
 
     public func scaledDownAndCroppedToSquare(withMaxSize maxSize: CGFloat) -> OSImage {
-        let scale = min(size.scaleForAspectFillWithinSize(CGSize(width: maxSize, height: maxSize)), 1.0)
+        let scale = min(size.scaleForAspectFill(within: CGSize(width: maxSize, height: maxSize)), 1.0)
         let scaledImage: OSImage
         if scale < 1.0 {
             let scaledSize = CGSize(vector: CGVector(size: size) * scale)
@@ -76,12 +76,12 @@ extension OSImage {
 
     #if os(iOS)
     public convenience init?(named name: String, fromBundleForClass aClass: AnyClass?, compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) {
-        let bundle = NSBundle.findBundle(forClass: aClass)
-        self.init(named: name, inBundle: bundle, compatibleWithTraitCollection: traitCollection)
+        let bundle = Bundle.findBundle(forClass: aClass)
+        self.init(named: name, in: bundle, compatibleWith: traitCollection)
     }
     #elseif os(OSX)
     public convenience init?(named name: String, fromBundleForClass aClass: AnyClass?) {
-        let bundle = NSBundle.findBundle(forClass: aClass)
+        let bundle = Bundle.findBundle(forClass: aClass)
         guard let image = bundle.imageForResource(name) else {
             return nil
         }

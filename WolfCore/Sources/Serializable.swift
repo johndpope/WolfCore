@@ -11,6 +11,6 @@ import Foundation
 public protocol Serializable {
     associatedtype ValueType
 
-    func serialize() -> NSData
-    static func deserializeFromData(data: NSData) throws -> ValueType
+    func serialize() -> Data
+    static func deserializeFromData(data: Data) throws -> ValueType
 }

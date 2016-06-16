@@ -13,11 +13,11 @@ import Foundation
 infix operator ~? { }
 infix operator ~?? { }
 
-public func ~?? (regex: NSRegularExpression, str: String) -> [NSTextCheckingResult] {
-    return regex.matchesInString(str, options: [], range: str.nsRange) as [NSTextCheckingResult]
+public func ~?? (regex: RegularExpression, str: String) -> [TextCheckingResult] {
+    return regex.matches(in: str, options: [], range: str.nsRange) as [TextCheckingResult]
 }
 
-public func ~? (regex: NSRegularExpression, str: String) -> Bool {
+public func ~? (regex: RegularExpression, str: String) -> Bool {
     return (regex ~?? str).count > 0
 }
 
@@ -25,8 +25,8 @@ public func ~? (regex: NSRegularExpression, str: String) -> Bool {
 
 prefix operator ~/ {}
 
-public prefix func ~/ (pattern: String) throws -> NSRegularExpression {
-    return try NSRegularExpression(pattern: pattern, options: [])
+public prefix func ~/ (pattern: String) throws -> RegularExpression {
+    return try RegularExpression(pattern: pattern, options: [])
 }
 
 public func testRegex() -> Bool {

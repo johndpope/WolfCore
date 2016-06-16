@@ -6,18 +6,28 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-public class IPAddress4 {
-    public static func encode(bytes: Bytes) -> String {
-        assert(bytes.count == 4)
+import Foundation
+
+extension Array {
+    public static func ipAddress4(from ip4Bytes: Bytes) -> String {
+        assert(ip4Bytes.count == 4)
         var components = [String]()
-        for byte in bytes {
+        for byte in ip4Bytes {
             components.append(String(byte))
         }
-        return components.joinWithSeparator(".")
+        return components.joined(separator: ".")
     }
+}
 
-    public static func decode(string: String) throws -> Bytes {
-        let components = string.componentsSeparatedByString(".")
+extension Data {
+    public static func ipAdress4(from ip4Data: Data) -> String {
+        return ip4Data |> Data.bytes |> Bytes.ipAddress4
+    }
+}
+
+public class IPAddress4 {
+    public static func bytes(from ip4String: String) throws -> Bytes {
+        let components = ip4String.components(separatedBy: ".")
         guard components.count == 4 else {
             throw ValidationError(message: "Invalid IP address.", violation: "ipv4Format")
         }
@@ -34,13 +44,19 @@ public class IPAddress4 {
         return bytes
     }
 
+    public static func data(from ip4String: String) throws -> Data {
+        return try ip4String |> bytes |> Bytes.data
+    }
+}
+
+extension IPAddress4 {
     public static func test() {
         do {
             let bytes: Bytes = [127, 0, 0, 1]
-            let encoded = IPAddress4.encode(bytes)
+            let encoded = bytes |> Bytes.ipAddress4
             assert(encoded == "127.0.0.1")
             print(encoded)
-            let decoded = try IPAddress4.decode(encoded)
+            let decoded = try encoded |> IPAddress4.bytes
             assert(decoded == bytes)
             print(decoded)
         } catch let error {

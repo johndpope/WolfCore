@@ -9,25 +9,25 @@
 import Foundation
 
 public class NotificationActions {
-    var notificationActions = [String: NotificationAction]()
+    var notificationActions = Dictionary<NSNotification.Name, NotificationAction>()
 
     public init() {
     }
 
-    func getAction(forName name: String) -> NotificationBlock? {
-        return notificationActions[name]?.action
+    func getAction(forName name: NSNotification.Name) -> NotificationBlock? {
+        return notificationActions[name]?.block
     }
 
-    func setAction(action: NotificationBlock?, object: AnyObject?, name: String) {
-        if let action = action {
-            let notificationAction = NotificationAction(name: name, object: object, action: action)
+    func setAction(using block: NotificationBlock?, object: AnyObject?, name: NSNotification.Name) {
+        if let block = block {
+            let notificationAction = NotificationAction(name: name, object: object, using: block)
             notificationActions[name] = notificationAction
         } else {
             removeAction(forName: name)
         }
     }
 
-    func removeAction(forName name: String) {
-        notificationActions.removeValueForKey(name)
+    func removeAction(forName name: NSNotification.Name) {
+        notificationActions.removeValue(forKey: name)
     }
 }

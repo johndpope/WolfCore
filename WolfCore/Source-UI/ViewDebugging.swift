@@ -55,11 +55,11 @@ extension UIView {
                 }
 
                 if includeHConstraints {
-                    needBlankLines.append(printConstraints(view.constraintsAffectingLayoutForAxis(.Horizontal), withPrefix: "H:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                    needBlankLines.append(printConstraints(view.constraintsAffectingLayout(for: .horizontal), withPrefix: "H:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
                 }
 
                 if includeVConstraints {
-                    needBlankLines.append(printConstraints(view.constraintsAffectingLayoutForAxis(.Vertical), withPrefix: "V:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                    needBlankLines.append(printConstraints(view.constraintsAffectingLayout(for: .vertical), withPrefix: "V:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
                 }
 
                 if needBlankLines.contains(true) {
@@ -67,13 +67,13 @@ extension UIView {
                 }
             }
 
-            view.subviews.reverse().forEach { subview in
+            view.subviews.reversed().forEach { subview in
                 stack.append((subview, level + 1, indent + "  |"))
             }
         } while !stack.isEmpty
     }
 
-    private func printConstraints(constraints: [NSLayoutConstraint], withPrefix prefix: String, currentView view: UIView, constraintPrefixJoiner: Joiner, indent: String, aliaser: ObjectAliaser) -> Bool {
+    private func printConstraints(_ constraints: [NSLayoutConstraint], withPrefix prefix: String, currentView view: UIView, constraintPrefixJoiner: Joiner, indent: String, aliaser: ObjectAliaser) -> Bool {
         let needBlankLines = constraints.count > 0
         if needBlankLines {
             print("\(constraintPrefixJoiner.description) \(indent)  │")
@@ -134,7 +134,7 @@ extension UIView {
 
     private func appendColorAttributes(forView view: UIView, toJoiner joiner: Joiner) {
         if let backgroundColor = view.backgroundColor {
-            if backgroundColor != .Clear {
+            if backgroundColor != .clear {
                 joiner.append("backgroundColor:\(backgroundColor.debugSummary)")
             }
         }
@@ -168,15 +168,15 @@ extension UIView {
             userInteractionEnabledDefault = true
         }
 
-        if view.userInteractionEnabled != userInteractionEnabledDefault {
-            joiner.append("userInteractionEnabled:\(view.userInteractionEnabled)")
+        if view.isUserInteractionEnabled != userInteractionEnabledDefault {
+            joiner.append("isUserInteractionEnabled:\(view.isUserInteractionEnabled)")
         }
     }
 
     private func appendOpacityAttributes(forView view: UIView, toJoiner joiner: Joiner) {
         if !(view is UIStackView) {
-            if view.opaque {
-                joiner.append("opaque:\(view.opaque)")
+            if view.isOpaque {
+                joiner.append("isOpaque:\(view.isOpaque)")
             }
         }
 
@@ -261,5 +261,5 @@ extension UIView {
 }
 
 public func printWindowViewHierarchy(includingConstraints includeConstraints: Bool = false, includingConstraintsAffectingHorizontal includeHConstraints: Bool = false, includingConstraintsAffectingVertical includeVConstraints: Bool = false) {
-    UIApplication.sharedApplication().windows[0].printViewHierarchy(includingConstraints: includeConstraints, includingConstraintsAffectingHorizontal: includeHConstraints, includingConstraintsAffectingVertical: includeVConstraints)
+    UIApplication.shared().windows[0].printViewHierarchy(includingConstraints: includeConstraints, includingConstraintsAffectingHorizontal: includeHConstraints, includingConstraintsAffectingVertical: includeVConstraints)
 }

@@ -8,22 +8,22 @@
 
 import Foundation
 
-public let userDefaults = NSUserDefaults.standardUserDefaults()
+public let userDefaults = UserDefaults.standard()
 public let userDefaultsLogGroup = "UserDefaults"
 
-extension NSUserDefaults {
+extension UserDefaults {
     public subscript(key: String) -> AnyObject? {
         get {
-            let value = userDefaults.objectForKey(key)
+            let value = userDefaults.object(forKey: key)
             logTrace("get key: \(key), value: \(value)", group: userDefaultsLogGroup)
             return value
         }
         set {
             logTrace("set key: \(key), newValue: \(newValue)", group: userDefaultsLogGroup)
             if let newValue = newValue {
-                userDefaults.setObject(newValue, forKey: key)
+                userDefaults.set(newValue, forKey: key)
             } else {
-                userDefaults.removeObjectForKey(key)
+                userDefaults.removeObject(forKey: key)
             }
             userDefaults.synchronize()
         }

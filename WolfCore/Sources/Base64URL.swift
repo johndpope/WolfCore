@@ -8,26 +8,28 @@
 
 import Foundation
 
-public class Base64URL {
-    public static func encode(data: NSData) -> String {
-        return base64URLStringWithBase64String(Base64.encode(data))
+extension Data {
+    public static func base64URL(from data: Data) -> String {
+        return data |> Data.base64 |> String.base64URL
     }
+}
 
-    public static func encode(bytes: Bytes) -> String {
-        return encode(ByteArray.data(withBytes: bytes))
+extension Array {
+    public static func base64URL(from bytes: Bytes) -> String {
+        return bytes |> Bytes.data |> Data.base64URL
     }
+}
 
-    public static func decode(string: String) throws -> NSData {
-        return try Base64.decode(base64StringWithBase64URLString(string))
+public struct Base64URL {
+    public static func data(from base64URLString: String) throws -> Data {
+        return try base64URLString |> String.base64 |> Base64.data
     }
+}
 
-    public static func decode(string: String) throws -> Bytes {
-        return ByteArray.bytes(withData: try decode(string))
-    }
-
-    private static func base64URLStringWithBase64String(base64String: String) -> String {
+extension String {
+    private static func base64URL(withBase64String string: String) -> String {
         var s2 = ""
-        for c in base64String.characters {
+        for c in string.characters {
             switch c {
             case Character("+"):
                 s2.append(Character("_"))
@@ -42,7 +44,7 @@ public class Base64URL {
         return s2
     }
 
-    private static func base64StringWithBase64URLString(base64URLString: String) -> String {
+    private static func base64(withBase64URLString base64URLString: String) -> String {
         var s2 = ""
         let chars = base64URLString.characters
         for c in chars {

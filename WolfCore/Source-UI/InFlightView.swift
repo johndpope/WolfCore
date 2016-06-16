@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let animationDuration: NSTimeInterval = 0.3
+private let animationDuration: TimeInterval = 0.3
 
 public class InFlightView: View {
     private var columnsStackView: StackView!
@@ -21,12 +21,12 @@ public class InFlightView: View {
     private var enteringTokenViews = [InFlightTokenView]()
     private var leavingTokenViews = [InFlightTokenView]()
     private var layoutCanceler: Canceler?
-    private let serializer = Serializer()
+    private let serializer = Serializer(name: "\(self)")
     private let spacing: CGFloat = 2
 
-    public override var hidden: Bool {
+    public override var isHidden: Bool {
         didSet {
-            if !hidden {
+            if !isHidden {
                 layoutTokenViews(animated: false)
             }
         }
@@ -34,7 +34,7 @@ public class InFlightView: View {
 
     private var needsTokenViewLayout = false {
         didSet {
-            guard !hidden else { return }
+            guard !isHidden else { return }
 
             if needsTokenViewLayout {
                 if layoutCanceler == nil {
@@ -52,7 +52,7 @@ public class InFlightView: View {
 
     public override func setup() {
         super.setup()
-        makeTransparent(debugColor: .Red, debug: false)
+        makeTransparent(debugColor: .red, debug: false)
         transparentToTouches = true
         inFlightTracker.didStart = didStart
         inFlightTracker.didEnd = didEnd
@@ -64,7 +64,7 @@ public class InFlightView: View {
         let tokenView = InFlightTokenView()
 
         serializer.dispatch {
-            self.leftTokenViews.insert(tokenView, atIndex: 0)
+            self.leftTokenViews.insert(tokenView, at: 0)
             self.tokenViewsByID[token.id] = tokenView
             self.enteringTokenViews.append(tokenView)
         }
@@ -80,10 +80,10 @@ public class InFlightView: View {
 
     private func moveViewToRight(forToken token: InFlightToken) {
         guard let tokenView = self.tokenViewsByID[token.id] else { return }
-        if let index = self.leftTokenViews.indexOf(tokenView) {
+        if let index = self.leftTokenViews.index(of: tokenView) {
             serializer.dispatch {
-                self.leftTokenViews.removeAtIndex(index)
-                self.rightTokenViews.insert(tokenView, atIndex: 0)
+                self.leftTokenViews.remove(at: index)
+                self.rightTokenViews.insert(tokenView, at: 0)
             }
             self.needsTokenViewLayout = true
         }
@@ -105,43 +105,41 @@ public class InFlightView: View {
         self.needsTokenViewLayout = true
     }
 
-    private func layoutTokenViews(animated animated: Bool) {
+    private func layoutTokenViews(animated: Bool) {
         for tokenView in leavingTokenViews {
-            dispatchAnimated(
-                animated,
+            dispatchAnimated(animated,
                 duration: animationDuration,
-                options: [.BeginFromCurrentState, .CurveEaseOut],
+                options: [.beginFromCurrentState, .curveEaseOut],
                 animations: {
                     tokenView.alpha = 0.0
                 },
                 completion: { finished in
                     tokenView.removeFromSuperview()
-                    self.tokenViewsByID.removeValueForKey(tokenView.token.id)
-                    if let index = self.leftTokenViews.indexOf(tokenView) {
-                        self.leftTokenViews.removeAtIndex(index)
+                    self.tokenViewsByID.removeValue(forKey: tokenView.token.id)
+                    if let index = self.leftTokenViews.index(of: tokenView) {
+                        self.leftTokenViews.remove(at: index)
                     }
-                    if let index = self.rightTokenViews.indexOf(tokenView) {
-                        self.rightTokenViews.removeAtIndex(index)
+                    if let index = self.rightTokenViews.index(of: tokenView) {
+                        self.rightTokenViews.remove(at: index)
                     }
                     self.needsTokenViewLayout = true
                 }
             )
         }
 
-        for (index, tokenView) in leftTokenViews.enumerate() {
+        for (index, tokenView) in leftTokenViews.enumerated() {
             layout(tokenView: tokenView, index: index, referenceView: leftColumnView)
         }
 
-        for (index, tokenView) in rightTokenViews.enumerate() {
+        for (index, tokenView) in rightTokenViews.enumerated() {
             layout(tokenView: tokenView, index: index, referenceView: rightColumnView)
         }
 
         for tokenView in enteringTokenViews {
-            dispatchAnimated(
-                animated,
+            dispatchAnimated(animated,
                 duration: animationDuration,
                 delay: 0.0,
-                options: [.BeginFromCurrentState, .CurveEaseOut],
+                options: [.beginFromCurrentState, .curveEaseOut],
                 animations: {
                     tokenView.alpha = 1.0
                 }
@@ -151,20 +149,19 @@ public class InFlightView: View {
 
         setNeedsLayout()
 
-        dispatchAnimated(
-            animated,
+        dispatchAnimated(animated,
             duration: animationDuration,
             delay: 0.0,
-            options: [.BeginFromCurrentState, .CurveEaseOut],
+            options: [.beginFromCurrentState, .curveEaseOut],
             animations: {
                 self.layoutIfNeeded()
             }
         )
     }
 
-    private func layout(tokenView tokenView: InFlightTokenView, index: Int, referenceView: UIView) {
-        let token = tokenView.token
-        tokenViewConstraintsByID[token.id]?.active = false
+    private func layout(tokenView: InFlightTokenView, index: Int, referenceView: UIView) {
+        let token: InFlightToken = tokenView.token
+        tokenViewConstraintsByID[token.id]?.isActive = false
         let viewY = CGFloat(index) * (InFlightTokenView.viewHeight + spacing)
         let constraints = [
             tokenView.leadingAnchor == referenceView.leadingAnchor,
@@ -189,18 +186,18 @@ public class InFlightView: View {
 
     private func setupColumnViews() {
         leftColumnView = View()
-        leftColumnView.makeTransparent(debugColor: .Red, debug: false)
+        leftColumnView.makeTransparent(debugColor: .red, debug: false)
         leftColumnView.transparentToTouches = true
 
         rightColumnView = View()
-        rightColumnView.makeTransparent(debugColor: .Blue, debug: false)
+        rightColumnView.makeTransparent(debugColor: .blue, debug: false)
         rightColumnView.transparentToTouches = true
 
         columnsStackView = StackView(arrangedSubviews: [leftColumnView, rightColumnView])
         columnsStackView.transparentToTouches = true
-        columnsStackView.axis = .Horizontal
-        columnsStackView.distribution = .FillEqually
-        columnsStackView.alignment = .Fill
+        columnsStackView.axis = .horizontal
+        columnsStackView.distribution = .fillEqually
+        columnsStackView.alignment = .fill
         columnsStackView.spacing = 20.0
 
         addSubview(columnsStackView)

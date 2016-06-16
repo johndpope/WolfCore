@@ -14,12 +14,28 @@
     public typealias OSLayoutPriority = NSLayoutPriority
 #endif
 
-
-public func + (left: NSLayoutAnchor!, right: CGFloat) -> (anchor: NSLayoutAnchor, constant: CGFloat) {
+public func + (left: NSLayoutXAxisAnchor!, right: CGFloat) -> (anchor: NSLayoutXAxisAnchor, constant: CGFloat) {
     return (left, right)
 }
 
-public func - (left: NSLayoutAnchor!, right: CGFloat) -> (anchor: NSLayoutAnchor, constant: CGFloat) {
+public func + (left: NSLayoutYAxisAnchor!, right: CGFloat) -> (anchor: NSLayoutYAxisAnchor, constant: CGFloat) {
+    return (left, right)
+}
+
+public func + (left: NSLayoutDimension!, right: CGFloat) -> (anchor: NSLayoutDimension, constant: CGFloat) {
+    return (left, right)
+}
+
+
+public func - (left: NSLayoutXAxisAnchor!, right: CGFloat) -> (anchor: NSLayoutXAxisAnchor, constant: CGFloat) {
+    return (left, -right)
+}
+
+public func - (left: NSLayoutYAxisAnchor!, right: CGFloat) -> (anchor: NSLayoutYAxisAnchor, constant: CGFloat) {
+    return (left, -right)
+}
+
+public func - (left: NSLayoutDimension!, right: CGFloat) -> (anchor: NSLayoutDimension, constant: CGFloat) {
     return (left, -right)
 }
 
@@ -33,66 +49,120 @@ public func + (left: (anchor: NSLayoutDimension, multiplier: CGFloat), right: CG
 }
 
 
-public func == (left: NSLayoutAnchor, right: NSLayoutAnchor) -> NSLayoutConstraint {
-    return left.constraintEqualToAnchor(right)
+public func == (left: NSLayoutXAxisAnchor, right: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    return left.constraint(equalTo: right)
 }
 
-public func == (left: NSLayoutAnchor, right: (anchor: NSLayoutAnchor, constant: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintEqualToAnchor(right.anchor, constant: right.constant)
+public func == (left: NSLayoutYAxisAnchor, right: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    return left.constraint(equalTo: right)
 }
+
+public func == (left: NSLayoutDimension, right: NSLayoutDimension) -> NSLayoutConstraint {
+    return left.constraint(equalTo: right)
+}
+
+
+public func == (left: NSLayoutXAxisAnchor, right: (anchor: NSLayoutXAxisAnchor, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(equalTo: right.anchor, constant: right.constant)
+}
+
+public func == (left: NSLayoutYAxisAnchor, right: (anchor: NSLayoutYAxisAnchor, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(equalTo: right.anchor, constant: right.constant)
+}
+
+public func == (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(equalTo: right.anchor, constant: right.constant)
+}
+
 
 public func == (left: NSLayoutDimension, right: CGFloat) -> NSLayoutConstraint {
-    return left.constraintEqualToConstant(right)
+    return left.constraint(equalToConstant: right)
 }
 
 public func == (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, multiplier: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintEqualToAnchor(right.anchor, multiplier: right.multiplier)
+    return left.constraint(equalTo: right.anchor, multiplier: right.multiplier)
 }
 
 public func == (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, multiplier: CGFloat, constant: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintEqualToAnchor(right.anchor, multiplier: right.multiplier, constant: right.constant)
+    return left.constraint(equalTo: right.anchor, multiplier: right.multiplier, constant: right.constant)
 }
 
 
-public func >= (left: NSLayoutAnchor, right: NSLayoutAnchor) -> NSLayoutConstraint {
-    return left.constraintGreaterThanOrEqualToAnchor(right)
+public func >= (left: NSLayoutXAxisAnchor, right: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    return left.constraint(greaterThanOrEqualTo: right)
 }
 
-public func >= (left: NSLayoutAnchor, right: (anchor: NSLayoutAnchor, constant: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintGreaterThanOrEqualToAnchor(right.anchor, constant: right.constant)
+public func >= (left: NSLayoutYAxisAnchor, right: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    return left.constraint(greaterThanOrEqualTo: right)
 }
+
+public func >= (left: NSLayoutDimension, right: NSLayoutDimension) -> NSLayoutConstraint {
+    return left.constraint(greaterThanOrEqualTo: right)
+}
+
+
+public func >= (left: NSLayoutXAxisAnchor, right: (anchor: NSLayoutXAxisAnchor, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(greaterThanOrEqualTo: right.anchor, constant: right.constant)
+}
+
+public func >= (left: NSLayoutYAxisAnchor, right: (anchor: NSLayoutYAxisAnchor, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(greaterThanOrEqualTo: right.anchor, constant: right.constant)
+}
+
+public func >= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(greaterThanOrEqualTo: right.anchor, constant: right.constant)
+}
+
 
 public func >= (left: NSLayoutDimension, right: CGFloat) -> NSLayoutConstraint {
-    return left.constraintGreaterThanOrEqualToConstant(right)
+    return left.constraint(greaterThanOrEqualToConstant: right)
 }
 
 public func >= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, multiplier: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintGreaterThanOrEqualToAnchor(right.anchor, multiplier: right.multiplier)
+    return left.constraint(greaterThanOrEqualTo: right.anchor, multiplier: right.multiplier)
 }
 
 public func >= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, multiplier: CGFloat, constant: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintGreaterThanOrEqualToAnchor(right.anchor, multiplier: right.multiplier, constant: right.constant)
+    return left.constraint(greaterThanOrEqualTo: right.anchor, multiplier: right.multiplier, constant: right.constant)
 }
 
 
-public func <= (left: NSLayoutAnchor, right: NSLayoutAnchor) -> NSLayoutConstraint {
-    return left.constraintLessThanOrEqualToAnchor(right)
+public func <= (left: NSLayoutXAxisAnchor, right: NSLayoutXAxisAnchor) -> NSLayoutConstraint {
+    return left.constraint(lessThanOrEqualTo: right)
 }
 
-public func <= (left: NSLayoutAnchor, right: (anchor: NSLayoutAnchor, constant: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintLessThanOrEqualToAnchor(right.anchor, constant: right.constant)
+public func <= (left: NSLayoutYAxisAnchor, right: NSLayoutYAxisAnchor) -> NSLayoutConstraint {
+    return left.constraint(lessThanOrEqualTo: right)
 }
+
+public func <= (left: NSLayoutDimension, right: NSLayoutDimension) -> NSLayoutConstraint {
+    return left.constraint(lessThanOrEqualTo: right)
+}
+
+
+public func <= (left: NSLayoutXAxisAnchor, right: (anchor: NSLayoutXAxisAnchor, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(lessThanOrEqualTo: right.anchor, constant: right.constant)
+}
+
+public func <= (left: NSLayoutYAxisAnchor, right: (anchor: NSLayoutYAxisAnchor, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(lessThanOrEqualTo: right.anchor, constant: right.constant)
+}
+
+public func <= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, constant: CGFloat)) -> NSLayoutConstraint {
+    return left.constraint(lessThanOrEqualTo: right.anchor, constant: right.constant)
+}
+
 
 public func <= (left: NSLayoutDimension, right: CGFloat) -> NSLayoutConstraint {
-    return left.constraintLessThanOrEqualToConstant(right)
+    return left.constraint(lessThanOrEqualToConstant: right)
 }
 
 public func <= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, multiplier: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintLessThanOrEqualToAnchor(right.anchor, multiplier: right.multiplier)
+    return left.constraint(lessThanOrEqualTo: right.anchor, multiplier: right.multiplier)
 }
 
 public func <= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, multiplier: CGFloat, constant: CGFloat)) -> NSLayoutConstraint {
-    return left.constraintLessThanOrEqualToAnchor(right.anchor, multiplier: right.multiplier, constant: right.constant)
+    return left.constraint(lessThanOrEqualTo: right.anchor, multiplier: right.multiplier, constant: right.constant)
 }
 
 
@@ -121,7 +191,7 @@ public func =%= (left: NSLayoutConstraint, right: [Any?]) -> NSLayoutConstraint 
         }
         return accum
     }
-    return left =%= filtered.joinWithSeparator("")
+    return left =%= filtered.joined(separator: "")
 }
 
 public func warnForNoIdentifier(inConstraints constraints: [NSLayoutConstraint]) {
@@ -134,35 +204,44 @@ public func warnForNoIdentifier(inConstraints constraints: [NSLayoutConstraint])
     }
 }
 
-public func activateConstraints(constraints: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
+@discardableResult public func activateConstraints(_ constraints: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
     warnForNoIdentifier(inConstraints: constraints)
-    NSLayoutConstraint.activateConstraints(constraints)
+    NSLayoutConstraint.activate(constraints)
     return constraints
 }
 
-public func activateConstraints(constraints: NSLayoutConstraint...) -> [NSLayoutConstraint] {
+@discardableResult public func activateConstraints(_ constraints: NSLayoutConstraint...) -> [NSLayoutConstraint] {
     warnForNoIdentifier(inConstraints: constraints)
-    NSLayoutConstraint.activateConstraints(constraints)
+    NSLayoutConstraint.activate(constraints)
     return constraints
 }
 
-public func deactivateConstraints(constraints: [NSLayoutConstraint]) {
-    NSLayoutConstraint.deactivateConstraints(constraints)
+public func deactivateConstraints(_ constraints: [NSLayoutConstraint]) {
+    NSLayoutConstraint.deactivate(constraints)
 }
 
-public func deactivateConstraints(constraints: NSLayoutConstraint...) {
-    NSLayoutConstraint.deactivateConstraints(constraints)
+public func deactivateConstraints(_ constraints: NSLayoutConstraint...) {
+    NSLayoutConstraint.deactivate(constraints)
+}
+
+public func activateConstraint(_ constraint: NSLayoutConstraint) {
+    warnForNoIdentifier(inConstraints: [constraint])
+    constraint.isActive = true
+}
+
+public func deactivateConstraint(_ constraint: NSLayoutConstraint) {
+    constraint.isActive = false
 }
 
 #if os(iOS) || os(tvOS)
-    public prefix func ~<T: UIView> (right: T) -> T {
+    @discardableResult public prefix func ~<T: UIView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false
         return right
     }
 
     prefix operator ~~ { }
 
-    public prefix func ~~<T: UIView> (right: T) -> T {
+    @discardableResult public prefix func ~~<T: UIView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false
         right.makeTransparent()
         return right
@@ -172,11 +251,11 @@ public func deactivateConstraints(constraints: NSLayoutConstraint...) {
 public func string(forRelation relation: NSLayoutRelation) -> String {
     let result: String
     switch relation {
-    case .Equal:
+    case .equal:
         result = "=="
-    case .LessThanOrEqual:
+    case .lessThanOrEqual:
         result = "<="
-    case .GreaterThanOrEqual:
+    case .greaterThanOrEqual:
         result = ">="
     }
     return result
@@ -188,47 +267,47 @@ public func string(forRelation relation: NSLayoutRelation) -> String {
 public func string(forAttribute attribute: NSLayoutAttribute) -> String {
     let result: String
     switch attribute {
-    case .Left:
+    case .left:
         result = "left"
-    case .Right:
+    case .right:
         result = "right"
-    case .Top:
+    case .top:
         result = "top"
-    case .Bottom:
+    case .bottom:
         result = "bottom"
-    case .Leading:
+    case .leading:
         result = "leading"
-    case .Trailing:
+    case .trailing:
         result = "trailing"
-    case .Width:
+    case .width:
         result = "width"
-    case .Height:
+    case .height:
         result = "height"
-    case .CenterX:
+    case .centerX:
         result = "centerX"
-    case .CenterY:
+    case .centerY:
         result = "centerY"
-    case .Baseline:
-        result = "baseline"
-    case .FirstBaseline:
+    case .firstBaseline:
         result = "firstBaseline"
-    case .NotAnAttribute:
+    case .lastBaseline:
+        result = "lastBaseline"
+    case .notAnAttribute:
         result = "notAnAttribute"
-    case .LeftMargin:
+    case .leftMargin:
         result = "leftMargin"
-    case .RightMargin:
+    case .rightMargin:
         result = "rightMargin"
-    case .TopMargin:
+    case .topMargin:
         result = "topMargin"
-    case .BottomMargin:
+    case .bottomMargin:
         result = "bottomMargin"
-    case .LeadingMargin:
+    case .leadingMargin:
         result = "leadingMargin"
-    case .TrailingMargin:
+    case .trailingMargin:
         result = "trailingMargin"
-    case .CenterXWithinMargins:
+    case .centerXWithinMargins:
         result = "centerXWithinMargins"
-    case .CenterYWithinMargins:
+    case .centerYWithinMargins:
         result = "centerYWithinMargins"
     }
     return result
@@ -237,31 +316,31 @@ public func string(forAttribute attribute: NSLayoutAttribute) -> String {
     public func string(forAttribute attribute: NSLayoutAttribute) -> String {
         let result: String
         switch attribute {
-        case .Left:
+        case .left:
             result = "left"
-        case .Right:
+        case .right:
             result = "right"
-        case .Top:
+        case .top:
             result = "top"
-        case .Bottom:
+        case .bottom:
             result = "bottom"
-        case .Leading:
+        case .leading:
             result = "leading"
-        case .Trailing:
+        case .trailing:
             result = "trailing"
-        case .Width:
+        case .width:
             result = "width"
-        case .Height:
+        case .height:
             result = "height"
-        case .CenterX:
+        case .centerX:
             result = "centerX"
-        case .CenterY:
+        case .centerY:
             result = "centerY"
-        case .Baseline:
-            result = "baseline"
-        case .FirstBaseline:
+        case .lastBaseline:
+            result = "lastBaseline"
+        case .firstBaseline:
             result = "firstBaseline"
-        case .NotAnAttribute:
+        case .notAnAttribute:
             result = "notAnAttribute"
         }
         return result

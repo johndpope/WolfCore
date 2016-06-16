@@ -38,7 +38,7 @@ extension CGVector {
         return self / m
     }
 
-    public func rotatedByAngle(theta: CGFloat) -> CGVector {
+    public func rotated(by theta: CGFloat) -> CGVector {
         let sinTheta = sin(theta)
         let cosTheta = cos(theta)
         return CGVector(dx: dx * cosTheta - dy * sinTheta, dy: dx * sinTheta + dy * cosTheta)

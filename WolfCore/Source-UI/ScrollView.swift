@@ -33,11 +33,11 @@ public class ScrollView: UIScrollView {
     // Override in subclasses
     public func setup() { }
 
-    override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
-            return tranparentPointInside(point, withEvent: event)
+            return isTransparentToTouch(at: point, with: event)
         } else {
-            return super.pointInside(point, withEvent: event)
+            return super.point(inside: point, with: event)
         }
     }
 }

@@ -8,19 +8,19 @@
 
 import UIKit
 
-public let defaultAnimationDuration: NSTimeInterval = 0.4
+public let defaultAnimationDuration: TimeInterval = 0.4
 
-public func dispatchAnimated(animated: Bool = true, duration: NSTimeInterval = defaultAnimationDuration, delay: NSTimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: DispatchBlock) {
+public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: Block) {
     if animated {
-        UIView.animateWithDuration(duration, delay: delay, options: options, animations: animations, completion: nil)
+        UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: nil)
     } else {
         animations()
     }
 }
 
-public func dispatchAnimated(animated: Bool = true, duration: NSTimeInterval = defaultAnimationDuration, delay: NSTimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: DispatchBlock, completion: ((Bool) -> Void)) {
+public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: Block, completion: ((Bool) -> Void)) {
     if animated {
-        UIView.animateWithDuration(duration, delay: delay, options: options, animations: animations, completion: completion)
+        UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
     } else {
         animations()
         completion(true)

@@ -24,15 +24,15 @@ import CoreGraphics
 #endif
 
 #if os(iOS) || os(tvOS)
-public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: CGContextBlock) -> UIImage {
+public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: CGContextBlock) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
     let context = getCurrentGraphicsContext()
     if flipped {
-        CGContextTranslateCTM(context, 0.0, size.height)
-        CGContextScaleCTM(context, 1.0, -1.0)
+        context.translate(x: 0.0, y: size.height)
+        context.scale(x: 1.0, y: -1.0)
     }
     drawing(context)
-    let image = UIGraphicsGetImageFromCurrentImageContext().imageWithRenderingMode(renderingMode)
+    let image = UIGraphicsGetImageFromCurrentImageContext()!.withRenderingMode(renderingMode)
     UIGraphicsEndImageContext()
     return image
 }

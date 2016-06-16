@@ -61,7 +61,7 @@ public class TextField: UITextField {
 extension TextField {
     private func syncToTintColor() {
         guard followsTintColor else { return }
-        textColor = tintColor ?? .Black
+        textColor = tintColor ?? .black
         tintClearImage()
     }
 
@@ -71,10 +71,10 @@ extension TextField {
         let buttons: [UIButton] = self.descendentViews(ofClass: UIButton.self)
         guard !buttons.isEmpty else { return }
         let button = buttons[0]
-        guard let image = button.imageForState(.Highlighted) else { return }
+        guard let image = button.image(for: .highlighted) else { return }
         tintedClearImage = image.tinted(withColor: tintColor)
-        button.setImage(tintedClearImage, forState: .Normal)
-        button.setImage(tintedClearImage, forState: .Highlighted)
+        button.setImage(tintedClearImage, for: [])
+        button.setImage(tintedClearImage, for: .highlighted)
         lastTintColor = tintColor
     }
 

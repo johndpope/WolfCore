@@ -6,24 +6,24 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-extension SequenceType where Generator.Element == String {
+extension Sequence where Iterator.Element == String {
     public var spaceSeparated: String {
-        return joinWithSeparator(" ")
+        return joined(separator: " ")
     }
 
     public var tabSeparated: String {
-        return joinWithSeparator("\t")
+        return joined(separator: "\t")
     }
 
     public var commaSeparated: String {
-        return joinWithSeparator(",")
+        return joined(separator: ",")
     }
 
     public var newlineSeparated: String {
-        return joinWithSeparator("\n")
+        return joined(separator: "\n")
     }
 
     public var crlfSeparated: String {
-        return joinWithSeparator("\r\n")
+        return joined(separator: "\r\n")
     }
 }

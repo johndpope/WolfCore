@@ -11,16 +11,16 @@ import Foundation
 public var standardOutputStream = StandardOutputStream()
 public var standardErrorOutputStream = StandardErrorOutputStream()
 
-public class StandardErrorOutputStream: OutputStreamType {
-    public func write(string: String) {
-        let stderr = NSFileHandle.fileHandleWithStandardError()
-        stderr.writeData(string.dataUsingEncoding(NSUTF8StringEncoding)!)
+public class StandardErrorOutputStream: OutputStream {
+    public func write(_ string: String) {
+        let stderr = FileHandle.standardError()
+        stderr.write(string.data(using: String.Encoding.utf8)!)
     }
 }
 
-public class StandardOutputStream: OutputStreamType {
-    public func write(string: String) {
-        let stdout = NSFileHandle.fileHandleWithStandardOutput()
-        stdout.writeData(string.dataUsingEncoding(NSUTF8StringEncoding)!)
+public class StandardOutputStream: OutputStream {
+    public func write(_ string: String) {
+        let stdout = FileHandle.standardOutput()
+        stdout.write(string.data(using: String.Encoding.utf8)!)
     }
 }

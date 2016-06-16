@@ -22,16 +22,16 @@ public typealias ViewBlock = (OSView) -> Bool
 
 extension OSView {
 #if os(iOS) || os(tvOS)
-    public func makeTransparent(debugColor debugColor: OSColor = OSColor.Clear, debug: Bool = false) {
-        opaque = false
-        backgroundColor = debug ? debugColor.colorWithAlphaComponent(0.25) : OSColor.Clear
+    public func makeTransparent(debugColor: OSColor = .clear, debug: Bool = false) {
+        isOpaque = false
+        backgroundColor = debug ? debugColor.withAlphaComponent(0.25) : .clear
     }
 #endif
 
 #if os(iOS) || os(tvOS)
-    public func tranparentPointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    public func isTransparentToTouch(at point: CGPoint, with event: UIEvent?) -> Bool {
         for subview in subviews {
-            if !subview.hidden && subview.alpha > 0 && subview.userInteractionEnabled && subview.pointInside(convertPoint(point, toView: subview), withEvent: event) {
+            if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
                 return true
             }
         }
@@ -41,12 +41,12 @@ extension OSView {
 }
 
 extension OSView {
-    public func constrainToSuperview(active active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainToSuperview(active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         return constrain(toView: superview!, active: active, insets: insets, identifier: identifier)
     }
 
-    public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
             leadingAnchor == view.leadingAnchor + insets.left =%= [identifier, "Leading"],
             trailingAnchor == view.trailingAnchor - insets.right =%= [identifier, "Trailing"],
@@ -59,7 +59,7 @@ extension OSView {
         return constraints
     }
 
-    public func constrainCenterToCenterOfSuperview(active active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainCenterToCenterOfSuperview(active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         return constrainCenter(toCenterOfView: superview!, active: active, identifier: identifier)
     }
@@ -75,7 +75,7 @@ extension OSView {
         return constraints
     }
 
-    public func constrain(toSize size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrain(toSize size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
             widthAnchor == size.width =%= [identifier, "CenterY"],
             heightAnchor == size.height =%= [identifier, "CenterY"]
@@ -92,7 +92,7 @@ extension UIView {
     public func setBorder(cornerRadius radius: CGFloat? = nil, width: CGFloat? = nil, color: UIColor? = nil) {
         if let radius = radius { layer.cornerRadius = radius }
         if let width = width { layer.borderWidth = width }
-        if let color = color { layer.borderColor = color.CGColor }
+        if let color = color { layer.borderColor = color.cgColor }
     }
 }
 #endif
@@ -115,7 +115,7 @@ extension OSView {
             let view = stack.removeLast()
             let stop = operate(view)
             guard !stop else { return }
-            view.subviews.reverse().forEach { subview in
+            view.subviews.reversed().forEach { subview in
                 stack.append(subview)
             }
         } while !stack.isEmpty
@@ -169,7 +169,7 @@ extension OSView {
             return .descendant
         }
 
-        if let commonAncestor = (ancestors as NSArray).firstObjectCommonWithArray(view.allAncestors()) as? OSView {
+        if let commonAncestor = (ancestors as NSArray).firstObjectCommon(with: view.allAncestors()) as? OSView {
             return .cousin(commonAncestor)
         }
 

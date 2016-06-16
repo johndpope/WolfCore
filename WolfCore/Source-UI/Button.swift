@@ -20,7 +20,8 @@ public class Button: UIButton {
 
     public override func awakeFromNib() {
         super.awakeFromNib()
-        setTitle(titleForState(.Normal)?.localized(onlyIfTagged: true), forState: .Normal)
+        let t = title(for: [])?.localized(onlyIfTagged: true)
+        setTitle(t, for: [])
     }
 
     public convenience init() {
@@ -55,21 +56,21 @@ public class Button: UIButton {
         addSubview(customView)
         customView.makeTransparent()
         customView.constrainToSuperview(identifier: identifier ?? "button")
-        customView.userInteractionEnabled = false
+        customView.isUserInteractionEnabled = false
     }
 
     func syncToHighlighted() {
-        let highlighted = self.highlighted
         if let customView = self.customView {
-            customView.tintColor = self.titleColorForState(highlighted ? .Highlighted : .Normal)!.colorWithAlphaComponent(highlighted ? 0.4 : 1.0)
+            let isHighlighted = self.isHighlighted
+            customView.tintColor = titleColor(for: isHighlighted ? .highlighted : [])!.withAlphaComponent(isHighlighted ? 0.4 : 1.0)
             customView.forViewsInHierachy { view -> Bool in
-                (view as? UIImageView)?.highlighted = highlighted
+                (view as? UIImageView)?.isHighlighted = isHighlighted
                 return false
             }
         }
     }
 
-    public override var highlighted: Bool {
+    public override var isHighlighted: Bool {
         didSet {
             syncToHighlighted()
         }

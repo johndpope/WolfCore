@@ -8,52 +8,38 @@
 
 import Foundation
 
-extension NSDate {
-    public func lastDayOfMonth() -> NSDate {
-        let calendar = NSCalendar.currentCalendar()
-        let dayRange = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: self)
+extension Date {
+    public func lastDayOfMonth() -> Date {
+        let calendar = Calendar.current()
+        let dayRange = calendar.range(of: .day, in: .month, for: self)
         let dayCount = dayRange.length
-        let comp = calendar.components([.Year, .Month, .Day], fromDate: self)
-
+        var comp = calendar.components([.year, .month, .day], from: self)
         comp.day = dayCount
-
-        return calendar.dateFromComponents(comp)!
+        return calendar.date(from: comp)!
     }
 }
 
-// Make dates comparable with comparison operators.
-
-extension NSDate: Comparable {
-}
-
-public func == (left: NSDate, right: NSDate) -> Bool {
-    return left.compare(right) == .OrderedSame
-}
-
-public func < (left: NSDate, right: NSDate) -> Bool {
-    return left.compare(right) == .OrderedAscending
-}
 
 // Provide for converting dates to and from ISO8601 format.
 // Example: "1965-05-15T00:00:00.0Z"
 
-private var _iso8601DateFormatter: NSDateFormatter! = nil
+private var _iso8601DateFormatter: DateFormatter! = nil
 
-extension NSDate {
-    public class var iso8601Formatter: NSDateFormatter {
+extension Date {
+    public static var iso8601Formatter: DateFormatter {
         if _iso8601DateFormatter == nil {
-            _iso8601DateFormatter = NSDateFormatter()
+            _iso8601DateFormatter = DateFormatter()
             _iso8601DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sZ"
         }
         return _iso8601DateFormatter
     }
 
     public var iso8601: String {
-        return self.dynamicType.iso8601Formatter.stringFromDate(self)
+        return self.dynamicType.iso8601Formatter.string(from: self)
     }
 
-    public convenience init(iso8601: String) throws {
-        if let date = self.dynamicType.iso8601Formatter.dateFromString(iso8601) {
+    public init(iso8601: String) throws {
+        if let date = self.dynamicType.iso8601Formatter.date(from: iso8601) {
             let timeInterval = date.timeIntervalSinceReferenceDate
             self.init(timeIntervalSinceReferenceDate: timeInterval)
         } else {
@@ -61,7 +47,7 @@ extension NSDate {
         }
     }
 
-    public convenience init(year: Int, month: Int, day: Int) throws {
+    public init(year: Int, month: Int, day: Int) throws {
         guard year > 0 else {
             throw ValidationError(message: "Invalid year", violation: "dateFormat")
         }
@@ -78,8 +64,8 @@ extension NSDate {
     }
 }
 
-extension NSDate {
-    public convenience init(millisecondsSince1970 ms: Double) {
+extension Date {
+    public init(millisecondsSince1970 ms: Double) {
         self.init(timeIntervalSince1970: ms / 1000.0)
     }
 

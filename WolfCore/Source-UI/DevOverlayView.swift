@@ -15,14 +15,14 @@ public class DevOverlayView: View {
     public override func setup() {
         super.setup()
 
-        let window = UIApplication.sharedApplication().windows[0]
+        let window = UIApplication.shared().windows[0]
         window.addSubview(self)
         transparentToTouches = true
         bounds = window.frame
         constrainToSuperview(identifier: "DevOverlay")
-        makeTransparent(debugColor: UIColor.redColor(), debug: false)
+        makeTransparent(debugColor: .red, debug: false)
         dispatchRepeatedOnMain(atInterval: 0.2) { canceler in
-            window.bringSubviewToFront(self)
+            window.bringSubview(toFront: self)
         }
     }
 }

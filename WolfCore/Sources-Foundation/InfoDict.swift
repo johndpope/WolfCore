@@ -8,12 +8,12 @@
 
 import Foundation
 
-public let infoDict = InfoDict(bundle: NSBundle.mainBundle())
+public let infoDict = InfoDict(bundle: Bundle.main())
 
 public class InfoDict {
-    private let bundle: NSBundle
+    private let bundle: Bundle
 
-    public init(bundle: NSBundle) {
+    public init(bundle: Bundle) {
         self.bundle = bundle
     }
 
@@ -42,7 +42,7 @@ public class InfoDict {
     }
 }
 
-extension NSBundle {
+extension Bundle {
     public var infoDict: InfoDict {
         return InfoDict(bundle: self)
     }

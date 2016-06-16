@@ -118,32 +118,32 @@ extension View {
 extension View {
 
 #if os(iOS) || os(tvOS)
-    override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
-            return tranparentPointInside(point, withEvent: event)
+            return isTransparentToTouch(at: point, with: event)
         } else {
-            return super.pointInside(point, withEvent: event)
+            return super.point(inside: point, with: event)
         }
     }
 
     private func loadContentFromNib() {
         if let contentNibName = contentNibName {
             let view = ~loadViewFromNib(named: contentNibName, owner: self)
-            transferContentFromView(view)
+            transferContent(from: view)
         }
     }
 
-    private func transferContentFromView(view: UIView) {
+    private func transferContent(from view: UIView) {
         // These are attributes that can be set from Interface Builder
         contentMode = view.contentMode
         tag = view.tag
-        userInteractionEnabled = view.userInteractionEnabled
-        multipleTouchEnabled = view.multipleTouchEnabled
+        isUserInteractionEnabled = view.isUserInteractionEnabled
+        isMultipleTouchEnabled = view.isMultipleTouchEnabled
         alpha = view.alpha
         backgroundColor = view.backgroundColor
         tintColor = view.tintColor
-        opaque = view.opaque
-        hidden = view.hidden
+        isOpaque = view.isOpaque
+        isHidden = view.isHidden
         clearsContextBeforeDrawing = view.clearsContextBeforeDrawing
         clipsToBounds = view.clipsToBounds
         autoresizesSubviews = view.autoresizesSubviews

@@ -27,21 +27,21 @@
 #endif
 
 extension OSBezierPath {
-    public func addClosedPolygon(points: [CGPoint]) {
-        for (index, point) in points.enumerate() {
+    public func addClosedPolygon(withPoints points: [CGPoint]) {
+        for (index, point) in points.enumerated() {
             switch index {
             case 0:
-                moveToPoint(point)
+                move(to: point)
             default:
-                addLineToPoint(point)
+                addLine(to: point)
             }
         }
-        closePath()
+        close()
     }
 
     public convenience init(closedPolygon: [CGPoint]) {
         self.init()
-        addClosedPolygon(closedPolygon)
+        addClosedPolygon(withPoints: closedPolygon)
     }
 }
 
@@ -99,25 +99,25 @@ extension OSBezierPath {
         }
 
         if cornerRadius <= 0.0 {
-            for (index, corner) in corners.enumerate() {
+            for (index, corner) in corners.enumerated() {
                 if index == 0 {
-                    moveToPoint(corner)
+                    move(to: corner)
                 } else {
-                    addLineToPoint(corner)
+                    addLine(to: corner)
                 }
             }
         } else {
             for index in 0..<corners.count {
-                let p1 = Point(cgPoint: corners.elementAtCircularIndex(index - 1))
+                let p1 = Point(cgPoint: corners.element(atCircularIndex: index - 1))
                 let p2 = Point(cgPoint: corners[index])
-                let p3 = Point(cgPoint: corners.elementAtCircularIndex(index + 1))
+                let p3 = Point(cgPoint: corners.element(atCircularIndex: index + 1))
                 let (center, startPoint, startAngle, _ /*endPoint*/, endAngle, clockwise) = infoForRoundedCornerArcAtVertex(withRadius: Double(cornerRadius), p1, p2, p3)
                 if index == 0 {
-                    moveToPoint(startPoint.cgPoint)
+                    move(to: startPoint.cgPoint)
                 }
-                addArcWithCenter(center.cgPoint, radius: cornerRadius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise)
+                addArc(withCenter: center.cgPoint, radius: cornerRadius, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: clockwise)
             }
         }
-        closePath()
+        close()
     }
 }

@@ -8,43 +8,43 @@
 
 import Foundation
 
-let serializerKey: String = "Serializer"
-var nextQueueContext: Int = 1
+private typealias SerializerKey = DispatchSpecificKey<Int>
+private let serializerKey = SerializerKey()
+private var nextQueueContext: Int = 1
 
 public class Serializer {
     let queue: DispatchQueue
-    let queueContext: NSNumber
+    let queueContext: Int
 
-    public init(name: NSString? = nil) {
-        self.queue = dispatch_queue_create(name?.UTF8String ?? nil, DISPATCH_QUEUE_SERIAL)
+    public init(name: String) {
+        queue = DispatchQueue(label: name, attributes: [.serial])
+        queueContext = nextQueueContext
+        queue.setSpecific(key: serializerKey, value: queueContext)
         nextQueueContext += 1
-        self.queueContext = NSNumber(integer: nextQueueContext)
-//        dispatch_queue_set_specific_glue(self.queue, serializerKey, self.queueContext)
     }
 
     var isExecutingOnMyQueue: Bool {
         get {
-//            let context = dispatch_get_specific_glue(serializerKey)
-//            return context === self.queueContext
-            return false
+            guard let context = DispatchQueue.getSpecific(key: serializerKey) else { return false }
+            return context == queueContext
         }
     }
 
-    public func dispatch(f: DispatchBlock) {
+    public func dispatch(f: Block) {
         if isExecutingOnMyQueue {
             f()
         } else {
-            dispatchSync(onQueue: queue, f)
+            queue.sync(execute: f)
         }
     }
 
-    public func dispatchWithReturn<🍒>(f: () -> 🍒) -> 🍒 {
-        var result: 🍒!
+    public func dispatchWithReturn<T>(f: () -> T) -> T {
+        var result: T!
 
         if isExecutingOnMyQueue {
             result = f()
         } else {
-            dispatchSync(onQueue: queue) {
+            queue.sync {
                 result = f()
             }
         }
@@ -52,14 +52,14 @@ public class Serializer {
         return result!
     }
 
-    public func dispatchOnMain(f: DispatchBlock) {
-        dispatchSyncOnMain(f)
+    public func dispatchOnMain(f: Block) {
+        mainQueue.sync(execute: f)
     }
 
-    public func dispatchOnMainWithReturn<🍒>(f: () -> 🍒) -> 🍒 {
-        var result: 🍒!
+    public func dispatchOnMainWithReturn<T>(f: () -> T) -> T {
+        var result: T!
 
-        dispatchSyncOnMain() {
+        mainQueue.sync {
             result = f()
         }
 

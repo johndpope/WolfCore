@@ -17,8 +17,8 @@ public class PagingView: View {
 
     public var arrangedViewAtIndexDidBecomeVisible: IndexDispatchBlock?
     public var arrangedViewAtIndexDidBecomeInvisible: IndexDispatchBlock?
-    public var willBeginDragging: DispatchBlock?
-    public var didEndDragging: DispatchBlock?
+    public var willBeginDragging: Block?
+    public var didEndDragging: Block?
     public private(set) var pageControl: UIPageControl!
 
     private var scrollView: ScrollView!
@@ -30,8 +30,8 @@ public class PagingView: View {
 
     private var visibleViewIndexes = Set<Int>() {
         willSet {
-            let added = newValue.subtract(visibleViewIndexes)
-            let removed = visibleViewIndexes.subtract(newValue)
+            let added = newValue.subtracting(visibleViewIndexes)
+            let removed = visibleViewIndexes.subtracting(newValue)
             for index in added {
                 arrangedViewAtIndexDidBecomeVisible?(index)
             }
@@ -47,24 +47,23 @@ public class PagingView: View {
         }
     }
 
-    public func setPageControl(hidden hidden: Bool, animated: Bool = true) {
-        guard pageControl.hidden != hidden else {
+    public func setPageControl(isHidden: Bool, animated: Bool = true) {
+        guard pageControl.isHidden != isHidden else {
             return
         }
 
-        pageControl.hidden = false
+        pageControl.isHidden = false
 
         dispatchAnimated(
-            animated,
             animations: {
-                if hidden {
+                if isHidden {
                     self.pageControl.alpha = 0.0
                 } else {
                     self.pageControl.alpha = 1.0
                 }
             },
             completion: { _ in
-                self.pageControl.hidden = hidden
+                self.pageControl.isHidden = isHidden
             }
         )
     }
@@ -99,7 +98,7 @@ public class PagingView: View {
     }
 
     public func scrollToNextPage(animated: Bool = true) {
-        let nextPage = arrangedViews.circularIndex(currentPage + 1)
+        let nextPage = arrangedViews.index(withCircularIndex: currentPage + 1)
         scroll(toPage: nextPage, animated: animated)
     }
 
@@ -143,7 +142,7 @@ public class PagingView: View {
     private func addArrangedViews() {
         for view in arrangedViews {
             contentView.addSubview(view)
-            let leadingConstraint = view.leadingAnchor == contentView.leadingAnchor
+            let leadingConstraint: NSLayoutConstraint = view.leadingAnchor == contentView.leadingAnchor
             arrangedViewsLeadingConstraints.append(leadingConstraint)
             activateConstraints(
                 view.topAnchor == topAnchor,
@@ -155,22 +154,22 @@ public class PagingView: View {
     }
 
     private func updateContentSize() {
-        contentWidthConstraint.active = false
+        contentWidthConstraint.isActive = false
         contentWidthConstraint = contentView.widthAnchor == widthAnchor * CGFloat(slotsCount)
-        contentWidthConstraint.active = true
+        contentWidthConstraint.isActive = true
     }
 
     private func setupScrollView() {
         scrollView = ScrollView()
-        scrollView.makeTransparent(debugColor: .Red, debug: debug)
+        scrollView.makeTransparent(debugColor: .red, debug: debug)
         scrollView.delegate = self
-        scrollView.pagingEnabled = true
+        scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         addSubview(scrollView)
         scrollView.constrainToSuperview(identifier: "pagingScroll")
 
         contentView = PagingContentView()
-        contentView.makeTransparent(debugColor: .Blue, debug: debug)
+        contentView.makeTransparent(debugColor: .blue, debug: debug)
         scrollView.addSubview(contentView)
         contentView.constrainToSuperview(identifier: "pagingScrollContent")
         contentWidthConstraint = contentView.widthAnchor == 500
@@ -183,8 +182,8 @@ public class PagingView: View {
 
     private func setupPageControl() {
         pageControl = ~UIPageControl()
-        pageControl.makeTransparent(debugColor: .Red, debug: false)
-        pageControl.userInteractionEnabled = false
+        pageControl.makeTransparent(debugColor: .red, debug: false)
+        pageControl.isUserInteractionEnabled = false
         addSubview(pageControl)
         pageControlBottomConstraint = pageControl.bottomAnchor == bottomAnchor - 20 =&= UILayoutPriorityDefaultLow
         activateConstraints(
@@ -216,7 +215,7 @@ public class PagingView: View {
         let firstSlotIndex = Int(xOffset / bounds.width)
         for index in 0..<arrangedViews.count {
             let offsetIndex = index - Int(Double(arrangedViews.count) / 2.0 - 0.5)
-            let viewIndex = arrangedViews.circularIndex(firstSlotIndex + offsetIndex)
+            let viewIndex = arrangedViews.index(withCircularIndex: firstSlotIndex + offsetIndex)
             let slotIndex = circularIndex(firstSlotIndex + offsetIndex, count: slotsCount)
             let x = CGFloat(slotIndex) * bounds.width
             arrangedViewsLeadingConstraints[viewIndex].constant = x
@@ -246,8 +245,8 @@ public class PagingView: View {
 
     private func updateVisibleArrangedViews() {
         var newVisibleViewIndexes = Set<Int>()
-        for (index, view) in arrangedViews.enumerate() {
-            let r = convertRect(view.bounds, fromView: view)
+        for (index, view) in arrangedViews.enumerated() {
+            let r = convert(view.bounds, from: view)
             if r.intersects(bounds) {
                 newVisibleViewIndexes.insert(index)
             }
@@ -258,7 +257,7 @@ public class PagingView: View {
     private func updatePageControl() {
         let x = scrollView.contentOffset.x
         let page = Int(x / scrollView.bounds.width + 0.5)
-        let circularPage = arrangedViews.circularIndex(page)
+        let circularPage = arrangedViews.index(withCircularIndex: page)
         pageControl.currentPage = circularPage
     }
 
@@ -277,11 +276,11 @@ extension PagingView : UIScrollViewDelegate {
         setNeedsLayout()
     }
 
-    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         willBeginDragging?()
     }
 
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         didEndDragging?()
     }
 }

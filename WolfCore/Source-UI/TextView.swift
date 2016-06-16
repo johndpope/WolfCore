@@ -62,7 +62,7 @@ public class TextView: UITextView {
 extension TextView {
     func syncToTintColor() {
         if followsTintColor {
-            textColor = tintColor ?? .Black
+            textColor = tintColor ?? .black
         }
     }
 
@@ -96,10 +96,10 @@ extension TextView {
     }
 
     private func handleTap(fromRecognizer recognizer: UIGestureRecognizer) {
-        var location = recognizer.locationInView(self)
+        var location = recognizer.location(in: self)
         location.x -= textContainerInset.left
         location.y -= textContainerInset.top
-        let charIndex = layoutManager.characterIndexForPoint(location, inTextContainer: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        let charIndex = layoutManager.characterIndex(for: location, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
         if charIndex < textStorage.length {
             let attributedText = self.attributedText§
             for (tag, action) in tagTapActions {

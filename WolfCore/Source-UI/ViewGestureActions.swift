@@ -13,6 +13,6 @@ public class ViewGestureActions: GestureActions {
 
     public var tap: GestureBlock? {
         get { return getAction(forName: tapName) }
-        set { setTapAction(newValue, name: tapName) }
+        set { set(tapAction: newValue, name: tapName) }
     }
 }

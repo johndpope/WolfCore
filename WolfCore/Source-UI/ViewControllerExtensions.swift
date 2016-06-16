@@ -24,25 +24,25 @@ public struct AlertAction {
     }
 
     public static func newCancelAction(handler: AlertActionBlock? = nil) -> AlertAction {
-        return AlertAction(title: "Cancel"¶, style: .Cancel, identifier: "cancel", handler: handler)
+        return AlertAction(title: "Cancel"¶, style: .cancel, identifier: "cancel", handler: handler)
     }
 
     public static func newOKAction(handler: AlertActionBlock? = nil) -> AlertAction {
-        return AlertAction(title: "OK"¶, style: .Default, identifier: "ok", handler: handler)
+        return AlertAction(title: "OK"¶, style: .default, identifier: "ok", handler: handler)
     }
 }
 
 extension UIViewController {
-    public func present(alertController alertController: UIAlertController, animated: Bool = true, withIdentifier identifier: String, buttonIdentifiers: [String], didAppear: DispatchBlock? = nil) {
+    public func present(alertController: UIAlertController, animated: Bool = true, withIdentifier identifier: String, buttonIdentifiers: [String], didAppear: Block? = nil) {
         alertController.view.accessibilityIdentifier = identifier
-        presentViewController(alertController, animated: animated, completion: didAppear)
-        NSRunLoop.currentRunLoop().runOnce()
+        present(alertController, animated: animated, completion: didAppear)
+        RunLoop.current().runOnce()
         for i in 0..<buttonIdentifiers.count {
-            alertController.setAction(identifier: buttonIdentifiers[i], atIndex: i)
+            alertController.setAction(identifier: buttonIdentifiers[i], at: i)
         }
     }
 
-    private func presentAlertController(withPreferredStyle style: UIAlertControllerStyle, title: String?, message: String?, identifier: String, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .Any, actions: [AlertAction], didAppear: DispatchBlock?, didDisappear: DispatchBlock?) {
+    private func presentAlertController(withPreferredStyle style: UIAlertControllerStyle, title: String?, message: String?, identifier: String, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, actions: [AlertAction], didAppear: Block?, didDisappear: Block?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         if let popover = alert.popoverPresentationController {
             if let popoverSourceView = popoverSourceView {
@@ -70,37 +70,37 @@ extension UIViewController {
         present(alertController: alert, withIdentifier: identifier, buttonIdentifiers: buttonIdentifiers, didAppear: didAppear)
     }
 
-    public func presentAlert(withTitle title: String, message: String? = nil, identifier: String, actions: [AlertAction], didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
-        presentAlertController(withPreferredStyle: .Alert, title: title, message: message, identifier: identifier, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
+    public func presentAlert(withTitle title: String, message: String? = nil, identifier: String, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
+        presentAlertController(withPreferredStyle: .alert, title: title, message: message, identifier: identifier, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(withMessage message: String, identifier: String, actions: [AlertAction], didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
-        presentAlertController(withPreferredStyle: .Alert, title: nil, message: message, identifier: identifier, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
+    public func presentAlert(withMessage message: String, identifier: String, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
+        presentAlertController(withPreferredStyle: .alert, title: nil, message: message, identifier: identifier, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentSheet(withTitle title: String, message: String? = nil, identifier: String, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .Any, actions: [AlertAction], didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
-        presentAlertController(withPreferredStyle: .ActionSheet, title: title, message: message, identifier: identifier, popoverSourceView: popoverSourceView, popoverSourceRect: popoverSourceRect, popoverBarButtonItem: popoverBarButtonItem, popoverPermittedArrowDirections: popoverPermittedArrowDirections, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
+    public func presentSheet(withTitle title: String, message: String? = nil, identifier: String, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
+        presentAlertController(withPreferredStyle: .actionSheet, title: title, message: message, identifier: identifier, popoverSourceView: popoverSourceView, popoverSourceRect: popoverSourceRect, popoverBarButtonItem: popoverBarButtonItem, popoverPermittedArrowDirections: popoverPermittedArrowDirections, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentOKAlert(withTitle title: String, message: String, identifier: String, didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
+    public func presentOKAlert(withTitle title: String, message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
         presentAlert(withTitle: title, message: message, identifier: identifier, actions: [AlertAction.newOKAction()], didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentOKAlert(withMessage message: String, identifier: String, didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
+    public func presentOKAlert(withMessage message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
         presentAlert(withMessage: message, identifier: identifier, actions: [AlertAction.newOKAction()], didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: ErrorType, withTitle title: String, message: String, identifier: String, didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
+    public func presentAlert(forError errorType: ErrorProtocol, withTitle title: String, message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
         logError(errorType)
         presentOKAlert(withTitle: title, message: message, identifier: identifier, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: ErrorType, withMessage message: String, identifier: String, didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
+    public func presentAlert(forError errorType: ErrorProtocol, withMessage message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
         logError(errorType)
         presentOKAlert(withMessage: message, identifier: identifier, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: ErrorType, didAppear: DispatchBlock? = nil, didDisappear: DispatchBlock? = nil) {
+    public func presentAlert(forError errorType: ErrorProtocol, didAppear: Block? = nil, didDisappear: Block? = nil) {
         if let error = errorType as? Error {
             presentAlert(forError: error, withMessage: error.message, identifier: error.identifier, didAppear: didAppear)
         } else {

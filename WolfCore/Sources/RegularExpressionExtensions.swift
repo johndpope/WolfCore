@@ -8,19 +8,19 @@
 
 import Foundation
 
-extension NSRegularExpression {
-    public func firstMatch(inString string: String, options: NSMatchingOptions, range: StringRange? = nil) -> NSTextCheckingResult? {
+extension RegularExpression {
+    public func firstMatch(inString string: String, options: RegularExpression.MatchingOptions, range: StringRange? = nil) -> TextCheckingResult? {
         let range = range ?? string.range
-        let nsRange = string.nsRange(fromRange: range)!
-        return firstMatchInString(string, options: options, range: nsRange)
+        let nsRange = string.nsRange(from: range)!
+        return firstMatch(in: string, options: options, range: nsRange)
     }
 
-    public func matchedSubstringsInString(string: String, options: NSMatchingOptions = [], range: StringRange? = nil) -> [String]? {
+    public func matchedSubstrings(inString string: String, options: RegularExpression.MatchingOptions = [], range: StringRange? = nil) -> [String]? {
         var result: [String]! = nil
         if let textCheckingResult = self.firstMatch(inString: string, options: options, range: range) {
             result = [String]()
             for range in textCheckingResult.captureRanges(inString: string) {
-                let matchText = string.substringWithRange(range)
+                let matchText = string.substring(with: range)
                 result.append(matchText)
             }
         }

@@ -9,61 +9,66 @@
 import Foundation
 
 public enum HTTPMethod: String {
-    case GET = "GET"
-    case POST = "POST"
-    case HEAD = "HEAD"
-    case OPTIONS = "OPTIONS"
-    case PUT = "PUT"
-    case DELETE = "DELETE"
-    case TRACE = "TRACE"
-    case CONNECT = "CONNECT"
+    case get = "GET"
+    case post = "POST"
+    case head = "HEAD"
+    case options = "OPTIONS"
+    case put = "PUT"
+    case delete = "DELETE"
+    case trace = "TRACE"
+    case connect = "CONNECT"
 }
 
 public enum ContentType: String {
-    case JSON = "application/json"
-    case JPG = "image/jpeg"
-    case PNG = "image/png"
-    case HTML = "text/html"
-    case TXT = "text/plain"
+    case json = "application/json"
+    case jpg = "image/jpeg"
+    case png = "image/png"
+    case html = "text/html"
+    case txt = "text/plain"
 }
 
 public enum HeaderField: String {
-    case Accept = "Accept"
-    case ContentType = "Content-Type"
-    case Encoding = "Encoding"
-    case Authorization = "Authorization"
+    case accept = "Accept"
+    case contentType = "Content-Type"
+    case encoding = "Encoding"
+    case authorization = "Authorization"
+    case contentRange = "Content-Range"
+    case connection = "connection"
+    case uploadToken = "upload-token"
+    case contentLength = "Content-Length"
 }
 
 public enum StatusCode: Int {
-    case OK = 200
-    case Created = 201
-    case Accepted = 202
-    case NoContent = 204
+    case ok = 200
+    case created = 201
+    case accepted = 202
+    case noContent = 204
 
-    case BadRequest = 400
-    case Forbidden = 403
-    case NotFound = 404
+    case badRequest = 400
+    case unauthorized = 401
+    case forbidden = 403
+    case notFound = 404
 
-    case InternalServerError = 500
-    case NotImplemented = 501
-    case BadGateway = 502
-    case ServiceUnavailable = 503
-    case GatewayTimeout = 504
+    case internalServerError = 500
+    case notImplemented = 501
+    case badGateway = 502
+    case serviceUnavailable = 503
+    case gatewayTimeout = 504
 }
 
 public class HTTP {
-    public static func retrieve(withRequest request: NSMutableURLRequest, successStatusCodes: [StatusCode], name: String,
-                                            success: (NSHTTPURLResponse, NSData) -> Void,
+    public static func retrieve(withRequest request: URLRequest, successStatusCodes: [StatusCode], name: String,
+                                            success: (HTTPURLResponse, Data) -> Void,
                                             failure: ErrorBlock,
-                                            finally: DispatchBlock? = nil) {
+                                            finally: Block? = nil) {
 
-        let session = NSURLSession.sharedSession()
+        let session = URLSession.shared()
 
         #if os(iOS)
             let token = inFlightTracker.start(withName: name)
         #endif
 
-        let task = session.dataTaskWithRequest(request) { (let data, let response, let error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
 
                 #if os(iOS)
@@ -76,7 +81,7 @@ public class HTTP {
                 return
             }
 
-            guard let httpResponse = response as? NSHTTPURLResponse else {
+            guard let httpResponse = response as? HTTPURLResponse else {
                 #if os(iOS)
                     fatalError("\(token) improper response type: \(response)")
                 #else
@@ -123,7 +128,7 @@ public class HTTP {
             }
 
             #if os(iOS)
-                inFlightTracker.end(withToken: token, result: Result<NSHTTPURLResponse>.Success(httpResponse))
+                inFlightTracker.end(withToken: token, result: Result<HTTPURLResponse>.Success(httpResponse))
             #endif
 
             dispatchOnMain { success(httpResponse, data!) }
@@ -133,17 +138,18 @@ public class HTTP {
         task.resume()
     }
 
-    public static func retrieveJSON(withRequest request: NSMutableURLRequest, successStatusCodes: [StatusCode], name: String,
-                                                success: (NSHTTPURLResponse, JSONObject) -> Void,
+    public static func retrieveJSON(withRequest request: URLRequest, successStatusCodes: [StatusCode], name: String,
+                                                success: (HTTPURLResponse, JSONObject) -> Void,
                                                 failure: ErrorBlock,
-                                                finally: DispatchBlock? = nil) {
+                                                finally: Block? = nil) {
 
-        request.setValue(ContentType.JSON.rawValue, forHTTPHeaderField: HeaderField.Accept.rawValue)
+        var request = request
+        request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HeaderField.accept.rawValue)
 
         retrieve(withRequest: request, successStatusCodes: successStatusCodes, name: name,
                  success: { (response, data) in
                     do {
-                        let json = try JSON.decode(data)
+                        let json = try data |> Data.jsonObject
                         success(response, json)
                     } catch let error {
                         failure(error)
@@ -154,14 +160,13 @@ public class HTTP {
         )
     }
 
-    public static func retrieveImage(withURL url: NSURL, successStatusCodes: [StatusCode], name: String,
+    public static func retrieveImage(withURL url: URL, successStatusCodes: [StatusCode], name: String,
                                              success: (OSImage) -> Void,
                                              failure: ErrorBlock,
-                                             finally: DispatchBlock? = nil) {
+                                             finally: Block? = nil) {
 
-        let request = NSMutableURLRequest()
-        request.HTTPMethod = HTTPMethod.GET.rawValue
-        request.URL = url
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.get.rawValue
 
         retrieve(withRequest: request, successStatusCodes: successStatusCodes, name: name,
                  success: { (response, data) in

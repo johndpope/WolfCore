@@ -8,21 +8,19 @@
 
 import Foundation
 
-private var iso8601Formatter = ISO8601.formatter()
+private var iso8601Formatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sZ"
+    return formatter
+}()
 
-public class ISO8601 {
-    private static func formatter() -> NSDateFormatter {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sZ"
-        return formatter
+public struct ISO8601 {
+    public static func string(from date: Date) -> String {
+        return iso8601Formatter.string(from: date)
     }
 
-    public static func encode(date: NSDate) -> String {
-        return iso8601Formatter.stringFromDate(date)
-    }
-
-    public static func decode(string: String) throws -> NSDate {
-        if let date = iso8601Formatter.dateFromString(string) {
+    public static func date(from string: String) throws -> NSDate {
+        if let date = iso8601Formatter.date(from: string) {
             let timeInterval = date.timeIntervalSinceReferenceDate
             return NSDate(timeIntervalSinceReferenceDate: timeInterval)
         } else {

@@ -93,15 +93,15 @@ public struct Color {
     // swiftlint:disable cyclomatic_complexity
 
     public init(hue h: Frac, saturation s: Frac, brightness v: Frac, alpha a: Frac = 1.0) {
-        let v = Math.clamp(v, 0.0...1.0)
-        let s = Math.clamp(s, 0.0...1.0)
+        let v = v.clamped
+        let s = s.clamped
         alpha = a
         if s <= 0.0 {
             red = v
             green = v
             blue = v
         } else {
-            var h = h % 1.0
+            var h = h.truncatingRemainder(dividingBy: 1.0)
             if h < 0.0 { h += 1.0 }
             h *= 6.0
             let i = Int(floor(h))
@@ -123,38 +123,38 @@ public struct Color {
 
     // swiftlint:enable cyclomatic_complexity
 
-    private static func components(forSingleHexStrings strings: [String], inout components: [Double]) throws {
-        for (index, string) in strings.enumerate() {
-            let i = try Hex.decode(string)
+    private static func components(forSingleHexStrings strings: [String], components: inout [Double]) throws {
+        for (index, string) in strings.enumerated() {
+            let i = try string |> Hex.int
             components[index] = Double(i) / 15.0
         }
     }
 
-    private static func components(forDoubleHexStrings strings: [String], inout components: [Double]) throws {
-        for (index, string) in strings.enumerate() {
-            let i = try Hex.decode(string)
+    private static func components(forDoubleHexStrings strings: [String], components: inout [Double]) throws {
+        for (index, string) in strings.enumerated() {
+            let i = try string |> Hex.int
             components[index] = Double(i) / 255.0
         }
     }
 
-    private static func components(forFloatStrings strings: [String], inout components: [Double]) throws {
-        for (index, string) in strings.enumerate() {
+    private static func components(forFloatStrings strings: [String], components: inout [Double]) throws {
+        for (index, string) in strings.enumerated() {
             if let f = Double(string) {
                 components[index] = Double(f)
             }
         }
     }
 
-    private static func components(forLabeledStrings strings: [String], inout components: [Double]) throws {
-        for (index, string) in strings.enumerate() {
+    private static func components(forLabeledStrings strings: [String], components: inout [Double]) throws {
+        for (index, string) in strings.enumerated() {
             if let f = Double(string) {
                 components[index] = Double(f)
             }
         }
     }
 
-    private static func components(forLabeledHSBStrings strings: [String], inout components: [Double]) throws {
-        for (index, string) in strings.enumerate() {
+    private static func components(forLabeledHSBStrings strings: [String], components: inout [Double]) throws {
+        for (index, string) in strings.enumerated() {
             if let f = Double(string) {
                 components[index] = Double(f)
             }
@@ -165,15 +165,15 @@ public struct Color {
         var components: [Double] = [0.0, 0.0, 0.0, 1.0]
         var isHSB = false
 
-        if let strings = singleHexColorRegex.matchedSubstringsInString(s) {
+        if let strings = singleHexColorRegex.matchedSubstrings(inString: s) {
             try self.dynamicType.components(forSingleHexStrings: strings, components: &components)
-        } else if let strings = doubleHexColorRegex.matchedSubstringsInString(s) {
+        } else if let strings = doubleHexColorRegex.matchedSubstrings(inString: s) {
             try self.dynamicType.components(forDoubleHexStrings: strings, components: &components)
-        } else if let strings = floatColorRegex.matchedSubstringsInString(s) {
+        } else if let strings = floatColorRegex.matchedSubstrings(inString: s) {
             try self.dynamicType.components(forFloatStrings: strings, components: &components)
-        } else if let strings = labeledColorRegex.matchedSubstringsInString(s) {
+        } else if let strings = labeledColorRegex.matchedSubstrings(inString: s) {
             try self.dynamicType.components(forLabeledStrings: strings, components: &components)
-        } else if let strings = labeledHSBColorRegex.matchedSubstringsInString(s) {
+        } else if let strings = labeledHSBColorRegex.matchedSubstrings(inString: s) {
             isHSB = true
             try self.dynamicType.components(forLabeledHSBStrings: strings, components: &components)
         } else {
@@ -187,7 +187,7 @@ public struct Color {
         }
     }
 
-    public static func randomColor(random: Random = Random.sharedInstance, alpha: Frac = 1.0) -> Color {
+    public static func random(random: Random = Random.sharedInstance, alpha: Frac = 1.0) -> Color {
         return Color(
             red: random.randomDouble(),
             green: random.randomDouble(),
@@ -201,32 +201,40 @@ public struct Color {
         return red * 0.2126 + green * 0.7152 + blue * 0.0722
     }
 
-    public func multipliedBy(rhs: Frac) -> Color {
+    public func multiplied(by rhs: Frac) -> Color {
         return Color(red: red * rhs, green: green * rhs, blue: blue * rhs, alpha: alpha * rhs)
     }
 
-    public func addedTo(rhs: Color) -> Color {
+    public func added(to rhs: Color) -> Color {
         return Color(red: red + rhs.red, green: green + rhs.green, blue: blue + rhs.blue, alpha: alpha + rhs.alpha)
     }
 
-    public func lightened(frac: Frac) -> Color {
+    public func lightened(by frac: Frac) -> Color {
         return Color(
-            red: Math.denormalize(frac, red, 1),
-            green: Math.denormalize(frac, green, 1),
-            blue: Math.denormalize(frac, blue, 1),
+            red: frac.mapped(to: red..1),
+            green: frac.mapped(to: green..1),
+            blue: frac.mapped(to: blue..1),
             alpha: alpha)
     }
 
-    public func darkened(frac: Frac) -> Color {
+    public static func lightened(by frac: Frac) -> (Color) -> Color {
+        return { color in color.lightened(by: frac) }
+    }
+
+    public func darkened(by frac: Frac) -> Color {
         return Color(
-            red: Math.denormalize(frac, red, 0),
-            green: Math.denormalize(frac, green, 0),
-            blue: Math.denormalize(frac, blue, 0),
+            red: frac.mapped(to: red..0),
+            green: frac.mapped(to: green..0),
+            blue: frac.mapped(to: blue..0),
             alpha: alpha)
     }
 
-    // Identity fraction is 0.0
-    public func dodged(frac: Frac) -> Color {
+    public static func darkened(by frac: Frac) -> (Color) -> Color {
+        return { color in color.darkened(by: frac) }
+    }
+
+    /// Identity fraction is 0.0
+    public func dodged(by frac: Frac) -> Color {
         let f = max(1.0 - frac, 1.0e-7)
         return Color(
             red: min(red / f, 1.0),
@@ -235,8 +243,12 @@ public struct Color {
             alpha: alpha)
     }
 
-    // Identity fraction is 0.0
-    public func burned(frac: Frac) -> Color {
+    public static func dodged(by frac: Frac) -> (Color) -> Color {
+        return { color in color.dodged(by: frac) }
+    }
+
+    /// Identity fraction is 0.0
+    public func burned(by frac: Frac) -> Color {
         let f = max(1.0 - frac, 1.0e-7)
         return Color(
             red: min(1.0 - (1.0 - red) / f, 1.0),
@@ -245,35 +257,39 @@ public struct Color {
             alpha: alpha)
     }
 
-    public static let Black = Color(red: 0, green: 0, blue: 0)
-    public static let DarkGray = Color(red: 1 / 3.0, green: 1 / 3.0, blue: 1 / 3.0)
-    public static let LightGray = Color(red: 2 / 3.0, green: 2 / 3.0, blue: 2 / 3.0)
-    public static let White = Color(red: 1, green: 1, blue: 1)
-    public static let Gray = Color(red: 0.5, green: 0.5, blue: 0.5)
-    public static let Red = Color(red: 1, green: 0, blue: 0)
-    public static let Green = Color(red: 0, green: 1, blue: 0)
-    public static let DarkGreen = Color(red: 0, green: 0.5, blue: 0)
-    public static let Blue = Color(red: 0, green: 0, blue: 1)
-    public static let Cyan = Color(red: 0, green: 1, blue: 1)
-    public static let Yellow = Color(red: 1, green: 1, blue: 0)
-    public static let Magenta = Color(red: 1, green: 0, blue: 1)
-    public static let Orange = Color(red: 1, green: 0.5, blue: 0)
-    public static let Purple = Color(red: 0.5, green: 0, blue: 0.5)
-    public static let Brown = Color(red: 0.6, green: 0.4, blue: 0.2)
-    public static let Clear = Color(red: 0, green: 0, blue: 0, alpha: 0)
+    public static func burned(by frac: Frac) -> (Color) -> Color {
+        return { color in color.burned(by: frac) }
+    }
 
-    public static let Chartreuse = blend(.Yellow, .Green, frac: 0.5)
-    public static let Gold = Color(redByte: 251, greenByte: 212, blueByte: 55)
-    public static let BlueGreen = Color(redByte: 0, greenByte: 169, blueByte: 149)
-    public static let MediumBlue = Color(redByte: 0, greenByte: 110, blueByte: 185)
-    public static let DeepBlue = Color(redByte: 60, greenByte: 55, blueByte: 149)
+    public static let black = Color(red: 0, green: 0, blue: 0)
+    public static let darkGray = Color(red: 1 / 3.0, green: 1 / 3.0, blue: 1 / 3.0)
+    public static let lightGray = Color(red: 2 / 3.0, green: 2 / 3.0, blue: 2 / 3.0)
+    public static let white = Color(red: 1, green: 1, blue: 1)
+    public static let gray = Color(red: 0.5, green: 0.5, blue: 0.5)
+    public static let red = Color(red: 1, green: 0, blue: 0)
+    public static let green = Color(red: 0, green: 1, blue: 0)
+    public static let darkGreen = Color(red: 0, green: 0.5, blue: 0)
+    public static let blue = Color(red: 0, green: 0, blue: 1)
+    public static let cyan = Color(red: 0, green: 1, blue: 1)
+    public static let yellow = Color(red: 1, green: 1, blue: 0)
+    public static let magenta = Color(red: 1, green: 0, blue: 1)
+    public static let orange = Color(red: 1, green: 0.5, blue: 0)
+    public static let purple = Color(red: 0.5, green: 0, blue: 0.5)
+    public static let brown = Color(red: 0.6, green: 0.4, blue: 0.2)
+    public static let clear = Color(red: 0, green: 0, blue: 0, alpha: 0)
+
+    public static let chartreuse = blend(from: .yellow, to: .green, at: 0.5)
+    public static let gold = Color(redByte: 251, greenByte: 212, blueByte: 55)
+    public static let blueGreen = Color(redByte: 0, greenByte: 169, blueByte: 149)
+    public static let mediumBlue = Color(redByte: 0, greenByte: 110, blueByte: 185)
+    public static let deepBlue = Color(redByte: 60, greenByte: 55, blueByte: 149)
 
 }
 
 #if os(OSX) || os(iOS) || os(tvOS)
 extension Color {
     public var cgColor: CGColor {
-        return CGColorCreate(sharedColorSpaceRGB, [CGFloat(red), CGFloat(green), CGFloat(blue), CGFloat(alpha)])!
+        return CGColor(colorSpace: sharedColorSpaceRGB, components: [CGFloat(red), CGFloat(green), CGFloat(blue), CGFloat(alpha)])!
     }
 }
 #endif
@@ -344,9 +360,54 @@ extension Color {
 }
 
 public func * (lhs: Color, rhs: Frac) -> Color {
-    return lhs.multipliedBy(rhs)
+    return lhs.multiplied(by: rhs)
 }
 
 public func + (lhs: Color, rhs: Color) -> Color {
-    return lhs.addedTo(rhs)
+    return lhs.added(to: rhs)
+}
+
+extension Color {
+    public init(cgColor: CGColor) {
+        switch cgColor.colorSpace!.model {
+        case .monochrome:
+            let c = cgColor.components!
+            let white = Double(c[0])
+            let alpha = Double(c[1])
+            self.init(white: white, alpha: alpha)
+        case .RGB:
+            let c = cgColor.components!
+            let red = Double(c[0])
+            let green = Double(c[1])
+            let blue = Double(c[2])
+            let alpha = Double(c[3])
+            self.init(red: red, green: green, blue: blue, alpha: alpha)
+        default:
+            fatalError("unsupported color model")
+        }
+    }
+
+    public static func toCGColor(from color: Color) -> CGColor {
+        let red = CGFloat(color.red)
+        let green = CGFloat(color.green)
+        let blue = CGFloat(color.blue)
+        let alpha = CGFloat(color.alpha)
+
+        return CGColor(colorSpace: sharedColorSpaceRGB, components: [red, green, blue, alpha])!
+    }
+}
+
+extension CGColor {
+//    public convenience init(color: Color) {
+//        let red = CGFloat(color.red)
+//        let green = CGFloat(color.green)
+//        let blue = CGFloat(color.blue)
+//        let alpha = CGFloat(color.alpha)
+//
+//        self.init(colorSpace: sharedColorSpaceRGB, components: [red, green, blue, alpha])!
+//    }
+
+    public static func toColor(from cgColor: CGColor) -> Color {
+        return Color(cgColor: cgColor)
+    }
 }

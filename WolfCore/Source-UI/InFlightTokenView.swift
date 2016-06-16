@@ -29,9 +29,9 @@ class InFlightTokenView: View {
         let fontSize: CGFloat = 10
 
         let label = Label()
-        label.makeTransparent(debugColor: .Purple, debug: false)
-        label.textColor = .White
-        label.font = UIFont.systemFontOfSize(fontSize)
+        label.makeTransparent(debugColor: .purple, debug: false)
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: fontSize)
         label.shadowColor = UIColor(white: 0.0, alpha: 0.5)
         label.shadowOffset = CGSize(width: 1.0, height: 1.0)
 
@@ -40,14 +40,14 @@ class InFlightTokenView: View {
 
     override func setup() {
         super.setup()
-        makeTransparent(debugColor: .Yellow, debug: false)
+        makeTransparent(debugColor: .yellow, debug: false)
         transparentToTouches = true
 
         layer.cornerRadius = self.dynamicType.viewHeight / 2
         layer.borderWidth = 1.0
 
         idLabel = createLabel()
-        idLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        idLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
         addSubview(idLabel)
 
         activateConstraints(
@@ -55,27 +55,29 @@ class InFlightTokenView: View {
             idLabel.centerYAnchor == centerYAnchor
         )
 
-        nameLabel = createLabel()
-        nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.minimumScaleFactor = 0.7
-        nameLabel.allowsDefaultTighteningForTruncation = true
-        nameLabel.baselineAdjustment = .AlignCenters
-        nameLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
-        addSubview(nameLabel)
+        nameLabel = createLabel() |> {
+            $0.adjustsFontSizeToFitWidth = true
+            $0.minimumScaleFactor = 0.7
+            $0.allowsDefaultTighteningForTruncation = true
+            $0.baselineAdjustment = .alignCenters
+            $0.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, for: .horizontal)
+            self.addSubview($0)
 
-        activateConstraints(
-            nameLabel.centerXAnchor == centerXAnchor =&= UILayoutPriorityDefaultHigh,
-            nameLabel.centerYAnchor == centerYAnchor
-        )
+            activateConstraints(
+                $0.centerXAnchor == self.centerXAnchor =&= UILayoutPriorityDefaultHigh,
+                $0.centerYAnchor == self.centerYAnchor
+            )
+        }
 
-        resultLabel = createLabel()
-        resultLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
-        addSubview(resultLabel)
+        resultLabel = createLabel() |> {
+            $0.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+            self.addSubview($0)
 
-        activateConstraints(
-            resultLabel.trailingAnchor == trailingAnchor - 5,
-            resultLabel.centerYAnchor == centerYAnchor
-        )
+            activateConstraints(
+                $0.trailingAnchor == self.trailingAnchor - 5,
+                $0.centerYAnchor == self.centerYAnchor
+            )
+        }
 
         activateConstraints(
             nameLabel.leadingAnchor >= idLabel.trailingAnchor + 5,
@@ -87,9 +89,9 @@ class InFlightTokenView: View {
         return CGSize(width: UIViewNoIntrinsicMetric, height: self.dynamicType.viewHeight)
     }
 
-    private static let runningColor = UIColor.Yellow
-    private static let successColor = UIColor.Green
-    private static let failureColor = UIColor.Red
+    private static let runningColor = UIColor.yellow
+    private static let successColor = UIColor.green
+    private static let failureColor = UIColor.red
 
     private func syncToToken() {
         guard let token = token else { return }
@@ -107,8 +109,8 @@ class InFlightTokenView: View {
             color = self.dynamicType.runningColor
         }
 
-        backgroundColor = color.colorWithAlphaComponent(0.4)
-        layer.borderColor = color.colorWithAlphaComponent(0.6).CGColor
+        backgroundColor = color.withAlphaComponent(0.4)
+        layer.borderColor = color.withAlphaComponent(0.6).cgColor
 
         resultLabel.text = resultText
     }

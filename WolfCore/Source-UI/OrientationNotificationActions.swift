@@ -10,22 +10,22 @@ import UIKit
 
 public class OrientationNotificationActions: NotificationActions {
     public var didChangeStatusBarOrientation: NotificationBlock? {
-        get { return getAction(forName: UIApplicationDidChangeStatusBarOrientationNotification) }
-        set { setAction(newValue, object: nil, name: UIApplicationDidChangeStatusBarOrientationNotification) }
+        get { return getAction(forName: .UIApplicationDidChangeStatusBarOrientation) }
+        set { setAction(using: newValue, object: nil, name: .UIApplicationDidChangeStatusBarOrientation) }
     }
 
     public var willChangeStatusBarFrame: NotificationBlock? {
-        get { return getAction(forName: UIApplicationWillChangeStatusBarFrameNotification) }
-        set { setAction(newValue, object: nil, name: UIApplicationWillChangeStatusBarFrameNotification) }
+        get { return getAction(forName: .UIApplicationWillChangeStatusBarFrame) }
+        set { setAction(using: newValue, object: nil, name: .UIApplicationWillChangeStatusBarFrame) }
     }
 
     public var didChangeStatusBarFrame: NotificationBlock? {
-        get { return getAction(forName: UIApplicationDidChangeStatusBarFrameNotification) }
-        set { setAction(newValue, object: nil, name: UIApplicationDidChangeStatusBarFrameNotification) }
+        get { return getAction(forName: .UIApplicationDidChangeStatusBarFrame) }
+        set { setAction(using: newValue, object: nil, name: .UIApplicationDidChangeStatusBarFrame) }
     }
 
     public var backgroundRefreshStatusDidChange: NotificationBlock? {
-        get { return getAction(forName: UIApplicationBackgroundRefreshStatusDidChangeNotification) }
-        set { setAction(newValue, object: nil, name: UIApplicationBackgroundRefreshStatusDidChangeNotification) }
+        get { return getAction(forName: .UIApplicationBackgroundRefreshStatusDidChange) }
+        set { setAction(using: newValue, object: nil, name: .UIApplicationBackgroundRefreshStatusDidChange) }
     }
 }

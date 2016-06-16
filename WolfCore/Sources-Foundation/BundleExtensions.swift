@@ -8,18 +8,27 @@
 
 import Foundation
 
-/// WolfCore.BundleClass.self can be used as an argument to the NSBundle.findBundle(forClass:) method to search within this framework bundle.
+/// WolfCore.BundleClass.self can be used as an argument to the Bundle.findBundle(forClass:) method to search within this framework bundle.
 public class BundleClass { }
 
-extension NSBundle {
-    /// Similar to NSBundle.bundleForClass, except if aClass is nil (or omitted) the main bundle is returned
-    public static func findBundle(forClass aClass: AnyClass? = nil) -> NSBundle {
-        let bundle: NSBundle
+extension Bundle {
+    /// Similar to Bundle.bundleForClass, except if aClass is nil (or omitted) the main bundle is returned
+    public static func findBundle(forClass aClass: AnyClass? = nil) -> Bundle {
+        let bundle: Bundle
         if let aClass = aClass {
-            bundle = NSBundle(forClass: aClass)
+            bundle = Bundle(for: aClass)
         } else {
-            bundle = NSBundle.mainBundle()
+            bundle = Bundle.main()
         }
         return bundle
+    }
+
+    public static func urlForResource(_ name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil) -> (Bundle) throws -> URL {
+        return { bundle in
+            guard let url = bundle.urlForResource(name, withExtension: anExtension, subdirectory: subpath) else {
+                throw GeneralError(message: "Resource not found.")
+            }
+            return url
+        }
     }
 }

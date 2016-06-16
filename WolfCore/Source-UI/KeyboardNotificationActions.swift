@@ -10,22 +10,22 @@ import UIKit
 
 public class KeyboardNotificationActions: NotificationActions {
     public var willShow: NotificationBlock? {
-        get { return getAction(forName: UIKeyboardWillShowNotification) }
-        set { setAction(newValue, object: nil, name: UIKeyboardWillShowNotification) }
+        get { return getAction(forName: .UIKeyboardWillShow) }
+        set { setAction(using: newValue, object: nil, name: .UIKeyboardWillShow) }
     }
 
     public var didShow: NotificationBlock? {
-        get { return getAction(forName: UIKeyboardDidShowNotification) }
-        set { setAction(newValue, object: nil, name: UIKeyboardDidShowNotification) }
+        get { return getAction(forName: .UIKeyboardDidShow) }
+        set { setAction(using: newValue, object: nil, name: .UIKeyboardDidShow) }
     }
 
     public var willHide: NotificationBlock? {
-        get { return getAction(forName: UIKeyboardWillHideNotification) }
-        set { setAction(newValue, object: nil, name: UIKeyboardWillHideNotification) }
+        get { return getAction(forName: .UIKeyboardWillHide) }
+        set { setAction(using: newValue, object: nil, name: .UIKeyboardWillHide) }
     }
 
     public var didHide: NotificationBlock? {
-        get { return getAction(forName: UIKeyboardDidHideNotification) }
-        set { setAction(newValue, object: nil, name: UIKeyboardDidHideNotification) }
+        get { return getAction(forName: .UIKeyboardDidHide) }
+        set { setAction(using: newValue, object: nil, name: .UIKeyboardDidHide) }
     }
 }

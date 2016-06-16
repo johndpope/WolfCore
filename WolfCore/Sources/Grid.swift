@@ -14,11 +14,11 @@ public class Grid<T: Equatable>: Equatable {
 
     public init(size: IntSize, initialValue: T) {
         self.size = size
-        let row = [T](count: size.width, repeatedValue: initialValue)
-        rows = [[T]](count: size.height, repeatedValue: row)
+        let row = [T](repeating: initialValue, count: size.width)
+        rows = [[T]](repeating: row, count: size.height)
     }
 
-    public func isCoordinateValid(point: IntPoint) -> Bool {
+    public func isValid(coordinate point: IntPoint) -> Bool {
         guard point.x >= 0 else { return false }
         guard point.y >= 0 else { return false }
         guard point.x < size.width else { return false }
@@ -26,33 +26,33 @@ public class Grid<T: Equatable>: Equatable {
         return true
     }
 
-    public func checkCoodinateValid(point: IntPoint) throws {
-        guard isCoordinateValid(point) else { throw ValidationError(message: "Invalid coordinate: \(point)", violation: "gridCoord") }
+    public func checkValid(coordinate coord: IntPoint) throws {
+        guard isValid(coordinate: coord) else { throw ValidationError(message: "Invalid coordinate: \(coord)", violation: "gridCoord") }
     }
 
-    public func get(point: IntPoint) throws -> T {
-        try checkCoodinateValid(point)
-        return rows[point.y][point.x]
+    public func getValue(atCoordinate coord: IntPoint) throws -> T {
+        try checkValid(coordinate: coord)
+        return rows[coord.y][coord.x]
     }
 
-    public func set(point: IntPoint, value: T) throws {
-        try checkCoodinateValid(point)
+    public func setValue(_ value: T, atCoordinate point: IntPoint) throws {
+        try checkValid(coordinate: point)
         rows[point.y][point.x] = value
     }
 
-    public func getCircular(point: IntPoint) -> T {
-        let cx = circularIndex(point.y, count: size.height)
-        let cy = circularIndex(point.x, count: size.width)
-        return try! get(IntPoint(x: cx, y: cy))
+    public func getValue(atCircularCoordinate coord: IntPoint) -> T {
+        let cx = circularIndex(coord.y, count: size.height)
+        let cy = circularIndex(coord.x, count: size.width)
+        return try! getValue(atCoordinate: IntPoint(x: cx, y: cy))
     }
 
-    public func setCircular(point: IntPoint, value: T) {
-        let cx = circularIndex(point.y, count: size.height)
-        let cy = circularIndex(point.x, count: size.width)
-        try! set(IntPoint(x: cx, y: cy), value: value)
+    public func setValue(_ value: T, atCircularCoordinate coord: IntPoint) {
+        let cx = circularIndex(coord.y, count: size.height)
+        let cy = circularIndex(coord.x, count: size.width)
+        try! setValue(value, atCoordinate: IntPoint(x: cx, y: cy))
     }
 
-    public func forAll(f: (IntPoint) -> Void) {
+    public func forAll(_ f: (IntPoint) -> Void) {
         for y in 0..<size.height {
             for x in 0..<size.width {
                 f(IntPoint(x: x, y: y))
@@ -60,13 +60,13 @@ public class Grid<T: Equatable>: Equatable {
         }
     }
 
-    public func setAll(value: T) {
+    public func setAll(_ value: T) {
         forAll { p in
             self[p] = value
         }
     }
 
-    public func forNeighborhoodAtPoint(point: IntPoint, f: (o: IntPoint, p: IntPoint) -> Void) {
+    public func forNeighborhood(at point: IntPoint, f: (o: IntPoint, p: IntPoint) -> Void) {
         for oy in -1..<1 {
             for ox in -1..<1 {
                 let o = IntPoint(x: ox, y: oy)
@@ -77,8 +77,8 @@ public class Grid<T: Equatable>: Equatable {
     }
 
     public subscript(point: IntPoint) -> T {
-        get { return try! self.get(point) }
-        set { try! self.set(point, value: newValue) }
+        get { return try! self.getValue(atCoordinate: point) }
+        set { try! self.setValue(newValue, atCoordinate: point) }
     }
 
     public subscript(x: Int, y: Int) -> T {
@@ -86,13 +86,13 @@ public class Grid<T: Equatable>: Equatable {
         set { self[IntPoint(x: x, y: y)] = newValue }
     }
 
-    public func equals(g: Grid<T>) -> Bool {
+    public func equals(_ g: Grid<T>) -> Bool {
         guard size == g.size else { return false }
         return true
     }
 
     public var stringRepresentation: String {
-        return rows.map { $0.map { return "\($0)" }.joinWithSeparator(" ") }.joinWithSeparator("\n")
+        return rows.map { $0.map { return "\($0)" }.joined(separator: " ") }.joined(separator: "\n")
     }
 
     public func print() {

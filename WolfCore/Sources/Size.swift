@@ -50,7 +50,7 @@ extension Size {
         return width / height
     }
 
-    public func scaleForAspectFitWithinSize(size: Size) -> Double {
+    public func scaleForAspectFit(within size: Size) -> Double {
         if size.width != Size.None && size.height != Size.None {
             return min(size.width / width, size.height / height)
         } else if size.width != Size.None {
@@ -60,7 +60,7 @@ extension Size {
         }
     }
 
-    public func scaleForAspectFillWithinSize(size: Size) -> Double {
+    public func scaleForAspectFill(within size: Size) -> Double {
         if size.width != Size.None && size.height != Size.None {
             return max(size.width / width, size.height / height)
         } else if size.width != Size.None {
@@ -70,13 +70,13 @@ extension Size {
         }
     }
 
-    public func aspectFitWithinSize(size: Size) -> Size {
-        let scale = scaleForAspectFitWithinSize(size)
+    public func aspectFit(within size: Size) -> Size {
+        let scale = scaleForAspectFit(within: size)
         return Size(vector: Vector(size: self) * scale)
     }
 
-    public func aspectFillWithinSize(size: Size) -> Size {
-        let scale = scaleForAspectFillWithinSize(size)
+    public func aspectFill(within size: Size) -> Size {
+        let scale = scaleForAspectFill(within: size)
         return Size(vector: Vector(size: self) * scale)
     }
 }

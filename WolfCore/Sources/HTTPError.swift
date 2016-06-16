@@ -9,16 +9,16 @@
 import Foundation
 
 public struct HTTPError: Error {
-    public let response: NSHTTPURLResponse
-    public let data: NSData?
+    public let response: HTTPURLResponse
+    public let data: Data?
 
-    public init(response: NSHTTPURLResponse, data: NSData? = nil) {
+    public init(response: HTTPURLResponse, data: Data? = nil) {
         self.response = response
         self.data = data
     }
 
     public var message: String {
-        return NSHTTPURLResponse.localizedStringForStatusCode(response.statusCode)
+        return HTTPURLResponse.localizedString(forStatusCode: response.statusCode)
     }
 
     public var code: Int {
@@ -36,7 +36,7 @@ public struct HTTPError: Error {
     public var json: JSONObject? {
         guard let data = data else { return nil }
         do {
-            return try JSON.decode(data)
+            return try data |> Data.jsonObject
         } catch {
             return nil
         }

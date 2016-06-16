@@ -23,7 +23,7 @@ public class InFlightTracker {
         }
     }
 
-    public func setup(withView withView: Bool) {
+    public func setup(withView: Bool) {
         inFlightTracker = InFlightTracker()
         if withView {
             inFlightView = InFlightView()
@@ -35,7 +35,7 @@ public class InFlightTracker {
 
     public func syncToHidden() {
         logTrace("syncToHidden: \(hidden)", group: inFlightLogGroup)
-        inFlightView.hidden = hidden
+        inFlightView.isHidden = hidden
     }
 
     public func start(withName name: String) -> InFlightToken {
@@ -68,7 +68,7 @@ public func testInFlightTracker() {
         case 0.4..<0.8:
             if testTokens.count > 0 {
                 let index = Random.randomInt(0..<testTokens.count)
-                let token = testTokens.removeAtIndex(index)
+                let token = testTokens.remove(at: index)
                 let result = Random.randomBoolean() ? Result<Int>.Success(0) : Result<Int>.Failure(GeneralError(message: "err"))
                 inFlightTracker.end(withToken: token, result: result)
             }

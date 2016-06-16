@@ -22,7 +22,7 @@ extension UIViewController {
             let joiner = Joiner()
 
             var isRootPrefix = "⬜️"
-            for window in UIApplication.sharedApplication().windows {
+            for window in UIApplication.shared().windows {
                 if let rootViewController = window.rootViewController {
                     if controller == rootViewController {
                         isRootPrefix = "🌳"
@@ -40,7 +40,7 @@ extension UIViewController {
                     }
                 }
 
-                controller.childViewControllers.reverse().forEach { childController in
+                controller.childViewControllers.reversed().forEach { childController in
                     stack.append((childController, level + 1, indent + "  |"))
                 }
             }
@@ -70,5 +70,5 @@ extension UIViewController {
 }
 
 public func printRootControllerHierarchy() {
-    UIApplication.sharedApplication().windows[0].rootViewController?.printControllerHierarchy()
+    UIApplication.shared().windows[0].rootViewController?.printControllerHierarchy()
 }

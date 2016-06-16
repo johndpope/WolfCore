@@ -12,34 +12,34 @@ public typealias ColorFracHandle = (color: Color, frac: Double, handle: Double)
 
 public struct Gradient {
 
-    public static let grayscale = blend(.Black, .White)
+    public static let grayscale = blend(from: .black, to: .white)
 
     // Color Harmonies, Analogous
-    public static let goldRedOrange = threeColor(.Gold, .Red, .Orange)
-    public static let bluegreenBlueGreen = threeColor(.BlueGreen, .MediumBlue, .DarkGreen)
-    public static let blueMagentaRed = threeColor(.DeepBlue, .Magenta, .Red)
-    public static let yellowGoldGreen = threeColor(.Yellow, .Gold, .DarkGreen)
-    public static let chartreuseYellowGreen = threeColor(.Chartreuse, .Yellow, .DarkGreen)
+    public static let goldRedOrange = threeColor(.gold, .red, .orange)
+    public static let bluegreenBlueGreen = threeColor(.blueGreen, .mediumBlue, .darkGreen)
+    public static let blueMagentaRed = threeColor(.deepBlue, .magenta, .red)
+    public static let yellowGoldGreen = threeColor(.yellow, .gold, .darkGreen)
+    public static let chartreuseYellowGreen = threeColor(.chartreuse, .yellow, .darkGreen)
 
     // Color Harmonies, Primary Complementary
-    public static let orangeMediumblue = twoColor(.Orange, .MediumBlue)
-    public static let purpleGold = twoColor(.Purple, .Gold)
-    public static let redGreen = twoColor(.Red, .DarkGreen)
+    public static let orangeMediumblue = twoColor(.orange, .mediumBlue)
+    public static let purpleGold = twoColor(.purple, .gold)
+    public static let redGreen = twoColor(.red, .darkGreen)
 
     // Color Harmonies, Secondary Complementary
-    public static let chartreusePurple = twoColor(.Chartreuse, .Purple)
-    public static let greenOrange = twoColor(.DarkGreen, .Orange)
-    public static let deepblueOrange = twoColor(.DeepBlue, .Orange)
+    public static let chartreusePurple = twoColor(.chartreuse, .purple)
+    public static let greenOrange = twoColor(.darkGreen, .orange)
+    public static let deepblueOrange = twoColor(.deepBlue, .orange)
 
     // Color Harmonies, Split Complementary
-    public static let bluePurpleOrange = threeColor(.MediumBlue, .Purple, .Orange)
-    public static let yellowBluePurple = threeColor(.Yellow, .MediumBlue, .Purple)
-    public static let chartreuseBlueRed = threeColor(.Chartreuse, .DeepBlue, .Red)
-    public static let greenMagentaOrange = threeColor(.DarkGreen, .Magenta, .Orange)
-    public static let bluegreenRedOrange = threeColor(.BlueGreen, .Red, .Orange)
-    public static let orangeBlueOrange = threeColor(.Orange, .MediumBlue, .Orange)
-    public static let goldPurpleOrange = threeColor(.Gold, .Purple, .Orange)
-    public static let chartreuseBlueOrange = threeColor(.Chartreuse, .DeepBlue, .Orange)
+    public static let bluePurpleOrange = threeColor(.mediumBlue, .purple, .orange)
+    public static let yellowBluePurple = threeColor(.yellow, .mediumBlue, .purple)
+    public static let chartreuseBlueRed = threeColor(.chartreuse, .deepBlue, .red)
+    public static let greenMagentaOrange = threeColor(.darkGreen, .magenta, .orange)
+    public static let bluegreenRedOrange = threeColor(.blueGreen, .red, .orange)
+    public static let orangeBlueOrange = threeColor(.orange, .mediumBlue, .orange)
+    public static let goldPurpleOrange = threeColor(.gold, .purple, .orange)
+    public static let chartreuseBlueOrange = threeColor(.chartreuse, .deepBlue, .orange)
 
     // Earth Tones
     public static let coffee = threeColor(
@@ -152,7 +152,7 @@ public struct Gradient {
 
     // Spectra
     //public static let hues = { (#frac: Double) -> Color in return Color(hue: frac, saturation: 1, brightness: 1) }
-    public static let redYellowBlue = threeColor(.Red, .Yellow, .Blue)
+    public static let redYellowBlue = threeColor(.red, .yellow, .blue)
     public static let spectrum = blend(colors:[
         Color(redByte:   0, greenByte: 168, blueByte: 222),
         Color(redByte:  51, greenByte:  51, blueByte: 145),
@@ -163,11 +163,11 @@ public struct Gradient {
         ])
 
 
-    public static func hues(frac frac: Double) -> Color {
+    public static func hues(frac: Double) -> Color {
         return Color(hue: frac, saturation: 1, brightness: 1)
     }
 
-    public static let gradients = [
+    public static let gradients: [ColorFunc] = [
         Gradient.grayscale,
 
         Gradient.goldRedOrange,

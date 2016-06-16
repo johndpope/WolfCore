@@ -9,30 +9,30 @@
 public class IPAddress6 {
     typealias Run = Range<Int>
 
-    private static func replace(longestRun longestRun: Run?, wordsCount: Int, inout components: [String]) {
+    private static func replace(longestRun: Run?, wordsCount: Int, components: inout [String]) {
         if let longestRun = longestRun {
             let replacement: [String]
             // all zeroes
-            if longestRun.startIndex == 0 && longestRun.endIndex == wordsCount {
+            if longestRun.lowerBound == 0 && longestRun.upperBound == wordsCount {
                 replacement = ["", "", ""]
                 // zeroes at beginning or end
-            } else if longestRun.startIndex == 0 || longestRun.endIndex == wordsCount {
+            } else if longestRun.lowerBound == 0 || longestRun.upperBound == wordsCount {
                 replacement = ["", ""]
                 // zeroes somewhere in the middle
             } else {
                 replacement = [""]
             }
-            components.replaceRange(longestRun, with: replacement)
+            components.replaceSubrange(longestRun, with: replacement)
         }
     }
 
-    public static func encode(words: [UInt16], padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
+    public static func encode(_ words: [UInt16], padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
         assert(words.count == 8)
 
         var longestRun: Run? = nil
         if collapseLongestZeroRun {
             var currentRun: Run? = nil
-            for (index, word) in words.enumerate() {
+            for (index, word) in words.enumerated() {
                 // print("index: \(index), word: \(word)")
                 if word == 0 {
                     if currentRun == nil {
@@ -49,11 +49,11 @@ public class IPAddress6 {
                         }
 
                         // print("currentRun: \(currentRun!), longestRun: \(longestRun!)")
-                        currentRun = currentRun!.startIndex ..< currentRun!.endIndex + 1
+                        currentRun = currentRun!.lowerBound ..< currentRun!.upperBound + 1
                         // print("extended currentRun: \(currentRun!)")
 
-                        let currentLength = currentRun!.endIndex - currentRun!.startIndex
-                        let longestLength = longestRun!.endIndex - longestRun!.startIndex
+                        let currentLength = currentRun!.upperBound - currentRun!.lowerBound
+                        let longestLength = longestRun!.upperBound - longestRun!.lowerBound
                         if currentLength > longestLength {
                             longestRun = currentRun
                             // print("replaced longestRun: \(longestRun!)")
@@ -78,15 +78,15 @@ public class IPAddress6 {
 
         replace(longestRun: longestRun, wordsCount: words.count, components: &components)
 
-        return components.joinWithSeparator(":")
+        return components.joined(separator: ":")
     }
 
-    private static func toWords(bytes: Bytes) -> [UInt16] {
+    private static func toWords(_ bytes: Bytes) -> [UInt16] {
         assert(bytes.count == 16)
         var words = [UInt16]()
         words.reserveCapacity(8)
         bytes.withUnsafeBufferPointer {p in
-            let p16 = UnsafePointer<UInt16>(p.baseAddress)
+            let p16 = UnsafePointer<UInt16>(p.baseAddress)!
             for index in 0..<8 {
                 words.append(UInt16(bigEndian: p16[index]))
             }
@@ -94,7 +94,7 @@ public class IPAddress6 {
         return words
     }
 
-    private static func toBytes(words: [UInt16]) -> Bytes {
+    private static func toBytes(_ words: [UInt16]) -> Bytes {
         assert(words.count == 8)
         var bytes = Bytes()
         bytes.reserveCapacity(16)
@@ -109,12 +109,12 @@ public class IPAddress6 {
         return bytes
     }
 
-    public static func encode(bytes: Bytes, padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
+    public static func encode(_ bytes: Bytes, padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
         return encode(toWords(bytes), padWithZeroes: padWithZeroes, collapseLongestZeroRun: collapseLongestZeroRun)
     }
 
-    public static func decode(string: String) throws -> [UInt16] {
-        var components = string.componentsSeparatedByString(":")
+    public static func decode(_ string: String) throws -> [UInt16] {
+        var components = string.components(separatedBy: ":")
         guard components.count >= 3 else {
             throw ValidationError(message: "Invalid IP address.", violation: "ipv6Format")
         }
@@ -123,21 +123,22 @@ public class IPAddress6 {
             components = ["#"]
         } else if components.prefix(2) == ["", ""] {
             components = Array(components.dropFirst(2))
-            components.insert("#", atIndex: 0)
+            components.insert("#", at: 0)
         } else if components.suffix(2) == ["", ""] {
             components = Array(components.dropLast(2))
             components.append("#")
-        } else if let index = components.indexOf("") {
+        } else if let index = components.index(of: "") {
             guard index != 0 && index != components.endIndex - 1 else {
                 throw ValidationError(message: "Invalid IP address.", violation: "ipv6Format")
             }
-            components.replaceRange(index...index, with: ["#"])
+            components.replaceSubrange(index...index, with: ["#"])
         }
 //        print(components)
 
-        if let index = components.indexOf("#") {
+        if let index = components.index(of: "#") {
             let count = 9 - components.count
-            components.replaceRange(index...index, with: [String](count: count, repeatedValue: "0"))
+            let zeros = [String](repeating: "0", count: count)
+            components.replaceSubrange(index...index, with: zeros)
         }
 //        print(components)
         guard components.count == 8 else {
@@ -187,7 +188,7 @@ public class IPAddress6 {
         }
     }
 
-    public static func test(words: [UInt16], encodedLong: String, encodedShort: String) {
+    public static func test(_ words: [UInt16], encodedLong: String, encodedShort: String) {
         do {
             logInfo("words: \(words), encodedLong: \(encodedLong), encodedShort: \(encodedShort)")
 

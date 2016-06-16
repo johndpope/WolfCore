@@ -10,14 +10,14 @@ import Foundation
 
 // Support the Serializable protocol used for caching
 
-extension NSData: Serializable {
-    public typealias ValueType = NSData
+extension Data: Serializable {
+    public typealias ValueType = Data
 
-    public func serialize() -> NSData {
+    public func serialize() -> Data {
         return self
     }
 
-    public static func deserializeFromData(data: NSData) throws -> NSData {
+    public static func deserializeFromData(data: Data) throws -> Data {
         return data
     }
 }

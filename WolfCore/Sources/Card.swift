@@ -112,13 +112,13 @@ extension Card: CustomStringConvertible {
         var rankSuit = ""
 
         if let rank = rank {
-            rankSuit.appendContentsOf("\(rank)")
+            rankSuit.append("\(rank)")
         }
         if rank != nil && suit != nil {
-            rankSuit.appendContentsOf(RankType.rankSuitConnector)
+            rankSuit.append(RankType.rankSuitConnector)
         }
         if let suit = suit {
-            rankSuit.appendContentsOf("\(suit)")
+            rankSuit.append("\(suit)")
         }
 
         if !rankSuit.isEmpty {

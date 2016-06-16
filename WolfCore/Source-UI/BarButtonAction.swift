@@ -11,10 +11,10 @@ import UIKit
 private let barButtonActionSelector = #selector(BarButtonItemAction.itemAction)
 
 public class BarButtonItemAction: NSObject {
-    public var action: DispatchBlock?
+    public var action: Block?
     public let item: UIBarButtonItem
 
-    public init(item: UIBarButtonItem, action: DispatchBlock? = nil) {
+    public init(item: UIBarButtonItem, action: Block? = nil) {
         self.item = item
         self.action = action
         super.init()

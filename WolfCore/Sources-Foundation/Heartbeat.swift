@@ -24,11 +24,11 @@ import Foundation
 // When expired() is called, you've lost the heartbeat, so disconnect. If you're the client, attempt to reconnect.
 
 public class Heartbeat {
-    public var interval: NSTimeInterval
-    public var expired: DispatchBlock
+    public var interval: TimeInterval
+    public var expired: Block
     private var canceler: Canceler?
 
-    public init(interval: NSTimeInterval, expired: DispatchBlock) {
+    public init(interval: TimeInterval, expired: Block) {
         self.interval = interval
         self.expired = expired
     }

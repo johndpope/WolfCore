@@ -17,16 +17,16 @@ public class ControlAction: NSObject {
     private let control: UIControl
     private let controlEvents: UIControlEvents
 
-    public init(control: UIControl, forControlEvents controlEvents: UIControlEvents, action: ControlBlock? = nil) {
+    public init(control: UIControl, for controlEvents: UIControlEvents, action: ControlBlock? = nil) {
         self.control = control
         self.action = action
         self.controlEvents = controlEvents
         super.init()
-        control.addTarget(self, action: controlActionSelector, forControlEvents: controlEvents)
+        control.addTarget(self, action: controlActionSelector, for: controlEvents)
     }
 
     deinit {
-        control.removeTarget(self, action: controlActionSelector, forControlEvents: controlEvents)
+        control.removeTarget(self, action: controlActionSelector, for: controlEvents)
     }
 
     public func controlAction() {
@@ -35,15 +35,15 @@ public class ControlAction: NSObject {
 }
 
 extension UIControl {
-    public func addControlAction(forControlEvents controlEvents: UIControlEvents, action: ControlBlock) -> ControlAction {
-        return ControlAction(control: self, forControlEvents: controlEvents, action: action)
+    public func addControlAction(for controlEvents: UIControlEvents, action: ControlBlock) -> ControlAction {
+        return ControlAction(control: self, for: controlEvents, action: action)
     }
 
     public func addTouchUpInsideAction(action: ControlBlock) -> ControlAction {
-        return addControlAction(forControlEvents: .TouchUpInside, action: action)
+        return addControlAction(for: .touchUpInside, action: action)
     }
 
     public func addValueChangedAction(action: ControlBlock) -> ControlAction {
-        return addControlAction(forControlEvents: .ValueChanged, action: action)
+        return addControlAction(for: .valueChanged, action: action)
     }
 }

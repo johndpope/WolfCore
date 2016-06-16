@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension NSRunLoop {
+extension RunLoop {
     public func runOnce() {
-        runUntilDate(NSDate.distantPast())
+        run(until: NSDate.distantPast())
     }
 }

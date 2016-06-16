@@ -49,84 +49,84 @@ class ASN1BitString: CustomStringConvertible {
         get {
             var s = String()
             for bitIndex in 0..<numberOfBits {
-                let c: Character = bitAtIndex(bitIndex) ? "1" : "0"
+                let c: Character = bit(at: bitIndex) ? "1" : "0"
                 s.append(c)
             }
             return s
         }
     }
 
-    func bitAtIndex(bitIndex: Int) -> Bool {
-        assert(bitIndex >= 0 && bitIndex < numberOfBits)
+    func bit(at index: Int) -> Bool {
+        assert(index >= 0 && index < numberOfBits)
 
-        let byteIndex = bitIndex / 8
-        let bitIndexInByte = 7 - bitIndex % 8
+        let byteIndex = index / 8
+        let bitIndexInByte = 7 - index % 8
         let bit = data[byteIndex] & Byte(1 << bitIndexInByte)
         return bit != 0
     }
 }
 
 enum ASN1Type: Byte, CustomStringConvertible {
-    case EOC = 0x00
-    case Boolean = 0x01
-    case Integer = 0x02
-    case BitString = 0x03
-    case OctetString = 0x04
-    case Null = 0x05
-    case ObjectIdentifier = 0x06
-    case ObjectDescriptor = 0x07
-    case External = 0x08
-    case Real = 0x09
-    case Enumerated = 0x0a
-    case EmbeddedPDV = 0x0b
-    case UTF8String = 0x0c
-    case Sequence = 0x10
-    case Set = 0x11
-    case NumericString = 0x12
-    case PrintableString = 0x13
-    case TeletexString = 0x14
-    case VideoTextString = 0x15
-    case IA5String = 0x16
-    case UTCTime = 0x17
-    case GeneralizedTime = 0x18
-    case GraphicString = 0x19
-    case VisibleString = 0x1a
-    case GeneralString = 0x1b
-    case UniversalString = 0x1c
-    case BitmapString = 0x1e
-    case UsesLongForm = 0x1f
+    case eoc = 0x00
+    case boolean = 0x01
+    case integer = 0x02
+    case bitString = 0x03
+    case octetString = 0x04
+    case null = 0x05
+    case objectIdentifier = 0x06
+    case objectDescriptor = 0x07
+    case external = 0x08
+    case real = 0x09
+    case enumerated = 0x0a
+    case embeddedPDV = 0x0b
+    case utf8String = 0x0c
+    case sequence = 0x10
+    case set = 0x11
+    case numericString = 0x12
+    case printableString = 0x13
+    case teletexString = 0x14
+    case videoTextString = 0x15
+    case ia5String = 0x16
+    case utcTime = 0x17
+    case generalizedTime = 0x18
+    case graphicString = 0x19
+    case visibleString = 0x1a
+    case generalString = 0x1b
+    case universalString = 0x1c
+    case bitmapString = 0x1e
+    case usesLongForm = 0x1f
 
     var description: String {
         get {
             switch self {
-            case .EOC: return "EOC"
-            case .Boolean: return "Boolean"
-            case .Integer: return "Integer"
-            case .BitString: return "BitString"
-            case .OctetString: return "OctetString"
-            case .Null: return "Null"
-            case .ObjectIdentifier: return "ObjectIdentifier"
-            case .ObjectDescriptor: return "ObjectDescriptor"
-            case .External: return "External"
-            case .Real: return "Real"
-            case .Enumerated: return "Enumerated"
-            case .EmbeddedPDV: return "EmbeddedPDV"
-            case .UTF8String: return "UTF8String"
-            case .Sequence: return "Sequence"
-            case .Set: return "Set"
-            case .NumericString: return "NumericString"
-            case .PrintableString: return "PrintableString"
-            case .TeletexString: return "TeletexString"
-            case .VideoTextString: return "VideoTextString"
-            case .IA5String: return "IA5String"
-            case .UTCTime: return "UTCTime"
-            case .GeneralizedTime: return "GeneralizedTime"
-            case .GraphicString: return "GraphicString"
-            case .VisibleString: return "VisibleString"
-            case .GeneralString: return "GeneralString"
-            case .UniversalString: return "UniversalString"
-            case .BitmapString: return "BitmapString"
-            case .UsesLongForm: return "UsesLongForm"
+            case .eoc: return "eoc"
+            case .boolean: return "boolean"
+            case .integer: return "integer"
+            case .bitString: return "bitString"
+            case .octetString: return "octetString"
+            case .null: return "null"
+            case .objectIdentifier: return "objectIdentifier"
+            case .objectDescriptor: return "objectDescriptor"
+            case .external: return "external"
+            case .real: return "real"
+            case .enumerated: return "enumerated"
+            case .embeddedPDV: return "embeddedPDV"
+            case .utf8String: return "utf8String"
+            case .sequence: return "sequence"
+            case .set: return "set"
+            case .numericString: return "numericString"
+            case .printableString: return "printableString"
+            case .teletexString: return "teletexString"
+            case .videoTextString: return "videoTextString"
+            case .ia5String: return "ia5String"
+            case .utcTime: return "utcTime"
+            case .generalizedTime: return "generalizedTime"
+            case .graphicString: return "graphicString"
+            case .visibleString: return "visibleString"
+            case .generalString: return "generalString"
+            case .universalString: return "universalString"
+            case .bitmapString: return "bitmapString"
+            case .usesLongForm: return "usesLongForm"
             }
         }
     }
@@ -134,10 +134,10 @@ enum ASN1Type: Byte, CustomStringConvertible {
 
 class ASN1Parser {
     let inBytes: Bytes
-    lazy var dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyMMddHHmmss'Z'"
-        formatter.timeZone = NSTimeZone(abbreviation: "UTC")
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         return formatter
     }()
     var parseLevel = 0
@@ -170,10 +170,10 @@ class ASN1Parser {
         didEndDocument?()
     }
 
-    func parse(range: Range<Int>) throws {
+    func parse(_ range: CountableRange<Int>) throws {
         parseLevel += 1
 
-        var currentLocation = range.startIndex
+        var currentLocation = range.lowerBound
 
         repeat {
             let tag = inBytes[currentLocation]
@@ -187,11 +187,11 @@ class ASN1Parser {
             let tagConstructed = (tag & 0x20) > 0
             let tagClass = tag >> 6
 
-            if tagType == ASN1Type.UsesLongForm {
+            if tagType == ASN1Type.usesLongForm {
                 throw ASN1Error("Long form not implemented.")
             }
 
-            let (length, octetsConsumed): (Int, Int) = try parseLengthAtLocation(currentLocation)
+            let (length, octetsConsumed): (Int, Int) = try parseLength(at: currentLocation)
 
             currentLocation += octetsConsumed
             let newLocation = currentLocation + length
@@ -199,7 +199,7 @@ class ASN1Parser {
             let subRange = currentLocation..<newLocation
             let subRangeLength = newLocation - currentLocation
 
-            if subRange.endIndex > range.endIndex {
+            if subRange.endIndex > range.upperBound {
                 throw ASN1Error("Subrange end beyond end of current range.")
             }
 
@@ -207,7 +207,7 @@ class ASN1Parser {
                 didStartContextWithType?(tagType!)
 
                 if !tagConstructed {
-                    tagType = ASN1Type.OctetString
+                    tagType = ASN1Type.octetString
                 }
             }
 
@@ -221,7 +221,7 @@ class ASN1Parser {
                 didEndContainerWithType?(tagType!)
             } else {
                 let typeBytes = Bytes(inBytes[subRange])
-                try parse(tagType!, bytes: typeBytes)
+                try parse(type: tagType!, bytes: typeBytes)
             }
 
             if tagClass == 2 {
@@ -229,7 +229,7 @@ class ASN1Parser {
             }
 
             currentLocation = newLocation
-        } while currentLocation < range.endIndex
+        } while currentLocation < range.upperBound
 
         parseLevel -= 1
     }
@@ -237,36 +237,36 @@ class ASN1Parser {
     func parse(type: ASN1Type, bytes: Bytes) throws {
         typeSwitch: switch type {
 
-        case .Boolean:
+        case .boolean:
             let bool = try parseBool(bytes)
             foundBool?(bool)
 
-        case .Integer:
+        case .integer:
             if bytes.count <= 4 && foundInt != nil {
                 foundInt!(parseInt(bytes))
             } else {
                 foundBytes?(bytes)
             }
 
-        case .BitString:
+        case .bitString:
             let bitString = parseBitString(bytes)
             foundBitString?(bitString)
 
-        case .OctetString:
+        case .octetString:
             foundBytes?(bytes)
 
-        case .Null:
+        case .null:
             foundNull?()
 
-        case .ObjectIdentifier:
+        case .objectIdentifier:
             let oid = try parseObjectIdentifier(bytes)
             foundObjectIdentifier?(oid)
 
-        case .TeletexString, .GraphicString, .PrintableString, .UTF8String, .IA5String:
+        case .teletexString, .graphicString, .printableString, .utf8String, .ia5String:
             let string = try parseString(bytes)
             foundString?(string)
 
-        case .UTCTime, .GeneralizedTime:
+        case .utcTime, .generalizedTime:
             let date = try parseDate(bytes)
             foundDate?(date)
 
@@ -275,7 +275,7 @@ class ASN1Parser {
         }
     }
 
-    func parseInt(bytes: Bytes) -> Int {
+    func parseInt(_ bytes: Bytes) -> Int {
         var int = 0
         for byte in bytes {
             int = (int << 8) + Int(byte)
@@ -283,7 +283,7 @@ class ASN1Parser {
         return int
     }
 
-    func parseBool(bytes: Bytes) throws -> Bool {
+    func parseBool(_ bytes: Bytes) throws -> Bool {
         if bytes.count == 1 {
             return bytes[0] != 0
         } else {
@@ -291,17 +291,17 @@ class ASN1Parser {
         }
     }
 
-    func parseString(bytes: Bytes) throws -> String {
-        return try UTF8.decode(bytes)
+    func parseString(_ bytes: Bytes) throws -> String {
+        return try bytes |> Bytes.data |> UTF8.string
     }
 
-    func parseBitString(bytes: Bytes) -> ASN1BitString {
+    func parseBitString(_ bytes: Bytes) -> ASN1BitString {
         let unusedBits = Int(bytes[0])
         let data = Bytes(bytes[1..<bytes.count])
         return ASN1BitString(data: data, unusedBits: unusedBits)
     }
 
-    func parseObjectIdentifier(bytes: Bytes) throws -> String {
+    func parseObjectIdentifier(_ bytes: Bytes) throws -> String {
         var indexes = [String]()
         var byteIndex = 0
         while byteIndex < bytes.count {
@@ -329,19 +329,19 @@ class ASN1Parser {
             }
             byteIndex += 1
         }
-        return indexes.joinWithSeparator(".")
+        return indexes.joined(separator: ".")
     }
 
-    func parseDate(bytes: Bytes) throws -> NSDate {
+    func parseDate(_ bytes: Bytes) throws -> NSDate {
         let string = try parseString(bytes)
-        if let date = dateFormatter.dateFromString(string) {
+        if let date = dateFormatter.date(from: string) {
             return date
         } else {
             throw ASN1Error("Unable to encode string as date.")
         }
     }
 
-    func parseLengthAtLocation(location: Int) throws -> (length: Int, octetsConsumed: Int) {
+    func parseLength(at location: Int) throws -> (length: Int, octetsConsumed: Int) {
         var length = 0
         var octetsConsumed = 0
         var currentLocation = location

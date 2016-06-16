@@ -20,40 +20,40 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 
 //
-// *** Only one type of attributed string: AttributedString.
+// *** Only one type of attributed string: AString.
 //
-// public typealias AttributedString = NSMutableAttributedString
+// public typealias AString = NSMutableAttributedString
 //
-// The § postfix operator can be used to convert any Swift String, NSString, or NSAttributedString into an AttributedString, so it can be manipulated further.
+// The § postfix operator can be used to convert any Swift String, NSString, or NSAttributedString into an AString, so it can be manipulated further.
 //
-// Applying the § postfix operator to an existing AttributedString makes a separate copy of it.
+// Applying the § postfix operator to an existing AString makes a separate copy of it.
 //
-// This converts a straight Swift string to an AttributedString
+// This converts a straight Swift string to an AString
 //
-//    func example() -> AttributedString {
+//    func example() -> AString {
 //        let string = "The quick brown fox."
 //        let attributedString = string§
 //        return attributedString
 //    }
 //
-// This retrieves the NSAttributedString from a UITextView and converts it to an AttributedString
+// This retrieves the NSAttributedString from a UITextView and converts it to an AString
 //
-//    func example(textView: UITextView) -> AttributedString {
+//    func example(textView: UITextView) -> AString {
 //        let string = textView.attributedText  // This is an NSAttributedString
-//        let attributedString = string§        // This is an AttributedString (NSMutableAttributedString)
+//        let attributedString = string§        // This is an AString (NSMutableAttributedString)
 //        return attributedString
 //    }
 //
-// This performs localization with placeholder replacement using the ¶ operator (see StringExtensions.swift), then uses the § operator to convert the result to an AttributedString.
+// This performs localization with placeholder replacement using the ¶ operator (see StringExtensions.swift), then uses the § operator to convert the result to an AString.
 //
-//    func example() -> AttributedString {
+//    func example() -> AString {
 //        let followersCount = 20
 //        let template = "#{followersCount} followers." ¶ ["followersCount": followersCount]
 //        return template§
 //    }
 //
 //    func example() {
-//        let s1 = "Hello."§ // Creates an AttributedString
+//        let s1 = "Hello."§ // Creates an AString
 //        s1.foregroundColor = .Red // s1 is now red
 //
 //        let s2 = s1 // Only copies the reference
@@ -68,7 +68,7 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 // *** Use Swift String range types with AttributedStrings, not NSRange.
 //
-// NSRange assumes underlying UTF-16 strings. NSRange instances with arbitrary `location` values may cut into characters that have more than one 16-bit word in their encoding. Swift has a better model for Strings which accounts for all underlying Unicode encodings and the fact that they may have variable-length characters ("extended grapheme clusters"). AttributedString provides additional methods that take Swift String ranges, and which should be used instead of the existing methods that take NSRange instances.
+// NSRange assumes underlying UTF-16 strings. NSRange instances with arbitrary `location` values may cut into characters that have more than one 16-bit word in their encoding. Swift has a better model for Strings which accounts for all underlying Unicode encodings and the fact that they may have variable-length characters ("extended grapheme clusters"). AString provides additional methods that take Swift String ranges, and which should be used instead of the existing methods that take NSRange instances.
 //
 // public typealias StringIndex = String.Index
 // public typealias StringRange = Range<StringIndex>
@@ -103,9 +103,9 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 // On the rare occasions you need to convert a Swift StringRange to an NSRange or vice-versa:
 //
-// let nsRange = string.nsRange(fromRange: range)
+// let nsRange = string.nsRange(from: range)
 //
-// let range = string.range(fromNSRange: nsRage)
+// let range = string.range(from: nsRage)
 //
 //
 // On the rare occasions you need to convert a Swift StringIndex to an NSRange.location:
@@ -125,7 +125,7 @@ public let overrideTintColorTag = "overrideTintColor"
 // public func remove(attributeNamed: String, fromRange: StringRange? = nil)
 //
 //
-//    func example(s: AttributedString) {
+//    func example(s: AString) {
 //        s.remove(attributeNamed: NSFontAttributeName) // removes attribute from entire string
 //        let range = s.string.range(start: 0, end: 2)
 //        s.remove(attributeNamed: NSFontAttributeName, fromRange: range) // removes attribute from just `range`.
@@ -133,26 +133,26 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 
 //
-// Principle: Attributes are added to AttributedString instances by assignment. Common attributes such as font, foregroundColor, and paragraphStyle can be directly assigned as attributes.
+// Principle: Attributes are added to AString instances by assignment. Common attributes such as font, foregroundColor, and paragraphStyle can be directly assigned as attributes.
 //
 //    func example() {
 //        let attributedString = "The quick brown fox."§
-//        attributedString.font = .boldSystemFontOfSize(18)
+//        attributedString.font = .boldSystemFont(ofSize: 18)
 //        attributedString.foregroundColor = .Red
 //    }
 //
 
 //
-// *** Attributes of substrings of AttributedString instances are edited together.
+// *** Attributes of substrings of AString instances are edited together.
 //
 //    func testString() {
 //        let attributedString = "The quick brown fox."§
-//        attributedString.font = .systemFontOfSize(18) // Applies to whole string
+//        attributedString.font = .systemFont(ofSize: 18) // Applies to whole string
 //        attributedString.foregroundColor = .Gray
 //
 //        let range = attributedString.string.range(start: 10, end: 15) // "brown"
-//        attributedString.edit(inRange: range) { substring in
-//            substring.font = .boldSystemFontOfSize(18)
+//        attributedString.edit(in: range) { substring in
+//            substring.font = .boldSystemFont(ofSize: 18)
 //            substring.foregroundColor = .Red
 //            // The word "brown" is now bold and red.
 //        }
@@ -193,7 +193,7 @@ public let overrideTintColorTag = "overrideTintColor"
 //        let range = attributedString.string.range(start: 10, end: 15) // "brown"
 //        let key = "myAttribute"
 //
-//        attributedString.edit(inRange: range) { substring in
+//        attributedString.edit(in: range) { substring in
 //            // Assigns attribute to entire substring.
 //            substring[key] = CGFloat(20.5)
 //
@@ -238,13 +238,13 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 //        let range1 = attributedString.string.range(start: 0, end: 3) // "The"
 //        let key1 = "foo"
-//        attributedString.edit(inRange: range1) { substring in
+//        attributedString.edit(in: range1) { substring in
 //            substring[key1] = CGFloat(25.5)
 //        }
 //
 //        let range = attributedString.string.range(start: 10, end: 15) // "brown"
 //        let key = "link"
-//        attributedString.edit(inRange: range) { substring in
+//        attributedString.edit(in: range) { substring in
 //            substring.addTag(key)
 //        }
 //
@@ -294,7 +294,7 @@ public let overrideTintColorTag = "overrideTintColor"
 // #{the lazy dog|subject}
 //
 //
-// Once a template String has been constructed, use String.attributedStringWithTags() to convert it to an AttributedString:
+// Once a template String has been constructed, use String.attributedStringWithTags() to convert it to an AString:
 //
 //    func example() {
 //        let template = "The quick #{brown|color} fox #{jumps|action} over #{the lazy dog|subject}."
@@ -364,7 +364,7 @@ public let overrideTintColorTag = "overrideTintColor"
 //            default:
 //                // The default clause is called *before* the tag-specific clauses.
 //                substring.foregroundColor = .White
-//                substring.font = .systemFontOfSize(12)
+//                substring.font = .systemFont(ofSize: 12)
 //                break
 //            }
 //        }
@@ -438,10 +438,10 @@ public let overrideTintColorTag = "overrideTintColor"
 //            let attributedText = text.attributedStringWithTags() { (tag, substring) in
 //                switch tag {
 //                case self.linkTag:
-//                    substring.font = .boldSystemFontOfSize(fontSize)
+//                    substring.font = .boldSystemFont(ofSize: fontSize)
 //                    substring.foregroundColor = .Blue
 //                default:
-//                    substring.font = .systemFontOfSize(fontSize)
+//                    substring.font = .systemFont(ofSize: fontSize)
 //                    substring.foregroundColor = .White
 //                }
 //            }
@@ -456,155 +456,155 @@ public let overrideTintColorTag = "overrideTintColor"
 //    }
 
 // swiftlint:disable:next custom_rules
-public typealias AttributedString = NSMutableAttributedString
+public typealias AString = NSMutableAttributedString
 
 postfix operator § { }
 
-public postfix func § (left: String) -> AttributedString {
-    return AttributedString(string: left)
+public postfix func § (left: String) -> AString {
+    return AString(string: left)
 }
 
-public postfix func § (left: AttributedString) -> AttributedString {
-    return left.mutableCopy() as! AttributedString
-}
-
-// swiftlint:disable:next custom_rules
-public postfix func § (left: NSAttributedString) -> AttributedString {
-    return left.mutableCopy() as! AttributedString
+public postfix func § (left: AString) -> AString {
+    return left.mutableCopy() as! AString
 }
 
 // swiftlint:disable:next custom_rules
-public func += (left: AttributedString, right: NSAttributedString) {
-    left.appendAttributedString(right)
+public postfix func § (left: AttributedString) -> AString {
+    return left.mutableCopy() as! AString
+}
+
+// swiftlint:disable:next custom_rules
+public func += (left: AString, right: AttributedString) {
+    left.append(right)
 }
 
 
-extension AttributedString {
+extension AString {
     public var count: Int {
         return string.characters.count
     }
 
-    public func attributedSubstring(fromRange range: StringRange) -> AttributedString {
-        return attributedSubstringFromRange(string.nsRange(fromRange: range)!)§
+    public func attributedSubstring(from range: StringRange) -> AString {
+        return attributedSubstring(from: string.nsRange(from: range)!)§
     }
 
-    public func attributes(atIndex index: StringIndex, inRange rangeLimit: StringRange? = nil) -> StringAttributes {
+    public func attributes(at index: StringIndex, in rangeLimit: StringRange? = nil) -> StringAttributes {
         let location = string.location(fromIndex: index)
-        let nsRangeLimit = string.nsRange(fromRange: rangeLimit) ?? string.nsRange
-        let attrs = attributesAtIndex(location, longestEffectiveRange: nil, inRange: nsRangeLimit)
+        let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
+        let attrs = attributes(at: location, longestEffectiveRange: nil, in: nsRangeLimit)
         return attrs
     }
 
-    public func attributesWithRange(atIndex index: StringIndex, inRange rangeLimit: StringRange? = nil) -> (attributes: StringAttributes, longestEffectiveRange: StringRange) {
+    public func attributesWithLongestEffectiveRange(at index: StringIndex, in rangeLimit: StringRange? = nil) -> (attributes: StringAttributes, longestEffectiveRange: StringRange) {
         let location = string.location(fromIndex: index)
-        let nsRangeLimit = string.nsRange(fromRange: rangeLimit) ?? string.nsRange
+        let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
         var nsRange = NSRange()
-        let attrs = attributesAtIndex(location, longestEffectiveRange: &nsRange, inRange: nsRangeLimit)
-        let range = string.range(fromNSRange: nsRange)!
+        let attrs = attributes(at: location, longestEffectiveRange: &nsRange, in: nsRangeLimit)
+        let range = string.range(from: nsRange)!
         return (attrs, range)
     }
 
-    public func attribute(named attrName: String, atIndex index: StringIndex, inRange rangeLimit: StringRange? = nil) -> AnyObject? {
+    public func attribute(_ name: String, at index: StringIndex, in rangeLimit: StringRange? = nil) -> AnyObject? {
         let location = string.location(fromIndex: index)
-        let nsRangeLimit = string.nsRange(fromRange: rangeLimit) ?? string.nsRange
-        let attr = attribute(attrName, atIndex: location, longestEffectiveRange: nil, inRange: nsRangeLimit)
+        let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
+        let attr = attribute(name, at: location, longestEffectiveRange: nil, in: nsRangeLimit)
         return attr
     }
 
-    public func attributeWithRange(named attrName: String, atIndex index: StringIndex, inRange rangeLimit: StringRange? = nil) -> (attribute: AnyObject?, longestEffectiveRange: StringRange) {
+    public func attributeWithLongestEffectiveRange(_ name: String, at index: StringIndex, in rangeLimit: StringRange? = nil) -> (attribute: AnyObject?, longestEffectiveRange: StringRange) {
         let location = string.location(fromIndex: index)
-        let nsRangeLimit = string.nsRange(fromRange: rangeLimit) ?? string.nsRange
+        let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
         var nsRange = NSRange()
-        let attr = attribute(attrName, atIndex: location, longestEffectiveRange: &nsRange, inRange: nsRangeLimit)
-        let range = string.range(fromNSRange: nsRange)!
+        let attr = attribute(name, at: location, longestEffectiveRange: &nsRange, in: nsRangeLimit)
+        let range = string.range(from: nsRange)!
         return (attr, range)
     }
 
-    public func enumerateAttributes(inRange range: StringRange? = nil, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (StringAttributes, StringRange, AttributedSubstring) -> Bool) {
-        let nsRange = string.nsRange(fromRange: range) ?? string.nsRange
-        enumerateAttributesInRange(nsRange, options: opts) { (attrs, nsRange, stop) in
-            let range = self.string.range(fromNSRange: nsRange)!
-            stop[0] = ObjCBool(block(attrs, range, self.substring(forRange: range)))
+    public func enumerateAttributes(in enumerationRange: StringRange? = nil, options opts: AttributedString.EnumerationOptions = [], using block: (StringAttributes, StringRange, ASubstring) -> Bool) {
+        let nsRange = string.nsRange(from: enumerationRange) ?? string.nsRange
+        enumerateAttributes(in: nsRange, options: opts) { (attrs, nsRange, stop) in
+            let range = self.string.range(from: nsRange)!
+            stop[0] = ObjCBool(block(attrs, range, self.substring(in: range)))
         }
     }
 
-    public func enumerateAttribute(named attrName: String, inRange enumerationRange: StringRange? = nil, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (AnyObject?, StringRange, AttributedSubstring) -> Bool) {
-        let nsEnumerationRange = string.nsRange(fromRange: enumerationRange) ?? string.nsRange
-        enumerateAttribute(attrName, inRange: nsEnumerationRange, options: opts) { (value, nsRange, stop) in
-            let range = self.string.range(fromNSRange: nsRange)!
-            stop[0] = ObjCBool(block(value, range, self.substring(forRange: range)))
+    public func enumerateAttribute(_ name: String, in enumerationRange: StringRange? = nil, options opts: AttributedString.EnumerationOptions = [], using block: (AnyObject?, StringRange, ASubstring) -> Bool) {
+        let nsEnumerationRange = string.nsRange(from: enumerationRange) ?? string.nsRange
+        enumerateAttribute(name, in: nsEnumerationRange, options: opts) { (value, nsRange, stop) in
+            let range = self.string.range(from: nsRange)!
+            stop[0] = ObjCBool(block(value, range, self.substring(in: range)))
         }
     }
 
-    public func replaceCharacters(inRange range: StringRange, withString str: String) {
-        let nsRange = string.nsRange(fromRange: range)!
-        replaceCharactersInRange(nsRange, withString: str)
+    public func replaceCharacters(in range: StringRange, with str: String) {
+        let nsRange = string.nsRange(from: range)!
+        replaceCharacters(in: nsRange, with: str)
     }
 
-    public func set(attributes attrs: StringAttributes?, inRange range: StringRange? = nil) {
-        let nsRange = string.nsRange(fromRange: range) ?? string.nsRange
+    public func setAttributes(_ attrs: StringAttributes?, range: StringRange? = nil) {
+        let nsRange = string.nsRange(from: range) ?? string.nsRange
         setAttributes(attrs, range: nsRange)
     }
 
-    public func add(attributeNamed attrName: String, value: AnyObject, toRange range: StringRange? = nil) {
-        let nsRange = string.nsRange(fromRange: range) ?? string.nsRange
-        addAttribute(attrName, value: value, range: nsRange)
+    public func addAttribute(_ name: String, value: AnyObject, range: StringRange? = nil) {
+        let nsRange = string.nsRange(from: range) ?? string.nsRange
+        addAttribute(name, value: value, range: nsRange)
     }
 
-    public func add(attributes attrs: StringAttributes, toRange range: StringRange? = nil) {
-        let nsRange = string.nsRange(fromRange: range) ?? string.nsRange
+    public func addAttributes(_ attrs: StringAttributes, range: StringRange? = nil) {
+        let nsRange = string.nsRange(from: range) ?? string.nsRange
         addAttributes(attrs, range: nsRange)
     }
 
-    public func remove(attributeNamed attrName: String, fromRange range: StringRange? = nil) {
-        let nsRange = string.nsRange(fromRange: range) ?? string.nsRange
-        removeAttribute(attrName, range: nsRange)
+    public func removeAttribute(_ name: String, range: StringRange? = nil) {
+        let nsRange = string.nsRange(from: range) ?? string.nsRange
+        removeAttribute(name, range: nsRange)
     }
 
-    public func replaceCharacters(inRange range: StringRange, withAttributedString attrString: AttributedString) {
-        let nsRange = string.nsRange(fromRange: range)!
-        replaceCharactersInRange(nsRange, withAttributedString: attrString)
+    public func replaceCharacters(in range: StringRange, with attrString: AString) {
+        let nsRange = string.nsRange(from: range)!
+        replaceCharacters(in: nsRange, with: attrString)
     }
 
-    public func insert(attributedString attrString: AttributedString, atIndex index: StringIndex) {
+    public func insert(_ attrString: AString, at index: StringIndex) {
         let location = string.location(fromIndex: index)
-        insertAttributedString(attrString, atIndex: location)
+        insert(attrString, at: location)
     }
 
-    public func deleteCharacters(inRange range: StringRange) {
-        let nsRange = string.nsRange(fromRange: range)!
-        deleteCharactersInRange(nsRange)
+    public func deleteCharacters(in range: StringRange) {
+        let nsRange = string.nsRange(from: range)!
+        deleteCharacters(in: nsRange)
     }
 }
 
-extension AttributedString {
-    public func substring(forRange range: StringRange? = nil) -> AttributedSubstring {
-        return AttributedSubstring(string: self, range: range)
+extension AString {
+    public func substring(in range: StringRange? = nil) -> ASubstring {
+        return ASubstring(string: self, range: range)
     }
 
-    public func substring(fromIndex index: StringIndex) -> AttributedSubstring {
-        return AttributedSubstring(string: self, fromIndex: index)
+    public func substring(from index: StringIndex) -> ASubstring {
+        return ASubstring(string: self, fromIndex: index)
     }
 
-    public func substrings(withTag tag: String) -> [AttributedSubstring] {
-        var result = [AttributedSubstring]()
+    public func substrings(withTag tag: String) -> [ASubstring] {
+        var result = [ASubstring]()
 
         var index = string.startIndex
         while index < string.endIndex {
-            let (attrs, longestEffectiveRange) = attributesWithRange(atIndex: index)
+            let (attrs, longestEffectiveRange) = attributesWithLongestEffectiveRange(at: index)
             if attrs[tag] as? Bool == true {
-                let substring = AttributedSubstring(string: self, range: longestEffectiveRange)
+                let substring = ASubstring(string: self, range: longestEffectiveRange)
                 result.append(substring)
-                index = longestEffectiveRange.endIndex
+                index = longestEffectiveRange.upperBound
             }
-            index = index.advancedBy(1)
+            index = string.index(index, offsetBy: 1)
         }
 
         return result
     }
 }
 
-extension AttributedString {
+extension AString {
     public var font: OSFont {
         get { return substring().font }
         set { substring().font = newValue }
@@ -636,124 +636,125 @@ extension AttributedString {
     }
 
     public func getString(forTag tag: String, atIndex index: StringIndex) -> String? {
-        return substring(fromIndex: index).getString(forTag: tag)
+        return substring(from: index).getString(forTag: tag)
     }
 
-    public func has(tag tag: String, atIndex index: StringIndex) -> Bool {
-        return substring(fromIndex: index).has(tag: tag)
+    public func has(tag: String, atIndex index: StringIndex) -> Bool {
+        return substring(from: index).hasTag(tag)
     }
 
-    public func edit(f: (AttributedSubstring) -> Void) {
+    public func edit(f: (ASubstring) -> Void) {
         beginEditing()
         f(substring())
         endEditing()
     }
 
-    public func edit(inRange range: StringRange, f: (AttributedSubstring) -> Void) {
+    public func edit(in range: StringRange, f: (ASubstring) -> Void) {
         beginEditing()
-        f(substring(forRange: range))
+        f(substring(in: range))
         endEditing()
     }
 }
 
-extension AttributedString {
+extension AString {
     public func printAttributes() {
         let aliaser = ObjectAliaser()
-        for (index, char) in string.characters.enumerate() {
-            let strIndex = string.startIndex.advancedBy(index)
+        var strIndex = string.startIndex
+        for char in string.characters {
             let joiner = Joiner()
             joiner.append(char)
-            let attrs = attributes(atIndex: strIndex)
-            for(attrName, value) in attrs {
-                joiner.append("\(attrName):\(aliaser.name(forObject: value))")
+            let attrs: StringAttributes = attributes(at: strIndex)
+            for(name, value) in attrs {
+                joiner.append("\(name):\(aliaser.name(forObject: value))")
             }
             print(joiner)
+            strIndex = string.index(strIndex, offsetBy: 1)
         }
     }
 }
 
-public class AttributedSubstring {
-    public let attrString: AttributedString
+public class ASubstring {
+    public let attrString: AString
     public let strRange: StringRange
     public let nsRange: NSRange
 
-    public init(string attrString: AttributedString, range strRange: StringRange? = nil) {
+    public init(string attrString: AString, range strRange: StringRange? = nil) {
         self.attrString = attrString
         self.strRange = strRange ?? attrString.string.range
-        self.nsRange = attrString.string.nsRange(fromRange: self.strRange)!
+        self.nsRange = attrString.string.nsRange(from: self.strRange)!
     }
 
-    public convenience init(string attrString: AttributedString, fromIndex index: StringIndex) {
+    public convenience init(string attrString: AString, fromIndex index: StringIndex) {
         self.init(string: attrString, range: index..<attrString.string.endIndex)
     }
 
-    public convenience init(string attrString: AttributedString) {
+    public convenience init(string attrString: AString) {
         self.init(string: attrString, range: attrString.string.startIndex..<attrString.string.endIndex)
     }
 
     public var count: Int {
-        return strRange.count
+        return attrString.string.distance(from: strRange.lowerBound, to: strRange.upperBound)
     }
 
-    public var attributedSubstring: AttributedString {
-        return attrString.attributedSubstring(fromRange: strRange)
+    public var attributedSubstring: AString {
+        return attrString.attributedSubstring(from: strRange)
     }
 
-    public func attributes(inRange rangeLimit: StringRange? = nil) -> StringAttributes {
-        return attrString.attributes(atIndex: strRange.startIndex, inRange: rangeLimit)
+    public func attributes(in rangeLimit: StringRange? = nil) -> StringAttributes {
+        return attrString.attributes(at: strRange.lowerBound, in: rangeLimit)
     }
 
-    public func attributesWithRange(inRange rangeLimit: StringRange? = nil) -> (attributes: StringAttributes, longestEffectiveRange: StringRange) {
-        return attrString.attributesWithRange(atIndex: strRange.startIndex, inRange: rangeLimit)
+    public func attributesWithLongestEffectiveRange(in rangeLimit: StringRange? = nil) -> (attributes: StringAttributes, longestEffectiveRange: StringRange) {
+        return attrString.attributesWithLongestEffectiveRange(at: strRange.lowerBound, in: rangeLimit)
     }
 
-    public func attribute(named attrName: String, inRange rangeLimit: StringRange? = nil) -> AnyObject? {
-        return attrString.attribute(named: attrName, atIndex: strRange.startIndex, inRange: rangeLimit)
+    public func attribute(_ name: String, in rangeLimit: StringRange? = nil) -> AnyObject? {
+        return attrString.attribute(name, at: strRange.lowerBound, in: rangeLimit)
     }
 
-    public func attributeWithRange(named attrName: String, inRange rangeLimit: StringRange? = nil) -> (attribute: AnyObject?, longestEffectiveRange: StringRange) {
-        return attrString.attributeWithRange(named: attrName, atIndex: strRange.startIndex, inRange: rangeLimit)
+    public func attributeWithLongestEffectiveRange(_ name: String, in rangeLimit: StringRange? = nil) -> (attribute: AnyObject?, longestEffectiveRange: StringRange) {
+        return attrString.attributeWithLongestEffectiveRange(name, at: strRange.lowerBound, in: rangeLimit)
     }
 
-    public func enumerateAttributes(options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (StringAttributes, StringRange, AttributedSubstring) -> Bool) {
-        attrString.enumerateAttributes(inRange: strRange, options: opts, usingBlock: block)
+    public func enumerateAttributes(options opts: AttributedString.EnumerationOptions = [], using block: (StringAttributes, StringRange, ASubstring) -> Bool) {
+        attrString.enumerateAttributes(in: strRange, options: opts, using: block)
     }
 
-    public func enumerateAttribute(named attrName: String, options opts: NSAttributedStringEnumerationOptions = [], usingBlock block: (AnyObject?, StringRange, AttributedSubstring) -> Bool) {
-        attrString.enumerateAttribute(named: attrName, inRange: strRange, options: opts, usingBlock: block)
+    public func enumerateAttribute(_ name: String, options opts: AttributedString.EnumerationOptions = [], using block: (AnyObject?, StringRange, ASubstring) -> Bool) {
+        attrString.enumerateAttribute(name, in: strRange, options: opts, using: block)
     }
 
-    public func set(attributes attrs: StringAttributes?) {
-        attrString.set(attributes: attrs, inRange: strRange)
+    public func setAttributes(_ attrs: StringAttributes?) {
+        attrString.setAttributes(attrs, range: strRange)
     }
 
-    public func add(attributeNamed attrName: String, value: AnyObject) {
-        attrString.add(attributeNamed: attrName, value: value, toRange: strRange)
+    public func addAttribute(_ name: String, value: AnyObject) {
+        attrString.addAttribute(name, value: value, range: strRange)
     }
 
-    public func add(attributes attrs: StringAttributes) {
-        attrString.add(attributes: attrs, toRange: strRange)
+    public func addAttributes(_ attrs: StringAttributes) {
+        attrString.addAttributes(attrs, range: strRange)
     }
 
-    public func remove(attributeNamed attrName: String) {
-        attrString.remove(attributeNamed: attrName, fromRange: strRange)
+    public func removeAttribute(_ name: String) {
+        attrString.removeAttribute(name, range: strRange)
     }
 }
 
-extension AttributedSubstring : CustomStringConvertible {
+extension ASubstring : CustomStringConvertible {
     public var description: String {
-        let s = attrString.string.substringWithRange(strRange)
-        return "(AttributedSubstring attrString:\(s), strRange:\(strRange))"
+        let s = attrString.string.substring(with: strRange)
+        return "(ASubstring attrString:\(s), strRange:\(strRange))"
     }
 }
 
-extension AttributedSubstring {
-    public func addTag(tag: String) {
+extension ASubstring {
+    public func addTag(_ tag: String) {
         self[tag] = true
     }
 
     public func getRange(forTag tag: String) -> StringRange? {
-        let (value, longestEffectiveRange) = attributeWithRange(named: tag)
+        let (value, longestEffectiveRange) = attributeWithLongestEffectiveRange(tag)
         if value is Bool {
             return longestEffectiveRange
         } else {
@@ -769,42 +770,44 @@ extension AttributedSubstring {
         }
     }
 
-    public func has(tag tag: String) -> Bool {
+    public func hasTag(_ tag: String) -> Bool {
         return getRange(forTag: tag) != nil
     }
 
-    public subscript(attrName: String) -> AnyObject? {
+    public subscript(name: String) -> AnyObject? {
         get {
-            return attribute(named: attrName)
+            return attribute(name)
         }
         set {
             if let newValue = newValue {
-                add(attributeNamed: attrName, value: newValue)
+                addAttribute(name, value: newValue)
             } else {
-                remove(attributeNamed: attrName)
+                removeAttribute(name)
             }
         }
     }
 
     public var font: OSFont {
-        get { return attribute(named: NSFontAttributeName) as? OSFont ?? OSFont.systemFontOfSize(12) }
-        set { add(attributeNamed: NSFontAttributeName, value: newValue) }
+        get {
+            return attribute(NSFontAttributeName) as? OSFont ?? OSFont.systemFont(ofSize: 12)
+        }
+        set { addAttribute(NSFontAttributeName, value: newValue) }
     }
 
     public var foregroundColor: OSColor {
-        get { return attribute(named: NSForegroundColorAttributeName) as? OSColor ?? .Black }
-        set { add(attributeNamed: NSForegroundColorAttributeName, value: newValue) }
+        get { return attribute(NSForegroundColorAttributeName) as? OSColor ?? .black }
+        set { addAttribute(NSForegroundColorAttributeName, value: newValue) }
     }
 
     public var paragraphStyle: NSMutableParagraphStyle {
         get {
-            if let value = attribute(named: NSParagraphStyleAttributeName) as? NSParagraphStyle {
+            if let value = attribute(NSParagraphStyleAttributeName) as? NSParagraphStyle {
                 return value.mutableCopy() as! NSMutableParagraphStyle
             } else {
-                return NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+                return NSParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
             }
         }
-        set { add(attributeNamed: NSParagraphStyleAttributeName, value: newValue) }
+        set { addAttribute(NSParagraphStyleAttributeName, value: newValue) }
     }
 
     public var textAlignment: NSTextAlignment {
@@ -824,12 +827,12 @@ extension AttributedSubstring {
     }
 
     public var overrideTintColor: Bool {
-        get { return has(tag: overrideTintColorTag) }
+        get { return hasTag(overrideTintColorTag) }
         set {
             if newValue {
                 addTag(overrideTintColorTag)
             } else {
-                remove(attributeNamed: overrideTintColorTag)
+                removeAttribute(overrideTintColorTag)
             }
         }
     }
@@ -844,18 +847,18 @@ extension String {
         self.init("#{\(text)|\(tag)}")
     }
 
-    public func attributedStringWithTags(tagEditBlock tagEditBlock: ((tag: String, substring: AttributedSubstring) -> Void)? = nil) -> AttributedString {
+    public func attributedStringWithTags(tagEditBlock: ((tag: String, substring: ASubstring) -> Void)? = nil) -> AString {
         var tags = [String]()
 
         let matches = tagsReplacementRegex ~?? self
         let replacements = matches.map { match -> RangeReplacement in
-            let matchRange = range(fromNSRange: match.range)!
+            let matchRange = range(from: match.range)!
 
-            let textRange = range(fromNSRange: match.rangeAtIndex(1))!
-            let tagRange = range(fromNSRange: match.rangeAtIndex(2))!
+            let textRange = range(from: match.range(at: 1))!
+            let tagRange = range(from: match.range(at: 2))!
 
-            let text = self.substringWithRange(textRange)
-            let tag = self.substringWithRange(tagRange)
+            let text = self.substring(with: textRange)
+            let tag = self.substring(with: tagRange)
 
             tags.append(tag)
             return (matchRange, text)
@@ -866,9 +869,9 @@ extension String {
 
         tagEditBlock?(tag: "", substring: attributedString.substring())
 
-        for (index, tag) in tags.enumerate() {
+        for (index, tag) in tags.enumerated() {
             let replacedRange = replacedRanges[index]
-            attributedString.edit(inRange: replacedRange) { substring in
+            attributedString.edit(in: replacedRange) { substring in
                 substring.addTag(tag)
                 tagEditBlock?(tag: tag, substring: substring)
             }

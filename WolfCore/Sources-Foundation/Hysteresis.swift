@@ -21,17 +21,17 @@ import Foundation
  **/
 
 public class Hysteresis {
-    private let effectStartLag: NSTimeInterval
-    private let effectEndLag: NSTimeInterval
-    private let effectStart: DispatchBlock
-    private let effectEnd: DispatchBlock
+    private let effectStartLag: TimeInterval
+    private let effectEndLag: TimeInterval
+    private let effectStart: Block
+    private let effectEnd: Block
     private var causeCount: Int = 0
     private var effectStartCanceler: Canceler?
     private var effectEndCanceler: Canceler?
     private var effectStarted: Bool = false
     private let serializer = Serializer(name: "Hysteresis")
 
-    public init(effectStart: DispatchBlock, effectEnd: DispatchBlock, effectStartLag: NSTimeInterval, effectEndLag: NSTimeInterval) {
+    public init(effectStart: Block, effectEnd: Block, effectStartLag: TimeInterval, effectEndLag: TimeInterval) {
         self.effectStart = effectStart
         self.effectEnd = effectEnd
         self.effectStartLag = effectStartLag

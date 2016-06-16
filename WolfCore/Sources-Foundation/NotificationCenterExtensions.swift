@@ -8,16 +8,16 @@
 
 import Foundation
 
-public let notificationCenter = NSNotificationCenter.defaultCenter()
+public let notificationCenter = NotificationCenter.default()
 public typealias NotificationObserver = NSObjectProtocol
-public typealias NotificationBlock = (NSNotification) -> Void
+public typealias NotificationBlock = (Notification) -> Void
 
-extension NSNotificationCenter {
-    public func post(name: String) {
-        self.postNotificationName(name, object: nil)
+extension NotificationCenter {
+    public func post(name: NSNotification.Name) {
+        post(name: name, object: nil)
     }
 
-    public func addObserver(name: String, object: AnyObject? = nil, action: NotificationBlock) -> NotificationObserver {
-        return self.addObserverForName(name, object: object, queue: nil, usingBlock: action)
+    public func addObserver(forName name: NSNotification.Name, object: AnyObject? = nil, using block: NotificationBlock) -> NotificationObserver {
+        return self.addObserver(forName: name, object: object, queue: nil, using: block)
     }
 }

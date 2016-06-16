@@ -9,33 +9,33 @@
 import UIKit
 
 public func + (lhs: UITraitCollection, rhs: UITraitCollection) -> UITraitCollection {
-    return UITraitCollection(traitsFromCollections: [lhs, rhs])
+    return UITraitCollection(traitsFrom: [lhs, rhs])
 }
 
 extension UITraitCollection {
     public static var HCompact: UITraitCollection {
-        return UITraitCollection(horizontalSizeClass: .Compact)
+        return UITraitCollection(horizontalSizeClass: .compact)
     }
 
     public static var HAny: UITraitCollection {
-        return UITraitCollection(horizontalSizeClass: .Unspecified)
+        return UITraitCollection(horizontalSizeClass: .unspecified)
     }
 
     public static var HRegular: UITraitCollection {
-        return UITraitCollection(horizontalSizeClass: .Regular)
+        return UITraitCollection(horizontalSizeClass: .regular)
     }
 
 
     public static var VCompact: UITraitCollection {
-        return UITraitCollection(verticalSizeClass: .Compact)
+        return UITraitCollection(verticalSizeClass: .compact)
     }
 
     public static var VAny: UITraitCollection {
-        return UITraitCollection(verticalSizeClass: .Unspecified)
+        return UITraitCollection(verticalSizeClass: .unspecified)
     }
 
     public static var VRegular: UITraitCollection {
-        return UITraitCollection(verticalSizeClass: .Regular)
+        return UITraitCollection(verticalSizeClass: .regular)
     }
 
 

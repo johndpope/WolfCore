@@ -71,9 +71,9 @@ extension Point {
         return atan2(y, x)
     }
 
-    public func rotatedByAngle(theta: Double, aroundCenter center: Point) -> Point {
+    public func rotated(by theta: Double, aroundCenter center: Point) -> Point {
         let v = center - self
-        let v2 = v.rotatedByAngle(theta)
+        let v2 = v.rotated(by: theta)
         let p = center + v2
         return p
     }
