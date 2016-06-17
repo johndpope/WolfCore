@@ -11,6 +11,7 @@ public class InFlightToken: Equatable, Hashable, CustomStringConvertible {
     public let id: Int
     public let name: String
     var result: ResultSummary?
+    private var networkActivityRef: ReferenceCounter.Ref?
 
     init(name: String) {
         id = InFlightToken.nextID
@@ -22,6 +23,16 @@ public class InFlightToken: Equatable, Hashable, CustomStringConvertible {
 
     public var description: String {
         return "InFlightToken(id: \(id), name: \(name), result: \(result))"
+    }
+
+    public var isNetworkActive: Bool = false {
+        didSet {
+            if isNetworkActive {
+                networkActivityRef = networkActivity.newActivity()
+            } else {
+                networkActivityRef = nil
+            }
+        }
     }
 }
 

@@ -40,6 +40,7 @@ public class InFlightTracker {
 
     public func start(withName name: String) -> InFlightToken {
         let token = InFlightToken(name: name)
+        token.isNetworkActive = true
         tokens.insert(token)
         didStart?(token)
         logTrace("started: \(token)", group: inFlightLogGroup)
@@ -47,6 +48,7 @@ public class InFlightTracker {
     }
 
     public func end(withToken token: InFlightToken, result: ResultSummary) {
+        token.isNetworkActive = false
         token.result = result
         if tokens.remove(token) != nil {
             didEnd?(token)
