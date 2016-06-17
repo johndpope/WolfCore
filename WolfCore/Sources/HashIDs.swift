@@ -21,7 +21,7 @@
 #if os(Linux)
     import Glibc
 #else
-    import Darwin.C
+    import Darwin
 #endif
 
 public struct HashidsOptions
@@ -30,9 +30,9 @@ public struct HashidsOptions
 
     static var minAlphabetLength: Int = 16
 
-    static var sepDiv: Double = 3.5
+    static var sepDiv = 3.5
 
-    static var guardDiv: Double = 12
+    static var guardDiv = 12.0
 
     static var alphabet: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
@@ -256,7 +256,7 @@ public class Hashids_<T where T:Equatable, T:UnsignedInteger> : HashidsGenerator
     }
 
     private func _unhash<U: Collection where U.Index == Int, U.IndexDistance == Int, U.Iterator.Element == Char>(_ hash: U, _ alphabet: [Char]) -> Int {
-        var value: Double = 0
+        var value = 0.0
 
         var hashLength = hash.count
         if hashLength > 0 {

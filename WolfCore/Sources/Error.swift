@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias ErrorBlock = (ErrorProtocol) -> Void
+
 /// Classes that represent errors may conform to this protocol.
 public protocol Error: ErrorProtocol, CustomStringConvertible {
     /// A human-readable error message.

@@ -86,7 +86,7 @@ extension OSBezierPath {
 
         self.init()
 
-        let theta = 2 * M_PI / Double(sides)
+        let theta = 2 * .pi / Double(sides)
         let r = Double(radius)
 
         var corners = [CGPoint]()

@@ -17,20 +17,6 @@ import Foundation
                 // DISPATCH_GLOBAL_OBJECT(dispatch_queue_attr_t, \
                 // _dispatch_queue_attr_concurrent)
 
-// A Canceler is returned by functions in this file that either execute a block after a delay, or execute a block at intervals. If the <isCanceled> variable is set to true, the block will never be executed, or the calling of the block at intervals will stop.
-public class Canceler {
-    public var isCanceled = false
-    public init() { }
-    public func cancel() { isCanceled = true }
-}
-
-// Convenience types for symmetry with Swift naming conventions
-public typealias Block = () -> Void
-public typealias ErrorBlock = (ErrorProtocol) -> Void
-
-// A block that takes a Canceler. The block will not be called again if it sets the <isCanceled> variable of the Canceler to true.
-public typealias CancelableBlock = (canceler: Canceler) -> Void
-
 public let mainQueue = DispatchQueue.main
 public let backgroundQueue = DispatchQueue(label: "background", attributes: [.concurrent], target: nil)
 

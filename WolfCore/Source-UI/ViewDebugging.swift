@@ -211,7 +211,7 @@ extension UIView {
         }
     }
 
-    private func name(forView view: UIView, forRelationshipToCurrentView relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
+    private func name(forItem view: AnyObject, forRelationshipToCurrentView relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
         var viewName = ""
         switch relationship {
         case .same:
@@ -226,10 +226,15 @@ extension UIView {
 
         constraintJoiner.append("\(aliaser.name(forObject: constraint)):")
 
-        let firstView = constraint.firstItem as! UIView
-        let firstToCurrentRelationship: ViewRelationship = firstView.relationship(toView: currentView)
+        let firstItem = constraint.firstItem
+        let firstToCurrentRelationship: ViewRelationship
+        if let firstView = firstItem as? UIView {
+            firstToCurrentRelationship = firstView.relationship(toView: currentView)
+        } else {
+            firstToCurrentRelationship = .unrelated
+        }
 
-        let firstViewName = name(forView: firstView, forRelationshipToCurrentView: firstToCurrentRelationship, aliaser: aliaser)
+        let firstViewName = name(forItem: firstItem, forRelationshipToCurrentView: firstToCurrentRelationship, aliaser: aliaser)
 
         constraintJoiner.append("\(firstViewName).\(string(forAttribute: constraint.firstAttribute))")
 
@@ -237,25 +242,31 @@ extension UIView {
 
         constraintJoiner.append(string(forRelation: constraint.relation))
 
-        if let secondView = constraint.secondItem as? UIView {
-            let secondToCurrentRelationship = secondView.relationship(toView: currentView)
-
-            let secondViewName = name(forView: secondView, forRelationshipToCurrentView: secondToCurrentRelationship, aliaser: aliaser)
-
-            constraintJoiner.append("\(secondViewName).\(string(forAttribute: constraint.secondAttribute))")
-
-            appendDescriptor(forRelationship: secondToCurrentRelationship, toJoiner: constraintJoiner, aliaser: aliaser)
-
-            if constraint.multiplier != 1.0 {
-                constraintJoiner.append("×", constraint.multiplier)
-            }
-            if constraint.constant > 0.0 {
-                constraintJoiner.append("+", constraint.constant)
-            } else if constraint.constant < 0.0 {
-                constraintJoiner.append("-", -constraint.constant)
-            }
-        } else {
+        guard let secondItem = constraint.secondItem else {
             constraintJoiner.append(constraint.constant)
+            return
+        }
+
+        let secondToCurrentRelationship: ViewRelationship
+        if let secondView = secondItem as? UIView {
+            secondToCurrentRelationship = secondView.relationship(toView: currentView)
+        } else {
+            secondToCurrentRelationship = .unrelated
+        }
+
+        let secondItemName = name(forItem: secondItem, forRelationshipToCurrentView: secondToCurrentRelationship, aliaser: aliaser)
+
+        constraintJoiner.append("\(secondItemName).\(string(forAttribute: constraint.secondAttribute))")
+
+        appendDescriptor(forRelationship: secondToCurrentRelationship, toJoiner: constraintJoiner, aliaser: aliaser)
+
+        if constraint.multiplier != 1.0 {
+            constraintJoiner.append("×", constraint.multiplier)
+        }
+        if constraint.constant > 0.0 {
+            constraintJoiner.append("+", constraint.constant)
+        } else if constraint.constant < 0.0 {
+            constraintJoiner.append("-", -constraint.constant)
         }
     }
 }

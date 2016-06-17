@@ -6,19 +6,18 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-//import UIKit
 #if os(Linux)
     import Glibc
 #else
-    import Darwin.C
+    import Darwin
 #endif
 
 public func degrees(forRadians radians: Double) -> Double {
-    return radians / M_PI * 180.0
+    return radians / .pi * 180.0
 }
 
 public func radians(forDegrees degrees: Double) -> Double {
-    return degrees / 180.0 * M_PI
+    return degrees / 180.0 * .pi
 }
 
 public func angleOfLineSegment(_ p1: Point, _ p2: Point) -> Double {
@@ -58,8 +57,8 @@ public func infoForRoundedCornerArcAtVertex(withRadius radius: Double, _ p1: Poi
     let bisectionAngle = alpha / 2.0
     let centerAngle = p1p2angle + bisectionAngle
     let center = Point(center: p2, angle: centerAngle, radius: distanceFromVertexToCenter)
-    let startAngle: Double = p1p2angle - Double(M_PI / 2)
-    let endAngle: Double = angleOfLineSegment(p2, p3) - Double(M_PI / 2)
+    let startAngle = p1p2angle - .pi / 2
+    let endAngle = angleOfLineSegment(p2, p3) - .pi / 2
     let clockwise = true // TODO
     let startPoint = Point(center: center, angle: startAngle, radius: radius)
     let endPoint = Point(center: center, angle: endAngle, radius: radius)

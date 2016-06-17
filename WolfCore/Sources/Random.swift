@@ -9,7 +9,6 @@
 #if os(Linux)
     import Glibc
 #else
-    import Darwin.C
     import CoreGraphics
     import Security
 #endif
@@ -100,7 +99,7 @@ public class Random {
     // "Generating Gaussian Random Numbers"
     // http://www.taygeta.com/random/gaussian.html
     public func randomGaussian() -> Double {
-        return sqrt( -2.0 * log(randomDouble()) ) * cos( 2.0 * M_PI * randomDouble() )
+        return sqrt( -2.0 * log(randomDouble()) ) * cos( 2.0 * .pi * randomDouble() )
     }
 
     // returns a random Double in the half-open range 0..<1

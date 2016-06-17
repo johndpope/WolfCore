@@ -8,6 +8,7 @@
 
 #if os(Linux)
     import COpenSSL
+    private let sha256DigestLength = SHA256_DIGEST_LENGTH
 #else
     import Foundation
     import CommonCrypto
@@ -21,7 +22,7 @@ public class SHA256 {
 #if os(Linux)
         var ctx = SHA256_CTX()
         SHA256_Init(&ctx)
-        SHA256_Update(&ctx, message, message.count)
+        SHA256_Update(&ctx, bytes, bytes.count)
         SHA256_Final(&digest, &ctx)
 #else
         CC_SHA256(bytes, CC_LONG(bytes.count), &digest)

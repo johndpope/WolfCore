@@ -286,7 +286,7 @@ public struct Color {
 
 }
 
-#if os(OSX) || os(iOS) || os(tvOS)
+#if !os(Linux)
 extension Color {
     public var cgColor: CGColor {
         return CGColor(colorSpace: sharedColorSpaceRGB, components: [CGFloat(red), CGFloat(green), CGFloat(blue), CGFloat(alpha)])!
@@ -367,6 +367,7 @@ public func + (lhs: Color, rhs: Color) -> Color {
     return lhs.added(to: rhs)
 }
 
+#if !os(Linux)
 extension Color {
     public init(cgColor: CGColor) {
         switch cgColor.colorSpace!.model {
@@ -411,3 +412,4 @@ extension CGColor {
         return Color(cgColor: cgColor)
     }
 }
+#endif

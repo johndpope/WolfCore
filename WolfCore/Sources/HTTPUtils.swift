@@ -234,6 +234,7 @@ public class HTTP {
         )
     }
 
+    #if !os(Linux)
     public static func retrieveImage(
         withURL url: URL,
         successStatusCodes: [StatusCode],
@@ -260,4 +261,5 @@ public class HTTP {
             finally: finally
         )
     }
+    #endif
 }

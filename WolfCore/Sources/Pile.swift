@@ -6,7 +6,6 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import Darwin
 import Foundation
 
 public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
@@ -91,7 +90,7 @@ extension Pile {
         assert(json["type"] as! String == "Pile")
         let jsonCards = json["cards"] as! JSONArray
         let cards = jsonCards.map { (jsonCard) -> CardType? in
-            return (jsonCard as? NSObject) == NSNull() ? nil : CardType(json: jsonCard as! JSONDictionary)
+            return jsonCard == NSNull() ? nil : CardType(json: jsonCard as! JSONDictionary)
         }
         self.init(cards: cards)
     }

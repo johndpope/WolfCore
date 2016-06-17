@@ -40,6 +40,12 @@
 		03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B321C3CBA7E001A463B /* RangeExtensions.swift */; };
 		03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */; };
 		03206B3B1C3CBB36001A463B /* TextCheckingResultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */; };
+		0322E89E1D13FAFC00EFF3F6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E89D1D13FAFC00EFF3F6 /* Block.swift */; };
+		0322E89F1D13FAFC00EFF3F6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E89D1D13FAFC00EFF3F6 /* Block.swift */; };
+		0322E8A01D13FAFC00EFF3F6 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E89D1D13FAFC00EFF3F6 /* Block.swift */; };
+		0322E8A21D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
+		0322E8A31D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
+		0322E8A41D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
 		0324AEF61CF81EB30080DFF6 /* InFlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */; };
 		0324AEF81CF81ED50080DFF6 /* InFlightToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */; };
 		0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */; };
@@ -66,7 +72,7 @@
 		033F5E911CA3096700647A0A /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7881C53F7340045BB37 /* Hex.swift */; };
 		033F5E931CA3096700647A0A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		033F5E941CA3096700647A0A /* SizeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B7A1C4F28F60074E447 /* SizeExtensions.swift */; };
-		033F5E961CA3096700647A0A /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553211C0F622A00E0FCA7 /* HTTPError.swift */; };
+		033F5E961CA3096700647A0A /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553211C0F622A00E0FCA7 /* HTTPUtils.swift */; };
 		033F5E981CA3096700647A0A /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033E14FC1C7CC71C00BA3E63 /* Matrix.swift */; };
 		033F5E991CA3096700647A0A /* GeometryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */; };
 		033F5E9A1CA3096700647A0A /* RangeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B321C3CBA7E001A463B /* RangeExtensions.swift */; };
@@ -105,7 +111,7 @@
 		033F5EC21CA3096700647A0A /* IntPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B851C4FF35C0074E447 /* IntPoint.swift */; };
 		033F5EC51CA3096700647A0A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B71C496F2400B124A3 /* Size.swift */; };
 		033F5EC61CA3096700647A0A /* VectorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B7B1C4F28F60074E447 /* VectorExtensions.swift */; };
-		033F5EC71CA3096700647A0A /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553221C0F622A00E0FCA7 /* HTTPUtils.swift */; };
+		033F5EC71CA3096700647A0A /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553221C0F622A00E0FCA7 /* HTTPError.swift */; };
 		033F5EC81CA3096700647A0A /* IPAddress6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */; };
 		033F5EC91CA3096700647A0A /* DispatchUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */; };
 		033F5ECA1CA3096700647A0A /* RegularExpressionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */; };
@@ -143,8 +149,8 @@
 		035553491C0F622A00E0FCA7 /* GeneralError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531E1C0F622A00E0FCA7 /* GeneralError.swift */; };
 		0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */; };
 		0355534B1C0F622A00E0FCA7 /* GestureRecognizerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */; };
-		0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553211C0F622A00E0FCA7 /* HTTPError.swift */; };
-		0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553221C0F622A00E0FCA7 /* HTTPUtils.swift */; };
+		0355534C1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553211C0F622A00E0FCA7 /* HTTPUtils.swift */; };
+		0355534D1C0F622A00E0FCA7 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553221C0F622A00E0FCA7 /* HTTPError.swift */; };
 		0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553231C0F622A00E0FCA7 /* ImageExtensions.swift */; };
 		0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553241C0F622A00E0FCA7 /* ImageUtils.swift */; };
 		035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553251C0F622A00E0FCA7 /* ImageView.swift */; };
@@ -251,7 +257,7 @@
 		03E172DB1CF1C8B60073F383 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834C1C4320F300491AFF /* Gradient.swift */; };
 		03E172DC1CF1C8B60073F383 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
 		03E172DD1CF1C8B60073F383 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7881C53F7340045BB37 /* Hex.swift */; };
-		03E172DE1CF1C8B60073F383 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553211C0F622A00E0FCA7 /* HTTPError.swift */; };
+		03E172DE1CF1C8B60073F383 /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553211C0F622A00E0FCA7 /* HTTPUtils.swift */; };
 		03E172DF1CF1C8B60073F383 /* IPAddress4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */; };
 		03E172E01CF1C8B60073F383 /* IPAddress6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */; };
 		03E172E11CF1C8B60073F383 /* ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */; };
@@ -287,7 +293,7 @@
 		03E172FF1CF1C8E70073F383 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553151C0F622A00E0FCA7 /* BundleExtensions.swift */; };
 		03E173001CF1C8E70073F383 /* DispatchUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355531C1C0F622A00E0FCA7 /* DispatchUtils.swift */; };
 		03E173011CF1C8E70073F383 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
-		03E173021CF1C8E70073F383 /* HTTPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553221C0F622A00E0FCA7 /* HTTPUtils.swift */; };
+		03E173021CF1C8E70073F383 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553221C0F622A00E0FCA7 /* HTTPError.swift */; };
 		03E173031CF1C8E70073F383 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
 		03E173041CF1C8E70073F383 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
 		03E173051CF1C8E70073F383 /* NotificationCenterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0355532B1C0F622A00E0FCA7 /* NotificationCenterExtensions.swift */; };
@@ -379,6 +385,9 @@
 		03206B321C3CBA7E001A463B /* RangeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RangeExtensions.swift; path = Sources/RangeExtensions.swift; sourceTree = "<group>"; };
 		03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegularExpressionExtensions.swift; path = Sources/RegularExpressionExtensions.swift; sourceTree = "<group>"; };
 		03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextCheckingResultExtensions.swift; path = Sources/TextCheckingResultExtensions.swift; sourceTree = "<group>"; };
+		0322E89C1D13BB2F00EFF3F6 /* LinuxCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinuxCompatibility.swift; path = Sources/LinuxCompatibility.swift; sourceTree = "<group>"; };
+		0322E89D1D13FAFC00EFF3F6 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Block.swift; path = Sources/Block.swift; sourceTree = "<group>"; };
+		0322E8A11D13FB8900EFF3F6 /* Canceler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Canceler.swift; path = Sources/Canceler.swift; sourceTree = "<group>"; };
 		0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightTracker.swift; sourceTree = "<group>"; };
 		0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightToken.swift; sourceTree = "<group>"; };
 		0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightView.swift; sourceTree = "<group>"; };
@@ -410,8 +419,8 @@
 		0355531E1C0F622A00E0FCA7 /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GeneralError.swift; path = Sources/GeneralError.swift; sourceTree = "<group>"; };
 		0355531F1C0F622A00E0FCA7 /* GeometryUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GeometryUtils.swift; path = Sources/GeometryUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GestureRecognizerAction.swift; path = "Source-UI/GestureRecognizerAction.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		035553211C0F622A00E0FCA7 /* HTTPError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = HTTPError.swift; path = Sources/HTTPError.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		035553221C0F622A00E0FCA7 /* HTTPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = HTTPUtils.swift; path = "Sources-Foundation/HTTPUtils.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553211C0F622A00E0FCA7 /* HTTPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = HTTPUtils.swift; path = Sources/HTTPUtils.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553221C0F622A00E0FCA7 /* HTTPError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = HTTPError.swift; path = Sources/HTTPError.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553231C0F622A00E0FCA7 /* ImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ImageExtensions.swift; path = "Source-UI/ImageExtensions.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553241C0F622A00E0FCA7 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ImageUtils.swift; path = "Source-UI/ImageUtils.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553251C0F622A00E0FCA7 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ImageView.swift; path = "Source-UI/ImageView.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -568,6 +577,8 @@
 				0314DCF11D08F7F100E23C67 /* Errors */,
 				0314DCFA1D08F97900E23C67 /* Formats */,
 				035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */,
+				0322E89D1D13FAFC00EFF3F6 /* Block.swift */,
+				0322E8A11D13FB8900EFF3F6 /* Canceler.swift */,
 				035553171C0F622A00E0FCA7 /* CircularList.swift */,
 				0314DCF41D08F8FD00E23C67 /* DataExtensions.swift */,
 				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
@@ -684,8 +695,8 @@
 			isa = PBXGroup;
 			children = (
 				035EB4541CF3CC2D006D73ED /* EmailUtils.swift */,
-				035553221C0F622A00E0FCA7 /* HTTPUtils.swift */,
-				035553211C0F622A00E0FCA7 /* HTTPError.swift */,
+				035553221C0F622A00E0FCA7 /* HTTPError.swift */,
+				035553211C0F622A00E0FCA7 /* HTTPUtils.swift */,
 				03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */,
 				03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */,
 			);
@@ -842,6 +853,14 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		0322E89B1D13BB1400EFF3F6 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				0322E89C1D13BB2F00EFF3F6 /* LinuxCompatibility.swift */,
+			);
+			name = Platform;
+			sourceTree = "<group>";
+		};
 		035552EE1C0F5F4200E0FCA7 = {
 			isa = PBXGroup;
 			children = (
@@ -868,6 +887,7 @@
 		035552FA1C0F5F4200E0FCA7 /* WolfCore */ = {
 			isa = PBXGroup;
 			children = (
+				0322E89B1D13BB1400EFF3F6 /* Platform */,
 				0314DD091D08FC9A00E23C67 /* Autolayout */,
 				0314DD041D08FB4C00E23C67 /* App */,
 				0314DD051D08FB5F00E23C67 /* Concurrency */,
@@ -1150,6 +1170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				033F5E831CA3096700647A0A /* GestureRecognizerAction.swift in Sources */,
+				0322E89F1D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
 				033F5E841CA3096700647A0A /* TextCheckingResultExtensions.swift in Sources */,
 				033F5E851CA3096700647A0A /* ColorExtensions.swift in Sources */,
@@ -1167,7 +1188,7 @@
 				033F5E911CA3096700647A0A /* Hex.swift in Sources */,
 				033F5E931CA3096700647A0A /* OutputStreamUtils.swift in Sources */,
 				033F5E941CA3096700647A0A /* SizeExtensions.swift in Sources */,
-				033F5E961CA3096700647A0A /* HTTPError.swift in Sources */,
+				033F5E961CA3096700647A0A /* HTTPUtils.swift in Sources */,
 				033F5E981CA3096700647A0A /* Matrix.swift in Sources */,
 				033F5E991CA3096700647A0A /* GeometryUtils.swift in Sources */,
 				033F5E9A1CA3096700647A0A /* RangeExtensions.swift in Sources */,
@@ -1216,7 +1237,7 @@
 				033F5EC21CA3096700647A0A /* IntPoint.swift in Sources */,
 				033F5EC51CA3096700647A0A /* Size.swift in Sources */,
 				033F5EC61CA3096700647A0A /* VectorExtensions.swift in Sources */,
-				033F5EC71CA3096700647A0A /* HTTPUtils.swift in Sources */,
+				033F5EC71CA3096700647A0A /* HTTPError.swift in Sources */,
 				033F5EC81CA3096700647A0A /* IPAddress6.swift in Sources */,
 				033F5EC91CA3096700647A0A /* DispatchUtils.swift in Sources */,
 				033F5EE31CA31AF200647A0A /* ViewExtensions.swift in Sources */,
@@ -1224,6 +1245,7 @@
 				033F5ECB1CA3096700647A0A /* ArrayExtensions.swift in Sources */,
 				033F5ECD1CA3096700647A0A /* UserDefaultsExtensions.swift in Sources */,
 				033F5ECE1CA3096700647A0A /* Error.swift in Sources */,
+				0322E8A31D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				033F5ECF1CA3096700647A0A /* UTF8.swift in Sources */,
 				033F5ED01CA3096700647A0A /* Position.swift in Sources */,
 				033F5ED11CA3096700647A0A /* DateExtensions.swift in Sources */,
@@ -1245,6 +1267,7 @@
 			files = (
 				0355534B1C0F622A00E0FCA7 /* GestureRecognizerAction.swift in Sources */,
 				033882241CFF97C200C8972B /* TextField.swift in Sources */,
+				0322E8A21D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				03206B3B1C3CBB36001A463B /* TextCheckingResultExtensions.swift in Sources */,
 				035553431C0F622A00E0FCA7 /* ColorExtensions.swift in Sources */,
 				03AC919C1CEB3DF3006AED00 /* PagingView.swift in Sources */,
@@ -1272,7 +1295,7 @@
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
 				03E13B811C4F28F60074E447 /* SizeExtensions.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
-				0355534C1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
+				0355534C1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
 				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
 				036307D21CB6DAA500DC7070 /* ApplicationNotificationActions.swift in Sources */,
 				036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */,
@@ -1321,6 +1344,7 @@
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
 				035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */,
 				03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */,
+				0322E89E1D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				03E13B7E1C4F28F60074E447 /* PDF.swift in Sources */,
 				0355533F1C0F622A00E0FCA7 /* BezierPathExtensions.swift in Sources */,
 				03E13B881C4FF37C0074E447 /* IntSize.swift in Sources */,
@@ -1349,7 +1373,7 @@
 				035553621C0F622A00E0FCA7 /* View.swift in Sources */,
 				03F5A8B81C496F2400B124A3 /* Size.swift in Sources */,
 				03E13B821C4F28F60074E447 /* VectorExtensions.swift in Sources */,
-				0355534D1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
+				0355534D1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
 				034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
 				03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */,
 				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
@@ -1411,6 +1435,7 @@
 				03E172C91CF1C8AD0073F383 /* Card.swift in Sources */,
 				03E172DB1CF1C8B60073F383 /* Gradient.swift in Sources */,
 				03E173291CF1C8FB0073F383 /* ScrollView.swift in Sources */,
+				0322E8A01D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				03E173141CF1C8FB0073F383 /* GestureActions.swift in Sources */,
 				0314DCF61D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
 				031631A21D09639F00DCBB3B /* FontExtensions.swift in Sources */,
@@ -1434,7 +1459,7 @@
 				03E172CF1CF1C8B60073F383 /* ASN1Parser.swift in Sources */,
 				03E172C81CF1C8AD0073F383 /* CardProtocol.swift in Sources */,
 				03E172ED1CF1C8B60073F383 /* RegularExpressionExtensions.swift in Sources */,
-				03E172DE1CF1C8B60073F383 /* HTTPError.swift in Sources */,
+				03E172DE1CF1C8B60073F383 /* HTTPUtils.swift in Sources */,
 				03E172F41CF1C8C20073F383 /* StringExtensions.swift in Sources */,
 				03E172EA1CF1C8B60073F383 /* Random.swift in Sources */,
 				03E172D91CF1C8B60073F383 /* DictionaryExtensions.swift in Sources */,
@@ -1449,6 +1474,7 @@
 				03E173111CF1C8FB0073F383 /* ControlAction.swift in Sources */,
 				03E172E51CF1C8B60073F383 /* Log.swift in Sources */,
 				03E173211CF1C8FB0073F383 /* ViewControllerDebugging.swift in Sources */,
+				0322E8A41D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				03E172E11CF1C8B60073F383 /* ISO8601.swift in Sources */,
 				03E172D41CF1C8B60073F383 /* CircularList.swift in Sources */,
 				03E173071CF1C8E70073F383 /* NotificationActions.swift in Sources */,
@@ -1494,7 +1520,7 @@
 				03E173181CF1C8FB0073F383 /* ImageUtils.swift in Sources */,
 				03E172C21CF1C8AD0073F383 /* Size.swift in Sources */,
 				03E172CE1CF1C8AD0073F383 /* Pile.swift in Sources */,
-				03E173021CF1C8E70073F383 /* HTTPUtils.swift in Sources */,
+				03E173021CF1C8E70073F383 /* HTTPError.swift in Sources */,
 				03E172DA1CF1C8B60073F383 /* GeometryUtils.swift in Sources */,
 				03E172BF1CF1C8AD0073F383 /* GeneralError.swift in Sources */,
 				03E1730F1CF1C8FB0073F383 /* AutolayoutUtils.swift in Sources */,
