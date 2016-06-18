@@ -11,6 +11,7 @@ import Foundation
 public typealias Calendar = NSCalendar
 public typealias Data = NSData
 public typealias Date = NSDate
+public typealias DateComponents = NSDateComponents
 public typealias DateFormatter = NSDateFormatter
 public typealias HTTPURLResponse = NSHTTPURLResponse
 public typealias JSONSerialization = NSJSONSerialization
@@ -49,5 +50,11 @@ extension DateFormatter {
 extension Calendar {
     public static func current() -> Calendar {
         return self.currentCalendar()
+    }
+}
+
+extension URLSession {
+    public static func shared() -> URLSession {
+        return self.sharedSession()
     }
 }

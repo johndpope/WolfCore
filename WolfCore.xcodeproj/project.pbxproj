@@ -49,6 +49,9 @@
 		0322E8A21D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
 		0322E8A31D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
 		0322E8A41D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
+		0322E8A61D15378C00EFF3F6 /* JSON2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* JSON2.swift */; };
+		0322E8A71D15378C00EFF3F6 /* JSON2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* JSON2.swift */; };
+		0322E8A81D15378C00EFF3F6 /* JSON2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* JSON2.swift */; };
 		0324AEF61CF81EB30080DFF6 /* InFlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */; };
 		0324AEF81CF81ED50080DFF6 /* InFlightToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */; };
 		0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */; };
@@ -393,6 +396,7 @@
 		0322E89C1D13BB2F00EFF3F6 /* LinuxCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinuxCompatibility.swift; path = Sources/LinuxCompatibility.swift; sourceTree = "<group>"; };
 		0322E89D1D13FAFC00EFF3F6 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Block.swift; path = Sources/Block.swift; sourceTree = "<group>"; };
 		0322E8A11D13FB8900EFF3F6 /* Canceler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Canceler.swift; path = Sources/Canceler.swift; sourceTree = "<group>"; };
+		0322E8A51D15378C00EFF3F6 /* JSON2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON2.swift; path = Sources/JSON2.swift; sourceTree = "<group>"; };
 		0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightTracker.swift; sourceTree = "<group>"; };
 		0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightToken.swift; sourceTree = "<group>"; };
 		0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InFlightView.swift; sourceTree = "<group>"; };
@@ -665,6 +669,7 @@
 				03FAF7821C53F6EF0045BB37 /* UTF8.swift */,
 				03F5A8B11C485F6000B124A3 /* UUID.swift */,
 				03FAF7841C53F6FF0045BB37 /* JSON.swift */,
+				0322E8A51D15378C00EFF3F6 /* JSON2.swift */,
 				03FAF77A1C532A640045BB37 /* ASN1Parser.swift */,
 				03206B2C1C3B1B02001A463B /* BSON.swift */,
 				03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */,
@@ -1245,6 +1250,7 @@
 				033F5EC11CA3096700647A0A /* Point.swift in Sources */,
 				033F5EC21CA3096700647A0A /* IntPoint.swift in Sources */,
 				033F5EC51CA3096700647A0A /* Size.swift in Sources */,
+				0322E8A71D15378C00EFF3F6 /* JSON2.swift in Sources */,
 				033F5EC61CA3096700647A0A /* VectorExtensions.swift in Sources */,
 				033F5EC71CA3096700647A0A /* HTTPError.swift in Sources */,
 				033F5EC81CA3096700647A0A /* IPAddress6.swift in Sources */,
@@ -1407,6 +1413,7 @@
 				03FAF7871C53F7230045BB37 /* Bytes.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
+				0322E8A61D15378C00EFF3F6 /* JSON2.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 				0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */,
 				0314DD0D1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
@@ -1480,6 +1487,7 @@
 				03E173131CF1C8FB0073F383 /* GestureRecognizerAction.swift in Sources */,
 				03E172EB1CF1C8B60073F383 /* RangeExtensions.swift in Sources */,
 				03E172E61CF1C8B60073F383 /* MathUtils.swift in Sources */,
+				0322E8A81D15378C00EFF3F6 /* JSON2.swift in Sources */,
 				0314DD131D09032400E23C67 /* Serializable.swift in Sources */,
 				03E172E41CF1C8B60073F383 /* LifeHash.swift in Sources */,
 				03E172F01CF1C8B60073F383 /* ValidationError.swift in Sources */,
