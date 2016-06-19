@@ -9,7 +9,7 @@
 import Foundation
 
 public final class JSON2 {
-    public typealias Value = Any
+    public typealias Value = Any?
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
 
@@ -32,28 +32,24 @@ public final class JSON2 {
     private static let literalTrue = "true"
     private static let literalNull = "null"
 
-    public class Null {
-        private init() { }
-    }
-
-    static public let null = Null()
+    static public let null: Any? = nil
 
     public final class Reader {
         private let string: String
         private var index: String.Index
 
-        public enum Error: String, ErrorProtocol {
-            case noTopLevelObjectOrArray = "No top level object or array."
-            case unexpectedEndOfData = "Unexpected end of data."
-            case unknownValue = "Unknown value."
-            case unterminatedArray = "Unterminated array."
-            case keyExpected = "Key expected."
-            case nameSeparatorExpected = "Name separator expected."
-            case unterminatedDictionary = "Unterminated dictionary."
-            case unterminatedString = "Unterminated string."
-            case unterminatedEscapeSequence = "Unterminated escape sequence."
-            case unknownEscapeSequence = "Unknown escape sequence."
-            case malformedNumber = "Malformed number."
+        public enum Error: ErrorProtocol {
+            case noTopLevelObjectOrArray
+            case unexpectedEndOfData
+            case unknownValue
+            case unterminatedArray
+            case keyExpected
+            case nameSeparatorExpected
+            case unterminatedDictionary
+            case unterminatedString
+            case unterminatedEscapeSequence
+            case unknownEscapeSequence
+            case malformedNumber
         }
 
         private init(string: String) {
@@ -113,7 +109,6 @@ public final class JSON2 {
 
         private func parseValue(allowsFragment: Bool = true) throws -> JSON2.Value {
             try skipWhitespace()
-
             if let array = try parseArray() {
                 return array
             }
@@ -137,7 +132,7 @@ public final class JSON2 {
             }
 
             if try parseNull() {
-                return JSON2.null
+                return nil
             }
 
             throw Error.unknownValue
@@ -148,12 +143,12 @@ public final class JSON2 {
             var array = JSON2.Array()
             repeat {
                 try skipWhitespace()
+                guard !advance(ifNextCharacterIs: JSON2.closeBracket) else { return array }
+                try skipWhitespace()
                 let value = try parseValue()
                 array.append(value)
                 try skipWhitespace()
             } while advance(ifNextCharacterIs: JSON2.comma)
-            try skipWhitespace()
-            guard advance(ifNextCharacterIs: JSON2.closeBracket) else { throw Error.unterminatedArray }
             return array
         }
 
@@ -162,6 +157,7 @@ public final class JSON2 {
             var dictionary = JSON2.Dictionary()
             repeat {
                 try skipWhitespace()
+                guard !advance(ifNextCharacterIs: JSON2.closeBrace) else { return dictionary }
                 guard let key = try parseString() else { throw Error.keyExpected }
                 try skipWhitespace()
                 guard advance(ifNextCharacterIs: JSON2.colon) else { throw Error.nameSeparatorExpected }
@@ -171,7 +167,6 @@ public final class JSON2 {
                 try skipWhitespace()
             } while advance(ifNextCharacterIs: JSON2.comma)
             try skipWhitespace()
-            guard advance(ifNextCharacterIs: JSON2.closeBrace) else { throw Error.unterminatedDictionary }
             return dictionary
         }
 
@@ -228,10 +223,11 @@ public final class JSON2 {
         }
 
         private func parseBool() throws -> Bool? {
-            if string.hasPrefix(JSON2.literalTrue) {
+            let s = string.substring(from: index)
+            if s.hasPrefix(JSON2.literalTrue) {
                 advance(by: JSON2.literalTrue.characters.count)
                 return true
-            } else if string.hasPrefix(JSON2.literalFalse) {
+            } else if s.hasPrefix(JSON2.literalFalse) {
                 advance(by: JSON2.literalFalse.characters.count)
                 return false
             }
@@ -239,7 +235,8 @@ public final class JSON2 {
         }
 
         private func parseNull() throws -> Bool {
-            if string.hasPrefix(JSON2.literalNull) {
+            let s = string.substring(from: index)
+            if s.hasPrefix(JSON2.literalNull) {
                 advance(by: JSON2.literalNull.characters.count)
                 return true
             }
@@ -247,15 +244,129 @@ public final class JSON2 {
         }
     }
 
-    public static func object(from string: String, allowsFragment: Bool = false) throws -> Value {
+    public class Writer {
+        private var string = ""
+
+        public enum Error: ErrorProtocol {
+            case noTopLevelObjectOrArray
+            case unknownValue
+        }
+
+        private func emit(_ character: Character) {
+            string.append(character)
+        }
+
+        private func emit(_ string: String) {
+            self.string.append(string)
+        }
+
+        private func emit(string: String) {
+            emit("\"\(string)\"")
+        }
+
+        private func emit(number: Double) {
+            emit("\(number)")
+        }
+
+        private func emit(bool: Bool) {
+            emit(bool ? JSON2.literalTrue : JSON2.literalFalse)
+        }
+
+        private func emit(dictionary: Dictionary) throws {
+            emit(JSON2.openBrace)
+            var first = true
+            for (key, value) in dictionary {
+                if first {
+                    first = false
+                } else {
+                    emit(JSON2.comma)
+                }
+                emit(string: key)
+                emit(JSON2.colon)
+                try emit(value: value, allowsFragment: true)
+            }
+            emit(JSON2.closeBrace)
+        }
+
+        private func emit(array: Array) throws {
+            emit(JSON2.openBracket)
+            var first = true
+            for value in array {
+                if first {
+                    first = false
+                } else {
+                    emit(JSON2.comma)
+                }
+                try emit(value: value, allowsFragment: true)
+            }
+            emit(JSON2.closeBracket)
+        }
+
+        private func emit(value: Value, allowsFragment: Bool) throws {
+            guard let value = value else {
+                if allowsFragment {
+                    emit(JSON2.literalNull)
+                    return
+                } else {
+                    throw Error.unknownValue
+                }
+            }
+
+            switch value {
+            case let dictionary as Dictionary:
+                try emit(dictionary: dictionary)
+            case let array as Array:
+                try emit(array: array)
+            default:
+                break
+            }
+
+            guard allowsFragment else {
+                throw Error.noTopLevelObjectOrArray
+            }
+
+            switch value {
+            case let string as String:
+                emit(string: string)
+            case let number as Double:
+                emit(number: number)
+            case let bool as Bool:
+                emit(bool: bool)
+            default:
+                throw Error.unknownValue
+            }
+        }
+    }
+
+    public static func object(from string: String, allowsFragment: Bool) throws -> Value {
         let reader = Reader(string: string)
         return try reader.parseValue(allowsFragment: allowsFragment)
+    }
+
+    public static func object(from string: String) throws -> Value {
+        return try object(from: string, allowsFragment: false)
+    }
+
+    public static func string(from value: Value, allowsFragment: Bool) throws -> String {
+        let writer = Writer()
+        try writer.emit(value: value, allowsFragment: allowsFragment)
+        return writer.string
+    }
+
+    public static func string(from object: Value) throws -> String {
+        return try string(from: object, allowsFragment: false)
     }
 }
 
 public func JSON2Test() {
-    let raw = "[]"
-    let json = raw |> JSON2.object
-    print(raw)
-    print(json)
+    do {
+        let raw = "{\"color\": \"red\", \"age\": 51, \"awesome\": true, \"array\": [1, 2, false, null]}"
+        print(raw)
+        let json = try raw |> JSON2.object
+        print(json)
+        let value = try json |> JSON2.string
+        print(value)
+    } catch let error {
+        print(error)
+    }
 }

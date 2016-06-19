@@ -68,7 +68,7 @@ public class Log {
         }
     }
 
-    public func setGroup(group: String, active: Bool = true) {
+    public func set(group: String, active: Bool = true) {
         if active {
             groups.insert(group)
         } else {

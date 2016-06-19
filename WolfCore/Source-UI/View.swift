@@ -76,6 +76,11 @@
             setupSublabelScaling()
         }
         #endif
+
+        public override func layoutSubviews() {
+            super.layoutSubviews()
+            syncSublabelScaling()
+        }
     }
 
 #if os(OSX)
@@ -106,11 +111,6 @@ extension View {
         for label in descendentViews(ofClass: Label.self) as [Label] {
             label.syncFontSize(toFactor: factor)
         }
-    }
-
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        syncSublabelScaling()
     }
 }
 #endif
