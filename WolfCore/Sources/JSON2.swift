@@ -9,7 +9,7 @@
 import Foundation
 
 public final class JSON2 {
-    public typealias Value = Any?
+    public typealias Value = Any
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
 
@@ -32,7 +32,10 @@ public final class JSON2 {
     private static let literalTrue = "true"
     private static let literalNull = "null"
 
-    static public let null: Any? = nil
+    public class Null {
+    }
+
+    static public let null = Null()
 
     public final class Reader {
         private let string: String
@@ -132,7 +135,7 @@ public final class JSON2 {
             }
 
             if try parseNull() {
-                return nil
+                return JSON2.null
             }
 
             throw Error.unknownValue
@@ -265,7 +268,8 @@ public final class JSON2 {
         }
 
         private func emit(number: Double) {
-            emit("\(number)")
+            let n = String(value: number, precision: 17)
+            emit(n)
         }
 
         private func emit(bool: Bool) {
@@ -303,20 +307,22 @@ public final class JSON2 {
         }
 
         private func emit(value: Value, allowsFragment: Bool) throws {
-            guard let value = value else {
-                if allowsFragment {
-                    emit(JSON2.literalNull)
-                    return
-                } else {
-                    throw Error.unknownValue
-                }
-            }
+//            guard let value = value else {
+//                if allowsFragment {
+//                    emit(JSON2.literalNull)
+//                    return
+//                } else {
+//                    throw Error.unknownValue
+//                }
+//            }
 
             switch value {
             case let dictionary as Dictionary:
                 try emit(dictionary: dictionary)
+                return
             case let array as Array:
                 try emit(array: array)
+                return
             default:
                 break
             }
@@ -332,6 +338,8 @@ public final class JSON2 {
                 emit(number: number)
             case let bool as Bool:
                 emit(bool: bool)
+            case is JSON2.Null:
+                emit(JSON2.literalNull)
             default:
                 throw Error.unknownValue
             }
@@ -360,7 +368,7 @@ public final class JSON2 {
 
 public func JSON2Test() {
     do {
-        let raw = "{\"color\": \"red\", \"age\": 51, \"awesome\": true, \"array\": [1, 2, false, null]}"
+        let raw = "{\"color\": \"red\", \"age\": 51, \"dict\": {\"a\": 50.5, \"b\": -3.1415927}, \"awesome\": true, \"array\": [1, 2, false, null]}"
         print(raw)
         let json = try raw |> JSON2.object
         print(json)
