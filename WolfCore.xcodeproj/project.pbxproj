@@ -62,6 +62,12 @@
 		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
 		033882241CFF97C200C8972B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033882231CFF97C200C8972B /* TextField.swift */; };
 		0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */; };
+		033AC3481D171703008C8B93 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC3471D171703008C8B93 /* Interval.swift */; };
+		033AC3491D171703008C8B93 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC3471D171703008C8B93 /* Interval.swift */; };
+		033AC34A1D171703008C8B93 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC3471D171703008C8B93 /* Interval.swift */; };
+		033AC34C1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
+		033AC34D1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
+		033AC34E1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
 		033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033E14FC1C7CC71C00BA3E63 /* Matrix.swift */; };
 		033F5E831CA3096700647A0A /* GestureRecognizerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */; };
 		033F5E841CA3096700647A0A /* TextCheckingResultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */; };
@@ -407,6 +413,8 @@
 		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraitCollectionExtensions.swift; path = "Source-UI/TraitCollectionExtensions.swift"; sourceTree = "<group>"; };
 		033882231CFF97C200C8972B /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextField.swift; path = "Source-UI/TextField.swift"; sourceTree = "<group>"; };
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = Sources/SequenceExtensions.swift; sourceTree = "<group>"; };
+		033AC3471D171703008C8B93 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interval.swift; path = Sources/Interval.swift; sourceTree = "<group>"; };
+		033AC34B1D17172E008C8B93 /* Frac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Frac.swift; path = Sources/Frac.swift; sourceTree = "<group>"; };
 		033E14FC1C7CC71C00BA3E63 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = Sources/Matrix.swift; sourceTree = "<group>"; };
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		033F5EE21CA3096700647A0A /* Info-MacOSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-MacOSX.plist"; path = "/Users/ironwolf/Dropbox/DevProjects/KagiProcess2/WolfCore/WolfCore/Info-MacOSX.plist"; sourceTree = "<absolute>"; };
@@ -745,6 +753,8 @@
 		0314DD001D08FA5700E23C67 /* Numeric */ = {
 			isa = PBXGroup;
 			children = (
+				033AC3471D171703008C8B93 /* Interval.swift */,
+				033AC34B1D17172E008C8B93 /* Frac.swift */,
 				0355532A1C0F622A00E0FCA7 /* MathUtils.swift */,
 				036B83481C431FDF00491AFF /* Random.swift */,
 			);
@@ -1238,6 +1248,7 @@
 				033F5EE51CA339C800647A0A /* BezierPathExtensions.swift in Sources */,
 				033F5EB41CA3096700647A0A /* PDF.swift in Sources */,
 				033F5EB61CA3096700647A0A /* IntSize.swift in Sources */,
+				033AC34D1D17172E008C8B93 /* Frac.swift in Sources */,
 				033F5EB81CA3096700647A0A /* LifeHash.swift in Sources */,
 				03E1732F1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
 				033F5EB91CA3096700647A0A /* MathUtils.swift in Sources */,
@@ -1272,6 +1283,7 @@
 				03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				033F5ED61CA3096700647A0A /* Random.swift in Sources */,
 				033F5ED71CA3096700647A0A /* Result.swift in Sources */,
+				033AC3491D171703008C8B93 /* Interval.swift in Sources */,
 				036307D41CB6DAF700DC7070 /* NotificationActions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1324,6 +1336,7 @@
 				03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */,
 				031C5BC91CC18D38007166BA /* TarotCard.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
+				033AC3481D171703008C8B93 /* Interval.swift in Sources */,
 				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */,
 				031631A11D09639F00DCBB3B /* FontExtensions.swift in Sources */,
@@ -1366,6 +1379,7 @@
 				03E13B881C4FF37C0074E447 /* IntSize.swift in Sources */,
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
 				035C36651C500333000C04D0 /* LifeHash.swift in Sources */,
+				033AC34C1D17172E008C8B93 /* Frac.swift in Sources */,
 				038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */,
 				0314DCBD1D08ECEC00E23C67 /* TabBarController.swift in Sources */,
 				0324AEFC1CF81F350080DFF6 /* StackView.swift in Sources */,
@@ -1542,11 +1556,13 @@
 				03E172CE1CF1C8AD0073F383 /* Pile.swift in Sources */,
 				03E173021CF1C8E70073F383 /* HTTPError.swift in Sources */,
 				03E172DA1CF1C8B60073F383 /* GeometryUtils.swift in Sources */,
+				033AC34A1D171703008C8B93 /* Interval.swift in Sources */,
 				03E172BF1CF1C8AD0073F383 /* GeneralError.swift in Sources */,
 				03E1730F1CF1C8FB0073F383 /* AutolayoutUtils.swift in Sources */,
 				03E1731F1CF1C8FB0073F383 /* TraitCollectionExtensions.swift in Sources */,
 				03E172CD1CF1C8AD0073F383 /* TarotCard.swift in Sources */,
 				03E173221CF1C8FB0073F383 /* ViewDebugging.swift in Sources */,
+				033AC34E1D17172E008C8B93 /* Frac.swift in Sources */,
 				0314DCBE1D08ECEC00E23C67 /* TabBarController.swift in Sources */,
 				03E173271CF1C8FB0073F383 /* RunLoopUtils.swift in Sources */,
 			);

@@ -111,3 +111,35 @@ extension TextView {
         }
     }
 }
+
+extension TextView {
+    public func characterPosition(for point: CGPoint) -> UITextPosition {
+        guard !text.isEmpty else { return beginningOfDocument }
+
+        let attrText = (attributedText!)§
+        let font = attrText.font
+
+        let r1: CGRect
+        let lastChar = text.substring(from: text.index(text.endIndex, offsetBy: -1))
+        if lastChar == "\n" {
+            let r = caretRect(for: position(from: endOfDocument, offset: -1)!)
+            let sr = caretRect(for: position(from: beginningOfDocument, offset: 0)!)
+            r1 = CGRect(origin: CGPoint(x: sr.minX, y: r.minY + font.lineHeight), size: r.size)
+        } else {
+            r1 = caretRect(for: position(from: endOfDocument, offset: 0)!)
+        }
+
+        print("point: \(point), endRect: \(r1)")
+
+        if point.x > r1.minX && point.y > r1.minY {
+            return endOfDocument
+        }
+
+        if point.y >= r1.maxY {
+            return endOfDocument
+        }
+
+        let index = textStorage.layoutManagers[0].characterIndex(for: point, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        return position(from: beginningOfDocument, offset: index)!
+    }
+}

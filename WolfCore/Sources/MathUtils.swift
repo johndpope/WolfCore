@@ -12,33 +12,7 @@
     import Glibc
 #endif
 
-
-public typealias Frac = Double // 0.0..1.0
-
-infix operator .. { }
-
-public func .. <T: BinaryFloatingPoint>(left: T, right: T) -> Interval<T> {
-    return Interval(a: left, b: right)
-}
-
-public struct Interval<T: BinaryFloatingPoint> {
-    public let a: T
-    public let b: T
-
-    public init(a: T, b: T) {
-        self.a = a
-        self.b = b
-    }
-
-    public init(_ i: ClosedRange<T>) {
-        self.a = i.lowerBound
-        self.b = i.upperBound
-    }
-
-    public var closedRange: ClosedRange<T> {
-        return a <= b ? a...b : b...a
-    }
-}
+import Foundation
 
 /// The value mapped from the interval `a..b` into the interval `0..1`. (`a` may be greater than `b`).
 public func map<T: BinaryFloatingPoint>(value v: T, from i: Interval<T>) -> T {
@@ -47,7 +21,7 @@ public func map<T: BinaryFloatingPoint>(value v: T, from i: Interval<T>) -> T {
 
 /// The value mapped from the interval `0..1` to the interval `a..b`. (`a` may be greater than `b`).
 public func map<T: BinaryFloatingPoint>(value v: T, to i: Interval<T>) -> T {
-    return v * (i.b - i.a) + i.b
+    return v * (i.b - i.a) + i.a
 }
 
 /// The value mapped from the interval `a1..b1` to the interval `a2..b2`. (the `a`'s may be greater than the `b`'s).
@@ -55,7 +29,7 @@ public func map<T: BinaryFloatingPoint>(value v: T, from i1: Interval<T>, to i2:
     return i1.b + ((i2.b - i1.b) * (v - i1.a)) / (i2.a - i1.a)
 }
 
-public func circularInterpolate<T: BinaryFloatingPoint>(value: T, to i: Interval<T>) -> T {
+public func circularInterpolate<T: BinaryFloatingPoint where T: Comparable>(value: T, to i: Interval<T>) -> T {
     let c = abs(i.a - i.b)
     if c <= 0.5 {
         return map(value: value, to: i)
@@ -162,3 +136,20 @@ extension Double {
         }
     }
 #endif
+
+public func binarySearch<T: BinaryFloatingPoint>(interval: Interval<T>, start: T, compare: (T) -> ComparisonResult) -> T {
+    var current = start
+    var interval = interval
+    while true {
+        switch compare(current) {
+        case .orderedSame:
+            return current
+        case .orderedAscending:
+            interval = current..interval.b
+            current = map(value: 0.5, to: interval)
+        case .orderedDescending:
+            interval = interval.a..current
+            current = map(value: 0.5, to: interval)
+        }
+    }
+}
