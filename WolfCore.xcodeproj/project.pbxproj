@@ -49,9 +49,6 @@
 		0322E8A21D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
 		0322E8A31D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
 		0322E8A41D13FB8900EFF3F6 /* Canceler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A11D13FB8900EFF3F6 /* Canceler.swift */; };
-		0322E8A61D15378C00EFF3F6 /* JSON2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* JSON2.swift */; };
-		0322E8A71D15378C00EFF3F6 /* JSON2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* JSON2.swift */; };
-		0322E8A81D15378C00EFF3F6 /* JSON2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* JSON2.swift */; };
 		0324AEF61CF81EB30080DFF6 /* InFlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */; };
 		0324AEF81CF81ED50080DFF6 /* InFlightToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */; };
 		0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */; };
@@ -525,7 +522,7 @@
 		03FAF77E1C538C3E0045BB37 /* Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base64.swift; path = Sources/Base64.swift; sourceTree = "<group>"; };
 		03FAF7801C53F6DB0045BB37 /* Base64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base64URL.swift; path = Sources/Base64URL.swift; sourceTree = "<group>"; };
 		03FAF7821C53F6EF0045BB37 /* UTF8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UTF8.swift; path = Sources/UTF8.swift; sourceTree = "<group>"; };
-		03FAF7841C53F6FF0045BB37 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = Sources/JSON.swift; sourceTree = "<group>"; };
+		03FAF7841C53F6FF0045BB37 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = "Sources-Foundation/JSON.swift"; sourceTree = "<group>"; };
 		03FAF7861C53F7230045BB37 /* Bytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bytes.swift; path = Sources/Bytes.swift; sourceTree = "<group>"; };
 		03FAF7881C53F7340045BB37 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hex.swift; path = Sources/Hex.swift; sourceTree = "<group>"; };
 		03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISO8601.swift; path = Sources/ISO8601.swift; sourceTree = "<group>"; };
@@ -1261,7 +1258,6 @@
 				033F5EC11CA3096700647A0A /* Point.swift in Sources */,
 				033F5EC21CA3096700647A0A /* IntPoint.swift in Sources */,
 				033F5EC51CA3096700647A0A /* Size.swift in Sources */,
-				0322E8A71D15378C00EFF3F6 /* JSON2.swift in Sources */,
 				033F5EC61CA3096700647A0A /* VectorExtensions.swift in Sources */,
 				033F5EC71CA3096700647A0A /* HTTPError.swift in Sources */,
 				033F5EC81CA3096700647A0A /* IPAddress6.swift in Sources */,
@@ -1427,7 +1423,6 @@
 				03FAF7871C53F7230045BB37 /* Bytes.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
-				0322E8A61D15378C00EFF3F6 /* JSON2.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 				0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */,
 				0314DD0D1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
@@ -1501,7 +1496,6 @@
 				03E173131CF1C8FB0073F383 /* GestureRecognizerAction.swift in Sources */,
 				03E172EB1CF1C8B60073F383 /* RangeExtensions.swift in Sources */,
 				03E172E61CF1C8B60073F383 /* MathUtils.swift in Sources */,
-				0322E8A81D15378C00EFF3F6 /* JSON2.swift in Sources */,
 				0314DD131D09032400E23C67 /* Serializable.swift in Sources */,
 				03E172E41CF1C8B60073F383 /* LifeHash.swift in Sources */,
 				03E172F01CF1C8B60073F383 /* ValidationError.swift in Sources */,
