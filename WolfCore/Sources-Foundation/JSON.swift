@@ -8,12 +8,18 @@
 
 import Foundation
 
-public class JSON {
+public typealias JSON = JSON1
+
+public struct JSON1 {
     public typealias Value = AnyObject
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
     public typealias DictionaryOfStrings = [String: String]
     public typealias ArrayOfDictionaries = [Dictionary]
+
+    public static func isNull(_ value: Value) -> Bool {
+        return value is NSNull
+    }
 
     public static let null = NSNull()
 

@@ -90,7 +90,7 @@ extension Pile {
         assert(json["type"] as! String == "Pile")
         let jsonCards = json["cards"] as! JSON.Array
         let cards = jsonCards.map { (jsonCard) -> CardType? in
-            return jsonCard === JSON.null ? nil : CardType(json: jsonCard as! JSON.Dictionary)
+            return JSON.isNull(jsonCard) ? nil : CardType(json: jsonCard as! JSON.Dictionary)
         }
         self.init(cards: cards)
     }

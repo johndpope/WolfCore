@@ -8,7 +8,9 @@
 
 import Foundation
 
-public final class JSON2 {
+public typealias JSON = JSON2
+
+public struct JSON2 {
     public typealias Value = Any
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
@@ -53,6 +55,10 @@ public final class JSON2 {
     }
 
     public static let null = Null()
+
+    public static func isNull(_ value: Value) -> Bool {
+        return value is Null
+    }
 
     public enum ReadError: ErrorProtocol {
         case noTopLevelObjectOrArray
