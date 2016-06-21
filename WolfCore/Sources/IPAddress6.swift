@@ -6,6 +6,8 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+import Foundation
+
 public class IPAddress6 {
     typealias Run = Range<Int>
 
@@ -81,36 +83,34 @@ public class IPAddress6 {
         return components.joined(separator: ":")
     }
 
-    private static func toWords(_ bytes: Bytes) -> [UInt16] {
-        assert(bytes.count == 16)
-        var words = [UInt16]()
-        words.reserveCapacity(8)
-        bytes.withUnsafeBufferPointer {p in
-            let p16 = UnsafePointer<UInt16>(p.baseAddress)!
+    private static func toWords(_ data: Data) -> [UInt16] {
+        assert(data.count == 16)
+        return data.withUnsafeBytes { (p: UnsafePointer<Byte>) -> [UInt16] in
+            var words = [UInt16]()
+            words.reserveCapacity(8)
+            let p16 = UnsafePointer<UInt16>(p)
             for index in 0..<8 {
                 words.append(UInt16(bigEndian: p16[index]))
             }
+            return words
         }
-        return words
     }
 
-    private static func toBytes(_ words: [UInt16]) -> Bytes {
+    private static func toData(_ words: [UInt16]) -> Data {
         assert(words.count == 8)
-        var bytes = Bytes()
-        bytes.reserveCapacity(16)
+        var data = Data(capacity: 16)!
         for word in words {
             var bigWord = word.bigEndian
             withUnsafePointer(&bigWord) { p in
                 let p8 = UnsafePointer<Byte>(p)
-                bytes.append(p8[0])
-                bytes.append(p8[1])
+                data.append(p8, count: 2)
             }
         }
-        return bytes
+        return data
     }
 
-    public static func encode(_ bytes: Bytes, padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
-        return encode(toWords(bytes), padWithZeroes: padWithZeroes, collapseLongestZeroRun: collapseLongestZeroRun)
+    public static func encode(_ data: Data, padWithZeroes: Bool = false, collapseLongestZeroRun: Bool = true) -> String {
+        return encode(toWords(data), padWithZeroes: padWithZeroes, collapseLongestZeroRun: collapseLongestZeroRun)
     }
 
     public static func decode(_ string: String) throws -> [UInt16] {
@@ -159,8 +159,8 @@ public class IPAddress6 {
         return words
     }
 
-    public static func decode(string: String) throws -> Bytes {
-        return toBytes(try decode(string))
+    public static func decode(string: String) throws -> Data {
+        return toData(try decode(string))
     }
 
     public static func test() {
@@ -197,8 +197,8 @@ public class IPAddress6 {
             let encoded2 = IPAddress6.encode(words)
             assert(encoded2 == encodedShort)
 
-            let bytes = toBytes(words)
-            let encoded3 = IPAddress6.encode(bytes, padWithZeroes: true, collapseLongestZeroRun: false)
+            let data = toData(words)
+            let encoded3 = IPAddress6.encode(data, padWithZeroes: true, collapseLongestZeroRun: false)
             assert(encoded3 == encoded1)
 
             let decodeWords: [UInt16] = try IPAddress6.decode(encoded2)

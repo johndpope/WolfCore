@@ -20,4 +20,8 @@ extension Data: Serializable {
     public static func deserializeFromData(data: Data) throws -> Data {
         return data
     }
+
+    public init(bytes: MutableRandomAccessSlice<Data>) {
+        self.init(bytes: Array(bytes))
+    }
 }

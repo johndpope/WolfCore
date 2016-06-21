@@ -8,26 +8,16 @@
 
 import Foundation
 
-extension Data {
-    public static func base64URL(from data: Data) -> String {
-        return data |> Data.base64 |> String.base64URL
-    }
-}
-
-extension Array {
-    public static func base64URL(from bytes: Bytes) -> String {
-        return bytes |> Bytes.data |> Data.base64URL
-    }
-}
-
 public struct Base64URL {
-    public static func data(from base64URLString: String) throws -> Data {
-        return try base64URLString |> String.base64 |> Base64.data
+    public static func encode(_ data: Data) -> String {
+        return data |> Base64.encode |> toBase64URL
     }
-}
 
-extension String {
-    private static func base64URL(withBase64String string: String) -> String {
+    public static func decode(_ string: String) throws -> Data {
+        return try string |> toBase64 |> Base64.decode
+    }
+
+    private static func toBase64URL(string: String) -> String {
         var s2 = ""
         for c in string.characters {
             switch c {
@@ -44,9 +34,9 @@ extension String {
         return s2
     }
 
-    private static func base64(withBase64URLString base64URLString: String) -> String {
+    private static func toBase64(string: String) -> String {
         var s2 = ""
-        let chars = base64URLString.characters
+        let chars = string.characters
         for c in chars {
             switch c {
             case Character("_"):

@@ -9,6 +9,6 @@
 public protocol CardProtocol: CustomStringConvertible {
     var facing: CardFacing { get set }
     var isReversed: Bool { get set }
-    var json: JSONDictionary { get }
-    init(json: JSONDictionary)
+    var json: JSON.Dictionary { get }
+    init(json: JSON.Dictionary)
 }

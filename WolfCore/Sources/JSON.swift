@@ -8,57 +8,24 @@
 
 import Foundation
 
-//#if os(Linux)
-    public typealias JSONObject = NSObject
-//#else
-//    public typealias JSONObject = AnyObject
-//#endif
-public typealias JSONDictionary = [NSString: JSONObject]
-public typealias JSONDictionaryOfStrings = [NSString: NSString]
-public typealias JSONArray = [JSONObject]
-public typealias JSONArrayOfDictionaries = [JSONDictionary]
-
 public class JSON {
-    public static func data(from json: JSONObject) throws -> Data {
-        return try JSONSerialization.data(withJSONObject: json, options: [])
-    }
-}
+    public typealias Value = AnyObject
+    public typealias Array = [Value]
+    public typealias Dictionary = [String: Value]
+    public typealias DictionaryOfStrings = [String: String]
+    public typealias ArrayOfDictionaries = [Dictionary]
 
-extension Data {
-    public static func jsonObject(from data: Data) throws -> JSONObject {
-        return try JSONSerialization.jsonObject(with: data, options: []) as! NSObject
-    }
-}
+    public static let null = NSNull()
 
-extension String {
-    public static func jsonObject(from string: String) throws -> JSONObject {
-        return try string |> String.utf8Data |> Data.jsonObject
+    public static func encode(_ value: Value) throws -> Data {
+        return try JSONSerialization.data(withJSONObject: value, options: [])
     }
-}
 
-public func jsonValue<A: Any>(_ value: A) -> NSObject {
-    switch value {
-    case let string as String:
-        return NSString(string: string)
-    case let bool as Bool:
-        return NSNumber(booleanLiteral: bool)
-    case let int as Int:
-        return NSNumber(integerLiteral: int)
-    default:
-        return NSNull()
+    public static func decode(_ data: Data) throws -> Value {
+        return try JSONSerialization.jsonObject(with: data, options: [])
     }
-}
 
-public func swiftValue<A: JSONObject>(_ value: A?) -> Any? {
-    guard let value = value else {
-        return nil
-    }
-    switch value {
-    case let string as NSString:
-        return String(string)
-    case let number as NSNumber:
-        return number
-    default:
-        return nil
+    public static func decode(_ string: String) throws -> Value {
+        return try string |> UTF8.encode |> decode
     }
 }

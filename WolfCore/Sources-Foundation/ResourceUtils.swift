@@ -21,12 +21,12 @@ public func loadData(named name: String, withExtension anExtension: String? = ni
     return try aClass |> Bundle.findBundle |> Bundle.urlForResource(name, withExtension: anExtension, subdirectory: subpath) |> URL.retrieveData
 }
 
-public func loadJSON(atURL url: URL) throws -> JSONObject {
-    return try url |> URL.retrieveData |> Data.jsonObject
+public func loadJSON(atURL url: URL) throws -> JSON.Value {
+    return try url |> URL.retrieveData |> JSON.decode
 }
 
-public func loadJSON(named name: String, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> JSONObject {
-    return try loadData(named: name, withExtension: "json", subdirectory: subpath, fromBundleForClass: aClass) |> Data.jsonObject
+public func loadJSON(named name: String, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> JSON.Value {
+    return try loadData(named: name, withExtension: "json", subdirectory: subpath, fromBundleForClass: aClass) |> JSON.decode
 }
 
 #if os(iOS) || os(tvOS)

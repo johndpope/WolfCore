@@ -21,7 +21,7 @@ extension NSURLRequest {
             if let contentType = headers[HeaderField.contentType.rawValue] {
                 if contentType == ContentType.json.rawValue {
                     if let bodyData = httpBody {
-                        let text = try! bodyData |> UTF8.string
+                        let text = try! bodyData |> UTF8.decode
                         print (text)
                     }
                 }

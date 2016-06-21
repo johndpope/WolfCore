@@ -75,12 +75,12 @@ public struct Color {
         self.init(red: white, green: white, blue: white, alpha: alpha)
     }
 
-    public init(bytes: Bytes) {
-        let redByte = bytes[0]
-        let greenByte = bytes[1]
-        let blueByte = bytes[2]
-        let alphaByte = bytes.count >= 4 ? bytes[3] : 255
-        self.init(redByte: redByte, greenByte: greenByte, blueByte: blueByte, alphaByte: alphaByte)
+    public init(data: Data) {
+        let r = data[0]
+        let g = data[1]
+        let b = data[2]
+        let a = data.count >= 4 ? data[3] : 255
+        self.init(redByte: r, greenByte: g, blueByte: b, alphaByte: a)
     }
 
     public init(color: Color, alpha: Frac) {
@@ -125,14 +125,14 @@ public struct Color {
 
     private static func components(forSingleHexStrings strings: [String], components: inout [Double]) throws {
         for (index, string) in strings.enumerated() {
-            let i = try string |> Hex.int
+            let i = try string |> Hex.decode
             components[index] = Double(i) / 15.0
         }
     }
 
     private static func components(forDoubleHexStrings strings: [String], components: inout [Double]) throws {
         for (index, string) in strings.enumerated() {
-            let i = try string |> Hex.int
+            let i = try string |> Hex.decode
             components[index] = Double(i) / 255.0
         }
     }

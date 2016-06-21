@@ -76,8 +76,8 @@ public class Pile<T: CardTrump, R: CardRank, S: CardSuit> {
 }
 
 extension Pile {
-    public var json: JSONDictionary {
-        let jsonCards = cards.map { (card) -> JSONObject in
+    public var json: JSON.Dictionary {
+        let jsonCards = cards.map { (card) -> JSON.Value in
             return card?.json ?? NSNull()
         }
         return [
@@ -86,11 +86,11 @@ extension Pile {
         ]
     }
 
-    public convenience init(json: JSONDictionary) {
+    public convenience init(json: JSON.Dictionary) {
         assert(json["type"] as! String == "Pile")
-        let jsonCards = json["cards"] as! JSONArray
+        let jsonCards = json["cards"] as! JSON.Array
         let cards = jsonCards.map { (jsonCard) -> CardType? in
-            return jsonCard == NSNull() ? nil : CardType(json: jsonCard as! JSONDictionary)
+            return jsonCard === JSON.null ? nil : CardType(json: jsonCard as! JSON.Dictionary)
         }
         self.init(cards: cards)
     }

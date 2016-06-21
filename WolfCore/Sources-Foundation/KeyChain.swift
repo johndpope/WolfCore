@@ -25,7 +25,7 @@ public struct KeyChain {
     }
 
     public static func add(string: String, forKey key: String, inAccount account: String) throws {
-        try add(data: string |> String.utf8Data, forKey: key, inAccount: account)
+        try add(data: string |> UTF8.encode, forKey: key, inAccount: account)
     }
 
     public static func delete(key: String, account: String) throws {
@@ -68,7 +68,7 @@ public struct KeyChain {
     }
 
     public static func update(string: String, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
-        try update(data: string |> String.utf8Data, forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
+        try update(data: string |> UTF8.encode, forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
     }
 
     public static func update(number: NSNumber, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
@@ -106,7 +106,7 @@ public struct KeyChain {
         guard let data = try readData(forKey: key, inAccount: account) else {
             return nil
         }
-        return try data |> UTF8.string
+        return try data |> UTF8.decode
     }
 
     public static func readNumber(forKey key: String, inAccount account: String) throws -> NSNumber? {

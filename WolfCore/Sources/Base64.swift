@@ -9,21 +9,15 @@
 import Foundation
 
 public struct Base64 {
-    public static func data(from base64String: String) throws -> Data {
-        if let data = Data(base64Encoded: base64String) {
+    public static func encode(_ data: Data) -> String {
+        return data.base64EncodedString()
+    }
+
+    public static func decode(_ string: String) throws -> Data {
+        if let data = Data(base64Encoded: string) {
             return data
         } else {
             throw ValidationError(message: "Invalid base64 string.", violation: "base64Format")
         }
-    }
-}
-
-extension Data {
-    public var base64: String {
-        return base64EncodedString()
-    }
-
-    public static func base64(from data: Data) -> String {
-        return data.base64
     }
 }

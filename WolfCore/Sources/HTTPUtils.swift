@@ -187,7 +187,7 @@ public class HTTP {
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
-        success: (HTTPURLResponse, JSONObject) -> Void,
+        success: (HTTPURLResponse, JSON.Value) -> Void,
         failure: ErrorBlock,
         finally: Block?) {
 
@@ -200,7 +200,7 @@ public class HTTP {
             name: name,
             success: { (response, data) in
                 do {
-                    let json = try data |> Data.jsonObject
+                    let json = try data |> JSON.decode
                     success(response, json)
                 } catch let error {
                     failure(error)
@@ -214,7 +214,7 @@ public class HTTP {
     public static func retrieveJSONDictionary(
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode], name: String,
-        success: (HTTPURLResponse, JSONDictionary) -> Void,
+        success: (HTTPURLResponse, JSON.Dictionary) -> Void,
         failure: ErrorBlock,
         finally: Block?) {
         retrieveJSON(
@@ -222,7 +222,7 @@ public class HTTP {
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, json) in
-                guard let jsonDict = json as? JSONDictionary else {
+                guard let jsonDict = json as? JSON.Dictionary else {
                     failure(UnknownJSONError())
                     return
                 }

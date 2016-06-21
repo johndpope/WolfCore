@@ -165,9 +165,9 @@ public class CryptoKey: CustomStringConvertible {
             self.keyRef = keyRef
         }
 
-        func bytes() throws -> Bytes {
+        func data() throws -> Data {
             let tag = "tempkey.\(UUID())"
-            let tagData = tag |> String.utf8Data
+            let tagData = tag |> UTF8.encode
 
             let query: [NSString: AnyObject] = [
                 kSecClass: kSecClassKey,
@@ -183,18 +183,18 @@ public class CryptoKey: CustomStringConvertible {
             try CryptoError.check(code: SecItemAdd(attributes, &item), message: "Adding temp key to keychain.")
             let keyInfo = item! as! Data
             try CryptoError.check(code: SecItemDelete(query), message: "Deleting temp key from keychain.")
-            return keyInfo.bytes
+            return keyInfo
         }
 
-        func json(onlyPublic: Bool, keyID: String? = nil) throws -> JSONDictionary {
-            var dict = JSONDictionary()
+        func json(onlyPublic: Bool, keyID: String? = nil) throws -> JSON.Dictionary {
+            var dict = JSON.Dictionary()
 
-            let bytes = try self.bytes()
+            let data = try self.data()
 
             let fieldNames: [String] = onlyPublic ? ["n", "e"] : ["-version", "n", "e", "d", "p", "q", "dp", "dq", "qi"]
             var nextFieldIndex = 0
 
-            let parser = ASN1Parser(bytes: bytes)
+            let parser = ASN1Parser(data: data)
 
             dict["kty"] = "RSA"
 
@@ -202,11 +202,11 @@ public class CryptoKey: CustomStringConvertible {
                 dict["kid"] = kid
             }
 
-            parser.foundBytes = { bytes in
+            parser.foundData = { data in
                 let fieldName = fieldNames[nextFieldIndex]
                 nextFieldIndex += 1
                 if !fieldName.hasPrefix("-") {
-                    dict[fieldName] = bytes |> Bytes.base64URL
+                    dict[fieldName] = data |> Base64URL.encode
                 }
                 //println("BYTES \(fieldName) (\(bytes.count)) \(bytes)")
             }
@@ -219,27 +219,27 @@ public class CryptoKey: CustomStringConvertible {
             return dict
         }
 
-    func bson(onlyPublic: Bool, keyID: String? = nil) throws -> BSONDictionary {
-        var dict = BSONDictionary()
+    func bson(onlyPublic: Bool, keyID: String? = nil) throws -> BSON.Dictionary {
+        var dict = BSON.Dictionary()
 
-        let bytes = try self.bytes()
+        let data = try self.data()
 
         let fieldNames: [String] = onlyPublic ? ["n", "e"] : ["-version", "n", "e", "d", "p", "q", "dp", "dq", "qi"]
         var nextFieldIndex = 0
 
-        let parser = ASN1Parser(bytes: bytes)
+        let parser = ASN1Parser(data: data)
 
         dict["kty"] = Optional("RSA")
         dict["kid"] = keyID
 
-        parser.foundBytes = { bytes in
+        parser.foundData = { data in
             let fieldName = fieldNames[nextFieldIndex]
             nextFieldIndex += 1
             if !fieldName.hasPrefix("-") {
-                if bytes.count == 3 && fieldName == "e" {
-                    dict[fieldName] = Int(bytes[0]) << 16 | Int(bytes[1]) << 8 | Int(bytes[2])
+                if data.count == 3 && fieldName == "e" {
+                    dict[fieldName] = Int(data[0]) << 16 | Int(data[1]) << 8 | Int(data[2])
                 } else {
-                    dict[fieldName] = bytes
+                    dict[fieldName] = data
                 }
             }
             //println("BYTES \(fieldName) (\(bytes.count)) \(bytes)")
@@ -323,14 +323,16 @@ public class Crypto {
         #endif
     }
 
-    public static func generateRandomBytes(_ count: Int) -> Bytes {
-        var bytes = Bytes(repeating: 0, count: count)
+    public static func generateRandomBytes(_ count: Int) -> Data {
+        var data = Data(capacity: count)!
 #if os(Linux)
         RAND_bytes(&bytes, Int32(count))
 #else
-        let _ = SecRandomCopyBytes(kSecRandomDefault, count, &bytes)
+        data.withUnsafeMutableBytes { (p: UnsafeMutablePointer<Byte>) -> Void in
+            let _ = SecRandomCopyBytes(kSecRandomDefault, count, p)
+        }
 #endif
-        return bytes
+        return data
     }
 
     public static func testRandom() {
@@ -386,13 +388,13 @@ public class Crypto {
             print("publicKey:")
             let publicBSON = try keyPair.publicKey.bson(onlyPublic: true)
             print(bsonDict: publicBSON)
-            let publicBSONBytes = try publicBSON |> BSON.bytes
+            let publicBSONBytes = try publicBSON |> BSON.encode
             print("publicBSONBytes: count \(publicBSONBytes.count): \(publicBSONBytes)")
 
             print("privateKey:")
             let privateBSON = try keyPair.privateKey.bson(onlyPublic: false)
             print(bsonDict: privateBSON)
-            let privateBSONBytes = try privateBSON |> BSON.bytes
+            let privateBSONBytes = try privateBSON |> BSON.encode
             print("privateBSONBytes: count \(privateBSONBytes.count): \(privateBSONBytes)")
         } catch let error {
             logError(error)

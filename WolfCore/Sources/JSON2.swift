@@ -12,6 +12,23 @@ public final class JSON2 {
     public typealias Value = Any
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
+    public typealias DictionaryOfStrings = [String: String]
+    public typealias ArrayOfDictionaries = [Dictionary]
+
+    public static func encode(_ value: Value) throws -> Data {
+        let writer = Writer()
+        try writer.emit(value: value, allowsFragment: false)
+        return writer.string |> UTF8.encode
+    }
+
+    public static func decode(_ data: Data) throws -> Value {
+        return try data |> UTF8.decode |> decode
+    }
+
+    public static func decode(_ string: String) throws -> Value {
+        let reader = Reader(string: string)
+        return try reader.parseValue(allowsFragment: false)
+    }
 
     private static let space: Character = " "
     private static let tab: Character = "\t"
@@ -35,25 +52,25 @@ public final class JSON2 {
     public class Null {
     }
 
-    static public let null = Null()
+    public static let null = Null()
+
+    public enum ReadError: ErrorProtocol {
+        case noTopLevelObjectOrArray
+        case unexpectedEndOfData
+        case unknownValue
+        case unterminatedArray
+        case keyExpected
+        case nameSeparatorExpected
+        case unterminatedDictionary
+        case unterminatedString
+        case unterminatedEscapeSequence
+        case unknownEscapeSequence
+        case malformedNumber
+    }
 
     public final class Reader {
         private let string: String
         private var index: String.Index
-
-        public enum Error: ErrorProtocol {
-            case noTopLevelObjectOrArray
-            case unexpectedEndOfData
-            case unknownValue
-            case unterminatedArray
-            case keyExpected
-            case nameSeparatorExpected
-            case unterminatedDictionary
-            case unterminatedString
-            case unterminatedEscapeSequence
-            case unknownEscapeSequence
-            case malformedNumber
-        }
 
         private init(string: String) {
             self.string = string
@@ -107,7 +124,7 @@ public final class JSON2 {
 
         private func skipWhitespace() throws {
             repeat { } while advance(ifNextCharacterIsIn: Reader.whitespace)
-            guard hasMore else { throw Error.unexpectedEndOfData }
+            guard hasMore else { throw ReadError.unexpectedEndOfData }
         }
 
         private func parseValue(allowsFragment: Bool = true) throws -> JSON2.Value {
@@ -120,7 +137,7 @@ public final class JSON2 {
                 return dictionary
             }
 
-            guard allowsFragment else { throw Error.noTopLevelObjectOrArray }
+            guard allowsFragment else { throw ReadError.noTopLevelObjectOrArray }
 
             if let string = try parseString() {
                 return string
@@ -138,7 +155,7 @@ public final class JSON2 {
                 return JSON2.null
             }
 
-            throw Error.unknownValue
+            throw ReadError.unknownValue
         }
 
         private func parseArray() throws -> JSON2.Array? {
@@ -161,9 +178,9 @@ public final class JSON2 {
             repeat {
                 try skipWhitespace()
                 guard !advance(ifNextCharacterIs: JSON2.closeBrace) else { return dictionary }
-                guard let key = try parseString() else { throw Error.keyExpected }
+                guard let key = try parseString() else { throw ReadError.keyExpected }
                 try skipWhitespace()
-                guard advance(ifNextCharacterIs: JSON2.colon) else { throw Error.nameSeparatorExpected }
+                guard advance(ifNextCharacterIs: JSON2.colon) else { throw ReadError.nameSeparatorExpected }
                 try skipWhitespace()
                 let value = try parseValue()
                 dictionary[key] = value
@@ -177,7 +194,7 @@ public final class JSON2 {
             guard advance(ifNextCharacterIs: JSON2.quoteMark) else { return nil }
             var string = ""
             repeat {
-                guard hasMore else { throw Error.unterminatedString }
+                guard hasMore else { throw ReadError.unterminatedString }
                 let character = nextCharacter
                 advance()
                 switch character {
@@ -192,7 +209,7 @@ public final class JSON2 {
         }
 
         private func parseEscapeSequence() throws -> Character {
-            guard hasMore else { throw Error.unterminatedEscapeSequence }
+            guard hasMore else { throw ReadError.unterminatedEscapeSequence }
             let character = nextCharacter
             advance()
             switch character {
@@ -207,7 +224,7 @@ public final class JSON2 {
             case "r":
                 return JSON2.carriageReturn
             default:
-                throw Error.unknownEscapeSequence
+                throw ReadError.unknownEscapeSequence
             }
         }
 
@@ -218,10 +235,10 @@ public final class JSON2 {
             let substring = string.substring(from: index)
             guard Reader.numberPrefixRegex ~? substring else { return nil }
             let matches = Reader.numberRegex ~?? substring
-            guard let firstMatch = matches.first else { throw Error.malformedNumber }
+            guard let firstMatch = matches.first else { throw ReadError.malformedNumber }
             let (_, numberStr) = firstMatch.get(atIndex: 0, inString: substring)
             advance(by: numberStr.characters.count)
-            guard let value = Double(numberStr) else { throw Error.malformedNumber }
+            guard let value = Double(numberStr) else { throw ReadError.malformedNumber }
             return value
         }
 
@@ -247,13 +264,13 @@ public final class JSON2 {
         }
     }
 
-    public class Writer {
-        private var string = ""
+    public enum WriteError: ErrorProtocol {
+        case noTopLevelObjectOrArray
+        case unknownValue
+    }
 
-        public enum Error: ErrorProtocol {
-            case noTopLevelObjectOrArray
-            case unknownValue
-        }
+    public final class Writer {
+        private var string = ""
 
         private func emit(_ character: Character) {
             string.append(character)
@@ -312,7 +329,7 @@ public final class JSON2 {
 //                    emit(JSON2.literalNull)
 //                    return
 //                } else {
-//                    throw Error.unknownValue
+//                    throw WriteError.unknownValue
 //                }
 //            }
 
@@ -328,7 +345,7 @@ public final class JSON2 {
             }
 
             guard allowsFragment else {
-                throw Error.noTopLevelObjectOrArray
+                throw WriteError.noTopLevelObjectOrArray
             }
 
             switch value {
@@ -341,28 +358,9 @@ public final class JSON2 {
             case is JSON2.Null:
                 emit(JSON2.literalNull)
             default:
-                throw Error.unknownValue
+                throw WriteError.unknownValue
             }
         }
-    }
-
-    public static func object(from string: String, allowsFragment: Bool) throws -> Value {
-        let reader = Reader(string: string)
-        return try reader.parseValue(allowsFragment: allowsFragment)
-    }
-
-    public static func object(from string: String) throws -> Value {
-        return try object(from: string, allowsFragment: false)
-    }
-
-    public static func string(from value: Value, allowsFragment: Bool) throws -> String {
-        let writer = Writer()
-        try writer.emit(value: value, allowsFragment: allowsFragment)
-        return writer.string
-    }
-
-    public static func string(from object: Value) throws -> String {
-        return try string(from: object, allowsFragment: false)
     }
 }
 
@@ -370,9 +368,9 @@ public func JSON2Test() {
     do {
         let raw = "{\"color\": \"red\", \"age\": 51, \"dict\": {\"a\": 50.5, \"b\": -3.1415927}, \"awesome\": true, \"array\": [1, 2, false, null]}"
         print(raw)
-        let json = try raw |> JSON2.object
+        let json = try raw |> JSON2.decode
         print(json)
-        let value = try json |> JSON2.string
+        let value = try json |> JSON2.encode
         print(value)
     } catch let error {
         print(error)

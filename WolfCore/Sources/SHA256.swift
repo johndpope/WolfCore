@@ -16,32 +16,32 @@
 #endif
 
 public class SHA256 {
-    private(set) var digest = Bytes(repeating: 0, count: Int(sha256DigestLength))
+    private(set) var digest = Data(capacity: Int(sha256DigestLength))!
 
-    public init(bytes: Bytes) {
+    public init(data: Data) {
 #if os(Linux)
         var ctx = SHA256_CTX()
         SHA256_Init(&ctx)
         SHA256_Update(&ctx, bytes, bytes.count)
         SHA256_Final(&digest, &ctx)
 #else
-        CC_SHA256(bytes, CC_LONG(bytes.count), &digest)
+    _ = data.withUnsafeBytes { dataPtr in
+        self.digest.withUnsafeMutableBytes { digestPtr in
+            return CC_SHA256(dataPtr, CC_LONG(data.count), digestPtr)
+        }
+    }
 #endif
     }
 
-    public static func encode(bytes: Bytes) -> SHA256 {
-        return SHA256(bytes: bytes)
-    }
-
-    public static func encode(data: Data) -> SHA256 {
-        return data |> Data.bytes |> encode
+    public static func encode(_ data: Data) -> SHA256 {
+        return SHA256(data: data)
     }
 
     public static func test() {
         // $ openssl dgst -sha256 -hex
         // The quick brown fox\n^d
         // 35fb7cc2337d10d618a1bad35c7a9e957c213f00d0ed32f2454b2a99a971c0d8
-        let data = "The quick brown fox\n" |> String.utf8Data
+        let data = "The quick brown fox\n" |> UTF8.encode
         let sha256 = data |> encode
         print(sha256)
         // prints 35fb7cc2337d10d618a1bad35c7a9e957c213f0d0ed32f2454b2a99a971c0d8
@@ -52,6 +52,6 @@ public class SHA256 {
 
 extension SHA256: CustomStringConvertible {
     public var description: String {
-        return digest |> Bytes.hex
+        return digest |> Hex.encode
     }
 }

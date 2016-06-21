@@ -12,29 +12,22 @@
 
 import Foundation
 
-public typealias BSONValue = Any?
-public typealias BSONDictionary = [String: BSONValue]
-public typealias BSONArray = [BSONValue]
-
-
 public struct BSON {
-    public static func data(_ dict: BSONDictionary) throws -> Data {
-        return try dict |> BSON.bytes |> Bytes.data
+    public typealias Value = Any?
+    public typealias Dictionary = [String: Value]
+    public typealias Array = [Value]
+
+    public static func encode(_ dict: Dictionary) throws -> Data {
+        return try dict |> BSON.doc |> BSON.data
     }
 
-    public static func bytes(_ dict: BSONDictionary) throws -> Bytes {
-        return try dict |> BSON.doc |> BSON.bytes
-    }
-}
-
-extension Data {
-    public static func bson(_ data: Data) throws -> BSONDictionary {
+    public static func decode(_ data: Data) throws -> Dictionary {
         return try data |> BSON.doc |> BSON.bson
     }
 }
 
 extension BSON {
-    private static func doc(dict: BSONDictionary) throws -> BSONDocument {
+    private static func doc(dict: Dictionary) throws -> BSONDocument {
         return try BSONDocument(dict: dict)
     }
 
@@ -42,11 +35,11 @@ extension BSON {
         return BSONDocument(data: data)
     }
 
-    private static func bytes(doc: BSONDocument) -> Bytes {
-        return doc.bytes
+    private static func data(doc: BSONDocument) -> Data {
+        return doc.data
     }
 
-    private static func bson(doc: BSONDocument) throws -> BSONDictionary {
+    private static func bson(doc: BSONDocument) throws -> Dictionary {
         return try doc.decode()
     }
 }
@@ -74,35 +67,35 @@ extension BSONError: CustomStringConvertible {
 
 public func testBSON() {
     do {
-        var greetingsDict = BSONDictionary()
+        var greetingsDict = BSON.Dictionary()
         greetingsDict["hello"] = "world"
         greetingsDict.updateValue(nil, forKey: "goodbye")
         testBSON(greetingsDict)
     }
 
     do {
-        var greetingsDict = BSONDictionary()
+        var greetingsDict = BSON.Dictionary()
         greetingsDict["hello"] = "world"
         greetingsDict.updateValue(nil, forKey: "goodbye")
 
-        var personDict = BSONDictionary()
+        var personDict = BSON.Dictionary()
         personDict["firstName"] = "Robert"
         personDict["lastName"] = "McNally"
         personDict["greetings"] = greetingsDict
 
-        var array = BSONArray()
+        var array = BSON.Array()
         array.append("awesome")
         array.append(nil)
         array.append(5.05)
         array.append(personDict)
         array.append(Int32(1986))
-        var dict = BSONDictionary()
+        var dict = BSON.Dictionary()
         dict["BSON"] = array
         testBSON(dict)
     }
 }
 
-private func testBSON(_ encodeDict: BSONDictionary) {
+private func testBSON(_ encodeDict: BSON.Dictionary) {
     do {
         print("encodeDict: \(encodeDict)")
         print(bsonDict: encodeDict)
@@ -149,37 +142,36 @@ enum BSONElementType: Byte {
 }
 
 public class BSONBuffer {
-    private(set) var bytes: Bytes
+    private(set) var data: Data
     var mark = 0
 
     init() {
-        bytes = Bytes()
-        bytes.reserveCapacity(1000)
+        data = Data()
     }
 
-    init(bytes: Bytes, mark: Int = 0) {
-        self.bytes = bytes
+    init(data: Data, mark: Int = 0) {
+        self.data = data
         self.mark = 0
     }
 }
 
 extension BSONBuffer {
     func append(byte: Byte) {
-        bytes.append(byte)
+        data.append([byte], count: 1)
     }
 
-    func append(bytes inBytes: Bytes) {
-        bytes.append(contentsOf: inBytes)
+    func append(data inData: Data) {
+        data.append(inData)
     }
 
     func append(bytes p: UnsafePointer<Byte>, count: Int) {
-        for index in 0..<count {
-            append(byte: p[index])
-        }
+        data.append(p, count: count)
     }
 
-    func append(bytes inBytes: ContiguousArray<Byte>) {
-        bytes.append(contentsOf: inBytes)
+    func append(bytes: ContiguousArray<Byte>) {
+        bytes.withUnsafeBufferPointer { ptr in
+            data.append(ptr.baseAddress!, count: bytes.count)
+        }
     }
 
     func append(int32: Int32) {
@@ -204,7 +196,7 @@ extension BSONBuffer {
     }
 
     func append(cString: String) {
-        bytes.append(contentsOf: cString.nulTerminatedUTF8)
+        append(bytes: cString.nulTerminatedUTF8)
     }
 
     func append(string: String) {
@@ -214,11 +206,11 @@ extension BSONBuffer {
     }
 
     func append(buffer: BSONBuffer) {
-        bytes.append(contentsOf: buffer.bytes)
+        data.append(buffer.data)
     }
 
     func append(document: BSONDocument) {
-        append(int32: Int32(document.elementList.bytes.count + sizeof(Int32) + 1))
+        append(int32: Int32(document.elementList.data.count + sizeof(Int32) + 1))
         append(buffer: document.elementList)
         append(byte: 0x00)
     }
@@ -226,13 +218,18 @@ extension BSONBuffer {
 
 extension BSONBuffer {
     func readBytes(_ count: Int) throws -> UnsafePointer<Byte> {
-        let available = bytes.count - mark
+        let available = data.count - mark
         guard available >= count else {
             throw BSONError(message: "Needed \(count) bytes, but only \(available) available.")
         }
-        let p = withUnsafePointer(&bytes[mark]) { $0 }
+        let p: UnsafePointer<Byte> = data.withUnsafeBytes { $0 + mark }
         mark += count
         return p
+    }
+
+    func readData(_ count: Int) throws -> Data {
+        let p = try readBytes(count)
+        return Data(bytes: p, count: count)
     }
 
     func readByte() throws -> Byte {
@@ -240,11 +237,11 @@ extension BSONBuffer {
         return p[0]
     }
 
-    func readBytesUntilNul() throws -> Bytes {
-        var bytes = Bytes()
+    func readUntilNul() throws -> Data {
+        var bytes = Data()
         while true {
             let byte = try readByte()
-            bytes.append(byte)
+            bytes.append([byte], count: 1)
             if byte == 0x00 {
                 break
             }
@@ -281,18 +278,20 @@ extension BSONBuffer {
         }
     }
 
-    private func decodeString(fromBytes p: UnsafePointer<Byte>) throws -> String {
-        let s = String(validatingUTF8: UnsafePointer<CChar>(p))
-        if let s = s {
-            return s
-        } else {
-            throw BSONError(message: "Could not decode UTF-8 string.")
+    private func decodeString(from data: Data) throws -> String {
+        return try data.withUnsafeBytes { (ptr: UnsafePointer<CChar>) throws -> String in
+            let s = String(validatingUTF8: ptr)
+            if let s = s {
+                return s
+            } else {
+                throw BSONError(message: "Could not decode UTF-8 string.")
+            }
         }
     }
 
     func readCString() throws -> String {
-        var bytes = try readBytesUntilNul()
-        return try decodeString(fromBytes: &bytes)
+        let data = try readUntilNul()
+        return try decodeString(from: data)
     }
 
     func readElementName() throws -> String {
@@ -301,8 +300,8 @@ extension BSONBuffer {
 
     func readString() throws -> String {
         let count = Int(try readInt32())
-        let p = try readBytes(count)
-        return try decodeString(fromBytes: p)
+        let p = try readData(count)
+        return try decodeString(from: p)
     }
 
     func readBinary() throws -> Any {
@@ -323,7 +322,7 @@ extension BSONBuffer {
 
     // swiftlint:disable cyclomatic_complexity
 
-    func readElement() throws -> (name: String, value: BSONValue)? {
+    func readElement() throws -> (name: String, value: BSON.Value)? {
         let rawElementType = try readByte()
         guard let elementType = BSONElementType(rawValue: rawElementType) else {
             throw BSONError(message: "Unknown element type: \(rawElementType).")
@@ -332,7 +331,7 @@ extension BSONBuffer {
             return nil
         }
         let name = try readElementName()
-        let value: BSONValue
+        let value: BSON.Value
         switch elementType {
         case .int:
             value = try readInt()
@@ -362,8 +361,8 @@ extension BSONBuffer {
 
     // swiftlint:enable cyclomatic_complexity
 
-    func readDocument() throws -> BSONDictionary {
-        var dict = BSONDictionary()
+    func readDocument() throws -> BSON.Dictionary {
+        var dict = BSON.Dictionary()
         while true {
             if let result = try readElement() {
                 let name = result.name
@@ -376,8 +375,8 @@ extension BSONBuffer {
         return dict
     }
 
-    func readArray() throws -> BSONArray {
-        var array = BSONArray()
+    func readArray() throws -> BSON.Array {
+        var array = BSON.Array()
         while true {
             if let result = try readElement() {
                 array.append(result.value)
@@ -392,7 +391,7 @@ extension BSONBuffer {
 public class BSONDocument: BSONBuffer {
     let elementList = BSONElementList()
 
-    public init(dict: BSONDictionary) throws {
+    public init(dict: BSON.Dictionary) throws {
         super.init()
 
         for (name, value) in dict {
@@ -401,7 +400,7 @@ public class BSONDocument: BSONBuffer {
         append(document: self)
     }
 
-    public init(array: BSONArray) throws {
+    public init(array: BSON.Array) throws {
         super.init()
 
         for (index, value) in array.enumerated() {
@@ -410,23 +409,19 @@ public class BSONDocument: BSONBuffer {
         append(document: self)
     }
 
-    public init(bytes: Bytes) {
+    public init(data: Data) {
         super.init()
 
-        self.bytes = bytes
-    }
-
-    public convenience init(data: Data) {
-        self.init(bytes: data |> Data.bytes)
+        self.data = data
     }
 }
 
 extension BSONDocument {
-    public func decode() throws -> BSONDictionary {
+    public func decode() throws -> BSON.Dictionary {
         mark = 0
         let size = Int(try readInt32())
-        if size != bytes.count {
-            throw BSONError(message: "Expected buffer of size: \(size), got: \(bytes.count)")
+        if size != data.count {
+            throw BSONError(message: "Expected buffer of size: \(size), got: \(data.count)")
         }
         return try readDocument()
     }
@@ -434,7 +429,7 @@ extension BSONDocument {
 
 extension BSONDocument: CustomStringConvertible {
     public var description: String {
-        let s = bytes |> Bytes.hex
+        let s = data |> Hex.encode
         return "<BSONDocument \(s))>"
     }
 }
@@ -443,22 +438,22 @@ class BSONElementList: BSONBuffer {
     func appendElement(withName name: String, value: Any?) throws {
         if let value = value {
             switch value {
-            case is Int:
-                append(int: value as! Int, withName: name)
-            case is Int32:
-                append(int32: value as! Int32, withName: name)
-            case is Bool:
-                append(boolean: value as! Bool, withName: name)
-            case is String:
-                append(string: value as! String, withName: name)
-            case is Bytes:
-                append(binary: value as! Bytes, withName: name)
-            case is Double:
-                append(double: value as! Double, withName: name)
-            case is BSONDictionary:
-                try append(dictionary: value as! BSONDictionary, withName: name)
-            case is BSONArray:
-                try append(array: value as! BSONArray, withName: name)
+            case let int as Int:
+                append(int: int, withName: name)
+            case let int32 as Int32:
+                append(int32: int32, withName: name)
+            case let bool as Bool:
+                append(boolean: bool, withName: name)
+            case let string as String:
+                append(string: string, withName: name)
+            case let data as Data:
+                append(binary: data, withName: name)
+            case let double as Double:
+                append(double: double, withName: name)
+            case let dict as BSON.Dictionary:
+                try append(dictionary: dict, withName: name)
+            case let array as BSON.Array:
+                try append(array: array, withName: name)
             default:
                 throw BSONError(message: "Could not encode value \(value).")
             }
@@ -499,12 +494,12 @@ class BSONElementList: BSONBuffer {
         append(string: string)
     }
 
-    private func append(binary bytes: Bytes, withName name: String, subtype: BSONBinarySubtype = .userDefined) {
+    private func append(binary data: Data, withName name: String, subtype: BSONBinarySubtype = .userDefined) {
         append(elementType: .binary)
         append(elementName: name)
-        append(int32: Int32(bytes.count))
+        append(int32: Int32(data.count))
         append(binarySubtype: subtype)
-        append(bytes: bytes)
+        append(data: data)
     }
 
     private func append(boolean: Bool, withName name: String) {
@@ -549,14 +544,14 @@ class BSONElementList: BSONBuffer {
         append(int: int)
     }
 
-    private func append(dictionary dict: BSONDictionary, withName name: String) throws {
+    private func append(dictionary dict: BSON.Dictionary, withName name: String) throws {
         let document = try BSONDocument(dict: dict)
         append(elementType: .document)
         append(elementName: name)
         append(document: document)
     }
 
-    private func append(array: BSONArray, withName name: String) throws {
+    private func append(array: BSON.Array, withName name: String) throws {
         let arr = try BSONDocument(array: array)
         append(elementType: .array)
         append(elementName: name)
@@ -564,13 +559,13 @@ class BSONElementList: BSONBuffer {
     }
 }
 
-public func print(bsonDict dict: BSONDictionary, indent: String = "", level: Int = 0) {
+public func print(bsonDict dict: BSON.Dictionary, indent: String = "", level: Int = 0) {
     for name in dict.keys {
         printBSONElement(withName: name, value: dict[name]!, indent: indent, level: level)
     }
 }
 
-private func print(bsonArray array: BSONArray, indent: String = "", level: Int = 0) {
+private func print(bsonArray array: BSON.Array, indent: String = "", level: Int = 0) {
     for (index, value) in array.enumerated() {
         printBSONElement(withName: String(index), value: value, indent: indent, level: level)
     }
@@ -578,7 +573,7 @@ private func print(bsonArray array: BSONArray, indent: String = "", level: Int =
 
 // swiftlint:disable cyclomatic_complexity
 
-private func printBSONElement(withName name: String, value: BSONValue, indent: String, level: Int) {
+private func printBSONElement(withName name: String, value: BSON.Value, indent: String, level: Int) {
     let type: String
     let valueStr: String
     let pfx = "✅  "
@@ -597,18 +592,18 @@ private func printBSONElement(withName name: String, value: BSONValue, indent: S
         case let d as Double:
             type = "\(pfx) Double"
             valueStr = "\(d)"
-        case is BSONDictionary:
+        case is BSON.Dictionary:
             type = "\(pfx) Document"
             valueStr = ""
-        case is BSONArray:
+        case is BSON.Array:
             type = "\(pfx) Array"
             valueStr = ""
         case let b as Bool:
             type = "\(pfx) Boolean"
             valueStr = "\(b)"
-        case let b as Bytes:
-            type = "\(pfx) Binary"
-            valueStr = b |> Bytes.hex
+        case let b as Data:
+            type = "\(pfx) Data"
+            valueStr = b |> Hex.encode
         default:
             type = "\(err) UNKNOWN"
             valueStr = "\(value)"
@@ -622,9 +617,9 @@ private func printBSONElement(withName name: String, value: BSONValue, indent: S
         let nextLevel = level + 1
         let nextIndent = "\t" + indent
         switch value {
-        case let dict as BSONDictionary:
+        case let dict as BSON.Dictionary:
             print(bsonDict: dict, indent: nextIndent, level: nextLevel)
-        case let array as BSONArray:
+        case let array as BSON.Array:
             print(bsonArray: array, indent: nextIndent, level: nextLevel)
         default:
             break

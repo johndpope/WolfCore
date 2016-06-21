@@ -29,11 +29,11 @@ extension ASN1Error: CustomStringConvertible {
 }
 
 class ASN1BitString: CustomStringConvertible {
-    let data: Bytes
+    let data: Data
     let unusedBits: Int
     let numberOfBits: Int
 
-    init(data: Bytes, unusedBits: Int) {
+    init(data: Data, unusedBits: Int) {
         self.data = data
         self.unusedBits = unusedBits
         numberOfBits = data.count * 8 - unusedBits
@@ -133,7 +133,7 @@ enum ASN1Type: Byte, CustomStringConvertible {
 }
 
 class ASN1Parser {
-    let inBytes: Bytes
+    let inData: Data
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyMMddHHmmss'Z'"
@@ -153,19 +153,19 @@ class ASN1Parser {
     var foundDate: ((NSDate) -> ())?
     var foundObjectIdentifier: ((String) -> ())?
     var foundString: ((String) -> ())?
-    var foundBytes: ((Bytes) -> ())?
+    var foundData: ((Data) -> ())?
     var foundBitString: ((ASN1BitString) -> ())?
     var foundInt: ((Int) -> ())?
     var foundBool: ((Bool) -> ())?
 
-    init(bytes inBytes: Bytes) {
-        self.inBytes = inBytes
+    init(data inData: Data) {
+        self.inData = inData
     }
 
     func parse() throws {
         didStartDocument?()
 
-        try parse(0..<inBytes.count)
+        try parse(0..<inData.count)
 
         didEndDocument?()
     }
@@ -176,7 +176,7 @@ class ASN1Parser {
         var currentLocation = range.lowerBound
 
         repeat {
-            let tag = inBytes[currentLocation]
+            let tag = inData[currentLocation]
             currentLocation += 1
 
             var tagType = ASN1Type(rawValue: tag & 0x1f)
@@ -220,8 +220,8 @@ class ASN1Parser {
 
                 didEndContainerWithType?(tagType!)
             } else {
-                let typeBytes = Bytes(inBytes[subRange])
-                try parse(type: tagType!, bytes: typeBytes)
+                let typeBytes = Data(bytes: inData[subRange])
+                try parse(type: tagType!, data: typeBytes)
             }
 
             if tagClass == 2 {
@@ -234,40 +234,40 @@ class ASN1Parser {
         parseLevel -= 1
     }
 
-    func parse(type: ASN1Type, bytes: Bytes) throws {
+    func parse(type: ASN1Type, data: Data) throws {
         typeSwitch: switch type {
 
         case .boolean:
-            let bool = try parseBool(bytes)
+            let bool = try parseBool(data)
             foundBool?(bool)
 
         case .integer:
-            if bytes.count <= 4 && foundInt != nil {
-                foundInt!(parseInt(bytes))
+            if data.count <= 4 && foundInt != nil {
+                foundInt!(parseInt(data))
             } else {
-                foundBytes?(bytes)
+                foundData?(data)
             }
 
         case .bitString:
-            let bitString = parseBitString(bytes)
+            let bitString = parseBitString(data)
             foundBitString?(bitString)
 
         case .octetString:
-            foundBytes?(bytes)
+            foundData?(data)
 
         case .null:
             foundNull?()
 
         case .objectIdentifier:
-            let oid = try parseObjectIdentifier(bytes)
+            let oid = try parseObjectIdentifier(data)
             foundObjectIdentifier?(oid)
 
         case .teletexString, .graphicString, .printableString, .utf8String, .ia5String:
-            let string = try parseString(bytes)
+            let string = try parseString(data)
             foundString?(string)
 
         case .utcTime, .generalizedTime:
-            let date = try parseDate(bytes)
+            let date = try parseDate(data)
             foundDate?(date)
 
         default:
@@ -275,51 +275,51 @@ class ASN1Parser {
         }
     }
 
-    func parseInt(_ bytes: Bytes) -> Int {
+    func parseInt(_ data: Data) -> Int {
         var int = 0
-        for byte in bytes {
+        for byte in data {
             int = (int << 8) + Int(byte)
         }
         return int
     }
 
-    func parseBool(_ bytes: Bytes) throws -> Bool {
-        if bytes.count == 1 {
-            return bytes[0] != 0
+    func parseBool(_ data: Data) throws -> Bool {
+        if data.count == 1 {
+            return data[0] != 0
         } else {
             throw ASN1Error("Illegal Boolean value length.")
         }
     }
 
-    func parseString(_ bytes: Bytes) throws -> String {
-        return try bytes |> Bytes.data |> UTF8.string
+    func parseString(_ data: Data) throws -> String {
+        return try data |> UTF8.decode
     }
 
-    func parseBitString(_ bytes: Bytes) -> ASN1BitString {
-        let unusedBits = Int(bytes[0])
-        let data = Bytes(bytes[1..<bytes.count])
+    func parseBitString(_ data: Data) -> ASN1BitString {
+        let unusedBits = Int(data[0])
+        let data = Data(bytes: data[1..<data.count])
         return ASN1BitString(data: data, unusedBits: unusedBits)
     }
 
-    func parseObjectIdentifier(_ bytes: Bytes) throws -> String {
+    func parseObjectIdentifier(_ data: Data) throws -> String {
         var indexes = [String]()
         var byteIndex = 0
-        while byteIndex < bytes.count {
+        while byteIndex < data.count {
             if byteIndex == 0 {
-                let byte = bytes[byteIndex]
+                let byte = data[byteIndex]
                 indexes.append("\(Int(byte / 40))")
                 indexes.append("\(Int(byte % 40))")
             } else {
                 var value = 0
                 var more = false
                 repeat {
-                    let byte = bytes[byteIndex]
+                    let byte = data[byteIndex]
                     value = (value << 7) + Int(byte & 0x7f)
                     more = (byte & 0x80) != 0
 
                     if more {
                         byteIndex += 1
-                        if byteIndex == bytes.count {
+                        if byteIndex == data.count {
                             throw ASN1Error("Invalid object identifier with 'more' bit set on last octet.")
                         }
                     }
@@ -332,8 +332,8 @@ class ASN1Parser {
         return indexes.joined(separator: ".")
     }
 
-    func parseDate(_ bytes: Bytes) throws -> NSDate {
-        let string = try parseString(bytes)
+    func parseDate(_ data: Data) throws -> NSDate {
+        let string = try parseString(data)
         if let date = dateFormatter.date(from: string) {
             return date
         } else {
@@ -346,7 +346,7 @@ class ASN1Parser {
         var octetsConsumed = 0
         var currentLocation = location
 
-        let byte = inBytes[currentLocation]
+        let byte = inData[currentLocation]
         currentLocation += 1
         octetsConsumed += 1
 
@@ -355,7 +355,7 @@ class ASN1Parser {
         } else if byte > 0x80 {
             let octetsInLength = Int(byte & 0x7f)
             let newLocation = currentLocation + octetsInLength
-            let lengthOctets = inBytes[currentLocation..<newLocation]
+            let lengthOctets = inData[currentLocation..<newLocation]
             octetsConsumed += octetsInLength
             for octet in lengthOctets {
                 length = (length << 8) + Int(octet)

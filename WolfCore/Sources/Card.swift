@@ -139,48 +139,48 @@ extension Card: CustomStringConvertible {
 }
 
 extension Card {
-    public var json: JSONDictionary {
-        var dict: JSONDictionary = [
-            "type": jsonValue("Card"),
-            "back" : jsonValue(back.rawValue),
-            "faceUp" : jsonValue(facing == .faceUp)
+    public var json: JSON.Dictionary {
+        var dict: JSON.Dictionary = [
+            "type": "Card",
+            "back" : back.rawValue,
+            "faceUp" : facing == .faceUp
         ]
         if let trump = trump {
-            dict["trump"] = jsonValue(trump.rawValue)
+            dict["trump"] = trump.rawValue
         }
         if let rank = rank {
-            dict["rank"] = jsonValue(rank.rawValue)
+            dict["rank"] = rank.rawValue
         }
         if let suit = suit {
-            dict["suit"] = jsonValue(suit.rawValue)
+            dict["suit"] = suit.rawValue
         }
         if isReversed {
-            dict["isReversed"] = jsonValue(true)
+            dict["isReversed"] = true
         }
         return dict
     }
 
-    public init(json: JSONDictionary) {
-        assert(swiftValue(json["type"]) as! String == "Card")
+    public init(json: JSON.Dictionary) {
+        assert(json["type"] as! String == "Card")
 
         var trump: TrumpType? = nil
         var rank: RankType? = nil
         var suit: SuitType? = nil
 
-        if let trumpValue = swiftValue(json["trump"]) as? Int {
+        if let trumpValue = json["trump"] as? Int {
             trump = TrumpType(rawValue: trumpValue)
         } else {
-            if let rankValue = swiftValue(json["rank"]) as? Int {
+            if let rankValue = json["rank"] as? Int {
                 rank = RankType(rawValue: rankValue)
             }
-            if let suitValue = swiftValue(json["suit"]) as? Int {
+            if let suitValue = json["suit"] as? Int {
                 suit = SuitType(rawValue: suitValue)
             }
         }
 
-        let back = CardBack(rawValue: swiftValue(json["back"]) as! String)!
-        let isReversed = swiftValue(json["isReversed"]) as? Bool ?? false
-        let facing: CardFacing = (swiftValue(json["faceUp"]) as? Bool ?? false) ? .faceUp : .faceDown
+        let back = CardBack(rawValue: json["back"] as! String)!
+        let isReversed = json["isReversed"] as? Bool ?? false
+        let facing: CardFacing = (json["faceUp"] as? Bool ?? false) ? .faceUp : .faceDown
 
         self.init(trump: trump, rank: rank, suit: suit, back: back, facing: facing, isReversed: isReversed)
     }

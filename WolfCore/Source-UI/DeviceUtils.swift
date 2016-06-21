@@ -36,11 +36,11 @@ public var osVersion: String {
 }
 
 public var deviceModel: String? {
-    var systemInfo = Bytes(repeating: 0, count: sizeof(utsname))
+    var systemInfo = Data(capacity: sizeof(utsname))!
 
-    let model = systemInfo.withUnsafeMutableBufferPointer { (body: inout UnsafeMutableBufferPointer<Byte>) -> String? in
-        guard uname(UnsafeMutablePointer(body.baseAddress)) == 0 else { return nil }
-        return String(cString: UnsafePointer(body.baseAddress!.advanced(by: Int(_SYS_NAMELEN * 4))))
+    let model: String? = systemInfo.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<Byte>) in
+        guard uname(UnsafeMutablePointer(bytes)) == 0 else { return nil }
+        return String(cString: UnsafePointer(bytes + Int(_SYS_NAMELEN * 4)))
     }
 
     return model
