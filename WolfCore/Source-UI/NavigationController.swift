@@ -30,7 +30,7 @@ public class NavigationController: UINavigationController {
     }
 
     private func _setup() {
-        logInfo("init \(self)", group: viewControllerLifecycleLogGroup)
+        logInfo("init \(self)", group: .viewControllerLifecycle)
         setup()
     }
 
@@ -38,12 +38,12 @@ public class NavigationController: UINavigationController {
     }
 
     deinit {
-        logInfo("deinit \(self)", group: viewControllerLifecycleLogGroup)
+        logInfo("deinit \(self)", group: .viewControllerLifecycle)
     }
 
     public override func awakeFromNib() {
         super.awakeFromNib()
-        logInfo("awakeFromNib \(self)", group: viewControllerLifecycleLogGroup)
+        logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
     }
 
     public override func viewDidLoad() {

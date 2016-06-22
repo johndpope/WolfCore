@@ -9,17 +9,20 @@
 import Foundation
 
 public let userDefaults = UserDefaults.standard()
-public let userDefaultsLogGroup = "UserDefaults"
+
+extension Log.GroupName {
+    public static let userDefaults = Log.GroupName("userDefaults")
+}
 
 extension UserDefaults {
     public subscript(key: String) -> AnyObject? {
         get {
             let value = userDefaults.object(forKey: key)
-            logTrace("get key: \(key), value: \(value)", group: userDefaultsLogGroup)
+            logTrace("get key: \(key), value: \(value)", group: .userDefaults)
             return value
         }
         set {
-            logTrace("set key: \(key), newValue: \(newValue)", group: userDefaultsLogGroup)
+            logTrace("set key: \(key), newValue: \(newValue)", group: .userDefaults)
             if let newValue = newValue {
                 userDefaults.set(newValue, forKey: key)
             } else {

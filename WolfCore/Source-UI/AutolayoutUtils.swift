@@ -196,10 +196,10 @@ public func =%= (left: NSLayoutConstraint, right: [Any?]) -> NSLayoutConstraint 
 
 public func warnForNoIdentifier(inConstraints constraints: [NSLayoutConstraint]) {
     guard let logger = logger else { return }
-    guard logger.groups.contains(layoutLogGroup) else { return }
+    guard logger.groups.contains(.layout) else { return }
     for constraint in constraints {
         if constraint.identifier == nil {
-            logWarning("No identifier for: \(constraint)", group: layoutLogGroup)
+            logWarning("No identifier for: \(constraint)", group: .layout)
         }
     }
 }

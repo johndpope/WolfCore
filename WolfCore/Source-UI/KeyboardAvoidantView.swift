@@ -8,135 +8,108 @@
 
 import UIKit
 
-public class KeyboardAvoidantView: View {
-    // Superview.bottom Equal KeyboardAvoidantView.bottom
-    // A positive constant should move the bottom of the KeyboardAvoidantView up.
-
-    private var superviewConstraints: LayoutConstraintsGroup?
-    @IBOutlet public var bottomConstraint: NSLayoutConstraint!
-
-    var keyboardView: UIView?
-    var keyboardWillMoveAction: NotificationAction!
+public class KeyboardTrackerView: View {
+    let margin: CGFloat = 20
+    var keyboardActions: KeyboardNotificationActions!
+    var leftConstraint: NSLayoutConstraint!
+    var defaultTopConstraint: NSLayoutConstraint!
+    var topConstraint: NSLayoutConstraint!
+    var widthConstraint: NSLayoutConstraint!
+    var heightConstraint: NSLayoutConstraint!
 
     public override func setup() {
         super.setup()
 
-        makeTransparent()
-        keyboardWillMoveAction = NotificationAction(name: .UIKeyboardWillChangeFrame, object: nil) { [unowned self] notification in
-            self.keyboardWillMove(withNotification: notification)
+        makeTransparent(debugColor: .red, debug: false)
+        isUserInteractionEnabled = false
+        keyboardActions = KeyboardNotificationActions()
+        keyboardActions.willChangeFrame = { [unowned self] info in
+            self.keyboardWillMove(info)
         }
-    }
-
-    deinit {
-        stopTrackingKeyboard()
+        keyboardActions.didHide = { [unowned self] info in
+            self.keyboardDidHide(info)
+        }
     }
 
     public override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-
-        superviewConstraints?.isActive = false
-
-        if let bottomConstraint = bottomConstraint {
-            bottomConstraint.isActive = false
-        }
-        bottomConstraint = nil
-
         if let superview = superview {
-            let topConstraint = superview.topAnchor == topAnchor
-            let bottomConstraint = superview.bottomAnchor == bottomAnchor =&= UILayoutPriorityDefaultHigh
-            let leadingConstraint = superview.leadingAnchor == leadingAnchor
-            let trailingConstraint = superview.trailingAnchor == trailingAnchor
-
-            self.bottomConstraint = bottomConstraint
-
-            superviewConstraints = LayoutConstraintsGroup(constraints: [
-                topConstraint, bottomConstraint, leadingConstraint, trailingConstraint
-                ], active: true)
+            leftConstraint = leftAnchor == superview.leftAnchor
+            defaultTopConstraint = topAnchor == superview.bottomAnchor =&= UILayoutPriorityDefaultHigh
+            topConstraint = topAnchor == superview.topAnchor + superview.frame.maxY
+            widthConstraint = widthAnchor == superview.frame.width
+            heightConstraint = heightAnchor == 100
+            activateConstraints(
+                leftConstraint,
+                widthConstraint,
+                defaultTopConstraint,
+                heightConstraint
+            )
+        } else {
+            leftConstraint = nil
+            topConstraint = nil
+            widthConstraint = nil
+            heightConstraint = nil
         }
     }
 
-    private func endKeyboardRectangle(fromNotification notification: NSNotification) -> CGRect {
-        if let keyboardScreenFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue() {
-            if let keyboardSuperviewFrame = superview?.convert(keyboardScreenFrame, from: nil) {
-                return keyboardSuperviewFrame
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if constraintFrame == nil {
+            topConstraint.constant = superview!.frame.maxY
+        }
+    }
+
+    func keyboardWillMove(_ info: KeyboardMovement) {
+        topConstraint.isActive = true
+
+        let duration = info.animationDuration
+        let animated = duration > 0
+        let options = info.animationCurveOptions
+        let frameEnd = info.frameEnd(in: superview!)
+        self.constraintFrame = frameEnd
+        superview?.setNeedsLayout()
+        dispatchAnimated(animated, duration: duration, options: options) {
+            self.superview?.layoutIfNeeded()
+        }
+    }
+
+    func keyboardDidHide(_ info: KeyboardMovement) {
+        topConstraint.isActive = false
+    }
+
+    public var constraintFrame: CGRect? {
+        didSet {
+            if let constraintFrame = constraintFrame {
+                leftConstraint.constant = constraintFrame.minX
+                topConstraint.constant = constraintFrame.minY
+                widthConstraint.constant = constraintFrame.width
+                heightConstraint.constant = constraintFrame.height
             }
         }
-        fatalError("Could not get keyboard rectangle from notification")
+    }
+}
+
+public class KeyboardAvoidantView: View {
+    var keyboardTrackerView: KeyboardTrackerView!
+
+    public override func setup() {
+        super.setup()
+
+        makeTransparent(debugColor: .blue, debug: false)
+
+        keyboardTrackerView = KeyboardTrackerView()
     }
 
-    func keyboardWillMove(withNotification notification: NSNotification) {
-        assert(bottomConstraint != nil, "bottomConstraint not set")
-        if superview != nil {
-            let endKeyboardRectangle = self.endKeyboardRectangle(fromNotification: notification)
-            updateBottomConstraint(forKeyboardRectangle: endKeyboardRectangle)
-
-            let duration = TimeInterval((notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
-            let animationCurveValue = (notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue ?? UIViewAnimationCurve.linear.rawValue
-            //let animationCurve = UIViewAnimationCurve(rawValue: animationCurveValue & 3)!
-            let options = UIViewAnimationOptions(rawValue: UInt(animationCurveValue) << 16)
-
-            UIView.animate(withDuration: duration, delay: 0.0, options: options, animations: {
-                self.layoutSubviews()
-                }, completion: { _ in
-                    self.startTrackingKeyboard()
-            })
-        }
-    }
-
-    private func updateBottomConstraint(forKeyboardRectangle keyboardRectangle: CGRect) {
+    public override func didMoveToSuperview() {
         if let superview = superview {
-            let intersects = keyboardRectangle.intersects(superview.bounds)
-            let newMaxY = intersects ? keyboardRectangle.minY : superview.bounds.maxY
-            //            println("\(self) updateBottomConstraintForKeyboardRectangle:\(keyboardRectangle) newMaxY:\(newMaxY)")
-            bottomConstraint.constant = superview.bounds.maxY - newMaxY
-            setNeedsUpdateConstraints()
+            superview.insertSubview(keyboardTrackerView, aboveSubview: self)
+
+            activateConstraints(
+                bottomAnchor == keyboardTrackerView.topAnchor =&= UILayoutPriorityDefaultHigh
+            )
+        } else {
+            keyboardTrackerView.removeFromSuperview()
         }
-    }
-
-    private func startTrackingKeyboard() {
-        if keyboardView == nil {
-            if let kv = findKeyboardView() {
-                keyboardView = kv
-                //            println("startTrackingKeyboard: \(keyboardView)")
-                kv.addObserver(self, forKeyPath: "center", options: .new, context: nil)
-            } else {
-                logError("Could not find keyboard view.")
-            }
-        }
-    }
-
-    private func stopTrackingKeyboard() {
-        keyboardView?.removeObserver(self, forKeyPath: "center", context: nil)
-        keyboardView = nil
-    }
-
-    public override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-        if let keyboardRectangle = keyboardView?.frame {
-            updateBottomConstraint(forKeyboardRectangle: keyboardRectangle)
-        }
-    }
-
-    func findKeyboardView() -> UIView? {
-        var result: UIView? = nil
-
-        let windows = UIApplication.shared().windows
-        for window in windows {
-            if window.description.hasPrefix("<UITextEffectsWindow") {
-                for subview in window.subviews {
-                    if subview.description.hasPrefix("<UIInputSetContainerView") {
-                        for sv in subview.subviews {
-                            if sv.description.hasPrefix("<UIInputSetHostView") {
-                                result = sv
-                                break
-                            }
-                        }
-                        break
-                    }
-                }
-                break
-            }
-        }
-
-        return result
     }
 }

@@ -175,6 +175,11 @@
 		035553621C0F622A00E0FCA7 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553371C0F622A00E0FCA7 /* View.swift */; };
 		035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553381C0F622A00E0FCA7 /* ViewDebugging.swift */; };
 		035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553391C0F622A00E0FCA7 /* ViewExtensions.swift */; };
+		0359AF581D1B190C001F71DC /* KeyboardMovementAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0359AF571D1B190C001F71DC /* KeyboardMovementAction.swift */; };
+		0359AF5A1D1B1932001F71DC /* KeyboardMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0359AF591D1B1932001F71DC /* KeyboardMovement.swift */; };
+		0359AF5E1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0359AF5D1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift */; };
+		0359AF5F1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0359AF5D1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift */; };
+		0359AF601D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0359AF5D1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift */; };
 		035A8C3C1D149F2900707E43 /* NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A8C3B1D149F2900707E43 /* NetworkActivity.swift */; };
 		035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035AD78D1C9B66DA00BFEC4A /* Result.swift */; };
 		035C36651C500333000C04D0 /* LifeHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035C36641C500333000C04D0 /* LifeHash.swift */; };
@@ -451,6 +456,9 @@
 		035553381C0F622A00E0FCA7 /* ViewDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewDebugging.swift; path = "Source-UI/ViewDebugging.swift"; sourceTree = "<group>"; };
 		035553391C0F622A00E0FCA7 /* ViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewExtensions.swift; path = "Source-UI/ViewExtensions.swift"; sourceTree = "<group>"; };
 		0355533A1C0F622A00E0FCA7 /* WolfCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WolfCore.h; path = WolfCore/WolfCore.h; sourceTree = "<group>"; };
+		0359AF571D1B190C001F71DC /* KeyboardMovementAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardMovementAction.swift; sourceTree = "<group>"; };
+		0359AF591D1B1932001F71DC /* KeyboardMovement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardMovement.swift; sourceTree = "<group>"; };
+		0359AF5D1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensibleEnumeratedName.swift; path = Sources/ExtensibleEnumeratedName.swift; sourceTree = "<group>"; };
 		035A8C3B1D149F2900707E43 /* NetworkActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkActivity.swift; path = "Source-UI/NetworkActivity.swift"; sourceTree = "<group>"; };
 		035AD78D1C9B66DA00BFEC4A /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Sources/Result.swift; sourceTree = "<group>"; };
 		035C36641C500333000C04D0 /* LifeHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LifeHash.swift; path = Sources/LifeHash.swift; sourceTree = "<group>"; };
@@ -598,6 +606,7 @@
 				0314DCF41D08F8FD00E23C67 /* DataExtensions.swift */,
 				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
 				036B833F1C40909700491AFF /* DictionaryExtensions.swift */,
+				0359AF5D1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift */,
 				03E13B831C4FEE720074E447 /* Grid.swift */,
 				033E14FC1C7CC71C00BA3E63 /* Matrix.swift */,
 				03E3C7321D10E3120004DF98 /* Monad.swift */,
@@ -813,7 +822,6 @@
 				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
 				03AB94D01CB4869800F25335 /* GestureActions.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
-				036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */,
 				036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */,
 				036307D91CB6DE0600DC7070 /* TVControllerActions.swift */,
 				03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */,
@@ -827,7 +835,6 @@
 				035553161C0F622A00E0FCA7 /* Button.swift */,
 				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
 				035553251C0F622A00E0FCA7 /* ImageView.swift */,
-				035553271C0F622A00E0FCA7 /* KeyboardAvoidantView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
@@ -907,6 +914,7 @@
 		035552FA1C0F5F4200E0FCA7 /* WolfCore */ = {
 			isa = PBXGroup;
 			children = (
+				0359AF561D1B18E4001F71DC /* Keyboard */,
 				0322E89B1D13BB1400EFF3F6 /* Platform */,
 				0314DD091D08FC9A00E23C67 /* Autolayout */,
 				0314DD041D08FB4C00E23C67 /* App */,
@@ -935,6 +943,17 @@
 				033F5EE21CA3096700647A0A /* Info-MacOSX.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0359AF561D1B18E4001F71DC /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				035553271C0F622A00E0FCA7 /* KeyboardAvoidantView.swift */,
+				0359AF571D1B190C001F71DC /* KeyboardMovementAction.swift */,
+				0359AF591D1B1932001F71DC /* KeyboardMovement.swift */,
+				036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */,
+			);
+			name = Keyboard;
 			sourceTree = "<group>";
 		};
 		036FECA21C73CF2000B09489 /* Libraries */ = {
@@ -1226,6 +1245,7 @@
 				03E172FE1CF1C8D50073F383 /* SequenceExtensions.swift in Sources */,
 				033F5EA51CA3096700647A0A /* NotificationCenterExtensions.swift in Sources */,
 				031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */,
+				0359AF5F1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				033F5EA61CA3096700647A0A /* DictionaryExtensions.swift in Sources */,
 				033F5EA71CA3096700647A0A /* BSON.swift in Sources */,
 				0375EC391CF1B19A001E6D45 /* View.swift in Sources */,
@@ -1337,6 +1357,7 @@
 				0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */,
 				031631A11D09639F00DCBB3B /* FontExtensions.swift in Sources */,
 				03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */,
+				0359AF5E1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				03E13B841C4FEE720074E447 /* Grid.swift in Sources */,
 				03F5A8B21C485F6000B124A3 /* UUID.swift in Sources */,
 				038457971CED57E80012BCCE /* WindowExtensions.swift in Sources */,
@@ -1369,6 +1390,7 @@
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
 				035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */,
 				03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */,
+				0359AF5A1D1B1932001F71DC /* KeyboardMovement.swift in Sources */,
 				0322E89E1D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				03E13B7E1C4F28F60074E447 /* PDF.swift in Sources */,
 				0355533F1C0F622A00E0FCA7 /* BezierPathExtensions.swift in Sources */,
@@ -1402,6 +1424,7 @@
 				0355534D1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
 				034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
 				03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */,
+				0359AF581D1B190C001F71DC /* KeyboardMovementAction.swift in Sources */,
 				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
 				039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */,
 				03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */,
@@ -1510,6 +1533,7 @@
 				03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */,
 				03E172F81CF1C8CC0073F383 /* CGUtils.swift in Sources */,
 				03E172D71CF1C8B60073F383 /* CryptoUtils.swift in Sources */,
+				0359AF601D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				03E1731A1CF1C8FB0073F383 /* BezierPathExtensions.swift in Sources */,
 				03E173011CF1C8E70073F383 /* Heartbeat.swift in Sources */,
 				03E173121CF1C8FB0073F383 /* DeviceUtils.swift in Sources */,

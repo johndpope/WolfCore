@@ -17,7 +17,9 @@ public typealias StringRange = Range<StringIndex>
 public typealias Replacements = [String: String]
 public typealias RangeReplacement = (StringRange, String)
 
-public let localizationLogGroup = "Localization"
+extension Log.GroupName {
+    public static let localization = Log.GroupName("localization")
+}
 
 // Provide concise versions of NSLocalizedString.
 
@@ -75,7 +77,7 @@ public let localizationLogGroup = "Localization"
                 localized = Bundle.findBundle(forClass: BundleClass.self).localizedString(forKey: taggedKey, value: nil, table: nil)
             }
             if localized == taggedKey {
-                logWarning("No localization found for: \"\(taggedKey)\".", group: localizationLogGroup)
+                logWarning("No localization found for: \"\(taggedKey)\".", group: .localization)
                 localized = untaggedKey
             }
             if let replacements = replacements {

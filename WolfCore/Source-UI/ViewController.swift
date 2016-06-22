@@ -9,7 +9,9 @@
 
 import UIKit
 
-public let viewControllerLifecycleLogGroup = "ViewControllers"
+extension Log.GroupName {
+    public static let viewControllerLifecycle = Log.GroupName("viewControllers")
+}
 
 public class ViewController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
@@ -23,7 +25,7 @@ public class ViewController: UIViewController {
     }
 
     private func _setup() {
-        logInfo("init \(self)", group: viewControllerLifecycleLogGroup)
+        logInfo("init \(self)", group: .viewControllerLifecycle)
         setup()
     }
 
@@ -31,12 +33,12 @@ public class ViewController: UIViewController {
     }
 
     deinit {
-        logInfo("deinit \(self)", group: viewControllerLifecycleLogGroup)
+        logInfo("deinit \(self)", group: .viewControllerLifecycle)
     }
 
     public override func awakeFromNib() {
         super.awakeFromNib()
-        logInfo("awakeFromNib \(self)", group: viewControllerLifecycleLogGroup)
+        logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
     }
 
     public override func viewDidLoad() {

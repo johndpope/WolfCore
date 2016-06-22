@@ -9,7 +9,9 @@
 public internal(set) var inFlightTracker = InFlightTracker()
 public internal(set) var inFlightView: InFlightView!
 
-public let inFlightLogGroup = "InFlight"
+extension Log.GroupName {
+    public static let inFlight = Log.GroupName("inFlight")
+}
 
 public class InFlightTracker {
     private var tokens = Set<InFlightToken>()
@@ -34,7 +36,7 @@ public class InFlightTracker {
     }
 
     public func syncToHidden() {
-        logTrace("syncToHidden: \(hidden)", group: inFlightLogGroup)
+        logTrace("syncToHidden: \(hidden)", group: .inFlight)
         inFlightView.isHidden = hidden
     }
 
@@ -43,7 +45,7 @@ public class InFlightTracker {
         token.isNetworkActive = true
         tokens.insert(token)
         didStart?(token)
-        logTrace("started: \(token)", group: inFlightLogGroup)
+        logTrace("started: \(token)", group: .inFlight)
         return token
     }
 
@@ -52,7 +54,7 @@ public class InFlightTracker {
         token.result = result
         if tokens.remove(token) != nil {
             didEnd?(token)
-            logTrace("ended: \(token)", group: inFlightLogGroup)
+            logTrace("ended: \(token)", group: .inFlight)
         } else {
             fatalError("Token \(token) not found.")
         }

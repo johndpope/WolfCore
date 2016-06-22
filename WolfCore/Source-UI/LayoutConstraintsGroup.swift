@@ -12,7 +12,9 @@
     import Cocoa
 #endif
 
-public let layoutLogGroup = "Layout"
+extension Log.GroupName {
+    public static let layout = Log.GroupName("layout")
+}
 
 public class LayoutConstraintsGroup {
     private let constraints: [NSLayoutConstraint]
@@ -38,16 +40,16 @@ public class LayoutConstraintsGroup {
         lastActive = isActive
         switch isActive {
         case true:
-            logTrace("Activating Constraints \(identifier ?? ""): \(constraints)", obj: self, group: layoutLogGroup)
+            logTrace("Activating Constraints \(identifier ?? ""): \(constraints)", obj: self, group: .layout)
             activateConstraints(constraints)
         case false:
-            logTrace("Deactivating Constraints \(identifier ?? ""): \(constraints)", obj: self, group: layoutLogGroup)
+            logTrace("Deactivating Constraints \(identifier ?? ""): \(constraints)", obj: self, group: .layout)
             deactivateConstraints(constraints)
         }
     }
 
     deinit {
-        logTrace("\(self) deinit", obj: self, group: layoutLogGroup)
+        logTrace("\(self) deinit", obj: self, group: .layout)
         isActive = false
     }
 }

@@ -66,4 +66,12 @@ public class Hysteresis {
             }
         }
     }
+
+    public func increment() {
+        causeCount.increment()
+    }
+
+    public func decrement() {
+        causeCount.decrement()
+    }
 }

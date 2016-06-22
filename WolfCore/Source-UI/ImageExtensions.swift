@@ -92,3 +92,20 @@ extension OSImage {
     }
     #endif
 }
+
+public struct ImageName: ExtensibleEnumeratedName {
+    public let name: String
+
+    public init(_ name: String) { self.name = name}
+
+    public var image: UIImage {
+        return UIImage(named: name)!
+    }
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
+}

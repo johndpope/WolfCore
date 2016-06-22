@@ -8,24 +8,51 @@
 
 import UIKit
 
-public class KeyboardNotificationActions: NotificationActions {
-    public var willShow: NotificationBlock? {
-        get { return getAction(forName: .UIKeyboardWillShow) }
-        set { setAction(using: newValue, object: nil, name: .UIKeyboardWillShow) }
+public class KeyboardNotificationActions {
+    private var actions = Dictionary<NSNotification.Name, KeyboardMovementAction>()
+
+    public init() {
     }
 
-    public var didShow: NotificationBlock? {
-        get { return getAction(forName: .UIKeyboardDidShow) }
-        set { setAction(using: newValue, object: nil, name: .UIKeyboardDidShow) }
+    func getAction(named name: NSNotification.Name) -> KeyboardMovementBlock? {
+        return actions[name]?.keyboardMovementBlock
     }
 
-    public var willHide: NotificationBlock? {
-        get { return getAction(forName: .UIKeyboardWillHide) }
-        set { setAction(using: newValue, object: nil, name: .UIKeyboardWillHide) }
+    func setAction(named name: NSNotification.Name, using block: KeyboardMovementBlock?) {
+        if let block = block {
+            let action = KeyboardMovementAction(name: name, using: block)
+            actions[name] = action
+        } else {
+            removeAction(forName: name)
+        }
     }
 
-    public var didHide: NotificationBlock? {
-        get { return getAction(forName: .UIKeyboardDidHide) }
-        set { setAction(using: newValue, object: nil, name: .UIKeyboardDidHide) }
+    func removeAction(forName name: NSNotification.Name) {
+        actions.removeValue(forKey: name)
+    }
+
+    public var willChangeFrame: KeyboardMovementBlock? {
+        get { return getAction(named: .UIKeyboardWillChangeFrame) }
+        set { setAction(named: .UIKeyboardWillChangeFrame, using: newValue) }
+    }
+
+    public var willShow: KeyboardMovementBlock? {
+        get { return getAction(named: .UIKeyboardWillShow) }
+        set { setAction(named: .UIKeyboardWillShow, using: newValue) }
+    }
+
+    public var didShow: KeyboardMovementBlock? {
+        get { return getAction(named: .UIKeyboardDidShow) }
+        set { setAction(named: .UIKeyboardDidShow, using: newValue) }
+    }
+
+    public var willHide: KeyboardMovementBlock? {
+        get { return getAction(named: .UIKeyboardWillHide) }
+        set { setAction(named: .UIKeyboardWillHide, using: newValue) }
+    }
+
+    public var didHide: KeyboardMovementBlock? {
+        get { return getAction(named: .UIKeyboardDidHide) }
+        set { setAction(named: .UIKeyboardDidHide, using: newValue) }
     }
 }
