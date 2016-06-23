@@ -16,6 +16,34 @@ import CoreGraphics
     import Cocoa
 #endif
 
+public struct PDFName: ExtensibleEnumeratedName {
+    public let name: String
+    public let aClass: AnyClass?
+
+    public init(_ name: String, fromBundleForClass aClass: AnyClass?) {
+        self.name = name
+        self.aClass = aClass
+    }
+
+    public init(_ name: String) {
+        self.init(name, fromBundleForClass: nil)
+    }
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
+
+    public var referent: PDF {
+        return PDF(named: name, fromBundleForClass: aClass)!
+    }
+}
+
+public postfix func ® (lhs: PDFName) -> PDF {
+    return lhs.referent
+}
 
 public class PDF {
     private let pdf: CGPDFDocument
@@ -26,7 +54,7 @@ public class PDF {
         pageCount = pdf.numberOfPages
     }
 
-    public convenience init?(named name: String, inSubdirectory subdirectory: String? = nil, fromBundleForClass aClass: AnyClass) {
+    public convenience init?(named name: String, inSubdirectory subdirectory: String? = nil, fromBundleForClass aClass: AnyClass? = nil) {
         let bundle = Bundle.findBundle(forClass: aClass)
         if let url = bundle.urlForResource(name, withExtension: "pdf", subdirectory: subdirectory) {
             self.init(url: url)

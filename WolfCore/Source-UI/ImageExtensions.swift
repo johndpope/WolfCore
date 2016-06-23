@@ -95,11 +95,15 @@ extension OSImage {
 
 public struct ImageName: ExtensibleEnumeratedName {
     public let name: String
+    public let aClass: AnyClass?
 
-    public init(_ name: String) { self.name = name}
+    public init(_ name: String, fromBundleForClass aClass: AnyClass?) {
+        self.name = name
+        self.aClass = aClass
+    }
 
-    public var image: UIImage {
-        return UIImage(named: name)!
+    public init(_ name: String) {
+        self.init(name, fromBundleForClass: nil)
     }
 
     // Hashable
@@ -108,4 +112,12 @@ public struct ImageName: ExtensibleEnumeratedName {
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
     public var rawValue: String { return name }
+
+    public var referent: UIImage {
+        return UIImage(named: name, fromBundleForClass: aClass)!
+    }
+}
+
+public postfix func ® (lhs: ImageName) -> UIImage {
+    return lhs.referent
 }

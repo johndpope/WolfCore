@@ -35,6 +35,10 @@ public class Log {
         // RawRepresentable
         public init?(rawValue: String) { self.init(rawValue) }
         public var rawValue: String { return name }
+
+        public var referent: Void {
+            return ()
+        }
     }
 
     public var level = LogLevel.info

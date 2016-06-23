@@ -310,3 +310,36 @@ public extension NSString {
     }
 }
 #endif
+
+public struct StringName: ExtensibleEnumeratedName {
+    public let name: String
+    public let aClass: AnyClass?
+
+    public init(_ name: String, fromBundleForClass aClass: AnyClass?) {
+        self.name = name
+        self.aClass = aClass
+    }
+
+    public init(_ name: String) {
+        self.init(name, fromBundleForClass: nil)
+    }
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
+
+    public var referent: String {
+        if let aClass = aClass {
+            return name ¶ aClass
+        } else {
+            return name¶
+        }
+    }
+}
+
+public postfix func ® (lhs: StringName) -> String {
+    return lhs.referent
+}
