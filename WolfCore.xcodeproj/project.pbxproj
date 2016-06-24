@@ -133,7 +133,7 @@
 		033F5ED21CA3096700647A0A /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
 		033F5ED31CA3096700647A0A /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
 		033F5ED41CA3096700647A0A /* RectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B791C4F28F60074E447 /* RectExtensions.swift */; };
-		033F5ED51CA3096700647A0A /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7861C53F7230045BB37 /* Bytes.swift */; };
+		033F5ED51CA3096700647A0A /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7861C53F7230045BB37 /* Byte.swift */; };
 		033F5ED61CA3096700647A0A /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83481C431FDF00491AFF /* Random.swift */; };
 		033F5ED71CA3096700647A0A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035AD78D1C9B66DA00BFEC4A /* Result.swift */; };
 		033F5EDA1CA3096700647A0A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 036FECA31C73CFB100B09489 /* libsqlite3.tbd */; };
@@ -261,7 +261,7 @@
 		03E172D01CF1C8B60073F383 /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF77E1C538C3E0045BB37 /* Base64.swift */; };
 		03E172D11CF1C8B60073F383 /* Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7801C53F6DB0045BB37 /* Base64URL.swift */; };
 		03E172D21CF1C8B60073F383 /* BSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B2C1C3B1B02001A463B /* BSON.swift */; };
-		03E172D31CF1C8B60073F383 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7861C53F7230045BB37 /* Bytes.swift */; };
+		03E172D31CF1C8B60073F383 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7861C53F7230045BB37 /* Byte.swift */; };
 		03E172D41CF1C8B60073F383 /* CircularList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553171C0F622A00E0FCA7 /* CircularList.swift */; };
 		03E172D51CF1C8B60073F383 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83461C431F2A00491AFF /* Color.swift */; };
 		03E172D61CF1C8B60073F383 /* ColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834A1C4320AC00491AFF /* ColorFunc.swift */; };
@@ -362,7 +362,7 @@
 		03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7801C53F6DB0045BB37 /* Base64URL.swift */; };
 		03FAF7831C53F6EF0045BB37 /* UTF8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7821C53F6EF0045BB37 /* UTF8.swift */; };
 		03FAF7851C53F6FF0045BB37 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7841C53F6FF0045BB37 /* JSON.swift */; };
-		03FAF7871C53F7230045BB37 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7861C53F7230045BB37 /* Bytes.swift */; };
+		03FAF7871C53F7230045BB37 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7861C53F7230045BB37 /* Byte.swift */; };
 		03FAF7891C53F7340045BB37 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7881C53F7340045BB37 /* Hex.swift */; };
 		03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */; };
 /* End PBXBuildFile section */
@@ -531,7 +531,7 @@
 		03FAF7801C53F6DB0045BB37 /* Base64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base64URL.swift; path = Sources/Base64URL.swift; sourceTree = "<group>"; };
 		03FAF7821C53F6EF0045BB37 /* UTF8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UTF8.swift; path = Sources/UTF8.swift; sourceTree = "<group>"; };
 		03FAF7841C53F6FF0045BB37 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = "Sources-Foundation/JSON.swift"; sourceTree = "<group>"; };
-		03FAF7861C53F7230045BB37 /* Bytes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bytes.swift; path = Sources/Bytes.swift; sourceTree = "<group>"; };
+		03FAF7861C53F7230045BB37 /* Byte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Byte.swift; path = Sources/Byte.swift; sourceTree = "<group>"; };
 		03FAF7881C53F7340045BB37 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hex.swift; path = Sources/Hex.swift; sourceTree = "<group>"; };
 		03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISO8601.swift; path = Sources/ISO8601.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -676,7 +676,7 @@
 		0314DCFA1D08F97900E23C67 /* Formats */ = {
 			isa = PBXGroup;
 			children = (
-				03FAF7861C53F7230045BB37 /* Bytes.swift */,
+				03FAF7861C53F7230045BB37 /* Byte.swift */,
 				03FAF77E1C538C3E0045BB37 /* Base64.swift */,
 				03FAF7801C53F6DB0045BB37 /* Base64URL.swift */,
 				03FAF7881C53F7340045BB37 /* Hex.swift */,
@@ -1295,7 +1295,7 @@
 				033F5ED31CA3096700647A0A /* Hysteresis.swift in Sources */,
 				033F5ED41CA3096700647A0A /* RectExtensions.swift in Sources */,
 				033F5EE41CA3217100647A0A /* ImageUtils.swift in Sources */,
-				033F5ED51CA3096700647A0A /* Bytes.swift in Sources */,
+				033F5ED51CA3096700647A0A /* Byte.swift in Sources */,
 				03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				033F5ED61CA3096700647A0A /* Random.swift in Sources */,
 				033F5ED71CA3096700647A0A /* Result.swift in Sources */,
@@ -1443,7 +1443,7 @@
 				03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */,
 				03E13B801C4F28F60074E447 /* RectExtensions.swift in Sources */,
 				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
-				03FAF7871C53F7230045BB37 /* Bytes.swift in Sources */,
+				03FAF7871C53F7230045BB37 /* Byte.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
@@ -1491,7 +1491,7 @@
 				0314DCF61D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
 				031631A21D09639F00DCBB3B /* FontExtensions.swift in Sources */,
 				03E173031CF1C8E70073F383 /* Hysteresis.swift in Sources */,
-				03E172D31CF1C8B60073F383 /* Bytes.swift in Sources */,
+				03E172D31CF1C8B60073F383 /* Byte.swift in Sources */,
 				03E172F61CF1C8CC0073F383 /* AffineTransformUtils.swift in Sources */,
 				03E1731B1CF1C8FB0073F383 /* ColorExtensions.swift in Sources */,
 				03E172E01CF1C8B60073F383 /* IPAddress6.swift in Sources */,

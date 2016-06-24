@@ -113,11 +113,11 @@ public struct ImageName: ExtensibleEnumeratedName {
     public init?(rawValue: String) { self.init(rawValue) }
     public var rawValue: String { return name }
 
-    public var referent: UIImage {
-        return UIImage(named: name, fromBundleForClass: aClass)!
+    public var referent: OSImage {
+        return OSImage(named: name, fromBundleForClass: aClass)!
     }
 }
 
-public postfix func ® (lhs: ImageName) -> UIImage {
+public postfix func ® (lhs: ImageName) -> OSImage {
     return lhs.referent
 }
