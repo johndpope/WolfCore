@@ -11,7 +11,7 @@ public class InFlightToken: Equatable, Hashable, CustomStringConvertible {
     public let id: Int
     public let name: String
     var result: ResultSummary?
-    private var networkActivityRef: ReferenceCounter.Ref?
+    private var networkActivityRef: Locker.Ref?
 
     init(name: String) {
         id = InFlightToken.nextID

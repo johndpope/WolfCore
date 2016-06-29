@@ -15,10 +15,10 @@ public class NetworkActivity {
 
     init() {
         hysteresis = Hysteresis(
-            effectStart: {
+            onEffectStart: {
                 UIApplication.shared().isNetworkActivityIndicatorVisible = true
             },
-            effectEnd: {
+            onEffectEnd: {
                 UIApplication.shared().isNetworkActivityIndicatorVisible = false
             },
             effectStartLag: 0.2,
@@ -26,7 +26,7 @@ public class NetworkActivity {
         )
     }
 
-    public func newActivity() -> ReferenceCounter.Ref {
+    public func newActivity() -> Locker.Ref {
         return hysteresis.newCause()
     }
 }

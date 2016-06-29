@@ -16,17 +16,13 @@ import CoreGraphics
     import Cocoa
 #endif
 
-public struct PDFName: ExtensibleEnumeratedName {
+public struct PDFReference: ExtensibleEnumeratedName, Reference {
     public let name: String
-    public let aClass: AnyClass?
+    public let bundle: Bundle
 
-    public init(_ name: String, fromBundleForClass aClass: AnyClass?) {
+    public init(_ name: String, inBundle bundle: Bundle? = nil) {
         self.name = name
-        self.aClass = aClass
-    }
-
-    public init(_ name: String) {
-        self.init(name, fromBundleForClass: nil)
+        self.bundle = bundle ?? Bundle.main()
     }
 
     // Hashable
@@ -36,12 +32,13 @@ public struct PDFName: ExtensibleEnumeratedName {
     public init?(rawValue: String) { self.init(rawValue) }
     public var rawValue: String { return name }
 
+    // Reference
     public var referent: PDF {
-        return PDF(named: name, fromBundleForClass: aClass)!
+        return PDF(named: name, in: bundle)!
     }
 }
 
-public postfix func ® (lhs: PDFName) -> PDF {
+public postfix func ® (lhs: PDFReference) -> PDF {
     return lhs.referent
 }
 
@@ -54,8 +51,8 @@ public class PDF {
         pageCount = pdf.numberOfPages
     }
 
-    public convenience init?(named name: String, inSubdirectory subdirectory: String? = nil, fromBundleForClass aClass: AnyClass? = nil) {
-        let bundle = Bundle.findBundle(forClass: aClass)
+    public convenience init?(named name: String, inSubdirectory subdirectory: String? = nil, in bundle: Bundle? = nil) {
+        let bundle = bundle ?? Bundle.main()
         if let url = bundle.urlForResource(name, withExtension: "pdf", subdirectory: subdirectory) {
             self.init(url: url)
         } else {

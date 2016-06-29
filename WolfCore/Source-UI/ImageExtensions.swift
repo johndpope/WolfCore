@@ -75,13 +75,12 @@ extension OSImage {
     }
 
     #if os(iOS)
-    public convenience init?(named name: String, fromBundleForClass aClass: AnyClass?, compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) {
-        let bundle = Bundle.findBundle(forClass: aClass)
-        self.init(named: name, in: bundle, compatibleWith: traitCollection)
+    public convenience init?(named name: String, in bundle: Bundle?) {
+        self.init(named: name, in: bundle, compatibleWith: nil)
     }
     #elseif os(OSX)
-    public convenience init?(named name: String, fromBundleForClass aClass: AnyClass?) {
-        let bundle = Bundle.findBundle(forClass: aClass)
+    public convenience init?(named name: String, in bundle: Bundle?) {
+        let bundle = bundle ?? Bundle.main()
         guard let image = bundle.imageForResource(name) else {
             return nil
         }
@@ -93,17 +92,13 @@ extension OSImage {
     #endif
 }
 
-public struct ImageName: ExtensibleEnumeratedName {
+public struct ImageReference: ExtensibleEnumeratedName, Reference {
     public let name: String
-    public let aClass: AnyClass?
+    public let bundle: Bundle
 
-    public init(_ name: String, fromBundleForClass aClass: AnyClass?) {
+    public init(_ name: String, inBundle bundle: Bundle? = nil) {
         self.name = name
-        self.aClass = aClass
-    }
-
-    public init(_ name: String) {
-        self.init(name, fromBundleForClass: nil)
+        self.bundle = bundle ?? Bundle.main()
     }
 
     // Hashable
@@ -113,11 +108,12 @@ public struct ImageName: ExtensibleEnumeratedName {
     public init?(rawValue: String) { self.init(rawValue) }
     public var rawValue: String { return name }
 
+    // Reference
     public var referent: OSImage {
-        return OSImage(named: name, fromBundleForClass: aClass)!
+        return OSImage(named: name, in: bundle)!
     }
 }
 
-public postfix func ® (lhs: ImageName) -> OSImage {
+public postfix func ® (lhs: ImageReference) -> UIImage {
     return lhs.referent
 }

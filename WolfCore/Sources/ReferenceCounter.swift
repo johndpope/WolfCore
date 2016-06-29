@@ -1,38 +1,37 @@
 //
-//  File.swift
+//  Locker.swift
 //  WolfCore
 //
 //  Created by Robert McNally on 6/17/16.
-//  Copyright © 2016 Arciem. All rights reserved.
+//  Copyright © 2016 Vixlet. All rights reserved.
 //
 
-public class ReferenceCounter {
-    public var onOneRef: Block?
-    public var onZeroRefs: Block?
+public class Locker {
+    private var count = 0
+    private var serializer: Serializer!
+    public var onLocked: Block?
+    public var onUnlocked: Block?
 
-    public init(onOneRef: Block? = nil, onZeroRefs: Block? = nil) {
-        self.onOneRef = onOneRef
-        self.onZeroRefs = onZeroRefs
+    public init(onLocked: Block? = nil, onUnlocked: Block? = nil) {
+        self.onLocked = onLocked
+        self.onUnlocked = onUnlocked
         serializer = Serializer(name: "\(self)")
     }
 
-    private var count = 0
-    private var serializer: Serializer!
-
-    public var isActive: Bool {
+    public var isLocked: Bool {
         return count > 0
     }
 
     public class Ref {
-        private weak var tracker: ReferenceCounter?
+        private weak var tracker: Locker?
 
-        private init(tracker: ReferenceCounter) {
+        private init(tracker: Locker) {
             self.tracker = tracker
-            tracker.increment()
+            tracker.lock()
         }
 
         deinit {
-            tracker?.decrement()
+            tracker?.unlock()
         }
     }
 
@@ -40,30 +39,30 @@ public class ReferenceCounter {
         return Ref(tracker: self)
     }
 
-    private func _increment() {
+    private func _lock() {
         count = count + 1
         if count == 1 {
-            onOneRef?()
+            onLocked?()
         }
     }
 
-    private func _decrement() {
+    private func _unlock() {
         assert(count > 0)
         count = count - 1
         if count == 0 {
-            onZeroRefs?()
+            onUnlocked?()
         }
     }
 
-    public func increment() {
+    public func lock() {
         serializer.dispatch {
-            self._increment()
+            self._lock()
         }
     }
 
-    public func decrement() {
+    public func unlock() {
         serializer.dispatch {
-            self._decrement()
+            self._unlock()
         }
     }
 }

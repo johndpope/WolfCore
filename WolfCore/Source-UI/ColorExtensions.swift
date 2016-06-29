@@ -109,3 +109,33 @@ extension OSColor {
         }
     }
 }
+
+public struct ColorReference: ExtensibleEnumeratedName, Reference {
+    public let name: String
+    public let color: UIColor
+
+    public init(_ name: String, color: UIColor) {
+        self.name = name
+        self.color = color
+    }
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: (name: String, color: UIColor)) { self.init(rawValue.name, color: rawValue.color) }
+    public var rawValue: (name: String, color: UIColor) { return (name: name, color: color) }
+
+    // Reference
+    public var referent: UIColor {
+        return color
+    }
+}
+
+public func == (left: ColorReference, right: ColorReference) -> Bool {
+    return left.name == right.name
+}
+
+public postfix func ® (lhs: ColorReference) -> UIColor {
+    return lhs.referent
+}

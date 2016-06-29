@@ -16,45 +16,47 @@
     public typealias OSNib = NSNib
 #endif
 
-public func loadData(named name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> Data {
-
-    return try aClass |> Bundle.findBundle |> Bundle.urlForResource(name, withExtension: anExtension, subdirectory: subpath) |> URL.retrieveData
+public func loadData(named name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil, in bundle: Bundle? = nil) throws -> Data {
+    let bundle = bundle ?? Bundle.main()
+    return try bundle |> Bundle.urlForResource(name, withExtension: anExtension, subdirectory: subpath) |> URL.retrieveData
 }
 
 public func loadJSON(atURL url: URL) throws -> JSON.Value {
     return try url |> URL.retrieveData |> JSON.decode
 }
 
-public func loadJSON(named name: String, subdirectory subpath: String? = nil, fromBundleForClass aClass: AnyClass? = nil) throws -> JSON.Value {
-    return try loadData(named: name, withExtension: "json", subdirectory: subpath, fromBundleForClass: aClass) |> JSON.decode
+public func loadJSON(named name: String, subdirectory subpath: String? = nil, in bundle: Bundle? = nil) throws -> JSON.Value {
+    return try loadData(named: name, withExtension: "json", subdirectory: subpath, in: bundle) |> JSON.decode
 }
 
 #if os(iOS) || os(tvOS)
-public func loadStoryboard(named name: String, fromBundleForClass aClass: AnyClass? = nil) -> UIStoryboard {
-    return UIStoryboard(name: name, bundle: Bundle.findBundle(forClass: aClass))
+public func loadStoryboard(named name: String, in bundle: Bundle? = nil) -> UIStoryboard {
+    let bundle = bundle ?? Bundle.main()
+    return UIStoryboard(name: name, bundle: bundle)
 }
 
-public func loadViewController<T: UIViewController>(withIdentifier identifier: String, fromStoryboardNamed storyboardName: String, fromBundleForClass aClass: AnyClass? = nil) -> T {
-    let storyboard = loadStoryboard(named: storyboardName, fromBundleForClass: aClass)
+public func loadViewController<T: UIViewController>(withIdentifier identifier: String, fromStoryboardNamed storyboardName: String, in bundle: Bundle? = nil) -> T {
+    let storyboard = loadStoryboard(named: storyboardName, in: bundle)
     return storyboard.instantiateViewController(withIdentifier: identifier) as! T
 }
 
-public func loadInitialViewController<T: UIViewController>(fromStoryboardNamed storyboardName: String, fromBundleForClass aClass: AnyClass? = nil) -> T {
-    let storyboard = loadStoryboard(named: storyboardName, fromBundleForClass: aClass)
+public func loadInitialViewController<T: UIViewController>(fromStoryboardNamed storyboardName: String, in bundle: Bundle? = nil) -> T {
+    let storyboard = loadStoryboard(named: storyboardName, in: bundle)
     return storyboard.instantiateInitialViewController() as! T
 }
 #endif
 
-public func loadNib(named name: String, fromBundleForClass aClass: AnyClass? = nil) -> OSNib {
+public func loadNib(named name: String, in bundle: Bundle? = nil) -> OSNib {
+    let bundle = bundle ?? Bundle.main()
     #if os(iOS) || os(tvOS)
-        return UINib(nibName: name, bundle: Bundle.findBundle(forClass: aClass))
+        return UINib(nibName: name, bundle: bundle)
     #else
-        return NSNib(nibNamed: name, bundle: Bundle.findBundle(forClass: aClass))!
+        return NSNib(nibNamed: name, bundle: bundle)!
     #endif
 }
 
-public func loadViewFromNib<T: OSView>(named name: String, fromBundleForClass aClass: AnyClass? = nil, owner: AnyObject? = nil) -> T {
-    let nib = loadNib(named: name, fromBundleForClass: aClass)
+public func loadViewFromNib<T: OSView>(named name: String, in bundle: Bundle? = nil, owner: AnyObject? = nil) -> T {
+    let nib = loadNib(named: name, in: bundle)
     #if os(iOS) || os(tvOS)
         return nib.instantiate(withOwner: owner, options: nil)[0] as! T
     #else

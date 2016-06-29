@@ -36,18 +36,18 @@ extension Log.GroupName {
         return left.localized(replacingPlaceholdersWithReplacements: right)
     }
 
-    public func ¶ (left: String, right: AnyClass) -> String {
-        return left.localized(inBundleForClass: right)
+    public func ¶ (left: String, right: Bundle) -> String {
+        return left.localized(in: right)
     }
 
-    public func ¶ (left: String, right: (aClass: AnyClass, replacements: Replacements)) -> String {
-        return left.localized(inBundleForClass: right.aClass, replacingPlaceholdersWithReplacements: right.replacements)
+    public func ¶ (left: String, right: (bundle: Bundle, replacements: Replacements)) -> String {
+        return left.localized(in: right.bundle, replacingPlaceholdersWithReplacements: right.replacements)
     }
 #endif
 
 #if os(iOS) || os(OSX) || os(tvOS)
     extension String {
-        public func localized(onlyIfTagged mustHaveTag: Bool = false, inBundleForClass aClass: AnyClass? = nil, inLanguage language: String? = nil, replacingPlaceholdersWithReplacements replacements: Replacements? = nil) -> String {
+        public func localized(onlyIfTagged mustHaveTag: Bool = false, in bundle: Bundle? = nil, inLanguage language: String? = nil, replacingPlaceholdersWithReplacements replacements: Replacements? = nil) -> String {
 
             let untaggedKey: String
             let taggedKey: String
@@ -64,7 +64,8 @@ extension Log.GroupName {
 
             guard !mustHaveTag || hasTag else { return self }
 
-            var bundle = Bundle.findBundle(forClass: aClass)
+            var bundle = bundle ?? Bundle.main()
+
             if let language = language {
                 if let path = bundle.pathForResource(language, ofType: "lproj") {
                     if let langBundle = Bundle(path: path) {
@@ -313,15 +314,11 @@ public extension NSString {
 
 public struct StringName: ExtensibleEnumeratedName {
     public let name: String
-    public let aClass: AnyClass?
+    public let bundle: Bundle
 
-    public init(_ name: String, fromBundleForClass aClass: AnyClass?) {
+    public init(_ name: String, in bundle: Bundle? = nil) {
         self.name = name
-        self.aClass = aClass
-    }
-
-    public init(_ name: String) {
-        self.init(name, fromBundleForClass: nil)
+        self.bundle = bundle ?? Bundle.main()
     }
 
     // Hashable
@@ -331,12 +328,9 @@ public struct StringName: ExtensibleEnumeratedName {
     public init?(rawValue: String) { self.init(rawValue) }
     public var rawValue: String { return name }
 
+    // Reference
     public var referent: String {
-        if let aClass = aClass {
-            return name ¶ aClass
-        } else {
-            return name¶
-        }
+        return name ¶ bundle
     }
 }
 

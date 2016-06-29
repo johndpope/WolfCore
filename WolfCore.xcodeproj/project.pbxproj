@@ -211,6 +211,12 @@
 		038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
 		038457921CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
 		038457971CED57E80012BCCE /* WindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457961CED57E80012BCCE /* WindowExtensions.swift */; };
+		0387653D1D245BB60082FC79 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0387653C1D245BB60082FC79 /* Reference.swift */; };
+		0387653E1D245BB60082FC79 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0387653C1D245BB60082FC79 /* Reference.swift */; };
+		0387653F1D245BB60082FC79 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0387653C1D245BB60082FC79 /* Reference.swift */; };
+		038765411D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
+		038765421D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
+		038765431D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
 		039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
@@ -486,6 +492,8 @@
 		0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerDebugging.swift; path = "Source-UI/ViewControllerDebugging.swift"; sourceTree = "<group>"; };
 		038457901CED55690012BCCE /* RunLoopUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunLoopUtils.swift; path = "Source-UI/RunLoopUtils.swift"; sourceTree = "<group>"; };
 		038457961CED57E80012BCCE /* WindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WindowExtensions.swift; path = "Source-UI/WindowExtensions.swift"; sourceTree = "<group>"; };
+		0387653C1D245BB60082FC79 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reference.swift; path = Sources/Reference.swift; sourceTree = "<group>"; };
+		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
 		039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceUtils.swift; path = "Source-UI/DeviceUtils.swift"; sourceTree = "<group>"; };
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -612,6 +620,7 @@
 				03E3C7321D10E3120004DF98 /* Monad.swift */,
 				03DDBACF1C5A9D5400A8CDAE /* Position.swift */,
 				03206B321C3CBA7E001A463B /* RangeExtensions.swift */,
+				0387653C1D245BB60082FC79 /* Reference.swift */,
 				0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */,
 			);
 			name = "Data Types";
@@ -931,6 +940,7 @@
 				0314DCFF1D08F9F400E23C67 /* String */,
 				0314DD071D08FC3700E23C67 /* Views */,
 				0314DD0A1D08FD2200E23C67 /* View Controllers */,
+				038765401D2464CB0082FC79 /* Framework.swift */,
 			);
 			path = WolfCore;
 			sourceTree = "<group>";
@@ -1229,12 +1239,14 @@
 				033F5E941CA3096700647A0A /* SizeExtensions.swift in Sources */,
 				033F5E961CA3096700647A0A /* HTTPUtils.swift in Sources */,
 				033F5E981CA3096700647A0A /* Matrix.swift in Sources */,
+				0387653E1D245BB60082FC79 /* Reference.swift in Sources */,
 				033F5E991CA3096700647A0A /* GeometryUtils.swift in Sources */,
 				033F5E9A1CA3096700647A0A /* RangeExtensions.swift in Sources */,
 				0314DD121D09032400E23C67 /* Serializable.swift in Sources */,
 				033F5E9B1CA3096700647A0A /* ResourceUtils.swift in Sources */,
 				030C035B1D148F3900EF040E /* ReferenceCounter.swift in Sources */,
 				033F5E9C1CA3096700647A0A /* Base64.swift in Sources */,
+				038765421D2464CB0082FC79 /* Framework.swift in Sources */,
 				033F5E9D1CA3096700647A0A /* StringExtensions.swift in Sources */,
 				033F5E9E1CA3096700647A0A /* AffineTransformUtils.swift in Sources */,
 				0314DD0E1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
@@ -1416,6 +1428,7 @@
 				03F5A8B61C496D1100B124A3 /* Point.swift in Sources */,
 				03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */,
 				0314DCF51D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
+				038765411D2464CB0082FC79 /* Framework.swift in Sources */,
 				031C5BC31CC189F5007166BA /* PlayingCard.swift in Sources */,
 				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,
 				035553621C0F622A00E0FCA7 /* View.swift in Sources */,
@@ -1441,6 +1454,7 @@
 				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
 				0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */,
 				03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */,
+				0387653D1D245BB60082FC79 /* Reference.swift in Sources */,
 				03E13B801C4F28F60074E447 /* RectExtensions.swift in Sources */,
 				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
 				03FAF7871C53F7230045BB37 /* Byte.swift in Sources */,
@@ -1569,6 +1583,7 @@
 				03E172DD1CF1C8B60073F383 /* Hex.swift in Sources */,
 				03E172FC1CF1C8CC0073F383 /* SizeExtensions.swift in Sources */,
 				03E173171CF1C8FB0073F383 /* ViewGestureActions.swift in Sources */,
+				0387653F1D245BB60082FC79 /* Reference.swift in Sources */,
 				03E173181CF1C8FB0073F383 /* ImageUtils.swift in Sources */,
 				03E172C21CF1C8AD0073F383 /* Size.swift in Sources */,
 				03E172CE1CF1C8AD0073F383 /* Pile.swift in Sources */,
@@ -1582,6 +1597,7 @@
 				03E173221CF1C8FB0073F383 /* ViewDebugging.swift in Sources */,
 				033AC34E1D17172E008C8B93 /* Frac.swift in Sources */,
 				0314DCBE1D08ECEC00E23C67 /* TabBarController.swift in Sources */,
+				038765431D2464CB0082FC79 /* Framework.swift in Sources */,
 				03E173271CF1C8FB0073F383 /* RunLoopUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

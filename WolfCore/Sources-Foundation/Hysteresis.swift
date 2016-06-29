@@ -23,55 +23,55 @@ import Foundation
 public class Hysteresis {
     private let effectStartLag: TimeInterval
     private let effectEndLag: TimeInterval
-    private let effectStart: Block
-    private let effectEnd: Block
+    private let onEffectStart: Block
+    private let onEffectEnd: Block
     private var effectStartCanceler: Canceler?
     private var effectEndCanceler: Canceler?
-    private var effectStarted: Bool = false
+    private var isEffectStarted: Bool = false
 
-    private lazy var causeCount: ReferenceCounter = {
-        return ReferenceCounter(
-            onOneRef: { [unowned self] in self.onOneCause() },
-            onZeroRefs: { [unowned self] in self.onZeroCauses() }
+    private lazy var locker: Locker = {
+        return Locker(
+            onLocked: { [unowned self] in self.startEffectLagged() },
+            onUnlocked: { [unowned self] in self.endEffectLagged() }
         )
     }()
 
-    public init(effectStart: Block, effectEnd: Block, effectStartLag: TimeInterval, effectEndLag: TimeInterval) {
-        self.effectStart = effectStart
-        self.effectEnd = effectEnd
+    public init(onEffectStart: Block, onEffectEnd: Block, effectStartLag: TimeInterval, effectEndLag: TimeInterval) {
+        self.onEffectStart = onEffectStart
+        self.onEffectEnd = onEffectEnd
         self.effectStartLag = effectStartLag
         self.effectEndLag = effectEndLag
     }
 
-    public func newCause() -> ReferenceCounter.Ref {
-        return causeCount.newRef()
+    public func newCause() -> Locker.Ref {
+        return locker.newRef()
     }
 
-    private func onOneCause() {
+    private func startEffectLagged() {
         effectEndCanceler?.cancel()
         effectStartCanceler = dispatchOnBackground(afterDelay: effectStartLag) {
-            if !self.effectStarted {
-                self.effectStart()
-                self.effectStarted = true
+            if !self.isEffectStarted {
+                self.onEffectStart()
+                self.isEffectStarted = true
             }
         }
     }
 
-    private func onZeroCauses() {
+    private func endEffectLagged() {
         effectStartCanceler?.cancel()
         effectEndCanceler = dispatchOnBackground(afterDelay: self.effectEndLag) {
-            if self.effectStarted {
-                self.effectEnd()
-                self.effectStarted = false
+            if self.isEffectStarted {
+                self.onEffectEnd()
+                self.isEffectStarted = false
             }
         }
     }
 
-    public func increment() {
-        causeCount.increment()
+    public func startCause() {
+        locker.lock()
     }
 
-    public func decrement() {
-        causeCount.decrement()
+    public func endCause() {
+        locker.unlock()
     }
 }

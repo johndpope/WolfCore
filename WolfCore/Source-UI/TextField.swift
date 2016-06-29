@@ -61,21 +61,26 @@ public class TextField: UITextField {
 extension TextField {
     private func syncToTintColor() {
         guard followsTintColor else { return }
-        textColor = tintColor ?? .black
+        textColor = tintColor
         tintClearImage()
     }
 
     private func tintClearImage() {
-        guard followsTintColor else { return }
-        guard lastTintColor != tintColor else { return }
+        let newTintColor: UIColor
+        if followsTintColor {
+            newTintColor = tintColor
+        } else {
+            newTintColor = textColor ?? .black
+        }
+        guard lastTintColor != newTintColor else { return }
         let buttons: [UIButton] = self.descendentViews(ofClass: UIButton.self)
         guard !buttons.isEmpty else { return }
         let button = buttons[0]
         guard let image = button.image(for: .highlighted) else { return }
-        tintedClearImage = image.tinted(withColor: tintColor)
+        tintedClearImage = image.tinted(withColor: newTintColor)
         button.setImage(tintedClearImage, for: [])
         button.setImage(tintedClearImage, for: .highlighted)
-        lastTintColor = tintColor
+        lastTintColor = newTintColor
     }
 
     public override func tintColorDidChange() {
