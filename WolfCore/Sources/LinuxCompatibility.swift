@@ -39,6 +39,10 @@ extension Data {
     public func copyBytes(to bytes: UnsafeMutablePointer<UInt8>, count: Int) {
         getBytes(bytes, length: count)
     }
+
+    public subscript(bounds: Range<Int>) -> MutableRandomAccessSlice<Data> {
+        return MutableRandomAccessSlice(base: self, bounds: bounds)
+    }
 }
 
 extension DateFormatter {
