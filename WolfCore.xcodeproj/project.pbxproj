@@ -363,6 +363,7 @@
 		03F5A8B81C496F2400B124A3 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B71C496F2400B124A3 /* Size.swift */; };
 		03F5A8BA1C4970DF00B124A3 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B91C4970DF00B124A3 /* Vector.swift */; };
 		03F5A8BC1C49746500B124A3 /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8BB1C49746500B124A3 /* Rect.swift */; };
+		03F723CE1D25C55600D9A5ED /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */; };
 		03FAF77B1C532A640045BB37 /* ASN1Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF77A1C532A640045BB37 /* ASN1Parser.swift */; };
 		03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF77E1C538C3E0045BB37 /* Base64.swift */; };
 		03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7801C53F6DB0045BB37 /* Base64URL.swift */; };
@@ -534,6 +535,7 @@
 		03F5A8B71C496F2400B124A3 /* Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Size.swift; path = Sources/Size.swift; sourceTree = "<group>"; };
 		03F5A8B91C4970DF00B124A3 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector.swift; path = Sources/Vector.swift; sourceTree = "<group>"; };
 		03F5A8BB1C49746500B124A3 /* Rect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rect.swift; path = Sources/Rect.swift; sourceTree = "<group>"; };
+		03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollingStackView.swift; path = "Source-UI/ScrollingStackView.swift"; sourceTree = "<group>"; };
 		03FAF77A1C532A640045BB37 /* ASN1Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASN1Parser.swift; path = Sources/ASN1Parser.swift; sourceTree = "<group>"; };
 		03FAF77E1C538C3E0045BB37 /* Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base64.swift; path = Sources/Base64.swift; sourceTree = "<group>"; };
 		03FAF7801C53F6DB0045BB37 /* Base64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base64URL.swift; path = Sources/Base64URL.swift; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
+				03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
 				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
 				0314DD161D09048C00E23C67 /* TableViewCell.swift */,
@@ -1449,6 +1452,7 @@
 				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
 				035553481C0F622A00E0FCA7 /* Error.swift in Sources */,
 				03FAF7831C53F6EF0045BB37 /* UTF8.swift in Sources */,
+				03F723CE1D25C55600D9A5ED /* ScrollingStackView.swift in Sources */,
 				03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
 				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
