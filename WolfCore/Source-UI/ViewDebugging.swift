@@ -119,6 +119,7 @@ extension UIView {
 
     private func appendAttributes(forView view: UIView, toJoiner joiner: Joiner) {
         appendScrollViewAttributes(forView: view, toJoiner: joiner)
+        appendStackViewAttributes(forView: view, toJoiner: joiner)
         appendColorAttributes(forView: view, toJoiner: joiner)
         appendTextAttributes(forView: view, toJoiner: joiner)
         appendInteractionAttributes(forView: view, toJoiner: joiner)
@@ -126,10 +127,17 @@ extension UIView {
     }
 
     private func appendScrollViewAttributes(forView view: UIView, toJoiner joiner: Joiner) {
-        if let scrollView = view as? UIScrollView {
-            joiner.append("contentSize:\(scrollView.contentSize)")
-            joiner.append("contentOffset:\(scrollView.contentOffset)")
-        }
+        guard let scrollView = view as? UIScrollView else { return }
+        joiner.append("contentSize:\(scrollView.contentSize)")
+        joiner.append("contentOffset:\(scrollView.contentOffset)")
+    }
+
+    private func appendStackViewAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+        guard let stackView = view as? UIStackView else { return }
+        joiner.append("axis:\(stackView.axis)")
+        joiner.append("distribution:\(stackView.distribution)")
+        joiner.append("alignment:\(stackView.alignment)")
+        joiner.append("spacing:\(stackView.spacing)")
     }
 
     private func appendColorAttributes(forView view: UIView, toJoiner joiner: Joiner) {
@@ -267,6 +275,9 @@ extension UIView {
             constraintJoiner.append("+", constraint.constant)
         } else if constraint.constant < 0.0 {
             constraintJoiner.append("-", -constraint.constant)
+        }
+        if constraint.priority < UILayoutPriorityRequired {
+            constraintJoiner.append("priority:\(constraint.priority)")
         }
     }
 }

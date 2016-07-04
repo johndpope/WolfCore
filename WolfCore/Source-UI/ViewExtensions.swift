@@ -48,10 +48,10 @@ extension OSView {
 
     @discardableResult public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
-            leadingAnchor == view.leadingAnchor + insets.left =%= [identifier, "Leading"],
-            trailingAnchor == view.trailingAnchor - insets.right =%= [identifier, "Trailing"],
-            topAnchor == view.topAnchor + insets.top =%= [identifier, "Top"],
-            bottomAnchor == view.bottomAnchor - insets.bottom =%= [identifier, "Bottom"]
+            leadingAnchor == view.leadingAnchor + insets.left =%= [identifier, "leading"],
+            trailingAnchor == view.trailingAnchor - insets.right =%= [identifier, "trailing"],
+            topAnchor == view.topAnchor + insets.top =%= [identifier, "top"],
+            bottomAnchor == view.bottomAnchor - insets.bottom =%= [identifier, "bottom"]
         ]
         if active {
             activateConstraints(constraints)
@@ -66,8 +66,8 @@ extension OSView {
 
     public func constrainCenter(toCenterOfView view: OSView, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
-            centerXAnchor == view.centerXAnchor =%= [identifier, "CenterY"],
-            centerYAnchor == view.centerYAnchor =%= [identifier, "CenterX"]
+            centerXAnchor == view.centerXAnchor =%= [identifier, "centerY"],
+            centerYAnchor == view.centerYAnchor =%= [identifier, "centerX"]
         ]
         if active {
             activateConstraints(constraints)
@@ -77,8 +77,8 @@ extension OSView {
 
     @discardableResult public func constrain(toSize size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
-            widthAnchor == size.width =%= [identifier, "CenterY"],
-            heightAnchor == size.height =%= [identifier, "CenterY"]
+            widthAnchor == size.width =%= [identifier, "centerY"],
+            heightAnchor == size.height =%= [identifier, "centerY"]
         ]
         if active {
             activateConstraints(constraints)

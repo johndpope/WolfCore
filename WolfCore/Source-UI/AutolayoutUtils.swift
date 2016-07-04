@@ -191,7 +191,7 @@ public func =%= (left: NSLayoutConstraint, right: [Any?]) -> NSLayoutConstraint 
         }
         return accum
     }
-    return left =%= filtered.joined(separator: "")
+    return left =%= filtered.joined(separator: "-")
 }
 
 public func warnForNoIdentifier(inConstraints constraints: [NSLayoutConstraint]) {
