@@ -36,7 +36,7 @@ extension UIViewController {
     public func present(alertController: UIAlertController, animated: Bool = true, withIdentifier identifier: String, buttonIdentifiers: [String], didAppear: Block? = nil) {
         alertController.view.accessibilityIdentifier = identifier
         present(alertController, animated: animated, completion: didAppear)
-        RunLoop.current().runOnce()
+        RunLoop.current.runOnce()
         for i in 0..<buttonIdentifiers.count {
             alertController.setAction(identifier: buttonIdentifiers[i], at: i)
         }

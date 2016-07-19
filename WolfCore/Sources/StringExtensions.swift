@@ -64,7 +64,7 @@ extension Log.GroupName {
 
             guard !mustHaveTag || hasTag else { return self }
 
-            var bundle = bundle ?? Bundle.main()
+            var bundle = bundle ?? Bundle.main
 
             if let language = language {
                 if let path = bundle.pathForResource(language, ofType: "lproj") {
@@ -318,7 +318,7 @@ public struct StringName: ExtensibleEnumeratedName {
 
     public init(_ name: String, in bundle: Bundle? = nil) {
         self.name = name
-        self.bundle = bundle ?? Bundle.main()
+        self.bundle = bundle ?? Bundle.main
     }
 
     // Hashable

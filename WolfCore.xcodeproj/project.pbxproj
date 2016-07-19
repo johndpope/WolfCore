@@ -140,6 +140,12 @@
 		033F5EE31CA31AF200647A0A /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553391C0F622A00E0FCA7 /* ViewExtensions.swift */; };
 		033F5EE41CA3217100647A0A /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553241C0F622A00E0FCA7 /* ImageUtils.swift */; };
 		033F5EE51CA339C800647A0A /* BezierPathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */; };
+		034773681D2F026900C34487 /* SignalExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034773671D2F026900C34487 /* SignalExceptions.swift */; };
+		034773691D2F026900C34487 /* SignalExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034773671D2F026900C34487 /* SignalExceptions.swift */; };
+		0347736A1D2F026900C34487 /* SignalExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034773671D2F026900C34487 /* SignalExceptions.swift */; };
+		0347736C1D2F04A300C34487 /* SignalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347736B1D2F04A300C34487 /* SignalConstants.swift */; };
+		0347736D1D2F04A300C34487 /* SignalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347736B1D2F04A300C34487 /* SignalConstants.swift */; };
+		0347736E1D2F04A300C34487 /* SignalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347736B1D2F04A300C34487 /* SignalConstants.swift */; };
 		034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
@@ -219,6 +225,9 @@
 		038765431D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
 		039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
+		039FFAC41D34A3ED005BECC2 /* GroupElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039FFAC31D34A3ED005BECC2 /* GroupElement.swift */; };
+		039FFAC51D34A3ED005BECC2 /* GroupElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039FFAC31D34A3ED005BECC2 /* GroupElement.swift */; };
+		039FFAC61D34A3ED005BECC2 /* GroupElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039FFAC31D34A3ED005BECC2 /* GroupElement.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
 		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
 		03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D01CB4869800F25335 /* GestureActions.swift */; };
@@ -231,6 +240,9 @@
 		03BC18D01CF1054C005AF3C3 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
 		03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
 		03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
+		03C0A3C01D3354010036CE92 /* FieldElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C0A3BF1D3354010036CE92 /* FieldElement.swift */; };
+		03C0A3C11D3354010036CE92 /* FieldElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C0A3BF1D3354010036CE92 /* FieldElement.swift */; };
+		03C0A3C21D3354010036CE92 /* FieldElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C0A3BF1D3354010036CE92 /* FieldElement.swift */; };
 		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */; };
 		03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDBACF1C5A9D5400A8CDAE /* Position.swift */; };
@@ -427,6 +439,8 @@
 		033E14FC1C7CC71C00BA3E63 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = Sources/Matrix.swift; sourceTree = "<group>"; };
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		033F5EE21CA3096700647A0A /* Info-MacOSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-MacOSX.plist"; path = "/Users/ironwolf/Dropbox/DevProjects/KagiProcess2/WolfCore/WolfCore/Info-MacOSX.plist"; sourceTree = "<absolute>"; };
+		034773671D2F026900C34487 /* SignalExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignalExceptions.swift; path = Sources/SignalExceptions.swift; sourceTree = "<group>"; };
+		0347736B1D2F04A300C34487 /* SignalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalConstants.swift; sourceTree = "<group>"; };
 		034F48931D02490E0010ED1B /* HTTPDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPDebugging.swift; path = "Sources-Foundation/HTTPDebugging.swift"; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		035552FD1C0F5F4200E0FCA7 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-iOS.plist"; path = "WolfCore/Info-iOS.plist"; sourceTree = "<group>"; };
@@ -497,6 +511,7 @@
 		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
 		039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceUtils.swift; path = "Source-UI/DeviceUtils.swift"; sourceTree = "<group>"; };
+		039FFAC31D34A3ED005BECC2 /* GroupElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupElement.swift; path = Signal/GroupElement.swift; sourceTree = "<group>"; };
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A146791CAF5E3900FD6261 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
@@ -508,6 +523,7 @@
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hysteresis.swift; path = "Sources-Foundation/Hysteresis.swift"; sourceTree = "<group>"; };
 		03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoDict.swift; path = "Sources-Foundation/InfoDict.swift"; sourceTree = "<group>"; };
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
+		03C0A3BF1D3354010036CE92 /* FieldElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FieldElement.swift; path = Signal/FieldElement.swift; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HashIDs.swift; path = Sources/HashIDs.swift; sourceTree = "<group>"; };
 		03DDBACF1C5A9D5400A8CDAE /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Position.swift; path = Sources/Position.swift; sourceTree = "<group>"; };
@@ -718,6 +734,7 @@
 		0314DCFC1D08F9A800E23C67 /* Security */ = {
 			isa = PBXGroup;
 			children = (
+				034773661D2F022600C34487 /* Signal */,
 				035C36761C514A26000C04D0 /* CryptoUtils.swift */,
 				03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */,
 				0314DD0C1D08FFFC00E23C67 /* KeyChain.swift */,
@@ -898,6 +915,17 @@
 				0322E89C1D13BB2F00EFF3F6 /* LinuxCompatibility.swift */,
 			);
 			name = Platform;
+			sourceTree = "<group>";
+		};
+		034773661D2F022600C34487 /* Signal */ = {
+			isa = PBXGroup;
+			children = (
+				03C0A3BF1D3354010036CE92 /* FieldElement.swift */,
+				039FFAC31D34A3ED005BECC2 /* GroupElement.swift */,
+				034773671D2F026900C34487 /* SignalExceptions.swift */,
+				0347736B1D2F04A300C34487 /* SignalConstants.swift */,
+			);
+			name = Signal;
 			sourceTree = "<group>";
 		};
 		035552EE1C0F5F4200E0FCA7 = {
@@ -1111,6 +1139,7 @@
 					035552F71C0F5F4200E0FCA7 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 92TUA8H52D;
+						LastSwiftMigration = 0800;
 					};
 					03A1466D1CAF5E0600FD6261 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1238,6 +1267,7 @@
 				033F5E8E1CA3096700647A0A /* Base64URL.swift in Sources */,
 				033F5E8F1CA3096700647A0A /* Color.swift in Sources */,
 				033F5E911CA3096700647A0A /* Hex.swift in Sources */,
+				034773691D2F026900C34487 /* SignalExceptions.swift in Sources */,
 				033F5E931CA3096700647A0A /* OutputStreamUtils.swift in Sources */,
 				033F5E941CA3096700647A0A /* SizeExtensions.swift in Sources */,
 				033F5E961CA3096700647A0A /* HTTPUtils.swift in Sources */,
@@ -1255,13 +1285,16 @@
 				0314DD0E1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
 				033F5E9F1CA3096700647A0A /* Grid.swift in Sources */,
 				033F5EA01CA3096700647A0A /* UUID.swift in Sources */,
+				0347736D1D2F04A300C34487 /* SignalConstants.swift in Sources */,
 				033F5EA21CA3096700647A0A /* Heartbeat.swift in Sources */,
 				033F5EA41CA3096700647A0A /* SHA256.swift in Sources */,
 				03E172FE1CF1C8D50073F383 /* SequenceExtensions.swift in Sources */,
 				033F5EA51CA3096700647A0A /* NotificationCenterExtensions.swift in Sources */,
 				031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */,
+				039FFAC51D34A3ED005BECC2 /* GroupElement.swift in Sources */,
 				0359AF5F1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				033F5EA61CA3096700647A0A /* DictionaryExtensions.swift in Sources */,
+				03C0A3C11D3354010036CE92 /* FieldElement.swift in Sources */,
 				033F5EA71CA3096700647A0A /* BSON.swift in Sources */,
 				0375EC391CF1B19A001E6D45 /* View.swift in Sources */,
 				038457921CED55690012BCCE /* RunLoopUtils.swift in Sources */,
@@ -1391,6 +1424,8 @@
 				036B834B1C4320AC00491AFF /* ColorFunc.swift in Sources */,
 				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,
 				0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */,
+				039FFAC41D34A3ED005BECC2 /* GroupElement.swift in Sources */,
+				034773681D2F026900C34487 /* SignalExceptions.swift in Sources */,
 				03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */,
 				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
 				036B834D1C4320F300491AFF /* Gradient.swift in Sources */,
@@ -1414,6 +1449,7 @@
 				035C36651C500333000C04D0 /* LifeHash.swift in Sources */,
 				033AC34C1D17172E008C8B93 /* Frac.swift in Sources */,
 				038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */,
+				03C0A3C01D3354010036CE92 /* FieldElement.swift in Sources */,
 				0314DCBD1D08ECEC00E23C67 /* TabBarController.swift in Sources */,
 				0324AEFC1CF81F350080DFF6 /* StackView.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
@@ -1459,6 +1495,7 @@
 				0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */,
 				03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */,
 				0387653D1D245BB60082FC79 /* Reference.swift in Sources */,
+				0347736C1D2F04A300C34487 /* SignalConstants.swift in Sources */,
 				03E13B801C4F28F60074E447 /* RectExtensions.swift in Sources */,
 				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
 				03FAF7871C53F7230045BB37 /* Byte.swift in Sources */,
@@ -1499,6 +1536,7 @@
 				0314DCC21D08ED2200E23C67 /* NavigationController.swift in Sources */,
 				03E172D61CF1C8B60073F383 /* ColorFunc.swift in Sources */,
 				03E172D11CF1C8B60073F383 /* Base64URL.swift in Sources */,
+				0347736E1D2F04A300C34487 /* SignalConstants.swift in Sources */,
 				03E172BE1CF1C8AD0073F383 /* Error.swift in Sources */,
 				03E3C7351D10E3120004DF98 /* Monad.swift in Sources */,
 				03E172C91CF1C8AD0073F383 /* Card.swift in Sources */,
@@ -1528,6 +1566,7 @@
 				03E172CF1CF1C8B60073F383 /* ASN1Parser.swift in Sources */,
 				03E172C81CF1C8AD0073F383 /* CardProtocol.swift in Sources */,
 				03E172ED1CF1C8B60073F383 /* RegularExpressionExtensions.swift in Sources */,
+				03C0A3C21D3354010036CE92 /* FieldElement.swift in Sources */,
 				03E172DE1CF1C8B60073F383 /* HTTPUtils.swift in Sources */,
 				03E172F41CF1C8C20073F383 /* StringExtensions.swift in Sources */,
 				03E172EA1CF1C8B60073F383 /* Random.swift in Sources */,
@@ -1566,6 +1605,7 @@
 				03E172D21CF1C8B60073F383 /* BSON.swift in Sources */,
 				03E172FF1CF1C8E70073F383 /* BundleExtensions.swift in Sources */,
 				03E172E81CF1C8B60073F383 /* ObjectAliaser.swift in Sources */,
+				039FFAC61D34A3ED005BECC2 /* GroupElement.swift in Sources */,
 				0314DD0F1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
 				03E172E31CF1C8B60073F383 /* JSON.swift in Sources */,
 				03E172D51CF1C8B60073F383 /* Color.swift in Sources */,
@@ -1579,6 +1619,7 @@
 				03E172E71CF1C8B60073F383 /* Matrix.swift in Sources */,
 				03E173001CF1C8E70073F383 /* DispatchUtils.swift in Sources */,
 				03E172BD1CF1C8AD0073F383 /* Result.swift in Sources */,
+				0347736A1D2F026900C34487 /* SignalExceptions.swift in Sources */,
 				03E172E21CF1C8B60073F383 /* Joiner.swift in Sources */,
 				03E172C31CF1C8AD0073F383 /* IntSize.swift in Sources */,
 				03E173091CF1C8E70073F383 /* Serializer.swift in Sources */,
@@ -1776,6 +1817,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1799,6 +1841,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

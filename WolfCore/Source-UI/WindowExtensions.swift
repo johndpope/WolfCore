@@ -20,7 +20,7 @@ extension UIWindow {
                 completion: { _ in
                     newRootView.alpha = 0.0
                     self.rootViewController = newController
-                    RunLoop.current().runOnce()
+                    RunLoop.current.runOnce()
                     oldRootView?.alpha = 1.0
                     dispatchAnimated {
                         newRootView.alpha = 1.0

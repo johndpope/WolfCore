@@ -17,7 +17,7 @@ public let isPhone: Bool = {
 }()
 
 public let isTV: Bool = {
-    return UIDevice.current().userInterfaceIdiom == .TV
+    return UIDevice.current().userInterfaceIdiom == .tv
 }()
 
 public let isCarPlay: Bool = {
@@ -36,7 +36,7 @@ public var osVersion: String {
 }
 
 public var deviceModel: String? {
-    var systemInfo = Data(capacity: sizeof(utsname))!
+    var systemInfo = Data(capacity: sizeof(utsname.self))!
 
     let model: String? = systemInfo.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<Byte>) in
         guard uname(UnsafeMutablePointer(bytes)) == 0 else { return nil }

@@ -10,7 +10,7 @@ import Foundation
 
 extension Date {
     public func lastDayOfMonth() -> Date {
-        let calendar = Calendar.current()
+        let calendar = Calendar.current
         let dayRange = calendar.range(of: .day, in: .month, for: self)
         let dayCount = dayRange.length
         #if os(Linux)

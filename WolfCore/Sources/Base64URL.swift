@@ -11,36 +11,38 @@ import Foundation
 /// Utilities for encoding and decoding data as Base-64 URL encoded strings.
 ///
 /// For more information: [Base64URL on Wikipedia](https://en.wikipedia.org/wiki/Base64#URL_applications)
-public struct Base64URL {
-    /// Encodes the Data as a base-64 URL encoded string. May be used to transform
-    /// a string as a monad.
-    ///
-    ///     let data = "Hello there." |> UTF8.encode
-    ///     let base64URLString = data |> Base64URL.encode
-    ///
-    /// - parameter data: The data to be base-64 URL encoded.
-    /// - returns: A base-64 URL encoded `String`.
-    public static func encode(_ data: Data) -> String {
-        return data |> Base64.encode |> toBase64URL
+public struct Base64URL: RawRepresentable {
+    public let rawValue: String
+
+    public init?(rawValue: String) {
+        self.rawValue = rawValue
     }
 
-    /// Decodes the base-64 URL encoded string to a `Data`. May be used to transform
-    /// the `Data` as a monad.
-    ///
-    ///     let data = "Hello there." |> UTF8.encode
-    ///     let base64URLString = data |> Base64URL.encode
-    ///     let data2 = try! base64String |> Base64URL.encode.decode
-    ///
-    /// - parameter string: The string to be decoded from base-64.
-    /// - returns: A `Data` containing the decoded data.
-    /// - throws: A ValidationError if the String is not well-formed base-64.
-    public static func decode(_ string: String) throws -> Data {
-        return try string |> toBase64 |> Base64.decode
+    public init(string: String) {
+        self.rawValue = string
     }
 
-    private static func toBase64URL(string: String) -> String {
+    public init(base64: Base64) {
+        self.init(string: base64 |> Base64URL.toBase64URL)
+    }
+
+    public init(data: Data) {
+        self.init(base64: data |> Base64.init)
+    }
+
+    public func data() throws -> Data {
+        return try rawValue |> Base64URL.toBase64 |> Base64.data
+    }
+
+    public func string() -> String {
+        return rawValue
+    }
+}
+
+extension Base64URL {
+    private static func toBase64URL(base64: Base64) -> String {
         var s2 = ""
-        for c in string.characters {
+        for c in base64.rawValue.characters {
             switch c {
             case Character("+"):
                 s2.append(Character("_"))
@@ -55,7 +57,7 @@ public struct Base64URL {
         return s2
     }
 
-    private static func toBase64(string: String) -> String {
+    private static func toBase64(string: String) -> Base64 {
         var s2 = ""
         let chars = string.characters
         for c in chars {
@@ -76,6 +78,6 @@ public struct Base64URL {
         default:
             break
         }
-        return s2
+        return Base64(string: s2)
     }
 }

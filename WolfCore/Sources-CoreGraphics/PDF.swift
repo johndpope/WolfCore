@@ -22,7 +22,7 @@ public struct PDFReference: ExtensibleEnumeratedName, Reference {
 
     public init(_ name: String, inBundle bundle: Bundle? = nil) {
         self.name = name
-        self.bundle = bundle ?? Bundle.main()
+        self.bundle = bundle ?? Bundle.main
     }
 
     // Hashable
@@ -52,7 +52,7 @@ public class PDF {
     }
 
     public convenience init?(named name: String, inSubdirectory subdirectory: String? = nil, in bundle: Bundle? = nil) {
-        let bundle = bundle ?? Bundle.main()
+        let bundle = bundle ?? Bundle.main
         if let url = bundle.urlForResource(name, withExtension: "pdf", subdirectory: subdirectory) {
             self.init(url: url)
         } else {

@@ -15,8 +15,8 @@ public class StackView: UIStackView {
         self.init(frame: .zero)
     }
 
-    public override init(arrangedSubviews views: [UIView]) {
-        super.init(arrangedSubviews: views)
+    public convenience init(arrangedSubviews views: [UIView]) {
+        self.init(arrangedSubviews: views)
         _setup()
     }
 
@@ -25,8 +25,8 @@ public class StackView: UIStackView {
         _setup()
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init(coder: NSCoder) {
+        super.init(coder: coder)
         _setup()
     }
 

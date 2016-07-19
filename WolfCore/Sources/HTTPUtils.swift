@@ -68,7 +68,7 @@ public class HTTP {
         failure: ErrorBlock,
         finally: Block?) {
 
-        let session = URLSession.shared()
+        let session = URLSession.shared
 
         #if !os(tvOS)
             let token = inFlightTracker.start(withName: name)

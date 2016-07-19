@@ -8,7 +8,7 @@
 
 import Foundation
 
-public let notificationCenter = NotificationCenter.default()
+public let notificationCenter = NotificationCenter.default
 public typealias NotificationObserver = NSObjectProtocol
 public typealias NotificationBlock = (Notification) -> Void
 

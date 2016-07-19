@@ -8,7 +8,7 @@
 
 import Foundation
 
-public let infoDict = InfoDict(bundle: Bundle.main())
+public let infoDict = InfoDict(bundle: Bundle.main)
 
 public class InfoDict {
     private let bundle: Bundle

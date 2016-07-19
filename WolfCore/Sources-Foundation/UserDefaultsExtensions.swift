@@ -8,7 +8,7 @@
 
 import Foundation
 
-public let userDefaults = UserDefaults.standard()
+public let userDefaults = UserDefaults.standard
 
 extension Log.GroupName {
     public static let userDefaults = Log.GroupName("userDefaults")

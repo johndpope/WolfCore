@@ -177,21 +177,21 @@ extension BSONBuffer {
     func append(int32: Int32) {
         var i = int32.littleEndian
         withUnsafePointer(&i) {
-            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Int32))
+            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Int32.self))
         }
     }
 
     func append(int: Int) {
         var i = int.littleEndian
         withUnsafePointer(&i) {
-            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Int))
+            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Int.self))
         }
     }
 
     func append(double: Double) {
         var d = double
         withUnsafePointer(&d) {
-            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Double))
+            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Double.self))
         }
     }
 
@@ -210,7 +210,7 @@ extension BSONBuffer {
     }
 
     func append(document: BSONDocument) {
-        append(int32: Int32(document.elementList.data.count + sizeof(Int32) + 1))
+        append(int32: Int32(document.elementList.data.count + sizeof(Int32.self) + 1))
         append(buffer: document.elementList)
         append(byte: 0x00)
     }
@@ -250,19 +250,19 @@ extension BSONBuffer {
     }
 
     func readInt32() throws -> Int32 {
-        let p = try readBytes(sizeof(Int32))
+        let p = try readBytes(sizeof(Int32.self))
         let i = UnsafePointer<Int32>(p)[0]
         return Int32(littleEndian: i)
     }
 
     func readInt() throws -> Int {
-        let p = try readBytes(sizeof(Int))
+        let p = try readBytes(sizeof(Int.self))
         let i = UnsafePointer<Int>(p)[0]
         return Int(littleEndian: i)
     }
 
     func readDouble() throws -> Double {
-        let p = try readBytes(sizeof(Double))
+        let p = try readBytes(sizeof(Double.self))
         return UnsafePointer<Double>(p)[0]
     }
 

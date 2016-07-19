@@ -13,14 +13,14 @@ public var standardErrorOutputStream = StandardErrorOutputStream()
 
 public class StandardErrorOutputStream: OutputStream {
     public func write(_ string: String) {
-        let stderr = FileHandle.standardError()
+        let stderr = FileHandle.withStandardError
         stderr.write(string.data(using: String.Encoding.utf8)!)
     }
 }
 
 public class StandardOutputStream: OutputStream {
     public func write(_ string: String) {
-        let stdout = FileHandle.standardOutput()
+        let stdout = FileHandle.withStandardOutput
         stdout.write(string.data(using: String.Encoding.utf8)!)
     }
 }

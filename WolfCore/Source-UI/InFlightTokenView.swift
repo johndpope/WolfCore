@@ -55,28 +55,32 @@ class InFlightTokenView: View {
             idLabel.centerYAnchor == centerYAnchor
         )
 
-        nameLabel = createLabel() |> {
-            $0.adjustsFontSizeToFitWidth = true
-            $0.minimumScaleFactor = 0.7
-            $0.allowsDefaultTighteningForTruncation = true
-            $0.baselineAdjustment = .alignCenters
-            $0.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, for: .horizontal)
-            self.addSubview($0)
+        nameLabel = createLabel() |> { (label: Label) -> Label in
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.7
+            label.allowsDefaultTighteningForTruncation = true
+            label.baselineAdjustment = .alignCenters
+            label.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, for: .horizontal)
+            self.addSubview(label)
 
             activateConstraints(
-                $0.centerXAnchor == self.centerXAnchor =&= UILayoutPriorityDefaultHigh,
-                $0.centerYAnchor == self.centerYAnchor
+                label.centerXAnchor == self.centerXAnchor =&= UILayoutPriorityDefaultHigh,
+                label.centerYAnchor == self.centerYAnchor
             )
+
+            return label
         }
 
-        resultLabel = createLabel() |> {
-            $0.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
-            self.addSubview($0)
+        resultLabel = createLabel() |> { (label: Label) -> Label in
+            label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+            self.addSubview(label)
 
             activateConstraints(
-                $0.trailingAnchor == self.trailingAnchor - 5,
-                $0.centerYAnchor == self.centerYAnchor
+                label.trailingAnchor == self.trailingAnchor - 5,
+                label.centerYAnchor == self.centerYAnchor
             )
+
+            return label
         }
 
         activateConstraints(

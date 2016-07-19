@@ -17,7 +17,7 @@
 #endif
 
 public func loadData(named name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil, in bundle: Bundle? = nil) throws -> Data {
-    let bundle = bundle ?? Bundle.main()
+    let bundle = bundle ?? Bundle.main
     return try bundle |> Bundle.urlForResource(name, withExtension: anExtension, subdirectory: subpath) |> URL.retrieveData
 }
 
@@ -31,7 +31,7 @@ public func loadJSON(named name: String, subdirectory subpath: String? = nil, in
 
 #if os(iOS) || os(tvOS)
 public func loadStoryboard(named name: String, in bundle: Bundle? = nil) -> UIStoryboard {
-    let bundle = bundle ?? Bundle.main()
+    let bundle = bundle ?? Bundle.main
     return UIStoryboard(name: name, bundle: bundle)
 }
 
@@ -47,7 +47,7 @@ public func loadInitialViewController<T: UIViewController>(fromStoryboardNamed s
 #endif
 
 public func loadNib(named name: String, in bundle: Bundle? = nil) -> OSNib {
-    let bundle = bundle ?? Bundle.main()
+    let bundle = bundle ?? Bundle.main
     #if os(iOS) || os(tvOS)
         return UINib(nibName: name, bundle: bundle)
     #else

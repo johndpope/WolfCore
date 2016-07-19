@@ -18,7 +18,7 @@ extension Bundle {
         if let aClass = aClass {
             bundle = Bundle(for: aClass)
         } else {
-            bundle = Bundle.main()
+            bundle = Bundle.main
         }
         return bundle
     }

@@ -98,7 +98,7 @@ public struct ImageReference: ExtensibleEnumeratedName, Reference {
 
     public init(_ name: String, inBundle bundle: Bundle? = nil) {
         self.name = name
-        self.bundle = bundle ?? Bundle.main()
+        self.bundle = bundle ?? Bundle.main
     }
 
     // Hashable
