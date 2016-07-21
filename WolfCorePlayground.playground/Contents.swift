@@ -4,12 +4,10 @@ import UIKit
 import Foundation
 import WolfCore
 
-let bytes: [Byte] = Array(150..<200)
-let data = Data(bytes: bytes)
-let base64 = data |> Base64.init
-let data2 = base64 |> Data.init
+let s = "0123456789abcdef"
+let b: Byte = 0x8e
+let d = Data(bytes: [0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef])
 
-let base64URL = data |> Base64URL.init
-let data3 = base64URL |> Data.init
-
-data2 == data3
+try s >>- Hex.init >>- Data.init
+b >>- Hex.init
+d >>- Hex.init >>- String.init

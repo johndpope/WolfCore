@@ -22,6 +22,15 @@ extension Array {
     }
 }
 
+extension Array {
+    public func split(by size: Int) -> [[Element]] {
+        return stride(from: 0, to: self.count, by: size).map { start in
+            let end = self.index(start, offsetBy: size, limitedBy: self.count) ?? self.endIndex
+            return Array(self[start ..< end])
+        }
+    }
+}
+
 public func circularIndex(_ index: Int, count: Int) -> Int {
     guard count > 0 else {
         return 0

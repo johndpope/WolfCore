@@ -125,14 +125,14 @@ public struct Color {
 
     private static func components(forSingleHexStrings strings: [String], components: inout [Double]) throws {
         for (index, string) in strings.enumerated() {
-            let i = try string |> Hex.decode
+            let i = try string |> Hex.init |> Byte.init
             components[index] = Double(i) / 15.0
         }
     }
 
     private static func components(forDoubleHexStrings strings: [String], components: inout [Double]) throws {
         for (index, string) in strings.enumerated() {
-            let i = try string |> Hex.decode
+            let i = try string |> Hex.init |> Byte.init
             components[index] = Double(i) / 255.0
         }
     }

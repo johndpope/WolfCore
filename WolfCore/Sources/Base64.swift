@@ -63,7 +63,6 @@ extension Data {
     ///
     /// May be used as a monad transformer.
     public init(base64: Base64) {
-        let p: UnsafePointer<Byte> = base64.data.withUnsafeBytes { $0 }
-        self.init(bytes: p, count: base64.data.count)
+        self.init(base64.data)
     }
 }

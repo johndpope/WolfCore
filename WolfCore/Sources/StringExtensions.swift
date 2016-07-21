@@ -270,6 +270,19 @@ extension String {
 }
 
 extension String {
+    public func split(by size: Int) -> [String] {
+        var parts = [String]()
+        var start = startIndex
+        while start != endIndex {
+            let end = index(start, offsetBy: size, limitedBy: endIndex) ?? endIndex
+            parts.append(substring(with: start ..< end))
+            start = end
+        }
+        return parts
+    }
+}
+
+extension String {
     public init(value: Double, precision: Int) {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal

@@ -8,24 +8,91 @@
 
 import Foundation
 
-public class Hex {
-    public static func encode(_ data: Data) -> String {
-        var s = String()
+/// Utilities for encoding and decoding data base hexadecimal encoded string.
+public struct Hex {
+    public enum Error: ErrorProtocol {
+        /// Thrown if the String cannot be decoded to Data.
+        case invalid
+    }
+
+    /// The hexadecimal encoded representation.
+    public let string: String
+    /// The raw data.
+    public let data: Data
+
+    /// Create a Hex from a hexadecimal encoded String. Throws if the String cannot be decoded to Data.
+    ///
+    /// May be used as a monad transformer.
+    public init(string: String) throws {
+        let charactersCount = string.characters.count
+        guard charactersCount % 2 == 0 else {
+            throw Error.invalid
+        }
+        let bytesCount = charactersCount / 2
+
+        var data = Data(count: bytesCount)!
+        for (index, s) in string.split(by: 2).enumerated() {
+            guard let b = UInt8(s, radix: 16) else {
+                throw Error.invalid
+            }
+            data[index] = b
+        }
+
+        self.data = data
+        self.string = string
+    }
+
+    /// Create a Hex from a Data.
+    ///
+    /// May be used as a monad transformer.
+    public init(data: Data) {
+        var string = String()
         for byte in data {
-            s += encode(byte)
+            let s = String(byte, radix: 16, uppercase: false) |> String.padded(toCount: 2, withCharacter: "0")
+            string += s
         }
-        return s
+
+        self.data = data
+        self.string = string
     }
 
-    public static func encode(_ byte: Byte) -> String {
-        return String(byte, radix: 16, uppercase: false) |> String.padded(toCount: 2, withCharacter: "0")
+    /// Create a Hex from a single byte.
+    ///
+    /// May be used as a monad transformer.
+    public init(byte: Byte) {
+        self.init(data: Data(bytes: [byte]))
     }
+}
 
-    public static func decode(_ string: String) throws -> Int {
-        if let i = Int(string, radix: 16) {
-            return i
-        } else {
-            throw ValidationError(message: "Invalid hex string: \(string).", violation: "hexFormat")
-        }
+extension Hex: CustomStringConvertible {
+    public var description: String {
+        return "\"\(string)\""
+    }
+}
+
+extension String {
+    /// Extract a hexadecimal encoded String from a Hex.
+    ///
+    /// May be used as a monad transformer.
+    public init(hex: Hex) {
+        self.init(hex.string)
+    }
+}
+
+extension Data {
+    /// Extract a Data from a Hex.
+    ///
+    /// May be used as a monad transformer.
+    public init(hex: Hex) {
+        self.init(hex.data)
+    }
+}
+
+extension Byte {
+    /// Extract the first byte from a Hex.
+    ///
+    /// May be used as a monad transformer.
+    public init(hex: Hex) {
+        self.init(hex.data[0])
     }
 }

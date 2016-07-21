@@ -429,7 +429,7 @@ extension BSONDocument {
 
 extension BSONDocument: CustomStringConvertible {
     public var description: String {
-        let s = data |> Hex.encode
+        let s = data |> Hex.init |> String.init
         return "<BSONDocument \(s))>"
     }
 }
@@ -603,7 +603,7 @@ private func printBSONElement(withName name: String, value: BSON.Value, indent: 
             valueStr = "\(b)"
         case let b as Data:
             type = "\(pfx) Data"
-            valueStr = b |> Hex.encode
+            valueStr = b |> Hex.init |> String.init
         default:
             type = "\(err) UNKNOWN"
             valueStr = "\(value)"

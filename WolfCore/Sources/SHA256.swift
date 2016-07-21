@@ -52,6 +52,6 @@ public class SHA256 {
 
 extension SHA256: CustomStringConvertible {
     public var description: String {
-        return digest |> Hex.encode
+        return digest |> Hex.init |> String.init
     }
 }

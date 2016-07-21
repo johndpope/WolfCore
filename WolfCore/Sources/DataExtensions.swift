@@ -24,4 +24,9 @@ extension Data: Serializable {
     public init(bytes: MutableRandomAccessSlice<Data>) {
         self.init(bytes: Array(bytes))
     }
+
+    public init(_ data: Data) {
+        let p: UnsafePointer<Byte> = data.withUnsafeBytes { $0 }
+        self.init(bytes: p, count: data.count)
+    }
 }
