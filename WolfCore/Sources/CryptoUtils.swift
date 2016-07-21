@@ -206,7 +206,7 @@ public class CryptoKey: CustomStringConvertible {
                 let fieldName = fieldNames[nextFieldIndex]
                 nextFieldIndex += 1
                 if !fieldName.hasPrefix("-") {
-                    dict[fieldName] = data |> Base64URL.init |> Base64URL.string
+                    dict[fieldName] = data |> Base64URL.init |> String.init
                 }
                 //println("BYTES \(fieldName) (\(bytes.count)) \(bytes)")
             }

@@ -1,0 +1,62 @@
+# See: https://github.com/realm/SwiftLint
+
+disabled_rules:
+    - function_body_length
+    - line_length
+    - todo
+    - force_try
+    - force_cast
+    - type_name
+    - valid_docs
+    - conditional_binding_cascade
+
+file_length:
+    warning: 1000
+    error: 1200
+
+variable_name:
+    min_length: 1
+    max_length: 50
+
+type_body_length:
+    warning: 500
+    error: 800
+
+cyclomatic_complexity:
+    warning: 10
+    error: 12
+
+function_parameter_count:
+    warning: 15
+    error: 20
+
+custom_rules:
+    ns_localized_string:
+        name: "NSLocalizedString"
+        regex: "NSLocalizedString"
+        match_kinds:
+            - identifier
+        message: "Use ¶ operators instead of NSLocalizedString."
+        severity: warning
+    ns_attributed_string:
+        name: "NSAttributedString"
+        regex: "NS(Mutable)?AttributedString\W"
+        match_kinds:
+            - typeidentifier
+        message: "Use AttributedString and § operators instead of NSAttributedString."
+        severity: warning
+    ns_layout_constraint:
+        name: "NSLayoutConstraint"
+        regex: "NSLayoutConstraint\s*\("
+        message: "Use conveniences in AutolayoutUtils.swift instead of manually creating NSLayoutConstraints."
+        severity: warning
+    with_completion:
+        name: "withCompletion:"
+        regex: "withCompletion\s*:\s\{"
+        message: "Use trailing closure syntax instead."
+        severity: warning
+    activate_constraints_array:
+        name: "activate constraints array"
+        regex: "activateConstraints\s*\(\s*\["
+        message: "Use variadic version of activateConstraints."
+        severity: warning

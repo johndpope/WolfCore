@@ -11,6 +11,7 @@
 		030C035A1D148F3900EF040E /* ReferenceCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C03591D148F3900EF040E /* ReferenceCounter.swift */; };
 		030C035B1D148F3900EF040E /* ReferenceCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C03591D148F3900EF040E /* ReferenceCounter.swift */; };
 		030C035C1D148F3900EF040E /* ReferenceCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C03591D148F3900EF040E /* ReferenceCounter.swift */; };
+		03106F5F1D40CD6500E21F82 /* Base64URLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */; };
 		0314DCB91D08ECB100E23C67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0314DCB81D08ECB100E23C67 /* ViewController.swift */; };
 		0314DCBA1D08ECB100E23C67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0314DCB81D08ECB100E23C67 /* ViewController.swift */; };
 		0314DCBD1D08ECEC00E23C67 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0314DCBC1D08ECEC00E23C67 /* TabBarController.swift */; };
@@ -236,6 +237,7 @@
 		03B218951C20E90A0081CE39 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218961C20F2900081CE39 /* Heartbeat.swift */; };
 		03B218991C20F3F20081CE39 /* Hysteresis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218981C20F3F20081CE39 /* Hysteresis.swift */; };
+		03B7BDED1D40B8D900177066 /* Base64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B7BDEC1D40B8D900177066 /* Base64Tests.swift */; };
 		03BC18CF1CF104D9005AF3C3 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
 		03BC18D01CF1054C005AF3C3 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
 		03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
@@ -399,6 +401,7 @@
 /* Begin PBXFileReference section */
 		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = "Source-UI/TextView.swift"; sourceTree = "<group>"; };
 		030C03591D148F3900EF040E /* ReferenceCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReferenceCounter.swift; path = Sources/ReferenceCounter.swift; sourceTree = "<group>"; };
+		03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64URLTests.swift; sourceTree = "<group>"; };
 		0314DCB81D08ECB100E23C67 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "Source-UI/ViewController.swift"; sourceTree = "<group>"; };
 		0314DCBC1D08ECEC00E23C67 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = "Source-UI/TabBarController.swift"; sourceTree = "<group>"; };
 		0314DCC01D08ED2200E23C67 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = "Source-UI/NavigationController.swift"; sourceTree = "<group>"; };
@@ -521,6 +524,7 @@
 		03B218941C20E90A0081CE39 /* Joiner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Joiner.swift; path = Sources/Joiner.swift; sourceTree = "<group>"; };
 		03B218961C20F2900081CE39 /* Heartbeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Heartbeat.swift; path = "Sources-Foundation/Heartbeat.swift"; sourceTree = "<group>"; };
 		03B218981C20F3F20081CE39 /* Hysteresis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hysteresis.swift; path = "Sources-Foundation/Hysteresis.swift"; sourceTree = "<group>"; };
+		03B7BDEC1D40B8D900177066 /* Base64Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64Tests.swift; sourceTree = "<group>"; };
 		03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoDict.swift; path = "Sources-Foundation/InfoDict.swift"; sourceTree = "<group>"; };
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
 		03C0A3BF1D3354010036CE92 /* FieldElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FieldElement.swift; path = Signal/FieldElement.swift; sourceTree = "<group>"; };
@@ -1010,6 +1014,8 @@
 			children = (
 				03A146791CAF5E3900FD6261 /* StringTests.swift */,
 				03A146721CAF5E0600FD6261 /* Info.plist */,
+				03B7BDEC1D40B8D900177066 /* Base64Tests.swift */,
+				03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */,
 			);
 			path = "WolfCoreTests-iOS";
 			sourceTree = "<group>";
@@ -1143,6 +1149,7 @@
 					};
 					03A1466D1CAF5E0600FD6261 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 					03E172B41CF1C8020073F383 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1511,7 +1518,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03B7BDED1D40B8D900177066 /* Base64Tests.swift in Sources */,
 				03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */,
+				03106F5F1D40CD6500E21F82 /* Base64URLTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1856,6 +1865,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.arciem.WolfCoreTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1871,6 +1881,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

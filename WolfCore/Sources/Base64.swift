@@ -11,34 +11,59 @@ import Foundation
 /// Utilities for encoding and decoding data as Base-64 encoded strings.
 ///
 /// For more information: [Base64 on Wikipedia](https://en.wikipedia.org/wiki/Base64)
-public struct Base64: RawRepresentable {
+public struct Base64 {
     public enum Error: ErrorProtocol {
+        /// Thrown if the String cannot be decoded to Data.
         case invalid
     }
 
-    public let rawValue: String
+    /// The Base-64 encoded representation.
+    public let string: String
+    /// The raw data.
+    public let data: Data
 
-    public init?(rawValue: String) {
-        self.init(string: rawValue)
-    }
-
-    public init(string: String) {
-        self.rawValue = string
-    }
-
-    public init(data: Data) {
-        rawValue = data.base64EncodedString()
-    }
-
-    public func data() throws -> Data {
-        if let data = Data(base64Encoded: rawValue) {
-            return data
+    /// Create a Base64 from a Base-64 encoded string. Throws if the String cannot be decoded to Data.
+    ///
+    /// May be used as a monad transformer.
+    public init(string: String) throws {
+        self.string = string
+        if let data = Data(base64Encoded: string) {
+            self.data = data
         } else {
             throw Error.invalid
         }
     }
 
-    public func string() -> String {
-        return rawValue
+    /// Create a Base64 from a Data.
+    ///
+    /// May be used as a monad transformer.
+    public init(data: Data) {
+        self.data = data
+        string = data.base64EncodedString()
+    }
+}
+
+extension Base64: CustomStringConvertible {
+    public var description: String {
+        return "\"\(string)\""
+    }
+}
+
+extension String {
+    /// Extract a Base-64 encoded String from a Base64.
+    ///
+    /// May be used as a monad transformer.
+    public init(base64: Base64) {
+        self.init(base64.string)
+    }
+}
+
+extension Data {
+    /// Extract a Data from a Base64.
+    ///
+    /// May be used as a monad transformer.
+    public init(base64: Base64) {
+        let p: UnsafePointer<Byte> = base64.data.withUnsafeBytes { $0 }
+        self.init(bytes: p, count: base64.data.count)
     }
 }

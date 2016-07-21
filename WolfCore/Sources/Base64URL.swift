@@ -11,38 +11,68 @@ import Foundation
 /// Utilities for encoding and decoding data as Base-64 URL encoded strings.
 ///
 /// For more information: [Base64URL on Wikipedia](https://en.wikipedia.org/wiki/Base64#URL_applications)
-public struct Base64URL: RawRepresentable {
-    public let rawValue: String
+public struct Base64URL {
+    /// The Base-64 URL-encoded representation.
+    public let string: String
 
-    public init?(rawValue: String) {
-        self.rawValue = rawValue
+    /// The raw data.
+    public var data: Data {
+        return base64.data
     }
 
-    public init(string: String) {
-        self.rawValue = string
+    private let base64: Base64
+
+    /// Create a Base64URL from a Base64.
+    ///
+    /// May be used as a monad transformer.
+    init(base64: Base64) {
+        self.base64 = base64
+        self.string = base64.string |> Base64URL.toBase64URLString
     }
 
-    public init(base64: Base64) {
-        self.init(string: base64 |> Base64URL.toBase64URL)
+    /// Create a Base64URL from a Base-64 URL encoded string. Throws if the String cannot be decoded to Data.
+    ///
+    /// May be used as a monad transformer.
+    public init(string: String) throws {
+        try self.init(base64: string |> Base64URL.toBase64String |> Base64.init)
     }
 
+    /// Create a Base64URL from a Data.
+    ///
+    /// May be used as a monad transformer.
     public init(data: Data) {
         self.init(base64: data |> Base64.init)
     }
+}
 
-    public func data() throws -> Data {
-        return try rawValue |> Base64URL.toBase64 |> Base64.data
+extension Base64URL: CustomStringConvertible {
+    public var description: String {
+        return "\"\(string)\""
     }
+}
 
-    public func string() -> String {
-        return rawValue
+extension String {
+    /// Extract a Base-64 URL encoded String from a Base64URL.
+    ///
+    /// May be used as a monad transformer.
+    public init(base64URL: Base64URL) {
+        self.init(base64URL.string)
+    }
+}
+
+extension Data {
+    /// Extract a Data from a Base64URL.
+    ///
+    /// May be used as a monad transformer.
+    public init(base64URL: Base64URL) {
+        self.init(base64: base64URL.base64)
     }
 }
 
 extension Base64URL {
-    private static func toBase64URL(base64: Base64) -> String {
+    private static func toBase64URLString(string: String) -> String {
         var s2 = ""
-        for c in base64.rawValue.characters {
+        for c in string.characters {
             switch c {
             case Character("+"):
                 s2.append(Character("_"))
@@ -57,7 +87,7 @@ extension Base64URL {
         return s2
     }
 
-    private static func toBase64(string: String) -> Base64 {
+    private static func toBase64String(string: String) -> String {
         var s2 = ""
         let chars = string.characters
         for c in chars {
@@ -78,6 +108,6 @@ extension Base64URL {
         default:
             break
         }
-        return Base64(string: s2)
+        return s2
     }
 }

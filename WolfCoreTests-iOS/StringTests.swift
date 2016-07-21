@@ -7,12 +7,12 @@
 //
 
 import XCTest
-import WolfCore
+@testable import WolfCore
 
 class StringTests: XCTestCase {
     func testReplacing() {
         let s = "The #{subjectAdjective} #{subjectColor} #{subjectSpecies} #{action} the #{objectAdjective} #{objectSpecies}." // swiftlint:disable:this line_length
-        let replacements: [String: Any] = [
+        let replacements: Replacements = [
             "subjectAdjective": "quick",
             "subjectColor": "brown",
             "subjectSpecies": "fox",
@@ -20,7 +20,7 @@ class StringTests: XCTestCase {
             "objectAdjective": "lazy",
             "objectSpecies": "dog"
         ]
-        let result = s.replacing(placeholdersWithReplacements: replacements)
+        let result = s.replacingPlaceholders(withReplacements: replacements)
         XCTAssert(result == "The quick brown fox jumps over the lazy dog.")
     }
 }
