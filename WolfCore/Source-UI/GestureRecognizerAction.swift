@@ -20,7 +20,7 @@ public typealias GestureBlock = (OSGestureRecognizer) -> Void
 
 public class GestureRecognizerAction: NSObject {
     public var action: GestureBlock?
-    private let gestureRecognizer: OSGestureRecognizer
+    public let gestureRecognizer: OSGestureRecognizer
 
     public init(gestureRecognizer: OSGestureRecognizer, action: GestureBlock? = nil) {
         self.gestureRecognizer = gestureRecognizer
@@ -49,8 +49,11 @@ public class GestureRecognizerAction: NSObject {
 }
 
 extension OSView {
-    public func addAction(forGestureRecognizer gestureRecognizer: OSGestureRecognizer, action: GestureBlock) -> GestureRecognizerAction {
+    public func addAction<G: UIGestureRecognizer>(forGestureRecognizer gestureRecognizer: G, action: (G) -> Void) -> GestureRecognizerAction {
         self.addGestureRecognizer(gestureRecognizer)
-        return GestureRecognizerAction(gestureRecognizer: gestureRecognizer, action: action)
+        return GestureRecognizerAction(gestureRecognizer: gestureRecognizer, action: { recognizer in
+            action(recognizer as! G)
+            }
+        )
     }
 }

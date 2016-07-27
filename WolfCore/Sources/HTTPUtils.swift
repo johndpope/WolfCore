@@ -78,7 +78,7 @@ public class HTTP {
             guard error == nil else {
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<NSError>.Failure(error!))
+                    inFlightTracker.end(withToken: token, result: Result<NSError>.failure(error!))
                     logError("\(token) dataTaskWithRequest returned error")
                 #endif
 
@@ -99,7 +99,7 @@ public class HTTP {
                 let error = HTTPError(response: httpResponse)
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
+                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
                     logError("\(token) No data returned")
                 #endif
 
@@ -112,7 +112,7 @@ public class HTTP {
                 let error = HTTPError(response: httpResponse, data: data)
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
+                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
                     logError("\(token) Unknown response code: \(httpResponse.statusCode)")
                 #endif
                 dispatchOnMain { failure(error) }
@@ -124,7 +124,7 @@ public class HTTP {
                 let error = HTTPError(response: httpResponse, data: data)
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.Failure(error))
+                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
                     logError("\(token) Failure response code: \(statusCode)")
                 #endif
 
@@ -134,7 +134,7 @@ public class HTTP {
             }
 
             #if !os(tvOS)
-                inFlightTracker.end(withToken: token, result: Result<HTTPURLResponse>.Success(httpResponse))
+                inFlightTracker.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
             #endif
 
             dispatchOnMain { success(httpResponse, data!) }

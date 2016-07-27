@@ -73,7 +73,7 @@ extension TextField {
             newTintColor = textColor ?? .black
         }
         guard lastTintColor != newTintColor else { return }
-        let buttons: [UIButton] = self.descendentViews(ofClass: UIButton.self)
+        let buttons: [UIButton] = self.descendantViews()
         guard !buttons.isEmpty else { return }
         let button = buttons[0]
         guard let image = button.image(for: .highlighted) else { return }

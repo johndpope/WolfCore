@@ -130,6 +130,9 @@ extension UIView {
         guard let scrollView = view as? UIScrollView else { return }
         joiner.append("contentSize:\(scrollView.contentSize)")
         joiner.append("contentOffset:\(scrollView.contentOffset)")
+        if scrollView.zoomScale != 1.0 {
+            joiner.append("zoomScale:\(scrollView.zoomScale)")
+        }
     }
 
     private func appendStackViewAttributes(forView view: UIView, toJoiner joiner: Joiner) {
@@ -190,6 +193,10 @@ extension UIView {
 
         if view.alpha < 1.0 {
             joiner.append("alpha:\(view.alpha)")
+        }
+
+        if view.isHidden {
+            joiner.append("isHidden:\(view.isHidden)")
         }
     }
 

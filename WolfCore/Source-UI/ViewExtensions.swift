@@ -98,24 +98,24 @@ extension UIView {
 #endif
 
 extension OSView {
-    public func descendentViews<T: OSView>(ofClass aClass: AnyClass) -> [T] {
+    public func descendantViews<T: OSView>() -> [T] {
         var resultViews = [T]()
-        self.forViewsInHierachy { view -> Bool in
-            if view.dynamicType == aClass {
-                resultViews.append(view as! T)
+        self.forViewsInHierarchy { view -> Bool in
+            if let view = view as? T {
+                resultViews.append(view)
             }
             return false
         }
         return resultViews
     }
 
-    public func forViewsInHierachy(operate: ViewBlock) {
+    public func forViewsInHierarchy(operate: ViewBlock) {
         var stack = [self]
         repeat {
             let view = stack.removeLast()
             let stop = operate(view)
             guard !stop else { return }
-            view.subviews.reversed().forEach { subview in
+            view.subviews.forEach { subview in
                 stack.append(subview)
             }
         } while !stack.isEmpty
@@ -123,7 +123,7 @@ extension OSView {
 
     public func allDescendants() -> [OSView] {
         var descendants = [OSView]()
-        forViewsInHierachy { currentView -> Bool in
+        forViewsInHierarchy { currentView -> Bool in
             if currentView !== self {
                 descendants.append(currentView)
             }

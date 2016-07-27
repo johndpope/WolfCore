@@ -20,7 +20,7 @@ public struct PDFReference: ExtensibleEnumeratedName, Reference {
     public let name: String
     public let bundle: Bundle
 
-    public init(_ name: String, inBundle bundle: Bundle? = nil) {
+    public init(_ name: String, in bundle: Bundle? = nil) {
         self.name = name
         self.bundle = bundle ?? Bundle.main
     }

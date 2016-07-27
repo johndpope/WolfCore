@@ -12,7 +12,6 @@ extension UIViewController {
     public func printControllerHierarchy() {
         let aliaser = ObjectAliaser()
         var stack = [(controller: UIViewController, level: Int, indent: String)]()
-        var seenControllers = Set<UIViewController>()
 
         stack.append((self, 0, ""))
 
@@ -21,51 +20,62 @@ extension UIViewController {
 
             let joiner = Joiner()
 
-            var isRootPrefix = "⬜️"
-            for window in UIApplication.shared().windows {
-                if let rootViewController = window.rootViewController {
-                    if controller == rootViewController {
-                        isRootPrefix = "🌳"
-                    }
-                }
-            }
-            joiner.append(isRootPrefix)
+            joiner.append(prefix(for: controller))
 
-            var isPresentedPrefix = "⬜️"
-            if !seenControllers.contains(controller) {
-                if let presentedViewController = controller.presentedViewController {
-                    if !controller.childViewControllers.contains(presentedViewController) {
-                        stack.append((presentedViewController, level + 1, indent + "  |"))
-                        isPresentedPrefix = "🎁"
-                    }
-                }
-
-                controller.childViewControllers.reversed().forEach { childController in
-                    stack.append((childController, level + 1, indent + "  |"))
-                }
+            controller.childViewControllers.reversed().forEach { childController in
+                stack.append((childController, level + 1, indent + "  |"))
             }
-            joiner.append(isPresentedPrefix)
 
             joiner.append( indent, "\(level)".padded(toCount: 2) )
             joiner.append(aliaser.name(forObject: controller))
 
-            if controller.automaticallyAdjustsScrollViewInsets {
+            if !controller.automaticallyAdjustsScrollViewInsets {
                 joiner.append("automaticallyAdjustsScrollViewInsets:\(controller.automaticallyAdjustsScrollViewInsets)")
             }
 
             if let presentedViewController = controller.presentedViewController {
-                joiner.append("presents:\(aliaser.name(forObject: presentedViewController))")
+                if presentedViewController != controller.parent?.presentedViewController {
+                    stack.insert((presentedViewController, 0, ""), at: 0)
+                    joiner.append("presents:\(aliaser.name(forObject: presentedViewController))")
+                }
             }
 
             if let presentingViewController = controller.presentingViewController {
-                joiner.append("presentedBy:\(aliaser.name(forObject: presentingViewController))")
+                if presentingViewController != controller.parent?.presentingViewController {
+                    joiner.append("presentedBy:\(aliaser.name(forObject: presentingViewController))")
+                }
             }
 
             print(joiner)
-
-            seenControllers.insert(controller)
-
         } while !stack.isEmpty
+    }
+
+    private func prefix(for controller: UIViewController) -> String {
+        var prefix: String!
+
+        if prefix == nil {
+            for window in UIApplication.shared().windows {
+                if let rootViewController = window.rootViewController {
+                    if controller == rootViewController {
+                        prefix = "🌳"
+                    }
+                }
+            }
+        }
+
+        if prefix == nil {
+            if let presentingViewController = controller.presentingViewController {
+                if presentingViewController != controller.parent?.presentingViewController {
+                    prefix = "🎁"
+                }
+            }
+        }
+
+        if prefix == nil {
+            prefix = "⬜️"
+        }
+
+        return prefix
     }
 }
 

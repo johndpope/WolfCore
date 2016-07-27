@@ -10,6 +10,7 @@ import Foundation
 
 #if os(iOS) || os(OSX) || os(tvOS)
     import CoreGraphics
+    import UIKit
 #endif
 
 public typealias StringIndex = String.Index
@@ -164,9 +165,10 @@ extension String {
         let source = self
         var target = self
         var targetReplacedRanges = [StringRange]()
+        let sortedReplacements = replacements.sorted { $0.0.lowerBound < $1.0.lowerBound }
 
-        var cumOffset = 0
-        for (sourceRange, replacement) in replacements {
+        var totalOffset = 0
+        for (sourceRange, replacement) in sortedReplacements {
             let replacementCount = replacement.characters.count
             let rangeCount = source.distance(from: sourceRange.lowerBound, to: sourceRange.upperBound)
             let offset = replacementCount - rangeCount
@@ -174,7 +176,7 @@ extension String {
             let newTargetStartIndex: StringIndex
             let originalTarget = target
             do {
-                let targetStartIndex = target.convert(index: sourceRange.lowerBound, fromString: source, offset: cumOffset)
+                let targetStartIndex = target.convert(index: sourceRange.lowerBound, fromString: source, offset: totalOffset)
                 let targetEndIndex = target.index(targetStartIndex, offsetBy: rangeCount)
                 let targetReplacementRange = targetStartIndex..<targetEndIndex
                 target.replaceSubrange(targetReplacementRange, with: replacement)
@@ -193,7 +195,7 @@ extension String {
             let targetEndIndex = target.index(newTargetStartIndex, offsetBy: replacementCount)
             let targetReplacedRange = newTargetStartIndex..<targetEndIndex
             targetReplacedRanges.append(targetReplacedRange)
-            cumOffset = cumOffset + offset
+            totalOffset = totalOffset + offset
         }
 
         return (target, targetReplacedRanges)
@@ -282,6 +284,28 @@ extension String {
     }
 }
 
+#if os(iOS) || os(OSX) || os(tvOS)
+
+extension String {
+    public func height(forWidth width: CGFloat, font: UIFont, context: NSStringDrawingContext? = nil) -> CGFloat {
+        let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+
+        let boundingBox = self.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName: font], context: context)
+
+        return boundingBox.height
+    }
+
+    public func width(forHeight height: CGFloat, font: UIFont, context: NSStringDrawingContext? = nil) -> CGFloat {
+        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+
+        let boundingBox = self.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName: font], context: context)
+
+        return boundingBox.width
+    }
+}
+
+#endif
+
 extension String {
     public init(value: Double, precision: Int) {
         let formatter = NumberFormatter()
@@ -325,7 +349,7 @@ public extension NSString {
 }
 #endif
 
-public struct StringName: ExtensibleEnumeratedName {
+public struct StringName: ExtensibleEnumeratedName, Reference {
     public let name: String
     public let bundle: Bundle
 

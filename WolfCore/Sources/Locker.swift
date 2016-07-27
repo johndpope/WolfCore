@@ -3,15 +3,17 @@
 //  WolfCore
 //
 //  Created by Robert McNally on 6/17/16.
-//  Copyright © 2016 Vixlet. All rights reserved.
+//  Copyright © 2016 Arciem LLC. All rights reserved.
 //
 
 public class Locker {
     private var count = 0
     private var serializer: Serializer!
+
     public var onLocked: Block?
     public var onUnlocked: Block?
 
+    /// It is *not* guaranteed that `onLocked` and `onUnlocked` will be called on the main queue.
     public init(onLocked: Block? = nil, onUnlocked: Block? = nil) {
         self.onLocked = onLocked
         self.onUnlocked = onUnlocked

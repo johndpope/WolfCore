@@ -98,7 +98,7 @@ extension View {
         guard managesSublabelScaling else { return }
 
         baseSize = bounds.size
-        for label in descendentViews(ofClass: Label.self) as [Label] {
+        for label in descendantViews() as [Label] {
             label.resetBaseFont()
         }
         setNeedsLayout()
@@ -108,7 +108,7 @@ extension View {
         guard managesSublabelScaling else { return }
 
         let factor = bounds.height / baseSize.height
-        for label in descendentViews(ofClass: Label.self) as [Label] {
+        for label in descendantViews() as [Label] {
             label.syncFontSize(toFactor: factor)
         }
     }

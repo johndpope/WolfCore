@@ -23,11 +23,22 @@ extension OSImage {
 extension OSImage {
     public func tinted(withColor color: OSColor) -> OSImage {
         return newImage(withSize: self.size, opaque: false, scale: self.scale, renderingMode: .alwaysOriginal) { context in
-            let bounds = CGRect(origin: CGPoint.zero, size: self.size)
-            self.draw(in: bounds)
+            self.draw(in: self.bounds)
             context.setFillColor(color.cgColor)
             context.setBlendMode(.sourceIn)
-            context.fill(bounds)
+            context.fill(self.bounds)
+        }
+    }
+
+    public func shaded(withColor color: UIColor) -> UIImage {
+        return newImage(withSize: size, opaque: false, scale: scale, flipped: true, renderingMode: .alwaysOriginal) { context in
+            WolfCore.draw(into: context) { context in
+                context.clipToMask(self.bounds, mask: self.cgImage!)
+                context.setFillColor(color.cgColor)
+                context.fill(self.bounds)
+            }
+            context.setBlendMode(.multiply)
+            context.draw(in: self.bounds, image: self.cgImage!)
         }
     }
 

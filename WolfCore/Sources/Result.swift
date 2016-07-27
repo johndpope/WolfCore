@@ -16,21 +16,27 @@ public protocol ResultSummary {
 
     /// Returns a numeric error code, or `nil` if none was provided.
     var code: Int? { get }
+
+    /// Returns a non-user-facing indentifier used for automated UI testing
+    var identifier: String? { get }
+
+    /// Returns the error object
+    var error: Error? { get }
 }
 
 /// Represents a process result with a specific type returned upon success.
 /// On success it is associated with a generic, process-dependent type.
 /// On failure it is associated with an ErrorProtocol.
 public enum Result<T>: ResultSummary {
-    case Success(T)
-    case Failure(Error)
+    case success(T)
+    case failure(Error)
 
     /// Returns true if the process completed successfully; false otherwise.
     public var isSuccess: Bool {
         switch self {
-        case .Success:
+        case .success:
             return true
-        case .Failure:
+        case .failure:
             return false
         }
     }
@@ -38,9 +44,9 @@ public enum Result<T>: ResultSummary {
     /// Returns a human-readable error message, or `nil` if none was provided.
     public var message: String? {
         switch self {
-        case .Success:
+        case .success:
             return nil
-        case .Failure(let error):
+        case .failure(let error):
             return error.message
         }
     }
@@ -48,10 +54,30 @@ public enum Result<T>: ResultSummary {
     /// Returns a numeric error code, or `nil` if none was provided.
     public var code: Int? {
         switch self {
-        case .Success:
+        case .success:
             return nil
-        case .Failure(let error):
+        case .failure(let error):
             return error.code
+        }
+    }
+
+    /// Returns a non-user-facing indentifier used for automated UI testing
+    public var identifier: String? {
+        switch self {
+        case .success:
+            return nil
+        case .failure(let error):
+            return error.identifier
+        }
+    }
+
+    /// Returns the error object
+    public var error: Error? {
+        switch self {
+        case .success:
+            return nil
+        case .failure(let error):
+            return error
         }
     }
 }

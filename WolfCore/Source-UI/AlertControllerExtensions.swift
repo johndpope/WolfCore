@@ -14,7 +14,7 @@
     extension UIAlertController {
         /// This is a hack to set the accessibilityIdentifier attribute of a button created by a UIAlertAction on a UIAlertController. It is coded conservatively so as not to crash if Apple changes the view hierarchy of UIAlertController.view at some future date.
         public func setAction(identifier: String, at index: Int) {
-            let collectionViews: [UICollectionView] = view.descendentViews(ofClass: UICollectionView.self)
+            let collectionViews: [UICollectionView] = view.descendantViews()
             if collectionViews.count > 0 {
                 let collectionView = collectionViews[0]
                 if let cell /* :_UIAlertControllerCollectionViewCell */ = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) {

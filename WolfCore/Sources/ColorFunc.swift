@@ -107,7 +107,6 @@ public func blend(colorFracHandles: [ColorFracHandle]) -> ColorFunc {
                 colorFracs.append(colorFrac12)
             }
         }
-        break
     }
     return blend(colorFracs: colorFracs)
 }

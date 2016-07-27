@@ -63,7 +63,7 @@ public class Button: UIButton {
         if let customView = self.customView {
             let isHighlighted = self.isHighlighted
             customView.tintColor = titleColor(for: isHighlighted ? .highlighted : [])!.withAlphaComponent(isHighlighted ? 0.4 : 1.0)
-            customView.forViewsInHierachy { view -> Bool in
+            customView.forViewsInHierarchy { view -> Bool in
                 (view as? UIImageView)?.isHighlighted = isHighlighted
                 return false
             }

@@ -26,3 +26,9 @@ public class BarButtonItemAction: NSObject {
         action?()
     }
 }
+
+extension UIBarButtonItem {
+    public func addAction(action: Block) -> BarButtonItemAction {
+        return BarButtonItemAction(item: self, action: action)
+    }
+}

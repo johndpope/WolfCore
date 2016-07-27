@@ -133,7 +133,9 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 
 //
-// Principle: Attributes are added to AString instances by assignment. Common attributes such as font, foregroundColor, and paragraphStyle can be directly assigned as attributes.
+// *** Attributes are added to AttributedString instances by assignment.
+//
+// Common attributes such as font, foregroundColor, and paragraphStyle can be directly assigned as attributes.
 //
 //    func example() {
 //        let attributedString = "The quick brown fox."§
@@ -835,6 +837,20 @@ extension ASubstring {
                 removeAttribute(overrideTintColorTag)
             }
         }
+    }
+}
+
+extension AttributedString {
+    public func height(forWidth width: CGFloat, context: NSStringDrawingContext? = nil) -> CGFloat {
+        let maxBounds = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let bounds = boundingRect(with: maxBounds, options: [.usesLineFragmentOrigin], context: context)
+        return ceil(bounds.height)
+    }
+
+    public func width(forHeight height: CGFloat, context: NSStringDrawingContext? = nil) -> CGFloat {
+        let maxBounds = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let bounds = boundingRect(with: maxBounds, options: [.usesLineFragmentOrigin], context: context)
+        return ceil(bounds.width)
     }
 }
 
