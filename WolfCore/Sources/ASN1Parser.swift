@@ -292,7 +292,7 @@ class ASN1Parser {
     }
 
     func parseString(_ data: Data) throws -> String {
-        return try data |> UTF8.decode
+        return try data |> UTF8.init |> String.init
     }
 
     func parseBitString(_ data: Data) -> ASN1BitString {

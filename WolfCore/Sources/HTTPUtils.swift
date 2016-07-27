@@ -187,7 +187,7 @@ public class HTTP {
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
-        success: (HTTPURLResponse, JSON.Value) -> Void,
+        success: (HTTPURLResponse, JSON) -> Void,
         failure: ErrorBlock,
         finally: Block?) {
 
@@ -200,7 +200,7 @@ public class HTTP {
             name: name,
             success: { (response, data) in
                 do {
-                    let json = try data |> JSON.decode
+                    let json = try data |> JSON.init
                     success(response, json)
                 } catch let error {
                     failure(error)
@@ -222,7 +222,7 @@ public class HTTP {
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, json) in
-                guard let jsonDict = json as? JSON.Dictionary else {
+                guard let jsonDict = json.value as? JSON.Dictionary else {
                     failure(UnknownJSONError())
                     return
                 }

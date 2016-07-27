@@ -8,15 +8,58 @@
 
 import Foundation
 
+/// Utilities for encoding and decoding data base hexadecimal encoded string.
 public struct UTF8 {
-    public static func encode(_ string: String) -> Data {
-        return Data(bytes: Array(string.utf8))
+    public enum Error: ErrorProtocol {
+        /// Thrown if the Data cannot be decoded to String.
+        case invalid
     }
 
-    public static func decode(_ data: Data) throws -> String {
-        guard let s = String(data: data, encoding: .utf8) else {
-            throw ValidationError(message: "Invalid UTF-8.", violation: "utf8Format")
+    /// The String.
+    public let string: String
+    /// The raw data for the String as encoded in UTF-8.
+    public let data: Data
+
+    /// Create a UTF8 from a Data. Throws if the Data does not represent a valid UTF-8 encoded String.
+    ///
+    /// May be used as a monad transformer.
+    public init(data: Data) throws {
+        guard let string = String(data: data, encoding: .utf8) else {
+            throw Error.invalid
         }
-        return s
+        self.data = data
+        self.string = string
+    }
+
+    /// Create a UTF8 from a String.
+    ///
+    /// May be used as a monad transformer.
+    public init(string: String) {
+        self.data = Data(bytes: Array(string.utf8))
+        self.string = string
+    }
+}
+
+extension UTF8: CustomStringConvertible {
+    public var description: String {
+        return "\"\(string)\""
+    }
+}
+
+extension String {
+    /// Extract a String from a UTF8.
+    ///
+    /// May be used as a monad transformer.
+    public init(utf8: UTF8) {
+        self.init(utf8.string)
+    }
+}
+
+extension Data {
+    /// Extract a Data from a UTF8.
+    ///
+    /// May be used as a monad transformer.
+    public init(utf8: UTF8) {
+        self.init(utf8.data)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  JSON2.swift
+//  SwiftJSON.swift
 //  WolfCore
 //
 //  Created by Robert McNally on 6/18/16.
@@ -8,28 +8,37 @@
 
 import Foundation
 
-public typealias JSON = JSON2
+//public typealias JSON = SwiftJSON
 
-public struct JSON2 {
+public struct SwiftJSON {
     public typealias Value = Any
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
     public typealias DictionaryOfStrings = [String: String]
     public typealias ArrayOfDictionaries = [Dictionary]
 
-    public static func encode(_ value: Value) throws -> Data {
+    public let value: Value
+    public let data: Data
+
+    public var string: String {
+        return try! data |> UTF8.init |> String.init
+    }
+
+    public init(value: Value) throws {
+        self.value = value
         let writer = Writer()
         try writer.emit(value: value, allowsFragment: false)
-        return writer.string |> UTF8.encode
+        data = writer.string |> UTF8.init |> Data.init
     }
 
-    public static func decode(_ data: Data) throws -> Value {
-        return try data |> UTF8.decode |> decode
+    public init(data: Data) throws {
+        self.data = data
+        let reader = try Reader(data: data)
+        value = try reader.parseValue(allowsFragment: false)
     }
 
-    public static func decode(_ string: String) throws -> Value {
-        let reader = Reader(string: string)
-        return try reader.parseValue(allowsFragment: false)
+    public init(string: String) throws {
+        try self.init(data: string |> UTF8.init |> Data.init)
     }
 
     private static let space: Character = " "
@@ -78,8 +87,8 @@ public struct JSON2 {
         private let string: String
         private var index: String.Index
 
-        private init(string: String) {
-            self.string = string
+        private init(data: Data) throws {
+            self.string = try data |> UTF8.init |> String.init
             index = string.startIndex
         }
 
@@ -126,14 +135,14 @@ public struct JSON2 {
             return false
         }
 
-        private static let whitespace = [JSON2.space, JSON2.tab, JSON2.newline, JSON2.carriageReturn]
+        private static let whitespace = [SwiftJSON.space, SwiftJSON.tab, SwiftJSON.newline, SwiftJSON.carriageReturn]
 
         private func skipWhitespace() throws {
             repeat { } while advance(ifNextCharacterIsIn: Reader.whitespace)
             guard hasMore else { throw ReadError.unexpectedEndOfData }
         }
 
-        private func parseValue(allowsFragment: Bool = true) throws -> JSON2.Value {
+        private func parseValue(allowsFragment: Bool = true) throws -> SwiftJSON.Value {
             try skipWhitespace()
             if let array = try parseArray() {
                 return array
@@ -158,55 +167,55 @@ public struct JSON2 {
             }
 
             if try parseNull() {
-                return JSON2.null
+                return SwiftJSON.null
             }
 
             throw ReadError.unknownValue
         }
 
-        private func parseArray() throws -> JSON2.Array? {
-            guard advance(ifNextCharacterIs: JSON2.openBracket) else { return nil }
-            var array = JSON2.Array()
+        private func parseArray() throws -> SwiftJSON.Array? {
+            guard advance(ifNextCharacterIs: SwiftJSON.openBracket) else { return nil }
+            var array = SwiftJSON.Array()
             repeat {
                 try skipWhitespace()
-                guard !advance(ifNextCharacterIs: JSON2.closeBracket) else { return array }
+                guard !advance(ifNextCharacterIs: SwiftJSON.closeBracket) else { return array }
                 try skipWhitespace()
                 let value = try parseValue()
                 array.append(value)
                 try skipWhitespace()
-            } while advance(ifNextCharacterIs: JSON2.comma)
+            } while advance(ifNextCharacterIs: SwiftJSON.comma)
             return array
         }
 
-        private func parseDictionary() throws -> JSON2.Dictionary? {
-            guard advance(ifNextCharacterIs: JSON2.openBrace) else { return nil }
-            var dictionary = JSON2.Dictionary()
+        private func parseDictionary() throws -> SwiftJSON.Dictionary? {
+            guard advance(ifNextCharacterIs: SwiftJSON.openBrace) else { return nil }
+            var dictionary = SwiftJSON.Dictionary()
             repeat {
                 try skipWhitespace()
-                guard !advance(ifNextCharacterIs: JSON2.closeBrace) else { return dictionary }
+                guard !advance(ifNextCharacterIs: SwiftJSON.closeBrace) else { return dictionary }
                 guard let key = try parseString() else { throw ReadError.keyExpected }
                 try skipWhitespace()
-                guard advance(ifNextCharacterIs: JSON2.colon) else { throw ReadError.nameSeparatorExpected }
+                guard advance(ifNextCharacterIs: SwiftJSON.colon) else { throw ReadError.nameSeparatorExpected }
                 try skipWhitespace()
                 let value = try parseValue()
                 dictionary[key] = value
                 try skipWhitespace()
-            } while advance(ifNextCharacterIs: JSON2.comma)
+            } while advance(ifNextCharacterIs: SwiftJSON.comma)
             try skipWhitespace()
             return dictionary
         }
 
         private func parseString() throws -> String? {
-            guard advance(ifNextCharacterIs: JSON2.quoteMark) else { return nil }
+            guard advance(ifNextCharacterIs: SwiftJSON.quoteMark) else { return nil }
             var string = ""
             repeat {
                 guard hasMore else { throw ReadError.unterminatedString }
                 let character = nextCharacter
                 advance()
                 switch character {
-                case JSON2.quoteMark:
+                case SwiftJSON.quoteMark:
                     return string
-                case JSON2.reverseSolidus:
+                case SwiftJSON.reverseSolidus:
                     string.append(try parseEscapeSequence())
                 default:
                     string.append(character)
@@ -219,16 +228,16 @@ public struct JSON2 {
             let character = nextCharacter
             advance()
             switch character {
-            case JSON2.quoteMark:
-                return JSON2.quoteMark
-            case JSON2.reverseSolidus:
-                return JSON2.reverseSolidus
+            case SwiftJSON.quoteMark:
+                return SwiftJSON.quoteMark
+            case SwiftJSON.reverseSolidus:
+                return SwiftJSON.reverseSolidus
             case "t":
-                return JSON2.tab
+                return SwiftJSON.tab
             case "n":
-                return JSON2.newline
+                return SwiftJSON.newline
             case "r":
-                return JSON2.carriageReturn
+                return SwiftJSON.carriageReturn
             default:
                 throw ReadError.unknownEscapeSequence
             }
@@ -250,11 +259,11 @@ public struct JSON2 {
 
         private func parseBool() throws -> Bool? {
             let s = string.substring(from: index)
-            if s.hasPrefix(JSON2.literalTrue) {
-                advance(by: JSON2.literalTrue.characters.count)
+            if s.hasPrefix(SwiftJSON.literalTrue) {
+                advance(by: SwiftJSON.literalTrue.characters.count)
                 return true
-            } else if s.hasPrefix(JSON2.literalFalse) {
-                advance(by: JSON2.literalFalse.characters.count)
+            } else if s.hasPrefix(SwiftJSON.literalFalse) {
+                advance(by: SwiftJSON.literalFalse.characters.count)
                 return false
             }
             return nil
@@ -262,8 +271,8 @@ public struct JSON2 {
 
         private func parseNull() throws -> Bool {
             let s = string.substring(from: index)
-            if s.hasPrefix(JSON2.literalNull) {
-                advance(by: JSON2.literalNull.characters.count)
+            if s.hasPrefix(SwiftJSON.literalNull) {
+                advance(by: SwiftJSON.literalNull.characters.count)
                 return true
             }
             return false
@@ -296,43 +305,43 @@ public struct JSON2 {
         }
 
         private func emit(bool: Bool) {
-            emit(bool ? JSON2.literalTrue : JSON2.literalFalse)
+            emit(bool ? SwiftJSON.literalTrue : SwiftJSON.literalFalse)
         }
 
         private func emit(dictionary: Dictionary) throws {
-            emit(JSON2.openBrace)
+            emit(SwiftJSON.openBrace)
             var first = true
             for (key, value) in dictionary {
                 if first {
                     first = false
                 } else {
-                    emit(JSON2.comma)
+                    emit(SwiftJSON.comma)
                 }
                 emit(string: key)
-                emit(JSON2.colon)
+                emit(SwiftJSON.colon)
                 try emit(value: value, allowsFragment: true)
             }
-            emit(JSON2.closeBrace)
+            emit(SwiftJSON.closeBrace)
         }
 
         private func emit(array: Array) throws {
-            emit(JSON2.openBracket)
+            emit(SwiftJSON.openBracket)
             var first = true
             for value in array {
                 if first {
                     first = false
                 } else {
-                    emit(JSON2.comma)
+                    emit(SwiftJSON.comma)
                 }
                 try emit(value: value, allowsFragment: true)
             }
-            emit(JSON2.closeBracket)
+            emit(SwiftJSON.closeBracket)
         }
 
         private func emit(value: Value, allowsFragment: Bool) throws {
 //            guard let value = value else {
 //                if allowsFragment {
-//                    emit(JSON2.literalNull)
+//                    emit(SwiftJSON.literalNull)
 //                    return
 //                } else {
 //                    throw WriteError.unknownValue
@@ -361,8 +370,8 @@ public struct JSON2 {
                 emit(number: number)
             case let bool as Bool:
                 emit(bool: bool)
-            case is JSON2.Null:
-                emit(JSON2.literalNull)
+            case is SwiftJSON.Null:
+                emit(SwiftJSON.literalNull)
             default:
                 throw WriteError.unknownValue
             }
@@ -370,14 +379,14 @@ public struct JSON2 {
     }
 }
 
-public func JSON2Test() {
+public func swiftJSONTest() {
     do {
         let raw = "{\"color\": \"red\", \"age\": 51, \"dict\": {\"a\": 50.5, \"b\": -3.1415927}, \"awesome\": true, \"array\": [1, 2, false, null]}"
         print(raw)
-        let json = try raw |> JSON2.decode
-        print(json)
-        let value = try json |> JSON2.encode
-        print(value)
+        let j1 = try raw |> SwiftJSON.init
+        print(j1.value)
+        let j2 = try j1 |> SwiftJSON.init
+        print(j2.string)
     } catch let error {
         print(error)
     }

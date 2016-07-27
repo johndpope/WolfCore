@@ -33,10 +33,10 @@ public struct HTTPError: Error {
         return "HTTPError(\(code))"
     }
 
-    public var json: JSON.Value? {
+    public var json: JSON? {
         guard let data = data else { return nil }
         do {
-            return try data |> JSON.decode
+            return try data |> JSON.init
         } catch {
             return nil
         }

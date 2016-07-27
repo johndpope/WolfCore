@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Utilities for encoding and decoding data base hexadecimal encoded string.
+/// Utilities for encoding and decoding hexadecimal encoded strings.
 public struct Hex {
     public enum Error: ErrorProtocol {
         /// Thrown if the String cannot be decoded to Data.

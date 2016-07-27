@@ -41,7 +41,7 @@ public class SHA256 {
         // $ openssl dgst -sha256 -hex
         // The quick brown fox\n^d
         // 35fb7cc2337d10d618a1bad35c7a9e957c213f00d0ed32f2454b2a99a971c0d8
-        let data = "The quick brown fox\n" |> UTF8.encode
+        let data = "The quick brown fox\n" |> UTF8.init |> Data.init
         let sha256 = data |> encode
         print(sha256)
         // prints 35fb7cc2337d10d618a1bad35c7a9e957c213f0d0ed32f2454b2a99a971c0d8
