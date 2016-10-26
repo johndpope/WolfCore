@@ -25,7 +25,7 @@ extension UIView {
             prefixJoiner.append(view.translatesAutoresizingMaskIntoConstraints ? "⛔️" : "✅")
             constraintPrefixJoiner.append("⬜️")
 
-            prefixJoiner.append(view.hasAmbiguousLayout() ? "❓" : "✅")
+            prefixJoiner.append(view.hasAmbiguousLayout ? "❓" : "✅")
             constraintPrefixJoiner.append("⬜️")
 
             appendFocusedPrefix(forView: view, prefixJoiner: prefixJoiner, constraintPrefixJoiner: constraintPrefixJoiner)
@@ -290,5 +290,5 @@ extension UIView {
 }
 
 public func printWindowViewHierarchy(includingConstraints includeConstraints: Bool = false, includingConstraintsAffectingHorizontal includeHConstraints: Bool = false, includingConstraintsAffectingVertical includeVConstraints: Bool = false) {
-    UIApplication.shared().windows[0].printViewHierarchy(includingConstraints: includeConstraints, includingConstraintsAffectingHorizontal: includeHConstraints, includingConstraintsAffectingVertical: includeVConstraints)
+    UIApplication.shared.windows[0].printViewHierarchy(includingConstraints: includeConstraints, includingConstraintsAffectingHorizontal: includeHConstraints, includingConstraintsAffectingVertical: includeVConstraints)
 }

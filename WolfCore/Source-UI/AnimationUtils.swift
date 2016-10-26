@@ -10,7 +10,7 @@ import UIKit
 
 public let defaultAnimationDuration: TimeInterval = 0.4
 
-public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: Block) {
+public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: @escaping Block) {
     if animated {
         UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: nil)
     } else {
@@ -18,7 +18,7 @@ public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = d
     }
 }
 
-public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: Block, completion: ((Bool) -> Void)) {
+public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: UIViewAnimationOptions = [], animations: @escaping Block, completion: @escaping ((Bool) -> Void)) {
     if animated {
         UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
     } else {

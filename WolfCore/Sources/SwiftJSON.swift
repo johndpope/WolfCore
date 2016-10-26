@@ -69,7 +69,7 @@ public struct SwiftJSON {
         return value is Null
     }
 
-    public enum ReadError: ErrorProtocol {
+    public enum ReadError: Error {
         case noTopLevelObjectOrArray
         case unexpectedEndOfData
         case unknownValue
@@ -87,7 +87,7 @@ public struct SwiftJSON {
         private let string: String
         private var index: String.Index
 
-        private init(data: Data) throws {
+        init(data: Data) throws {
             self.string = try data |> UTF8.init |> String.init
             index = string.startIndex
         }
@@ -142,7 +142,7 @@ public struct SwiftJSON {
             guard hasMore else { throw ReadError.unexpectedEndOfData }
         }
 
-        private func parseValue(allowsFragment: Bool = true) throws -> SwiftJSON.Value {
+        func parseValue(allowsFragment: Bool = true) throws -> SwiftJSON.Value {
             try skipWhitespace()
             if let array = try parseArray() {
                 return array
@@ -279,36 +279,36 @@ public struct SwiftJSON {
         }
     }
 
-    public enum WriteError: ErrorProtocol {
+    public enum WriteError: Error {
         case noTopLevelObjectOrArray
         case unknownValue
     }
 
     public final class Writer {
-        private var string = ""
+        var string = ""
 
-        private func emit(_ character: Character) {
+        func emit(_ character: Character) {
             string.append(character)
         }
 
-        private func emit(_ string: String) {
+        func emit(_ string: String) {
             self.string.append(string)
         }
 
-        private func emit(string: String) {
+        func emit(string: String) {
             emit("\"\(string)\"")
         }
 
-        private func emit(number: Double) {
+        func emit(number: Double) {
             let n = String(value: number, precision: 17)
             emit(n)
         }
 
-        private func emit(bool: Bool) {
+        func emit(bool: Bool) {
             emit(bool ? SwiftJSON.literalTrue : SwiftJSON.literalFalse)
         }
 
-        private func emit(dictionary: Dictionary) throws {
+        func emit(dictionary: Dictionary) throws {
             emit(SwiftJSON.openBrace)
             var first = true
             for (key, value) in dictionary {
@@ -324,7 +324,7 @@ public struct SwiftJSON {
             emit(SwiftJSON.closeBrace)
         }
 
-        private func emit(array: Array) throws {
+        func emit(array: Array) throws {
             emit(SwiftJSON.openBracket)
             var first = true
             for value in array {
@@ -338,7 +338,7 @@ public struct SwiftJSON {
             emit(SwiftJSON.closeBracket)
         }
 
-        private func emit(value: Value, allowsFragment: Bool) throws {
+        func emit(value: Value, allowsFragment: Bool) throws {
 //            guard let value = value else {
 //                if allowsFragment {
 //                    emit(SwiftJSON.literalNull)

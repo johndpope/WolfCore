@@ -27,19 +27,19 @@ public struct BSON {
 }
 
 extension BSON {
-    private static func doc(dict: Dictionary) throws -> BSONDocument {
+    static func doc(dict: Dictionary) throws -> BSONDocument {
         return try BSONDocument(dict: dict)
     }
 
-    private static func doc(data: Data) -> BSONDocument {
+    static func doc(data: Data) -> BSONDocument {
         return BSONDocument(data: data)
     }
 
-    private static func data(doc: BSONDocument) -> Data {
+    static func data(doc: BSONDocument) -> Data {
         return doc.data
     }
 
-    private static func bson(doc: BSONDocument) throws -> Dictionary {
+    static func bson(doc: BSONDocument) throws -> Dictionary {
         return try doc.decode()
     }
 }
@@ -142,7 +142,7 @@ enum BSONElementType: Byte {
 }
 
 public class BSONBuffer {
-    private(set) var data: Data
+    internal(set) var data: Data
     var mark = 0
 
     init() {
@@ -174,33 +174,50 @@ extension BSONBuffer {
         }
     }
 
+    func append(bytes: ContiguousArray<CChar>) {
+        bytes.withUnsafeBufferPointer {
+            $0.baseAddress!.withMemoryRebound(to: Byte.self, capacity: bytes.count) {
+                data.append($0, count: bytes.count)
+            }
+        }
+    }
+
     func append(int32: Int32) {
         var i = int32.littleEndian
-        withUnsafePointer(&i) {
-            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Int32.self))
+        withUnsafePointer(to: &i) {
+            let count = MemoryLayout<Int32>.size
+            $0.withMemoryRebound(to: Byte.self, capacity: count) {
+                append(bytes: $0, count: count)
+            }
         }
     }
 
     func append(int: Int) {
         var i = int.littleEndian
-        withUnsafePointer(&i) {
-            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Int.self))
+        withUnsafePointer(to: &i) {
+            let count = MemoryLayout<Int>.size
+            $0.withMemoryRebound(to: Byte.self, capacity: count) {
+                append(bytes: $0, count: count)
+            }
         }
     }
 
     func append(double: Double) {
         var d = double
-        withUnsafePointer(&d) {
-            append(bytes: UnsafePointer<Byte>($0), count: sizeof(Double.self))
+        withUnsafePointer(to: &d) {
+            let count = MemoryLayout<Double>.size
+            $0.withMemoryRebound(to: Byte.self, capacity: count) {
+                append(bytes: $0, count: count)
+            }
         }
     }
 
     func append(cString: String) {
-        append(bytes: cString.nulTerminatedUTF8)
+        append(bytes: cString.utf8CString)
     }
 
     func append(string: String) {
-        let utf8 = string.nulTerminatedUTF8
+        let utf8 = string.utf8CString
         append(int32: Int32(utf8.count))
         append(bytes: utf8)
     }
@@ -210,7 +227,7 @@ extension BSONBuffer {
     }
 
     func append(document: BSONDocument) {
-        append(int32: Int32(document.elementList.data.count + sizeof(Int32.self) + 1))
+        append(int32: Int32(document.elementList.data.count + MemoryLayout<Int32>.size + 1))
         append(buffer: document.elementList)
         append(byte: 0x00)
     }
@@ -250,20 +267,21 @@ extension BSONBuffer {
     }
 
     func readInt32() throws -> Int32 {
-        let p = try readBytes(sizeof(Int32.self))
-        let i = UnsafePointer<Int32>(p)[0]
-        return Int32(littleEndian: i)
+        return try readBytes(MemoryLayout<Int32>.size).withMemoryRebound(to: Int32.self, capacity: 1) {
+            return Int32(littleEndian: $0[0])
+        }
     }
 
     func readInt() throws -> Int {
-        let p = try readBytes(sizeof(Int.self))
-        let i = UnsafePointer<Int>(p)[0]
-        return Int(littleEndian: i)
+        return try readBytes(MemoryLayout<Int>.size).withMemoryRebound(to: Int.self, capacity: 1) {
+            return Int(littleEndian: $0[0])
+        }
     }
 
     func readDouble() throws -> Double {
-        let p = try readBytes(sizeof(Double.self))
-        return UnsafePointer<Double>(p)[0]
+        return try readBytes(MemoryLayout<Double>.size).withMemoryRebound(to: Double.self, capacity: 1) {
+            return $0[0]
+        }
     }
 
     func readBoolean() throws -> Bool {

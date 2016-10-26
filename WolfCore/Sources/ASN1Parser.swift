@@ -150,7 +150,7 @@ class ASN1Parser {
     var didEndContextWithType: ((ASN1Type) -> ())?
 
     var foundNull: (() -> ())?
-    var foundDate: ((NSDate) -> ())?
+    var foundDate: ((Date) -> ())?
     var foundObjectIdentifier: ((String) -> ())?
     var foundString: ((String) -> ())?
     var foundData: ((Data) -> ())?
@@ -332,7 +332,7 @@ class ASN1Parser {
         return indexes.joined(separator: ".")
     }
 
-    func parseDate(_ data: Data) throws -> NSDate {
+    func parseDate(_ data: Data) throws -> Date {
         let string = try parseString(data)
         if let date = dateFormatter.date(from: string) {
             return date

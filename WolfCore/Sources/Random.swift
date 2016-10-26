@@ -30,10 +30,14 @@ public class Random {
 
 #if os(iOS) || os(OSX) || os(tvOS)
     public func cryptoRandom() -> Int32 {
-        let a = UnsafeMutablePointer<Int32>(allocatingCapacity: 1)
-        _ = SecRandomCopyBytes(kSecRandomDefault, 4, UnsafeMutablePointer<Byte>(a))
+        let a = UnsafeMutablePointer<Int32>.allocate(capacity: 1)
+        defer {
+            a.deallocate(capacity: 1)
+        }
+        a.withMemoryRebound(to: Byte.self, capacity: 4) { p in
+            _ = SecRandomCopyBytes(kSecRandomDefault, 4, p)
+        }
         let n = a.pointee
-        a.deallocateCapacity(1)
         return n
     }
 #endif

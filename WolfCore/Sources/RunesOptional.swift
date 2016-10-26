@@ -42,7 +42,7 @@
 
  - returns: A value of type `Optional<U>`
  */
-public func <^> <T, U>(f: @noescape (T) throws -> U, a: T?) rethrows -> U? {
+public func <^> <T, U>(f: (T) throws -> U, a: T?) rethrows -> U? {
     return try a.map(f)
 }
 
@@ -72,7 +72,7 @@ public func <*> <T, U>(f: ((T) throws -> U)?, a: T?) rethrows -> U? {
 
  - returns: A value of type `Optional<U>`
  */
-public func >>- <T, U>(a: T?, f: @noescape (T) throws -> U?) rethrows -> U? {
+public func >>- <T, U>(a: T?, f: (T) throws -> U?) rethrows -> U? {
     return try a.flatMap(f)
 }
 
@@ -87,7 +87,7 @@ public func >>- <T, U>(a: T?, f: @noescape (T) throws -> U?) rethrows -> U? {
 
  - returns: A value of type `Optional<U>`
  */
-public func -<< <T, U>(f: @noescape (T) throws -> U?, a: T?) rethrows -> U? {
+public func -<< <T, U>(f: (T) throws -> U?, a: T?) rethrows -> U? {
     return try a.flatMap(f)
 }
 
@@ -102,7 +102,7 @@ public func -<< <T, U>(f: @noescape (T) throws -> U?, a: T?) rethrows -> U? {
 
  - returns: A function from type `A` to type `Optional<C>`
  */
-public func >-> <A, B, C>(f: (A) throws -> B?, g: (B) throws -> C?) -> (A) throws -> C? {
+public func >-> <A, B, C>(f: @escaping (A) throws -> B?, g: @escaping (B) throws -> C?) -> (A) throws -> C? {
     return { x in try f(x) >>- g }
 }
 
@@ -117,7 +117,7 @@ public func >-> <A, B, C>(f: (A) throws -> B?, g: (B) throws -> C?) -> (A) throw
 
  - returns: A function from type `A` to type `Optional<C>`
  */
-public func <-< <A, B, C>(f: (B) throws -> C?, g: (A) throws -> B?) -> (A) throws -> C? {
+public func <-< <A, B, C>(f: @escaping (B) throws -> C?, g: @escaping (A) throws -> B?) -> (A) throws -> C? {
     return { x in try g(x) >>- f }
 }
 

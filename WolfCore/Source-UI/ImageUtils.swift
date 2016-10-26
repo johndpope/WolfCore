@@ -28,8 +28,8 @@ public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
     let context = getCurrentGraphicsContext()
     if flipped {
-        context.translate(x: 0.0, y: size.height)
-        context.scale(x: 1.0, y: -1.0)
+        context.translateBy(x: 0.0, y: size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
     }
     drawing(context)
     let image = UIGraphicsGetImageFromCurrentImageContext()!.withRenderingMode(renderingMode)

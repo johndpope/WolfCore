@@ -122,15 +122,15 @@ public class CryptoKey: CustomStringConvertible {
             let r = keyRef.memory
             dict["e"] = NSNumber(integer: Int(BN_get_word(r.e)))
 
-            self.dynamicType.addKeyFieldAsBase64URLToDict(&dict, field: "n", value: r.n)
+            type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "n", value: r.n)
 
             if !onlyPublic {
-                self.dynamicType.addKeyFieldAsBase64URLToDict(&dict, field: "d", value: r.d)
-                self.dynamicType.addKeyFieldAsBase64URLToDict(&dict, field: "p", value: r.p)
-                self.dynamicType.addKeyFieldAsBase64URLToDict(&dict, field: "q", value: r.q)
-                self.dynamicType.addKeyFieldAsBase64URLToDict(&dict, field: "dp", value: r.dmp1)
-                self.dynamicType.addKeyFieldAsBase64URLToDict(&dict, field: "dq", value: r.dmq1)
-                self.dynamicType.addKeyFieldAsBase64URLToDict(&dict, field: "qi", value: r.iqmp)
+                type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "d", value: r.d)
+                type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "p", value: r.p)
+                type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "q", value: r.q)
+                type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "dp", value: r.dmp1)
+                type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "dq", value: r.dmq1)
+                type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "qi", value: r.iqmp)
             }
             return dict
         }
@@ -144,15 +144,15 @@ public class CryptoKey: CustomStringConvertible {
             let r = keyRef.memory
             dict["e"] = Optional(Int(BN_get_word(r.e)))
 
-            self.dynamicType.addKeyFieldAsBytesToDict(&dict, field: "n", value: r.n)
+            type(of: self).addKeyFieldAsBytesToDict(&dict, field: "n", value: r.n)
 
             if !onlyPublic {
-                self.dynamicType.addKeyFieldAsBytesToDict(&dict, field: "d", value: r.d)
-                self.dynamicType.addKeyFieldAsBytesToDict(&dict, field: "p", value: r.p)
-                self.dynamicType.addKeyFieldAsBytesToDict(&dict, field: "q", value: r.q)
-                self.dynamicType.addKeyFieldAsBytesToDict(&dict, field: "dp", value: r.dmp1)
-                self.dynamicType.addKeyFieldAsBytesToDict(&dict, field: "dq", value: r.dmq1)
-                self.dynamicType.addKeyFieldAsBytesToDict(&dict, field: "qi", value: r.iqmp)
+                type(of: self).addKeyFieldAsBytesToDict(&dict, field: "d", value: r.d)
+                type(of: self).addKeyFieldAsBytesToDict(&dict, field: "p", value: r.p)
+                type(of: self).addKeyFieldAsBytesToDict(&dict, field: "q", value: r.q)
+                type(of: self).addKeyFieldAsBytesToDict(&dict, field: "dp", value: r.dmp1)
+                type(of: self).addKeyFieldAsBytesToDict(&dict, field: "dq", value: r.dmq1)
+                type(of: self).addKeyFieldAsBytesToDict(&dict, field: "qi", value: r.iqmp)
             }
             return dict
         }
@@ -169,10 +169,10 @@ public class CryptoKey: CustomStringConvertible {
             let tag = "tempkey.\(UUID())"
             let tagData = tag |> UTF8.init |> Data.init
 
-            let query: [NSString: AnyObject] = [
+            let query: [NSString: Any] = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyType: kSecAttrKeyTypeRSA,
-                kSecAttrApplicationTag: tagData
+                kSecAttrApplicationTag: tagData as AnyObject
             ]
 
             var attributes = query
@@ -180,9 +180,9 @@ public class CryptoKey: CustomStringConvertible {
             attributes[kSecReturnData] = true
 
             var item: AnyObject?
-            try CryptoError.check(code: SecItemAdd(attributes, &item), message: "Adding temp key to keychain.")
+            try CryptoError.check(code: SecItemAdd(attributes as CFDictionary, &item), message: "Adding temp key to keychain.")
             let keyInfo = item! as! Data
-            try CryptoError.check(code: SecItemDelete(query), message: "Deleting temp key from keychain.")
+            try CryptoError.check(code: SecItemDelete(query as CFDictionary), message: "Deleting temp key from keychain.")
             return keyInfo
         }
 
@@ -324,7 +324,7 @@ public class Crypto {
     }
 
     public static func generateRandomBytes(_ count: Int) -> Data {
-        var data = Data(capacity: count)!
+        var data = Data(capacity: count)
 #if os(Linux)
         RAND_bytes(&bytes, Int32(count))
 #else
@@ -374,8 +374,8 @@ public class Crypto {
         #else
             var publicKey: SecKey?
             var privateKey: SecKey?
-            let parameters: [NSString: AnyObject] = [kSecAttrKeyType: kSecAttrKeyTypeRSA, kSecAttrKeySizeInBits: keySize]
-            try CryptoError.check(code: SecKeyGeneratePair(parameters, &publicKey, &privateKey), message: "Generating key pair.")
+            let parameters: [NSString: Any] = [kSecAttrKeyType: kSecAttrKeyTypeRSA, kSecAttrKeySizeInBits: keySize]
+            try CryptoError.check(code: SecKeyGeneratePair(parameters as CFDictionary, &publicKey, &privateKey), message: "Generating key pair.")
             return KeyPair(publicKey: publicKey!, privateKey: privateKey!)
         #endif
     }

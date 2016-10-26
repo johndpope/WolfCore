@@ -16,7 +16,7 @@ public enum PlayingCardTrump: Int, CardTrump {
 
 extension PlayingCardTrump: CustomStringConvertible {
     public var description: String {
-        return self.dynamicType.trumpStrings[rawValue]
+        return type(of: self).trumpStrings[rawValue]
     }
 }
 
@@ -72,7 +72,7 @@ public enum PlayingCardRank: Int, CardRank {
 
 extension PlayingCardRank: CustomStringConvertible {
     public var description: String {
-        return self.dynamicType.rankStrings[rawValue - 1]
+        return type(of: self).rankStrings[rawValue - 1]
     }
 }
 
@@ -89,7 +89,7 @@ public enum PlayingCardSuit: Int, CardSuit {
 
 extension PlayingCardSuit: CustomStringConvertible {
     public var description: String {
-        return self.dynamicType.suitSymbols[rawValue - 1]
+        return type(of: self).suitSymbols[rawValue - 1]
     }
 }
 

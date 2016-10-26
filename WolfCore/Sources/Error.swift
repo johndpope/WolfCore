@@ -8,10 +8,10 @@
 
 import Foundation
 
-public typealias ErrorBlock = (ErrorProtocol) -> Void
+public typealias ErrorBlock = (Error) -> Void
 
 /// Classes that represent errors may conform to this protocol.
-public protocol Error: ErrorProtocol, CustomStringConvertible {
+public protocol ErrorProto: Error, CustomStringConvertible {
     /// A human-readable error message.
     var message: String { get }
 
@@ -23,7 +23,7 @@ public protocol Error: ErrorProtocol, CustomStringConvertible {
 }
 
 // Conforms NSError to the Error protocol.
-extension NSError: Error {
+extension NSError: ErrorProto {
     public var message: String {
         return localizedDescription
     }

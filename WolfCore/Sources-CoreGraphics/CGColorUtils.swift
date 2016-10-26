@@ -23,12 +23,12 @@ public var sharedClearColor = CGColor(colorSpace: sharedColorSpaceGray, componen
 extension CGColor {
     public func toRGB() -> CGColor {
         switch colorSpace!.model {
-        case .monochrome:
+        case CGColorSpaceModel.monochrome:
             let c = components!
             let gray = c[0]
             let a = c[1]
             return CGColor(colorSpace: sharedColorSpaceRGB, components: [gray, gray, gray, a])!
-        case .RGB:
+        case CGColorSpaceModel.rgb:
             return self
         default:
             fatalError("unsupported color model")
@@ -43,5 +43,5 @@ public func CGGradientWithColors(colorFracs: [ColorFrac]) -> CGGradient {
         cgColors.append(colorFrac.color.cgColor)
         locations.append(CGFloat(colorFrac.frac))
     }
-    return CGGradient(colorsSpace: sharedColorSpaceRGB, colors: cgColors, locations: locations)!
+    return CGGradient(colorsSpace: sharedColorSpaceRGB, colors: cgColors as CFArray, locations: locations)!
 }

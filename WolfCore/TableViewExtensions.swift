@@ -18,7 +18,7 @@ extension UITableView {
         self.estimatedRowHeight = estimatedRowHeight
     }
 
-    public func update(cell: UITableViewCell, at indexPath: IndexPath, using block: Block) {
+    public func update(cell: UITableViewCell, at indexPath: IndexPath, using block: @escaping Block) {
         beginUpdates()
         dispatchAnimated(duration: 0.3) {
             block()

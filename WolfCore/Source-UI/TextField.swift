@@ -9,8 +9,8 @@
 import UIKit
 
 public class TextField: UITextField {
-    private var tintedClearImage: UIImage?
-    private var lastTintColor: UIColor?
+    var tintedClearImage: UIImage?
+    var lastTintColor: UIColor?
 
     public var followsTintColor = false {
         didSet {
@@ -59,13 +59,13 @@ public class TextField: UITextField {
 }
 
 extension TextField {
-    private func syncToTintColor() {
+    func syncToTintColor() {
         guard followsTintColor else { return }
         textColor = tintColor
         tintClearImage()
     }
 
-    private func tintClearImage() {
+    func tintClearImage() {
         let newTintColor: UIColor
         if followsTintColor {
             newTintColor = tintColor

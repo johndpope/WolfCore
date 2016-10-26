@@ -14,6 +14,8 @@
     public typealias OSImage = NSImage
 #endif
 
+import CoreGraphics
+
 extension OSImage {
     public var bounds: CGRect {
         return CGRect(origin: .zero, size: size)
@@ -33,12 +35,12 @@ extension OSImage {
     public func shaded(withColor color: UIColor) -> UIImage {
         return newImage(withSize: size, opaque: false, scale: scale, flipped: true, renderingMode: .alwaysOriginal) { context in
             WolfCore.draw(into: context) { context in
-                context.clipToMask(self.bounds, mask: self.cgImage!)
+                context.clip(to: self.bounds, mask: self.cgImage!)
                 context.setFillColor(color.cgColor)
                 context.fill(self.bounds)
             }
             context.setBlendMode(.multiply)
-            context.draw(in: self.bounds, image: self.cgImage!)
+            context.draw(self.cgImage!, in: self.bounds)
         }
     }
 

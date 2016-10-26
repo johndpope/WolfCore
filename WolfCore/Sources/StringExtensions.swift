@@ -25,13 +25,13 @@ extension Log.GroupName {
 // Provide concise versions of NSLocalizedString.
 
 #if os(iOS) || os(OSX) || os(tvOS)
-    postfix operator ¶ { }
+    postfix operator ¶
 
     public postfix func ¶ (left: String) -> String {
         return left.localized()
     }
 
-    infix operator ¶ { associativity left precedence 95 }
+    infix operator ¶ : AttributeAssignmentPrecedence
 
     public func ¶ (left: String, right: Replacements) -> String {
         return left.localized(replacingPlaceholdersWithReplacements: right)
@@ -68,7 +68,7 @@ extension Log.GroupName {
             var bundle = bundle ?? Bundle.main
 
             if let language = language {
-                if let path = bundle.pathForResource(language, ofType: "lproj") {
+                if let path = bundle.path(forResource: language, ofType: "lproj") {
                     if let langBundle = Bundle(path: path) {
                         bundle = langBundle
                     }
@@ -203,7 +203,7 @@ extension String {
 }
 
 extension String {
-    public func replacing(matchesTo regex: RegularExpression, usingBlock block: (RangeReplacement) -> String) -> (string: String, ranges: [StringRange]) {
+    public func replacing(matchesTo regex: NSRegularExpression, usingBlock block: (RangeReplacement) -> String) -> (string: String, ranges: [StringRange]) {
         let results = (regex ~?? self).map { match -> RangeReplacement in
             let matchRange = match.range(atIndex: 0, inString: self)
             let substring = self.substring(with: matchRange)
@@ -244,7 +244,7 @@ extension String {
         let matches = placeholderReplacementRegex ~?? self
         for match in matches {
             let matchRange = range(from: match.range)!
-            let placeholderRange = range(from: match.range(at: 1))!
+            let placeholderRange = range(from: match.rangeAt(1))!
             let replacementName = self[placeholderRange]
             if let replacement = replacementsDict[replacementName] {
                 replacements.append((matchRange, replacement))
@@ -262,7 +262,7 @@ extension String {
         let count = self.characters.count
         let padCount = finalCount - count
         guard padCount > 0 else { return self }
-        let pad = String(repeating: character, count: padCount)
+        let pad = String(repeating: String(character), count: padCount)
         return onRight ? (self + pad) : (pad + self)
     }
 
@@ -313,7 +313,7 @@ extension String {
         formatter.usesGroupingSeparator = false
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = precision
-        self.init(formatter.string(from: value)!)
+        self.init(formatter.string(from: NSNumber(value: value))!)!
     }
 
     public init(value: Float, precision: Int) {
@@ -325,7 +325,7 @@ extension String {
     }
 }
 
-infix operator %% { }
+infix operator %%
 
 public func %% (left: Double, right: Int) -> String {
     return String(value: left, precision: right)

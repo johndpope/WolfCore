@@ -13,7 +13,7 @@ extension Log.GroupName {
     public static let viewControllerLifecycle = Log.GroupName("viewControllers")
 }
 
-public class ViewController: UIViewController {
+open class ViewController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
@@ -29,28 +29,28 @@ public class ViewController: UIViewController {
         setup()
     }
 
-    public func setup() {
+    open func setup() {
     }
 
     deinit {
         logInfo("deinit \(self)", group: .viewControllerLifecycle)
     }
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
     }
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    public override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         updateAppearance()
     }
 
     /// Override in subclasses
-    public func updateAppearance() { }
+    open func updateAppearance() { }
 }

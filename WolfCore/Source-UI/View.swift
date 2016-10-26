@@ -12,7 +12,7 @@
     import Cocoa
 #endif
 
-    public class View: OSView {
+    open class View: OSView {
         public convenience init() {
             self.init(frame: .zero)
         }
@@ -33,11 +33,11 @@
         }
 
         // Override in subclasses
-        public func setup() { }
+        open func setup() { }
 
         #if os(iOS) || os(tvOS)
 
-        private var baseSize: CGSize!
+        var baseSize: CGSize!
         public var managesSublabelScaling = false
 
         /// Can be set from Interface Builder
@@ -70,14 +70,14 @@
             }
         }
 
-        public override func awakeFromNib() {
+        open override func awakeFromNib() {
             super.awakeFromNib()
             loadContentFromNib()
             setupSublabelScaling()
         }
         #endif
 
-        public override func layoutSubviews() {
+        open override func layoutSubviews() {
             super.layoutSubviews()
             syncSublabelScaling()
         }
@@ -94,7 +94,7 @@
 #if os(iOS) || os(tvOS)
 extension View {
 
-    private func setupSublabelScaling() {
+    func setupSublabelScaling() {
         guard managesSublabelScaling else { return }
 
         baseSize = bounds.size
@@ -104,7 +104,7 @@ extension View {
         setNeedsLayout()
     }
 
-    private func syncSublabelScaling() {
+    func syncSublabelScaling() {
         guard managesSublabelScaling else { return }
 
         let factor = bounds.height / baseSize.height
@@ -118,7 +118,7 @@ extension View {
 extension View {
 
 #if os(iOS) || os(tvOS)
-    override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {
@@ -126,7 +126,7 @@ extension View {
         }
     }
 
-    private func loadContentFromNib() {
+    func loadContentFromNib() {
         if let contentNibName = contentNibName {
             let view = ~loadViewFromNib(named: contentNibName, owner: self)
             transferContent(from: view)
@@ -189,7 +189,7 @@ extension View {
     }
 
     #if os(iOS) || os(tvOS)
-    override public func setNeedsDisplay() {
+    override open func setNeedsDisplay() {
         super.setNeedsDisplay()
         osDidSetNeedsDisplay()
     }

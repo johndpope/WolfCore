@@ -11,14 +11,14 @@ import Foundation
 public struct KeyChain {
 
     public static func add(data: Data, forKey key: String, inAccount account: String) throws {
-        let query: [NSString : AnyObject] = [
+        let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
             kSecAttrLabel : key,
             kSecAttrAccount : account,
             kSecValueData : data
         ]
-        let result = SecItemAdd(query, nil)
+        let result = SecItemAdd(query as NSDictionary, nil)
         guard result == errSecSuccess else {
             throw GeneralError(message: "Could not add to keychain.", code: Int(result))
         }
@@ -29,7 +29,7 @@ public struct KeyChain {
     }
 
     public static func delete(key: String, account: String) throws {
-        let query: [NSString : AnyObject] = [
+        let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
             kSecAttrAccount : account,
@@ -37,26 +37,26 @@ public struct KeyChain {
             kSecReturnData : true
         ]
 
-        let result = SecItemDelete(query)
+        let result = SecItemDelete(query as NSDictionary)
         guard result == errSecSuccess else {
             throw GeneralError(message: "Could not delete from keychain.", code: Int(result))
         }
     }
 
     public static func update(data: Data, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
-        let query: [NSString : AnyObject] = [
+        let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrAccount : account,
             kSecAttrService : key,
             ]
 
-        let queryNew: [NSString : AnyObject] = [
+        let queryNew: [NSString : Any] = [
             kSecAttrAccount : account,
             kSecAttrService : key,
             kSecValueData : data
         ]
 
-        let result = SecItemUpdate(query, queryNew)
+        let result = SecItemUpdate(query as NSDictionary, queryNew as NSDictionary)
         if result == errSecItemNotFound && addIfNotFound {
             try add(data: data, forKey: key, inAccount: account)
             return
@@ -80,7 +80,7 @@ public struct KeyChain {
     }
 
     public static func readData(forKey key: String, inAccount account: String) throws -> Data? {
-        let query: [NSString : AnyObject] = [
+        let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
             kSecAttrAccount : account,
@@ -88,12 +88,12 @@ public struct KeyChain {
             kSecReturnData : true
         ]
 
-        var value: AnyObject?
-        let result = SecItemCopyMatching(query, &value)
+        var value: CFTypeRef?
+        let result = SecItemCopyMatching(query as NSDictionary, &value)
         guard result == errSecSuccess else {
             throw GeneralError(message: "Unable to read keychain.", code: Int(result))
         }
-        guard let dict = value as? [NSString: AnyObject] else {
+        guard let dict = value as? [NSString: Any] else {
             throw GeneralError(message: "Key chain data wrong type.")
         }
         guard let data = dict[kSecValueData] as? Data else {

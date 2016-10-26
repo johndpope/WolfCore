@@ -12,7 +12,7 @@ import Foundation
 ///
 /// For more information: [Base64 on Wikipedia](https://en.wikipedia.org/wiki/Base64)
 public struct Base64 {
-    public enum Error: ErrorProtocol {
+    public enum Error: Swift.Error {
         /// Thrown if the String cannot be decoded to Data.
         case invalid
     }
@@ -54,7 +54,7 @@ extension String {
     ///
     /// May be used as a monad transformer.
     public init(base64: Base64) {
-        self.init(base64.string)
+        self.init(base64.string)!
     }
 }
 

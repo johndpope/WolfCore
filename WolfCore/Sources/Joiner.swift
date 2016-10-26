@@ -7,10 +7,10 @@
 //
 
 public class Joiner {
-    private var left: String
-    private var right: String
-    private var separator: String
-    private var objs = [Any]()
+    var left: String
+    var right: String
+    var separator: String
+    var objs = [Any]()
 
     public init(left: String = "", separator: String = " ", right: String = "") {
         self.left = left

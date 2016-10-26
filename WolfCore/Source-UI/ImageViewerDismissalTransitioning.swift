@@ -16,10 +16,10 @@ class ImageViewerDismissalTransitioning: NSObject, UIViewControllerAnimatedTrans
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        let containerView = transitionContext.containerView()
-        let fromViewController = transitionContext.viewController(forKey: UITransitionContextFromViewControllerKey) as! UINavigationController
+        let containerView = transitionContext.containerView
+        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! UINavigationController
         let viewerViewController = fromViewController.viewControllers[0] as! ImageViewerViewController
-        let fromView = transitionContext.view(forKey: UITransitionContextFromViewKey)!
+        let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
 
         let sourcePriorAlpha = viewerViewController.sourceImageView.alpha
         viewerViewController.sourceImageView.alpha = 0.0
@@ -48,7 +48,7 @@ class ImageViewerDismissalTransitioning: NSObject, UIViewControllerAnimatedTrans
                 viewerViewController.sourceImageView.alpha = sourcePriorAlpha
                 movingImageView.removeFromSuperview()
                 viewerViewController.imageViewHidden = false
-                let cancelled = transitionContext.transitionWasCancelled()
+                let cancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!cancelled)
             }
         )

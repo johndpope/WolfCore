@@ -66,12 +66,12 @@ public class Grid<T: Equatable>: Equatable {
         }
     }
 
-    public func forNeighborhood(at point: IntPoint, f: (o: IntPoint, p: IntPoint) -> Void) {
+    public func forNeighborhood(at point: IntPoint, f: (_ o: IntPoint, _ p: IntPoint) -> Void) {
         for oy in -1..<1 {
             for ox in -1..<1 {
                 let o = IntPoint(x: ox, y: oy)
                 let p = IntPoint(x: circularIndex(ox + point.x, count: size.width), y: circularIndex(oy + point.y, count: size.height))
-                f(o: o, p: p)
+                f(o, p)
             }
         }
     }

@@ -54,7 +54,7 @@ extension UIViewController {
         var prefix: String!
 
         if prefix == nil {
-            for window in UIApplication.shared().windows {
+            for window in UIApplication.shared.windows {
                 if let rootViewController = window.rootViewController {
                     if controller == rootViewController {
                         prefix = "🌳"
@@ -80,5 +80,5 @@ extension UIViewController {
 }
 
 public func printRootControllerHierarchy() {
-    UIApplication.shared().windows[0].rootViewController?.printControllerHierarchy()
+    UIApplication.shared.windows[0].rootViewController?.printControllerHierarchy()
 }

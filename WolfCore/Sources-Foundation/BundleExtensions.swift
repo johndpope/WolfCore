@@ -25,7 +25,7 @@ extension Bundle {
 
     public static func urlForResource(_ name: String, withExtension anExtension: String? = nil, subdirectory subpath: String? = nil) -> (Bundle) throws -> URL {
         return { bundle in
-            guard let url = bundle.urlForResource(name, withExtension: anExtension, subdirectory: subpath) else {
+            guard let url = bundle.url(forResource: name, withExtension: anExtension, subdirectory: subpath) else {
                 throw GeneralError(message: "Resource not found.")
             }
             return url

@@ -44,12 +44,12 @@ public class ImageView: UIImageView {
         super.layoutSubviews()
     }
 
-    public override func intrinsicContentSize() -> CGSize {
+    public override var intrinsicContentSize: CGSize {
         let size: CGSize
         if let pdf = pdf {
             size = pdf.getSize()
         } else {
-            size = super.intrinsicContentSize()
+            size = super.intrinsicContentSize
         }
         return size
     }

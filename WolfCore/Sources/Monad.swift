@@ -6,8 +6,22 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+infix operator |> : PipelineLeftPrecedence
+
+precedencegroup PipelineLeftPrecedence {
+    associativity: left
+    higherThan: ComparisonPrecedence
+    lowerThan: NilCoalescingPrecedence
+}
+
+precedencegroup PipelineRightPrecedence {
+    associativity: right
+    higherThan: ComparisonPrecedence
+    lowerThan: NilCoalescingPrecedence
+}
+
 // precedence is above comparative operators (130) and below additive operators (140)
-infix operator |> { associativity left precedence 138 }
+//{ associativity left precedence 138 }
 
 
 /// An operator to transform a monad.

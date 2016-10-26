@@ -17,7 +17,7 @@ public enum LogLevel: Int {
     private static let symbols = ["🔷", "✅", "⚠️", "🚫"]
 
     public var symbol: String {
-        return self.dynamicType.symbols[rawValue]
+        return type(of: self).symbols[rawValue]
     }
 }
 

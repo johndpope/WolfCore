@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-infix operator .. { }
+infix operator .. : RangeFormationPrecedence
 
 /// Operator to create a closed floating-point literal. The first number may
 /// be greater than the second. Examples:

@@ -28,7 +28,7 @@ public class BarButtonItemAction: NSObject {
 }
 
 extension UIBarButtonItem {
-    public func addAction(action: Block) -> BarButtonItemAction {
+    public func addAction(action: @escaping Block) -> BarButtonItemAction {
         return BarButtonItemAction(item: self, action: action)
     }
 }

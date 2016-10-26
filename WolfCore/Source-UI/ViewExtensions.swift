@@ -10,7 +10,7 @@
     import UIKit
     public typealias OSView = UIView
     public typealias OSEdgeInsets = UIEdgeInsets
-    public let OSEdgeInsetsZero = UIEdgeInsetsZero
+    public let OSEdgeInsetsZero = UIEdgeInsets.zero
 #elseif os(OSX)
     import Cocoa
     public typealias OSView = NSView

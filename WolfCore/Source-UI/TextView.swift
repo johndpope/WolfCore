@@ -11,8 +11,8 @@ import UIKit
 public typealias TagAction = (String) -> Void
 
 public class TextView: UITextView {
-    private var tagTapActions = [String: TagAction]()
-    private var tapAction: GestureRecognizerAction!
+    var tagTapActions = [String: TagAction]()
+    var tapAction: GestureRecognizerAction!
 
     public var followsTintColor = false {
         didSet {
@@ -73,7 +73,7 @@ extension TextView {
 }
 
 extension TextView {
-    public func setTapAction(forTag tag: String, action: TagAction) {
+    public func setTapAction(forTag tag: String, action: @escaping TagAction) {
         tagTapActions[tag] = action
         syncToTagTapActions()
     }

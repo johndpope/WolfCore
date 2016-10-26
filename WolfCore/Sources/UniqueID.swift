@@ -11,9 +11,9 @@ import Foundation
 /// Utilities for encoding and decoding unique identifiers (UUIDs)
 public struct UniqueID {
     /// The size of a uuid in bytes
-    public let uuidSize = sizeof(uuid_t.self)
+    public let uuidSize = MemoryLayout<uuid_t>.size
 
-    public enum Error: ErrorProtocol {
+    public enum Error: Swift.Error {
         /// Thrown if the String cannot be decoded to UUID.
         case invalid
     }
@@ -29,7 +29,7 @@ public struct UniqueID {
     /// The UniqueID as a Data/
     public var data: Data {
         var u = uuid.uuid
-        return withUnsafePointer(&u) { p in
+        return withUnsafePointer(to: &u) { p in
             return Data(bytes: UnsafePointer(p), count: uuidSize)
         }
     }
@@ -43,7 +43,7 @@ public struct UniqueID {
     ///
     /// May be used as a monad transformer.
     public init(string: String) throws {
-        guard let uuid = Foundation.UUID(uuidString: string) else { throw Error.invalid }
+        guard let uuid = Foundation.UUID(uuidString: string) else { throw type(of: self).Error.invalid }
         self.uuid = uuid
     }
 
@@ -51,7 +51,7 @@ public struct UniqueID {
     ///
     /// May be used as a monad transformer.
     public init(d: Data) throws {
-        guard d.count == uuidSize else { throw Error.invalid }
+        guard d.count == uuidSize else { throw type(of: self).Error.invalid }
         let u: uuid_t = (d[0], d[1], d[2], d[3], d[4], d[5], d[6], d[7], d[8], d[9], d[10], d[11], d[12], d[13], d[14], d[15])
         self.uuid = Foundation.UUID(uuid: u)
     }
@@ -81,7 +81,7 @@ extension String {
     ///
     /// May be used as a monad transformer.
     public init(uniqueID: UniqueID) {
-        self.init(uniqueID.string)
+        self.init(uniqueID.string)!
     }
 }
 

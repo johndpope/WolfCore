@@ -16,7 +16,7 @@
 #endif
 
 public class SHA256 {
-    private(set) var digest = Data(capacity: Int(sha256DigestLength))!
+    private(set) var digest = Data(capacity: Int(sha256DigestLength))
 
     public init(data: Data) {
 #if os(Linux)

@@ -29,7 +29,7 @@ extension OSColor {
 
     public class func diagonalStripesPattern(color1: OSColor, color2: OSColor, flipped: Bool = false) -> OSColor {
         #if os(iOS) || os(tvOS)
-            let screenScale = UIScreen.main().scale
+            let screenScale = UIScreen.main.scale
         #elseif os(OSX)
             let screenScale: CGFloat = 1.0
         #endif
@@ -61,22 +61,22 @@ extension OSColor {
         self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         return OSColor(hue: h, saturation: s, brightness: brightness, alpha: a)
     }
-
-    public static var black: OSColor { return .black() }
-    public static var darkGray: OSColor { return .darkGray() }
-    public static var lightGray: OSColor { return .lightGray() }
-    public static var white: OSColor { return .white() }
-    public static var gray: OSColor { return .gray() }
-    public static var red: OSColor { return .red() }
-    public static var green: OSColor { return .green() }
-    public static var blue: OSColor { return .blue() }
-    public static var cyan: OSColor { return .cyan() }
-    public static var yellow: OSColor { return .yellow() }
-    public static var magenta: OSColor { return .magenta() }
-    public static var orange: OSColor { return .orange() }
-    public static var purple: OSColor { return .purple() }
-    public static var brown: OSColor { return .brown() }
-    public static var clear: OSColor { return .clear() }
+//
+//    public static var black: OSColor { return .black() }
+//    public static var darkGray: OSColor { return .darkGray() }
+//    public static var lightGray: OSColor { return .lightGray() }
+//    public static var white: OSColor { return .white() }
+//    public static var gray: OSColor { return .gray() }
+//    public static var red: OSColor { return .red() }
+//    public static var green: OSColor { return .green() }
+//    public static var blue: OSColor { return .blue() }
+//    public static var cyan: OSColor { return .cyan() }
+//    public static var yellow: OSColor { return .yellow() }
+//    public static var magenta: OSColor { return .magenta() }
+//    public static var orange: OSColor { return .orange() }
+//    public static var purple: OSColor { return .purple() }
+//    public static var brown: OSColor { return .brown() }
+//    public static var clear: OSColor { return .clear() }
 }
 
 extension OSColor {

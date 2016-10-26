@@ -17,11 +17,11 @@ extension CGAffineTransform {
         self.init(translationX: t.dx, y: t.dy)
     }
 
-    public func scale(by v: CGVector) -> CGAffineTransform {
-        return scaleBy(x: v.dx, y: v.dy)
+    public func scaled(by v: CGVector) -> CGAffineTransform {
+        return scaledBy(x: v.dx, y: v.dy)
     }
 
-    public func translate(by v: CGVector) -> CGAffineTransform {
-        return translateBy(x: v.dx, y: v.dy)
+    public func translated(by v: CGVector) -> CGAffineTransform {
+        return translatedBy(x: v.dx, y: v.dy)
     }
 }

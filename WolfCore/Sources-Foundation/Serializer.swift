@@ -17,7 +17,7 @@ public class Serializer {
     let queueContext: Int
 
     public init(name: String) {
-        queue = DispatchQueue(label: name, attributes: [.serial])
+        queue = DispatchQueue(label: name, attributes: [])
         queueContext = nextQueueContext
         queue.setSpecific(key: serializerKey, value: queueContext)
         nextQueueContext += 1

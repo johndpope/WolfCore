@@ -27,7 +27,7 @@ public class Locker {
     public class Ref {
         private weak var tracker: Locker?
 
-        private init(tracker: Locker) {
+        init(tracker: Locker) {
             self.tracker = tracker
             tracker.lock()
         }

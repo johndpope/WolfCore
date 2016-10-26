@@ -37,7 +37,7 @@ public class Hysteresis {
     }()
 
     /// It is *not* guaranteed that `onEffectStart` and `onEffectEnd` will be called on the main queue.
-    public init(onEffectStart: Block, onEffectEnd: Block, effectStartLag: TimeInterval, effectEndLag: TimeInterval) {
+    public init(onEffectStart: @escaping Block, onEffectEnd: @escaping Block, effectStartLag: TimeInterval, effectEndLag: TimeInterval) {
         self.onEffectStart = onEffectStart
         self.onEffectEnd = onEffectEnd
         self.effectStartLag = effectStartLag

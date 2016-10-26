@@ -108,7 +108,7 @@ public enum TarotCardTrump: Int, CardTrump {
 
 extension TarotCardTrump: CustomStringConvertible {
     public var description: String {
-        return "\(self.dynamicType.trumpNumeralStrings[rawValue]) - \(self.dynamicType.trumpStrings[rawValue])"
+        return "\(type(of: self).trumpNumeralStrings[rawValue]) - \(type(of: self).trumpStrings[rawValue])"
     }
 }
 
@@ -134,13 +134,13 @@ public enum TarotCardRank: Int, CardRank {
 
 extension TarotCardRank: CustomStringConvertible {
     public var description: String {
-        return self.dynamicType.rankStrings[rawValue - 1]
+        return type(of: self).rankStrings[rawValue - 1]
     }
 }
 
 extension TarotCardSuit: CustomStringConvertible {
     public var description: String {
-        return self.dynamicType.suitStrings[rawValue - 1]
+        return type(of: self).suitStrings[rawValue - 1]
     }
 }
 

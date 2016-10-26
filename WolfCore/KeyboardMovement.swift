@@ -9,18 +9,18 @@
 import UIKit
 
 public class KeyboardMovement: CustomStringConvertible {
-    private let notification: NSNotification
+    private let notification: Notification
 
-    public init(notification: NSNotification) {
+    public init(notification: Notification) {
         self.notification = notification
     }
 
     public var frameBegin: CGRect {
-        return (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue()
+        return (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
     }
 
     public var frameEnd: CGRect {
-        return (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue()
+        return (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
     }
 
     public func frameBegin(in view: UIView) -> CGRect {

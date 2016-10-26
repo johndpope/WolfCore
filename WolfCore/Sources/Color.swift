@@ -166,16 +166,16 @@ public struct Color {
         var isHSB = false
 
         if let strings = singleHexColorRegex.matchedSubstrings(inString: s) {
-            try self.dynamicType.components(forSingleHexStrings: strings, components: &components)
+            try type(of: self).components(forSingleHexStrings: strings, components: &components)
         } else if let strings = doubleHexColorRegex.matchedSubstrings(inString: s) {
-            try self.dynamicType.components(forDoubleHexStrings: strings, components: &components)
+            try type(of: self).components(forDoubleHexStrings: strings, components: &components)
         } else if let strings = floatColorRegex.matchedSubstrings(inString: s) {
-            try self.dynamicType.components(forFloatStrings: strings, components: &components)
+            try type(of: self).components(forFloatStrings: strings, components: &components)
         } else if let strings = labeledColorRegex.matchedSubstrings(inString: s) {
-            try self.dynamicType.components(forLabeledStrings: strings, components: &components)
+            try type(of: self).components(forLabeledStrings: strings, components: &components)
         } else if let strings = labeledHSBColorRegex.matchedSubstrings(inString: s) {
             isHSB = true
-            try self.dynamicType.components(forLabeledHSBStrings: strings, components: &components)
+            try type(of: self).components(forLabeledHSBStrings: strings, components: &components)
         } else {
             throw ValidationError(message: "Could not parse color from string: \(s)", violation: "colorStringFormat")
         }
@@ -376,7 +376,7 @@ extension Color {
             let white = Double(c[0])
             let alpha = Double(c[1])
             self.init(white: white, alpha: alpha)
-        case .RGB:
+        case CGColorSpaceModel.rgb:
             let c = cgColor.components!
             let red = Double(c[0])
             let green = Double(c[1])

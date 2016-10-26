@@ -29,7 +29,7 @@ public func map<T: BinaryFloatingPoint>(value v: T, from i1: Interval<T>, to i2:
     return i1.b + ((i2.b - i1.b) * (v - i1.a)) / (i2.a - i1.a)
 }
 
-public func circularInterpolate<T: BinaryFloatingPoint where T: Comparable>(value: T, to i: Interval<T>) -> T {
+public func circularInterpolate<T: BinaryFloatingPoint>(value: T, to i: Interval<T>) -> T where T: Comparable {
     let c = abs(i.a - i.b)
     if c <= 0.5 {
         return map(value: value, to: i)

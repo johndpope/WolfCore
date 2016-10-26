@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-public typealias ColorFunc = (at: Frac) -> Color
+public typealias ColorFunc = (_ at: Frac) -> Color
 
 public func blend(from color1: Color, to color2: Color, at frac: Frac) -> Color {
     let f = frac.clamped
@@ -111,28 +111,28 @@ public func blend(colorFracHandles: [ColorFracHandle]) -> ColorFunc {
     return blend(colorFracs: colorFracs)
 }
 
-public func reverse(f: ColorFunc) -> ColorFunc {
+public func reverse(f: @escaping ColorFunc) -> ColorFunc {
     return { (frac: Frac) in
-        return f(at: 1 - frac)
+        return f(1 - frac)
     }
 }
 
-public func tints(hue: Frac) -> (frac: Frac) -> Color {
+public func tints(hue: Frac) -> (_ frac: Frac) -> Color {
     return { frac in return Color(hue: hue, saturation: 1.0 - frac, brightness: 1) }
 }
 
-public func shades(hue: Frac) -> (frac: Frac) -> Color {
+public func shades(hue: Frac) -> (_ frac: Frac) -> Color {
     return { frac in return Color(hue: hue, saturation: 1.0, brightness: 1.0 - frac) }
 }
 
-public func tones(hue: Frac) -> (frac: Frac) -> Color {
+public func tones(hue: Frac) -> (_ frac: Frac) -> Color {
     return { frac in return Color(hue: hue, saturation: 1.0 - frac, brightness: frac.mapped(to: 1.0..0.5)) }
 }
 
-public func twoColor(_ color1: Color, _ color2: Color) -> (frac: Frac) -> Color {
+public func twoColor(_ color1: Color, _ color2: Color) -> (_ frac: Frac) -> Color {
     return blend(from: color1, to: color2)
 }
 
-public func threeColor(_ color1: Color, _ color2: Color, _ color3: Color) -> (frac: Frac) -> Color {
+public func threeColor(_ color1: Color, _ color2: Color, _ color3: Color) -> (_ frac: Frac) -> Color {
     return blend(colors: [color1, color2, color3])
 }

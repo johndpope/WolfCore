@@ -13,7 +13,7 @@ public typealias KeyboardMovementBlock = (KeyboardMovement) -> Void
 public class KeyboardMovementAction: NotificationAction {
     public let keyboardMovementBlock: KeyboardMovementBlock
 
-    public init(name: NSNotification.Name, using keyboardMovementBlock: KeyboardMovementBlock) {
+    public init(name: NSNotification.Name, using keyboardMovementBlock: @escaping KeyboardMovementBlock) {
         self.keyboardMovementBlock = keyboardMovementBlock
         super.init(name: name) { notification in
             let info = KeyboardMovement(notification: notification)

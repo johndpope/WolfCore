@@ -20,7 +20,7 @@ public struct Base64URL {
         return base64.data
     }
 
-    private let base64: Base64
+    let base64: Base64
 
     /// Create a Base64URL from a Base64.
     ///
@@ -56,7 +56,7 @@ extension String {
     ///
     /// May be used as a monad transformer.
     public init(base64URL: Base64URL) {
-        self.init(base64URL.string)
+        self.init(base64URL.string)!
     }
 }
 
@@ -70,7 +70,7 @@ extension Data {
 }
 
 extension Base64URL {
-    private static func toBase64URLString(string: String) -> String {
+    static func toBase64URLString(string: String) -> String {
         var s2 = ""
         for c in string.characters {
             switch c {
@@ -87,7 +87,7 @@ extension Base64URL {
         return s2
     }
 
-    private static func toBase64String(string: String) -> String {
+    static func toBase64String(string: String) -> String {
         var s2 = ""
         let chars = string.characters
         for c in chars {

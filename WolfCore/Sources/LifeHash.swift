@@ -120,7 +120,7 @@ func == (lhs: LifeHash.Cell, rhs: LifeHash.Cell) -> Bool {
     return lhs.alive == rhs.alive
 }
 
-extension LifeHash.Cell: BooleanLiteralConvertible {
+extension LifeHash.Cell: ExpressibleByBooleanLiteral {
     init(booleanLiteral value: Bool) {
         alive = value
     }
@@ -136,7 +136,7 @@ func == (lhs: LifeHash.Change, rhs: LifeHash.Change) -> Bool {
     return lhs.changed == rhs.changed
 }
 
-extension LifeHash.Change: BooleanLiteralConvertible {
+extension LifeHash.Change: ExpressibleByBooleanLiteral {
     init(booleanLiteral value: Bool) {
         changed = value
     }

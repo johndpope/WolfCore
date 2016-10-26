@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension RegularExpression {
+extension NSRegularExpression {
     #if os(Linux)
-    public func firstMatch(inString string: String, options: NSMatchingOptions, range: StringRange? = nil) -> TextCheckingResult? {
+    public func firstMatch(inString string: String, options: NSMatchingOptions, range: StringRange? = nil) -> NSTextCheckingResult? {
         let range = range ?? string.range
         let nsRange = string.nsRange(from: range)!
         return firstMatch(in: string, options: options, range: nsRange)
@@ -28,13 +28,13 @@ extension RegularExpression {
         return result
     }
     #else
-    public func firstMatch(inString string: String, options: RegularExpression.MatchingOptions, range: StringRange? = nil) -> TextCheckingResult? {
+    public func firstMatch(inString string: String, options: NSRegularExpression.MatchingOptions, range: StringRange? = nil) -> NSTextCheckingResult? {
         let range = range ?? string.range
         let nsRange = string.nsRange(from: range)!
         return firstMatch(in: string, options: options, range: nsRange)
     }
 
-    public func matchedSubstrings(inString string: String, options: RegularExpression.MatchingOptions = [], range: StringRange? = nil) -> [String]? {
+    public func matchedSubstrings(inString string: String, options: NSRegularExpression.MatchingOptions = [], range: StringRange? = nil) -> [String]? {
         var result: [String]! = nil
         if let textCheckingResult = self.firstMatch(inString: string, options: options, range: range) {
             result = [String]()

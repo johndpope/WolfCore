@@ -10,7 +10,7 @@ import Foundation
 
 /// Utilities for encoding and decoding hexadecimal encoded strings.
 public struct Hex {
-    public enum Error: ErrorProtocol {
+    public enum Error: Swift.Error {
         /// Thrown if the String cannot be decoded to Data.
         case invalid
     }
@@ -30,7 +30,7 @@ public struct Hex {
         }
         let bytesCount = charactersCount / 2
 
-        var data = Data(count: bytesCount)!
+        var data = Data(count: bytesCount)
         for (index, s) in string.split(by: 2).enumerated() {
             guard let b = UInt8(s, radix: 16) else {
                 throw Error.invalid
@@ -75,7 +75,7 @@ extension String {
     ///
     /// May be used as a monad transformer.
     public init(hex: Hex) {
-        self.init(hex.string)
+        self.init(hex.string)!
     }
 }
 

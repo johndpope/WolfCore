@@ -8,9 +8,9 @@
 
 import UIKit
 
-public class Label: UILabel {
-    private var tagTapActions = [String: TagAction]()
-    private var tapAction: GestureRecognizerAction!
+open class Label: UILabel {
+    var tagTapActions = [String: TagAction]()
+    var tapAction: GestureRecognizerAction!
 
     /// Can be set in Interface Builder
     public var scalesFontSize: Bool = false
@@ -30,7 +30,7 @@ public class Label: UILabel {
     public func resetBaseFont() {
         guard scalesFontSize else { return }
 
-        baseFont = font.fontDescriptor()
+        baseFont = font.fontDescriptor
     }
 
     public func syncFontSize(toFactor factor: CGFloat) {
@@ -40,19 +40,19 @@ public class Label: UILabel {
         font = UIFont(descriptor: baseFont, size: pointSize)
     }
 
-    public override var text: String? {
+    open override var text: String? {
         didSet {
             syncToTintColor()
         }
     }
 
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
         syncToTintColor()
     }
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         text = text?.localized(onlyIfTagged: true)
     }
@@ -77,9 +77,9 @@ public class Label: UILabel {
     }
 
     // Override in subclasses
-    public func setup() { }
+    open func setup() { }
 
-    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {
@@ -107,14 +107,14 @@ extension Label {
         }
     }
 
-    public override func tintColorDidChange() {
+    open override func tintColorDidChange() {
         super.tintColorDidChange()
         syncToTintColor()
     }
 }
 
 extension Label {
-    public func setTapAction(forTag tag: String, action: TagAction) {
+    public func setTapAction(forTag tag: String, action: @escaping TagAction) {
         tagTapActions[tag] = action
         syncToTagTapActions()
     }

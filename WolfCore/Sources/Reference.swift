@@ -12,7 +12,7 @@ public protocol Reference {
     var referent: ReferentType { get }
 }
 
-postfix operator ® { }
+postfix operator ®
 
 public postfix func ® <T: Reference>(rhs: T) -> T.ReferentType {
     return rhs.referent

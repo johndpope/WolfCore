@@ -11,13 +11,13 @@ import Foundation
 extension Date {
     public func lastDayOfMonth() -> Date {
         let calendar = Calendar.current
-        let dayRange = calendar.range(of: .day, in: .month, for: self)
-        let dayCount = dayRange.length
+        let dayRange = calendar.range(of: .day, in: .month, for: self)!
+        let dayCount = dayRange.count
         #if os(Linux)
-            let comp = calendar.components([.year, .month, .day], from: self)!
+            let comp = calendar.dateComponents([.year, .month, .day], from: self)!
             comp.day = dayCount
         #else
-            var comp = calendar.components([.year, .month, .day], from: self)
+            var comp = calendar.dateComponents([.year, .month, .day], from: self)
             comp.day = dayCount
         #endif
         return calendar.date(from: comp)!
@@ -40,14 +40,14 @@ extension Date {
     }
 
     public var iso8601: String {
-        return self.dynamicType.iso8601Formatter.string(from: self)
+        return type(of: self).iso8601Formatter.string(from: self)
     }
 }
 
 #if os(Linux)
     extension Date {
         public convenience init(iso8601: String) throws {
-            if let date = self.dynamicType.iso8601Formatter.date(from: iso8601) {
+            if let date = type(of: self).iso8601Formatter.date(from: iso8601) {
                 let timeInterval = date.timeIntervalSinceReferenceDate
                 self.init(timeIntervalSinceReferenceDate: timeInterval)
             } else {
@@ -86,7 +86,7 @@ extension Date {
 #if !os(Linux)
     extension Date {
         public init(iso8601: String) throws {
-            if let date = self.dynamicType.iso8601Formatter.date(from: iso8601) {
+            if let date = type(of: self).iso8601Formatter.date(from: iso8601) {
                 let timeInterval = date.timeIntervalSinceReferenceDate
                 self.init(timeIntervalSinceReferenceDate: timeInterval)
             } else {

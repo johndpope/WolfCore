@@ -16,10 +16,10 @@ public class NetworkActivity {
     init() {
         hysteresis = Hysteresis(
             onEffectStart: {
-                UIApplication.shared().isNetworkActivityIndicatorVisible = true
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
             },
             onEffectEnd: {
-                UIApplication.shared().isNetworkActivityIndicatorVisible = false
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             },
             effectStartLag: 0.2,
             effectEndLag: 0.2

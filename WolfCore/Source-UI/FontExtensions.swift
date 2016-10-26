@@ -19,11 +19,11 @@
 #if os(iOS) || os(tvOS)
     extension UIFont {
         public var isBold: Bool {
-            return fontDescriptor().symbolicTraits.contains(.traitBold)
+            return fontDescriptor.symbolicTraits.contains(.traitBold)
         }
 
         public var isItalic: Bool {
-            return fontDescriptor().symbolicTraits.contains(.traitItalic)
+            return fontDescriptor.symbolicTraits.contains(.traitItalic)
         }
     }
 #elseif os(OSX)
@@ -41,15 +41,15 @@
 #if os(iOS) || os(tvOS)
     extension UIFont {
         public var plainVariant: UIFont {
-            return UIFont(descriptor: fontDescriptor().withSymbolicTraits([])!, size: 0)
+            return UIFont(descriptor: fontDescriptor.withSymbolicTraits([])!, size: 0)
         }
 
         public var boldVariant: UIFont {
-            return UIFont(descriptor: fontDescriptor().withSymbolicTraits([.traitBold])!, size: 0)
+            return UIFont(descriptor: fontDescriptor.withSymbolicTraits([.traitBold])!, size: 0)
         }
 
         public var italicVariant: UIFont {
-            return UIFont(descriptor: fontDescriptor().withSymbolicTraits([.traitItalic])!, size: 0)
+            return UIFont(descriptor: fontDescriptor.withSymbolicTraits([.traitItalic])!, size: 0)
         }
     }
 #elseif os(OSX)

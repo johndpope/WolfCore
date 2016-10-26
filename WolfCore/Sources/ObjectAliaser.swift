@@ -37,7 +37,7 @@ public class ObjectAliaser {
         joiner.append("0x\(String(alias(forObject: object), radix: 16).padded(toCount: 2, withCharacter: "0"))")
 
         var id: String?
-        var className: String? = NSStringFromClass(object.dynamicType)
+        var className: String? = NSStringFromClass(type(of: object))
         #if os(iOS) || os(tvOS)
             switch object {
             case let view as UIView:
@@ -74,7 +74,7 @@ public class ObjectAliaser {
             if let identifier = layoutConstraint.identifier {
                 id = "\"\(identifier)\""
             }
-            if layoutConstraint.dynamicType == NSLayoutConstraint.self {
+            if type(of: layoutConstraint) == NSLayoutConstraint.self {
                 className = nil
             }
 
@@ -99,7 +99,7 @@ public class ObjectAliaser {
         if CFGetTypeID(number) == CFBooleanGetTypeID() {
             return number as Bool ? "true" : "false"
         } else {
-            return String(number)
+            return String(describing: number)
         }
     }
 

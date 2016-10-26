@@ -43,7 +43,7 @@ class InFlightTokenView: View {
         makeTransparent(debugColor: .yellow, debug: false)
         transparentToTouches = true
 
-        layer.cornerRadius = self.dynamicType.viewHeight / 2
+        layer.cornerRadius = type(of: self).viewHeight / 2
         layer.borderWidth = 1.0
 
         idLabel = createLabel()
@@ -89,8 +89,8 @@ class InFlightTokenView: View {
         )
     }
 
-    override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: self.dynamicType.viewHeight)
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIViewNoIntrinsicMetric, height: type(of: self).viewHeight)
     }
 
     private static let runningColor = UIColor.yellow
@@ -105,12 +105,12 @@ class InFlightTokenView: View {
         var resultText: String?
         let color: UIColor
         if let result = token.result {
-            color = result.isSuccess ? self.dynamicType.successColor : self.dynamicType.failureColor
+            color = result.isSuccess ? type(of: self).successColor : type(of: self).failureColor
             if let code = result.code {
                 resultText = "=\(code)"
             }
         } else {
-            color = self.dynamicType.runningColor
+            color = type(of: self).runningColor
         }
 
         backgroundColor = color.withAlphaComponent(0.4)

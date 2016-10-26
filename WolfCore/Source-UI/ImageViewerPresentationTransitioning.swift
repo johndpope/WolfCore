@@ -15,10 +15,10 @@ class ImageViewerPresentationTransitioning: NSObject, UIViewControllerAnimatedTr
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        let containerView = transitionContext.containerView()
-        let toViewController = transitionContext.viewController(forKey: UITransitionContextToViewControllerKey) as! UINavigationController
+        let containerView = transitionContext.containerView
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as! UINavigationController
         let viewerViewController = toViewController.viewControllers[0] as! ImageViewerViewController
-        let toView = transitionContext.view(forKey: UITransitionContextToViewKey)!
+        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
 
         let sourcePriorAlpha = viewerViewController.sourceImageView.alpha
         viewerViewController.sourceImageView.alpha = 0.0
@@ -49,7 +49,7 @@ class ImageViewerPresentationTransitioning: NSObject, UIViewControllerAnimatedTr
                 movingImageView.removeFromSuperview()
                 viewerViewController.imageViewHidden = false
                 viewerViewController.sourceImageView.alpha = sourcePriorAlpha
-                let cancelled = transitionContext.transitionWasCancelled()
+                let cancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!cancelled)
             }
         )

@@ -165,9 +165,15 @@ public func <= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, mult
     return left.constraint(lessThanOrEqualTo: right.anchor, multiplier: right.multiplier, constant: right.constant)
 }
 
+precedencegroup AttributeAssignmentPrecedence {
+    associativity: left
+    higherThan: AssignmentPrecedence
+    lowerThan: ComparisonPrecedence
+}
 
 // "priority assign"
-infix operator =&= { associativity left precedence 95 }
+infix operator =&= : AttributeAssignmentPrecedence
+//{ associativity left precedence 95 }
 
 public func =&= (left: NSLayoutConstraint, right: OSLayoutPriority) -> NSLayoutConstraint {
     left.priority = right
@@ -176,7 +182,8 @@ public func =&= (left: NSLayoutConstraint, right: OSLayoutPriority) -> NSLayoutC
 
 
 // "identifier assign"
-infix operator =%= { associativity left precedence 95 }
+infix operator =%=  : AttributeAssignmentPrecedence
+//{ associativity left precedence 95 }
 
 public func =%= (left: NSLayoutConstraint, right: String) -> NSLayoutConstraint {
     left.identifier = right
@@ -239,7 +246,7 @@ public func deactivateConstraint(_ constraint: NSLayoutConstraint) {
         return right
     }
 
-    prefix operator ~~ { }
+    prefix operator ~~
 
     @discardableResult public prefix func ~~<T: UIView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false

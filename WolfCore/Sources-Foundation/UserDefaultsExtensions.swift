@@ -19,7 +19,7 @@ extension UserDefaults {
         get {
             let value = userDefaults.object(forKey: key)
             logTrace("get key: \(key), value: \(value)", group: .userDefaults)
-            return value
+            return value as AnyObject?
         }
         set {
             logTrace("set key: \(key), newValue: \(newValue)", group: .userDefaults)

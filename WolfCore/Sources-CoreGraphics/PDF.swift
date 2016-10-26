@@ -47,13 +47,13 @@ public class PDF {
     public let pageCount: Int
 
     public init(url: URL) {
-        pdf = CGPDFDocument(url)!
+        pdf = CGPDFDocument(url as NSURL)!
         pageCount = pdf.numberOfPages
     }
 
     public convenience init?(named name: String, inSubdirectory subdirectory: String? = nil, in bundle: Bundle? = nil) {
         let bundle = bundle ?? Bundle.main
-        if let url = bundle.urlForResource(name, withExtension: "pdf", subdirectory: subdirectory) {
+        if let url = bundle.url(forResource: name, withExtension: "pdf", subdirectory: subdirectory) {
             self.init(url: url)
         } else {
             return nil
@@ -73,7 +73,7 @@ public class PDF {
         let scaling = CGVector(size: bounds.size) / CGVector(size: cropBox.size)
         let transform = CGAffineTransform(scaling: scaling)
         return newImage(withSize: size, opaque: false, scale: scale, flipped: true, renderingMode: renderingMode) { context in
-            context.concatCTM(transform)
+            context.concatenate(transform)
             context.drawPDFPage(page)
         }
     }

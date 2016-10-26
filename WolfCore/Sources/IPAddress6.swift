@@ -88,22 +88,24 @@ public class IPAddress6 {
         return data.withUnsafeBytes { (p: UnsafePointer<Byte>) -> [UInt16] in
             var words = [UInt16]()
             words.reserveCapacity(8)
-            let p16 = UnsafePointer<UInt16>(p)
-            for index in 0..<8 {
-                words.append(UInt16(bigEndian: p16[index]))
+            return p.withMemoryRebound(to: UInt16.self, capacity: 8) {
+                for index in 0..<8 {
+                    words.append(UInt16(bigEndian: $0[index]))
+                }
+                return words
             }
-            return words
         }
     }
 
     private static func toData(_ words: [UInt16]) -> Data {
         assert(words.count == 8)
-        var data = Data(capacity: 16)!
+        var data = Data(capacity: 16)
         for word in words {
             var bigWord = word.bigEndian
-            withUnsafePointer(&bigWord) { p in
-                let p8 = UnsafePointer<Byte>(p)
-                data.append(p8, count: 2)
+            withUnsafePointer(to: &bigWord) { p in
+                p.withMemoryRebound(to: Byte.self, capacity: 2) { p8 in
+                    data.append(p8, count: 2)
+                }
             }
         }
         return data

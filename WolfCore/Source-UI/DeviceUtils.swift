@@ -9,19 +9,19 @@
 import UIKit
 
 public let isPad: Bool = {
-    return UIDevice.current().userInterfaceIdiom == .pad
+    return UIDevice.current.userInterfaceIdiom == .pad
 }()
 
 public let isPhone: Bool = {
-    return UIDevice.current().userInterfaceIdiom == .phone
+    return UIDevice.current.userInterfaceIdiom == .phone
 }()
 
 public let isTV: Bool = {
-    return UIDevice.current().userInterfaceIdiom == .tv
+    return UIDevice.current.userInterfaceIdiom == .tv
 }()
 
 public let isCarPlay: Bool = {
-    return UIDevice.current().userInterfaceIdiom == .carPlay
+    return UIDevice.current.userInterfaceIdiom == .carPlay
 }()
 
 #if arch(i386) || arch(x86_64)
@@ -36,11 +36,12 @@ public var osVersion: String {
 }
 
 public var deviceModel: String? {
-    var systemInfo = Data(capacity: sizeof(utsname.self))!
+    let utsSize = MemoryLayout<utsname>.size
+    var systemInfo = Data(capacity: utsSize)
 
-    let model: String? = systemInfo.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<Byte>) in
-        guard uname(UnsafeMutablePointer(bytes)) == 0 else { return nil }
-        return String(cString: UnsafePointer(bytes + Int(_SYS_NAMELEN * 4)))
+    let model: String? = systemInfo.withUnsafeMutableBytes { (uts: UnsafeMutablePointer<utsname>) in
+        guard uname(uts) == 0 else { return nil }
+        return uts.withMemoryRebound(to: CChar.self, capacity: utsSize) { String(cString: $0) }
     }
 
     return model

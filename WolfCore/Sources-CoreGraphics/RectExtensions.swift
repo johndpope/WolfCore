@@ -121,11 +121,11 @@ extension CGRect {
     public mutating func setMinXmaxYIndependent(_ p: CGPoint) { setMinXIndependent(p.x); setMaxYIndependent(p.y) }
 
     // Sides
-    public mutating func setMinXIndependent(_ x: CGFloat) { let dx = minX - x; setMinX(x); size.width += dx; standardizeInPlace() }
-    public mutating func setMaxXIndependent(_ x: CGFloat) { let dx = maxX - x; setMaxX(x); size.width += dx; standardizeInPlace() }
+    public mutating func setMinXIndependent(_ x: CGFloat) { let dx = minX - x; setMinX(x); size.width += dx; self = standardized }
+    public mutating func setMaxXIndependent(_ x: CGFloat) { let dx = maxX - x; setMaxX(x); size.width += dx; self = standardized }
 
-    public mutating func setMinYIndependent(_ y: CGFloat) { let dy = minY - y; setMinY(y); size.height += dy; standardizeInPlace() }
-    public mutating func setMaxYIndependent(_ y: CGFloat) { let dy = maxY - y; setMaxY(y); size.height += dy; standardizeInPlace() }
+    public mutating func setMinYIndependent(_ y: CGFloat) { let dy = minY - y; setMinY(y); size.height += dy; self = standardized }
+    public mutating func setMaxYIndependent(_ y: CGFloat) { let dy = maxY - y; setMaxY(y); size.height += dy; self = standardized }
 }
 
 extension CGRect {

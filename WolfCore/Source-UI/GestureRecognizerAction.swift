@@ -49,7 +49,7 @@ public class GestureRecognizerAction: NSObject {
 }
 
 extension OSView {
-    public func addAction<G: UIGestureRecognizer>(forGestureRecognizer gestureRecognizer: G, action: (G) -> Void) -> GestureRecognizerAction {
+    public func addAction<G: UIGestureRecognizer>(forGestureRecognizer gestureRecognizer: G, action: @escaping (G) -> Void) -> GestureRecognizerAction {
         self.addGestureRecognizer(gestureRecognizer)
         return GestureRecognizerAction(gestureRecognizer: gestureRecognizer, action: { recognizer in
             action(recognizer as! G)

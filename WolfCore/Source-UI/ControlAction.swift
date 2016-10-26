@@ -35,15 +35,15 @@ public class ControlAction: NSObject {
 }
 
 extension UIControl {
-    public func addControlAction(for controlEvents: UIControlEvents, action: ControlBlock) -> ControlAction {
+    public func addControlAction(for controlEvents: UIControlEvents, action: @escaping ControlBlock) -> ControlAction {
         return ControlAction(control: self, for: controlEvents, action: action)
     }
 
-    public func addTouchUpInsideAction(action: ControlBlock) -> ControlAction {
+    public func addTouchUpInsideAction(action: @escaping ControlBlock) -> ControlAction {
         return addControlAction(for: .touchUpInside, action: action)
     }
 
-    public func addValueChangedAction(action: ControlBlock) -> ControlAction {
+    public func addValueChangedAction(action: @escaping ControlBlock) -> ControlAction {
         return addControlAction(for: .valueChanged, action: action)
     }
 }

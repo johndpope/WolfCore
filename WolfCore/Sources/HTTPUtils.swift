@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct UnknownJSONError: ErrorProtocol {
+public struct UnknownJSONError: Error {
     public init() { }
 }
 
@@ -64,8 +64,8 @@ public class HTTP {
     public static func retrieveData(
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode], name: String,
-        success: (HTTPURLResponse, Data) -> Void,
-        failure: ErrorBlock,
+        success: @escaping (HTTPURLResponse, Data) -> Void,
+        failure: @escaping ErrorBlock,
         finally: Block?) {
 
         let session = URLSession.shared
@@ -78,7 +78,7 @@ public class HTTP {
             guard error == nil else {
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<NSError>.failure(error!))
+                    inFlightTracker.end(withToken: token, result: Result<NSError>.failure(error! as! ErrorProto))
                     logError("\(token) dataTaskWithRequest returned error")
                 #endif
 
@@ -99,7 +99,7 @@ public class HTTP {
                 let error = HTTPError(response: httpResponse)
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error as! ErrorProto))
                     logError("\(token) No data returned")
                 #endif
 
@@ -112,7 +112,7 @@ public class HTTP {
                 let error = HTTPError(response: httpResponse, data: data)
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error as! ErrorProto))
                     logError("\(token) Unknown response code: \(httpResponse.statusCode)")
                 #endif
                 dispatchOnMain { failure(error) }
@@ -124,7 +124,7 @@ public class HTTP {
                 let error = HTTPError(response: httpResponse, data: data)
 
                 #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error as! ErrorProto))
                     logError("\(token) Failure response code: \(statusCode)")
                 #endif
 
@@ -148,8 +148,8 @@ public class HTTP {
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
-        success: (HTTPURLResponse) -> Void,
-        failure: ErrorBlock,
+        success: @escaping (HTTPURLResponse) -> Void,
+        failure: @escaping ErrorBlock,
         finally: Block?) {
 
         retrieveData(
@@ -168,8 +168,8 @@ public class HTTP {
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
-        success: Block,
-        failure: ErrorBlock,
+        success: @escaping Block,
+        failure: @escaping ErrorBlock,
         finally: Block?) {
         retrieveResponse(
             withRequest: request,
@@ -187,8 +187,8 @@ public class HTTP {
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
-        success: (HTTPURLResponse, JSON) -> Void,
-        failure: ErrorBlock,
+        success: @escaping (HTTPURLResponse, JSON) -> Void,
+        failure: @escaping ErrorBlock,
         finally: Block?) {
 
         var request = request
@@ -214,8 +214,8 @@ public class HTTP {
     public static func retrieveJSONDictionary(
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode], name: String,
-        success: (HTTPURLResponse, JSON.Dictionary) -> Void,
-        failure: ErrorBlock,
+        success: @escaping (HTTPURLResponse, JSON.Dictionary) -> Void,
+        failure: @escaping ErrorBlock,
         finally: Block?) {
         retrieveJSON(
             withRequest: request,
@@ -239,8 +239,8 @@ public class HTTP {
         withURL url: URL,
         successStatusCodes: [StatusCode],
         name: String,
-        success: (OSImage) -> Void,
-        failure: ErrorBlock,
+        success: @escaping (OSImage) -> Void,
+        failure: @escaping ErrorBlock,
         finally: Block?) {
 
         var request = URLRequest(url: url)

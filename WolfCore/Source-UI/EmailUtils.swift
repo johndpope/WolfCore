@@ -11,7 +11,7 @@ import MessageUI
 public let mailComposer = MailComposer()
 
 public class MailComposer: NSObject {
-    private var viewController: MFMailComposeViewController!
+    var viewController: MFMailComposeViewController!
 
     public func presentComposer(fromViewController presentingViewController: UIViewController, toRecipient recipient: String, subject: String, body: String? = nil) {
         guard !isSimulator else {
@@ -40,7 +40,7 @@ public class MailComposer: NSObject {
 }
 
 extension MailComposer : MFMailComposeViewControllerDelegate {
-    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: NSError?) {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         viewController.dismiss(animated: true) {
             self.viewController = nil
         }

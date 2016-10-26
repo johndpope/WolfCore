@@ -11,7 +11,7 @@ import Foundation
 public typealias JSON = FoundationJSON
 
 public struct FoundationJSON {
-    public typealias Value = AnyObject
+    public typealias Value = Any
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
     public typealias DictionaryOfStrings = [String: String]
@@ -25,12 +25,12 @@ public struct FoundationJSON {
     }
 
     public init(value: Value) throws {
-        data = try JSONSerialization.data(withJSONObject: value, options: [])
+        data = try JSONSerialization.data(withJSONObject: value)
         self.value = value
     }
 
     public init(data: Data) throws {
-        value = try JSONSerialization.jsonObject(with: data, options: [])
+        value = try JSONSerialization.jsonObject(with: data)
         self.data = data
     }
 

@@ -28,7 +28,7 @@ public class Heartbeat {
     public var expired: Block
     private var canceler: Canceler?
 
-    public init(interval: TimeInterval, expired: Block) {
+    public init(interval: TimeInterval, expired: @escaping Block) {
         self.interval = interval
         self.expired = expired
     }

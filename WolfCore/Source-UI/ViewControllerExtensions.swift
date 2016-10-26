@@ -90,18 +90,18 @@ extension UIViewController {
         presentAlert(withMessage: message, identifier: identifier, actions: [AlertAction.newOKAction()], didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: ErrorProtocol, withTitle title: String, message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentAlert(forError errorType: Error, withTitle title: String, message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
         logError(errorType)
         presentOKAlert(withTitle: title, message: message, identifier: identifier, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: ErrorProtocol, withMessage message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentAlert(forError errorType: Error, withMessage message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
         logError(errorType)
         presentOKAlert(withMessage: message, identifier: identifier, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: ErrorProtocol, didAppear: Block? = nil, didDisappear: Block? = nil) {
-        if let error = errorType as? Error {
+    public func presentAlert(forError errorType: Error, didAppear: Block? = nil, didDisappear: Block? = nil) {
+        if let error = errorType as? ErrorProto {
             presentAlert(forError: error, withMessage: error.message, identifier: error.identifier, didAppear: didAppear)
         } else {
             presentAlert(forError: errorType, withTitle: "Something Went Wrong"¶, message: "Please try again later."¶, identifier: "error", didAppear: didAppear, didDisappear: didDisappear)

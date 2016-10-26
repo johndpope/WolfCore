@@ -18,7 +18,7 @@ public class InfoDict {
     }
 
     public func object<T: AnyObject>(forKey key: String) -> T? {
-        return bundle.objectForInfoDictionaryKey(key) as? T
+        return bundle.object(forInfoDictionaryKey: key) as? T
     }
 
     public subscript(key: String) -> AnyObject? {

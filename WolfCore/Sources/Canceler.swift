@@ -14,4 +14,4 @@ public class Canceler {
 }
 
 // A block that takes a Canceler. The block will not be called again if it sets the <isCanceled> variable of the Canceler to true.
-public typealias CancelableBlock = (canceler: Canceler) -> Void
+public typealias CancelableBlock = (_ canceler: Canceler) -> Void

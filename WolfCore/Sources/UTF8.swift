@@ -10,7 +10,7 @@ import Foundation
 
 /// Utilities for encoding and decoding data base hexadecimal encoded string.
 public struct UTF8 {
-    public enum Error: ErrorProtocol {
+    public enum Error: Swift.Error {
         /// Thrown if the Data cannot be decoded to String.
         case invalid
     }
@@ -51,7 +51,7 @@ extension String {
     ///
     /// May be used as a monad transformer.
     public init(utf8: UTF8) {
-        self.init(utf8.string)
+        self.init(utf8.string)!
     }
 }
 

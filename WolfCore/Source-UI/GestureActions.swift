@@ -24,7 +24,7 @@ public class GestureActions {
         return gestureRecognizerActions[name]?.action
     }
 
-    func set(action: GestureBlock, gestureRecognizer: OSGestureRecognizer, name: String) {
+    func set(action: @escaping GestureBlock, gestureRecognizer: OSGestureRecognizer, name: String) {
         gestureRecognizerActions[name] = view.addAction(forGestureRecognizer: gestureRecognizer) { recognizer in
             action(recognizer)
         }
@@ -43,7 +43,7 @@ public class GestureActions {
     func set(pressAction action: GestureBlock?, forPress press: UIPressType, name: String) {
         if let action = action {
             let recognizer = UITapGestureRecognizer()
-            recognizer.allowedPressTypes = [press.rawValue]
+            recognizer.allowedPressTypes = [NSNumber(value: press.rawValue)]
             set(action: action, gestureRecognizer: recognizer, name: name)
         } else {
             removeAction(forName: name)

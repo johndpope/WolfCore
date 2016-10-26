@@ -42,7 +42,7 @@ public struct Card<T: CardTrump, R: CardRank, S: CardSuit> : CardProtocol {
     public var facing: CardFacing
     public var isReversed: Bool
 
-    private init(trump: TrumpType?, rank: RankType?, suit: SuitType?, back: CardBack = .blue, facing: CardFacing = .faceUp, isReversed: Bool = false) {
+    init(trump: TrumpType?, rank: RankType?, suit: SuitType?, back: CardBack = .blue, facing: CardFacing = .faceUp, isReversed: Bool = false) {
         self.trump = trump
         self.rank = rank
         self.suit = suit

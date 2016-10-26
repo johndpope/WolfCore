@@ -13,7 +13,7 @@ public class ImageViewerViewController: ViewController {
     private var doneAction: BarButtonItemAction!
     private var tapAction: GestureRecognizerAction!
     private var doubleTapAction: GestureRecognizerAction!
-    private var dismissAction: GestureRecognizerAction!
+    var dismissAction: GestureRecognizerAction!
     private var chromeHidden = false
 
     public var image: UIImage {
@@ -49,13 +49,13 @@ public class ImageViewerViewController: ViewController {
         return view.convert(imageView.frame, from: imageView.superview!)
     }
 
-    private lazy var contentView: View = {
+    lazy var contentView: View = {
         let view = View()
         view.makeTransparent(debugColor: .red, debug: false)
         return view
     }()
 
-    private lazy var scrollView: ScrollView = {
+    lazy var scrollView: ScrollView = {
         let view = ScrollView()
         view.minimumZoomScale = 1.0
         view.maximumZoomScale = 4.0
@@ -173,8 +173,8 @@ public class ImageViewerViewController: ViewController {
 //        }
     }
 
-    public override func prefersStatusBarHidden() -> Bool {
-        return chromeHidden ? true : super.prefersStatusBarHidden()
+    public override var prefersStatusBarHidden: Bool {
+        return chromeHidden ? true : super.prefersStatusBarHidden
     }
 
     private func hideChrome(animated: Bool) {
