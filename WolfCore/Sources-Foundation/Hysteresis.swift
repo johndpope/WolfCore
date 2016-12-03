@@ -25,8 +25,8 @@ public class Hysteresis {
     private let effectEndLag: TimeInterval
     private let onEffectStart: Block
     private let onEffectEnd: Block
-    private var effectStartCanceler: Canceler?
-    private var effectEndCanceler: Canceler?
+    private var effectStartCanceler: Cancelable?
+    private var effectEndCanceler: Cancelable?
     private var isEffectStarted: Bool = false
 
     private lazy var locker: Locker = {

@@ -14,7 +14,7 @@ public class NotificationAction {
 
     public init(name: NSNotification.Name, using block: @escaping NotificationBlock) {
         self.block = block
-        observer = notificationCenter.addObserver(forName: name, using: block)
+        observer = notificationCenter.addObserver(for: name, using: block)
     }
 
     public init(name: NSNotification.Name, object: AnyObject?, using block: @escaping NotificationBlock) {

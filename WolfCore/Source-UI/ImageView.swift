@@ -32,7 +32,7 @@ public class ImageView: UIImageView {
         }
     }
 
-    var canceler: Canceler?
+    var canceler: Cancelable?
 
     public override func layoutSubviews() {
         canceler?.cancel()

@@ -24,10 +24,8 @@ public class Serializer {
     }
 
     var isExecutingOnMyQueue: Bool {
-        get {
-            guard let context = DispatchQueue.getSpecific(key: serializerKey) else { return false }
-            return context == queueContext
-        }
+        guard let context = DispatchQueue.getSpecific(key: serializerKey) else { return false }
+        return context == queueContext
     }
 
     public func dispatch(f: Block) {
@@ -47,20 +45,6 @@ public class Serializer {
             queue.sync {
                 result = f()
             }
-        }
-
-        return result!
-    }
-
-    public func dispatchOnMain(f: Block) {
-        mainQueue.sync(execute: f)
-    }
-
-    public func dispatchOnMainWithReturn<T>(f: () -> T) -> T {
-        var result: T!
-
-        mainQueue.sync {
-            result = f()
         }
 
         return result!

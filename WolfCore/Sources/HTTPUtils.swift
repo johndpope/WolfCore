@@ -8,38 +8,78 @@
 
 import Foundation
 
-public struct UnknownJSONError: Error {
-    public init() { }
+public enum HTTPUtilsError: Error {
+    case expectedJSONDict
 }
 
-public enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case head = "HEAD"
-    case options = "OPTIONS"
-    case put = "PUT"
-    case delete = "DELETE"
-    case trace = "TRACE"
-    case connect = "CONNECT"
+public struct HTTPMethod: ExtensibleEnumeratedName {
+    public let name: String
+
+    public init(_ name: String) { self.name = name}
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
 }
 
-public enum ContentType: String {
-    case json = "application/json"
-    case jpg = "image/jpeg"
-    case png = "image/png"
-    case html = "text/html"
-    case txt = "text/plain"
+extension HTTPMethod {
+    public static let get = HTTPMethod("GET")
+    public static let post = HTTPMethod("POST")
+    public static let head = HTTPMethod("HEAD")
+    public static let options = HTTPMethod("OPTIONS")
+    public static let put = HTTPMethod("PUT")
+    public static let delete = HTTPMethod("DELETE")
+    public static let trace = HTTPMethod("TRACE")
+    public static let connect = HTTPMethod("CONNECT")
 }
 
-public enum HeaderField: String {
-    case accept = "Accept"
-    case contentType = "Content-Type"
-    case encoding = "Encoding"
-    case authorization = "Authorization"
-    case contentRange = "Content-Range"
-    case connection = "connection"
-    case uploadToken = "upload-token"
-    case contentLength = "Content-Length"
+public struct ContentType: ExtensibleEnumeratedName {
+    public let name: String
+
+    public init(_ name: String) { self.name = name}
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
+}
+
+extension ContentType {
+    public static let json = ContentType("application/json")
+    public static let jpg = ContentType("image/jpeg")
+    public static let png = ContentType("image/png")
+    public static let html = ContentType("text/html")
+    public static let txt = ContentType("text/plain")
+    public static let pdf = ContentType("application/pdf")
+}
+
+public struct HeaderField: ExtensibleEnumeratedName {
+    public let name: String
+
+    public init(_ name: String) { self.name = name}
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
+}
+
+extension HeaderField {
+    public static let accept = HeaderField("Accept")
+    public static let contentType = HeaderField("Content-Type")
+    public static let encoding = HeaderField("Encoding")
+    public static let authorization = HeaderField("Authorization")
+    public static let contentRange = HeaderField("Content-Range")
+    public static let connection = HeaderField("connection")
+    public static let uploadToken = HeaderField("upload-token")
+    public static let contentLength = HeaderField("Content-Length")
 }
 
 public enum StatusCode: Int {
@@ -60,88 +100,122 @@ public enum StatusCode: Int {
     case gatewayTimeout = 504
 }
 
+public let baseProgressNotificationKey = NSNotification.Name("baseProgressNotificaitonKey")
+public let progressKey = NSNotification.Name("progressKey")
+public let unauthorizedNotificationKey = NSNotification.Name("unauthorizedNotificationKey")
+
 public class HTTP {
+    public static func send(
+        request: URLRequest,
+        actions: HTTPActions) -> Cancelable {
+        let sharedSession = URLSession.shared
+        let config = sharedSession.configuration.copy() as! URLSessionConfiguration
+        let session = URLSession(configuration: config, delegate: actions, delegateQueue: nil)
+        let task = session.dataTask(with: request)
+        task.resume()
+        return task as! Cancelable
+    }
+
     public static func retrieveData(
         withRequest request: URLRequest,
+        delegate: URLSessionDataDelegate? = nil,
+        hasFileToken: Bool? = false,
         successStatusCodes: [StatusCode], name: String,
         success: @escaping (HTTPURLResponse, Data) -> Void,
         failure: @escaping ErrorBlock,
-        finally: Block?) {
+        finally: Block?) -> Cancelable {
+        let token = inFlightTracker.start(withName: name)
 
-        let session = URLSession.shared
+        let _sessionActions = HTTPActions()
+        _sessionActions.didReceiveResponse = { (sessionActions, session, dataTask, response, completionHandler) in
+            completionHandler(.allow)
+        }
 
-        #if !os(tvOS)
-            let token = inFlightTracker.start(withName: name)
-        #endif
+        _sessionActions.didSendBodyData = { (sessionActions, session, task, bytesSent, totalBytesSent, totalBytesExpected) in
+            guard hasFileToken == false else { return }
+            guard totalBytesExpected > 0 else { return }
+            let percentComplete: Float = (Float(totalBytesSent) / Float(totalBytesExpected)) * 1.00
+            let userInfo = [progressKey : percentComplete]
+            notificationCenter.post(name: baseProgressNotificationKey, object: userInfo)
+        }
 
-        let task = session.dataTask(with: request) { (data, response, error) in
+        _sessionActions.didComplete = { (sessionActions, session, task, error) in
             guard error == nil else {
+                let error = error!
+                if let error = error as? ErrorProto {
+                    if error.isCancelled {
+                        inFlightTracker.end(withToken: token, result: Result<Void>.canceled)
+                        logTrace("\(token) retrieveData was cancelled")
+                    }
+                } else {
+                    inFlightTracker.end(withToken: token, result: Result<Error>.failure(error))
+                    logError("\(token) retrieveData returned error")
 
-                #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<NSError>.failure(error! as! ErrorProto))
-                    logError("\(token) dataTaskWithRequest returned error")
-                #endif
-
-                dispatchOnMain { failure(error!) }
-                dispatchOnMain { finally?() }
+                    dispatchOnMain {
+                        failure(error)
+                        finally?()
+                    }
+                }
                 return
             }
 
-            guard let httpResponse = response as? HTTPURLResponse else {
-                #if !os(tvOS)
-                    fatalError("\(token) improper response type: \(response)")
-                #else
-                    return
-                #endif
+            guard let httpResponse = sessionActions.response as? HTTPURLResponse else {
+                fatalError("\(token) improper response type: \(sessionActions.response)")
             }
 
-            guard data != nil else {
+            guard sessionActions.data != nil else {
                 let error = HTTPError(response: httpResponse)
 
-                #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error as! ErrorProto))
-                    logError("\(token) No data returned")
-                #endif
+                inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                logError("\(token) No data returned")
 
-                dispatchOnMain { failure(error) }
-                dispatchOnMain { finally?() }
+                dispatchOnMain {
+                    failure(error)
+                    finally?()
+                }
                 return
             }
 
             guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
-                let error = HTTPError(response: httpResponse, data: data)
+                let error = HTTPError(response: httpResponse, data: sessionActions.data)
 
-                #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error as! ErrorProto))
-                    logError("\(token) Unknown response code: \(httpResponse.statusCode)")
-                #endif
-                dispatchOnMain { failure(error) }
-                dispatchOnMain { finally?() }
+                inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                logError("\(token) Unknown response code: \(httpResponse.statusCode)")
+
+                dispatchOnMain {
+                    failure(error)
+                    finally?()
+                }
                 return
             }
 
             guard successStatusCodes.contains(statusCode) else {
-                let error = HTTPError(response: httpResponse, data: data)
+                let error = HTTPError(response: httpResponse, data: sessionActions.data)
 
-                #if !os(tvOS)
-                    inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error as! ErrorProto))
-                    logError("\(token) Failure response code: \(statusCode)")
-                #endif
+                inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                logError("\(token) Failure response code: \(statusCode)")
 
-                dispatchOnMain { failure(error) }
-                dispatchOnMain { finally?() }
+                if error.code == 401 {
+                    notificationCenter.post(name: unauthorizedNotificationKey)
+                }
+
+                dispatchOnMain {
+                    failure(error)
+                    finally?()
+                }
                 return
             }
 
-            #if !os(tvOS)
-                inFlightTracker.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
-            #endif
+            inFlightTracker.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
 
-            dispatchOnMain { success(httpResponse, data!) }
-            dispatchOnMain { finally?() }
+            let inFlightData = sessionActions.data!
+            dispatchOnMain {
+                success(httpResponse, inFlightData)
+                finally?()
+            }
         }
 
-        task.resume()
+        return send(request: request, actions: _sessionActions)
     }
 
     public static func retrieveResponse(
@@ -150,9 +224,9 @@ public class HTTP {
         name: String,
         success: @escaping (HTTPURLResponse) -> Void,
         failure: @escaping ErrorBlock,
-        finally: Block?) {
+        finally: Block?) -> Cancelable {
 
-        retrieveData(
+        return retrieveData(
             withRequest: request,
             successStatusCodes: successStatusCodes,
             name: name,
@@ -170,8 +244,8 @@ public class HTTP {
         name: String,
         success: @escaping Block,
         failure: @escaping ErrorBlock,
-        finally: Block?) {
-        retrieveResponse(
+        finally: Block?) -> Cancelable {
+        return retrieveResponse(
             withRequest: request,
             successStatusCodes: successStatusCodes,
             name: name,
@@ -189,12 +263,12 @@ public class HTTP {
         name: String,
         success: @escaping (HTTPURLResponse, JSON) -> Void,
         failure: @escaping ErrorBlock,
-        finally: Block?) {
+        finally: Block?) -> Cancelable {
 
         var request = request
         request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HeaderField.accept.rawValue)
 
-        retrieveData(
+        return retrieveData(
             withRequest: request,
             successStatusCodes: successStatusCodes,
             name: name,
@@ -216,14 +290,14 @@ public class HTTP {
         successStatusCodes: [StatusCode], name: String,
         success: @escaping (HTTPURLResponse, JSON.Dictionary) -> Void,
         failure: @escaping ErrorBlock,
-        finally: Block?) {
-        retrieveJSON(
+        finally: Block?) -> Cancelable {
+        return retrieveJSON(
             withRequest: request,
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, json) in
                 guard let jsonDict = json.value as? JSON.Dictionary else {
-                    failure(UnknownJSONError())
+                    failure(HTTPUtilsError.expectedJSONDict)
                     return
                 }
 
@@ -241,12 +315,12 @@ public class HTTP {
         name: String,
         success: @escaping (OSImage) -> Void,
         failure: @escaping ErrorBlock,
-        finally: Block?) {
+        finally: Block?) -> Cancelable {
 
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get.rawValue
 
-        retrieveData(
+        return retrieveData(
             withRequest: request,
             successStatusCodes: successStatusCodes,
             name: name,

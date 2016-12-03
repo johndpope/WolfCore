@@ -21,7 +21,7 @@ public func loadData(named name: String, withExtension anExtension: String? = ni
     return try bundle |> Bundle.urlForResource(name, withExtension: anExtension, subdirectory: subpath) |> URL.retrieveData
 }
 
-public func loadJSON(atURL url: URL) throws -> JSON {
+public func loadJSON(at url: URL) throws -> JSON {
     return try url |> URL.retrieveData |> JSON.init
 }
 
@@ -55,7 +55,7 @@ public func loadNib(named name: String, in bundle: Bundle? = nil) -> OSNib {
     #endif
 }
 
-public func loadViewFromNib<T: OSView>(named name: String, in bundle: Bundle? = nil, owner: AnyObject? = nil) -> T {
+public func loadView<T: OSView>(fromNibNamed name: String, in bundle: Bundle? = nil, owner: AnyObject? = nil) -> T {
     let nib = loadNib(named: name, in: bundle)
     #if os(iOS) || os(tvOS)
         return nib.instantiate(withOwner: owner, options: nil)[0] as! T
@@ -64,4 +64,37 @@ public func loadViewFromNib<T: OSView>(named name: String, in bundle: Bundle? = 
         nib.instantiateWithOwner(owner, topLevelObjects: &objs)
         return objs![0] as! T
     #endif
+}
+
+public struct ResourceReference: ExtensibleEnumeratedName, Reference {
+    public let name: String
+    public let type: String?
+    public let bundle: Bundle
+
+    public init(_ name: String, ofType type: String? = nil, in bundle: Bundle? = nil) {
+        self.name = name
+        self.type = type
+        self.bundle = bundle ?? Bundle.main
+    }
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
+
+    // Reference
+
+    public var hasReferent: Bool {
+        return bundle.path(forResource: name, ofType: type) != nil
+    }
+
+    public var referent: URL {
+        return URL(fileURLWithPath: bundle.path(forResource: name, ofType: type)!)
+    }
+}
+
+public postfix func ® (lhs: ResourceReference) -> URL {
+    return lhs.referent
 }

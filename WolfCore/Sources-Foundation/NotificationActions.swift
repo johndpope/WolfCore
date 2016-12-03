@@ -14,7 +14,7 @@ public class NotificationActions {
     public init() {
     }
 
-    func getAction(forName name: NSNotification.Name) -> NotificationBlock? {
+    func getAction(for name: NSNotification.Name) -> NotificationBlock? {
         return notificationActions[name]?.block
     }
 
@@ -23,11 +23,11 @@ public class NotificationActions {
             let notificationAction = NotificationAction(name: name, object: object, using: block)
             notificationActions[name] = notificationAction
         } else {
-            removeAction(forName: name)
+            removeAction(for: name)
         }
     }
 
-    func removeAction(forName name: NSNotification.Name) {
+    func removeAction(for name: NSNotification.Name) {
         notificationActions.removeValue(forKey: name)
     }
 }

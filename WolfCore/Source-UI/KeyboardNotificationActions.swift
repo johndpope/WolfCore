@@ -23,11 +23,11 @@ public class KeyboardNotificationActions {
             let action = KeyboardMovementAction(name: name, using: block)
             actions[name] = action
         } else {
-            removeAction(forName: name)
+            removeAction(for: name)
         }
     }
 
-    func removeAction(forName name: NSNotification.Name) {
+    func removeAction(for name: NSNotification.Name) {
         actions.removeValue(forKey: name)
     }
 

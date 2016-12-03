@@ -20,6 +20,8 @@ public protocol ErrorProto: Error, CustomStringConvertible {
 
     /// A non-user-facing identifier used for automated UI testing
     var identifier: String { get }
+
+    var isCancelled: Bool { get }
 }
 
 // Conforms NSError to the Error protocol.
@@ -30,5 +32,15 @@ extension NSError: ErrorProto {
 
     public var identifier: String {
         return "NSError(\(code))"
+    }
+}
+
+extension NSError {
+    public var isNotConnectedToInternet: Bool {
+        return domain == NSURLErrorDomain && code == NSURLErrorNotConnectedToInternet
+    }
+
+    public var isCancelled: Bool {
+        return domain == NSURLErrorDomain && code == NSURLErrorCancelled
     }
 }

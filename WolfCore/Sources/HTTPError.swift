@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct HTTPError: Error {
+public struct HTTPError: ErrorProto {
     public let response: HTTPURLResponse
     public let data: Data?
 
@@ -41,6 +41,8 @@ public struct HTTPError: Error {
             return nil
         }
     }
+
+    public var isCancelled: Bool { return false }
 }
 
 extension HTTPError: CustomStringConvertible {

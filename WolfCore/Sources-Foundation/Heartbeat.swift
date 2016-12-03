@@ -26,7 +26,7 @@ import Foundation
 public class Heartbeat {
     public var interval: TimeInterval
     public var expired: Block
-    private var canceler: Canceler?
+    private var canceler: Cancelable?
 
     public init(interval: TimeInterval, expired: @escaping Block) {
         self.interval = interval

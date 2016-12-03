@@ -108,3 +108,36 @@ extension UIViewController {
         }
     }
 }
+
+public protocol HasFrontViewController {
+    var frontViewController: UIViewController { get }
+}
+
+extension UINavigationController: HasFrontViewController {
+    public var frontViewController: UIViewController {
+        return topViewController!
+    }
+}
+
+extension UITabBarController: HasFrontViewController {
+    public var frontViewController: UIViewController {
+        return selectedViewController!
+    }
+}
+
+extension UIViewController {
+    public static var frontViewController: UIViewController {
+        let windowRootController = UIApplication.shared.windows[0].rootViewController!
+        var front = windowRootController.presentedViewController ?? windowRootController
+        var lastFront: UIViewController? = nil
+
+        while front != lastFront {
+            guard let front2 = front as? HasFrontViewController else { break }
+            lastFront = front
+            front = front2.frontViewController
+            front = front.presentedViewController ?? front
+        }
+
+        return front
+    }
+}

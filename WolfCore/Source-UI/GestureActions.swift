@@ -20,7 +20,7 @@ public class GestureActions {
         self.view = view
     }
 
-    func getAction(forName name: String) -> GestureBlock? {
+    func getAction(for name: String) -> GestureBlock? {
         return gestureRecognizerActions[name]?.action
     }
 
@@ -36,7 +36,7 @@ public class GestureActions {
             recognizer.direction = direction
             set(action: action, gestureRecognizer: recognizer, name: name)
         } else {
-            removeAction(forName: name)
+            removeAction(for: name)
         }
     }
 
@@ -46,7 +46,7 @@ public class GestureActions {
             recognizer.allowedPressTypes = [NSNumber(value: press.rawValue)]
             set(action: action, gestureRecognizer: recognizer, name: name)
         } else {
-            removeAction(forName: name)
+            removeAction(for: name)
         }
     }
 
@@ -55,11 +55,11 @@ public class GestureActions {
             let recognizer = UITapGestureRecognizer()
             set(action: action, gestureRecognizer: recognizer, name: name)
         } else {
-            removeAction(forName: name)
+            removeAction(for: name)
         }
     }
 
-    func removeAction(forName name: String) {
+    func removeAction(for name: String) {
         gestureRecognizerActions.removeValue(forKey: name)
     }
 }

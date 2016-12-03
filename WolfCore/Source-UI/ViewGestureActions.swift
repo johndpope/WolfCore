@@ -12,7 +12,7 @@ public class ViewGestureActions: GestureActions {
     private let tapName = "tap"
 
     public var tap: GestureBlock? {
-        get { return getAction(forName: tapName) }
+        get { return getAction(for: tapName) }
         set { set(tapAction: newValue, name: tapName) }
     }
 }

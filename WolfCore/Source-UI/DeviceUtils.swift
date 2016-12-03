@@ -50,3 +50,38 @@ public var deviceModel: String? {
 public var defaultTintColor: UIColor = {
     return UIView().tintColor!
 }()
+
+extension UIInterfaceOrientationMask: CustomStringConvertible {
+    public var description: String {
+        let joiner = Joiner(left: "[", separator: ",", right: "]")
+        if self.contains(.portrait) {
+            joiner.append("portrait")
+        }
+        if self.contains(.landscapeLeft) {
+            joiner.append("landscapeLeft")
+        }
+        if self.contains(.landscapeRight) {
+            joiner.append("landscapeRight")
+        }
+        if self.contains(.portraitUpsideDown) {
+            joiner.append("portraitUpsideDown")
+        }
+        return joiner.description
+    }
+}
+
+extension UIDevice {
+    public func force(toOrientation orientation: UIInterfaceOrientation) {
+        setValue(orientation.rawValue, forKey: "orientation")
+    }
+}
+
+public func forcePhoneToPortraitOrientation() {
+    if isPhone {
+        UIDevice.current.force(toOrientation: UIInterfaceOrientation.portrait)
+    }
+}
+
+public func forceToPortraitOrientation() {
+    UIDevice.current.force(toOrientation: UIInterfaceOrientation.portrait)
+}

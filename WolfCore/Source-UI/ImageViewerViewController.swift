@@ -15,13 +15,20 @@ public class ImageViewerViewController: ViewController {
     private var doubleTapAction: GestureRecognizerAction!
     var dismissAction: GestureRecognizerAction!
     private var chromeHidden = false
+    private var willDismissAction: Block?
+    private var navBarTitle: String!
 
     public var image: UIImage {
+        guard sourceImageView.image != nil else {
+            return UIImage()
+        }
         return sourceImageView.image!
     }
 
-    public static func present(with sourceImageView: UIImageView, from presentingViewController: UIViewController) {
+    public static func present(with sourceImageView: UIImageView, from presentingViewController: UIViewController, navBarTitle: String = "Photo"¶, willDismissAction: Block? = nil) {
         let viewController = ImageViewerViewController(with: sourceImageView)
+        viewController.navBarTitle = navBarTitle
+        viewController.willDismissAction = willDismissAction
         viewController.present(from: presentingViewController, animated: true, completion: nil)
     }
 
@@ -95,7 +102,7 @@ public class ImageViewerViewController: ViewController {
             self.dismiss()
         }
         navigationItem.leftBarButtonItem = doneItem
-        navigationItem.title = "Photo"¶
+        navigationItem.title = navBarTitle
     }
 
     private func setupSubviews() {
@@ -162,15 +169,9 @@ public class ImageViewerViewController: ViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        UIViewController.attemptRotationToDeviceOrientation()
+
         hideChrome(animated: animated)
-    }
-
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-//        dispatchOnMain(afterDelay: 1.0) {
-//            self.view.printViewHierarchy(includingConstraints: true)
-//        }
     }
 
     public override var prefersStatusBarHidden: Bool {
@@ -191,7 +192,7 @@ public class ImageViewerViewController: ViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         dispatchAnimated(animated) {
             self.setNeedsStatusBarAppearanceUpdate()
-            self.view.backgroundColor = .white
+//            self.view.backgroundColor = .white
         }
     }
 
@@ -212,11 +213,8 @@ public class ImageViewerViewController: ViewController {
         scrollView.zoom(to: rect, animated: animated)
     }
 
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-
     private func dismiss() {
+        willDismissAction?()
         dismiss(animated: true, completion: nil)
     }
 }

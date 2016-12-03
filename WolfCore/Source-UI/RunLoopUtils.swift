@@ -10,6 +10,6 @@ import Foundation
 
 extension RunLoop {
     public func runOnce() {
-        run(until: NSDate.distantPast)
+        run(until: Date.distantPast)
     }
 }

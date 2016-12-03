@@ -128,7 +128,7 @@ extension View {
 
     func loadContentFromNib() {
         if let contentNibName = contentNibName {
-            let view = ~loadViewFromNib(named: contentNibName, owner: self)
+            let view = ~loadView(fromNibNamed: contentNibName, owner: self)
             transferContent(from: view)
         }
     }

@@ -20,7 +20,7 @@ public class InFlightView: View {
     private var tokenViewConstraintsByID = [Int: LayoutConstraintsGroup]()
     private var enteringTokenViews = [InFlightTokenView]()
     private var leavingTokenViews = [InFlightTokenView]()
-    private var layoutCanceler: Canceler?
+    private var layoutCanceler: Cancelable?
     private let serializer = Serializer(name: "\(self)")
     private let spacing: CGFloat = 2
 
