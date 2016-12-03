@@ -63,7 +63,7 @@ public struct Color {
         self.alpha = alpha
     }
 
-    public init(redByte: Byte, greenByte: Byte, blueByte: Byte, alphaByte: Byte = 255) {
+    public init(redByte: UInt8, greenByte: UInt8, blueByte: UInt8, alphaByte: UInt8 = 255) {
         self.init(red: Double(redByte) / 255.0,
             green: Double(greenByte) / 255.0,
             blue: Double(blueByte) / 255.0,
@@ -125,14 +125,14 @@ public struct Color {
 
     private static func components(forSingleHexStrings strings: [String], components: inout [Double]) throws {
         for (index, string) in strings.enumerated() {
-            let i = try string |> Hex.init |> Byte.init
+            let i = try string |> Hex.init |> UInt8.init
             components[index] = Double(i) / 15.0
         }
     }
 
     private static func components(forDoubleHexStrings strings: [String], components: inout [Double]) throws {
         for (index, string) in strings.enumerated() {
-            let i = try string |> Hex.init |> Byte.init
+            let i = try string |> Hex.init |> UInt8.init
             components[index] = Double(i) / 255.0
         }
     }

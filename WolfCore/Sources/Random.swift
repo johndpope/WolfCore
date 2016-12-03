@@ -34,7 +34,7 @@ public class Random {
         defer {
             a.deallocate(capacity: 1)
         }
-        a.withMemoryRebound(to: Byte.self, capacity: 4) { p in
+        a.withMemoryRebound(to: UInt8.self, capacity: 4) { p in
             _ = SecRandomCopyBytes(kSecRandomDefault, 4, p)
         }
         let n = a.pointee

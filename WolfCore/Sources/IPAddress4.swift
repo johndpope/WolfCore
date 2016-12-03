@@ -33,7 +33,7 @@ public class IPAddress4 {
             guard i >= 0 && i <= 255 else {
                 throw ValidationError(message: "Invalid IP address.", violation: "ipv4Format")
             }
-            data.append([Byte(i)], count: 1)
+            data.append([UInt8(i)], count: 1)
         }
         return data
     }

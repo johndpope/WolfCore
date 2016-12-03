@@ -61,12 +61,12 @@ class ASN1BitString: CustomStringConvertible {
 
         let byteIndex = index / 8
         let bitIndexInByte = 7 - index % 8
-        let bit = data[byteIndex] & Byte(1 << bitIndexInByte)
+        let bit = data[byteIndex] & UInt8(1 << bitIndexInByte)
         return bit != 0
     }
 }
 
-enum ASN1Type: Byte, CustomStringConvertible {
+enum ASN1Type: UInt8, CustomStringConvertible {
     case eoc = 0x00
     case boolean = 0x01
     case integer = 0x02

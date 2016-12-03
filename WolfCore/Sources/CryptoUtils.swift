@@ -328,7 +328,7 @@ public class Crypto {
 #if os(Linux)
         RAND_bytes(&bytes, Int32(count))
 #else
-        data.withUnsafeMutableBytes { (p: UnsafeMutablePointer<Byte>) -> Void in
+        data.withUnsafeMutableBytes { (p: UnsafeMutablePointer<UInt8>) -> Void in
             let _ = SecRandomCopyBytes(kSecRandomDefault, count, p)
         }
 #endif

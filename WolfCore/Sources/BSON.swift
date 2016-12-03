@@ -112,7 +112,7 @@ private func testBSON(_ encodeDict: BSON.Dictionary) {
 }
 
 
-enum BSONBinarySubtype: Byte {
+enum BSONBinarySubtype: UInt8 {
     case generic = 0x00
     case function = 0x01
     case uuid = 0x04
@@ -120,7 +120,7 @@ enum BSONBinarySubtype: Byte {
     case userDefined = 0x80
 }
 
-enum BSONElementType: Byte {
+enum BSONElementType: UInt8 {
     case endOfObject = 0x00
     case double = 0x01
     case string = 0x02
@@ -156,7 +156,7 @@ public class BSONBuffer {
 }
 
 extension BSONBuffer {
-    func append(byte: Byte) {
+    func append(byte: UInt8) {
         data.append([byte], count: 1)
     }
 
@@ -164,11 +164,11 @@ extension BSONBuffer {
         data.append(inData)
     }
 
-    func append(bytes p: UnsafePointer<Byte>, count: Int) {
+    func append(bytes p: UnsafePointer<UInt8>, count: Int) {
         data.append(p, count: count)
     }
 
-    func append(bytes: ContiguousArray<Byte>) {
+    func append(bytes: ContiguousArray<UInt8>) {
         bytes.withUnsafeBufferPointer { ptr in
             data.append(ptr.baseAddress!, count: bytes.count)
         }
@@ -176,7 +176,7 @@ extension BSONBuffer {
 
     func append(bytes: ContiguousArray<CChar>) {
         bytes.withUnsafeBufferPointer {
-            $0.baseAddress!.withMemoryRebound(to: Byte.self, capacity: bytes.count) {
+            $0.baseAddress!.withMemoryRebound(to: UInt8.self, capacity: bytes.count) {
                 data.append($0, count: bytes.count)
             }
         }
@@ -186,7 +186,7 @@ extension BSONBuffer {
         var i = int32.littleEndian
         withUnsafePointer(to: &i) {
             let count = MemoryLayout<Int32>.size
-            $0.withMemoryRebound(to: Byte.self, capacity: count) {
+            $0.withMemoryRebound(to: UInt8.self, capacity: count) {
                 append(bytes: $0, count: count)
             }
         }
@@ -196,7 +196,7 @@ extension BSONBuffer {
         var i = int.littleEndian
         withUnsafePointer(to: &i) {
             let count = MemoryLayout<Int>.size
-            $0.withMemoryRebound(to: Byte.self, capacity: count) {
+            $0.withMemoryRebound(to: UInt8.self, capacity: count) {
                 append(bytes: $0, count: count)
             }
         }
@@ -206,7 +206,7 @@ extension BSONBuffer {
         var d = double
         withUnsafePointer(to: &d) {
             let count = MemoryLayout<Double>.size
-            $0.withMemoryRebound(to: Byte.self, capacity: count) {
+            $0.withMemoryRebound(to: UInt8.self, capacity: count) {
                 append(bytes: $0, count: count)
             }
         }
@@ -234,12 +234,12 @@ extension BSONBuffer {
 }
 
 extension BSONBuffer {
-    func readBytes(_ count: Int) throws -> UnsafePointer<Byte> {
+    func readBytes(_ count: Int) throws -> UnsafePointer<UInt8> {
         let available = data.count - mark
         guard available >= count else {
             throw BSONError(message: "Needed \(count) bytes, but only \(available) available.")
         }
-        let p: UnsafePointer<Byte> = data.withUnsafeBytes { $0 + mark }
+        let p: UnsafePointer<UInt8> = data.withUnsafeBytes { $0 + mark }
         mark += count
         return p
     }
@@ -249,7 +249,7 @@ extension BSONBuffer {
         return Data(bytes: p, count: count)
     }
 
-    func readByte() throws -> Byte {
+    func readByte() throws -> UInt8 {
         let p = try readBytes(1)
         return p[0]
     }

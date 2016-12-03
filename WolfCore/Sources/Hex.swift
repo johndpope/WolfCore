@@ -59,7 +59,7 @@ public struct Hex {
     /// Create a Hex from a single byte.
     ///
     /// May be used as a monad transformer.
-    public init(byte: Byte) {
+    public init(byte: UInt8) {
         self.init(data: Data(bytes: [byte]))
     }
 }
@@ -88,7 +88,7 @@ extension Data {
     }
 }
 
-extension Byte {
+extension UInt8 {
     /// Extract the first byte from a Hex.
     ///
     /// May be used as a monad transformer.

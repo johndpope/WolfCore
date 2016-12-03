@@ -26,7 +26,7 @@ extension Data: Serializable {
     }
 
     public init(_ data: Data) {
-        let p: UnsafePointer<Byte> = data.withUnsafeBytes { $0 }
+        let p: UnsafePointer<UInt8> = data.withUnsafeBytes { $0 }
         self.init(bytes: p, count: data.count)
     }
 }

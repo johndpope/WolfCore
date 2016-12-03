@@ -85,7 +85,7 @@ public class IPAddress6 {
 
     private static func toWords(_ data: Data) -> [UInt16] {
         assert(data.count == 16)
-        return data.withUnsafeBytes { (p: UnsafePointer<Byte>) -> [UInt16] in
+        return data.withUnsafeBytes { (p: UnsafePointer<UInt8>) -> [UInt16] in
             var words = [UInt16]()
             words.reserveCapacity(8)
             return p.withMemoryRebound(to: UInt16.self, capacity: 8) {
@@ -103,7 +103,7 @@ public class IPAddress6 {
         for word in words {
             var bigWord = word.bigEndian
             withUnsafePointer(to: &bigWord) { p in
-                p.withMemoryRebound(to: Byte.self, capacity: 2) { p8 in
+                p.withMemoryRebound(to: UInt8.self, capacity: 2) { p8 in
                     data.append(p8, count: 2)
                 }
             }
