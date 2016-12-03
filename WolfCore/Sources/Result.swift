@@ -59,7 +59,7 @@ public enum Result<T>: ResultSummary {
         switch self {
         case .success, .canceled:
             return nil
-        case .failure(let error as ErrorProto):
+        case .failure(let error as DescriptiveError):
             return error.message
         default:
             return nil
@@ -71,7 +71,7 @@ public enum Result<T>: ResultSummary {
         switch self {
         case .success, .canceled:
             return nil
-        case .failure(let error as ErrorProto):
+        case .failure(let error as DescriptiveError):
             return error.code
         default:
             return nil
@@ -83,7 +83,7 @@ public enum Result<T>: ResultSummary {
         switch self {
         case .success, .canceled:
             return nil
-        case .failure(let error as ErrorProto):
+        case .failure(let error as DescriptiveError):
             return error.identifier
         default:
             return nil

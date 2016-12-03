@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct HTTPError: ErrorProto {
+public struct HTTPError: DescriptiveError {
     public let response: HTTPURLResponse
     public let data: Data?
 

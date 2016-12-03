@@ -6,7 +6,9 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-public struct ValidationError: Error {
+public struct ValidationError: DescriptiveError {
+    public let isCancelled = false
+
     public let message: String
     public let violation: String
     public let source: String?

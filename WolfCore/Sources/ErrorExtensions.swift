@@ -10,22 +10,8 @@ import Foundation
 
 public typealias ErrorBlock = (Error) -> Void
 
-/// Classes that represent errors may conform to this protocol.
-public protocol ErrorProto: Error, CustomStringConvertible {
-    /// A human-readable error message.
-    var message: String { get }
-
-    /// A numeric code for the error.
-    var code: Int { get }
-
-    /// A non-user-facing identifier used for automated UI testing
-    var identifier: String { get }
-
-    var isCancelled: Bool { get }
-}
-
 // Conforms NSError to the Error protocol.
-extension NSError: ErrorProto {
+extension NSError: DescriptiveError {
     public var message: String {
         return localizedDescription
     }

@@ -73,7 +73,7 @@ public func testInFlightTracker() {
             if testTokens.count > 0 {
                 let index = Random.randomInt(0..<testTokens.count)
                 let token = testTokens.remove(at: index)
-                let result = Random.randomBoolean() ? Result<Int>.success(0) : Result<Int>.failure(GeneralError(message: "err") as! ErrorProto)
+                let result = Random.randomBoolean() ? Result<Int>.success(0) : Result<Int>.failure(GeneralError(message: "err"))
                 inFlightTracker.end(withToken: token, result: result)
             }
         case 0.8..<1.0:

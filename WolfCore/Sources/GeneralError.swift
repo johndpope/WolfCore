@@ -7,7 +7,7 @@
 //
 
 /// Represents a non-specific error result.
-public struct GeneralError: Error {
+public struct GeneralError: DescriptiveError {
     /// A human-readable error message
     public var message: String
 
@@ -22,6 +22,8 @@ public struct GeneralError: Error {
     public var identifier: String {
         return "GeneralError(\(code))"
     }
+
+    public let isCancelled = false
 }
 
 /// Provides string conversion for GeneralError.
