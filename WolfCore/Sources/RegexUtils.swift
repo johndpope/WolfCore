@@ -14,7 +14,7 @@ infix operator ~?
 infix operator ~??
 
 public func ~?? (regex: NSRegularExpression, str: String) -> [NSTextCheckingResult] {
-    return regex.matches(in: str, options: [], range: str.nsRange) as [NSTextCheckingResult]
+    return regex.matches(in: str, options: [], range: str.nsRange)
 }
 
 public func ~? (regex: NSRegularExpression, str: String) -> Bool {

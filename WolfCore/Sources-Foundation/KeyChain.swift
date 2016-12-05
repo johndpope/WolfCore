@@ -90,6 +90,9 @@ public struct KeyChain {
 
         var value: CFTypeRef?
         let result = SecItemCopyMatching(query as NSDictionary, &value)
+        guard result != errSecItemNotFound else {
+            return nil
+        }
         guard result == errSecSuccess else {
             throw GeneralError(message: "Unable to read keychain.", code: Int(result))
         }

@@ -7,11 +7,8 @@
 //
 
 import Foundation
-
-#if os(iOS) || os(OSX) || os(tvOS)
-    import CoreGraphics
-    import UIKit
-#endif
+import CoreGraphics
+import UIKit
 
 public typealias StringIndex = String.Index
 public typealias StringRange = Range<StringIndex>
@@ -24,71 +21,88 @@ extension Log.GroupName {
 
 // Provide concise versions of NSLocalizedString.
 
-#if os(iOS) || os(OSX) || os(tvOS)
-    postfix operator ¶
+postfix operator ¶
 
-    public postfix func ¶ (left: String) -> String {
-        return left.localized()
+public postfix func ¶ (left: String) -> String {
+    return left.localized()
+}
+
+infix operator ¶ : AttributeAssignmentPrecedence
+
+public func ¶ (left: String, right: Replacements) -> String {
+    return left.localized(replacingPlaceholdersWithReplacements: right)
+}
+
+private var _localizationTableNames = [String?]()
+public var localizationTableNames = [String]() {
+    didSet {
+        _localizationTableNames = []
+        localizationTableNames.forEach { _localizationTableNames.append($0) }
+        _localizationTableNames.append(nil)
+    }
+}
+
+public var localizationBundles = [Bundle.main]
+
+extension String {
+    public func localized(onlyIfTagged mustHaveTag: Bool = false, inLanguage language: String? = nil, replacingPlaceholdersWithReplacements replacements: Replacements? = nil) -> String {
+        let untaggedKey: String
+        let taggedKey: String
+        let hasTag: Bool
+        if self.hasSuffix("¶") {
+            untaggedKey = substring(to: self.index(self.endIndex, offsetBy: -1))
+            taggedKey = self
+            hasTag = true
+        } else {
+            untaggedKey = self
+            taggedKey = self + "¶"
+            hasTag = false
+        }
+
+        guard !mustHaveTag || hasTag else { return self }
+
+        var s: String?
+        for bundle in localizationBundles {
+            s = localized(key: taggedKey, in: bundle, inLanguage: language)
+            if s != nil { break }
+        }
+
+        if s == nil {
+            logWarning("No localization found for: \"\(taggedKey)\".", group: .localization)
+            s = untaggedKey
+        }
+
+        if let replacements = replacements {
+            s = s!.replacingPlaceholders(withReplacements: replacements)
+        }
+
+        return s!
     }
 
-    infix operator ¶ : AttributeAssignmentPrecedence
+    private func localized(key: String, in bundle: Bundle, inLanguage language: String?) -> String? {
+        var bundle = bundle
 
-    public func ¶ (left: String, right: Replacements) -> String {
-        return left.localized(replacingPlaceholdersWithReplacements: right)
-    }
-
-    public func ¶ (left: String, right: Bundle) -> String {
-        return left.localized(in: right)
-    }
-
-    public func ¶ (left: String, right: (bundle: Bundle, replacements: Replacements)) -> String {
-        return left.localized(in: right.bundle, replacingPlaceholdersWithReplacements: right.replacements)
-    }
-#endif
-
-#if os(iOS) || os(OSX) || os(tvOS)
-    extension String {
-        public func localized(onlyIfTagged mustHaveTag: Bool = false, in bundle: Bundle? = nil, inLanguage language: String? = nil, replacingPlaceholdersWithReplacements replacements: Replacements? = nil) -> String {
-
-            let untaggedKey: String
-            let taggedKey: String
-            let hasTag: Bool
-            if self.hasSuffix("¶") {
-                untaggedKey = substring(to: self.index(self.endIndex, offsetBy: -1))
-                taggedKey = self
-                hasTag = true
-            } else {
-                untaggedKey = self
-                taggedKey = self + "¶"
-                hasTag = false
-            }
-
-            guard !mustHaveTag || hasTag else { return self }
-
-            var bundle = bundle ?? Bundle.main
-
-            if let language = language {
-                if let path = bundle.path(forResource: language, ofType: "lproj") {
-                    if let langBundle = Bundle(path: path) {
-                        bundle = langBundle
-                    }
+        if let language = language {
+            if let path = bundle.path(forResource: language, ofType: "lproj") {
+                if let langBundle = Bundle(path: path) {
+                    bundle = langBundle
                 }
             }
-            var localized = bundle.localizedString(forKey: taggedKey, value: nil, table: nil)
-            if localized == taggedKey {
-                localized = Bundle.findBundle(forClass: BundleClass.self).localizedString(forKey: taggedKey, value: nil, table: nil)
-            }
-            if localized == taggedKey {
-                logWarning("No localization found for: \"\(taggedKey)\".", group: .localization)
-                localized = untaggedKey
-            }
-            if let replacements = replacements {
-                localized = localized.replacingPlaceholders(withReplacements: replacements)
-            }
-            return localized
         }
+
+        var localized: String?
+        let notFoundValue = "⁉️"
+        for tableName in _localizationTableNames {
+            let s = bundle.localizedString(forKey: key, value: notFoundValue, table: tableName)
+            if s != notFoundValue {
+                localized = s
+                break
+            }
+        }
+        
+        return localized
     }
-#endif
+}
 
 extension String {
     public func range(from nsRange: NSRange?) -> StringRange? {
@@ -133,6 +147,18 @@ extension String {
         let s = self.index(self.startIndex, offsetBy: start)
         let e = self.index(self.startIndex, offsetBy: (end ?? start))
         return s..<e
+    }
+
+    public func range(r: Range<Int>) -> StringRange {
+        return range(start: r.lowerBound, end: r.upperBound)
+    }
+
+    public func substring(start: Int, end: Int? = nil) -> String {
+        return substring(with: range(start: start, end: end))
+    }
+
+    public func substring(r: Range<Int>) -> String {
+        return substring(start: r.lowerBound, end: r.upperBound)
     }
 }
 
@@ -257,6 +283,20 @@ extension String {
     }
 }
 
+// Support the Serializable protocol used for caching
+
+extension String: Serializable {
+    public typealias ValueType = String
+
+    public func serialize() -> Data {
+        return self |> UTF8.init |> Data.init
+    }
+
+    public static func deserialize(from data: Data) throws -> String {
+        return try data |> UTF8.init |> String.init
+    }
+}
+
 extension String {
     public func padded(toCount finalCount: Int, onRight: Bool = false, withCharacter character: Character = " ") -> String {
         let count = self.characters.count
@@ -284,7 +324,7 @@ extension String {
     }
 }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if !os(Linux)
 
 extension String {
     public func height(forWidth width: CGFloat, font: UIFont, context: NSStringDrawingContext? = nil) -> CGFloat {
@@ -339,7 +379,7 @@ public func %% (left: CGFloat, right: Int) -> String {
     return String(value: left, precision: right)
 }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if !os(Linux)
 public extension NSString {
     var cgFloatValue: CGFloat {
         get {
@@ -351,11 +391,9 @@ public extension NSString {
 
 public struct StringName: ExtensibleEnumeratedName, Reference {
     public let name: String
-    public let bundle: Bundle
 
-    public init(_ name: String, in bundle: Bundle? = nil) {
+    public init(_ name: String) {
         self.name = name
-        self.bundle = bundle ?? Bundle.main
     }
 
     // Hashable
@@ -367,7 +405,7 @@ public struct StringName: ExtensibleEnumeratedName, Reference {
 
     // Reference
     public var referent: String {
-        return name ¶ bundle
+        return name¶
     }
 }
 
