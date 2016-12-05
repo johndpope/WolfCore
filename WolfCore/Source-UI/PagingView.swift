@@ -10,7 +10,7 @@ import UIKit
 
 class PagingContentView: View { }
 
-public class PagingView: View {
+open class PagingView: View {
     public typealias IndexDispatchBlock = (Int) -> Void
 
     public var debug = false
@@ -98,13 +98,13 @@ public class PagingView: View {
     }
 
     public func scrollToNextPage(animated: Bool = true) {
-        let nextPage = arrangedViews.index(withCircularIndex: currentPage + 1)
+        let nextPage = arrangedViews.circularIndex(at: currentPage + 1)
         scroll(toPage: nextPage, animated: animated)
     }
 
     private var previousSize: CGSize?
 
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         let page = currentPage
 
         super.layoutSubviews()
@@ -119,13 +119,13 @@ public class PagingView: View {
         previousSize = bounds.size
     }
 
-    public override var clipsToBounds: Bool {
+    open override var clipsToBounds: Bool {
         didSet {
             scrollView.clipsToBounds = clipsToBounds
         }
     }
 
-    public override func setup() {
+    open override func setup() {
         super.setup()
 
         setupScrollView()
@@ -142,7 +142,7 @@ public class PagingView: View {
     private func addArrangedViews() {
         for view in arrangedViews {
             contentView.addSubview(view)
-            let leadingConstraint: NSLayoutConstraint = view.leadingAnchor == contentView.leadingAnchor
+            let leadingConstraint = view.leadingAnchor == contentView.leadingAnchor
             arrangedViewsLeadingConstraints.append(leadingConstraint)
             activateConstraints(
                 view.topAnchor == topAnchor,
@@ -188,6 +188,7 @@ public class PagingView: View {
         pageControlBottomConstraint = pageControl.bottomAnchor == bottomAnchor - 20 =&= UILayoutPriorityDefaultLow
         activateConstraints(
             pageControl.centerXAnchor == centerXAnchor,
+            pageControl.heightAnchor == 40.0,
             pageControlBottomConstraint
         )
     }
@@ -215,8 +216,8 @@ public class PagingView: View {
         let firstSlotIndex = Int(xOffset / bounds.width)
         for index in 0..<arrangedViews.count {
             let offsetIndex = index - Int(Double(arrangedViews.count) / 2.0 - 0.5)
-            let viewIndex = arrangedViews.index(withCircularIndex: firstSlotIndex + offsetIndex)
-            let slotIndex = circularIndex(firstSlotIndex + offsetIndex, count: slotsCount)
+            let viewIndex = arrangedViews.circularIndex(at: firstSlotIndex + offsetIndex)
+            let slotIndex = circularIndex(at: firstSlotIndex + offsetIndex, count: slotsCount)
             let x = CGFloat(slotIndex) * bounds.width
             arrangedViewsLeadingConstraints[viewIndex].constant = x
         }
@@ -257,7 +258,7 @@ public class PagingView: View {
     private func updatePageControl() {
         let x = scrollView.contentOffset.x
         let page = Int(x / scrollView.bounds.width + 0.5)
-        let circularPage = arrangedViews.index(withCircularIndex: page)
+        let circularPage = arrangedViews.circularIndex(at: page)
         pageControl.currentPage = circularPage
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ScrollView: UIScrollView {
+open class ScrollView: UIScrollView {
     public var transparentToTouches: Bool = false
 
     public convenience init() {
@@ -33,7 +33,7 @@ public class ScrollView: UIScrollView {
     // Override in subclasses
     public func setup() { }
 
-    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {

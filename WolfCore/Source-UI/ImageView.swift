@@ -8,14 +8,37 @@
 
 import UIKit
 
-public class ImageView: UIImageView {
+public var sharedImageCache: Cache<UIImage>! = Cache<UIImage>(filename: "sharedImageCache", sizeLimit: 100000, includeHTTP: true)
+public var sharedDataCache: Cache<Data>! = Cache<Data>(filename: "sharedDataCache", sizeLimit: 100000, includeHTTP: true)
+
+open class ImageView: UIImageView {
     public var transparentToTouches = false
+    private var updatePDFCanceler: Cancelable?
+    private var retrieveCanceler: Cancelable?
+    private var skinChangedAction: SkinChangedAction!
 
     public var pdf: PDF? {
         didSet {
             makeTransparent(debugColor: .green, debug: false)
             updatePDFImage()
             setNeedsLayout()
+        }
+    }
+
+    public var url: URL? {
+        didSet {
+            guard let url = self.url else { return }
+            retrieveCanceler?.cancel()
+            if url.absoluteString.hasSuffix("pdf") {
+                self.retrieveCanceler = sharedDataCache.retrieveObject(forURL: url) { data in
+                    guard let data = data else { return }
+                    self.pdf = PDF(data: data)
+                }
+            } else {
+                self.retrieveCanceler = sharedImageCache.retrieveObject(forURL: url) { image in
+                    self.image = image
+                }
+            }
         }
     }
 
@@ -32,19 +55,23 @@ public class ImageView: UIImageView {
         }
     }
 
-    var canceler: Cancelable?
-
-    public override func layoutSubviews() {
-        canceler?.cancel()
+    open override func layoutSubviews() {
+        updatePDFCanceler?.cancel()
+        lastFittingSize = nil
         if pdf != nil {
-            canceler = dispatchOnMain(afterDelay: 0.1) {
+            updatePDFCanceler = dispatchOnMain(afterDelay: 0.1) {
                 self.updatePDFImage()
             }
         }
         super.layoutSubviews()
     }
 
-    public override var intrinsicContentSize: CGSize {
+    open override func invalidateIntrinsicContentSize() {
+        super.invalidateIntrinsicContentSize()
+        lastFittingSize = nil
+    }
+
+    open override var intrinsicContentSize: CGSize {
         let size: CGSize
         if let pdf = pdf {
             size = pdf.getSize()
@@ -76,9 +103,12 @@ public class ImageView: UIImageView {
     private func _setup() {
         ~~self
         setup()
+        skinChangedAction = SkinChangedAction(for: self) { [unowned self] in
+            self.updateAppearance()
+        }
     }
 
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
         updateAppearance()
@@ -88,9 +118,9 @@ public class ImageView: UIImageView {
     public func setup() { }
 
     /// Override in subclasses
-    public func updateAppearance() { }
+    open func updateAppearance() { }
 
-    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {

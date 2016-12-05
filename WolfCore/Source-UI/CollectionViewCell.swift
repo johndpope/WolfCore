@@ -8,7 +8,9 @@
 
 import UIKit
 
-public class CollectionViewCell: UICollectionViewCell {
+open class CollectionViewCell: UICollectionViewCell {
+    private var skinChangedAction: SkinChangedAction!
+
     public convenience init() {
         self.init(frame: .zero)
     }
@@ -26,17 +28,20 @@ public class CollectionViewCell: UICollectionViewCell {
     private func _setup() {
         ~self
         setup()
+        skinChangedAction = SkinChangedAction(for: self) { [unowned self] in
+            self.updateAppearance()
+        }
     }
 
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
         updateAppearance()
     }
 
     /// Override in subclasses
-    public func setup() { }
+    open func setup() { }
 
     /// Override in subclasses
-    public func updateAppearance() { }
+    open func updateAppearance() { }
 }

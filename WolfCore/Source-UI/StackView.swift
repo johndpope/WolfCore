@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class StackView: UIStackView {
+open class StackView: UIStackView {
     public var transparentToTouches = false
 
     public convenience init() {
@@ -35,7 +35,7 @@ public class StackView: UIStackView {
         setup()
     }
 
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
         updateAppearance()
@@ -45,9 +45,9 @@ public class StackView: UIStackView {
     public func setup() { }
 
     /// Override in subclasses
-    public func updateAppearance() { }
+    open func updateAppearance() { }
 
-    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {

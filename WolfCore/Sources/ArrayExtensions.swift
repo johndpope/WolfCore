@@ -9,16 +9,16 @@
 import Foundation
 
 extension Array {
-    public func index(withCircularIndex i: Int) -> Int {
-        return circularIndex(i, count: count)
+    public func circularIndex(at index: Int) -> Int {
+        return WolfCore.circularIndex(at: index, count: count)
     }
 
-    public func element(atCircularIndex i: Int) -> Element {
-        return self[index(withCircularIndex: i)]
+    public func element(atCircularIndex index: Int) -> Element {
+        return self[circularIndex(at: index)]
     }
 
-    public mutating func replaceElement(atCircularIndex i: Index, withElement element: Element) {
-        self[index(withCircularIndex: i)] = element
+    public mutating func replaceElement(atCircularIndex index: Index, withElement element: Element) {
+        self[circularIndex(at: index)] = element
     }
 }
 
@@ -31,7 +31,7 @@ extension Array {
     }
 }
 
-public func circularIndex(_ index: Int, count: Int) -> Int {
+public func circularIndex(at index: Int, count: Int) -> Int {
     guard count > 0 else {
         return 0
     }

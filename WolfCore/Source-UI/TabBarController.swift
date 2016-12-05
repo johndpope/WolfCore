@@ -47,5 +47,5 @@ public class TabBarController: UITabBarController {
     }
 
     /// Override in subclasses
-    public func updateAppearance() { }
+    open func updateAppearance() { }
 }

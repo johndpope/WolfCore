@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class TextField: UITextField {
+open class TextField: UITextField {
     var tintedClearImage: UIImage?
     var lastTintColor: UIColor?
 
@@ -37,13 +37,13 @@ public class TextField: UITextField {
         setup()
     }
 
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
         updateAppearance()
     }
 
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         tintClearImage()
     }
@@ -53,7 +53,7 @@ public class TextField: UITextField {
     }
 
     /// Override in subclasses
-    public func updateAppearance() {
+    open func updateAppearance() {
         syncToTintColor()
     }
 }
@@ -83,7 +83,7 @@ extension TextField {
         lastTintColor = newTintColor
     }
 
-    public override func tintColorDidChange() {
+    open override func tintColorDidChange() {
         super.tintColorDidChange()
         syncToTintColor()
     }

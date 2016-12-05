@@ -8,7 +8,9 @@
 
 import UIKit
 
-public class Button: UIButton {
+open class Button: UIButton {
+    private var skinChangedAction: SkinChangedAction!
+
     @IBOutlet var customView: UIView? {
         willSet {
             removeCustomView()
@@ -18,10 +20,9 @@ public class Button: UIButton {
         }
     }
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
-        let t = title(for: [])?.localized(onlyIfTagged: true)
-        setTitle(t, for: [])
+        setTitle(title(for: [])?.localized(onlyIfTagged: true), for: [])
     }
 
     public convenience init() {
@@ -41,16 +42,28 @@ public class Button: UIButton {
     private func _setup() {
         ~~self
         setup()
+        skinChangedAction = SkinChangedAction(for: self) { [unowned self] in
+            self.updateAppearance()
+        }
     }
 
-    // Override in subclasses
-    public func setup() { }
+    open override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard superview != nil else { return }
+        updateAppearance()
+    }
 
-    func removeCustomView() {
+    /// Override in subclasses
+    open func setup() { }
+
+    /// Override in subclasses
+    open func updateAppearance() { }
+
+    private func removeCustomView() {
         customView?.removeFromSuperview()
     }
 
-    func addCustomView(constraintsIdentifier identifier: String? = nil) {
+    private func addCustomView(constraintsIdentifier identifier: String? = nil) {
         guard let customView = customView else { return }
 
         addSubview(customView)
@@ -59,18 +72,17 @@ public class Button: UIButton {
         customView.isUserInteractionEnabled = false
     }
 
-    func syncToHighlighted() {
-        if let customView = self.customView {
-            let isHighlighted = self.isHighlighted
-            customView.tintColor = titleColor(for: isHighlighted ? .highlighted : [])!.withAlphaComponent(isHighlighted ? 0.4 : 1.0)
-            customView.forViewsInHierarchy { view -> Bool in
-                (view as? UIImageView)?.isHighlighted = isHighlighted
-                return false
-            }
+    private func syncToHighlighted() {
+        guard let customView = self.customView else { return }
+        let isHighlighted = self.isHighlighted
+        customView.tintColor = titleColor(for: isHighlighted ? .highlighted : [])!.withAlphaComponent(isHighlighted ? 0.4 : 1.0)
+        customView.forViewsInHierarchy { view -> Bool in
+            (view as? UIImageView)?.isHighlighted = isHighlighted
+            return false
         }
     }
 
-    public override var isHighlighted: Bool {
+    open override var isHighlighted: Bool {
         didSet {
             syncToHighlighted()
         }

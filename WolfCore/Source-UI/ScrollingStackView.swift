@@ -16,7 +16,7 @@ import UIKit
 //                  < your views that will scroll if necessary >
 //          < your non-scrolling views below the scrolling view >
 
-public class ScrollingStackView: View {
+open class ScrollingStackView: View {
     public private(set) lazy var keyboardAvoidantView: KeyboardAvoidantView = {
         let view = KeyboardAvoidantView()
         return view
@@ -45,7 +45,7 @@ public class ScrollingStackView: View {
         return view
     }()
 
-    public override func setup() {
+    open override func setup() {
         super.setup()
         setupKeyboardAvoidantView()
         setupOuterStackView()

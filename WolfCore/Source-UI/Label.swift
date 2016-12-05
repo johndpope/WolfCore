@@ -9,6 +9,8 @@
 import UIKit
 
 open class Label: UILabel {
+    private var skinChangedAction: SkinChangedAction!
+
     var tagTapActions = [String: TagAction]()
     var tapAction: GestureRecognizerAction!
 
@@ -46,17 +48,6 @@ open class Label: UILabel {
         }
     }
 
-    open override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        guard superview != nil else { return }
-        syncToTintColor()
-    }
-
-    open override func awakeFromNib() {
-        super.awakeFromNib()
-        text = text?.localized(onlyIfTagged: true)
-    }
-
     public convenience init() {
         self.init(frame: .zero)
     }
@@ -71,13 +62,32 @@ open class Label: UILabel {
         _setup()
     }
 
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        text = text?.localized(onlyIfTagged: true)
+    }
+
     private func _setup() {
         ~~self
         setup()
+        skinChangedAction = SkinChangedAction(for: self) { [unowned self] in
+            self.updateAppearance()
+        }
     }
 
-    // Override in subclasses
+    open override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard superview != nil else { return }
+        updateAppearance()
+    }
+
+    /// Override in subclasses
     open func setup() { }
+
+    /// Override in subclasses
+    open func updateAppearance() {
+        syncToTintColor()
+    }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {

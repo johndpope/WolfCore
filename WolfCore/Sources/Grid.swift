@@ -41,14 +41,14 @@ public class Grid<T: Equatable>: Equatable {
     }
 
     public func getValue(atCircularCoordinate coord: IntPoint) -> T {
-        let cx = circularIndex(coord.y, count: size.height)
-        let cy = circularIndex(coord.x, count: size.width)
+        let cx = circularIndex(at: coord.y, count: size.height)
+        let cy = circularIndex(at: coord.x, count: size.width)
         return try! getValue(atCoordinate: IntPoint(x: cx, y: cy))
     }
 
     public func setValue(_ value: T, atCircularCoordinate coord: IntPoint) {
-        let cx = circularIndex(coord.y, count: size.height)
-        let cy = circularIndex(coord.x, count: size.width)
+        let cx = circularIndex(at: coord.y, count: size.height)
+        let cy = circularIndex(at: coord.x, count: size.width)
         try! setValue(value, atCoordinate: IntPoint(x: cx, y: cy))
     }
 
@@ -70,7 +70,7 @@ public class Grid<T: Equatable>: Equatable {
         for oy in -1..<1 {
             for ox in -1..<1 {
                 let o = IntPoint(x: ox, y: oy)
-                let p = IntPoint(x: circularIndex(ox + point.x, count: size.width), y: circularIndex(oy + point.y, count: size.height))
+                let p = IntPoint(x: circularIndex(at: ox + point.x, count: size.width), y: circularIndex(at: oy + point.y, count: size.height))
                 f(o, p)
             }
         }

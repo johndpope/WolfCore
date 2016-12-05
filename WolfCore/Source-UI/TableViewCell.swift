@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class TableViewCell: UITableViewCell {
+open class TableViewCell: UITableViewCell {
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()

@@ -54,14 +54,14 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 //    func example() {
 //        let s1 = "Hello."§ // Creates an AString
-//        s1.foregroundColor = .Red // s1 is now red
+//        s1.foregroundColor = .red // s1 is now red
 //
 //        let s2 = s1 // Only copies the reference
-//        s2.foregroundColor = .Green // s1 and s2 are now green
+//        s2.foregroundColor = .green // s1 and s2 are now green
 //
 //        let s3 = s1§ // This performs a true copy of s1
 //
-//        s3.foregroundColor = .Blue // s1 and s2 are green, s3 is blue.
+//        s3.foregroundColor = .blue // s1 and s2 are green, s3 is blue.
 //    }
 //
 
@@ -133,14 +133,14 @@ public let overrideTintColorTag = "overrideTintColor"
 //
 
 //
-// *** Attributes are added to NSAttributedString instances by assignment.
+// *** Attributes are added to AString instances by assignment.
 //
 // Common attributes such as font, foregroundColor, and paragraphStyle can be directly assigned as attributes.
 //
 //    func example() {
 //        let attributedString = "The quick brown fox."§
 //        attributedString.font = .boldSystemFont(ofSize: 18)
-//        attributedString.foregroundColor = .Red
+//        attributedString.foregroundColor = .red
 //    }
 //
 
@@ -150,12 +150,12 @@ public let overrideTintColorTag = "overrideTintColor"
 //    func testString() {
 //        let attributedString = "The quick brown fox."§
 //        attributedString.font = .systemFont(ofSize: 18) // Applies to whole string
-//        attributedString.foregroundColor = .Gray
+//        attributedString.foregroundColor = .gray
 //
 //        let range = attributedString.string.range(start: 10, end: 15) // "brown"
 //        attributedString.edit(in: range) { substring in
 //            substring.font = .boldSystemFont(ofSize: 18)
-//            substring.foregroundColor = .Red
+//            substring.foregroundColor = .red
 //            // The word "brown" is now bold and red.
 //        }
 //
@@ -358,14 +358,14 @@ public let overrideTintColorTag = "overrideTintColor"
 //        let attrString = template.attributedStringWithTags() { (tag, substring) in
 //            switch tag {
 //            case "color":
-//                substring.foregroundColor = .Brown
+//                substring.foregroundColor = .brown
 //            case "action":
-//                substring.foregroundColor = .Red
+//                substring.foregroundColor = .red
 //            case "subject":
-//                substring.foregroundColor = .Gray
+//                substring.foregroundColor = .gray
 //            default:
 //                // The default clause is called *before* the tag-specific clauses.
-//                substring.foregroundColor = .White
+//                substring.foregroundColor = .white
 //                substring.font = .systemFont(ofSize: 12)
 //                break
 //            }
@@ -441,10 +441,10 @@ public let overrideTintColorTag = "overrideTintColor"
 //                switch tag {
 //                case self.linkTag:
 //                    substring.font = .boldSystemFont(ofSize: fontSize)
-//                    substring.foregroundColor = .Blue
+//                    substring.foregroundColor = .blue
 //                default:
 //                    substring.font = .systemFont(ofSize: fontSize)
-//                    substring.foregroundColor = .White
+//                    substring.foregroundColor = .white
 //                }
 //            }
 //            textView.attributedText = attributedText

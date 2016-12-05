@@ -57,5 +57,5 @@ public class NavigationController: UINavigationController {
     }
 
     /// Override in subclasses
-    public func updateAppearance() { }
+    open func updateAppearance() { }
 }

@@ -99,7 +99,7 @@ extension String {
                 break
             }
         }
-        
+
         return localized
     }
 }
