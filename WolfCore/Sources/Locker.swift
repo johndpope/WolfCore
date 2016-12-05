@@ -25,7 +25,7 @@ public class Locker {
         self.onUnlocked = onUnlocked
         self.onChanged = onChanged
         self.onReasonsChanged = onReasonsChanged
-        serializer = Serializer(name: "\(self)")
+        serializer = Serializer(label: "\(self)")
     }
 
     public var isLocked: Bool {

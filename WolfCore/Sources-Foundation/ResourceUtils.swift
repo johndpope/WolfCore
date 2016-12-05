@@ -85,11 +85,6 @@ public struct ResourceReference: ExtensibleEnumeratedName, Reference {
     public var rawValue: String { return name }
 
     // Reference
-
-    public var hasReferent: Bool {
-        return bundle.path(forResource: name, ofType: type) != nil
-    }
-
     public var referent: URL {
         return URL(fileURLWithPath: bundle.path(forResource: name, ofType: type)!)
     }

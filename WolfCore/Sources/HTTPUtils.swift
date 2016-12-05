@@ -82,44 +82,40 @@ extension HeaderField {
     public static let contentLength = HeaderField("Content-Length")
 }
 
-public enum StatusCode: Int {
-    case ok = 200
-    case created = 201
-    case accepted = 202
-    case noContent = 204
+public struct StatusCode: ExtensibleEnumeratedName {
+    public let name: Int
 
-    case badRequest = 400
-    case unauthorized = 401
-    case forbidden = 403
-    case notFound = 404
+    public init(_ name: Int) { self.name = name }
 
-    case internalServerError = 500
-    case notImplemented = 501
-    case badGateway = 502
-    case serviceUnavailable = 503
-    case gatewayTimeout = 504
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: Int) { self.init(rawValue) }
+    public var rawValue: Int { return name }
 }
 
-public let baseProgressNotificationKey = NSNotification.Name("baseProgressNotificaitonKey")
-public let progressKey = NSNotification.Name("progressKey")
-public let unauthorizedNotificationKey = NSNotification.Name("unauthorizedNotificationKey")
+extension StatusCode {
+    public static let ok = StatusCode(200)
+    public static let created = StatusCode(201)
+    public static let accepted = StatusCode(202)
+    public static let noContent = StatusCode(204)
+
+    public static let badRequest = StatusCode(400)
+    public static let unauthorized = StatusCode(401)
+    public static let forbidden = StatusCode(403)
+    public static let notFound = StatusCode(404)
+
+    public static let internalServerError = StatusCode(500)
+    public static let notImplemented = StatusCode(501)
+    public static let badGateway = StatusCode(502)
+    public static let serviceUnavailable = StatusCode(503)
+    public static let gatewayTimeout = StatusCode(504)
+}
 
 public class HTTP {
-    public static func send(
-        request: URLRequest,
-        actions: HTTPActions) -> Cancelable {
-        let sharedSession = URLSession.shared
-        let config = sharedSession.configuration.copy() as! URLSessionConfiguration
-        let session = URLSession(configuration: config, delegate: actions, delegateQueue: nil)
-        let task = session.dataTask(with: request)
-        task.resume()
-        return task as! Cancelable
-    }
-
-    public static func retrieveData(
+    @discardableResult public static func retrieveData(
         withRequest request: URLRequest,
-        delegate: URLSessionDataDelegate? = nil,
-        hasFileToken: Bool? = false,
         successStatusCodes: [StatusCode], name: String,
         success: @escaping (HTTPURLResponse, Data) -> Void,
         failure: @escaping ErrorBlock,
@@ -127,16 +123,9 @@ public class HTTP {
         let token = inFlightTracker.start(withName: name)
 
         let _sessionActions = HTTPActions()
+
         _sessionActions.didReceiveResponse = { (sessionActions, session, dataTask, response, completionHandler) in
             completionHandler(.allow)
-        }
-
-        _sessionActions.didSendBodyData = { (sessionActions, session, task, bytesSent, totalBytesSent, totalBytesExpected) in
-            guard hasFileToken == false else { return }
-            guard totalBytesExpected > 0 else { return }
-            let percentComplete: Float = (Float(totalBytesSent) / Float(totalBytesExpected)) * 1.00
-            let userInfo = [progressKey : percentComplete]
-            notificationCenter.post(name: baseProgressNotificationKey, object: userInfo)
         }
 
         _sessionActions.didComplete = { (sessionActions, session, task, error) in
@@ -195,10 +184,6 @@ public class HTTP {
                 inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
                 logError("\(token) Failure response code: \(statusCode)")
 
-                if error.code == 401 {
-                    notificationCenter.post(name: unauthorizedNotificationKey)
-                }
-
                 dispatchOnMain {
                     failure(error)
                     finally?()
@@ -215,10 +200,15 @@ public class HTTP {
             }
         }
 
-        return send(request: request, actions: _sessionActions)
+        let sharedSession = URLSession.shared
+        let config = sharedSession.configuration.copy() as! URLSessionConfiguration
+        let session = URLSession(configuration: config, delegate: _sessionActions, delegateQueue: nil)
+        let task = session.dataTask(with: request)
+        task.resume()
+        return task as! Cancelable
     }
 
-    public static func retrieveResponse(
+    @discardableResult public static func retrieveResponse(
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
@@ -238,7 +228,7 @@ public class HTTP {
         )
     }
 
-    public static func retrieve(
+    @discardableResult public static func retrieve(
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
@@ -257,7 +247,7 @@ public class HTTP {
         )
     }
 
-    public static func retrieveJSON(
+    @discardableResult public static func retrieveJSON(
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
@@ -285,7 +275,7 @@ public class HTTP {
         )
     }
 
-    public static func retrieveJSONDictionary(
+    @discardableResult public static func retrieveJSONDictionary(
         withRequest request: URLRequest,
         successStatusCodes: [StatusCode], name: String,
         success: @escaping (HTTPURLResponse, JSON.Dictionary) -> Void,
@@ -309,7 +299,7 @@ public class HTTP {
     }
 
     #if !os(Linux)
-    public static func retrieveImage(
+    @discardableResult public static func retrieveImage(
         withURL url: URL,
         successStatusCodes: [StatusCode],
         name: String,

@@ -12,5 +12,5 @@ public protocol Serializable {
     associatedtype ValueType
 
     func serialize() -> Data
-    static func deserializeFromData(data: Data) throws -> ValueType
+    static func deserialize(from data: Data) throws -> ValueType
 }

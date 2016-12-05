@@ -60,6 +60,12 @@ public class PDF {
         }
     }
 
+    public init(data: Data) {
+        let provider = CGDataProvider(data: data as NSData)!
+        pdf = CGPDFDocument(provider)!
+        pageCount = pdf.numberOfPages
+    }
+
     public func getSize(ofPageAtIndex index: Int = 0) -> CGSize {
         return getSize(ofPage: getPage(atIndex: index))
     }
@@ -110,5 +116,15 @@ public class PDF {
             swap(&rect.size.width, &rect.size.height)
         }
         return rect.size
+    }
+}
+
+extension PDF: Serializable {
+    public func serialize() -> Data {
+        fatalError("PDFs may only be deserialized.")
+    }
+
+    public static func deserialize(from data: Data) throws -> PDF {
+        return PDF(data: data)
     }
 }

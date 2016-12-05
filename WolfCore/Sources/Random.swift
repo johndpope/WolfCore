@@ -45,7 +45,7 @@ public class Random {
     // returns a random Int32 in the half-open range 0..<(2**32)
     public func random() -> UInt32 {
         #if os(Linux)
-            return random()
+            return Glibc.random()
         #else
             return arc4random()
         #endif

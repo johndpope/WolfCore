@@ -62,6 +62,14 @@ extension CGSize {
     }
 }
 
+extension CGSize {
+    public var debugSummary: String {
+        let joiner = Joiner(left: "(", right: ")")
+        joiner.append(width %% 3, height %% 3)
+        return joiner.description
+    }
+}
+
 public func + (left: CGSize, right: CGSize) -> CGVector {
     return CGVector(dx: left.width + right.width, dy: left.height + right.height)
 }

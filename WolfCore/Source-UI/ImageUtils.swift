@@ -26,7 +26,7 @@ import CoreGraphics
 #if os(iOS) || os(tvOS)
 public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: CGContextBlock) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
-    let context = getCurrentGraphicsContext()
+    let context = currentGraphicsContext
     if flipped {
         context.translateBy(x: 0.0, y: size.height)
         context.scaleBy(x: 1.0, y: -1.0)

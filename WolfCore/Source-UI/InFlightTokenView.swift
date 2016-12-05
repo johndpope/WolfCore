@@ -96,6 +96,7 @@ class InFlightTokenView: View {
     private static let runningColor = UIColor.yellow
     private static let successColor = UIColor.green
     private static let failureColor = UIColor.red
+    private static let canceledColor = UIColor.gray
 
     private func syncToToken() {
         guard let token = token else { return }
@@ -105,7 +106,13 @@ class InFlightTokenView: View {
         var resultText: String?
         let color: UIColor
         if let result = token.result {
-            color = result.isSuccess ? type(of: self).successColor : type(of: self).failureColor
+            if result.isSuccess {
+                color = type(of: self).successColor
+            } else if result.isCanceled {
+                color = type(of: self).canceledColor
+            } else {
+                color = type(of: self).failureColor
+            }
             if let code = result.code {
                 resultText = "=\(code)"
             }

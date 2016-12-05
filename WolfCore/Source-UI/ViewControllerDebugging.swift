@@ -14,13 +14,14 @@ extension UIViewController {
         var stack = [(controller: UIViewController, level: Int, indent: String)]()
 
         stack.append((self, 0, ""))
+        let frontController = UIViewController.frontViewController
 
         repeat {
             let (controller, level, indent) = stack.removeLast()
 
             let joiner = Joiner()
 
-            joiner.append(prefix(for: controller))
+            joiner.append(prefix(for: controller, frontController: frontController))
 
             controller.childViewControllers.reversed().forEach { childController in
                 stack.append((childController, level + 1, indent + "  |"))
@@ -31,6 +32,12 @@ extension UIViewController {
 
             if !controller.automaticallyAdjustsScrollViewInsets {
                 joiner.append("automaticallyAdjustsScrollViewInsets:\(controller.automaticallyAdjustsScrollViewInsets)")
+            }
+
+            if let view = controller.viewIfLoaded {
+                joiner.append("view: \(view)")
+            } else {
+                joiner.append("view: nil")
             }
 
             if let presentedViewController = controller.presentedViewController {
@@ -50,7 +57,7 @@ extension UIViewController {
         } while !stack.isEmpty
     }
 
-    private func prefix(for controller: UIViewController) -> String {
+    private func prefix(for controller: UIViewController, frontController: UIViewController) -> String {
         var prefix: String!
 
         if prefix == nil {
@@ -74,6 +81,8 @@ extension UIViewController {
         if prefix == nil {
             prefix = "⬜️"
         }
+
+        prefix = prefix! + (controller == frontController ? "🔵" : "⬜️")
 
         return prefix
     }

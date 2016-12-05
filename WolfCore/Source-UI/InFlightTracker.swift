@@ -14,6 +14,7 @@ extension Log.GroupName {
 }
 
 public class InFlightTracker {
+    private let serializer = Serializer(label: "InFlightTracker")
     private var tokens = Set<InFlightToken>()
     public var didStart: ((InFlightToken) -> Void)?
     public var didEnd: ((InFlightToken) -> Void)?
@@ -43,8 +44,10 @@ public class InFlightTracker {
     public func start(withName name: String) -> InFlightToken {
         let token = InFlightToken(name: name)
         token.isNetworkActive = true
-        tokens.insert(token)
         didStart?(token)
+        serializer.dispatch {
+            self.tokens.insert(token)
+        }
         logTrace("started: \(token)", group: .inFlight)
         return token
     }
@@ -52,12 +55,14 @@ public class InFlightTracker {
     public func end(withToken token: InFlightToken, result: ResultSummary) {
         token.isNetworkActive = false
         token.result = result
-        if tokens.remove(token) != nil {
-            didEnd?(token)
-            logTrace("ended: \(token)", group: .inFlight)
-        } else {
-            fatalError("Token \(token) not found.")
+        serializer.dispatch {
+            if let token = self.tokens.remove(token) {
+                logTrace("ended: \(token)", group: .inFlight)
+            } else {
+                fatalError("Token \(token) not found.")
+            }
         }
+        self.didEnd?(token)
     }
 }
 

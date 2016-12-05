@@ -15,7 +15,7 @@ public class NotificationActions {
     }
 
     func getAction(for name: NSNotification.Name) -> NotificationBlock? {
-        return notificationActions[name]?.block
+        return notificationActions[name]?.notificationBlock
     }
 
     func setAction(using block: NotificationBlock?, object: AnyObject?, name: NSNotification.Name) {

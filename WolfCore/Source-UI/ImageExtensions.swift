@@ -105,6 +105,24 @@ extension OSImage {
     #endif
 }
 
+// Support the Serializable protocol used for caching
+
+extension UIImage: Serializable {
+    public typealias ValueType = UIImage
+
+    public func serialize() -> Data {
+        return NSKeyedArchiver.archivedData(withRootObject: self)
+    }
+
+    public static func deserialize(from data: Data) throws -> UIImage {
+        if let image = NSKeyedUnarchiver.unarchiveObject(with: data) as? UIImage {
+            return image
+        } else {
+            throw ValidationError(message: "Invalid image data.", violation: "imageFormat")
+        }
+    }
+}
+
 public struct ImageReference: ExtensibleEnumeratedName, Reference {
     public let name: String
     public let bundle: Bundle

@@ -31,11 +31,11 @@ class ImageViewerDismissGestureRecognizer: UIGestureRecognizer {
     }
 
     private func yFrac(for point: CGPoint, in view: UIView) -> Frac {
-        return Frac(map(value: point.y, from: view.bounds.minY .. view.bounds.maxY))
+        return Frac(point.y.mapped(from: view.bounds.minY .. view.bounds.maxY))
     }
 
     private func xFrac(for point: CGPoint, in view: UIView) -> Frac {
-        return Frac(map(value: point.x, from: view.bounds.minX .. view.bounds.maxX))
+        return Frac(point.x.mapped(from: view.bounds.minX .. view.bounds.maxX))
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {

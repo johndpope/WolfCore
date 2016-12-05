@@ -10,10 +10,10 @@ import Foundation
 
 extension NSRange {
     public var isFound: Bool {
-        return location != Int(Foundation.NSNotFound)
+        return location != NSNotFound
     }
 
     public var isNotFound: Bool {
-        return location == Int(Foundation.NSNotFound)
+        return location == NSNotFound
     }
 }

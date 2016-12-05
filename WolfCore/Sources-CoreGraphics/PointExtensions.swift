@@ -35,6 +35,14 @@ extension CGPoint {
     }
 }
 
+extension CGPoint {
+    public var debugSummary: String {
+        let joiner = Joiner(left: "(", right: ")")
+        joiner.append(x %% 3, y %% 3)
+        return joiner.description
+    }
+}
+
 public func + (left: CGPoint, right: CGPoint) -> CGVector {
     return CGVector(dx: left.x + right.x, dy: left.y + right.y)
 }

@@ -17,16 +17,11 @@ extension Data: Serializable {
         return self
     }
 
-    public static func deserializeFromData(data: Data) throws -> Data {
+    public static func deserialize(from data: Data) throws -> Data {
         return data
     }
 
     public init(bytes: MutableRandomAccessSlice<Data>) {
         self.init(bytes: Array(bytes))
-    }
-
-    public init(_ data: Data) {
-        let p: UnsafePointer<UInt8> = data.withUnsafeBytes { $0 }
-        self.init(bytes: p, count: data.count)
     }
 }

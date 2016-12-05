@@ -42,7 +42,7 @@ public class KeyboardMovement: CustomStringConvertible {
     public var animationCurveOptions: UIViewAnimationOptions {
         switch animationCurve {
         case .easeInOut:
-            return UIViewAnimationOptions(rawValue: 0)
+            return [.curveEaseInOut]
         case .easeIn:
             return [.curveEaseIn]
         case .easeOut:

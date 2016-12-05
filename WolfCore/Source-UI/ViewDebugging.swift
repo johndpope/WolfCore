@@ -128,8 +128,8 @@ extension UIView {
 
     private func appendScrollViewAttributes(forView view: UIView, toJoiner joiner: Joiner) {
         guard let scrollView = view as? UIScrollView else { return }
-        joiner.append("contentSize:\(scrollView.contentSize)")
-        joiner.append("contentOffset:\(scrollView.contentOffset)")
+        joiner.append("contentSize:\(scrollView.contentSize.debugSummary)")
+        joiner.append("contentOffset:\(scrollView.contentOffset.debugSummary)")
         if scrollView.zoomScale != 1.0 {
             joiner.append("zoomScale:\(scrollView.zoomScale)")
         }

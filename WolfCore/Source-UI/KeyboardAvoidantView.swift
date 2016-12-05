@@ -62,16 +62,8 @@ public class KeyboardTrackerView: View {
 
     func keyboardWillMove(_ info: KeyboardMovement) {
         topConstraint.isActive = true
-
-        let duration = info.animationDuration
-        let animated = duration > 0
-        let options = info.animationCurveOptions
         let frameEnd = info.frameEnd(in: superview!)
         self.constraintFrame = frameEnd
-        superview?.setNeedsLayout()
-        dispatchAnimated(animated, duration: duration, options: options) {
-            self.superview?.layoutIfNeeded()
-        }
     }
 
     func keyboardDidHide(_ info: KeyboardMovement) {
@@ -106,7 +98,7 @@ public class KeyboardAvoidantView: View {
             superview.insertSubview(keyboardTrackerView, aboveSubview: self)
 
             activateConstraints(
-                bottomAnchor == keyboardTrackerView.topAnchor =&= UILayoutPriorityDefaultHigh
+                bottomAnchor == keyboardTrackerView.topAnchor =&= UILayoutPriorityRequired
             )
         } else {
             keyboardTrackerView.removeFromSuperview()

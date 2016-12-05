@@ -22,10 +22,10 @@ public func draw(into context: CGContext, drawing: CGContextBlock) {
 }
 
 public func drawIntoCurrentContext(drawing: CGContextBlock) {
-    draw(into: getCurrentGraphicsContext(), drawing: drawing)
+    draw(into: currentGraphicsContext, drawing: drawing)
 }
 
-public func getCurrentGraphicsContext() -> CGContext {
+public var currentGraphicsContext: CGContext {
     #if os(iOS) || os(tvOS)
         return UIGraphicsGetCurrentContext()!
     #elseif os(OSX)

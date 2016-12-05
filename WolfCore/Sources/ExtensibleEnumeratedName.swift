@@ -7,7 +7,8 @@
 //
 
 public protocol ExtensibleEnumeratedName: RawRepresentable, Equatable, Hashable, Comparable {
-    var name: String { get }
+    associatedtype ValueType: Comparable
+    var name: ValueType { get }
 }
 
 public func < <T: ExtensibleEnumeratedName>(left: T, right: T) -> Bool {

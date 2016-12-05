@@ -13,13 +13,8 @@ extension Date {
         let calendar = Calendar.current
         let dayRange = calendar.range(of: .day, in: .month, for: self)!
         let dayCount = dayRange.count
-        #if os(Linux)
-            let comp = calendar.dateComponents([.year, .month, .day], from: self)!
-            comp.day = dayCount
-        #else
-            var comp = calendar.dateComponents([.year, .month, .day], from: self)
-            comp.day = dayCount
-        #endif
+        var comp = calendar.dateComponents([.year, .month, .day], from: self)
+        comp.day = dayCount
         return calendar.date(from: comp)!
     }
 }

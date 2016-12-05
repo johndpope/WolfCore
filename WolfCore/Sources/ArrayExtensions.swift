@@ -10,7 +10,7 @@ import Foundation
 
 extension Array {
     public func index(withCircularIndex i: Int) -> Int {
-        return WolfCore.circularIndex(i, count: count)
+        return circularIndex(i, count: count)
     }
 
     public func element(atCircularIndex i: Int) -> Element {
