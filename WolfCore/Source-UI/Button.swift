@@ -8,8 +8,8 @@
 
 import UIKit
 
-open class Button: UIButton {
-    private var skinChangedAction: SkinChangedAction!
+open class Button: UIButton, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
 
     @IBOutlet var customView: UIView? {
         willSet {
@@ -42,9 +42,7 @@ open class Button: UIButton {
     private func _setup() {
         ~~self
         setup()
-        skinChangedAction = SkinChangedAction(for: self) { [unowned self] in
-            self.updateAppearance()
-        }
+        setupSkinnable()
     }
 
     open override func didMoveToSuperview() {
@@ -53,10 +51,8 @@ open class Button: UIButton {
         updateAppearance()
     }
 
-    /// Override in subclasses
     open func setup() { }
 
-    /// Override in subclasses
     open func updateAppearance() { }
 
     private func removeCustomView() {

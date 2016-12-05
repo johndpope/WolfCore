@@ -63,7 +63,7 @@ open class ScrollingStackView: View {
             keyboardAvoidantView.leadingAnchor == leadingAnchor,
             keyboardAvoidantView.trailingAnchor == trailingAnchor,
             keyboardAvoidantView.topAnchor == topAnchor,
-            keyboardAvoidantView.bottomAnchor == bottomAnchor =&= UILayoutPriorityDefaultHigh
+            keyboardAvoidantView.bottomAnchor == bottomAnchor =&= UILayoutPriorityRequired - 1
         )
     }
 

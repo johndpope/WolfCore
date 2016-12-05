@@ -8,8 +8,8 @@
 
 import UIKit
 
-open class Label: UILabel {
-    private var skinChangedAction: SkinChangedAction!
+open class Label: UILabel, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
 
     var tagTapActions = [String: TagAction]()
     var tapAction: GestureRecognizerAction!
@@ -70,9 +70,7 @@ open class Label: UILabel {
     private func _setup() {
         ~~self
         setup()
-        skinChangedAction = SkinChangedAction(for: self) { [unowned self] in
-            self.updateAppearance()
-        }
+        setupSkinnable()
     }
 
     open override func didMoveToSuperview() {
@@ -81,10 +79,8 @@ open class Label: UILabel {
         updateAppearance()
     }
 
-    /// Override in subclasses
     open func setup() { }
 
-    /// Override in subclasses
     open func updateAppearance() {
         syncToTintColor()
     }

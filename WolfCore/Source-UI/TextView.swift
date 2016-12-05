@@ -10,7 +10,8 @@ import UIKit
 
 public typealias TagAction = (String) -> Void
 
-open class TextView: UITextView {
+open class TextView: UITextView, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
     var tagTapActions = [String: TagAction]()
     var tapAction: GestureRecognizerAction!
 
@@ -41,6 +42,7 @@ open class TextView: UITextView {
     private func _setup() {
         ~~self
         setup()
+        setupSkinnable()
     }
 
     open override func didMoveToSuperview() {
@@ -49,11 +51,9 @@ open class TextView: UITextView {
         updateAppearance()
     }
 
-    /// Override in subclasses
-    public func setup() {
+    open func setup() {
     }
 
-    /// Override in subclasses
     open func updateAppearance() {
         syncToTintColor()
     }

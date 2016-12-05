@@ -11,11 +11,11 @@ import UIKit
 public var sharedImageCache: Cache<UIImage>! = Cache<UIImage>(filename: "sharedImageCache", sizeLimit: 100000, includeHTTP: true)
 public var sharedDataCache: Cache<Data>! = Cache<Data>(filename: "sharedDataCache", sizeLimit: 100000, includeHTTP: true)
 
-open class ImageView: UIImageView {
+open class ImageView: UIImageView, Skinnable {
     public var transparentToTouches = false
     private var updatePDFCanceler: Cancelable?
     private var retrieveCanceler: Cancelable?
-    private var skinChangedAction: SkinChangedAction!
+    public var skinChangedAction: SkinChangedAction!
 
     public var pdf: PDF? {
         didSet {
@@ -103,9 +103,7 @@ open class ImageView: UIImageView {
     private func _setup() {
         ~~self
         setup()
-        skinChangedAction = SkinChangedAction(for: self) { [unowned self] in
-            self.updateAppearance()
-        }
+        setupSkinnable()
     }
 
     open override func didMoveToSuperview() {
@@ -114,10 +112,8 @@ open class ImageView: UIImageView {
         updateAppearance()
     }
 
-    /// Override in subclasses
-    public func setup() { }
+    open func setup() { }
 
-    /// Override in subclasses
     open func updateAppearance() { }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

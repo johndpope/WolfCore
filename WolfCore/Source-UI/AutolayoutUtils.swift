@@ -355,3 +355,14 @@ public func string(forAttribute attribute: NSLayoutAttribute) -> String {
 #endif
 
 // swiftlint:enable cyclomatic_complexity
+
+extension UILayoutConstraintAxis: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .horizontal:
+            return ".horizontal"
+        case .vertical:
+            return ".vertical"
+        }
+    }
+}

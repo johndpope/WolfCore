@@ -8,7 +8,9 @@
 
 import UIKit
 
-open class TableViewCell: UITableViewCell {
+open class TableViewCell: UITableViewCell, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
@@ -21,8 +23,16 @@ open class TableViewCell: UITableViewCell {
 
     private func _setup() {
         setup()
+        setupSkinnable()
     }
 
-    /// Override in subclasses
-    public func setup() { }
+    open override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard superview != nil else { return }
+        updateAppearance()
+    }
+
+    open func setup() { }
+
+    open func updateAppearance() { }
 }

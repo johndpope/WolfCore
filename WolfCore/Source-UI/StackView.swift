@@ -8,7 +8,8 @@
 
 import UIKit
 
-open class StackView: UIStackView {
+open class StackView: UIStackView, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
     public var transparentToTouches = false
 
     public convenience init() {
@@ -33,6 +34,7 @@ open class StackView: UIStackView {
     private func _setup() {
         ~self
         setup()
+        setupSkinnable()
     }
 
     open override func didMoveToSuperview() {
@@ -41,12 +43,6 @@ open class StackView: UIStackView {
         updateAppearance()
     }
 
-    /// Override in subclasses
-    public func setup() { }
-
-    /// Override in subclasses
-    open func updateAppearance() { }
-
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
             return isTransparentToTouch(at: point, with: event)
@@ -54,51 +50,8 @@ open class StackView: UIStackView {
             return super.point(inside: point, with: event)
         }
     }
-}
 
-extension UILayoutConstraintAxis: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .horizontal:
-            return ".horizontal"
-        case .vertical:
-            return ".vertical"
-        }
-    }
-}
+    open func setup() { }
 
-extension UIStackViewDistribution: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .equalCentering:
-            return ".equalCentering"
-        case .equalSpacing:
-            return ".equalSpacing"
-        case .fill:
-            return ".fill"
-        case .fillEqually:
-            return ".fillEqually"
-        case .fillProportionally:
-            return ".fillProportionally"
-        }
-    }
-}
-
-extension UIStackViewAlignment: CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .center:
-            return ".center"
-        case .fill:
-            return ".fill"
-        case .firstBaseline:
-            return ".firstBaseline"
-        case .lastBaseline:
-            return ".lastBaseline"
-        case .leading:
-            return ".leading"
-        case .trailing:
-            return ".trailing"
-        }
-    }
+    open func updateAppearance() { }
 }

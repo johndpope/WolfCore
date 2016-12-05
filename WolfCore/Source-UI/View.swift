@@ -12,76 +12,80 @@
     import Cocoa
 #endif
 
-    open class View: OSView {
-        public convenience init() {
-            self.init(frame: .zero)
-        }
+open class View: OSView, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
 
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-            _setup()
-        }
+    public convenience init() {
+        self.init(frame: .zero)
+    }
 
-        public required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            _setup()
-        }
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        _setup()
+    }
 
-        private func _setup() {
-            translatesAutoresizingMaskIntoConstraints = false
-            setup()
-        }
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        _setup()
+    }
 
-        // Override in subclasses
-        open func setup() { }
+    private func _setup() {
+        translatesAutoresizingMaskIntoConstraints = false
+        setup()
+        setupSkinnable()
+    }
 
-        #if os(iOS) || os(tvOS)
+    open func setup() { }
 
-        var baseSize: CGSize!
-        public var managesSublabelScaling = false
+    open func updateAppearance() { }
 
-        /// Can be set from Interface Builder
-        public var transparentToTouches: Bool = false
+    #if os(iOS) || os(tvOS)
 
-        /// Can be set from Interface Builder
-        public var transparentBackground: Bool = false {
-            didSet {
-                if transparentBackground {
-                    makeTransparent()
-                }
+    var baseSize: CGSize!
+    public var managesSublabelScaling = false
+
+    /// Can be set from Interface Builder
+    public var transparentToTouches: Bool = false
+
+    /// Can be set from Interface Builder
+    public var transparentBackground: Bool = false {
+        didSet {
+            if transparentBackground {
+                makeTransparent()
             }
-        }
-
-        /// Can be set from Interface Builder, or in the subclass's Setup() function.
-        public var contentNibName: String? = nil
-
-        private var endEditingAction: GestureRecognizerAction!
-
-        /// Can be set from Interface Builder
-        public var endsEditingWhenTapped: Bool = false {
-            didSet {
-                if endsEditingWhenTapped {
-                    endEditingAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in
-                        self.window?.endEditing(false)
-                    }
-                } else {
-                    endEditingAction = nil
-                }
-            }
-        }
-
-        open override func awakeFromNib() {
-            super.awakeFromNib()
-            loadContentFromNib()
-            setupSublabelScaling()
-        }
-        #endif
-
-        open override func layoutSubviews() {
-            super.layoutSubviews()
-            syncSublabelScaling()
         }
     }
+
+    /// Can be set from Interface Builder, or in the subclass's Setup() function.
+    public var contentNibName: String? = nil
+
+    private var endEditingAction: GestureRecognizerAction!
+
+    /// Can be set from Interface Builder
+    public var endsEditingWhenTapped: Bool = false {
+        didSet {
+            if endsEditingWhenTapped {
+                endEditingAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in
+                    self.window?.endEditing(false)
+                }
+            } else {
+                endEditingAction = nil
+            }
+        }
+    }
+
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        loadContentFromNib()
+        setupSublabelScaling()
+    }
+    #endif
+
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        syncSublabelScaling()
+    }
+}
 
 #if os(OSX)
     extension View {
@@ -92,32 +96,32 @@
 #endif
 
 #if os(iOS) || os(tvOS)
-extension View {
+    extension View {
 
-    func setupSublabelScaling() {
-        guard managesSublabelScaling else { return }
+        func setupSublabelScaling() {
+            guard managesSublabelScaling else { return }
 
-        baseSize = bounds.size
-        for label in descendantViews() as [Label] {
-            label.resetBaseFont()
+            baseSize = bounds.size
+            for label in descendantViews() as [Label] {
+                label.resetBaseFont()
+            }
+            setNeedsLayout()
         }
-        setNeedsLayout()
-    }
 
-    func syncSublabelScaling() {
-        guard managesSublabelScaling else { return }
+        func syncSublabelScaling() {
+            guard managesSublabelScaling else { return }
 
-        let factor = bounds.height / baseSize.height
-        for label in descendantViews() as [Label] {
-            label.syncFontSize(toFactor: factor)
+            let factor = bounds.height / baseSize.height
+            for label in descendantViews() as [Label] {
+                label.syncFontSize(toFactor: factor)
+            }
         }
     }
-}
 #endif
 
 extension View {
 
-#if os(iOS) || os(tvOS)
+    #if os(iOS) || os(tvOS)
     override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {
             return isTransparentToTouch(at: point, with: event)
@@ -181,7 +185,7 @@ extension View {
             addConstraint(newConstraint)
         }
     }
-#endif
+    #endif
 }
 
 extension View {

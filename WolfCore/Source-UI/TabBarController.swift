@@ -8,7 +8,9 @@
 
 import UIKit
 
-public class TabBarController: UITabBarController {
+open class TabBarController: UITabBarController, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
@@ -22,30 +24,25 @@ public class TabBarController: UITabBarController {
     private func _setup() {
         logInfo("init \(self)", group: .viewControllerLifecycle)
         setup()
-    }
-
-    public func setup() {
+        setupSkinnable()
     }
 
     deinit {
         logInfo("deinit \(self)", group: .viewControllerLifecycle)
     }
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
     }
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    public override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         updateAppearance()
     }
 
-    /// Override in subclasses
+    open func setup() { }
+
     open func updateAppearance() { }
 }

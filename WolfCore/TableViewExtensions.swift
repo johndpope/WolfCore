@@ -32,4 +32,10 @@ extension UITableView {
         }
         endUpdates()
     }
+
+    public func performUpdates(using block: Block) {
+        beginUpdates()
+        block()
+        endUpdates()
+    }
 }

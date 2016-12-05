@@ -194,3 +194,15 @@ extension OSView {
         }
     }
 #endif
+
+#if os(iOS)
+    extension UIView {
+        public var statusBarFrame: CGRect? {
+            guard let window = window else { return nil }
+            let statusBarFrame = UIApplication.shared.statusBarFrame
+            let statusBarWindowRect = window.convert(statusBarFrame, from: nil)
+            let statusBarViewRect = convert(statusBarWindowRect, from: nil)
+            return statusBarViewRect
+        }
+    }
+#endif

@@ -8,7 +8,8 @@
 
 import UIKit
 
-open class TextField: UITextField {
+open class TextField: UITextField, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
     var tintedClearImage: UIImage?
     var lastTintColor: UIColor?
 
@@ -35,7 +36,8 @@ open class TextField: UITextField {
     private func _setup() {
         ~~self
         setup()
-    }
+        setupSkinnable()
+   }
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -48,24 +50,22 @@ open class TextField: UITextField {
         tintClearImage()
     }
 
-    /// Override in subclasses
-    public func setup() {
+    open func setup() {
     }
 
-    /// Override in subclasses
     open func updateAppearance() {
         syncToTintColor()
     }
 }
 
 extension TextField {
-    func syncToTintColor() {
+    fileprivate func syncToTintColor() {
         guard followsTintColor else { return }
         textColor = tintColor
         tintClearImage()
     }
 
-    func tintClearImage() {
+    fileprivate func tintClearImage() {
         let newTintColor: UIColor
         if followsTintColor {
             newTintColor = tintColor

@@ -13,7 +13,9 @@ extension Log.GroupName {
     public static let viewControllerLifecycle = Log.GroupName("viewControllers")
 }
 
-open class ViewController: UIViewController {
+open class ViewController: UIViewController, Skinnable {
+    public var skinChangedAction: SkinChangedAction!
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
@@ -27,9 +29,7 @@ open class ViewController: UIViewController {
     private func _setup() {
         logInfo("init \(self)", group: .viewControllerLifecycle)
         setup()
-    }
-
-    open func setup() {
+        setupSkinnable()
     }
 
     deinit {
@@ -41,16 +41,13 @@ open class ViewController: UIViewController {
         logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
     }
 
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         updateAppearance()
     }
 
-    /// Override in subclasses
+    open func setup() { }
+
     open func updateAppearance() { }
 }
