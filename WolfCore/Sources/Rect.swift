@@ -8,7 +8,7 @@
 
 #if os(Linux)
     import Glibc
-#elseif os(iOS) || os(OSX) || os(tvOS)
+#elseif os(iOS) || os(macOS) || os(tvOS)
     import CoreGraphics
 #endif
 
@@ -31,7 +31,7 @@ public struct Rect {
     }
 }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     extension Rect {
         public init(r: CGRect) {
             origin = Point(x: Double(r.origin.x), y: Double(r.origin.y))

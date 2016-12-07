@@ -28,13 +28,8 @@ extension OSColor {
     }
 
     public class func diagonalStripesPattern(color1: OSColor, color2: OSColor, flipped: Bool = false) -> OSColor {
-        #if os(iOS) || os(tvOS)
-            let screenScale = UIScreen.main.scale
-        #elseif os(OSX)
-            let screenScale: CGFloat = 1.0
-        #endif
         let bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 64, height: 64))
-        let image = newImage(withSize: bounds.size, opaque: true, scale: screenScale, renderingMode: .alwaysOriginal) { context in
+        let image = newImage(withSize: bounds.size, opaque: true, scale: mainScreenScale, renderingMode: .alwaysOriginal) { context in
             context.setFillColor(color1.cgColor)
             context.fill(bounds)
             let path = OSBezierPath()
@@ -112,9 +107,9 @@ extension OSColor {
 
 public struct ColorReference: ExtensibleEnumeratedName, Reference {
     public let name: String
-    public let color: UIColor
+    public let color: OSColor
 
-    public init(_ name: String, color: UIColor) {
+    public init(_ name: String, color: OSColor) {
         self.name = name
         self.color = color
     }
@@ -123,11 +118,11 @@ public struct ColorReference: ExtensibleEnumeratedName, Reference {
     public var hashValue: Int { return name.hashValue }
 
     // RawRepresentable
-    public init?(rawValue: (name: String, color: UIColor)) { self.init(rawValue.name, color: rawValue.color) }
-    public var rawValue: (name: String, color: UIColor) { return (name: name, color: color) }
+    public init?(rawValue: (name: String, color: OSColor)) { self.init(rawValue.name, color: rawValue.color) }
+    public var rawValue: (name: String, color: OSColor) { return (name: name, color: color) }
 
     // Reference
-    public var referent: UIColor {
+    public var referent: OSColor {
         return color
     }
 }
@@ -136,6 +131,6 @@ public func == (left: ColorReference, right: ColorReference) -> Bool {
     return left.name == right.name
 }
 
-public postfix func ® (lhs: ColorReference) -> UIColor {
+public postfix func ® (lhs: ColorReference) -> OSColor {
     return lhs.referent
 }

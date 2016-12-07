@@ -9,19 +9,19 @@
 #if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSBezierPath = UIBezierPath
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
     public typealias OSBezierPath = NSBezierPath
 #endif
 
-#if os(OSX)
+#if os(macOS)
     extension OSBezierPath {
         public func addLineToPoint(point: CGPoint) {
-            lineToPoint(point)
+            line(to: point)
         }
 
         public func addArcWithCenter(center: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
-            appendBezierPathWithArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle)
+            appendArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle)
         }
     }
 #endif
@@ -45,38 +45,38 @@ extension OSBezierPath {
     }
 }
 
-#if os(OSX)
+#if os(macOS)
     extension NSBezierPath {
         public convenience init (arcCenter center: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool) {
             self.init()
-            appendBezierPathWithArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
+            appendArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         }
 
-        public var CGPath: CGPathRef {
-            let path = CGPathCreateMutable()
+        public var CGPath: CGPath {
+            let path = CGMutablePath()
             let elementsCount = self.elementCount
 
-            let pointsArray = NSPointArray.alloc( 3 )
+            let pointsArray = NSPointArray.allocate( capacity: 3 )
 
             for index in 0 ..< elementsCount {
-                switch elementAtIndex( index, associatedPoints: pointsArray ) {
-                case NSBezierPathElement.MoveToBezierPathElement:
+                switch element( at: index, associatedPoints: pointsArray ) {
+                case NSBezierPathElement.moveToBezierPathElement:
                     CGPathMoveToPoint( path, nil, pointsArray[0].x, pointsArray[0].y )
 
-                case NSBezierPathElement.LineToBezierPathElement:
+                case NSBezierPathElement.lineToBezierPathElement:
                     CGPathAddLineToPoint( path, nil, pointsArray[0].x, pointsArray[0].y )
 
-                case NSBezierPathElement.CurveToBezierPathElement:
+                case NSBezierPathElement.curveToBezierPathElement:
                     CGPathAddCurveToPoint( path, nil, pointsArray[0].x, pointsArray[0].y,
                                            pointsArray[1].x, pointsArray[1].y,
                                            pointsArray[2].x, pointsArray[2].y )
 
-                case NSBezierPathElement.ClosePathBezierPathElement:
-                    CGPathCloseSubpath( path )
+                case NSBezierPathElement.closePathBezierPathElement:
+                    path.closeSubpath()
                 }
             }
 
-            return CGPathCreateCopy( path )!
+            return path.copy()!
         }
     }
 #endif

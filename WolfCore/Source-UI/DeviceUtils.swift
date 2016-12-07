@@ -6,8 +6,13 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+#if os(iOS) || os(tvOS)
+    import UIKit
+#else
+    import CoreGraphics
+#endif
 
+#if os(iOS) || os(tvOS)
 public let isPad: Bool = {
     return UIDevice.current.userInterfaceIdiom == .pad
 }()
@@ -84,4 +89,13 @@ public func forcePhoneToPortraitOrientation() {
 
 public func forceToPortraitOrientation() {
     UIDevice.current.force(toOrientation: UIInterfaceOrientation.portrait)
+}
+#endif
+
+public var mainScreenScale: CGFloat {
+    #if os(iOS) || os(tvOS)
+        return UIScreen.main.scale
+    #else
+        return 1.0
+    #endif
 }

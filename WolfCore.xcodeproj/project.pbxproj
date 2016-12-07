@@ -80,7 +80,6 @@
 		033AC34D1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
 		033AC34E1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
 		033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033E14FC1C7CC71C00BA3E63 /* Matrix.swift */; };
-		033F5E831CA3096700647A0A /* GestureRecognizerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */; };
 		033F5E841CA3096700647A0A /* TextCheckingResultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */; };
 		033F5E851CA3096700647A0A /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553181C0F622A00E0FCA7 /* ColorExtensions.swift */; };
 		033F5E861CA3096700647A0A /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553151C0F622A00E0FCA7 /* BundleExtensions.swift */; };
@@ -151,6 +150,24 @@
 		033F5EE31CA31AF200647A0A /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553391C0F622A00E0FCA7 /* ViewExtensions.swift */; };
 		033F5EE41CA3217100647A0A /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553241C0F622A00E0FCA7 /* ImageUtils.swift */; };
 		033F5EE51CA339C800647A0A /* BezierPathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */; };
+		034D311E1DF7A0F9004ADC34 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
+		034D311F1DF7A1D3004ADC34 /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0314DCF41D08F8FD00E23C67 /* DataExtensions.swift */; };
+		034D31201DF7A6BD004ADC34 /* InFlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */; };
+		034D31211DF7A6BD004ADC34 /* InFlightTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF51CF81EB30080DFF6 /* InFlightTracker.swift */; };
+		034D31221DF7A705004ADC34 /* InFlightToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */; };
+		034D31231DF7A706004ADC34 /* InFlightToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF71CF81ED50080DFF6 /* InFlightToken.swift */; };
+		034D31241DF7A70F004ADC34 /* InFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */; };
+		034D31251DF7A710004ADC34 /* InFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEF91CF81F0F0080DFF6 /* InFlightView.swift */; };
+		034D31261DF7A7A4004ADC34 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFB1CF81F350080DFF6 /* StackView.swift */; };
+		034D31271DF7A7A5004ADC34 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFB1CF81F350080DFF6 /* StackView.swift */; };
+		034D31281DF7A96E004ADC34 /* NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A8C3B1D149F2900707E43 /* NetworkActivity.swift */; };
+		034D31291DF7A96F004ADC34 /* NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A8C3B1D149F2900707E43 /* NetworkActivity.swift */; };
+		034D312A1DF7A9B0004ADC34 /* DevOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */; };
+		034D312B1DF7A9B1004ADC34 /* DevOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */; };
+		034D312C1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */; };
+		034D312D1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */; };
+		034D312E1DF7AB42004ADC34 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553281C0F622A00E0FCA7 /* Label.swift */; };
+		034D312F1DF7F5E3004ADC34 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
 		034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
@@ -199,8 +216,6 @@
 		035CEB9C1D4883BC006FFD16 /* SwiftJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* SwiftJSON.swift */; };
 		035CEB9D1D4883BC006FFD16 /* SwiftJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322E8A51D15378C00EFF3F6 /* SwiftJSON.swift */; };
 		035E520E1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */; };
-		035E520F1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */; };
-		035E52101DF5261C00D6C8A5 /* StackViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */; };
 		035EB4551CF3CC2D006D73ED /* EmailUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4541CF3CC2D006D73ED /* EmailUtils.swift */; };
 		035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */; };
 		035F11251D11A70900DCAC2E /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035F11241D11A70900DCAC2E /* URL.swift */; };
@@ -244,7 +259,6 @@
 		0378EC961DF5123800E6A875 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		0378EC971DF5123800E6A875 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		0378EC991DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */; };
-		0378EC9A1DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */; };
 		0378EC9B1DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */; };
 		0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
 		0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */; };
@@ -297,8 +311,6 @@
 		03CF07F31DF534E800B7AD7E /* SkinTransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F11DF534E800B7AD7E /* SkinTransferValue.swift */; };
 		03CF07F41DF534E800B7AD7E /* SkinTransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F11DF534E800B7AD7E /* SkinTransferValue.swift */; };
 		03CF07F61DF535CF00B7AD7E /* SkinStatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F51DF535CF00B7AD7E /* SkinStatusBarStyle.swift */; };
-		03CF07F71DF535CF00B7AD7E /* SkinStatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F51DF535CF00B7AD7E /* SkinStatusBarStyle.swift */; };
-		03CF07F81DF535CF00B7AD7E /* SkinStatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F51DF535CF00B7AD7E /* SkinStatusBarStyle.swift */; };
 		03CF07FA1DF5367400B7AD7E /* HTTPActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F91DF5367400B7AD7E /* HTTPActions.swift */; };
 		03CF07FB1DF5367400B7AD7E /* HTTPActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F91DF5367400B7AD7E /* HTTPActions.swift */; };
 		03CF07FC1DF5367400B7AD7E /* HTTPActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F91DF5367400B7AD7E /* HTTPActions.swift */; };
@@ -400,7 +412,6 @@
 		03E173101CF1C8FB0073F383 /* BarButtonItemAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonItemAction.swift */; };
 		03E173111CF1C8FB0073F383 /* ControlAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553191C0F622A00E0FCA7 /* ControlAction.swift */; };
 		03E173121CF1C8FB0073F383 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
-		03E173131CF1C8FB0073F383 /* GestureRecognizerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */; };
 		03E173141CF1C8FB0073F383 /* GestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D01CB4869800F25335 /* GestureActions.swift */; };
 		03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D91CB6DE0600DC7070 /* TVControllerActions.swift */; };
 		03E173171CF1C8FB0073F383 /* ViewGestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */; };
@@ -1291,10 +1302,13 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = Arciem;
 				TargetAttributes = {
+					033F5E811CA3096700647A0A = {
+						LastSwiftMigration = 0810;
+					};
 					035552F71C0F5F4200E0FCA7 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 92TUA8H52D;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 					};
 					03A1466D1CAF5E0600FD6261 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1407,7 +1421,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				033F5E831CA3096700647A0A /* GestureRecognizerAction.swift in Sources */,
 				0322E89F1D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
 				033F5E841CA3096700647A0A /* TextCheckingResultExtensions.swift in Sources */,
@@ -1422,18 +1435,18 @@
 				033F5E8D1CA3096700647A0A /* ASN1Parser.swift in Sources */,
 				031631A31D0969C600DCBB3B /* ObjectAliaser.swift in Sources */,
 				033F5E8E1CA3096700647A0A /* Base64URL.swift in Sources */,
+				034D312F1DF7F5E3004ADC34 /* AnimationUtils.swift in Sources */,
 				033F5E8F1CA3096700647A0A /* Color.swift in Sources */,
 				033F5E911CA3096700647A0A /* Hex.swift in Sources */,
 				033F5E931CA3096700647A0A /* OutputStreamUtils.swift in Sources */,
-				03CF07F71DF535CF00B7AD7E /* SkinStatusBarStyle.swift in Sources */,
 				03106F671D40D8F900E21F82 /* RunesOptional.swift in Sources */,
 				033F5E941CA3096700647A0A /* SizeExtensions.swift in Sources */,
 				033F5E961CA3096700647A0A /* HTTPUtils.swift in Sources */,
+				034D312E1DF7AB42004ADC34 /* Label.swift in Sources */,
 				033F5E981CA3096700647A0A /* Matrix.swift in Sources */,
 				0387653E1D245BB60082FC79 /* Reference.swift in Sources */,
 				033F5E991CA3096700647A0A /* GeometryUtils.swift in Sources */,
 				033F5E9A1CA3096700647A0A /* RangeExtensions.swift in Sources */,
-				035E520F1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */,
 				0378EC961DF5123800E6A875 /* Joiner.swift in Sources */,
 				0314DD121D09032400E23C67 /* Serializable.swift in Sources */,
 				033F5E9B1CA3096700647A0A /* ResourceUtils.swift in Sources */,
@@ -1455,6 +1468,7 @@
 				03E172FE1CF1C8D50073F383 /* SequenceExtensions.swift in Sources */,
 				033F5EA51CA3096700647A0A /* NotificationCenterExtensions.swift in Sources */,
 				031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */,
+				034D31201DF7A6BD004ADC34 /* InFlightTracker.swift in Sources */,
 				0359AF5F1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				033F5EA61CA3096700647A0A /* DictionaryExtensions.swift in Sources */,
 				033F5EA71CA3096700647A0A /* BSON.swift in Sources */,
@@ -1466,29 +1480,34 @@
 				035F11261D11A70900DCAC2E /* URL.swift in Sources */,
 				03CF07E31DF531FB00B7AD7E /* SkinColor.swift in Sources */,
 				033F5EAB1CA3096700647A0A /* ISO8601.swift in Sources */,
+				034D31241DF7A70F004ADC34 /* InFlightView.swift in Sources */,
 				033F5EAC1CA3096700647A0A /* Serializer.swift in Sources */,
 				033F5EAD1CA3096700647A0A /* Gradient.swift in Sources */,
 				033F5EAE1CA3096700647A0A /* ValidationError.swift in Sources */,
 				033F5EAF1CA3096700647A0A /* FoundationJSON.swift in Sources */,
+				034D311E1DF7A0F9004ADC34 /* DeviceUtils.swift in Sources */,
 				033F5EB01CA3096700647A0A /* Rect.swift in Sources */,
-				0378EC9A1DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */,
 				033F5EB21CA3096700647A0A /* ImageExtensions.swift in Sources */,
 				0378EC841DF4D89900E6A875 /* Cache.swift in Sources */,
 				03106F631D40D81F00E21F82 /* Runes.swift in Sources */,
 				033F5EB31CA3096700647A0A /* RegexUtils.swift in Sources */,
 				033F5EE51CA339C800647A0A /* BezierPathExtensions.swift in Sources */,
+				034D31261DF7A7A4004ADC34 /* StackView.swift in Sources */,
 				033F5EB41CA3096700647A0A /* PDF.swift in Sources */,
 				033F5EB61CA3096700647A0A /* IntSize.swift in Sources */,
 				033AC34D1D17172E008C8B93 /* Frac.swift in Sources */,
 				033F5EB81CA3096700647A0A /* LifeHash.swift in Sources */,
 				03E1732F1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
+				034D312A1DF7A9B0004ADC34 /* DevOverlayView.swift in Sources */,
 				033F5EB91CA3096700647A0A /* MathUtils.swift in Sources */,
 				033F5EBA1CA3096700647A0A /* CryptoUtils.swift in Sources */,
 				0378EC801DF4D78A00E6A875 /* MemoryCacheLayer.swift in Sources */,
 				033F5EBC1CA3096700647A0A /* PointExtensions.swift in Sources */,
 				033F5EBD1CA3096700647A0A /* NotificationAction.swift in Sources */,
+				034D311F1DF7A1D3004ADC34 /* DataExtensions.swift in Sources */,
 				03CF07DF1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
 				033F5EBF1CA3096700647A0A /* IPAddress4.swift in Sources */,
+				034D312C1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */,
 				03E3C7341D10E3120004DF98 /* Monad.swift in Sources */,
 				033F5EC01CA3096700647A0A /* LayoutConstraintsGroup.swift in Sources */,
 				03B0D9B31DF33A6A0073AF42 /* Skin.swift in Sources */,
@@ -1508,10 +1527,12 @@
 				033F5ECB1CA3096700647A0A /* ArrayExtensions.swift in Sources */,
 				033F5ECD1CA3096700647A0A /* UserDefaultsExtensions.swift in Sources */,
 				033F5ECE1CA3096700647A0A /* ErrorExtensions.swift in Sources */,
+				034D31281DF7A96E004ADC34 /* NetworkActivity.swift in Sources */,
 				0322E8A31D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				033F5ECF1CA3096700647A0A /* UTF8.swift in Sources */,
 				033F5ED01CA3096700647A0A /* Position.swift in Sources */,
 				033F5ED11CA3096700647A0A /* DateExtensions.swift in Sources */,
+				034D31221DF7A705004ADC34 /* InFlightToken.swift in Sources */,
 				033F5ED21CA3096700647A0A /* HashIDs.swift in Sources */,
 				032B87E51DE58B18007D43D2 /* URLComponentsExtensions.swift in Sources */,
 				033F5ED31CA3096700647A0A /* Hysteresis.swift in Sources */,
@@ -1746,6 +1767,7 @@
 				03E172C91CF1C8AD0073F383 /* Card.swift in Sources */,
 				03E172DB1CF1C8B60073F383 /* Gradient.swift in Sources */,
 				03E173291CF1C8FB0073F383 /* ScrollView.swift in Sources */,
+				034D31211DF7A6BD004ADC34 /* InFlightTracker.swift in Sources */,
 				0322E8A01D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				03E173141CF1C8FB0073F383 /* GestureActions.swift in Sources */,
 				0314DCF61D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
@@ -1765,7 +1787,9 @@
 				03E172F31CF1C8C20073F383 /* ArrayExtensions.swift in Sources */,
 				03E172EE1CF1C8B60073F383 /* SHA256.swift in Sources */,
 				03E172D01CF1C8B60073F383 /* Base64.swift in Sources */,
+				034D312B1DF7A9B1004ADC34 /* DevOverlayView.swift in Sources */,
 				03E172F21CF1C8B60073F383 /* UniqueID.swift in Sources */,
+				034D312D1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */,
 				03E1732A1CF1C8FB0073F383 /* WindowExtensions.swift in Sources */,
 				03E172FD1CF1C8CC0073F383 /* VectorExtensions.swift in Sources */,
 				03E172CF1CF1C8B60073F383 /* ASN1Parser.swift in Sources */,
@@ -1774,12 +1798,11 @@
 				03E172DE1CF1C8B60073F383 /* HTTPUtils.swift in Sources */,
 				03E172F41CF1C8C20073F383 /* StringExtensions.swift in Sources */,
 				03E172EA1CF1C8B60073F383 /* Random.swift in Sources */,
-				03CF07F81DF535CF00B7AD7E /* SkinStatusBarStyle.swift in Sources */,
 				03E172D91CF1C8B60073F383 /* DictionaryExtensions.swift in Sources */,
+				034D31291DF7A96F004ADC34 /* NetworkActivity.swift in Sources */,
 				03E172C41CF1C8AD0073F383 /* Vector.swift in Sources */,
 				0378EC941DF4F8E200E6A875 /* HTTPCacheLayer.swift in Sources */,
 				03E172EC1CF1C8B60073F383 /* RegexUtils.swift in Sources */,
-				03E173131CF1C8FB0073F383 /* GestureRecognizerAction.swift in Sources */,
 				03E172EB1CF1C8B60073F383 /* RangeExtensions.swift in Sources */,
 				0378EC811DF4D78A00E6A875 /* MemoryCacheLayer.swift in Sources */,
 				03E172E61CF1C8B60073F383 /* MathUtils.swift in Sources */,
@@ -1822,6 +1845,7 @@
 				03E172E31CF1C8B60073F383 /* FoundationJSON.swift in Sources */,
 				03E172D51CF1C8B60073F383 /* Color.swift in Sources */,
 				032B87E61DE58B18007D43D2 /* URLComponentsExtensions.swift in Sources */,
+				034D31271DF7A7A5004ADC34 /* StackView.swift in Sources */,
 				03E172F71CF1C8CC0073F383 /* CGColorUtils.swift in Sources */,
 				03E173101CF1C8FB0073F383 /* BarButtonItemAction.swift in Sources */,
 				03E172D81CF1C8B60073F383 /* DateExtensions.swift in Sources */,
@@ -1837,12 +1861,12 @@
 				03CF07F01DF5348800B7AD7E /* SkinChangedAction.swift in Sources */,
 				03E172C31CF1C8AD0073F383 /* IntSize.swift in Sources */,
 				03E173091CF1C8E70073F383 /* Serializer.swift in Sources */,
+				034D31251DF7A710004ADC34 /* InFlightView.swift in Sources */,
 				03E172EF1CF1C8B60073F383 /* TextCheckingResultExtensions.swift in Sources */,
 				03E173081CF1C8E70073F383 /* ResourceUtils.swift in Sources */,
 				03E172DD1CF1C8B60073F383 /* Hex.swift in Sources */,
 				03E172FC1CF1C8CC0073F383 /* SizeExtensions.swift in Sources */,
 				03E173171CF1C8FB0073F383 /* ViewGestureActions.swift in Sources */,
-				035E52101DF5261C00D6C8A5 /* StackViewExtensions.swift in Sources */,
 				0387653F1D245BB60082FC79 /* Reference.swift in Sources */,
 				03E173181CF1C8FB0073F383 /* ImageUtils.swift in Sources */,
 				03E172C21CF1C8AD0073F383 /* Size.swift in Sources */,
@@ -1857,6 +1881,7 @@
 				03E172CD1CF1C8AD0073F383 /* TarotCard.swift in Sources */,
 				03B0D9B41DF33A6A0073AF42 /* Skin.swift in Sources */,
 				03E173221CF1C8FB0073F383 /* ViewDebugging.swift in Sources */,
+				034D31231DF7A706004ADC34 /* InFlightToken.swift in Sources */,
 				03CF07E41DF531FC00B7AD7E /* SkinColor.swift in Sources */,
 				0378EC891DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				033AC34E1D17172E008C8B93 /* Frac.swift in Sources */,
@@ -1900,6 +1925,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1926,6 +1952,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1948,7 +1975,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1998,7 +2024,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2026,8 +2051,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2038,7 +2061,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.arciem.WolfCore;
 				PRODUCT_NAME = WolfCore;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2050,8 +2072,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2062,7 +2082,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.arciem.WolfCore;
 				PRODUCT_NAME = WolfCore;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -2074,7 +2093,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "WolfCoreTests-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2089,7 +2107,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "WolfCoreTests-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2105,7 +2122,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2126,7 +2142,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

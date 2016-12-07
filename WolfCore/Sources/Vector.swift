@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     import CoreGraphics
 #elseif os(Linux)
     import Glibc
@@ -27,7 +27,7 @@ public struct Vector {
     }
 }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     extension Vector {
         public init(v: CGVector) {
             dx = Double(v.dx)

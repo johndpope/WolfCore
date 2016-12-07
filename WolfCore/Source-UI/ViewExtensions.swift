@@ -11,24 +11,26 @@
     public typealias OSView = UIView
     public typealias OSEdgeInsets = UIEdgeInsets
     public let OSEdgeInsetsZero = UIEdgeInsets.zero
-#elseif os(OSX)
+    public let OSViewNoIntrinsicMetric = UIViewNoIntrinsicMetric
+#elseif os(macOS)
     import Cocoa
     public typealias OSView = NSView
-    public typealias OSEdgeInsets = NSEdgeInsets
+    public typealias OSEdgeInsets = EdgeInsets
     public let OSEdgeInsetsZero = NSEdgeInsetsZero
+    public let OSViewNoIntrinsicMetric = NSViewNoIntrinsicMetric
 #endif
 
 public typealias ViewBlock = (OSView) -> Bool
 
 extension OSView {
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
     public func makeTransparent(debugColor: OSColor = .clear, debug: Bool = false) {
         isOpaque = false
         backgroundColor = debug ? debugColor.withAlphaComponent(0.25) : .clear
     }
 #endif
 
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
     public func isTransparentToTouch(at point: CGPoint, with event: UIEvent?) -> Bool {
         for subview in subviews {
             if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
@@ -181,7 +183,7 @@ extension OSView {
     }
 }
 
-#if os(OSX)
+#if os(macOS)
     extension NSView {
         public var alpha: CGFloat {
             get {
@@ -191,6 +193,14 @@ extension OSView {
             set {
                 alphaValue = newValue
             }
+        }
+
+        public func setNeedsLayout() {
+            needsLayout = true
+        }
+
+        public func layoutIfNeeded() {
+            layoutSubtreeIfNeeded()
         }
     }
 #endif

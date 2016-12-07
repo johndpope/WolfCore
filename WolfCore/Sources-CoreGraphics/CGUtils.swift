@@ -9,7 +9,7 @@
 import CoreGraphics
 #if os(iOS) || os(tvOS)
     import UIKit
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
 #endif
 
@@ -28,7 +28,7 @@ public func drawIntoCurrentContext(drawing: CGContextBlock) {
 public var currentGraphicsContext: CGContext {
     #if os(iOS) || os(tvOS)
         return UIGraphicsGetCurrentContext()!
-    #elseif os(OSX)
-        return NSGraphicsContext.currentContext()!.CGContext
+    #elseif os(macOS)
+        return NSGraphicsContext.current()!.cgContext
     #endif
 }

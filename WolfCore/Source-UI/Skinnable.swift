@@ -6,8 +6,6 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
-
 public protocol Skinnable: class {
     func updateAppearance()
     var skinChangedAction: SkinChangedAction! { get set }

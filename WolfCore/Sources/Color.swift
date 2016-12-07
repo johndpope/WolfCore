@@ -11,7 +11,7 @@
 #elseif os(iOS) || os(tvOS)
     import UIKit
     import CoreGraphics
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
 #endif
 
@@ -299,7 +299,7 @@ extension Color {
     public var uiColor: UIColor {
         return UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
     }
-    #elseif os(OSX)
+    #elseif os(macOS)
     public var nsColor: NSColor {
         return NSColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
     }

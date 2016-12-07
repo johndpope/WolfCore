@@ -6,11 +6,29 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import UIKit
+#if !os(macOS)
+    import UIKit
+    public typealias OSLabel = UILabel
+#else
+    import Cocoa
+    public typealias OSLabel = NSTextField
+#endif
 
-open class Label: UILabel, Skinnable {
+public typealias TagAction = (String) -> Void
+
+open class Label: OSLabel, Skinnable {
     public var skinChangedAction: SkinChangedAction!
 
+    #if os(macOS)
+    public var text: String {
+        get {
+            return stringValue
+        }
+        set {
+            stringValue = newValue
+        }
+    }
+    #else
     var tagTapActions = [String: TagAction]()
     var tapAction: GestureRecognizerAction!
 
@@ -30,9 +48,9 @@ open class Label: UILabel, Skinnable {
     private var baseFont: UIFontDescriptor!
 
     public func resetBaseFont() {
-        guard scalesFontSize else { return }
+    guard scalesFontSize else { return }
 
-        baseFont = font.fontDescriptor
+    baseFont = font.fontDescriptor
     }
 
     public func syncFontSize(toFactor factor: CGFloat) {
@@ -48,6 +66,27 @@ open class Label: UILabel, Skinnable {
         }
     }
 
+    open override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard superview != nil else { return }
+        updateAppearance()
+    }
+
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if transparentToTouches {
+            return isTransparentToTouch(at: point, with: event)
+        } else {
+            return super.point(inside: point, with: event)
+        }
+    }
+
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        text = text?.localized(onlyIfTagged: true)
+    }
+
+    #endif
+
     public convenience init() {
         self.init(frame: .zero)
     }
@@ -62,38 +101,22 @@ open class Label: UILabel, Skinnable {
         _setup()
     }
 
-    open override func awakeFromNib() {
-        super.awakeFromNib()
-        text = text?.localized(onlyIfTagged: true)
-    }
-
     private func _setup() {
         ~~self
         setup()
         setupSkinnable()
     }
 
-    open override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearance()
-    }
-
     open func setup() { }
 
     open func updateAppearance() {
-        syncToTintColor()
-    }
-
-    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if transparentToTouches {
-            return isTransparentToTouch(at: point, with: event)
-        } else {
-            return super.point(inside: point, with: event)
-        }
+        #if !os(macOS)
+            syncToTintColor()
+        #endif
     }
 }
 
+#if !os(macOS)
 extension Label {
     func syncToTintColor() {
         let tintColor = self.tintColor ?? .black
@@ -172,3 +195,4 @@ extension Label {
         }
     }
 }
+#endif

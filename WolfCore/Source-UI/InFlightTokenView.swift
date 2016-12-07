@@ -6,7 +6,11 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+#if !os(macOS)
+    import UIKit
+#else
+    import Cocoa
+#endif
 
 class InFlightTokenView: View {
     static let viewHeight: CGFloat = 16
@@ -29,25 +33,30 @@ class InFlightTokenView: View {
         let fontSize: CGFloat = 10
 
         let label = Label()
-        label.makeTransparent(debugColor: .purple, debug: false)
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: fontSize)
-        label.shadowColor = UIColor(white: 0.0, alpha: 0.5)
+        label.font = OSFont.systemFont(ofSize: fontSize)
+        #if !os(macOS)
+        label.shadowColor = OSColor(white: 0.0, alpha: 0.5)
+        label.makeTransparent(debugColor: .purple, debug: false)
         label.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        #endif
 
         return label
     }
 
     override func setup() {
         super.setup()
+
+        #if !os(macOS)
         makeTransparent(debugColor: .yellow, debug: false)
         transparentToTouches = true
 
         layer.cornerRadius = type(of: self).viewHeight / 2
         layer.borderWidth = 1.0
+        #endif
 
         idLabel = createLabel()
-        idLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+        idLabel.setContentCompressionResistancePriority(OSLayoutPriorityRequired, for: .horizontal)
         addSubview(idLabel)
 
         activateConstraints(
@@ -56,15 +65,17 @@ class InFlightTokenView: View {
         )
 
         nameLabel = createLabel() |> { (label: Label) -> Label in
+            #if !os(macOS)
             label.adjustsFontSizeToFitWidth = true
             label.minimumScaleFactor = 0.7
-            label.allowsDefaultTighteningForTruncation = true
             label.baselineAdjustment = .alignCenters
-            label.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, for: .horizontal)
+            #endif
+            label.allowsDefaultTighteningForTruncation = true
+            label.setContentCompressionResistancePriority(OSLayoutPriorityDefaultHigh, for: .horizontal)
             self.addSubview(label)
 
             activateConstraints(
-                label.centerXAnchor == self.centerXAnchor =&= UILayoutPriorityDefaultHigh,
+                label.centerXAnchor == self.centerXAnchor =&= OSLayoutPriorityDefaultHigh,
                 label.centerYAnchor == self.centerYAnchor
             )
 
@@ -72,7 +83,7 @@ class InFlightTokenView: View {
         }
 
         resultLabel = createLabel() |> { (label: Label) -> Label in
-            label.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+            label.setContentCompressionResistancePriority(OSLayoutPriorityRequired, for: .horizontal)
             self.addSubview(label)
 
             activateConstraints(
@@ -90,13 +101,13 @@ class InFlightTokenView: View {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: type(of: self).viewHeight)
+        return CGSize(width: OSViewNoIntrinsicMetric, height: type(of: self).viewHeight)
     }
 
-    private static let runningColor = UIColor.yellow
-    private static let successColor = UIColor.green
-    private static let failureColor = UIColor.red
-    private static let canceledColor = UIColor.gray
+    private static let runningColor = OSColor.yellow
+    private static let successColor = OSColor.green
+    private static let failureColor = OSColor.red
+    private static let canceledColor = OSColor.gray
 
     private func syncToToken() {
         guard let token = token else { return }
@@ -104,7 +115,7 @@ class InFlightTokenView: View {
         idLabel.text = String(token.id)
         nameLabel.text = token.name
         var resultText: String?
-        let color: UIColor
+        let color: OSColor
         if let result = token.result {
             if result.isSuccess {
                 color = type(of: self).successColor

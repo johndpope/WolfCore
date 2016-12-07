@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public class HTTPCacheLayer: CacheLayer {
     public init() {
@@ -44,9 +44,9 @@ public class HTTPCacheLayer: CacheLayer {
                 if let contentType = contentType {
                     switch contentType {
                     case ContentType.jpg:
-                        data = UIImage(data: rawData)?.serialize()
+                        data = OSImage(data: rawData)?.serialize()
                     case ContentType.png:
-                        data = UIImage(data: rawData)?.serialize()
+                        data = OSImage(data: rawData)?.serialize()
                     case ContentType.pdf:
                         data = rawData
                     default:

@@ -28,7 +28,7 @@ public class Random {
         }
     }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     public func cryptoRandom() -> Int32 {
         let a = UnsafeMutablePointer<Int32>.allocate(capacity: 1)
         defer {
@@ -61,7 +61,7 @@ public class Random {
         return Float(random()) / Float(m)
     }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     // returns a random CGFloat in the half-open range 0..<1
     public func randomCGFloat() -> CGFloat {
         return CGFloat(random()) / CGFloat(m)
@@ -78,7 +78,7 @@ public class Random {
         return randomFloat().mapped(to: i)
     }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     // returns a random CGFloat in the half-open range start..<end
     public func randomCGFloat(_ i: Interval<CGFloat>) -> CGFloat {
         return randomCGFloat().mapped(to: i)
@@ -116,7 +116,7 @@ public class Random {
         return Random.sharedInstance.randomFloat()
     }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     // returns a random CGFloat in the half-open range 0..<1
     public class func randomCGFloat() -> CGFloat {
         return Random.sharedInstance.randomCGFloat()
@@ -132,7 +132,7 @@ public class Random {
         return Random.sharedInstance.randomFloat(i)
     }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     // returns a random CGFloat in the half-open range start..<end
     public class func randomCGFloat(_ i: Interval<CGFloat>) -> CGFloat {
         return Random.sharedInstance.randomCGFloat(i)
@@ -152,5 +152,15 @@ public class Random {
     // returns a random boolean
     public class func randomBoolean() -> Bool {
         return Random.sharedInstance.randomBoolean()
+    }
+
+    public class func randomChoice<T, C: Collection>(among choices: C) -> T where C.IndexDistance == Int, C.Iterator.Element == T {
+        let offset = randomInt(Int(0) ..< choices.count)
+        let index = choices.index(choices.startIndex, offsetBy: offset)
+        return choices[index]
+    }
+
+    public class func randomChoice<T>(_ choices: T...) -> T {
+        return randomChoice(among: choices)
     }
 }

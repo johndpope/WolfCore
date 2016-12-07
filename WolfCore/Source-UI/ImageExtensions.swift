@@ -9,9 +9,14 @@
 #if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSImage = UIImage
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
     public typealias OSImage = NSImage
+    extension NSImage {
+        public var cgImage: CGImage! {
+            return self.cgImage(forProposedRect: nil, context: nil, hints: nil)
+        }
+    }
 #endif
 
 import CoreGraphics
@@ -32,7 +37,7 @@ extension OSImage {
         }
     }
 
-    public func shaded(withColor color: UIColor) -> UIImage {
+    public func shaded(withColor color: OSColor) -> OSImage {
         return newImage(withSize: size, opaque: false, scale: scale, flipped: true, renderingMode: .alwaysOriginal) { context in
             WolfCore.draw(into: context) { context in
                 context.clip(to: self.bounds, mask: self.cgImage!)
@@ -44,13 +49,17 @@ extension OSImage {
         }
     }
 
-    public convenience init(size: CGSize, color: UIColor, opaque: Bool = false, scale: CGFloat = 0.0) {
+    public convenience init(size: CGSize, color: OSColor, opaque: Bool = false, scale: CGFloat = 0.0) {
         let image = newImage(withSize: size, opaque: opaque, scale: scale) { context in
             let bounds = CGRect(origin: CGPoint.zero, size: size)
             context.setFillColor(color.cgColor)
             context.fill(bounds)
         }
-        self.init(cgImage: image.cgImage!)
+        #if os(macOS)
+            self.init(cgImage: image.cgImage!, size: image.size)
+        #else
+            self.init(cgImage: image.cgImage!)
+        #endif
     }
 
     public func scaled(toSize size: CGSize, opaque: Bool = false) -> OSImage {
@@ -91,31 +100,31 @@ extension OSImage {
     public convenience init?(named name: String, in bundle: Bundle?) {
         self.init(named: name, in: bundle, compatibleWith: nil)
     }
-    #elseif os(OSX)
+    #elseif os(macOS)
     public convenience init?(named name: String, in bundle: Bundle?) {
-        let bundle = bundle ?? Bundle.main()
-        guard let image = bundle.imageForResource(name) else {
+        let bundle = bundle ?? Bundle.main
+        guard let image = bundle.image(forResource: name) else {
             return nil
         }
-        guard let cgImage = image.CGImageForProposedRect(nil, context: nil, hints: nil) else {
+        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
             return nil
         }
-        self.init(CGImage: cgImage, size: image.size)
+        self.init(cgImage: cgImage, size: image.size)
     }
     #endif
 }
 
 // Support the Serializable protocol used for caching
 
-extension UIImage: Serializable {
-    public typealias ValueType = UIImage
+extension OSImage: Serializable {
+    public typealias ValueType = OSImage
 
     public func serialize() -> Data {
         return NSKeyedArchiver.archivedData(withRootObject: self)
     }
 
-    public static func deserialize(from data: Data) throws -> UIImage {
-        if let image = NSKeyedUnarchiver.unarchiveObject(with: data) as? UIImage {
+    public static func deserialize(from data: Data) throws -> OSImage {
+        if let image = NSKeyedUnarchiver.unarchiveObject(with: data) as? OSImage {
             return image
         } else {
             throw ValidationError(message: "Invalid image data.", violation: "imageFormat")
@@ -145,6 +154,6 @@ public struct ImageReference: ExtensibleEnumeratedName, Reference {
     }
 }
 
-public postfix func ® (lhs: ImageReference) -> UIImage {
+public postfix func ® (lhs: ImageReference) -> OSImage {
     return lhs.referent
 }

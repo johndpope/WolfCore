@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension Log.GroupName {
     public static let skin = Log.GroupName("skin")

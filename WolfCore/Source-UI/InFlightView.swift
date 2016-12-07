@@ -6,7 +6,11 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+#if os(iOS) || os(tvOS)
+    import UIKit
+#elseif os(macOS)
+    import Cocoa
+#endif
 
 private let animationDuration: TimeInterval = 0.3
 
@@ -52,8 +56,10 @@ public class InFlightView: View {
 
     public override func setup() {
         super.setup()
+        #if !os(macOS)
         makeTransparent(debugColor: .red, debug: false)
         transparentToTouches = true
+        #endif
         inFlightTracker.didStart = didStart
         inFlightTracker.didEnd = didEnd
 
@@ -159,7 +165,7 @@ public class InFlightView: View {
         )
     }
 
-    private func layout(tokenView: InFlightTokenView, index: Int, referenceView: UIView) {
+    private func layout(tokenView: InFlightTokenView, index: Int, referenceView: OSView) {
         let token: InFlightToken = tokenView.token
         tokenViewConstraintsByID[token.id]?.isActive = false
         let viewY = CGFloat(index) * (InFlightTokenView.viewHeight + spacing)

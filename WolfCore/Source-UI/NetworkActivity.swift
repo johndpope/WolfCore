@@ -6,7 +6,9 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+#if !os(macOS)
 import UIKit
+#endif
 
 public let networkActivity = NetworkActivity()
 
@@ -16,10 +18,14 @@ public class NetworkActivity {
     init() {
         hysteresis = Hysteresis(
             onEffectStart: {
+                #if !os(macOS)
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                #endif
             },
             onEffectEnd: {
+                #if !os(macOS)
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                #endif
             },
             effectStartLag: 0.2,
             effectEndLag: 0.2

@@ -61,7 +61,7 @@ public func loadView<T: OSView>(fromNibNamed name: String, in bundle: Bundle? = 
         return nib.instantiate(withOwner: owner, options: nil)[0] as! T
     #else
         var objs: NSArray? = nil
-        nib.instantiateWithOwner(owner, topLevelObjects: &objs)
+        nib.instantiate(withOwner: owner, topLevelObjects: &objs!)
         return objs![0] as! T
     #endif
 }

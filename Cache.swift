@@ -6,7 +6,8 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import CoreGraphics
 
 extension Log.GroupName {
     public static let cache = Log.GroupName("cache")
@@ -42,7 +43,7 @@ public class Cache<T: Serializable> {
     }
 
     public func storeObject(obj: SerializableType, forURL url: URL, withSize size: CGSize) {
-        let scale = UIScreen.main.scale
+        let scale = mainScreenScale
 
         let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = [
@@ -70,7 +71,7 @@ public class Cache<T: Serializable> {
     }
 
     public func retrieveObject(forURL url: URL, withSize size: CGSize, completion: @escaping Completion) -> Cancelable? {
-        let scale = UIScreen.main.scale
+        let scale = mainScreenScale
 
         let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = [

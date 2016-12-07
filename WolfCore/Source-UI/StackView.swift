@@ -6,9 +6,15 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
+#if os(iOS) || os(tvOS)
+    import UIKit
+    public typealias OSStackView = UIStackView
+#elseif os(macOS)
+    import Cocoa
+    public typealias OSStackView = NSStackView
+#endif
 
-open class StackView: UIStackView, Skinnable {
+open class StackView: OSStackView, Skinnable {
     public var skinChangedAction: SkinChangedAction!
     public var transparentToTouches = false
 
@@ -16,7 +22,7 @@ open class StackView: UIStackView, Skinnable {
         self.init(frame: .zero)
     }
 
-    public convenience init(arrangedSubviews views: [UIView]) {
+    public convenience init(arrangedSubviews views: [OSView]) {
         self.init(arrangedSubviews: views)
         _setup()
     }
@@ -26,10 +32,17 @@ open class StackView: UIStackView, Skinnable {
         _setup()
     }
 
-    public required init(coder: NSCoder) {
-        super.init(coder: coder)
-        _setup()
-    }
+    #if os(macOS)
+        public required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            _setup()
+        }
+    #else
+        public required init(coder: NSCoder) {
+            super.init(coder: coder)
+            _setup()
+        }
+    #endif
 
     private func _setup() {
         ~self
@@ -37,6 +50,7 @@ open class StackView: UIStackView, Skinnable {
         setupSkinnable()
     }
 
+    #if !os(macOS)
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
@@ -50,6 +64,7 @@ open class StackView: UIStackView, Skinnable {
             return super.point(inside: point, with: event)
         }
     }
+    #endif
 
     open func setup() { }
 

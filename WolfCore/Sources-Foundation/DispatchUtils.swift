@@ -20,13 +20,14 @@ import Foundation
 public let mainQueue = DispatchQueue.main
 public let backgroundQueue = DispatchQueue(label: "background", attributes: [.concurrent], target: nil)
 
-// A utility function to convert a time since now as a Double (TimeInterval) representing a number of seconds to a dispatch_time_t used by GCD.
-public func dispatchTimeSinceNow(offsetInSeconds: TimeInterval) -> DispatchTime {
-    return DispatchTime.now() + DispatchTimeInterval.milliseconds(Int(offsetInSeconds * 1000))
-}
-
 private func _dispatch(onQueue queue: DispatchQueue, cancelable: Cancelable, _ f: @escaping CancelableBlock) {
     queue.async {
+        f(cancelable)
+    }
+}
+
+private func _dispatch(onQueue queue: DispatchQueue, afterDelay delay: TimeInterval, cancelable: Cancelable, f: @escaping CancelableBlock) {
+    queue.asyncAfter(deadline: DispatchTime.now() + delay) {
         f(cancelable)
     }
 }
@@ -50,12 +51,6 @@ private func _dispatch(onQueue queue: DispatchQueue, cancelable: Cancelable, _ f
 // Dispatch a block asynchronously on the background queue.
 @discardableResult public func dispatchOnBackground(f: @escaping Block) -> Cancelable {
     return dispatch(onQueue: backgroundQueue, f)
-}
-
-private func _dispatch(onQueue queue: DispatchQueue, afterDelay delay: TimeInterval, cancelable: Cancelable, f: @escaping CancelableBlock) {
-    queue.asyncAfter(deadline: dispatchTimeSinceNow(offsetInSeconds: delay)) {
-        f(cancelable)
-    }
 }
 
 // After the given delay, dispatch a block asynchronously on the given queue. Returns a Canceler object that, if its <isCanceled> attribute is true when the dispatch time arrives, the block will not be executed.

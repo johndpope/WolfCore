@@ -7,8 +7,11 @@
 //
 
 import Foundation
-import CoreGraphics
-import UIKit
+#if os(macOS)
+    import Cocoa
+#else
+    import UIKit
+#endif
 
 public typealias StringIndex = String.Index
 public typealias StringRange = Range<StringIndex>
@@ -327,7 +330,7 @@ extension String {
 #if !os(Linux)
 
 extension String {
-    public func height(forWidth width: CGFloat, font: UIFont, context: NSStringDrawingContext? = nil) -> CGFloat {
+    public func height(forWidth width: CGFloat, font: OSFont, context: NSStringDrawingContext? = nil) -> CGFloat {
         let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
 
         let boundingBox = self.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName: font], context: context)
@@ -335,7 +338,7 @@ extension String {
         return boundingBox.height
     }
 
-    public func width(forHeight height: CGFloat, font: UIFont, context: NSStringDrawingContext? = nil) -> CGFloat {
+    public func width(forHeight height: CGFloat, font: OSFont, context: NSStringDrawingContext? = nil) -> CGFloat {
         let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
 
         let boundingBox = self.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSFontAttributeName: font], context: context)

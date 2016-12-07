@@ -11,12 +11,12 @@ import CoreGraphics
 #if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSImageRenderingMode = UIImageRenderingMode
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
     public enum OSImageRenderingMode: Int {
-        case Automatic
-        case AlwaysOriginal
-        case AlwaysTemplate
+        case automatic
+        case alwaysOriginal
+        case alwaysTemplate
     }
     extension NSImage {
         var scale: CGFloat { return 1.0 }
@@ -36,8 +36,8 @@ public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat
     UIGraphicsEndImageContext()
     return image
 }
-#elseif os(OSX)
-    public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .Automatic, drawing: (CGContext) -> Void) -> NSImage {
+#elseif os(macOS)
+    public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: (CGContext) -> Void) -> NSImage {
         let image = NSImage.init(size: size)
 
         let rep = NSBitmapImageRep.init(bitmapDataPlanes: nil,
@@ -55,18 +55,18 @@ public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat
         image.lockFocus()
 
         let bounds = CGRect(origin: .zero, size: size)
-        let context = NSGraphicsContext.currentContext()!.CGContext
+        let context = NSGraphicsContext.current()!.cgContext
 
         if opaque {
-            CGContextSetFillColorWithColor(context, OSColor.Black.CGColor)
-            CGContextFillRect(context, bounds)
+            context.setFillColor(OSColor.black.cgColor)
+            context.fill(bounds)
         } else {
-            CGContextClearRect(context, bounds)
+            context.clear(bounds)
         }
 
         if flipped {
-            CGContextTranslateCTM(context, 0.0, size.height)
-            CGContextScaleCTM(context, 1.0, -1.0)
+            context.translateBy(x: 0.0, y: size.height)
+            context.scaleBy(x: 1.0, y: -1.0)
         }
 
         drawing(context)

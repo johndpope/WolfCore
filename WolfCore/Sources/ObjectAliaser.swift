@@ -9,7 +9,7 @@
 import Foundation
 #if os(iOS)
     import UIKit
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
 #endif
 

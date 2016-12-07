@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-#if os(OSX)
+#if os(macOS)
     import Cocoa
 #elseif os(iOS) || os(tvOS)
     import UIKit

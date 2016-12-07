@@ -9,9 +9,15 @@
 #if os(iOS) || os(tvOS)
     import UIKit
     public typealias OSLayoutPriority = UILayoutPriority
+    public let OSLayoutPriorityRequired = UILayoutPriorityRequired
+    public let OSLayoutPriorityDefaultHigh = UILayoutPriorityDefaultHigh
+    public let OSLayoutPriorityDefaultLow = UILayoutPriorityDefaultLow
 #else
     import Cocoa
     public typealias OSLayoutPriority = NSLayoutPriority
+    public let OSLayoutPriorityRequired = NSLayoutPriorityRequired
+    public let OSLayoutPriorityDefaultHigh = NSLayoutPriorityDefaultHigh
+    public let OSLayoutPriorityDefaultLow = NSLayoutPriorityDefaultLow
 #endif
 
 public func + (left: NSLayoutXAxisAnchor!, right: CGFloat) -> (anchor: NSLayoutXAxisAnchor, constant: CGFloat) {
@@ -240,20 +246,22 @@ public func deactivateConstraint(_ constraint: NSLayoutConstraint) {
     constraint.isActive = false
 }
 
-#if os(iOS) || os(tvOS)
-    @discardableResult public prefix func ~<T: UIView> (right: T) -> T {
+//#if os(iOS) || os(tvOS)
+    @discardableResult public prefix func ~<T: OSView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false
         return right
     }
 
     prefix operator ~~
 
-    @discardableResult public prefix func ~~<T: UIView> (right: T) -> T {
+    @discardableResult public prefix func ~~<T: OSView> (right: T) -> T {
         right.translatesAutoresizingMaskIntoConstraints = false
+        #if !os(macOS)
         right.makeTransparent()
+        #endif
         return right
     }
-#endif
+//#endif
 
 public func string(forRelation relation: NSLayoutRelation) -> String {
     let result: String
@@ -319,7 +327,7 @@ public func string(forAttribute attribute: NSLayoutAttribute) -> String {
     }
     return result
 }
-#elseif os(OSX)
+#elseif os(macOS)
     public func string(forAttribute attribute: NSLayoutAttribute) -> String {
         let result: String
         switch attribute {
@@ -356,6 +364,7 @@ public func string(forAttribute attribute: NSLayoutAttribute) -> String {
 
 // swiftlint:enable cyclomatic_complexity
 
+#if !os(macOS)
 extension UILayoutConstraintAxis: CustomStringConvertible {
     public var description: String {
         switch self {
@@ -366,3 +375,4 @@ extension UILayoutConstraintAxis: CustomStringConvertible {
         }
     }
 }
+#endif

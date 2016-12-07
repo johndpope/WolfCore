@@ -10,7 +10,7 @@
     import UIKit
     public typealias OSFont = UIFont
     public typealias OSFontDescriptor = UIFontDescriptor
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
     public typealias OSFont = NSFont
     public typealias OSFontDescriptor = NSFontDescriptor
@@ -26,7 +26,7 @@
             return fontDescriptor.symbolicTraits.contains(.traitItalic)
         }
     }
-#elseif os(OSX)
+#elseif os(macOS)
     extension NSFont {
         public var isBold: Bool {
             return (fontDescriptor.symbolicTraits | NSFontSymbolicTraits(NSFontBoldTrait)) != 0
@@ -52,7 +52,7 @@
             return UIFont(descriptor: fontDescriptor.withSymbolicTraits([.traitItalic])!, size: 0)
         }
     }
-#elseif os(OSX)
+#elseif os(macOS)
     extension NSFont {
         public var plainVariant: NSFont {
             return NSFont(descriptor: fontDescriptor.withSymbolicTraits(0), size: 0)!

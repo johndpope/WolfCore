@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     import CoreGraphics
 #elseif os(Linux)
     import Glibc
@@ -29,7 +29,7 @@ public struct Point {
     }
 }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
 extension Point {
     /// Provides conversion from iOS and MacOSX CGPoint types.
     public init(cgPoint p: CGPoint) {

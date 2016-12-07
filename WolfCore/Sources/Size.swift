@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     import CoreGraphics
 #endif
 
@@ -27,7 +27,7 @@ public struct Size {
     }
 }
 
-#if os(iOS) || os(OSX) || os(tvOS)
+#if os(iOS) || os(macOS) || os(tvOS)
     extension Size {
         public init(s: CGSize) {
             width = Double(s.width)

@@ -8,7 +8,7 @@
 
 #if os(iOS) || os(tvOS)
     import UIKit
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
 #endif
 
@@ -79,17 +79,17 @@ open class View: OSView, Skinnable {
         loadContentFromNib()
         setupSublabelScaling()
     }
-    #endif
 
     open override func layoutSubviews() {
         super.layoutSubviews()
         syncSublabelScaling()
     }
+    #endif
 }
 
-#if os(OSX)
+#if os(macOS)
     extension View {
-        public override var flipped: Bool {
+        open override var isFlipped: Bool {
             return true
         }
     }
@@ -203,8 +203,8 @@ extension View {
     }
     #endif
 
-    #if os(OSX)
-    override public var needsDisplay: Bool {
+    #if os(macOS)
+    override open var needsDisplay: Bool {
     didSet {
     osDidSetNeedsDisplay()
     }
@@ -214,8 +214,8 @@ extension View {
     needsDisplay = true
     }
 
-    public override func setNeedsDisplayInRect(rect: CGRect) {
-    super.setNeedsDisplayInRect(rect)
+    open override func setNeedsDisplay(_ rect: CGRect) {
+    super.setNeedsDisplay(rect)
     osDidSetNeedsDisplay()
     }
     #endif

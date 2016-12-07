@@ -6,10 +6,8 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-import UIKit
-
-public class SkinColor: SkinTransferValue<UIColor> {
-    public override init(withDefault defaultValue: UIColor = .black, sink: Sink? = nil) {
+public class SkinColor: SkinTransferValue<OSColor> {
+    public override init(withDefault defaultValue: OSColor = .black, sink: Sink? = nil) {
         super.init(withDefault: defaultValue, sink: sink)
     }
 }

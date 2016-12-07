@@ -8,8 +8,6 @@
 
 import UIKit
 
-public typealias TagAction = (String) -> Void
-
 open class TextView: UITextView, Skinnable {
     public var skinChangedAction: SkinChangedAction!
     var tagTapActions = [String: TagAction]()

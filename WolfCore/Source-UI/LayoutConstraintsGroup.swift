@@ -8,7 +8,7 @@
 
 #if os(iOS) || os(tvOS)
     import UIKit
-#elseif os(OSX)
+#elseif os(macOS)
     import Cocoa
 #endif
 
