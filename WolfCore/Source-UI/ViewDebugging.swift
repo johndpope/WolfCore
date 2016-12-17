@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIView {
+
     public func printViewHierarchy(includingConstraints includeOwnedConstraints: Bool = false, includingConstraintsAffectingHorizontal includeHConstraints: Bool = false, includingConstraintsAffectingVertical includeVConstraints: Bool = false) {
         let aliaser = ObjectAliaser()
         var stack = [(view: UIView, level: Int, indent: String)]()
@@ -20,7 +21,7 @@ extension UIView {
             let prefixJoiner = Joiner()
             let constraintPrefixJoiner = Joiner()
 
-            appendScrollViewPrefix(forView: view, prefixJoiner: prefixJoiner, constraintPrefixJoiner: constraintPrefixJoiner)
+            appendScrollViewPrefix(for: view, prefixJoiner: prefixJoiner, constraintPrefixJoiner: constraintPrefixJoiner)
 
             prefixJoiner.append(view.translatesAutoresizingMaskIntoConstraints ? "⛔️" : "✅")
             constraintPrefixJoiner.append("⬜️")
@@ -28,7 +29,7 @@ extension UIView {
             prefixJoiner.append(view.hasAmbiguousLayout ? "❓" : "✅")
             constraintPrefixJoiner.append("⬜️")
 
-            appendFocusedPrefix(forView: view, prefixJoiner: prefixJoiner, constraintPrefixJoiner: constraintPrefixJoiner)
+            appendFocusedPrefix(for: view, prefixJoiner: prefixJoiner, constraintPrefixJoiner: constraintPrefixJoiner)
 
             let joiner = Joiner()
             joiner.append(prefixJoiner)
@@ -43,27 +44,27 @@ extension UIView {
 
             joiner.append("frame:\(view.frame.debugSummary)")
 
-            appendAttributes(forView: view, toJoiner: joiner)
+            appendAttributes(for: view, to: joiner)
 
-            print(joiner)
+            Swift.print(joiner)
 
             if includeConstraints {
                 var needBlankLines = [Bool]()
 
                 if includeOwnedConstraints {
-                    needBlankLines.append(printConstraints(view.constraints, withPrefix: "🔳", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                    needBlankLines.append(print(constraints: view.constraints, withPrefix: "🔳", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
                 }
 
                 if includeHConstraints {
-                    needBlankLines.append(printConstraints(view.constraintsAffectingLayout(for: .horizontal), withPrefix: "H:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                    needBlankLines.append(print(constraints: view.constraintsAffectingLayout(for: .horizontal), withPrefix: "H:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
                 }
 
                 if includeVConstraints {
-                    needBlankLines.append(printConstraints(view.constraintsAffectingLayout(for: .vertical), withPrefix: "V:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
+                    needBlankLines.append(print(constraints: view.constraintsAffectingLayout(for: .vertical), withPrefix: "V:", currentView: view, constraintPrefixJoiner: constraintPrefixJoiner, indent: indent, aliaser: aliaser))
                 }
 
                 if needBlankLines.contains(true) {
-                    print("\(constraintPrefixJoiner.description) \(indent)  │")
+                    Swift.print("\(constraintPrefixJoiner.description) \(indent)  │")
                 }
             }
 
@@ -73,23 +74,23 @@ extension UIView {
         } while !stack.isEmpty
     }
 
-    private func printConstraints(_ constraints: [NSLayoutConstraint], withPrefix prefix: String, currentView view: UIView, constraintPrefixJoiner: Joiner, indent: String, aliaser: ObjectAliaser) -> Bool {
+    private func print(constraints: [NSLayoutConstraint], withPrefix prefix: String, currentView view: UIView, constraintPrefixJoiner: Joiner, indent: String, aliaser: ObjectAliaser) -> Bool {
         let needBlankLines = constraints.count > 0
         if needBlankLines {
-            print("\(constraintPrefixJoiner.description) \(indent)  │")
+            Swift.print("\(constraintPrefixJoiner.description) \(indent)  │")
         }
         for constraint in constraints {
             let constraintJoiner = Joiner()
             constraintJoiner.append(constraintPrefixJoiner, indent, " │  \(prefix)")
 
-            appendAttributes(forConstraint: constraint, withCurrentView: view, toJoiner: constraintJoiner, withAliaser: aliaser)
+            appendAttributes(for: constraint, with: view, to: constraintJoiner, aliaser: aliaser)
 
-            print(constraintJoiner)
+            Swift.print(constraintJoiner)
         }
         return needBlankLines
     }
 
-    private func appendScrollViewPrefix(forView view: UIView, prefixJoiner: Joiner, constraintPrefixJoiner: Joiner) {
+    private func appendScrollViewPrefix(for view: UIView, prefixJoiner: Joiner, constraintPrefixJoiner: Joiner) {
         #if !os(tvOS)
             var scrollViewPrefix = "⬜️"
             if let scrollView = view as? UIScrollView {
@@ -103,7 +104,7 @@ extension UIView {
         #endif
     }
 
-    private func appendFocusedPrefix(forView view: UIView, prefixJoiner: Joiner, constraintPrefixJoiner: Joiner) {
+    private func appendFocusedPrefix(for view: UIView, prefixJoiner: Joiner, constraintPrefixJoiner: Joiner) {
         #if os(tvOS)
             var focusedPrefix = "⬜️"
             if view.canBecomeFocused() {
@@ -117,16 +118,16 @@ extension UIView {
         #endif
     }
 
-    private func appendAttributes(forView view: UIView, toJoiner joiner: Joiner) {
-        appendScrollViewAttributes(forView: view, toJoiner: joiner)
-        appendStackViewAttributes(forView: view, toJoiner: joiner)
-        appendColorAttributes(forView: view, toJoiner: joiner)
-        appendTextAttributes(forView: view, toJoiner: joiner)
-        appendInteractionAttributes(forView: view, toJoiner: joiner)
-        appendOpacityAttributes(forView: view, toJoiner: joiner)
+    private func appendAttributes(for view: UIView, to joiner: Joiner) {
+        appendScrollViewAttributes(for: view, to: joiner)
+        appendStackViewAttributes(for: view, to: joiner)
+        appendColorAttributes(for: view, to: joiner)
+        appendTextAttributes(for: view, to: joiner)
+        appendInteractionAttributes(for: view, to: joiner)
+        appendOpacityAttributes(for: view, to: joiner)
     }
 
-    private func appendScrollViewAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+    private func appendScrollViewAttributes(for view: UIView, to joiner: Joiner) {
         guard let scrollView = view as? UIScrollView else { return }
         joiner.append("contentSize:\(scrollView.contentSize.debugSummary)")
         joiner.append("contentOffset:\(scrollView.contentOffset.debugSummary)")
@@ -135,7 +136,7 @@ extension UIView {
         }
     }
 
-    private func appendStackViewAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+    private func appendStackViewAttributes(for view: UIView, to joiner: Joiner) {
         guard let stackView = view as? UIStackView else { return }
         joiner.append("axis:\(stackView.axis)")
         joiner.append("distribution:\(stackView.distribution)")
@@ -143,7 +144,7 @@ extension UIView {
         joiner.append("spacing:\(stackView.spacing)")
     }
 
-    private func appendColorAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+    private func appendColorAttributes(for view: UIView, to joiner: Joiner) {
         if let backgroundColor = view.backgroundColor {
             if backgroundColor != .clear {
                 joiner.append("backgroundColor:\(backgroundColor.debugSummary)")
@@ -155,7 +156,7 @@ extension UIView {
         }
     }
 
-    private func appendTextAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+    private func appendTextAttributes(for view: UIView, to joiner: Joiner) {
         if let label = view as? UILabel {
             joiner.append("textColor:\(label.textColor.debugSummary)")
             if let text = label.text {
@@ -171,7 +172,7 @@ extension UIView {
         }
     }
 
-    private func appendInteractionAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+    private func appendInteractionAttributes(for view: UIView, to joiner: Joiner) {
         let userInteractionEnabledDefault: Bool
         if view is UILabel || view is UIImageView {
             userInteractionEnabledDefault = false
@@ -184,7 +185,7 @@ extension UIView {
         }
     }
 
-    private func appendOpacityAttributes(forView view: UIView, toJoiner joiner: Joiner) {
+    private func appendOpacityAttributes(for view: UIView, to joiner: Joiner) {
         if !(view is UIStackView) {
             if view.isOpaque {
                 joiner.append("isOpaque:\(view.isOpaque)")
@@ -200,7 +201,7 @@ extension UIView {
         }
     }
 
-    private func descriptor(forRelationship relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
+    private func descriptor(for relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
         switch relationship {
         case .unrelated:
             return "❌"
@@ -217,16 +218,16 @@ extension UIView {
         }
     }
 
-    private func appendDescriptor(forRelationship relationship: ViewRelationship, toJoiner joiner: Joiner, aliaser: ObjectAliaser) {
+    private func appendDescriptor(for relationship: ViewRelationship, to joiner: Joiner, aliaser: ObjectAliaser) {
         switch relationship {
         case .same:
             break
         default:
-            joiner.append(descriptor(forRelationship: relationship, aliaser: aliaser))
+            joiner.append(descriptor(for: relationship, aliaser: aliaser))
         }
     }
 
-    private func name(forItem view: AnyObject, forRelationshipToCurrentView relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
+    private func name(for view: AnyObject, forRelationshipToCurrentView relationship: ViewRelationship, aliaser: ObjectAliaser) -> String {
         var viewName = ""
         switch relationship {
         case .same:
@@ -237,8 +238,7 @@ extension UIView {
         return viewName
     }
 
-    private func appendAttributes(forConstraint constraint: NSLayoutConstraint, withCurrentView currentView: UIView, toJoiner constraintJoiner: Joiner, withAliaser aliaser: ObjectAliaser) {
-
+    private func appendAttributes(for constraint: NSLayoutConstraint, with currentView: UIView, to constraintJoiner: Joiner, aliaser: ObjectAliaser) {
         constraintJoiner.append("\(aliaser.name(forObject: constraint)):")
 
         let firstItem = constraint.firstItem
@@ -249,11 +249,11 @@ extension UIView {
             firstToCurrentRelationship = .unrelated
         }
 
-        let firstViewName = name(forItem: firstItem, forRelationshipToCurrentView: firstToCurrentRelationship, aliaser: aliaser)
+        let firstViewName = name(for: firstItem, forRelationshipToCurrentView: firstToCurrentRelationship, aliaser: aliaser)
 
         constraintJoiner.append("\(firstViewName).\(string(forAttribute: constraint.firstAttribute))")
 
-        appendDescriptor(forRelationship: firstToCurrentRelationship, toJoiner: constraintJoiner, aliaser: aliaser)
+        appendDescriptor(for: firstToCurrentRelationship, to: constraintJoiner, aliaser: aliaser)
 
         constraintJoiner.append(string(forRelation: constraint.relation))
 
@@ -269,11 +269,11 @@ extension UIView {
             secondToCurrentRelationship = .unrelated
         }
 
-        let secondItemName = name(forItem: secondItem, forRelationshipToCurrentView: secondToCurrentRelationship, aliaser: aliaser)
+        let secondItemName = name(for: secondItem, forRelationshipToCurrentView: secondToCurrentRelationship, aliaser: aliaser)
 
         constraintJoiner.append("\(secondItemName).\(string(forAttribute: constraint.secondAttribute))")
 
-        appendDescriptor(forRelationship: secondToCurrentRelationship, toJoiner: constraintJoiner, aliaser: aliaser)
+        appendDescriptor(for: secondToCurrentRelationship, to: constraintJoiner, aliaser: aliaser)
 
         if constraint.multiplier != 1.0 {
             constraintJoiner.append("×", constraint.multiplier)
