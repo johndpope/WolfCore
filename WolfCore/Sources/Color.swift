@@ -261,22 +261,22 @@ public struct Color {
         return { color in color.burned(by: frac) }
     }
 
-    public static let black = Color(red: 0, green: 0, blue: 0)
-    public static let darkGray = Color(red: 1 / 3.0, green: 1 / 3.0, blue: 1 / 3.0)
-    public static let lightGray = Color(red: 2 / 3.0, green: 2 / 3.0, blue: 2 / 3.0)
-    public static let white = Color(red: 1, green: 1, blue: 1)
-    public static let gray = Color(red: 0.5, green: 0.5, blue: 0.5)
-    public static let red = Color(red: 1, green: 0, blue: 0)
-    public static let green = Color(red: 0, green: 1, blue: 0)
-    public static let darkGreen = Color(red: 0, green: 0.5, blue: 0)
-    public static let blue = Color(red: 0, green: 0, blue: 1)
-    public static let cyan = Color(red: 0, green: 1, blue: 1)
-    public static let yellow = Color(red: 1, green: 1, blue: 0)
-    public static let magenta = Color(red: 1, green: 0, blue: 1)
-    public static let orange = Color(red: 1, green: 0.5, blue: 0)
-    public static let purple = Color(red: 0.5, green: 0, blue: 0.5)
-    public static let brown = Color(red: 0.6, green: 0.4, blue: 0.2)
-    public static let clear = Color(red: 0, green: 0, blue: 0, alpha: 0)
+    public static let black = Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+    public static let darkGray = Color(#colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1))
+    public static let lightGray = Color(#colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1))
+    public static let white = Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+    public static let gray = Color(#colorLiteral(red: 0.5019607843, green: 0.5019607843, blue: 0.5019607843, alpha: 1))
+    public static let red = Color(#colorLiteral(red: 1, green: 0, blue: 0, alpha: 1))
+    public static let green = Color(#colorLiteral(red: 0, green: 1, blue: 0, alpha: 1))
+    public static let darkGreen = Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1))
+    public static let blue = Color(#colorLiteral(red: 0, green: 0, blue: 1, alpha: 1))
+    public static let cyan = Color(#colorLiteral(red: 0, green: 1, blue: 1, alpha: 1))
+    public static let yellow = Color(#colorLiteral(red: 1, green: 1, blue: 0, alpha: 1))
+    public static let magenta = Color(#colorLiteral(red: 1, green: 0, blue: 1, alpha: 1))
+    public static let orange = Color(#colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1))
+    public static let purple = Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1))
+    public static let brown = Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1))
+    public static let clear = Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0))
 
     public static let chartreuse = blend(from: .yellow, to: .green, at: 0.5)
     public static let gold = Color(redByte: 251, greenByte: 212, blueByte: 55)
@@ -410,6 +410,17 @@ extension CGColor {
 
     public static func toColor(from cgColor: CGColor) -> Color {
         return Color(cgColor: cgColor)
+    }
+}
+
+extension Color {
+    public init(_ color: UIColor) {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        color.getRed(&r, green: &g, blue: &b, alpha: &a)
+        self.init(red: Frac(r), green: Frac(g), blue: Frac(b), alpha: Frac(a))
     }
 }
 #endif

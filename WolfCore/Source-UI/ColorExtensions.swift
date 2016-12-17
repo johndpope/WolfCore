@@ -15,12 +15,12 @@
 #endif
 
 extension OSColor {
-    public convenience init(color: Color) {
+    public convenience init(_ color: Color) {
         self.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(color.alpha))
     }
 
     public convenience init(string: String) throws {
-        self.init(color: try Color(string: string))
+        self.init(try Color(string: string))
     }
 
     public static func toColor(osColor: OSColor) -> Color {
