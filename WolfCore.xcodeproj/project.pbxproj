@@ -1299,7 +1299,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Arciem;
 				TargetAttributes = {
 					033F5E811CA3096700647A0A = {
@@ -1308,7 +1308,7 @@
 					035552F71C0F5F4200E0FCA7 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 92TUA8H52D;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 					};
 					03A1466D1CAF5E0600FD6261 = {
 						CreatedOnToolsVersion = 7.3;
@@ -2122,6 +2122,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2142,6 +2143,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
