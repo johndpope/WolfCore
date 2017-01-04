@@ -9,13 +9,17 @@
 import Foundation
 
 extension Date {
-    public func lastDayOfMonth() -> Date {
+    public var lastDayOfMonth: Date {
         let calendar = Calendar.current
         let dayRange = calendar.range(of: .day, in: .month, for: self)!
         let dayCount = dayRange.count
         var comp = calendar.dateComponents([.year, .month, .day], from: self)
         comp.day = dayCount
         return calendar.date(from: comp)!
+    }
+
+    public var year: Int {
+        return Calendar.current.dateComponents([.year], from: self).year!
     }
 }
 
