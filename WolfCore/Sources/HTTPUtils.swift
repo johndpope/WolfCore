@@ -53,6 +53,7 @@ extension ContentType {
     public static let json = ContentType("application/json")
     public static let jpg = ContentType("image/jpeg")
     public static let png = ContentType("image/png")
+    public static let gif = ContentType("image/gif")
     public static let html = ContentType("text/html")
     public static let txt = ContentType("text/plain")
     public static let pdf = ContentType("application/pdf")
@@ -136,6 +137,10 @@ public class HTTP {
                         inFlightTracker.end(withToken: token, result: Result<Void>.canceled)
                         logTrace("\(token) retrieveData was cancelled")
                     }
+                    dispatchOnMain {
+                        failure(error)
+                        finally?()
+                    }
                 } else {
                     inFlightTracker.end(withToken: token, result: Result<Error>.failure(error))
                     logError("\(token) retrieveData returned error")
@@ -205,7 +210,7 @@ public class HTTP {
         let session = URLSession(configuration: config, delegate: _sessionActions, delegateQueue: nil)
         let task = session.dataTask(with: request)
         task.resume()
-        return task as! Cancelable
+        return task
     }
 
     @discardableResult public static func retrieveResponse(
@@ -326,4 +331,8 @@ public class HTTP {
         )
     }
     #endif
+}
+
+extension URLSessionTask: Cancelable {
+    public var isCanceled: Bool { return false }
 }

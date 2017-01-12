@@ -29,6 +29,8 @@ open class ImageView: UIImageView, Skinnable {
         didSet {
             guard let url = self.url else { return }
             retrieveCanceler?.cancel()
+            self.pdf = nil
+            self.image = nil
             if url.absoluteString.hasSuffix("pdf") {
                 self.retrieveCanceler = sharedDataCache.retrieveObject(forURL: url) { data in
                     guard let data = data else { return }

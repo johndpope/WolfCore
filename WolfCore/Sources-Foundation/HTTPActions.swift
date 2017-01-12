@@ -90,6 +90,12 @@ public class HTTPActions: NSObject, URLSessionDelegate, URLSessionDataDelegate, 
         didReceiveResponse = { (actions, session, dataTask, response, completionHandler) in
             completionHandler(.allow)
         }
+        didReceiveChallenge = { (actions, session, challenge, completionHandler) in
+            completionHandler(.useCredential, challenge.proposedCredential)
+        }
+        willCacheResponse = { (actions, session, dataTask, proposedResponse, completionHandler) in
+            completionHandler(proposedResponse)
+        }
     }
 
     public override convenience init() {

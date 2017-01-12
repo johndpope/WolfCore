@@ -47,6 +47,8 @@ public class HTTPCacheLayer: CacheLayer {
                         data = OSImage(data: rawData)?.serialize()
                     case ContentType.png:
                         data = OSImage(data: rawData)?.serialize()
+                    case ContentType.gif:
+                        data = OSImage(data: rawData)?.serialize()
                     case ContentType.pdf:
                         data = rawData
                     default:
