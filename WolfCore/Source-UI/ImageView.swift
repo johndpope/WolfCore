@@ -11,11 +11,17 @@ import UIKit
 public var sharedImageCache: Cache<UIImage>! = Cache<UIImage>(filename: "sharedImageCache", sizeLimit: 100000, includeHTTP: true)
 public var sharedDataCache: Cache<Data>! = Cache<Data>(filename: "sharedDataCache", sizeLimit: 100000, includeHTTP: true)
 
+public typealias ImageViewBlock = (ImageView) -> Void
+
 open class ImageView: UIImageView, Skinnable {
     public var transparentToTouches = false
     private var updatePDFCanceler: Cancelable?
     private var retrieveCanceler: Cancelable?
     public var skinChangedAction: SkinChangedAction!
+    public var onRetrieveStart: ImageViewBlock?
+    public var onRetrieveSuccess: ImageViewBlock?
+    public var onRetrieveFailure: ImageViewBlock?
+    public var onRetrieveFinally: ImageViewBlock?
 
     public var pdf: PDF? {
         didSet {
@@ -31,14 +37,26 @@ open class ImageView: UIImageView, Skinnable {
             retrieveCanceler?.cancel()
             self.pdf = nil
             self.image = nil
+            self.onRetrieveStart?(self)
             if url.absoluteString.hasSuffix("pdf") {
                 self.retrieveCanceler = sharedDataCache.retrieveObject(forURL: url) { data in
-                    guard let data = data else { return }
-                    self.pdf = PDF(data: data)
+                    if let data = data {
+                        self.pdf = PDF(data: data)
+                        self.onRetrieveSuccess?(self)
+                    } else {
+                        self.onRetrieveFailure?(self)
+                    }
+                    self.onRetrieveFinally?(self)
                 }
             } else {
                 self.retrieveCanceler = sharedImageCache.retrieveObject(forURL: url) { image in
-                    self.image = image
+                    if let image = image {
+                        self.image = image
+                        self.onRetrieveSuccess?(self)
+                    } else {
+                        self.onRetrieveFailure?(self)
+                    }
+                    self.onRetrieveFinally?(self)
                 }
             }
         }
