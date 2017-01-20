@@ -141,6 +141,7 @@ open class PagingView: View {
 
     private func addArrangedViews() {
         for view in arrangedViews {
+            view.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(view)
             let leadingConstraint = view.leadingAnchor == contentView.leadingAnchor
             arrangedViewsLeadingConstraints.append(leadingConstraint)
