@@ -9,6 +9,7 @@
 import UIKit
 
 open class TextField: UITextField, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
     var tintedClearImage: UIImage?
     var lastTintColor: UIColor?
@@ -53,9 +54,9 @@ open class TextField: UITextField, Skinnable {
     open func setup() {
     }
 
-    open func updateAppearance() {
-        syncToTintColor()
-    }
+//    open func updateAppearance() {
+//        syncToTintColor()
+//    }
 }
 
 extension TextField {

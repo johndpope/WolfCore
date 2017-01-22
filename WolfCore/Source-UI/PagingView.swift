@@ -28,6 +28,15 @@ open class PagingView: View {
     private var arrangedViewsLeadingConstraints = [NSLayoutConstraint]()
     private var slotsCount: Int = 0
 
+    public var bottomView: UIView! {
+        willSet {
+            bottomView?.removeFromSuperview()
+        }
+
+        didSet {
+        }
+    }
+
     private var visibleViewIndexes = Set<Int>() {
         willSet {
             let added = newValue.subtracting(visibleViewIndexes)

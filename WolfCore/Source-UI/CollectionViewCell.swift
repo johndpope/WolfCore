@@ -9,6 +9,7 @@
 import UIKit
 
 open class CollectionViewCell: UICollectionViewCell, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
 
     public convenience init() {
@@ -38,6 +39,4 @@ open class CollectionViewCell: UICollectionViewCell, Skinnable {
     }
 
     open func setup() { }
-
-    open func updateAppearance() { }
 }

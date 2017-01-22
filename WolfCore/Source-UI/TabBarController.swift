@@ -9,6 +9,7 @@
 import UIKit
 
 open class TabBarController: UITabBarController, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
 
     public required init?(coder aDecoder: NSCoder) {
@@ -43,6 +44,4 @@ open class TabBarController: UITabBarController, Skinnable {
     }
 
     open func setup() { }
-
-    open func updateAppearance() { }
 }

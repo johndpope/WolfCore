@@ -9,6 +9,7 @@
 import UIKit
 
 open class NavigationController: UINavigationController, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
 
     public required init?(coder aDecoder: NSCoder) {
@@ -53,6 +54,4 @@ open class NavigationController: UINavigationController, Skinnable {
     }
 
     open func setup() { }
-
-    open func updateAppearance() { }
 }

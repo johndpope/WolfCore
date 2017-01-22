@@ -9,8 +9,9 @@
 import UIKit
 
 open class PagingViewController: ViewController {
-    private var mainView = UIView()
     private var pagingView = PagingView()
+    @IBOutlet weak var bottomView: UIView!
+    private var bottomViewToPageControlConstraint: NSLayoutConstraint!
 
     public var pagedViewControllers: [UIViewController]! {
         didSet {
@@ -26,10 +27,16 @@ open class PagingViewController: ViewController {
             pagingView.arrangedViews = pageViews
         }
     }
-    
-    open override func loadView() {
-        mainView.addSubview(pagingView)
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.insertSubview(pagingView, at: 0)
         pagingView.constrainToSuperview()
-        self.view = mainView
+
+        if let bottomView = bottomView {
+            bottomViewToPageControlConstraint = pagingView.pageControl.bottomAnchor == bottomView.topAnchor - 20
+            bottomViewToPageControlConstraint.isActive = true
+        }
     }
 }

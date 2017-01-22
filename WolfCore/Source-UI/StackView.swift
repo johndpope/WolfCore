@@ -15,6 +15,7 @@
 #endif
 
 open class StackView: OSStackView, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
     public var transparentToTouches = false
 
@@ -67,6 +68,4 @@ open class StackView: OSStackView, Skinnable {
     #endif
 
     open func setup() { }
-
-    open func updateAppearance() { }
 }

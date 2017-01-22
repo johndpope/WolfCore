@@ -13,6 +13,7 @@
 #endif
 
 open class View: OSView, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
 
     public convenience init() {
@@ -36,8 +37,6 @@ open class View: OSView, Skinnable {
     }
 
     open func setup() { }
-
-    open func updateAppearance() { }
 
     #if os(iOS) || os(tvOS)
 

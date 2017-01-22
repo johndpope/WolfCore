@@ -9,6 +9,7 @@
 import UIKit
 
 open class TextView: UITextView, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
     var tagTapActions = [String: TagAction]()
     var tapAction: GestureRecognizerAction!
@@ -52,9 +53,9 @@ open class TextView: UITextView, Skinnable {
     open func setup() {
     }
 
-    open func updateAppearance() {
-        syncToTintColor()
-    }
+//    open func updateAppearance() {
+//        syncToTintColor()
+//    }
 }
 
 extension TextView {

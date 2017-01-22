@@ -17,6 +17,7 @@
 public typealias TagAction = (String) -> Void
 
 open class Label: OSLabel, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
 
     #if os(macOS)
@@ -109,11 +110,11 @@ open class Label: OSLabel, Skinnable {
 
     open func setup() { }
 
-    open func updateAppearance() {
-        #if !os(macOS)
-            syncToTintColor()
-        #endif
-    }
+//    open func updateAppearance() {
+//        #if !os(macOS)
+//            syncToTintColor()
+//        #endif
+//    }
 }
 
 #if !os(macOS)

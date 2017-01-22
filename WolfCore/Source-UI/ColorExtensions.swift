@@ -56,22 +56,6 @@ extension OSColor {
         self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         return OSColor(hue: h, saturation: s, brightness: brightness, alpha: a)
     }
-//
-//    public static var black: OSColor { return .black() }
-//    public static var darkGray: OSColor { return .darkGray() }
-//    public static var lightGray: OSColor { return .lightGray() }
-//    public static var white: OSColor { return .white() }
-//    public static var gray: OSColor { return .gray() }
-//    public static var red: OSColor { return .red() }
-//    public static var green: OSColor { return .green() }
-//    public static var blue: OSColor { return .blue() }
-//    public static var cyan: OSColor { return .cyan() }
-//    public static var yellow: OSColor { return .yellow() }
-//    public static var magenta: OSColor { return .magenta() }
-//    public static var orange: OSColor { return .orange() }
-//    public static var purple: OSColor { return .purple() }
-//    public static var brown: OSColor { return .brown() }
-//    public static var clear: OSColor { return .clear() }
 }
 
 extension OSColor {
@@ -133,4 +117,35 @@ public func == (left: ColorReference, right: ColorReference) -> Bool {
 
 public postfix func ® (lhs: ColorReference) -> OSColor {
     return lhs.referent
+}
+
+extension OSColor {
+    public var luminance: Frac {
+        return (self |> Color.init).luminance
+    }
+
+    public func multiplied(by rhs: Frac) -> OSColor {
+        return Color(self).multiplied(by: rhs) |> OSColor.init
+    }
+
+    public func added(to rhs: OSColor) -> OSColor {
+        return Color(self).added(to: Color(rhs)) |> OSColor.init
+    }
+
+    public func lightened(by frac: Frac) -> OSColor {
+        return Color(self).lightened(by: frac) |> OSColor.init
+    }
+
+    public func darkened(by frac: Frac) -> OSColor {
+        return Color(self).darkened(by: frac) |> OSColor.init
+    }
+
+    public func dodged(by frac: Frac) -> OSColor {
+        return Color(self).dodged(by: frac) |> OSColor.init
+    }
+
+    public func burned(by frac: Frac) -> OSColor {
+        return Color(self).burned(by: frac) |> OSColor.init
+    }
+
 }

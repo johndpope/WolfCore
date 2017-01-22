@@ -14,6 +14,7 @@ public var sharedDataCache: Cache<Data>! = Cache<Data>(filename: "sharedDataCach
 public typealias ImageViewBlock = (ImageView) -> Void
 
 open class ImageView: UIImageView, Skinnable {
+    public var mySkin: Skin?
     public var transparentToTouches = false
     private var updatePDFCanceler: Cancelable?
     private var retrieveCanceler: Cancelable?
@@ -133,8 +134,6 @@ open class ImageView: UIImageView, Skinnable {
     }
 
     open func setup() { }
-
-    open func updateAppearance() { }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if transparentToTouches {

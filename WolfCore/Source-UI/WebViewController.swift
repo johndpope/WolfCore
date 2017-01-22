@@ -12,40 +12,16 @@ import WebKit
 open class WebViewController: ViewController {
     var url: URL!
 
-    public static var appearance: Appearance = {
-        return Appearance()
-    }()
-
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var backItem: UIBarButtonItem!
     @IBOutlet weak var forwardItem: UIBarButtonItem!
     @IBOutlet weak var reloadItem: UIBarButtonItem!
-
-    public class Appearance {
-        public init() { }
-        public let barTintColor = SkinColor(withDefault: .yellow)
-        public let tintColor = SkinColor(withDefault: .red)
-    }
 
     public static func present(from presentingViewController: UIViewController, url: URL) {
         let navController: NavigationController = loadInitialViewController(fromStoryboardNamed: "WebViewController", in: Framework.bundle)
         let webController = navController.viewControllers[0] as! WebViewController
         webController.url = url
         presentingViewController.present(navController, animated: true, completion: nil)
-    }
-
-    open override func updateAppearance() {
-        super.updateAppearance()
-        if let navigationController = navigationController {
-            let appearance = type(of: self).appearance
-            let navigationBar = navigationController.navigationBar
-            navigationBar.barTintColor = appearance.barTintColor®
-            navigationBar.tintColor = appearance.tintColor®
-
-            let toolbar = navigationController.toolbar!
-            toolbar.barTintColor = appearance.barTintColor®
-            toolbar.tintColor = appearance.tintColor®
-        }
     }
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {
