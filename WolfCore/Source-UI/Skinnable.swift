@@ -8,8 +8,8 @@
 
 import UIKit
 
-public protocol Skinnable: class {
-    func updateAppearance()
+public protocol Skinnable: UIAppearanceContainer {
+    //func updateAppearance()
     func setupSkinnable()
     var mySkin: Skin? { get set }
     var skinChangedAction: SkinChangedAction! { get set }
@@ -24,17 +24,17 @@ extension Skinnable {
 
 extension Skinnable where Self: UIView {
     public var currentSkin: Skin? {
-        return mySkin ?? (superview as? Skinnable)?.mySkin ?? skin
+        return mySkin ?? (superview as? Skinnable)?.currentSkin ?? skin
     }
 }
 
 extension Skinnable where Self: UIViewController {
     public var currentSkin: Skin? {
-        return mySkin ?? (parent as? Skinnable)?.mySkin ?? skin
+        return mySkin ?? (parent as? Skinnable)?.currentSkin ?? skin
     }
 }
 
-extension UIAppearanceContainer where Self: Skinnable {
+extension Skinnable {
     public func updateAppearance() {
         guard let skin = self.currentSkin else { return }
         let appearance = UIPageControl.appearance(whenContainedInInstancesOf: [type(of: self)])

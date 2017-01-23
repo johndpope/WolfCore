@@ -223,6 +223,7 @@
 		036307D61CB6DB0D00DC7070 /* OrientationNotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */; };
 		036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */; };
 		036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D91CB6DE0600DC7070 /* TVControllerActions.swift */; };
+		036543F71E35E37700D4301F /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036543F61E35E37700D4301F /* Control.swift */; };
 		036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B833F1C40909700491AFF /* DictionaryExtensions.swift */; };
 		036B83471C431F2A00491AFF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83461C431F2A00491AFF /* Color.swift */; };
 		036B83491C431FDF00491AFF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83481C431FDF00491AFF /* Random.swift */; };
@@ -554,6 +555,7 @@
 		036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrientationNotificationActions.swift; path = "Source-UI/OrientationNotificationActions.swift"; sourceTree = "<group>"; };
 		036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardNotificationActions.swift; path = "Source-UI/KeyboardNotificationActions.swift"; sourceTree = "<group>"; };
 		036307D91CB6DE0600DC7070 /* TVControllerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVControllerActions.swift; path = "Source-UI/TVControllerActions.swift"; sourceTree = "<group>"; };
+		036543F61E35E37700D4301F /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Control.swift; path = "Source-UI/Control.swift"; sourceTree = "<group>"; };
 		036B833F1C40909700491AFF /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryExtensions.swift; path = Sources/DictionaryExtensions.swift; sourceTree = "<group>"; };
 		036B83461C431F2A00491AFF /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Sources/Color.swift; sourceTree = "<group>"; };
 		036B83481C431FDF00491AFF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Sources/Random.swift; sourceTree = "<group>"; };
@@ -943,6 +945,7 @@
 				035553161C0F622A00E0FCA7 /* Button.swift */,
 				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
+				036543F61E35E37700D4301F /* Control.swift */,
 				035553251C0F622A00E0FCA7 /* ImageView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
@@ -1623,6 +1626,7 @@
 				0324AEFC1CF81F350080DFF6 /* StackView.swift in Sources */,
 				03B0D9B21DF33A6A0073AF42 /* Skin.swift in Sources */,
 				03106F6A1D40D96800E21F82 /* RunesArray.swift in Sources */,
+				036543F71E35E37700D4301F /* Control.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
 				03CF07EA1DF5345C00B7AD7E /* SkinChangedNotification.swift in Sources */,

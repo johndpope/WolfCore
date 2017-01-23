@@ -17,8 +17,12 @@ open class PagingView: View {
 
     public var arrangedViewAtIndexDidBecomeVisible: IndexDispatchBlock?
     public var arrangedViewAtIndexDidBecomeInvisible: IndexDispatchBlock?
-    public var willBeginDragging: Block?
-    public var didEndDragging: Block?
+    public var onWillBeginDragging: Block?
+    public var onDidEndDragging: Block?
+    public var onDidLayout: Block?
+    public private(set) var scrollingFromIndex: Int = 0
+    public private(set) var scrollingToIndex: Int = 0
+    public private(set) var scrollingFrac: Frac = 0.0
     public private(set) var pageControl: UIPageControl!
 
     private var scrollView: ScrollView!
@@ -126,6 +130,8 @@ open class PagingView: View {
             }
         }
         previousSize = bounds.size
+
+        onDidLayout?()
     }
 
     open override var clipsToBounds: Bool {
@@ -237,8 +243,8 @@ open class PagingView: View {
         if isCircular {
             let xOffset = scrollView.contentOffset.x
             let width = bounds.width
-            let minOffset = width * 4
-            let maxOffset = width * 8
+            let minOffset = width * CGFloat(arrangedViews.count)
+            let maxOffset = width * CGFloat(arrangedViews.count * 2)
 
             var xOffsetNew = xOffset
             if xOffset < minOffset {
@@ -267,9 +273,38 @@ open class PagingView: View {
 
     private func updatePageControl() {
         let x = scrollView.contentOffset.x
-        let page = Int(x / scrollView.bounds.width + 0.5)
+        let fractionalPosition = x / scrollView.bounds.width
+        let page = Int(fractionalPosition + 0.5)
         let circularPage = arrangedViews.circularIndex(at: page)
         pageControl.currentPage = circularPage
+    }
+
+    private func updateFractionalPage() {
+        let x = scrollView.contentOffset.x
+        let fractionalPosition1 = x / scrollView.bounds.width
+        let frac = fractionalPosition1.truncatingRemainder(dividingBy: 1.0)
+        let index1 = Int(fractionalPosition1.rounded(.down))
+        let circularIndex1 = arrangedViews.circularIndex(at: index1)
+
+        let fractionalPosition2 = fractionalPosition1 + 1
+        let index2 = Int(fractionalPosition2.rounded(.down))
+        let circularIndex2 = arrangedViews.circularIndex(at: index2)
+
+        scrollingFromIndex = circularIndex1
+        scrollingToIndex = circularIndex2
+        scrollingFrac = Frac(frac)
+
+        if !isCircular {
+            if frac < 0.0 {
+                scrollingFromIndex = circularIndex2
+                scrollingToIndex = circularIndex2
+                scrollingFrac = 0.0
+            } else if circularIndex2 < circularIndex1 {
+                scrollingFromIndex = circularIndex1
+                scrollingToIndex = circularIndex1
+                scrollingFrac = 0.0
+            }
+        }
     }
 
     private func updateLayout() {
@@ -279,6 +314,7 @@ open class PagingView: View {
         updateContentOffset()
         updateVisibleArrangedViews()
         updatePageControl()
+        updateFractionalPage()
     }
 }
 
@@ -288,10 +324,10 @@ extension PagingView : UIScrollViewDelegate {
     }
 
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        willBeginDragging?()
+        onWillBeginDragging?()
     }
 
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        didEndDragging?()
+        onDidEndDragging?()
     }
 }

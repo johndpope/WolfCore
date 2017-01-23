@@ -9,8 +9,9 @@
 import UIKit
 
 open class PagingViewController: ViewController {
-    private var pagingView = PagingView()
-    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet public weak var bottomView: UIView!
+
+    public private(set) var pagingView = PagingView()
     private var bottomViewToPageControlConstraint: NSLayoutConstraint!
 
     public var pagedViewControllers: [UIViewController]! {
