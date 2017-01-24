@@ -19,7 +19,7 @@ open class PagingView: View {
     public var arrangedViewAtIndexDidBecomeInvisible: IndexDispatchBlock?
     public var onWillBeginDragging: Block?
     public var onDidEndDragging: Block?
-    public var onDidLayout: Block?
+    public var onDidLayout: ((_ fromIndex: Int, _ toIndex: Int, _ frac: Frac) -> Void)?
     public private(set) var scrollingFromIndex: Int = 0
     public private(set) var scrollingToIndex: Int = 0
     public private(set) var scrollingFrac: Frac = 0.0
@@ -131,7 +131,7 @@ open class PagingView: View {
         }
         previousSize = bounds.size
 
-        onDidLayout?()
+        onDidLayout?(scrollingFromIndex, scrollingToIndex, scrollingFrac)
     }
 
     open override var clipsToBounds: Bool {

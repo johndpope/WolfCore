@@ -409,15 +409,6 @@ extension Color {
 }
 
 extension CGColor {
-//    public convenience init(color: Color) {
-//        let red = CGFloat(color.red)
-//        let green = CGFloat(color.green)
-//        let blue = CGFloat(color.blue)
-//        let alpha = CGFloat(color.alpha)
-//
-//        self.init(colorSpace: sharedColorSpaceRGB, components: [red, green, blue, alpha])!
-//    }
-
     public static func toColor(from cgColor: CGColor) -> Color {
         return Color(cgColor: cgColor)
     }

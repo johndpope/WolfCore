@@ -52,5 +52,9 @@ open class ViewController: UIViewController, Skinnable {
         updateAppearance()
     }
 
+    open func updateAppearance() {
+        (self as Skinnable).updateAppearance()
+    }
+
     open func setup() { }
 }

@@ -9,7 +9,12 @@
 import UIKit
 
 open class Control: UIControl, Skinnable {
-    public var mySkin: Skin?
+    public var mySkin: Skin? {
+        didSet {
+            updateAppearance()
+        }
+    }
+
     public var skinChangedAction: SkinChangedAction!
 
     public convenience init() {
@@ -30,12 +35,6 @@ open class Control: UIControl, Skinnable {
         ~~self
         setup()
         setupSkinnable()
-    }
-
-    open override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearance()
     }
 
     open func updateAppearance() {
