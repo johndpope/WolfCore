@@ -21,6 +21,26 @@
                BlueprintName = "WolfCoreTests-iOS"
                ReferencedContainer = "container:WolfCore.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Base64Tests">
+               </Test>
+               <Test
+                  Identifier = "Base64URLTests">
+               </Test>
+               <Test
+                  Identifier = "HexTests">
+               </Test>
+               <Test
+                  Identifier = "StringTests">
+               </Test>
+               <Test
+                  Identifier = "UTF8Tests">
+               </Test>
+               <Test
+                  Identifier = "UniqueIDTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <AdditionalOptions>

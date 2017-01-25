@@ -9,6 +9,8 @@
 
 import UIKit
 
+public typealias ViewControllerBlock = (UIViewController) -> Void
+
 extension Log.GroupName {
     public static let viewControllerLifecycle = Log.GroupName("viewControllers")
 }

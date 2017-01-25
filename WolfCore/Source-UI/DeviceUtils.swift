@@ -52,6 +52,14 @@ public var deviceModel: String? {
     return model
 }
 
+public var deviceName: String {
+    #if os(iOS)
+        return UIDevice.current.name
+    #else
+        return Host.current().localizedName ?? ""
+    #endif
+}
+
 public var defaultTintColor: UIColor = {
     return UIView().tintColor!
 }()

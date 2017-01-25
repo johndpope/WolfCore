@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "03A1466D1CAF5E0600FD6261"
+               BuildableName = "WolfCoreTests-iOS.xctest"
+               BlueprintName = "WolfCoreTests-iOS"
+               ReferencedContainer = "container:WolfCore.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "035552F71C0F5F4200E0FCA7"
+            BuildableName = "WolfCore.framework"
+            BlueprintName = "WolfCore-iOS"
+            ReferencedContainer = "container:WolfCore.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

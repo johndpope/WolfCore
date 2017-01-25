@@ -96,3 +96,15 @@ extension TextField {
         syncToTintColor()
     }
 }
+
+extension TextField {
+    fileprivate func syncToPlaceholderColor() {
+        if let placeholderColor = self.placeholderColor ?? type(of: self).placeholderColor {
+            if let placeholder = placeholder {
+                let a = placeholder§
+                a.foregroundColor = placeholderColor
+                attributedPlaceholder = a
+            }
+        }
+    }
+}
