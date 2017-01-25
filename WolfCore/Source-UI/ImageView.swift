@@ -14,11 +14,15 @@ public var sharedDataCache: Cache<Data>! = Cache<Data>(filename: "sharedDataCach
 public typealias ImageViewBlock = (ImageView) -> Void
 
 open class ImageView: UIImageView, Skinnable {
-    public var mySkin: Skin?
+    private var _mySkin: Skin?
+    public var mySkin: Skin? {
+        get { return _mySkin ?? inheritedSkin }
+        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
+    }
+
     public var transparentToTouches = false
     private var updatePDFCanceler: Cancelable?
     private var retrieveCanceler: Cancelable?
-    public var skinChangedAction: SkinChangedAction!
     public var onRetrieveStart: ImageViewBlock?
     public var onRetrieveSuccess: ImageViewBlock?
     public var onRetrieveFailure: ImageViewBlock?
@@ -124,13 +128,16 @@ open class ImageView: UIImageView, Skinnable {
     private func _setup() {
         ~~self
         setup()
-        setupSkinnable()
     }
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
-        updateAppearance()
+        updateAppearanceContainer(skin: mySkin)
+    }
+
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
     }
 
     open func setup() { }

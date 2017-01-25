@@ -8,9 +8,15 @@
 
 import UIKit
 
-open class NavigationController: UINavigationController, Skinnable {
-    public var mySkin: Skin?
-    public var skinChangedAction: SkinChangedAction!
+open class NavigationController: UINavigationController, UINavigationControllerDelegate, Skinnable {
+    private var _mySkin: Skin?
+    public var mySkin: Skin? {
+        get { return _mySkin ?? inheritedSkin }
+        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
+    }
+
+    public var onWillShow: ((_ viewController: UIViewController, _ animated: Bool) -> Void)?
+    public var onDidShow: ((_ viewController: UIViewController, _ animated: Bool) -> Void)?
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -34,8 +40,23 @@ open class NavigationController: UINavigationController, Skinnable {
 
     private func _setup() {
         logInfo("init \(self)", group: .viewControllerLifecycle)
+        setupNavbar()
         setup()
-        setupSkinnable()
+    }
+
+    private var effectView: UIVisualEffectView!
+
+    private func setupNavbar() {
+        let effect = UIBlurEffect(style: .light)
+        effectView = ~UIVisualEffectView(effect: effect)
+        navigationBar.insertSubview(effectView, at: 0)
+        navigationBar.backgroundColor = .clear
+        activateConstraints(
+            effectView.leftAnchor == navigationBar.leftAnchor,
+            effectView.rightAnchor == navigationBar.rightAnchor,
+            effectView.bottomAnchor == navigationBar.bottomAnchor,
+            effectView.topAnchor == navigationBar.topAnchor - 20
+        )
     }
 
     deinit {
@@ -50,8 +71,32 @@ open class NavigationController: UINavigationController, Skinnable {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        updateAppearance()
+        guard let skin = mySkin else { return }
+        updateAppearance(skin: skin)
+        updateAppearanceContainer(skin: skin)
+    }
+
+    open override var childViewControllerForStatusBarStyle: UIViewController? {
+        let child = topViewController
+        print("statusBarStyle from: \(self) ---> \(child†)")
+        return child
+    }
+
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
+    }
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return _preferredStatusBarStyle(for: mySkin)
     }
 
     open func setup() { }
+
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        onWillShow?(navigationController, animated)
+    }
+
+    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        onDidShow?(navigationController, animated)
+    }
 }

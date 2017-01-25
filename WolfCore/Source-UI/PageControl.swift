@@ -1,14 +1,14 @@
 //
-//  CollectionViewCell.swift
+//  PageControl.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 5/27/16.
-//  Copyright © 2016 Arciem. All rights reserved.
+//  Created by Wolf McNally on 1/25/17.
+//  Copyright © 2017 Arciem. All rights reserved.
 //
 
 import UIKit
 
-open class CollectionViewCell: UICollectionViewCell, Skinnable {
+public class PageControl: UIPageControl, Skinnable {
     private var _mySkin: Skin?
     public var mySkin: Skin? {
         get { return _mySkin ?? inheritedSkin }
@@ -30,19 +30,16 @@ open class CollectionViewCell: UICollectionViewCell, Skinnable {
     }
 
     private func _setup() {
-        ~self
+        ~~self
         setup()
     }
 
-    open override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearanceContainer(skin: mySkin)
-    }
+    open func setup() { }
 
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
+        guard let skin = skin else { return }
+        pageIndicatorTintColor = skin.pageIndicatorTintColor
+        currentPageIndicatorTintColor = skin.currentPageIndicatorTintColor
     }
-
-    open func setup() { }
 }

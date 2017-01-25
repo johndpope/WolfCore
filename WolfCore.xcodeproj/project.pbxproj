@@ -286,6 +286,7 @@
 		03BC18D01CF1054C005AF3C3 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
 		03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
 		03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
+		03CA5A401E39195E00A7D3C6 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */; };
 		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
 		03CF07DF1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
@@ -594,6 +595,7 @@
 		03B7BDEC1D40B8D900177066 /* Base64Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64Tests.swift; sourceTree = "<group>"; };
 		03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoDict.swift; path = "Sources-Foundation/InfoDict.swift"; sourceTree = "<group>"; };
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
+		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransferValue.swift; path = Sources/TransferValue.swift; sourceTree = "<group>"; };
 		03CF07E11DF531FB00B7AD7E /* SkinColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinColor.swift; path = "Source-UI/SkinColor.swift"; sourceTree = "<group>"; };
@@ -949,6 +951,7 @@
 				035553251C0F622A00E0FCA7 /* ImageView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
+				03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
 				03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
@@ -1644,6 +1647,7 @@
 				0314DCB91D08ECB100E23C67 /* ViewController.swift in Sources */,
 				03F5A8B61C496D1100B124A3 /* Point.swift in Sources */,
 				03E13B861C4FF35C0074E447 /* IntPoint.swift in Sources */,
+				03CA5A401E39195E00A7D3C6 /* PageControl.swift in Sources */,
 				0314DCF51D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
 				038765411D2464CB0082FC79 /* Framework.swift in Sources */,
 				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,

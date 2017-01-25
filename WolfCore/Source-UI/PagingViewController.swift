@@ -40,4 +40,10 @@ open class PagingViewController: ViewController {
             bottomViewToPageControlConstraint.isActive = true
         }
     }
+
+    open override var childViewControllerForStatusBarStyle: UIViewController? {
+        let child = pagedViewControllers?[pagingView.currentPage]
+        print("statusBarStyle from: \(self) ---> \(child)")
+        return child
+    }
 }

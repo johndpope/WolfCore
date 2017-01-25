@@ -9,13 +9,11 @@
 import UIKit
 
 open class Control: UIControl, Skinnable {
+    private var _mySkin: Skin?
     public var mySkin: Skin? {
-        didSet {
-            updateAppearance()
-        }
+        get { return _mySkin ?? inheritedSkin }
+        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
     }
-
-    public var skinChangedAction: SkinChangedAction!
 
     public convenience init() {
         self.init(frame: .zero)
@@ -34,11 +32,10 @@ open class Control: UIControl, Skinnable {
     private func _setup() {
         ~~self
         setup()
-        setupSkinnable()
     }
 
-    open func updateAppearance() {
-        (self as Skinnable).updateAppearance()
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
     }
 
     open func setup() { }

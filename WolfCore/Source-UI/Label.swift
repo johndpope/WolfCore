@@ -17,8 +17,11 @@
 public typealias TagAction = (String) -> Void
 
 open class Label: OSLabel, Skinnable {
-    public var mySkin: Skin?
-    public var skinChangedAction: SkinChangedAction!
+    private var _mySkin: Skin?
+    public var mySkin: Skin? {
+        get { return _mySkin ?? inheritedSkin }
+        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
+    }
 
     #if os(macOS)
     public var text: String {
@@ -70,7 +73,7 @@ open class Label: OSLabel, Skinnable {
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
-        updateAppearance()
+        updateAppearanceContainer(skin: mySkin)
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -105,7 +108,12 @@ open class Label: OSLabel, Skinnable {
     private func _setup() {
         ~~self
         setup()
-        setupSkinnable()
+    }
+
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
+        guard let skin = skin else { return }
+        textColor = skin.labelTextColor
     }
 
     open func setup() { }

@@ -39,7 +39,7 @@ extension OSImage {
 
     public func shaded(withColor color: OSColor) -> OSImage {
         return newImage(withSize: size, opaque: false, scale: scale, flipped: true, renderingMode: .alwaysOriginal) { context in
-            WolfCore.draw(into: context) { context in
+            drawInto(context) { context in
                 context.clip(to: self.bounds, mask: self.cgImage!)
                 context.setFillColor(color.cgColor)
                 context.fill(self.bounds)

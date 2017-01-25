@@ -9,8 +9,12 @@
 import UIKit
 
 open class TextView: UITextView, Skinnable {
-    public var mySkin: Skin?
-    public var skinChangedAction: SkinChangedAction!
+    private var _mySkin: Skin?
+    public var mySkin: Skin? {
+        get { return _mySkin ?? inheritedSkin }
+        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
+    }
+
     var tagTapActions = [String: TagAction]()
     var tapAction: GestureRecognizerAction!
 
@@ -41,13 +45,16 @@ open class TextView: UITextView, Skinnable {
     private func _setup() {
         ~~self
         setup()
-        setupSkinnable()
     }
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard superview != nil else { return }
-        updateAppearance()
+        updateAppearanceContainer(skin: mySkin)
+    }
+
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
     }
 
     open func setup() {

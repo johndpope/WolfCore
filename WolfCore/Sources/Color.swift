@@ -61,10 +61,10 @@ private let labeledColorRegex = try! ~/"^\\s*(?:r(?:ed)?):\\s+(?<r>\\d*(?:\\.\\d
 private let labeledHSBColorRegex = try! ~/"^\\s*(?:h(?:ue)?):\\s+(?<h>\\d*(?:\\.\\d+)?)\\s+(?:s(?:aturation)?):\\s+(?<s>\\d*(?:\\.\\d+)?)\\s+(?:b(?:rightness)?):\\s+(?<b>\\d*(?:\\.\\d+)?)(?:\\s+(?:a(?:lpha)?):\\s+(?<a>\\d*(?:\\.\\d+)?))?"
 
 public struct Color {
-    public let red: Frac
-    public let green: Frac
-    public let blue: Frac
-    public let alpha: Frac
+    public var red: Frac
+    public var green: Frac
+    public var blue: Frac
+    public var alpha: Frac
 
     public init(red: Frac, green: Frac, blue: Frac, alpha: Frac = 1.0) {
         self.red = red
@@ -212,11 +212,11 @@ public struct Color {
     }
 
     public func multiplied(by rhs: Frac) -> Color {
-        return Color(red: red * rhs, green: green * rhs, blue: blue * rhs, alpha: alpha * rhs)
+        return Color(red: red * rhs, green: green * rhs, blue: blue * rhs, alpha: alpha)
     }
 
     public func added(to rhs: Color) -> Color {
-        return Color(red: red + rhs.red, green: green + rhs.green, blue: blue + rhs.blue, alpha: alpha + rhs.alpha)
+        return Color(red: red + rhs.red, green: green + rhs.green, blue: blue + rhs.blue, alpha: alpha)
     }
 
     public func lightened(by frac: Frac) -> Color {
@@ -228,7 +228,7 @@ public struct Color {
     }
 
     public static func lightened(by frac: Frac) -> (Color) -> Color {
-        return { color in color.lightened(by: frac) }
+        return { $0.lightened(by: frac) }
     }
 
     public func darkened(by frac: Frac) -> Color {
@@ -240,7 +240,7 @@ public struct Color {
     }
 
     public static func darkened(by frac: Frac) -> (Color) -> Color {
-        return { color in color.darkened(by: frac) }
+        return { $0.darkened(by: frac) }
     }
 
     /// Identity fraction is 0.0
@@ -254,7 +254,7 @@ public struct Color {
     }
 
     public static func dodged(by frac: Frac) -> (Color) -> Color {
-        return { color in color.dodged(by: frac) }
+        return { $0.dodged(by: frac) }
     }
 
     /// Identity fraction is 0.0
@@ -268,7 +268,7 @@ public struct Color {
     }
 
     public static func burned(by frac: Frac) -> (Color) -> Color {
-        return { color in color.burned(by: frac) }
+        return { $0.burned(by: frac) }
     }
 
     public static let black = Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))

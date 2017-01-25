@@ -24,20 +24,31 @@ import CoreGraphics
 #endif
 
 #if os(iOS) || os(tvOS)
-public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: CGContextBlock) -> UIImage {
-    UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
-    let context = currentGraphicsContext
-    if flipped {
-        context.translateBy(x: 0.0, y: size.height)
-        context.scaleBy(x: 1.0, y: -1.0)
+    public func newImage(withSize size: CGSize, opaque: Bool = false, background: UIColor? = nil, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: CGContextBlock? = nil) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
+        let context = currentGraphicsContext
+
+        if flipped {
+            context.translateBy(x: 0.0, y: size.height)
+            context.scaleBy(x: 1.0, y: -1.0)
+        }
+
+        if let background = background {
+            drawInto(context) { context in
+                context.setFillColor(background.cgColor)
+                context.fill(CGRect(origin: .zero, size: size))
+            }
+        }
+
+        drawing?(context)
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()!.withRenderingMode(renderingMode)
+        UIGraphicsEndImageContext()
+
+        return image
     }
-    drawing(context)
-    let image = UIGraphicsGetImageFromCurrentImageContext()!.withRenderingMode(renderingMode)
-    UIGraphicsEndImageContext()
-    return image
-}
 #elseif os(macOS)
-    public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: (CGContext) -> Void) -> NSImage {
+    public func newImage(withSize size: CGSize, opaque: Bool = false, background: NSColor? = nil, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: CGContextBlock? = nil) -> NSImage {
         let image = NSImage.init(size: size)
 
         let rep = NSBitmapImageRep.init(bitmapDataPlanes: nil,
@@ -69,7 +80,14 @@ public func newImage(withSize size: CGSize, opaque: Bool = false, scale: CGFloat
             context.scaleBy(x: 1.0, y: -1.0)
         }
 
-        drawing(context)
+        if let background = background {
+            drawInto(context) { context in
+                context.setFillColor(background.cgColor)
+                context.fill(CGRect(origin: .zero, size: size))
+            }
+        }
+
+        drawing?(context)
 
         image.unlockFocus()
         return image

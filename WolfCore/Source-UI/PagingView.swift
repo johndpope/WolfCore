@@ -23,7 +23,7 @@ open class PagingView: View {
     public private(set) var scrollingFromIndex: Int = 0
     public private(set) var scrollingToIndex: Int = 0
     public private(set) var scrollingFrac: Frac = 0.0
-    public private(set) var pageControl: UIPageControl!
+    public private(set) var pageControl: PageControl!
 
     private var scrollView: ScrollView!
     private var contentView: PagingContentView!
@@ -197,7 +197,7 @@ open class PagingView: View {
     }
 
     private func setupPageControl() {
-        pageControl = ~UIPageControl()
+        pageControl = PageControl()
         pageControl.makeTransparent(debugColor: .red, debug: false)
         pageControl.isUserInteractionEnabled = false
         addSubview(pageControl)

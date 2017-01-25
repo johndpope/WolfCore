@@ -100,7 +100,7 @@ extension UIView {
 #endif
 
 extension OSView {
-    public func descendantViews<T: OSView>() -> [T] {
+    public func descendantViews<T>() -> [T] {
         var resultViews = [T]()
         self.forViewsInHierarchy { view -> Bool in
             if let view = view as? T {
@@ -216,3 +216,18 @@ extension OSView {
         }
     }
 #endif
+
+extension UIResponder {
+    public var viewController: UIViewController? {
+        var resultViewController: UIViewController?
+        var responder: UIResponder! = self
+        repeat {
+            if let viewController = responder as? UIViewController {
+                resultViewController = viewController
+                break
+            }
+            responder = responder.next
+        } while responder != nil
+        return resultViewController
+    }
+}

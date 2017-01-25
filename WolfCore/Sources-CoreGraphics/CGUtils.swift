@@ -15,14 +15,14 @@ import CoreGraphics
 
 public typealias CGContextBlock = (CGContext) -> Void
 
-public func draw(into context: CGContext, drawing: CGContextBlock) {
+public func drawInto(_ context: CGContext, drawing: CGContextBlock) {
     context.saveGState()
     drawing(context)
     context.restoreGState()
 }
 
 public func drawIntoCurrentContext(drawing: CGContextBlock) {
-    draw(into: currentGraphicsContext, drawing: drawing)
+    drawInto(currentGraphicsContext, drawing: drawing)
 }
 
 public var currentGraphicsContext: CGContext {

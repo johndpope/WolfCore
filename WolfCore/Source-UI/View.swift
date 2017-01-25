@@ -13,8 +13,11 @@
 #endif
 
 open class View: OSView, Skinnable {
-    public var mySkin: Skin?
-    public var skinChangedAction: SkinChangedAction!
+    private var _mySkin: Skin?
+    public var mySkin: Skin? {
+        get { return _mySkin ?? inheritedSkin }
+        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
+    }
 
     public convenience init() {
         self.init(frame: .zero)
@@ -33,10 +36,13 @@ open class View: OSView, Skinnable {
     private func _setup() {
         translatesAutoresizingMaskIntoConstraints = false
         setup()
-        setupSkinnable()
     }
 
     open func setup() { }
+
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
+    }
 
     #if os(iOS) || os(tvOS)
 
@@ -218,4 +224,9 @@ extension View {
     osDidSetNeedsDisplay()
     }
     #endif
+}
+
+extension OSView {
+    public func _updateAppearance(skin: Skin?) {
+    }
 }

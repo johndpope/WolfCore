@@ -10,7 +10,9 @@ public typealias ColorFunc = (_ at: Frac) -> Color
 
 public func blend(from color1: Color, to color2: Color, at frac: Frac) -> Color {
     let f = frac.clamped
-    return color1 * (1 - f) + color2 * f
+    var c = color1 * (1 - f) + color2 * f
+    c.alpha = f.mapped(to: color1.alpha..color2.alpha)
+    return c
 }
 
 public func blend(from color1: Color, to color2: Color) -> ColorFunc {

@@ -8,51 +8,70 @@
 
 import UIKit
 
+//public protocol Appearable: UIAppearanceContainer {
+//}
+
 public protocol Skinnable: UIAppearanceContainer {
-    //func updateAppearance()
-    func setupSkinnable()
     var mySkin: Skin? { get set }
-    var skinChangedAction: SkinChangedAction! { get set }
-    var currentSkin: Skin? { get }
+    func updateAppearance(skin: Skin?)
 }
 
-extension Skinnable {
-    public func setupSkinnable() {
-        skinChangedAction = SkinChangedAction(for: self)
+/*
+ From UIResponder.next
+
+ The UIResponder class does not store or set the next responder automatically, instead returning nil by default. Subclasses must override this method to set the next responder. UIView implements this method by returning the UIViewController object that manages it (if it has one) or its superview (if it doesn’t); UIViewController implements the method by returning its view’s superview; UIWindow returns the application object, and UIApplication returns nil.
+ */
+
+extension UIAppearanceContainer {
+    public var inheritedSkin: Skin? {
+        var current: UIAppearanceContainer! = self
+
+        repeat {
+            if let viewController = current as? UIViewController {
+                current = viewController.parent
+            } else if let view = current as? UIView {
+                if let managingViewController = view.next as? UIViewController {
+                    current = managingViewController
+                } else if let superview = view.superview {
+                    current = superview
+                } else {
+                    current = nil
+                }
+            } else {
+                current = nil
+            }
+            if let skin = (current as? Skinnable)?.mySkin {
+                return skin
+            }
+        } while current != nil
+
+        return skin
     }
 }
 
-extension Skinnable where Self: UIView {
-    public var currentSkin: Skin? {
-        return mySkin ?? (superview as? Skinnable)?.currentSkin ?? skin
-    }
-}
+extension UIAppearanceContainer {
+    public func updateAppearanceContainer(skin: Skin?) {
+        guard let skin = skin else { return }
 
-extension Skinnable where Self: UIViewController {
-    public var currentSkin: Skin? {
-        return mySkin ?? (parent as? Skinnable)?.currentSkin ?? skin
-    }
-}
+        if let viewController = self as? UIViewController {
+            if let skinnable = viewController as? Skinnable {
+                skinnable.updateAppearance(skin: skin)
+            }
 
-extension Skinnable {
-    public func updateAppearance() {
-        guard let skin = self.currentSkin else { return }
-        let appearance = UIPageControl.appearance(whenContainedInInstancesOf: [type(of: self)])
-        appearance.pageIndicatorTintColor = skin.pageIndicatorTintColor
-        appearance.currentPageIndicatorTintColor = skin.currentPageIndicatorTintColor
-
-        guard let vc = self as? ViewController else { return }
-        if vc.isViewLoaded {
-            vc.view!.backgroundColor = skin.viewControllerBackgroundColor
-        }
-        vcStyle: if let navigationController = vc.navigationController {
-            let navigationBar = navigationController.navigationBar
-            navigationBar.barTintColor = skin.navigationBarBackgroundColor
-            navigationBar.tintColor = skin.navigationBarForegroundColor
-
-            guard let toolbar = navigationController.toolbar else { break vcStyle }
-            toolbar.barTintColor = skin.toolbarBackgroundColor
-            toolbar.tintColor = skin.toolbarForegroundColor
+            if viewController.isViewLoaded {
+                let view = viewController.view!
+                if let skinnable = view as? Skinnable {
+                    skinnable.updateAppearance(skin: skin)
+                }
+                view.updateAppearanceContainer(skin: skin)
+            }
+        } else if let view = self as? UIView {
+            for subview in view.subviews {
+                if let skinnable = subview as? Skinnable {
+                    skinnable.updateAppearance(skin: skin)
+                }
+                subview.updateAppearanceContainer(skin: skin)
+            }
         }
     }
 }

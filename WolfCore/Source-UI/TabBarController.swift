@@ -9,8 +9,11 @@
 import UIKit
 
 open class TabBarController: UITabBarController, Skinnable {
-    public var mySkin: Skin?
-    public var skinChangedAction: SkinChangedAction!
+    private var _mySkin: Skin?
+    public var mySkin: Skin? {
+        get { return _mySkin ?? inheritedSkin }
+        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
+    }
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -25,7 +28,6 @@ open class TabBarController: UITabBarController, Skinnable {
     private func _setup() {
         logInfo("init \(self)", group: .viewControllerLifecycle)
         setup()
-        setupSkinnable()
     }
 
     deinit {
@@ -40,7 +42,17 @@ open class TabBarController: UITabBarController, Skinnable {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        updateAppearance()
+        guard let skin = mySkin else { return }
+        updateAppearance(skin: skin)
+        updateAppearanceContainer(skin: skin)
+    }
+
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
+    }
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return _preferredStatusBarStyle(for: mySkin)
     }
 
     open func setup() { }
