@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class SkinTransferValue<T: Any>: TransferValue<T>, Skinnable {
-    public var skinChangedAction: SkinChangedAction!
-    public override init(withDefault defaultValue: T, sink: Sink?) {
-        super.init(withDefault: defaultValue, sink: sink)
-        setupSkinnable()
-    }
-    public func updateAppearance() {
-        transfer()
-    }
-}
+//public class SkinTransferValue<T: Any>: TransferValue<T>, Skinnable {
+//    public var skinChangedAction: SkinChangedAction!
+//    public override init(withDefault defaultValue: T, sink: Sink?) {
+//        super.init(withDefault: defaultValue, sink: sink)
+//        setupSkinnable()
+//    }
+//    public func updateAppearance() {
+//        transfer()
+//    }
+//}

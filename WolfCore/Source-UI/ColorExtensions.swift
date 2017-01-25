@@ -118,3 +118,34 @@ public func == (left: ColorReference, right: ColorReference) -> Bool {
 public postfix func ® (lhs: ColorReference) -> OSColor {
     return lhs.referent
 }
+
+extension OSColor {
+    public var luminance: Frac {
+        return (self |> Color.init).luminance
+    }
+
+    public func multiplied(by rhs: Frac) -> OSColor {
+        return Color(self).multiplied(by: rhs) |> OSColor.init
+    }
+
+    public func added(to rhs: OSColor) -> OSColor {
+        return Color(self).added(to: Color(rhs)) |> OSColor.init
+    }
+
+    public func lightened(by frac: Frac) -> OSColor {
+        return Color(self).lightened(by: frac) |> OSColor.init
+    }
+
+    public func darkened(by frac: Frac) -> OSColor {
+        return Color(self).darkened(by: frac) |> OSColor.init
+    }
+
+    public func dodged(by frac: Frac) -> OSColor {
+        return Color(self).dodged(by: frac) |> OSColor.init
+    }
+
+    public func burned(by frac: Frac) -> OSColor {
+        return Color(self).burned(by: frac) |> OSColor.init
+    }
+
+}

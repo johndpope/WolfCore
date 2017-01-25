@@ -9,6 +9,7 @@
 import UIKit
 
 open class Button: UIButton, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
 
     @IBOutlet var customView: UIView? {
@@ -52,8 +53,6 @@ open class Button: UIButton, Skinnable {
     }
 
     open func setup() { }
-
-    open func updateAppearance() { }
 
     private func removeCustomView() {
         customView?.removeFromSuperview()

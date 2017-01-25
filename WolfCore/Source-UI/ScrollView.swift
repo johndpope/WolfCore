@@ -9,6 +9,7 @@
 import UIKit
 
 open class ScrollView: UIScrollView, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
 
     /// Can be set from Interface Builder
@@ -58,6 +59,4 @@ open class ScrollView: UIScrollView, Skinnable {
     }
 
     open func setup() { }
-
-    open func updateAppearance() { }
 }

@@ -15,6 +15,16 @@
     import Cocoa
 #endif
 
+//public protocol ColorProtocol {
+//    var luminance: Frac { get }
+//    func multiplied(by rhs: Frac) -> Self
+//    func added(to rhs: Self) -> Self
+//    func lightened(by frac: Frac) -> Self
+//    func darkened(by frac: Frac) -> Self
+//    func dodged(by frac: Frac) -> Self
+//    func burned(by frac: Frac) -> Self
+//}
+
 // #abc
 //
 // ^\s*#(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\s*$
@@ -399,15 +409,6 @@ extension Color {
 }
 
 extension CGColor {
-//    public convenience init(color: Color) {
-//        let red = CGFloat(color.red)
-//        let green = CGFloat(color.green)
-//        let blue = CGFloat(color.blue)
-//        let alpha = CGFloat(color.alpha)
-//
-//        self.init(colorSpace: sharedColorSpaceRGB, components: [red, green, blue, alpha])!
-//    }
-
     public static func toColor(from cgColor: CGColor) -> Color {
         return Color(cgColor: cgColor)
     }

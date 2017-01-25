@@ -112,6 +112,7 @@
 		033AC34C1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
 		033AC34D1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
 		033AC34E1D17172E008C8B93 /* Frac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC34B1D17172E008C8B93 /* Frac.swift */; };
+		033B52DF1E31E8E40052E396 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033B52DE1E31E8E40052E396 /* PagingViewController.swift */; };
 		033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033E14FC1C7CC71C00BA3E63 /* Matrix.swift */; };
 		033F5E841CA3096700647A0A /* TextCheckingResultExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */; };
 		033F5E851CA3096700647A0A /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553181C0F622A00E0FCA7 /* ColorExtensions.swift */; };
@@ -262,6 +263,7 @@
 		036307D61CB6DB0D00DC7070 /* OrientationNotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */; };
 		036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */; };
 		036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307D91CB6DE0600DC7070 /* TVControllerActions.swift */; };
+		036543F71E35E37700D4301F /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036543F61E35E37700D4301F /* Control.swift */; };
 		036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B833F1C40909700491AFF /* DictionaryExtensions.swift */; };
 		036B83471C431F2A00491AFF /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83461C431F2A00491AFF /* Color.swift */; };
 		036B83491C431FDF00491AFF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83481C431FDF00491AFF /* Random.swift */; };
@@ -552,6 +554,7 @@
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = Sources/SequenceExtensions.swift; sourceTree = "<group>"; };
 		033AC3471D171703008C8B93 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interval.swift; path = Sources/Interval.swift; sourceTree = "<group>"; };
 		033AC34B1D17172E008C8B93 /* Frac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Frac.swift; path = Sources/Frac.swift; sourceTree = "<group>"; };
+		033B52DE1E31E8E40052E396 /* PagingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewController.swift; path = "Source-UI/PagingViewController.swift"; sourceTree = "<group>"; };
 		033E14FC1C7CC71C00BA3E63 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = Sources/Matrix.swift; sourceTree = "<group>"; };
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		033F5EE21CA3096700647A0A /* Info-MacOSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-MacOSX.plist"; path = "/Users/ironwolf/Dropbox/DevProjects/KagiProcess2/WolfCore/WolfCore/Info-MacOSX.plist"; sourceTree = "<absolute>"; };
@@ -609,6 +612,7 @@
 		036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrientationNotificationActions.swift; path = "Source-UI/OrientationNotificationActions.swift"; sourceTree = "<group>"; };
 		036307D71CB6DB3E00DC7070 /* KeyboardNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardNotificationActions.swift; path = "Source-UI/KeyboardNotificationActions.swift"; sourceTree = "<group>"; };
 		036307D91CB6DE0600DC7070 /* TVControllerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVControllerActions.swift; path = "Source-UI/TVControllerActions.swift"; sourceTree = "<group>"; };
+		036543F61E35E37700D4301F /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Control.swift; path = "Source-UI/Control.swift"; sourceTree = "<group>"; };
 		036B833F1C40909700491AFF /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryExtensions.swift; path = Sources/DictionaryExtensions.swift; sourceTree = "<group>"; };
 		036B83461C431F2A00491AFF /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Sources/Color.swift; sourceTree = "<group>"; };
 		036B83481C431FDF00491AFF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Sources/Random.swift; sourceTree = "<group>"; };
@@ -1000,6 +1004,7 @@
 				035553161C0F622A00E0FCA7 /* Button.swift */,
 				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
+				036543F61E35E37700D4301F /* Control.swift */,
 				035553251C0F622A00E0FCA7 /* ImageView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
@@ -1040,6 +1045,7 @@
 		0314DD0A1D08FD2200E23C67 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				033B52DE1E31E8E40052E396 /* PagingViewController.swift */,
 				035EB4541CF3CC2D006D73ED /* EmailUtils.swift */,
 				0389BD301CF5130600390914 /* AlertControllerExtensions.swift */,
 				0314DCBC1D08ECEC00E23C67 /* TabBarController.swift */,
@@ -1639,6 +1645,7 @@
 				03FAF77B1C532A640045BB37 /* ASN1Parser.swift in Sources */,
 				03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */,
 				036B83471C431F2A00491AFF /* Color.swift in Sources */,
+				033B52DF1E31E8E40052E396 /* PagingViewController.swift in Sources */,
 				0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */,
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				03CF07FA1DF5367400B7AD7E /* HTTPActions.swift in Sources */,
@@ -1723,6 +1730,7 @@
 				0324AEFC1CF81F350080DFF6 /* StackView.swift in Sources */,
 				03B0D9B21DF33A6A0073AF42 /* Skin.swift in Sources */,
 				03106F6A1D40D96800E21F82 /* RunesArray.swift in Sources */,
+				036543F71E35E37700D4301F /* Control.swift in Sources */,
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
 				032418111E2C440600082E6A /* TopologicalSort.swift in Sources */,

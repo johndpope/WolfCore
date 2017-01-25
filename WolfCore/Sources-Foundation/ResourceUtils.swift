@@ -30,20 +30,24 @@ public func loadJSON(named name: String, subdirectory subpath: String? = nil, in
 }
 
 #if os(iOS) || os(tvOS)
-public func loadStoryboard(named name: String, in bundle: Bundle? = nil) -> UIStoryboard {
-    let bundle = bundle ?? Bundle.main
-    return UIStoryboard(name: name, bundle: bundle)
-}
+    public func loadStoryboard(named name: String, in bundle: Bundle? = nil) -> UIStoryboard {
+        let bundle = bundle ?? Bundle.main
+        return UIStoryboard(name: name, bundle: bundle)
+    }
 
-public func loadViewController<T: UIViewController>(withIdentifier identifier: String, fromStoryboardNamed storyboardName: String, in bundle: Bundle? = nil) -> T {
-    let storyboard = loadStoryboard(named: storyboardName, in: bundle)
-    return storyboard.instantiateViewController(withIdentifier: identifier) as! T
-}
+    public func loadViewController<T: UIViewController>(withIdentifier identifier: String, fromStoryboardNamed storyboardName: String, in bundle: Bundle? = nil) -> T {
+        let storyboard = loadStoryboard(named: storyboardName, in: bundle)
+        return storyboard.instantiateViewController(withIdentifier: identifier) as! T
+    }
 
-public func loadInitialViewController<T: UIViewController>(fromStoryboardNamed storyboardName: String, in bundle: Bundle? = nil) -> T {
-    let storyboard = loadStoryboard(named: storyboardName, in: bundle)
-    return storyboard.instantiateInitialViewController() as! T
-}
+    public func loadViewController<T: UIViewController>(withIdentifier identifier: String, from storyboard: UIStoryboard) -> T {
+        return storyboard.instantiateViewController(withIdentifier: identifier) as! T
+    }
+
+    public func loadInitialViewController<T: UIViewController>(fromStoryboardNamed storyboardName: String, in bundle: Bundle? = nil) -> T {
+        let storyboard = loadStoryboard(named: storyboardName, in: bundle)
+        return storyboard.instantiateInitialViewController() as! T
+    }
 #endif
 
 public func loadNib(named name: String, in bundle: Bundle? = nil) -> OSNib {

@@ -16,6 +16,11 @@ extension Log.GroupName {
 }
 
 open class ViewController: UIViewController, Skinnable {
+    public var mySkin: Skin? {
+        didSet {
+            updateAppearance()
+        }
+    }
     public var skinChangedAction: SkinChangedAction!
 
     public required init?(coder aDecoder: NSCoder) {
@@ -49,7 +54,9 @@ open class ViewController: UIViewController, Skinnable {
         updateAppearance()
     }
 
-    open func setup() { }
+    open func updateAppearance() {
+        (self as Skinnable).updateAppearance()
+    }
 
-    open func updateAppearance() { }
+    open func setup() { }
 }

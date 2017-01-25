@@ -1,15 +1,20 @@
 //
-//  CollectionViewCell.swift
+//  Control.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 5/27/16.
-//  Copyright © 2016 Arciem. All rights reserved.
+//  Created by Wolf McNally on 1/22/17.
+//  Copyright © 2017 Arciem. All rights reserved.
 //
 
 import UIKit
 
-open class CollectionViewCell: UICollectionViewCell, Skinnable {
-    public var mySkin: Skin?
+open class Control: UIControl, Skinnable {
+    public var mySkin: Skin? {
+        didSet {
+            updateAppearance()
+        }
+    }
+
     public var skinChangedAction: SkinChangedAction!
 
     public convenience init() {
@@ -27,15 +32,13 @@ open class CollectionViewCell: UICollectionViewCell, Skinnable {
     }
 
     private func _setup() {
-        ~self
+        ~~self
         setup()
         setupSkinnable()
     }
 
-    open override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearance()
+    open func updateAppearance() {
+        (self as Skinnable).updateAppearance()
     }
 
     open func setup() { }

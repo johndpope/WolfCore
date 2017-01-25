@@ -9,6 +9,7 @@
 import UIKit
 
 open class TextField: UITextField, Skinnable {
+    public var mySkin: Skin?
     public var skinChangedAction: SkinChangedAction!
     public static var placeholderColor: UIColor?
     public var placeholderColor: UIColor?
@@ -55,16 +56,9 @@ open class TextField: UITextField, Skinnable {
     open func setup() {
     }
 
-    open func updateAppearance() {
-        syncToTintColor()
-        syncToPlaceholderColor()
-    }
-
-    open override var placeholder: String? {
-        didSet {
-            syncToPlaceholderColor()
-        }
-    }
+//    open func updateAppearance() {
+//        syncToTintColor()
+//    }
 }
 
 extension TextField {
