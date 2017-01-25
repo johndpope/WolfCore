@@ -98,7 +98,7 @@ public class CryptoKey: CustomStringConvertible {
             return Base64URL.encode(bignumToBytes(bn))
         }
 
-        static func addKeyFieldAsBase64URLToDict(dict: inout JSONDictionary, field: String, value: BignumRef) {
+        static func addKeyFieldAsBase64URLToDict(dict: inout JSON.Dictionary, field: String, value: BignumRef) {
             if value != nil {
                 dict[field] = NSString(UTF8String: bignumToBase64URL(value))
             }
@@ -110,8 +110,8 @@ public class CryptoKey: CustomStringConvertible {
             }
         }
 
-        func json(onlyPublic: Bool, keyID: String? = nil) throws -> JSONDictionary {
-            var dict = JSONDictionary()
+        func json(onlyPublic: Bool, keyID: String? = nil) throws -> JSON.Dictionary {
+            var dict = JSON.Dictionary()
 
             dict["kty"] = "RSA" as NSString
 

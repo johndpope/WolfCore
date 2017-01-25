@@ -11,6 +11,8 @@ public class Joiner {
     var right: String
     var separator: String
     var objs = [Any]()
+    var count: Int { return objs.count }
+    var isEmpty: Bool { return objs.isEmpty }
 
     public init(left: String = "", separator: String = " ", right: String = "") {
         self.left = left

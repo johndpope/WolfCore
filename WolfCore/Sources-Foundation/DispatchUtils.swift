@@ -8,14 +8,7 @@
 
 import Foundation
 
-//#if os(Linux)
-//    import CDispatch
-//    public typealias dispatch_block_t = () -> Void
-//#endif
-
-// #define DISPATCH_QUEUE_CONCURRENT \
-                // DISPATCH_GLOBAL_OBJECT(dispatch_queue_attr_t, \
-                // _dispatch_queue_attr_concurrent)
+public typealias BoolBlock = (Bool) -> Void
 
 public let mainQueue = DispatchQueue.main
 public let backgroundQueue = DispatchQueue(label: "background", attributes: [.concurrent], target: nil)

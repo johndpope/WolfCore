@@ -12,7 +12,7 @@ import XCTest
 class HexTests: XCTestCase {
     let knownData = Data(bytes: [0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef])
     let knownString = "0123456789abcdef"
-    let knownByte: Byte = 0x8e
+    let knownByte: UInt8 = 0x8e
     let knownByteString = "8e"
 
     func testDataToHex() {
@@ -37,7 +37,7 @@ class HexTests: XCTestCase {
     }
 
     func testStringToByte() {
-        let byte = try! knownByteString |> Hex.init |> Byte.init
+        let byte = try! knownByteString |> Hex.init |> UInt8.init
         XCTAssert(byte == knownByte)
     }
 }

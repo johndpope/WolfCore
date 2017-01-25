@@ -10,6 +10,8 @@ import UIKit
 
 open class TextField: UITextField, Skinnable {
     public var skinChangedAction: SkinChangedAction!
+    public static var placeholderColor: UIColor?
+    public var placeholderColor: UIColor?
     var tintedClearImage: UIImage?
     var lastTintColor: UIColor?
 
@@ -55,6 +57,13 @@ open class TextField: UITextField, Skinnable {
 
     open func updateAppearance() {
         syncToTintColor()
+        syncToPlaceholderColor()
+    }
+
+    open override var placeholder: String? {
+        didSet {
+            syncToPlaceholderColor()
+        }
     }
 }
 
@@ -86,5 +95,17 @@ extension TextField {
     open override func tintColorDidChange() {
         super.tintColorDidChange()
         syncToTintColor()
+    }
+}
+
+extension TextField {
+    fileprivate func syncToPlaceholderColor() {
+        if let placeholderColor = self.placeholderColor ?? type(of: self).placeholderColor {
+            if let placeholder = placeholder {
+                let a = placeholder§
+                a.foregroundColor = placeholderColor
+                attributedPlaceholder = a
+            }
+        }
     }
 }
