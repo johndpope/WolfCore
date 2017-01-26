@@ -88,6 +88,9 @@ extension UIViewController {
             navigationBar.tintColor = skin.navbarTintColor
             navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: skin.navbarTitleColor]
 
+            // Remove bottom bevel
+            navigationBar.shadowImage = UIImage()
+
             if let toolbar = navigationController.toolbar {
                 toolbar.isTranslucent = true
                 let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.toolbarColor)
