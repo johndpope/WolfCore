@@ -189,7 +189,7 @@ open class PagingView: View {
         scrollView.addSubview(contentView)
         contentView.constrainToSuperview(identifier: "pagingScrollContent")
         contentWidthConstraint = contentView.widthAnchor == 500
-        let contentHeightConstraint = contentView.heightAnchor == scrollView.heightAnchor - 0.5
+        let contentHeightConstraint = contentView.heightAnchor == heightAnchor - 0.5
         activateConstraints(
             contentWidthConstraint,
             contentHeightConstraint

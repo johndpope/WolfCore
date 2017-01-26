@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0302D2F81CF8F34300717170 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302D2F71CF8F34300717170 /* TextView.swift */; };
+		0309573D1E397DF80065F374 /* FontDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0309573C1E397DF80065F374 /* FontDebugging.swift */; };
+		0309573E1E397DF80065F374 /* FontDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0309573C1E397DF80065F374 /* FontDebugging.swift */; };
 		030C035A1D148F3900EF040E /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C03591D148F3900EF040E /* Locker.swift */; };
 		030C035B1D148F3900EF040E /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C03591D148F3900EF040E /* Locker.swift */; };
 		030C035C1D148F3900EF040E /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C03591D148F3900EF040E /* Locker.swift */; };
@@ -504,6 +506,7 @@
 
 /* Begin PBXFileReference section */
 		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = "Source-UI/TextView.swift"; sourceTree = "<group>"; };
+		0309573C1E397DF80065F374 /* FontDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontDebugging.swift; path = "Source-UI/FontDebugging.swift"; sourceTree = "<group>"; };
 		030C03591D148F3900EF040E /* Locker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Locker.swift; path = Sources/Locker.swift; sourceTree = "<group>"; };
 		03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64URLTests.swift; sourceTree = "<group>"; };
 		03106F611D40D81F00E21F82 /* Runes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runes.swift; sourceTree = "<group>"; };
@@ -916,6 +919,7 @@
 			children = (
 				03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */,
 				031631A01D09639F00DCBB3B /* FontExtensions.swift */,
+				0309573C1E397DF80065F374 /* FontDebugging.swift */,
 				03B218941C20E90A0081CE39 /* Joiner.swift */,
 				03206B301C3C7C5D001A463B /* RegexUtils.swift */,
 				03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */,
@@ -1692,6 +1696,7 @@
 				0324180D1E2B548800082E6A /* DepthFirstSearch.swift in Sources */,
 				035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */,
 				0378EC831DF4D89900E6A875 /* Cache.swift in Sources */,
+				0309573D1E397DF80065F374 /* FontDebugging.swift in Sources */,
 				036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */,
 				03206B2D1C3B1B02001A463B /* BSON.swift in Sources */,
 				03BC18CF1CF104D9005AF3C3 /* InfoDict.swift in Sources */,
@@ -1838,6 +1843,7 @@
 				0324181F1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
 				03CF07E81DF5340A00B7AD7E /* Skinnable.swift in Sources */,
 				034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */,
+				0309573E1E397DF80065F374 /* FontDebugging.swift in Sources */,
 				03E1731C1CF1C8FB0073F383 /* ImageExtensions.swift in Sources */,
 				0314DCC21D08ED2200E23C67 /* NavigationController.swift in Sources */,
 				03E172D61CF1C8B60073F383 /* ColorFunc.swift in Sources */,

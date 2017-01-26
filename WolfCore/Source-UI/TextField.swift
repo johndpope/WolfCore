@@ -17,6 +17,8 @@ open class TextField: UITextField, Skinnable {
 
     var tintedClearImage: UIImage?
     var lastTintColor: UIColor?
+    public static var placeholderColor: UIColor?
+    var placeholderColor: UIColor?
 
     public var followsTintColor = false {
         didSet {

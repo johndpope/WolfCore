@@ -78,7 +78,7 @@ open class NavigationController: UINavigationController, UINavigationControllerD
 
     open override var childViewControllerForStatusBarStyle: UIViewController? {
         let child = topViewController
-        print("statusBarStyle from: \(self) ---> \(child†)")
+        logTrace("statusBarStyle redirect to \(child†)", obj: self, group: .skin)
         return child
     }
 

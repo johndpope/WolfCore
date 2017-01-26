@@ -27,7 +27,7 @@ public class Log {
     public struct GroupName: ExtensibleEnumeratedName {
         public let name: String
 
-        public init(_ name: String) { self.name = name}
+        public init(_ name: String) { self.name = name }
 
         // Hashable
         public var hashValue: Int { return name.hashValue }

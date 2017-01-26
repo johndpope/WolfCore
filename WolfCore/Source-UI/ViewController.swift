@@ -47,7 +47,7 @@ open class ViewController: UIViewController, Skinnable {
     }
 
     open override func viewWillAppear(_ animated: Bool) {
-//        print("viewWillAppear: \(self)")
+        logTrace("viewWillAppear", obj: self, group: .skin)
         super.viewWillAppear(animated)
         guard let skin = mySkin else { return }
         updateAppearance(skin: skin)
@@ -69,7 +69,7 @@ extension UIViewController {
     public func _updateAppearance(skin: Skin?) {
         guard let skin = skin else { return }
 
-        print("needsStatustBarUpdate from: \(self)")
+        logTrace("needsStatustBarUpdate", obj: self, group: .skin)
         setNeedsStatusBarAppearanceUpdate()
 
         if isViewLoaded {
@@ -99,7 +99,7 @@ extension UIViewController {
 
     public func _preferredStatusBarStyle(for skin: Skin?) -> UIStatusBarStyle {
         let style = skin?.statusBarStyle ?? .default
-        print("style: \(style.rawValue) for \(self)")
+        logTrace("style: \(style.rawValue)", obj: self, group: .skin)
         return style
     }
 }

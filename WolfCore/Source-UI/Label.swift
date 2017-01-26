@@ -36,18 +36,15 @@ open class Label: OSLabel, Skinnable {
     var tagTapActions = [String: TagAction]()
     var tapAction: GestureRecognizerAction!
 
-    /// Can be set in Interface Builder
-    public var scalesFontSize: Bool = false
+    @IBInspectable public var scalesFontSize: Bool = false
+    @IBInspectable public var transparentToTouches: Bool = false
+    @IBInspectable public var fontStyle: String? = nil
 
-    /// Can be set in Interface Builder
-    public var transparentToTouches: Bool = false
-
-    /// Can be set in Interface Builder
-    public var followsTintColor: Bool = false {
-        didSet {
-            syncToTintColor()
-        }
-    }
+//    @IBInspectable public var followsTintColor: Bool = false {
+//        didSet {
+//            syncToTintColor()
+//        }
+//    }
 
     private var baseFont: UIFontDescriptor!
 
@@ -66,7 +63,8 @@ open class Label: OSLabel, Skinnable {
 
     open override var text: String? {
         didSet {
-            syncToTintColor()
+            //syncToTintColor()
+            syncToFontStyle(for: mySkin)
         }
     }
 
@@ -112,8 +110,8 @@ open class Label: OSLabel, Skinnable {
 
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
-        guard let skin = skin else { return }
-        textColor = skin.labelTextColor
+        textColor = skin?.textColor
+        syncToFontStyle(for: skin)
     }
 
     open func setup() { }
@@ -127,28 +125,35 @@ open class Label: OSLabel, Skinnable {
 
 #if !os(macOS)
 extension Label {
-    func syncToTintColor() {
-        let tintColor = self.tintColor ?? .black
-        if followsTintColor {
-            if let attributedText = attributedText {
-                let attributedText = attributedText§
-                attributedText.enumerateAttribute(overrideTintColorTag) { (value, _, substring) -> Bool in
-                    if value == nil {
-                        substring.foregroundColor = tintColor
-                    }
-                    return false
-                }
-                self.attributedText = attributedText
-            } else {
-                textColor = tintColor
-            }
+    func syncToFontStyle(for skin: Skin?) {
+        guard let skin = skin else { return }
+        if let style = skin.fontStyleNamed(fontStyle) {
+            attributedText = style.apply(to: text)
         }
     }
 
-    open override func tintColorDidChange() {
-        super.tintColorDidChange()
-        syncToTintColor()
-    }
+//    func syncToTintColor() {
+//        let tintColor = self.tintColor ?? .black
+//        if followsTintColor {
+//            if let attributedText = attributedText {
+//                let attributedText = attributedText§
+//                attributedText.enumerateAttribute(overrideTintColorTag) { (value, _, substring) -> Bool in
+//                    if value == nil {
+//                        substring.foregroundColor = tintColor
+//                    }
+//                    return false
+//                }
+//                self.attributedText = attributedText
+//            } else {
+//                textColor = tintColor
+//            }
+//        }
+//    }
+
+//    open override func tintColorDidChange() {
+//        super.tintColorDidChange()
+//        syncToTintColor()
+//    }
 }
 
 extension Label {

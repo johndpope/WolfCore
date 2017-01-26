@@ -14,6 +14,11 @@ open class PagingViewController: ViewController {
     public private(set) var pagingView = PagingView()
     private var bottomViewToPageControlConstraint: NSLayoutConstraint!
 
+    open override func setup() {
+        super.setup()
+        automaticallyAdjustsScrollViewInsets = false
+    }
+    
     public var pagedViewControllers: [UIViewController]! {
         didSet {
             pagingView.arrangedViews = []
@@ -43,7 +48,7 @@ open class PagingViewController: ViewController {
 
     open override var childViewControllerForStatusBarStyle: UIViewController? {
         let child = pagedViewControllers?[pagingView.currentPage]
-        print("statusBarStyle from: \(self) ---> \(child)")
+        logTrace("statusBarStyle redirect to \(child)", obj: self, group: .skin)
         return child
     }
 }

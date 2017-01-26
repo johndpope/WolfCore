@@ -36,12 +36,22 @@ extension CGColor {
     }
 }
 
-public func CGGradientWithColors(colorFracs: [ColorFrac]) -> CGGradient {
-    var cgColors = [CGColor]()
-    var locations = [CGFloat]()
-    for colorFrac in colorFracs {
-        cgColors.append(colorFrac.color.cgColor)
-        locations.append(CGFloat(colorFrac.frac))
+extension CGGradient {
+    public static func new(with colorFracs: [ColorFrac]) -> CGGradient {
+        var cgColors = [CGColor]()
+        var locations = [CGFloat]()
+        for colorFrac in colorFracs {
+            cgColors.append(colorFrac.color.cgColor)
+            locations.append(CGFloat(colorFrac.frac))
+        }
+        return CGGradient(colorsSpace: sharedColorSpaceRGB, colors: cgColors as CFArray, locations: locations)!
     }
-    return CGGradient(colorsSpace: sharedColorSpaceRGB, colors: cgColors as CFArray, locations: locations)!
+
+    public static func new(from color1: Color, to color2: Color) -> CGGradient {
+        return new(with: [(color: color1, frac: 0.0), (color: color2, frac: 1.0)])
+    }
+
+    public static func new(from color1: UIColor, to color2: UIColor) -> CGGradient {
+        return new(from: color1 |> Color.init, to: color2 |> Color.init)
+    }
 }
