@@ -47,8 +47,9 @@ open class PagingViewController: ViewController {
     }
 
     open override var childViewControllerForStatusBarStyle: UIViewController? {
+        guard pagingView.pageControl.numberOfPages == pagedViewControllers?.count else { return nil }
         let child = pagedViewControllers?[pagingView.currentPage]
-        logTrace("statusBarStyle redirect to \(child)", obj: self, group: .skin)
+        logTrace("statusBarStyle redirect to \(child)", obj: self, group: .statusBar)
         return child
     }
 }

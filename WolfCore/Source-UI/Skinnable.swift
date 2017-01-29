@@ -8,70 +8,143 @@
 
 import UIKit
 
-//public protocol Appearable: UIAppearanceContainer {
-//}
-
-public protocol Skinnable: UIAppearanceContainer {
-    var mySkin: Skin? { get set }
+public protocol Skinnable {
     func updateAppearance(skin: Skin?)
 }
 
-/*
- From UIResponder.next
+public var defaultSkin = DefaultSkin()
 
- The UIResponder class does not store or set the next responder automatically, instead returning nil by default. Subclasses must override this method to set the next responder. UIView implements this method by returning the UIViewController object that manages it (if it has one) or its superview (if it doesn’t); UIViewController implements the method by returning its view’s superview; UIWindow returns the application object, and UIApplication returns nil.
- */
+fileprivate struct AssociatedKeys {
+    static var skin = "WolfCore_skin"
+}
 
-extension UIAppearanceContainer {
-    public var inheritedSkin: Skin? {
-        var current: UIAppearanceContainer! = self
-
-        repeat {
-            if let viewController = current as? UIViewController {
-                current = viewController.parent
-            } else if let view = current as? UIView {
-                if let managingViewController = view.next as? UIViewController {
-                    current = managingViewController
-                } else if let superview = view.superview {
-                    current = superview
-                } else {
-                    current = nil
-                }
-            } else {
-                current = nil
-            }
-            if let skin = (current as? Skinnable)?.mySkin {
-                return skin
-            }
-        } while current != nil
-
-        return skin
+public func shortName(of skin: Skin?) -> String {
+    if skin == nil {
+        return "nil"
+    } else {
+        return (skin†).components(separatedBy: ".").last!
     }
 }
 
-extension UIAppearanceContainer {
-    public func updateAppearanceContainer(skin: Skin?) {
-        guard let skin = skin else { return }
+extension UIView {
+    fileprivate var privateSkin: Skin? {
+        get {
+            return getAssociatedValue(for: &AssociatedKeys.skin)
+        }
 
-        if let viewController = self as? UIViewController {
-            if let skinnable = viewController as? Skinnable {
-                skinnable.updateAppearance(skin: skin)
-            }
+        set {
+            setAssociatedValue(newValue, for: &AssociatedKeys.skin)
+        }
+    }
 
-            if viewController.isViewLoaded {
-                let view = viewController.view!
-                if let skinnable = view as? Skinnable {
-                    skinnable.updateAppearance(skin: skin)
-                }
-                view.updateAppearanceContainer(skin: skin)
-            }
-        } else if let view = self as? UIView {
-            for subview in view.subviews {
-                if let skinnable = subview as? Skinnable {
-                    skinnable.updateAppearance(skin: skin)
-                }
-                subview.updateAppearanceContainer(skin: skin)
+    public var skin: Skin! {
+        get {
+            if let s = privateSkin {
+                return s
+            } else if let s = superview?.skin {
+                return s
+            } else {
+                return defaultSkin
             }
         }
+
+        set {
+            set(skin: newValue)
+        }
+    }
+
+    fileprivate func set(skin: Skin!, level: Int = 0) {
+        logTrace("\(tabs(level))💟 💖 \(shortName(of: skin)) ⏩ \(self††))", group: .skin)
+
+        if privateSkin?.id != skin?.id {
+            privateSkin = skin
+            let s = skin ?? self.skin
+            UIView.propagate(skin: s, to: self, level: level + 1)
+        }
+    }
+
+    fileprivate static func propagate(skin: Skin!, to view: UIView, level: Int = 0) {
+        guard typeName(of: view) != "_UILayoutGuide" else { return }
+
+        if let skinnable = view as? Skinnable {
+            logTrace("\(tabs(level))💟 💚 \(view††)", group: .skin)
+            skinnable.updateAppearance(skin: skin)
+        } else {
+            logTrace("\(tabs(level))💟 🖤 \(view††)", group: .skin)
+        }
+
+        for subview in view.subviews {
+            if let subviewSkin = subview.privateSkin {
+                logTrace("\(tabs(level))💟 ⛔️ \(subview††) has \(shortName(of: subviewSkin))", group: .skin)
+            } else {
+                propagate(skin: skin, to: subview, level: level + 1)
+            }
+        }
+    }
+
+    public func propagateSkin(why: String) {
+        let skin = self.skin
+        logTrace("💟 [\(why)] \(shortName(of: skin)) ⏩ \(self††)", group: .skin)
+        UIView.propagate(skin: skin, to: self, level: 1)
+    }
+}
+
+extension UIViewController {
+    fileprivate var privateSkin: Skin? {
+        get {
+            return getAssociatedValue(for: &AssociatedKeys.skin)
+        }
+
+        set {
+            setAssociatedValue(newValue, for: &AssociatedKeys.skin)
+        }
+    }
+
+    public var skin: Skin! {
+        get {
+//            if let c = childViewControllerForStatusBarStyle {
+//                return c.skin
+//            } else
+            if let s = privateSkin {
+                return s
+            } else {
+                return defaultSkin
+            }
+        }
+
+        set {
+            set(skin: newValue)
+        }
+    }
+
+    fileprivate func set(skin: Skin!, level: Int = 0) {
+        logTrace("\(tabs(level))📳 💖 \(shortName(of: skin)) ⏩ \(self††)", group: .skin)
+
+        if privateSkin?.id != skin?.id {
+            privateSkin = skin
+            let s = skin ?? self.skin
+            propagate(skin: s, level: level + 1)
+        }
+    }
+
+    fileprivate func propagate(skin: Skin!, level: Int = 0) {
+        if let skinnable = self as? Skinnable {
+            logTrace("\(tabs(level))📳 💚 \(self††)", group: .skin)
+            skinnable.updateAppearance(skin: skin)
+        } else {
+            logTrace("\(tabs(level))📳 🖤 \(self††)", group: .skin)
+        }
+
+        if isViewLoaded {
+            view!.set(skin: skin, level: level + 1)
+        } else {
+            logTrace("\(tabs(level))📳 ⛔️ not loaded", group: .skin)
+        }
+    }
+
+    public func propagateSkin(why: String) {
+        let skin = self.skin
+        logTrace("📳 [\(why)] \(shortName(of: skin)) ⏩ \(self††)", group: .skin)
+        propagate(skin: skin, level: 1)
     }
 }

@@ -28,7 +28,6 @@ open class PagingView: View {
     private var scrollView: ScrollView!
     private var contentView: PagingContentView!
     private var contentWidthConstraint: NSLayoutConstraint!
-    private var pageControlBottomConstraint: NSLayoutConstraint!
     private var arrangedViewsLeadingConstraints = [NSLayoutConstraint]()
     private var slotsCount: Int = 0
 
@@ -201,11 +200,10 @@ open class PagingView: View {
         pageControl.makeTransparent(debugColor: .red, debug: false)
         pageControl.isUserInteractionEnabled = false
         addSubview(pageControl)
-        pageControlBottomConstraint = pageControl.bottomAnchor == bottomAnchor - 20 =&= UILayoutPriorityDefaultLow
         activateConstraints(
-            pageControl.centerXAnchor == centerXAnchor,
-            pageControl.heightAnchor == 40.0,
-            pageControlBottomConstraint
+            pageControl.centerXAnchor == centerXAnchor =&= UILayoutPriorityDefaultLow,
+            pageControl.heightAnchor == 40.0 =&= UILayoutPriorityDefaultLow,
+            pageControl.bottomAnchor == bottomAnchor - 20 =&= UILayoutPriorityDefaultLow
         )
     }
 

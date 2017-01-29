@@ -9,12 +9,6 @@
 import UIKit
 
 open class Button: UIButton, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     @IBOutlet var customView: UIView? {
         willSet {
             removeCustomView()
@@ -50,8 +44,7 @@ open class Button: UIButton, Skinnable {
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearanceContainer(skin: mySkin)
+        _didMoveToSuperview()
     }
 
     open func updateAppearance(skin: Skin?) {

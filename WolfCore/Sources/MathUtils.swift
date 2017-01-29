@@ -54,6 +54,14 @@ extension BinaryFloatingPoint {
     public var clamped: Self {
         return max(min(self, 1.0), 0.0)
     }
+
+    public var ledge: Bool {
+        return self < 0.5
+    }
+
+    public func ledge<T>(_ a: @autoclosure () -> T, _ b: @autoclosure () -> T) -> T {
+        return self.ledge ? a() : b()
+    }
 }
 
 public func binarySearch<T: BinaryFloatingPoint>(interval: Interval<T>, start: T, compare: (T) -> ComparisonResult) -> T {

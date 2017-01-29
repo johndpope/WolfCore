@@ -9,12 +9,6 @@
 import UIKit
 
 open class NavigationController: UINavigationController, UINavigationControllerDelegate, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     public var onWillShow: ((_ viewController: UIViewController, _ animated: Bool) -> Void)?
     public var onDidShow: ((_ viewController: UIViewController, _ animated: Bool) -> Void)?
 
@@ -49,7 +43,8 @@ open class NavigationController: UINavigationController, UINavigationControllerD
     private func setupNavbar() {
         let effect = UIBlurEffect(style: .light)
         effectView = ~UIVisualEffectView(effect: effect)
-        navigationBar.insertSubview(effectView, at: 0)
+        // Add the effect view as a the first subview of the _UIBarBackground view
+        navigationBar.subviews[0].insertSubview(effectView, at: 0)
         navigationBar.backgroundColor = .clear
         activateConstraints(
             effectView.leftAnchor == navigationBar.leftAnchor,
@@ -71,14 +66,12 @@ open class NavigationController: UINavigationController, UINavigationControllerD
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard let skin = mySkin else { return }
-        updateAppearance(skin: skin)
-        updateAppearanceContainer(skin: skin)
+        propagateSkin(why: "viewWillAppear")
     }
 
     open override var childViewControllerForStatusBarStyle: UIViewController? {
         let child = topViewController
-        logTrace("statusBarStyle redirect to \(child†)", obj: self, group: .skin)
+        logTrace("statusBarStyle redirect to \(child†)", obj: self, group: .statusBar)
         return child
     }
 
@@ -87,7 +80,7 @@ open class NavigationController: UINavigationController, UINavigationControllerD
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return _preferredStatusBarStyle(for: mySkin)
+        return _preferredStatusBarStyle(for: skin)
     }
 
     open func setup() { }

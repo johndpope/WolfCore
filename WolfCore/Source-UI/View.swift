@@ -13,12 +13,6 @@
 #endif
 
 open class View: OSView, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     public convenience init() {
         self.init(frame: .zero)
     }
@@ -228,5 +222,11 @@ extension View {
 
 extension OSView {
     public func _updateAppearance(skin: Skin?) {
+    }
+
+    public func _didMoveToSuperview() {
+//        if superview != nil {
+//            propagateSkin(why: "didMoveToSuperview")
+//        }
     }
 }

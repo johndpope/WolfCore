@@ -9,12 +9,6 @@
 import UIKit
 
 open class TextField: UITextField, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     var tintedClearImage: UIImage?
     var lastTintColor: UIColor?
     public static var placeholderColor: UIColor?
@@ -47,8 +41,7 @@ open class TextField: UITextField, Skinnable {
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearanceContainer(skin: mySkin)
+        _didMoveToSuperview()
     }
 
     open override func layoutSubviews() {

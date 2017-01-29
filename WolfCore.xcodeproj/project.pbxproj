@@ -336,22 +336,9 @@
 		03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
 		03CF07DF1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
 		03CF07E01DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
-		03CF07E21DF531FB00B7AD7E /* SkinColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E11DF531FB00B7AD7E /* SkinColor.swift */; };
-		03CF07E31DF531FB00B7AD7E /* SkinColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E11DF531FB00B7AD7E /* SkinColor.swift */; };
-		03CF07E41DF531FC00B7AD7E /* SkinColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E11DF531FB00B7AD7E /* SkinColor.swift */; };
 		03CF07E61DF5340A00B7AD7E /* Skinnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E51DF5340A00B7AD7E /* Skinnable.swift */; };
 		03CF07E71DF5340A00B7AD7E /* Skinnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E51DF5340A00B7AD7E /* Skinnable.swift */; };
 		03CF07E81DF5340A00B7AD7E /* Skinnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E51DF5340A00B7AD7E /* Skinnable.swift */; };
-		03CF07EA1DF5345C00B7AD7E /* SkinChangedNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E91DF5345C00B7AD7E /* SkinChangedNotification.swift */; };
-		03CF07EB1DF5345C00B7AD7E /* SkinChangedNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E91DF5345C00B7AD7E /* SkinChangedNotification.swift */; };
-		03CF07EC1DF5345C00B7AD7E /* SkinChangedNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07E91DF5345C00B7AD7E /* SkinChangedNotification.swift */; };
-		03CF07EE1DF5348800B7AD7E /* SkinChangedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07ED1DF5348800B7AD7E /* SkinChangedAction.swift */; };
-		03CF07EF1DF5348800B7AD7E /* SkinChangedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07ED1DF5348800B7AD7E /* SkinChangedAction.swift */; };
-		03CF07F01DF5348800B7AD7E /* SkinChangedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07ED1DF5348800B7AD7E /* SkinChangedAction.swift */; };
-		03CF07F21DF534E800B7AD7E /* SkinTransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F11DF534E800B7AD7E /* SkinTransferValue.swift */; };
-		03CF07F31DF534E800B7AD7E /* SkinTransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F11DF534E800B7AD7E /* SkinTransferValue.swift */; };
-		03CF07F41DF534E800B7AD7E /* SkinTransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F11DF534E800B7AD7E /* SkinTransferValue.swift */; };
-		03CF07F61DF535CF00B7AD7E /* SkinStatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F51DF535CF00B7AD7E /* SkinStatusBarStyle.swift */; };
 		03CF07FA1DF5367400B7AD7E /* HTTPActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F91DF5367400B7AD7E /* HTTPActions.swift */; };
 		03CF07FB1DF5367400B7AD7E /* HTTPActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F91DF5367400B7AD7E /* HTTPActions.swift */; };
 		03CF07FC1DF5367400B7AD7E /* HTTPActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07F91DF5367400B7AD7E /* HTTPActions.swift */; };
@@ -471,6 +458,8 @@
 		03E3C7331D10E3120004DF98 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E3C7321D10E3120004DF98 /* Monad.swift */; };
 		03E3C7341D10E3120004DF98 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E3C7321D10E3120004DF98 /* Monad.swift */; };
 		03E3C7351D10E3120004DF98 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E3C7321D10E3120004DF98 /* Monad.swift */; };
+		03EB6FEC1E3A8D7F00446F07 /* FontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EB6FEB1E3A8D7F00446F07 /* FontStyle.swift */; };
+		03EB6FEE1E3ADF4600446F07 /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EB6FED1E3ADF4600446F07 /* Associated.swift */; };
 		03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */; };
 		03ECD6201C60AE5800173FD1 /* IPAddress6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */; };
 		03ECD6221C60CE4600173FD1 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ECD6211C60CE4600173FD1 /* ValidationError.swift */; };
@@ -625,7 +614,7 @@
 		036FEC9E1C73CEA800B09489 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SQLite.swift; path = Utilities/SQLite.swift; sourceTree = "<group>"; };
 		036FECA31C73CFB100B09489 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		036FECB01C766E6B00B09489 /* BarButtonItemAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarButtonItemAction.swift; path = "Source-UI/BarButtonItemAction.swift"; sourceTree = "<group>"; };
-		037016031E0CC8A1006505EF /* OptionalExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
+		037016031E0CC8A1006505EF /* OptionalExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionalExtensions.swift; path = "Sources-Foundation/OptionalExtensions.swift"; sourceTree = "<group>"; };
 		0378EC7A1DF4D74500E6A875 /* CacheLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheLayer.swift; sourceTree = "<group>"; };
 		0378EC7E1DF4D78A00E6A875 /* MemoryCacheLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCacheLayer.swift; sourceTree = "<group>"; };
 		0378EC821DF4D89900E6A875 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
@@ -659,12 +648,7 @@
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransferValue.swift; path = Sources/TransferValue.swift; sourceTree = "<group>"; };
-		03CF07E11DF531FB00B7AD7E /* SkinColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinColor.swift; path = "Source-UI/SkinColor.swift"; sourceTree = "<group>"; };
 		03CF07E51DF5340A00B7AD7E /* Skinnable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Skinnable.swift; path = "Source-UI/Skinnable.swift"; sourceTree = "<group>"; };
-		03CF07E91DF5345C00B7AD7E /* SkinChangedNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinChangedNotification.swift; path = "Source-UI/SkinChangedNotification.swift"; sourceTree = "<group>"; };
-		03CF07ED1DF5348800B7AD7E /* SkinChangedAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinChangedAction.swift; path = "Source-UI/SkinChangedAction.swift"; sourceTree = "<group>"; };
-		03CF07F11DF534E800B7AD7E /* SkinTransferValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinTransferValue.swift; path = "Source-UI/SkinTransferValue.swift"; sourceTree = "<group>"; };
-		03CF07F51DF535CF00B7AD7E /* SkinStatusBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinStatusBarStyle.swift; path = "Source-UI/SkinStatusBarStyle.swift"; sourceTree = "<group>"; };
 		03CF07F91DF5367400B7AD7E /* HTTPActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPActions.swift; path = "Sources-Foundation/HTTPActions.swift"; sourceTree = "<group>"; };
 		03CF07FD1DF5381A00B7AD7E /* WebViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WebViewController.storyboard; path = "Source-UI/WebViewController.storyboard"; sourceTree = "<group>"; };
 		03CF07FE1DF5381A00B7AD7E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = "Source-UI/WebViewController.swift"; sourceTree = "<group>"; };
@@ -688,6 +672,8 @@
 		03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttributedStringExtensions.swift; path = "Source-UI/AttributedStringExtensions.swift"; sourceTree = "<group>"; };
 		03E173301CF8CCD20073F383 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = "Source-UI/CollectionViewCell.swift"; sourceTree = "<group>"; };
 		03E3C7321D10E3120004DF98 /* Monad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Monad.swift; path = Sources/Monad.swift; sourceTree = "<group>"; };
+		03EB6FEB1E3A8D7F00446F07 /* FontStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontStyle.swift; path = "Source-UI/FontStyle.swift"; sourceTree = "<group>"; };
+		03EB6FED1E3ADF4600446F07 /* Associated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Associated.swift; sourceTree = "<group>"; };
 		03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IPAddress4.swift; path = Sources/IPAddress4.swift; sourceTree = "<group>"; };
 		03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IPAddress6.swift; path = Sources/IPAddress6.swift; sourceTree = "<group>"; };
 		03ECD6211C60CE4600173FD1 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidationError.swift; path = Sources/ValidationError.swift; sourceTree = "<group>"; };
@@ -784,6 +770,7 @@
 			children = (
 				03106F601D40D7BC00E21F82 /* Runes */,
 				0314DCFA1D08F97900E23C67 /* Formats */,
+				03EB6FED1E3ADF4600446F07 /* Associated.swift */,
 				035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */,
 				0314DCF41D08F8FD00E23C67 /* DataExtensions.swift */,
 				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
@@ -797,7 +784,6 @@
 				0387653C1D245BB60082FC79 /* Reference.swift */,
 				0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */,
 				03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */,
-				037016031E0CC8A1006505EF /* OptionalExtensions.swift */,
 			);
 			name = "Data Types";
 			sourceTree = "<group>";
@@ -907,6 +893,7 @@
 				034F48931D02490E0010ED1B /* HTTPDebugging.swift */,
 				0362A1A61C19FBD20005371F /* Log.swift */,
 				038457891CED0C810012BCCE /* ObjectAliaser.swift */,
+				037016031E0CC8A1006505EF /* OptionalExtensions.swift */,
 				0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */,
 				035553381C0F622A00E0FCA7 /* ViewDebugging.swift */,
 				0314DCC41D08ED4D00E23C67 /* InFlight */,
@@ -1217,13 +1204,9 @@
 		03B0D9B51DF33AA40073AF42 /* Appearance */ = {
 			isa = PBXGroup;
 			children = (
+				03EB6FEB1E3A8D7F00446F07 /* FontStyle.swift */,
 				03B0D9B11DF33A6A0073AF42 /* Skin.swift */,
-				03CF07E91DF5345C00B7AD7E /* SkinChangedNotification.swift */,
-				03CF07ED1DF5348800B7AD7E /* SkinChangedAction.swift */,
 				03CF07E51DF5340A00B7AD7E /* Skinnable.swift */,
-				03CF07F11DF534E800B7AD7E /* SkinTransferValue.swift */,
-				03CF07E11DF531FB00B7AD7E /* SkinColor.swift */,
-				03CF07F51DF535CF00B7AD7E /* SkinStatusBarStyle.swift */,
 			);
 			name = Appearance;
 			sourceTree = "<group>";
@@ -1543,7 +1526,6 @@
 				033F5EA81CA3096700647A0A /* Vector.swift in Sources */,
 				033F5EA91CA3096700647A0A /* ColorFunc.swift in Sources */,
 				035F11261D11A70900DCAC2E /* URL.swift in Sources */,
-				03CF07E31DF531FB00B7AD7E /* SkinColor.swift in Sources */,
 				033F5EAB1CA3096700647A0A /* ISO8601.swift in Sources */,
 				034D31241DF7A70F004ADC34 /* InFlightView.swift in Sources */,
 				033F5EAC1CA3096700647A0A /* Serializer.swift in Sources */,
@@ -1587,9 +1569,7 @@
 				0378EC7C1DF4D74500E6A875 /* CacheLayer.swift in Sources */,
 				033F5EC71CA3096700647A0A /* HTTPError.swift in Sources */,
 				033F5EC81CA3096700647A0A /* IPAddress6.swift in Sources */,
-				03CF07EB1DF5345C00B7AD7E /* SkinChangedNotification.swift in Sources */,
 				03CF07FB1DF5367400B7AD7E /* HTTPActions.swift in Sources */,
-				03CF07EF1DF5348800B7AD7E /* SkinChangedAction.swift in Sources */,
 				033F5EC91CA3096700647A0A /* DispatchUtils.swift in Sources */,
 				037016051E0CC8A1006505EF /* OptionalExtensions.swift in Sources */,
 				033F5EE31CA31AF200647A0A /* ViewExtensions.swift in Sources */,
@@ -1609,7 +1589,6 @@
 				033F5ED21CA3096700647A0A /* HashIDs.swift in Sources */,
 				032B87E51DE58B18007D43D2 /* URLComponentsExtensions.swift in Sources */,
 				033F5ED31CA3096700647A0A /* Hysteresis.swift in Sources */,
-				03CF07F31DF534E800B7AD7E /* SkinTransferValue.swift in Sources */,
 				033F5ED41CA3096700647A0A /* RectExtensions.swift in Sources */,
 				033F5EE41CA3217100647A0A /* ImageUtils.swift in Sources */,
 				03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
@@ -1637,7 +1616,6 @@
 				03F261501D48B1D800523640 /* ImageViewerViewController.swift in Sources */,
 				035553401C0F622A00E0FCA7 /* BundleExtensions.swift in Sources */,
 				03F261471D489F0800523640 /* TableViewExtensions.swift in Sources */,
-				03CF07E21DF531FB00B7AD7E /* SkinColor.swift in Sources */,
 				0314DCC11D08ED2200E23C67 /* NavigationController.swift in Sources */,
 				0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */,
 				03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */,
@@ -1653,6 +1631,7 @@
 				03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */,
 				036B83471C431F2A00491AFF /* Color.swift in Sources */,
 				033B52DF1E31E8E40052E396 /* PagingViewController.swift in Sources */,
+				03EB6FEC1E3A8D7F00446F07 /* FontStyle.swift in Sources */,
 				0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */,
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				03CF07FA1DF5367400B7AD7E /* HTTPActions.swift in Sources */,
@@ -1674,7 +1653,6 @@
 				03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */,
 				0355535B1C0F622A00E0FCA7 /* ResourceUtils.swift in Sources */,
 				03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */,
-				03CF07F21DF534E800B7AD7E /* SkinTransferValue.swift in Sources */,
 				03106F621D40D81F00E21F82 /* Runes.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				033AC3481D171703008C8B93 /* Interval.swift in Sources */,
@@ -1742,10 +1720,8 @@
 				035553551C0F622A00E0FCA7 /* MathUtils.swift in Sources */,
 				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
 				032418111E2C440600082E6A /* TopologicalSort.swift in Sources */,
-				03CF07EA1DF5345C00B7AD7E /* SkinChangedNotification.swift in Sources */,
 				036FECB11C766E6B00B09489 /* BarButtonItemAction.swift in Sources */,
 				032418091E2AF9D200082E6A /* BreadthFirstSearch.swift in Sources */,
-				03CF07EE1DF5348800B7AD7E /* SkinChangedAction.swift in Sources */,
 				03E13B7F1C4F28F60074E447 /* PointExtensions.swift in Sources */,
 				036307D61CB6DB0D00DC7070 /* OrientationNotificationActions.swift in Sources */,
 				0324181D1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
@@ -1791,6 +1767,7 @@
 				03FAF7831C53F6EF0045BB37 /* UTF8.swift in Sources */,
 				03F723CE1D25C55600D9A5ED /* ScrollingStackView.swift in Sources */,
 				03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */,
+				03EB6FEE1E3ADF4600446F07 /* Associated.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
 				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
 				0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */,
@@ -1803,7 +1780,6 @@
 				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
-				03CF07F61DF535CF00B7AD7E /* SkinStatusBarStyle.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 				0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */,
 				0314DD0D1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
@@ -1838,7 +1814,6 @@
 				03E173241CF1C8FB0073F383 /* ImageView.swift in Sources */,
 				03E172C51CF1C8AD0073F383 /* Rect.swift in Sources */,
 				0314DCBA1D08ECB100E23C67 /* ViewController.swift in Sources */,
-				03CF07F41DF534E800B7AD7E /* SkinTransferValue.swift in Sources */,
 				03E172DF1CF1C8B60073F383 /* IPAddress4.swift in Sources */,
 				0324181F1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
 				03CF07E81DF5340A00B7AD7E /* Skinnable.swift in Sources */,
@@ -1908,7 +1883,6 @@
 				0322E8A41D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				03E172E11CF1C8B60073F383 /* ISO8601.swift in Sources */,
 				03E173071CF1C8E70073F383 /* NotificationActions.swift in Sources */,
-				03CF07EC1DF5345C00B7AD7E /* SkinChangedNotification.swift in Sources */,
 				03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */,
 				03E172F81CF1C8CC0073F383 /* CGUtils.swift in Sources */,
 				03E172D71CF1C8B60073F383 /* CryptoUtils.swift in Sources */,
@@ -1953,7 +1927,6 @@
 				03106F681D40D8F900E21F82 /* RunesOptional.swift in Sources */,
 				032417FB1E2AD84000082E6A /* GraphProtocol.swift in Sources */,
 				0378EC7D1DF4D74500E6A875 /* CacheLayer.swift in Sources */,
-				03CF07F01DF5348800B7AD7E /* SkinChangedAction.swift in Sources */,
 				03E172C31CF1C8AD0073F383 /* IntSize.swift in Sources */,
 				03E173091CF1C8E70073F383 /* Serializer.swift in Sources */,
 				034D31251DF7A710004ADC34 /* InFlightView.swift in Sources */,
@@ -1976,7 +1949,6 @@
 				03B0D9B41DF33A6A0073AF42 /* Skin.swift in Sources */,
 				03E173221CF1C8FB0073F383 /* ViewDebugging.swift in Sources */,
 				034D31231DF7A706004ADC34 /* InFlightToken.swift in Sources */,
-				03CF07E41DF531FC00B7AD7E /* SkinColor.swift in Sources */,
 				0378EC891DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				033AC34E1D17172E008C8B93 /* Frac.swift in Sources */,
 				0314DCBE1D08ECEC00E23C67 /* TabBarController.swift in Sources */,

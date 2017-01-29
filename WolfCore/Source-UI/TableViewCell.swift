@@ -9,12 +9,6 @@
 import UIKit
 
 open class TableViewCell: UITableViewCell, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
@@ -31,8 +25,7 @@ open class TableViewCell: UITableViewCell, Skinnable {
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearanceContainer(skin: mySkin)
+        _didMoveToSuperview()
     }
 
     open func updateAppearance(skin: Skin?) {

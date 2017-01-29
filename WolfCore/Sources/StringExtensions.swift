@@ -415,3 +415,7 @@ public struct StringName: ExtensibleEnumeratedName, Reference {
 public postfix func ® (lhs: StringName) -> String {
     return lhs.referent
 }
+
+public func tabs(_ count: Int) -> String {
+    return String(repeating: "\t", count: count)
+}

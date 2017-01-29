@@ -89,11 +89,11 @@ extension OSColor {
     }
 }
 
-public struct ColorReference: ExtensibleEnumeratedName, Reference {
+public struct NamedColor: ExtensibleEnumeratedName, Reference {
     public let name: String
     public let color: OSColor
 
-    public init(_ name: String, color: OSColor) {
+    public init(_ name: String, _ color: OSColor) {
         self.name = name
         self.color = color
     }
@@ -102,7 +102,7 @@ public struct ColorReference: ExtensibleEnumeratedName, Reference {
     public var hashValue: Int { return name.hashValue }
 
     // RawRepresentable
-    public init?(rawValue: (name: String, color: OSColor)) { self.init(rawValue.name, color: rawValue.color) }
+    public init?(rawValue: (name: String, color: OSColor)) { self.init(rawValue.name, rawValue.color) }
     public var rawValue: (name: String, color: OSColor) { return (name: name, color: color) }
 
     // Reference
@@ -111,11 +111,11 @@ public struct ColorReference: ExtensibleEnumeratedName, Reference {
     }
 }
 
-public func == (left: ColorReference, right: ColorReference) -> Bool {
+public func == (left: NamedColor, right: NamedColor) -> Bool {
     return left.name == right.name
 }
 
-public postfix func ® (lhs: ColorReference) -> OSColor {
+public postfix func ® (lhs: NamedColor) -> OSColor {
     return lhs.referent
 }
 

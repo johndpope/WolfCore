@@ -9,12 +9,6 @@
 import UIKit
 
 open class ScrollView: UIScrollView, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     /// Can be set from Interface Builder
     public var transparentToTouches: Bool = false
 
@@ -48,8 +42,7 @@ open class ScrollView: UIScrollView, Skinnable {
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearanceContainer(skin: mySkin)
+        _didMoveToSuperview()
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

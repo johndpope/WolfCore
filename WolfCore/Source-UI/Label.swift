@@ -17,12 +17,6 @@
 public typealias TagAction = (String) -> Void
 
 open class Label: OSLabel, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     #if os(macOS)
     public var text: String {
         get {
@@ -64,14 +58,13 @@ open class Label: OSLabel, Skinnable {
     open override var text: String? {
         didSet {
             //syncToTintColor()
-            syncToFontStyle(for: mySkin)
+            syncToFontStyle()
         }
     }
 
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearanceContainer(skin: mySkin)
+        _didMoveToSuperview()
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -110,7 +103,6 @@ open class Label: OSLabel, Skinnable {
 
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
-        textColor = skin?.textColor
         syncToFontStyle(for: skin)
     }
 
@@ -126,10 +118,15 @@ open class Label: OSLabel, Skinnable {
 #if !os(macOS)
 extension Label {
     func syncToFontStyle(for skin: Skin?) {
+        textColor = skin?.textColor
         guard let skin = skin else { return }
         if let style = skin.fontStyleNamed(fontStyle) {
             attributedText = style.apply(to: text)
         }
+    }
+
+    func syncToFontStyle() {
+        syncToFontStyle(for: skin)
     }
 
 //    func syncToTintColor() {

@@ -16,12 +16,6 @@ extension Log.GroupName {
 }
 
 open class ViewController: UIViewController, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
@@ -47,11 +41,9 @@ open class ViewController: UIViewController, Skinnable {
     }
 
     open override func viewWillAppear(_ animated: Bool) {
-        logTrace("viewWillAppear", obj: self, group: .skin)
+        logTrace("viewWillAppear", obj: self, group: .statusBar)
         super.viewWillAppear(animated)
-        guard let skin = mySkin else { return }
-        updateAppearance(skin: skin)
-        updateAppearanceContainer(skin: skin)
+        propagateSkin(why: "viewWillAppear")
     }
 
     open func updateAppearance(skin: Skin?) {
@@ -59,7 +51,7 @@ open class ViewController: UIViewController, Skinnable {
     }
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return _preferredStatusBarStyle(for: mySkin)
+        return _preferredStatusBarStyle(for: skin)
     }
 
     open func setup() { }
@@ -69,40 +61,48 @@ extension UIViewController {
     public func _updateAppearance(skin: Skin?) {
         guard let skin = skin else { return }
 
-        logTrace("needsStatustBarUpdate", obj: self, group: .skin)
+        logTrace("updateAppearance \(shortName(of: skin))", obj: self, group: .statusBar)
         setNeedsStatusBarAppearanceUpdate()
 
         if isViewLoaded {
             view!.backgroundColor = skin.viewControllerBackgroundColor
+
+            if let navigationController = self as? UINavigationController {
+                var skin = skin
+                if let c = navigationController.childViewControllerForStatusBarStyle {
+                    skin = c.skin
+                }
+
+                if navigationController.isNavigationBarHidden != skin.navigationBarHidden {
+                    navigationController.setNavigationBarHidden(skin.navigationBarHidden, animated: true)
+                }
+
+                let navigationBar = navigationController.navigationBar
+                navigationBar.isTranslucent = true
+                logTrace("navbarBarColor: \(skin.navbarBarColor) from: \(shortName(of: skin))", obj: self, group: .statusBar)
+                let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.navbarBarColor)
+                navigationBar.setBackgroundImage(image, for: .default)
+                navigationBar.tintColor = skin.navbarTintColor
+                navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: skin.navbarTitleColor]
+
+                // Remove bottom bevel
+                navigationBar.shadowImage = UIImage()
+
+                if let toolbar = navigationController.toolbar {
+                    toolbar.isTranslucent = true
+                    let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.toolbarColor)
+                    toolbar.setBackgroundImage(image, forToolbarPosition: .any, barMetrics: .default)
+                    toolbar.tintColor = skin.toolbarTintColor
+                }
+            }
         }
 
-        if let navigationController = navigationController {
-            if navigationController.isNavigationBarHidden != skin.navigationBarHidden {
-                navigationController.setNavigationBarHidden(skin.navigationBarHidden, animated: true)
-            }
-
-            let navigationBar = navigationController.navigationBar
-            navigationBar.isTranslucent = true
-            let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.navbarBarColor)
-            navigationBar.setBackgroundImage(image, for: .default)
-            navigationBar.tintColor = skin.navbarTintColor
-            navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: skin.navbarTitleColor]
-
-            // Remove bottom bevel
-            navigationBar.shadowImage = UIImage()
-
-            if let toolbar = navigationController.toolbar {
-                toolbar.isTranslucent = true
-                let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.toolbarColor)
-                toolbar.setBackgroundImage(image, forToolbarPosition: .any, barMetrics: .default)
-                toolbar.tintColor = skin.toolbarTintColor
-            }
-        }
+        parent?.propagateSkin(why: "parent")
     }
 
     public func _preferredStatusBarStyle(for skin: Skin?) -> UIStatusBarStyle {
         let style = skin?.statusBarStyle ?? .default
-        logTrace("style: \(style.rawValue)", obj: self, group: .skin)
+        logTrace("style: \(style.rawValue)", obj: self, group: .statusBar)
         return style
     }
 }

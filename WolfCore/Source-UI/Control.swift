@@ -9,12 +9,6 @@
 import UIKit
 
 open class Control: UIControl, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     public convenience init() {
         self.init(frame: .zero)
     }

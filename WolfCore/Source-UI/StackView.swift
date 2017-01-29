@@ -15,12 +15,6 @@
 #endif
 
 open class StackView: OSStackView, Skinnable {
-    private var _mySkin: Skin?
-    public var mySkin: Skin? {
-        get { return _mySkin ?? inheritedSkin }
-        set { _mySkin = newValue; updateAppearanceContainer(skin: _mySkin) }
-    }
-
     public var transparentToTouches = false
 
     public convenience init() {
@@ -57,8 +51,7 @@ open class StackView: OSStackView, Skinnable {
     #if !os(macOS)
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        guard superview != nil else { return }
-        updateAppearanceContainer(skin: mySkin)
+        _didMoveToSuperview()
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
