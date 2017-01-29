@@ -22,6 +22,12 @@ open class ImageView: UIImageView, Skinnable {
     public var onRetrieveFailure: ImageViewBlock?
     public var onRetrieveFinally: ImageViewBlock?
 
+    public var pdfTintColor: UIColor? {
+        didSet {
+            updatePDFImage()
+        }
+    }
+
     public var pdf: PDF? {
         didSet {
             makeTransparent(debugColor: .green, debug: false)
@@ -67,7 +73,10 @@ open class ImageView: UIImageView, Skinnable {
     private func updatePDFImage() {
         let fittingSize = bounds.size
         if lastFittingSize != fittingSize || lastPDF !== pdf {
-            let newImage = self.pdf?.getImage(fittingSize: fittingSize)
+            var newImage = self.pdf?.getImage(fittingSize: fittingSize)
+            if let pdfTintColor = pdfTintColor {
+                newImage = newImage?.tinted(withColor: pdfTintColor)
+            }
             self.image = newImage
             lastFittingSize = fittingSize
             lastPDF = pdf

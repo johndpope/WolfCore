@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0302D2F81CF8F34300717170 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302D2F71CF8F34300717170 /* TextView.swift */; };
+		0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */; };
+		0303BCB01E3E8C3D00B196CA /* PhotoBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */; };
+		0303BCB21E3E8C9B00B196CA /* PhotoSafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */; };
 		0309573D1E397DF80065F374 /* FontDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0309573C1E397DF80065F374 /* FontDebugging.swift */; };
 		0309573E1E397DF80065F374 /* FontDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0309573C1E397DF80065F374 /* FontDebugging.swift */; };
 		030C035A1D148F3900EF040E /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C03591D148F3900EF040E /* Locker.swift */; };
@@ -495,6 +498,9 @@
 
 /* Begin PBXFileReference section */
 		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = "Source-UI/TextView.swift"; sourceTree = "<group>"; };
+		0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientOverlayView.swift; path = "Source-UI/GradientOverlayView.swift"; sourceTree = "<group>"; };
+		0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoBackgroundView.swift; path = "Source-UI/PhotoBackgroundView.swift"; sourceTree = "<group>"; };
+		0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoSafeAreaView.swift; path = "Source-UI/PhotoSafeAreaView.swift"; sourceTree = "<group>"; };
 		0309573C1E397DF80065F374 /* FontDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontDebugging.swift; path = "Source-UI/FontDebugging.swift"; sourceTree = "<group>"; };
 		030C03591D148F3900EF040E /* Locker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Locker.swift; path = Sources/Locker.swift; sourceTree = "<group>"; };
 		03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64URLTests.swift; sourceTree = "<group>"; };
@@ -998,11 +1004,14 @@
 				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
 				036543F61E35E37700D4301F /* Control.swift */,
+				0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */,
 				035553251C0F622A00E0FCA7 /* ImageView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
 				03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
+				0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */,
+				0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */,
 				03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
 				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
@@ -1697,8 +1706,10 @@
 				03FAF7851C53F6FF0045BB37 /* FoundationJSON.swift in Sources */,
 				03F5A8BC1C49746500B124A3 /* Rect.swift in Sources */,
 				0314DD111D09032400E23C67 /* Serializable.swift in Sources */,
+				0303BCB21E3E8C9B00B196CA /* PhotoSafeAreaView.swift in Sources */,
 				032D77841E256F210058CF1B /* Node.swift in Sources */,
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
+				0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */,
 				0378EC921DF4F8E200E6A875 /* HTTPCacheLayer.swift in Sources */,
 				035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */,
 				03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */,
@@ -1780,6 +1791,7 @@
 				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
+				0303BCB01E3E8C3D00B196CA /* PhotoBackgroundView.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 				0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */,
 				0314DD0D1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
