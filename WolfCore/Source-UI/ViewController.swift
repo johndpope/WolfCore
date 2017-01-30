@@ -16,6 +16,8 @@ extension Log.GroupName {
 }
 
 open class ViewController: UIViewController, Skinnable {
+    open var navigationItemTitleView: UIView? { return nil }
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()
@@ -43,6 +45,9 @@ open class ViewController: UIViewController, Skinnable {
     open override func viewWillAppear(_ animated: Bool) {
         logTrace("viewWillAppear", obj: self, group: .statusBar)
         super.viewWillAppear(animated)
+        if let navigationItemTitleView = navigationItemTitleView {
+            navigationItem.titleView = navigationItemTitleView
+        }
         propagateSkin(why: "viewWillAppear")
     }
 

@@ -15,7 +15,7 @@ public typealias ImageViewBlock = (ImageView) -> Void
 
 open class ImageView: UIImageView, Skinnable {
     public var transparentToTouches = false
-    private var updatePDFCanceler: Cancelable?
+    //private var updatePDFCanceler: Cancelable?
     private var retrieveCanceler: Cancelable?
     public var onRetrieveStart: ImageViewBlock?
     public var onRetrieveSuccess: ImageViewBlock?
@@ -24,14 +24,15 @@ open class ImageView: UIImageView, Skinnable {
 
     public var pdfTintColor: UIColor? {
         didSet {
-            updatePDFImage()
+            //updatePDFImage()
+            setNeedsLayout()
         }
     }
 
     public var pdf: PDF? {
         didSet {
             makeTransparent(debugColor: .green, debug: false)
-            updatePDFImage()
+            //updatePDFImage()
             setNeedsLayout()
         }
     }
@@ -71,9 +72,11 @@ open class ImageView: UIImageView, Skinnable {
     private weak var lastPDF: PDF?
 
     private func updatePDFImage() {
+        guard let pdf = pdf else { return }
+
         let fittingSize = bounds.size
         if lastFittingSize != fittingSize || lastPDF !== pdf {
-            var newImage = self.pdf?.getImage(fittingSize: fittingSize)
+            var newImage = pdf.getImage(fittingSize: fittingSize)
             if let pdfTintColor = pdfTintColor {
                 newImage = newImage?.tinted(withColor: pdfTintColor)
             }
@@ -84,15 +87,20 @@ open class ImageView: UIImageView, Skinnable {
     }
 
     open override func layoutSubviews() {
-        updatePDFCanceler?.cancel()
-        lastFittingSize = nil
-        if pdf != nil {
-            updatePDFCanceler = dispatchOnMain(afterDelay: 0.1) {
-                self.updatePDFImage()
-            }
-        }
         super.layoutSubviews()
+        updatePDFImage()
     }
+
+//    open override func layoutSubviews() {
+//        updatePDFCanceler?.cancel()
+//        lastFittingSize = nil
+//        if pdf != nil {
+//            updatePDFCanceler = dispatchOnMain(afterDelay: 0.1) {
+//                self.updatePDFImage()
+//            }
+//        }
+//        super.layoutSubviews()
+//    }
 
     open override func invalidateIntrinsicContentSize() {
         super.invalidateIntrinsicContentSize()

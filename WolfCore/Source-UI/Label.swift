@@ -33,6 +33,7 @@ open class Label: OSLabel, Skinnable {
     @IBInspectable public var scalesFontSize: Bool = false
     @IBInspectable public var transparentToTouches: Bool = false
     @IBInspectable public var fontStyle: String? = nil
+    public var fontStyleName: FontStyleName? = nil
 
 //    @IBInspectable public var followsTintColor: Bool = false {
 //        didSet {
@@ -120,6 +121,7 @@ extension Label {
     func syncToFontStyle(for skin: Skin?) {
         textColor = skin?.textColor
         guard let skin = skin else { return }
+        let fontStyle = self.fontStyle ?? fontStyleName?.rawValue
         if let style = skin.fontStyleNamed(fontStyle) {
             attributedText = style.apply(to: text)
         }
