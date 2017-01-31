@@ -237,9 +237,19 @@ public func deactivateConstraints(_ constraints: NSLayoutConstraint...) {
     NSLayoutConstraint.deactivate(constraints)
 }
 
-public func activateConstraint(_ constraint: NSLayoutConstraint) {
+public func activateConstraint(_ constraint: NSLayoutConstraint) -> NSLayoutConstraint {
     warnForNoIdentifier(inConstraints: [constraint])
     constraint.isActive = true
+    return constraint
+}
+
+public func replaceConstraint(_ constraint: inout NSLayoutConstraint?, with newConstraint: NSLayoutConstraint?) {
+    constraint?.isActive = false
+    if let newConstraint = newConstraint {
+        constraint = activateConstraint(newConstraint)
+    } else {
+        constraint = nil
+    }
 }
 
 public func deactivateConstraint(_ constraint: NSLayoutConstraint) {

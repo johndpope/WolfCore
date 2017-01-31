@@ -37,6 +37,11 @@ open class ViewController: UIViewController, Skinnable {
         logInfo("deinit \(self)", group: .viewControllerLifecycle)
     }
 
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        view.debugIdentifier = "\(typeName(of: self)).view"
+    }
+
     open override func awakeFromNib() {
         super.awakeFromNib()
         logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
@@ -95,9 +100,26 @@ extension UIViewController {
 
                 if let toolbar = navigationController.toolbar {
                     toolbar.isTranslucent = true
-                    let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.toolbarColor)
+                    let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.toolbarBarColor)
                     toolbar.setBackgroundImage(image, forToolbarPosition: .any, barMetrics: .default)
                     toolbar.tintColor = skin.toolbarTintColor
+                }
+            }
+
+            if let tabBarController = self as? UITabBarController {
+                let tabBar = tabBarController.tabBar
+                tabBar.isTranslucent = true
+                let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.toolbarBarColor)
+                tabBar.backgroundImage = image
+                if let items = tabBar.items {
+                    for item in items {
+                        if let image = item.image {
+                            item.image = image.tinted(withColor: skin.toolbarItemColor)
+                            item.selectedImage = image.tinted(withColor: skin.toolbarTintColor)
+                            item.setTitleTextAttributes([NSForegroundColorAttributeName: skin.toolbarItemColor], for: .normal)
+                            item.setTitleTextAttributes([NSForegroundColorAttributeName: skin.toolbarTintColor], for: .selected)
+                        }
+                    }
                 }
             }
         }

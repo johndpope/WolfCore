@@ -33,6 +33,11 @@ open class TabBarController: UITabBarController, Skinnable {
         logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
     }
 
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        view.debugIdentifier = "\(typeName(of: self)).view"
+    }
+
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         propagateSkin(why: "viewWillAppear")

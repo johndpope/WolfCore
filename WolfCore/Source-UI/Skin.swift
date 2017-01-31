@@ -26,7 +26,7 @@ public protocol Skin {
     var navbarTitleColor: UIColor { get }
     var navbarTintColor: UIColor { get }
 
-    var toolbarColor: UIColor { get }
+    var toolbarBarColor: UIColor { get }
     var toolbarItemColor: UIColor { get }
     var toolbarTintColor: UIColor { get }
 
@@ -62,7 +62,7 @@ open class DefaultSkin: Skin {
     open var navbarTitleColor: UIColor { return .black }
     open var navbarTintColor: UIColor { return defaultTintColor }
 
-    open var toolbarColor: UIColor { return navbarBarColor }
+    open var toolbarBarColor: UIColor { return navbarBarColor }
     open var toolbarItemColor: UIColor { return navbarTitleColor }
     open var toolbarTintColor: UIColor { return navbarTintColor }
 
@@ -114,7 +114,7 @@ open class InterpolateSkin: Skin {
     open lazy var navbarTitleColor: UIColor = { return self.blend(from: self.skin1.navbarTitleColor, to: self.skin2.navbarTitleColor) }()
     open lazy var navbarTintColor: UIColor = { return self.blend(from: self.skin1.navbarTintColor, to: self.skin2.navbarTintColor) }()
 
-    open lazy var toolbarColor: UIColor = { return self.blend(from: self.skin1.toolbarColor, to: self.skin2.toolbarColor) }()
+    open lazy var toolbarBarColor: UIColor = { return self.blend(from: self.skin1.toolbarBarColor, to: self.skin2.toolbarBarColor) }()
     open lazy var toolbarItemColor: UIColor = { return self.blend(from: self.skin1.toolbarItemColor, to: self.skin2.toolbarItemColor) }()
     open lazy var toolbarTintColor: UIColor = { return self.blend(from: self.skin1.toolbarTintColor, to: self.skin2.toolbarTintColor) }()
 

@@ -119,12 +119,19 @@ extension UIView {
     }
 
     private func appendAttributes(for view: UIView, to joiner: Joiner) {
+        appendDebugAttributes(for: view, to: joiner)
         appendScrollViewAttributes(for: view, to: joiner)
         appendStackViewAttributes(for: view, to: joiner)
         appendColorAttributes(for: view, to: joiner)
         appendTextAttributes(for: view, to: joiner)
         appendInteractionAttributes(for: view, to: joiner)
         appendOpacityAttributes(for: view, to: joiner)
+    }
+
+    private func appendDebugAttributes(for view: UIView, to joiner: Joiner) {
+        if let debugIdentifier = view.debugIdentifier {
+            joiner.append("debugIdentifier: \(debugIdentifier)")
+        }
     }
 
     private func appendScrollViewAttributes(for view: UIView, to joiner: Joiner) {
