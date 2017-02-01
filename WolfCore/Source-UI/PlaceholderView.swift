@@ -18,7 +18,7 @@ open class PlaceholderView: View {
         return ViewGestureActions(view: self)
     }()
 
-    private var heightConstraint: NSLayoutConstraint?
+    @IBOutlet public weak var heightConstraint: NSLayoutConstraint?
 
     @IBInspectable public var title: String! {
         didSet {
@@ -67,9 +67,15 @@ open class PlaceholderView: View {
         super.init(coder: aDecoder)
     }
 
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        syncTitle()
+    }
+
     open override func setup() {
         super.setup()
-        isOpaque = false
+        makeTransparent()
+        contentMode = .redraw
         addSubview(titleLabel)
         titleLabel.constrainCenterToCenterOfSuperview()
     }

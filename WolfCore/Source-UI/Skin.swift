@@ -21,6 +21,7 @@ public protocol Skin {
 
     var viewControllerBackgroundColor: UIColor { get }
     var viewControllerTintColor: UIColor { get }
+    var viewControllerHighlightedTintColor: UIColor { get }
 
     var textColor: UIColor { get }
 
@@ -59,6 +60,7 @@ open class DefaultSkin: Skin {
 
     open var viewControllerBackgroundColor: UIColor { return .white }
     open var viewControllerTintColor: UIColor { return defaultTintColor }
+    open var viewControllerHighlightedTintColor: UIColor { return viewControllerTintColor.lightened(by: 0.5) }
 
     open var textColor: UIColor { return .black }
 
@@ -113,6 +115,7 @@ open class InterpolateSkin: Skin {
 
     open lazy var viewControllerBackgroundColor: UIColor = { return self.blend(from: self.skin1.viewControllerBackgroundColor, to: self.skin2.viewControllerBackgroundColor) }()
     open lazy var viewControllerTintColor: UIColor = { return self.blend(from: self.skin1.viewControllerTintColor, to: self.skin2.viewControllerTintColor) }()
+    open lazy var viewControllerHighlightedTintColor: UIColor = { return self.blend(from: self.skin1.viewControllerHighlightedTintColor, to: self.skin2.viewControllerHighlightedTintColor) }()
 
     open lazy var textColor: UIColor = { return self.blend(from: self.skin1.textColor, to: self.skin2.textColor) }()
 
