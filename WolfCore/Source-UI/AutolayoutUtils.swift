@@ -237,7 +237,7 @@ public func deactivateConstraints(_ constraints: NSLayoutConstraint...) {
     NSLayoutConstraint.deactivate(constraints)
 }
 
-public func activateConstraint(_ constraint: NSLayoutConstraint) -> NSLayoutConstraint {
+@discardableResult public func activateConstraint(_ constraint: NSLayoutConstraint) -> NSLayoutConstraint {
     warnForNoIdentifier(inConstraints: [constraint])
     constraint.isActive = true
     return constraint

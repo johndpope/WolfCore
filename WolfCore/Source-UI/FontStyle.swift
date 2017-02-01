@@ -14,6 +14,14 @@ public struct FontStyleName: ExtensibleEnumeratedName {
     public init(_ name: String) {
         self.name = name
     }
+    
+    public init?(_ name: String?) {
+        if let name = name {
+            self.name = name
+        } else {
+            return nil
+        }
+    }
 
     // Hashable
     public var hashValue: Int { return name.hashValue }

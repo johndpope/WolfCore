@@ -80,18 +80,31 @@ open class PagingView: View {
         )
     }
 
-    public var arrangedViews = [UIView]() {
-        willSet {
-            removeArrangedViews()
+    public var arrangedViews: [UIView] {
+        get {
+            return contentView.subviews
         }
 
-        didSet {
-            addArrangedViews()
+        set {
+            removeArrangedViews()
+            addArrangedViews(newValue)
             syncPageControlToContentView()
             syncSlots()
             setNeedsLayout()
         }
     }
+//    public var arrangedViews = [UIView]() {
+//        willSet {
+//            removeArrangedViews()
+//        }
+//
+//        didSet {
+//            addArrangedViews()
+//            syncPageControlToContentView()
+//            syncSlots()
+//            setNeedsLayout()
+//        }
+//    }
 
     public var currentPage: Int {
         get {
@@ -147,14 +160,14 @@ open class PagingView: View {
     }
 
     private func removeArrangedViews() {
-        for view in arrangedViews {
+        for view in contentView.subviews {
             view.removeFromSuperview()
         }
         arrangedViewsLeadingConstraints.removeAll()
     }
 
-    private func addArrangedViews() {
-        for view in arrangedViews {
+    private func addArrangedViews(_ newViews: [UIView]) {
+        for view in newViews {
             view.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(view)
             let leadingConstraint = view.leadingAnchor == contentView.leadingAnchor

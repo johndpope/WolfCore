@@ -14,10 +14,19 @@ open class PlaceholderView: View {
         label.text = "Title"
         return label
     }()
+    public private(set) lazy var gestureActions: ViewGestureActions = {
+        return ViewGestureActions(view: self)
+    }()
 
     private var heightConstraint: NSLayoutConstraint?
 
-    public var title: String! {
+    @IBInspectable public var title: String! {
+        didSet {
+            syncTitle()
+        }
+    }
+
+    @IBInspectable public var fontStyle: String? {
         didSet {
             syncTitle()
         }
@@ -36,7 +45,7 @@ open class PlaceholderView: View {
     }
 
     private func syncTitle() {
-        titleLabel.fontStyleName = fontStyleName
+        titleLabel.fontStyleName = fontStyleName ?? FontStyleName(fontStyle)
         titleLabel.text = title
     }
 

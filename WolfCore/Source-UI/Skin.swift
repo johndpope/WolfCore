@@ -20,6 +20,8 @@ public protocol Skin {
     var navigationBarHidden: Bool { get }
 
     var viewControllerBackgroundColor: UIColor { get }
+    var viewControllerTintColor: UIColor { get }
+
     var textColor: UIColor { get }
 
     var navbarBarColor: UIColor { get }
@@ -38,8 +40,8 @@ public protocol Skin {
 
 extension Skin {
     public func fontStyleNamed(_ name: String?) -> FontStyle? {
-        guard let name = name else { return nil }
-        return fontStyles[FontStyleName(name)]
+        guard let name = FontStyleName(name) else { return nil }
+        return fontStyles[name]
     }
 }
 
@@ -56,6 +58,8 @@ open class DefaultSkin: Skin {
     open var navigationBarHidden: Bool { return false }
 
     open var viewControllerBackgroundColor: UIColor { return .white }
+    open var viewControllerTintColor: UIColor { return defaultTintColor }
+
     open var textColor: UIColor { return .black }
 
     open var navbarBarColor: UIColor { return UIColor.gray.withAlphaComponent(0.3) }
@@ -108,6 +112,8 @@ open class InterpolateSkin: Skin {
     open lazy var navigationBarHidden: Bool = { return self.frac.ledge(self.skin1.navigationBarHidden, self.skin2.navigationBarHidden) }()
 
     open lazy var viewControllerBackgroundColor: UIColor = { return self.blend(from: self.skin1.viewControllerBackgroundColor, to: self.skin2.viewControllerBackgroundColor) }()
+    open lazy var viewControllerTintColor: UIColor = { return self.blend(from: self.skin1.viewControllerTintColor, to: self.skin2.viewControllerTintColor) }()
+
     open lazy var textColor: UIColor = { return self.blend(from: self.skin1.textColor, to: self.skin2.textColor) }()
 
     open lazy var navbarBarColor: UIColor = { return self.blend(from: self.skin1.navbarBarColor, to: self.skin2.navbarBarColor) }()

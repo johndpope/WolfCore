@@ -215,6 +215,14 @@ extension OSView {
             return statusBarViewRect
         }
     }
+
+    extension UIView {
+        public func snapshot(afterScreenUpdates: Bool = false) -> UIImage {
+            return newImage(withSize: bounds.size) { _ in
+                self.drawHierarchy(in: self.bounds, afterScreenUpdates: afterScreenUpdates)
+            }
+        }
+    }
 #endif
 
 extension UIResponder {

@@ -11,7 +11,7 @@ import UIKit
 public class ViewGestureActions: GestureActions {
     private let tapName = "tap"
 
-    public var tap: GestureBlock? {
+    public var onTap: GestureBlock? {
         get { return getAction(for: tapName) }
         set { set(tapAction: newValue, name: tapName) }
     }

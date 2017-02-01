@@ -50,8 +50,10 @@ open class ViewController: UIViewController, Skinnable {
     open override func viewWillAppear(_ animated: Bool) {
         logTrace("viewWillAppear", obj: self, group: .statusBar)
         super.viewWillAppear(animated)
-        if let navigationItemTitleView = navigationItemTitleView {
-            navigationItem.titleView = navigationItemTitleView
+        if navigationItem.titleView == nil {
+            if let navigationItemTitleView = navigationItemTitleView {
+                navigationItem.titleView = navigationItemTitleView
+            }
         }
         propagateSkin(why: "viewWillAppear")
     }
@@ -76,6 +78,7 @@ extension UIViewController {
 
         if isViewLoaded {
             view!.backgroundColor = skin.viewControllerBackgroundColor
+            view!.tintColor = skin.viewControllerTintColor
 
             if let navigationController = self as? UINavigationController {
                 var skin = skin

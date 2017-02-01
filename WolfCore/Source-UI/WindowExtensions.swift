@@ -9,25 +9,35 @@
 import UIKit
 
 extension UIWindow {
-    public func replaceRootViewController(withController newController: UIViewController, animated: Bool = true) {
-        let oldRootView = rootViewController?.view
-        let newRootView: UIView = newController.view
-        if animated {
-            newRootView.alpha = 0.0
-            self.rootViewController = newController
-            //RunLoop.current.runOnce()
-            dispatchAnimated(
-                animations: {
-                    newRootView.alpha = 1.0
-            },
-                completion: { _ in
-                    self.subviews[0].removeFromSuperview()
-            }
-            )
-        } else {
-            rootViewController = nil
-            subviews[0].removeFromSuperview()
+    public func replaceRootViewController(with newController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        let snapshotImageView = UIImageView(image: self.snapshot())
+        self.addSubview(snapshotImageView)
+
+        func onCompletion() {
+            snapshotImageView.removeFromSuperview()
+            completion?()
+        }
+
+        func animateTransition() {
             rootViewController = newController
+            bringSubview(toFront: snapshotImageView)
+            if animated {
+                dispatchAnimated(animations: {
+                    snapshotImageView.alpha = 0
+                }, completion: { _ in
+                    onCompletion()
+                })
+            } else {
+                onCompletion()
+            }
+        }
+
+        if let presentedViewController = rootViewController?.presentedViewController {
+            presentedViewController.dismiss(animated: false) {
+                animateTransition()
+            }
+        } else {
+            animateTransition()
         }
     }
 }
