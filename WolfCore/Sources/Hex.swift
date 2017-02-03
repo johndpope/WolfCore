@@ -48,7 +48,7 @@ public struct Hex {
     public init(data: Data) {
         var string = String()
         for byte in data {
-            let s = String(byte, radix: 16, uppercase: false) |> String.padded(toCount: 2, withCharacter: "0")
+            let s = String(byte, radix: 16, uppercase: false) |> String.paddedWithZeros(to: 2)
             string += s
         }
 

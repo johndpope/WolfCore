@@ -64,9 +64,9 @@ extension Date {
             guard 1...31 ~= day else {
                 throw ValidationError(message: "Invalid day", violation: "dateFormat")
             }
-            let yearString = "\(year)"
-            let monthString = "\(month)".padded(toCount: 2, withCharacter: "0")
-            let dayString = "\(day)".padded(toCount: 2, withCharacter: "0")
+            let yearString = String(year)
+            let monthString = String(month).paddedWithZeros(to: 2)
+            let dayString = String(day).paddedWithZeros(to: 2)
             try self.init(iso8601: "\(yearString)-\(monthString)-\(dayString)T00:00:00.0Z")
         }
     }
@@ -103,9 +103,9 @@ extension Date {
             guard 1...31 ~= day else {
                 throw ValidationError(message: "Invalid day", violation: "dateFormat")
             }
-            let yearString = "\(year)"
-            let monthString = "\(month)".padded(toCount: 2, withCharacter: "0")
-            let dayString = "\(day)".padded(toCount: 2, withCharacter: "0")
+            let yearString = String(year)
+            let monthString = String(month).paddedWithZeros(to: 2)
+            let dayString = String(day).paddedWithZeros(to: 2)
             try self.init(iso8601: "\(yearString)-\(monthString)-\(dayString)T00:00:00.0Z")
         }
     }

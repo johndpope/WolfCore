@@ -73,7 +73,7 @@ public class IPAddress6 {
         for word in words {
             var component = String(word, radix: 16)
             if padWithZeroes {
-                component = component.padded(toCount: 4, withCharacter: "0")
+                component = component.paddedWithZeros(to: 4)
             }
             components.append(component)
         }

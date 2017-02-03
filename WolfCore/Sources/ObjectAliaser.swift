@@ -34,7 +34,7 @@ public class ObjectAliaser {
     func name(forObject object: AnyObject) -> String {
         let joiner = Joiner(left: "(", right: ")")
 
-        joiner.append("0x\(String(alias(forObject: object), radix: 16).padded(toCount: 2, withCharacter: "0"))")
+        joiner.append("0x\(String(alias(forObject: object), radix: 16).paddedWithZeros(to: 2))")
 
         var id: String?
         var className: String? = NSStringFromClass(type(of: object))

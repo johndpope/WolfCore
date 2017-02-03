@@ -301,16 +301,24 @@ extension String: Serializable {
 }
 
 extension String {
-    public func padded(toCount finalCount: Int, onRight: Bool = false, withCharacter character: Character = " ") -> String {
-        let count = self.characters.count
-        let padCount = finalCount - count
+    public func padded(to count: Int, onRight: Bool = false, with character: Character = " ") -> String {
+        let startCount = self.characters.count
+        let padCount = count - startCount
         guard padCount > 0 else { return self }
         let pad = String(repeating: String(character), count: padCount)
         return onRight ? (self + pad) : (pad + self)
     }
 
-    public static func padded(toCount finalCount: Int, onRight: Bool = false, withCharacter character: Character = " ") -> (String) -> String {
-        return { $0.padded(toCount: finalCount, onRight: onRight, withCharacter: character) }
+    public static func padded(to count: Int, onRight: Bool = false, with character: Character = " ") -> (String) -> String {
+        return { $0.padded(to: count, onRight: onRight, with: character) }
+    }
+
+    public func paddedWithZeros(to count: Int) -> String {
+        return padded(to: count, onRight: false, with: "0")
+    }
+
+    public static func paddedWithZeros(to count: Int) -> (String) -> String {
+        return { $0.paddedWithZeros(to: count) }
     }
 }
 

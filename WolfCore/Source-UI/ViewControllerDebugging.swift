@@ -27,7 +27,7 @@ extension UIViewController {
                 stack.append((childController, level + 1, indent + "  |"))
             }
 
-            joiner.append( indent, "\(level)".padded(toCount: 2) )
+            joiner.append( indent, "\(level)".padded(to: 2) )
             joiner.append(aliaser.name(forObject: controller))
 
             if !controller.automaticallyAdjustsScrollViewInsets {

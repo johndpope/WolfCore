@@ -8,6 +8,15 @@
 
 import UIKit
 
+extension UIUserInterfaceSizeClass: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .unspecified: return "unspecified"
+        case .compact: return "compact"
+        case .regular: return "regular"
+        }
+    }
+}
 public func + (lhs: UITraitCollection, rhs: UITraitCollection) -> UITraitCollection {
     return UITraitCollection(traitsFrom: [lhs, rhs])
 }

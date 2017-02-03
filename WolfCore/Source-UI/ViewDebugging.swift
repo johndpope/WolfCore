@@ -34,7 +34,7 @@ extension UIView {
             let joiner = Joiner()
             joiner.append(prefixJoiner)
 
-            joiner.append( indent, "\(level)".padded(toCount: 2) )
+            joiner.append( indent, "\(level)".padded(to: 2) )
 
             if includeConstraints {
                 joiner.append("🔲")

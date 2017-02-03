@@ -143,7 +143,7 @@ extension LifeHash.Change: ExpressibleByBooleanLiteral {
 }
 
 extension LifeHash.Counter: CustomStringConvertible {
-    var description: String { return "\(count)".padded(toCount: 3) }
+    var description: String { return "\(count)".padded(to: 3) }
 }
 
 extension LifeHash.Counter: Equatable { }

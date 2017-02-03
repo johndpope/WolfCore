@@ -34,24 +34,44 @@ open class NavigationController: UINavigationController, UINavigationControllerD
 
     private func _setup() {
         logInfo("init \(self)", group: .viewControllerLifecycle)
-        setupNavbar()
         setup()
     }
 
     private var effectView: UIVisualEffectView!
+    private var navbarBlurTopConstraint: NSLayoutConstraint!
 
-    private func setupNavbar() {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateNavbarBlur()
+    }
+
+    private func setupNavbarBlur() {
         let effect = UIBlurEffect(style: .light)
         effectView = ~UIVisualEffectView(effect: effect)
         // Add the effect view as a the first subview of the _UIBarBackground view
         navigationBar.subviews[0].insertSubview(effectView, at: 0)
         navigationBar.backgroundColor = .clear
+        navbarBlurTopConstraint = effectView.topAnchor == navigationBar.topAnchor
         activateConstraints(
             effectView.leftAnchor == navigationBar.leftAnchor,
             effectView.rightAnchor == navigationBar.rightAnchor,
             effectView.bottomAnchor == navigationBar.bottomAnchor,
-            effectView.topAnchor == navigationBar.topAnchor - 20
+            navbarBlurTopConstraint
         )
+    }
+
+    private func updateNavbarBlur() {
+        var statusBarAdjustment: CGFloat = -20
+        if traitCollection.horizontalSizeClass == .regular {
+            if modalPresentationStyle == .fullScreen {
+                if !modalPresentationCapturesStatusBarAppearance {
+                    statusBarAdjustment = 0
+                }
+            }
+        }
+        navbarBlurTopConstraint.constant = statusBarAdjustment
+        
+        //print("\(self) hSizeClass: \(traitCollection.horizontalSizeClass) statusBarAdjustment: \(statusBarAdjustment)")
     }
 
     deinit {
@@ -66,11 +86,13 @@ open class NavigationController: UINavigationController, UINavigationControllerD
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.debugIdentifier = "\(typeName(of: self)).view"
+        setupNavbarBlur()
     }
 
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        //resetNavbarBlur()
         propagateSkin(why: "viewWillAppear")
     }
 
