@@ -17,8 +17,25 @@ open class PagingViewController: ViewController {
     open override func setup() {
         super.setup()
         automaticallyAdjustsScrollViewInsets = false
+        pagingView.onDidLayout = { [unowned self] (fromIndex, toIndex, frac) in
+            self.didLayoutPagingView(fromIndex: fromIndex, toIndex: toIndex, frac: frac)
+        }
     }
-    
+
+    open func didLayoutPagingView(fromIndex: Int, toIndex: Int, frac: Frac) {
+        let fromController = pagedViewControllers[fromIndex]
+        let fromSkin = fromController.skin!
+        let skin: Skin
+        if frac == 0.0 {
+            skin = fromSkin
+        } else {
+            let toController = pagedViewControllers[toIndex]
+            let toSkin = toController.skin!
+            skin = fromSkin.interpolated(to: toSkin, at: frac)
+        }
+        self.skin = skin
+    }
+
     public var pagedViewControllers: [UIViewController]! {
         didSet {
             pagingView.arrangedViews = []

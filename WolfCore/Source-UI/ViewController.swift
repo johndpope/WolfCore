@@ -60,6 +60,9 @@ open class ViewController: UIViewController, Skinnable {
 
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
+//        if navigxationItem.titleView !== navigationItemTitleView {
+//            navigationItem.titleView = navigationItemTitleView
+//        }
     }
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {

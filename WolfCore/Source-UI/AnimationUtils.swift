@@ -99,4 +99,17 @@ public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = d
         completion(true)
     }
 }
+
+    public func animationOptions(for curve: UIViewAnimationCurve) -> UIViewAnimationOptions {
+        switch curve {
+        case .easeInOut:
+            return [.curveEaseInOut]
+        case .easeIn:
+            return [.curveEaseIn]
+        case .easeOut:
+            return [.curveEaseOut]
+        case .linear:
+            return [.curveLinear]
+        }
+    }
 #endif

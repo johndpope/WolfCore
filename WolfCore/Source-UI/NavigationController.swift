@@ -62,16 +62,14 @@ open class NavigationController: UINavigationController, UINavigationControllerD
 
     private func updateNavbarBlur() {
         var statusBarAdjustment: CGFloat = -20
-        if traitCollection.horizontalSizeClass == .regular {
-            if modalPresentationStyle == .fullScreen {
-                if !modalPresentationCapturesStatusBarAppearance {
-                    statusBarAdjustment = 0
-                }
-            }
+        out: do {
+            guard traitCollection.horizontalSizeClass == .regular else { break out }
+            guard modalPresentationStyle == .fullScreen else { break out }
+            guard presentingViewController != nil else { break out }
+            guard !modalPresentationCapturesStatusBarAppearance else { break out }
+            statusBarAdjustment = 0
         }
         navbarBlurTopConstraint.constant = statusBarAdjustment
-        
-        //print("\(self) hSizeClass: \(traitCollection.horizontalSizeClass) statusBarAdjustment: \(statusBarAdjustment)")
     }
 
     deinit {

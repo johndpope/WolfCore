@@ -223,6 +223,14 @@ extension OSView {
             }
         }
     }
+
+    extension UIView {
+        public func removeAllSubviews() {
+            for subview in subviews {
+                subview.removeFromSuperview()
+            }
+        }
+    }
 #endif
 
 extension UIResponder {

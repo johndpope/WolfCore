@@ -319,6 +319,7 @@
 		038765421D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		038765431D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
+		0390BEC71E47F9E400EA937F /* BounceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390BEC61E47F9E400EA937F /* BounceAnimation.swift */; };
 		039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
 		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
@@ -642,6 +643,7 @@
 		0387653C1D245BB60082FC79 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reference.swift; path = Sources/Reference.swift; sourceTree = "<group>"; };
 		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
+		0390BEC61E47F9E400EA937F /* BounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceAnimation.swift; sourceTree = "<group>"; };
 		039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceUtils.swift; path = "Source-UI/DeviceUtils.swift"; sourceTree = "<group>"; };
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -994,6 +996,7 @@
 			isa = PBXGroup;
 			children = (
 				036FECB01C766E6B00B09489 /* BarButtonItemAction.swift */,
+				0390BEC61E47F9E400EA937F /* BounceAnimation.swift */,
 				035553191C0F622A00E0FCA7 /* ControlAction.swift */,
 				03AB94D01CB4869800F25335 /* GestureActions.swift */,
 				035553201C0F622A00E0FCA7 /* GestureRecognizerAction.swift */,
@@ -1710,6 +1713,7 @@
 				036B834D1C4320F300491AFF /* Gradient.swift in Sources */,
 				0314DD171D09048C00E23C67 /* TableViewCell.swift in Sources */,
 				030C035A1D148F3900EF040E /* Locker.swift in Sources */,
+				0390BEC71E47F9E400EA937F /* BounceAnimation.swift in Sources */,
 				03ECD6221C60CE4600173FD1 /* ValidationError.swift in Sources */,
 				03E1732E1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
 				03FAF7851C53F6FF0045BB37 /* FoundationJSON.swift in Sources */,

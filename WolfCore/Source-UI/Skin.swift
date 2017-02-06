@@ -37,6 +37,8 @@ public protocol Skin {
     var pageIndicatorTintColor: UIColor { get }
 
     var fontStyles: FontStyles { get }
+
+    func interpolated(to skin: Skin, at frac: Frac) -> Skin
 }
 
 extension Skin {
@@ -80,6 +82,10 @@ open class DefaultSkin: Skin {
         .title: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1)),
         .book: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body))
     ]
+
+    open func interpolated(to skin: Skin, at frac: Frac) -> Skin {
+        return InterpolateSkin(skin1: self, skin2: skin, frac: frac)
+    }
 }
 
 open class DefaultDarkSkin: DefaultSkin {
@@ -131,4 +137,8 @@ open class InterpolateSkin: Skin {
     open lazy var pageIndicatorTintColor: UIColor = { return self.blend(from: self.skin1.pageIndicatorTintColor, to: self.skin2.pageIndicatorTintColor) }()
 
     public var fontStyles: FontStyles { return self.skin1.fontStyles }
+
+    open func interpolated(to skin: Skin, at frac: Frac) -> Skin {
+        return InterpolateSkin(skin1: self, skin2: skin, frac: frac)
+    }
 }

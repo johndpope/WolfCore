@@ -40,16 +40,7 @@ public class KeyboardMovement: CustomStringConvertible {
     }
 
     public var animationCurveOptions: UIViewAnimationOptions {
-        switch animationCurve {
-        case .easeInOut:
-            return [.curveEaseInOut]
-        case .easeIn:
-            return [.curveEaseIn]
-        case .easeOut:
-            return [.curveEaseOut]
-        case .linear:
-            return [.curveLinear]
-        }
+        return animationOptions(for: animationCurve)
     }
 
     public var isLocal: Bool {

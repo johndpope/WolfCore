@@ -32,7 +32,7 @@ open class PlaceholderView: View {
         }
     }
 
-    public var height: CGFloat! {
+    public var height: CGFloat? {
         didSet {
             syncHeight()
         }
@@ -49,8 +49,14 @@ open class PlaceholderView: View {
         titleLabel.text = title
     }
 
+    open override func updateConstraints() {
+        super.updateConstraints()
+        guard let height = height else { return }
+        replaceConstraint(&heightConstraint, with: heightAnchor == height =&= UILayoutPriorityDefaultHigh)
+    }
+
     private func syncHeight() {
-        replaceConstraint(&heightConstraint, with: heightAnchor == height)
+        setNeedsUpdateConstraints()
     }
 
     public init(title: String, fontStyleName: FontStyleName? = nil, height: CGFloat, backgroundColor: UIColor = .clear) {

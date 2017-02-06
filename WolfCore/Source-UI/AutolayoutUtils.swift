@@ -229,8 +229,10 @@ public func warnForNoIdentifier(inConstraints constraints: [NSLayoutConstraint])
     return constraints
 }
 
-public func deactivateConstraints(_ constraints: [NSLayoutConstraint]) {
-    NSLayoutConstraint.deactivate(constraints)
+public func deactivateConstraints(_ constraints: [NSLayoutConstraint]?) {
+    if let constraints = constraints {
+        NSLayoutConstraint.deactivate(constraints)
+    }
 }
 
 public func deactivateConstraints(_ constraints: NSLayoutConstraint...) {
