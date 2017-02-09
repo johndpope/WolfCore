@@ -29,7 +29,6 @@ open class PagingView: View {
     private var contentView: PagingContentView!
     private var contentWidthConstraint: NSLayoutConstraint!
     private var arrangedViewsLeadingConstraints = [NSLayoutConstraint]()
-    private var slotsCount: Int = 0
 
     public var bottomView: UIView! {
         willSet {
@@ -50,12 +49,6 @@ open class PagingView: View {
             for index in removed {
                 arrangedViewAtIndexDidBecomeInvisible?(index)
             }
-        }
-    }
-
-    public var isCircular = false {
-        didSet {
-            syncSlots()
         }
     }
 
@@ -89,22 +82,10 @@ open class PagingView: View {
             removeArrangedViews()
             addArrangedViews(newValue)
             syncPageControlToContentView()
-            syncSlots()
+            updateContentSize()
             setNeedsLayout()
         }
     }
-//    public var arrangedViews = [UIView]() {
-//        willSet {
-//            removeArrangedViews()
-//        }
-//
-//        didSet {
-//            addArrangedViews()
-//            syncPageControlToContentView()
-//            syncSlots()
-//            setNeedsLayout()
-//        }
-//    }
 
     public var currentPage: Int {
         get {
@@ -131,10 +112,14 @@ open class PagingView: View {
 
     open override func layoutSubviews() {
         let page = currentPage
+        updateArrangedViewConstraints()
+        scrollView.layoutIfNeeded()
 
         super.layoutSubviews()
 
-        updateLayout()
+        updateVisibleArrangedViews()
+        updatePageControl()
+        updateFractionalPage()
 
         if let previousSize = previousSize {
             if previousSize != bounds.size {
@@ -144,6 +129,11 @@ open class PagingView: View {
         previousSize = bounds.size
 
         onDidLayout?(scrollingFromIndex, scrollingToIndex, scrollingFrac)
+    }
+
+    open override func updateConstraints() {
+        super.updateConstraints()
+        updateArrangedViewConstraints()
     }
 
     open override var clipsToBounds: Bool {
@@ -183,7 +173,7 @@ open class PagingView: View {
 
     private func updateContentSize() {
         contentWidthConstraint.isActive = false
-        contentWidthConstraint = contentView.widthAnchor == widthAnchor * CGFloat(slotsCount)
+        contentWidthConstraint = contentView.widthAnchor == widthAnchor * CGFloat(arrangedViews.count)
         contentWidthConstraint.isActive = true
     }
 
@@ -220,16 +210,6 @@ open class PagingView: View {
         )
     }
 
-    private func syncSlots() {
-        let count = arrangedViews.count
-        if isCircular {
-            slotsCount = count * 3
-        } else {
-            slotsCount = count
-        }
-        updateContentSize()
-    }
-
     private func syncPageControlToContentView() {
         pageControl.numberOfPages = arrangedViews.count
     }
@@ -242,33 +222,11 @@ open class PagingView: View {
         let xOffset = scrollView.contentOffset.x
         let firstSlotIndex = Int(xOffset / bounds.width)
         for index in 0..<arrangedViews.count {
-            let offsetIndex = index - Int(Double(arrangedViews.count) / 2.0 - 0.5)
-            let viewIndex = arrangedViews.circularIndex(at: firstSlotIndex + offsetIndex)
-            let slotIndex = circularIndex(at: firstSlotIndex + offsetIndex, count: slotsCount)
-            let x = CGFloat(slotIndex) * bounds.width
-            arrangedViewsLeadingConstraints[viewIndex].constant = x
+            let x = CGFloat(index) * bounds.width
+            arrangedViewsLeadingConstraints[index].constant = x
+            arrangedViews[index].setNeedsLayout()
         }
-    }
-
-    private func updateContentOffset() {
-        if isCircular {
-            let xOffset = scrollView.contentOffset.x
-            let width = bounds.width
-            let minOffset = width * CGFloat(arrangedViews.count)
-            let maxOffset = width * CGFloat(arrangedViews.count * 2)
-
-            var xOffsetNew = xOffset
-            if xOffset < minOffset {
-                xOffsetNew = xOffset + minOffset
-            } else if xOffset >= maxOffset {
-                xOffsetNew = xOffset - minOffset
-            }
-            if xOffsetNew != xOffset {
-                scrollView.setContentOffset(CGPoint(x: xOffsetNew, y: 0), animated: false)
-                updateLayout()
-                //                print("updateContentOffset, xOffset: \(xOffset) xOffsetNew: \(xOffsetNew)")
-            }
-        }
+        contentView.setNeedsLayout()
     }
 
     private func updateVisibleArrangedViews() {
@@ -292,40 +250,20 @@ open class PagingView: View {
 
     private func updateFractionalPage() {
         let x = scrollView.contentOffset.x
-        let fractionalPosition1 = x / scrollView.bounds.width
-        let frac = fractionalPosition1.truncatingRemainder(dividingBy: 1.0)
-        let index1 = Int(fractionalPosition1.rounded(.down))
-        let circularIndex1 = arrangedViews.circularIndex(at: index1)
-
-        let fractionalPosition2 = fractionalPosition1 + 1
-        let index2 = Int(fractionalPosition2.rounded(.down))
-        let circularIndex2 = arrangedViews.circularIndex(at: index2)
-
-        scrollingFromIndex = circularIndex1
-        scrollingToIndex = circularIndex2
-        scrollingFrac = Frac(frac)
-
-        if !isCircular {
-            if frac < 0.0 {
-                scrollingFromIndex = circularIndex2
-                scrollingToIndex = circularIndex2
-                scrollingFrac = 0.0
-            } else if circularIndex2 < circularIndex1 {
-                scrollingFromIndex = circularIndex1
-                scrollingToIndex = circularIndex1
-                scrollingFrac = 0.0
-            }
+        if x < 0 {
+            scrollingFromIndex = 0
+            scrollingToIndex = 0
+            scrollingFrac = 0.0
+        } else if x > contentView.bounds.width - scrollView.bounds.width {
+            scrollingFromIndex = arrangedViews.count - 1
+            scrollingToIndex = arrangedViews.count - 1
+            scrollingFrac = 0.0
+        } else {
+            let fractionalPosition = x / scrollView.bounds.width
+            scrollingFrac = Frac(fractionalPosition.truncatingRemainder(dividingBy: 1.0))
+            scrollingFromIndex = Int(fractionalPosition.rounded(.down))
+            scrollingToIndex = scrollingFromIndex + 1
         }
-    }
-
-    private func updateLayout() {
-        updateArrangedViewConstraints()
-        contentView.setNeedsLayout()
-        contentView.layoutIfNeeded()
-        updateContentOffset()
-        updateVisibleArrangedViews()
-        updatePageControl()
-        updateFractionalPage()
     }
 }
 
