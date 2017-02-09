@@ -20,7 +20,7 @@ open class Button: UIButton, Skinnable {
 
     open override func awakeFromNib() {
         super.awakeFromNib()
-        setTitle(title(for: [])?.localized(onlyIfTagged: true), for: [])
+        setTitle(title(for: .normal)?.localized(onlyIfTagged: true), for: .normal)
     }
 
     public convenience init() {

@@ -205,8 +205,6 @@
 		034D31271DF7A7A5004ADC34 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFB1CF81F350080DFF6 /* StackView.swift */; };
 		034D31281DF7A96E004ADC34 /* NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A8C3B1D149F2900707E43 /* NetworkActivity.swift */; };
 		034D31291DF7A96F004ADC34 /* NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A8C3B1D149F2900707E43 /* NetworkActivity.swift */; };
-		034D312A1DF7A9B0004ADC34 /* DevOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */; };
-		034D312B1DF7A9B1004ADC34 /* DevOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFF1CF81FD40080DFF6 /* DevOverlayView.swift */; };
 		034D312C1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */; };
 		034D312D1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */; };
 		034D312E1DF7AB42004ADC34 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553281C0F622A00E0FCA7 /* Label.swift */; };
@@ -320,6 +318,9 @@
 		038765431D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
 		0390BEC71E47F9E400EA937F /* BounceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390BEC61E47F9E400EA937F /* BounceAnimation.swift */; };
+		039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C91281E4CFCE2000AE01B /* OverlayWindow.swift */; };
+		039C912D1E4D1582000AE01B /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C912C1E4D1582000AE01B /* VideoControllerView.swift */; };
+		039C912F1E4D1D67000AE01B /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C912E1E4D1D67000AE01B /* BounceButton.swift */; };
 		039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
 		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
@@ -644,6 +645,9 @@
 		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
 		0390BEC61E47F9E400EA937F /* BounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceAnimation.swift; sourceTree = "<group>"; };
+		039C91281E4CFCE2000AE01B /* OverlayWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OverlayWindow.swift; path = "Source-UI/OverlayWindow.swift"; sourceTree = "<group>"; };
+		039C912C1E4D1582000AE01B /* VideoControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoControllerView.swift; path = "Source-UI/VideoControllerView.swift"; sourceTree = "<group>"; };
+		039C912E1E4D1D67000AE01B /* BounceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BounceButton.swift; path = "Source-UI/BounceButton.swift"; sourceTree = "<group>"; };
 		039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceUtils.swift; path = "Source-UI/DeviceUtils.swift"; sourceTree = "<group>"; };
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1010,6 +1014,7 @@
 		0314DD071D08FC3700E23C67 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				039C912E1E4D1D67000AE01B /* BounceButton.swift */,
 				035553161C0F622A00E0FCA7 /* Button.swift */,
 				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
@@ -1018,6 +1023,7 @@
 				035553251C0F622A00E0FCA7 /* ImageView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
+				039C91281E4CFCE2000AE01B /* OverlayWindow.swift */,
 				03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
 				0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */,
@@ -1032,6 +1038,7 @@
 				033882231CFF97C200C8972B /* TextField.swift */,
 				0302D2F71CF8F34300717170 /* TextView.swift */,
 				0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */,
+				039C912C1E4D1582000AE01B /* VideoControllerView.swift */,
 				035553371C0F622A00E0FCA7 /* View.swift */,
 				035553391C0F622A00E0FCA7 /* ViewExtensions.swift */,
 				038457961CED57E80012BCCE /* WindowExtensions.swift */,
@@ -1568,7 +1575,6 @@
 				033AC34D1D17172E008C8B93 /* Frac.swift in Sources */,
 				033F5EB81CA3096700647A0A /* LifeHash.swift in Sources */,
 				03E1732F1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
-				034D312A1DF7A9B0004ADC34 /* DevOverlayView.swift in Sources */,
 				033F5EB91CA3096700647A0A /* MathUtils.swift in Sources */,
 				033F5EBA1CA3096700647A0A /* CryptoUtils.swift in Sources */,
 				0378EC801DF4D78A00E6A875 /* MemoryCacheLayer.swift in Sources */,
@@ -1648,6 +1654,7 @@
 				03CF08001DF5381A00B7AD7E /* WebViewController.swift in Sources */,
 				032418011E2AD92C00082E6A /* ReversedGraph.swift in Sources */,
 				0362A1A71C19FBD20005371F /* Log.swift in Sources */,
+				039C912D1E4D1582000AE01B /* VideoControllerView.swift in Sources */,
 				03FAF77B1C532A640045BB37 /* ASN1Parser.swift in Sources */,
 				03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */,
 				036B83471C431F2A00491AFF /* Color.swift in Sources */,
@@ -1657,6 +1664,7 @@
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				03CF07FA1DF5367400B7AD7E /* HTTPActions.swift in Sources */,
 				036307D01CB6DA7F00DC7070 /* NotificationActions.swift in Sources */,
+				039C912F1E4D1D67000AE01B /* BounceButton.swift in Sources */,
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
 				03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
@@ -1677,6 +1685,7 @@
 				03106F621D40D81F00E21F82 /* Runes.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				033AC3481D171703008C8B93 /* Interval.swift in Sources */,
+				039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */,
 				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				035E520E1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */,
 				0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */,
@@ -1877,7 +1886,6 @@
 				03E172F31CF1C8C20073F383 /* ArrayExtensions.swift in Sources */,
 				03E172EE1CF1C8B60073F383 /* SHA256.swift in Sources */,
 				03E172D01CF1C8B60073F383 /* Base64.swift in Sources */,
-				034D312B1DF7A9B1004ADC34 /* DevOverlayView.swift in Sources */,
 				032D778A1E256F370058CF1B /* Edge.swift in Sources */,
 				03E172F21CF1C8B60073F383 /* UniqueID.swift in Sources */,
 				034D312D1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */,

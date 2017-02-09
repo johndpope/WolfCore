@@ -81,7 +81,7 @@ extension TextField {
         let button = buttons[0]
         guard let image = button.image(for: .highlighted) else { return }
         tintedClearImage = image.tinted(withColor: newTintColor)
-        button.setImage(tintedClearImage, for: [])
+        button.setImage(tintedClearImage, for: .normal)
         button.setImage(tintedClearImage, for: .highlighted)
         lastTintColor = newTintColor
     }
