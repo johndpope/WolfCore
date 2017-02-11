@@ -50,4 +50,8 @@ extension UIStackView {
             addArrangedSubview(view)
         }
     }
+
+    public func addArrangedSubviews(_ views: UIView...) {
+        addArrangedSubviews(views)
+    }
 }

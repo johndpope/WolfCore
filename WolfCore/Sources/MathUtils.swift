@@ -80,3 +80,13 @@ public func binarySearch<T: BinaryFloatingPoint>(interval: Interval<T>, start: T
         }
     }
 }
+
+extension Integer {
+    public var isEven: Bool {
+        return (self & 1) == 0
+    }
+
+    public var isOdd: Bool {
+        return (self & 1) == 1
+    }
+}

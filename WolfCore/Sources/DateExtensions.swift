@@ -8,18 +8,43 @@
 
 import Foundation
 
-extension Date {
-    public var lastDayOfMonth: Date {
-        let calendar = Calendar.current
-        let dayRange = calendar.range(of: .day, in: .month, for: self)!
+extension Calendar {
+    /// Returns the last day of the month containing `date`. So if the date is in a January, this method will return January 31.
+    public func lastDayOfMonth(for date: Date) -> Date {
+        let dayRange = range(of: .day, in: .month, for: date)!
         let dayCount = dayRange.count
-        var comp = calendar.dateComponents([.year, .month, .day], from: self)
+        var comp = dateComponents([.year, .month, .day], from: date)
         comp.day = dayCount
-        return calendar.date(from: comp)!
+        return self.date(from: comp)!
     }
 
-    public var year: Int {
-        return Calendar.current.dateComponents([.year], from: self).year!
+    /// Returns the year of `date`.
+    public func year(of date: Date) -> Int {
+        return dateComponents([.year], from: date).year!
+    }
+
+    /// Returns the day of the week of `date`. So if `date` falls on a Monday, this method will return 2.
+    public func weekday(of date: Date) -> Int {
+        return dateComponents([.weekday], from: date).weekday!
+    }
+
+    /// Returns the ordinality of the day of `date`, taking into account `self`'s firstWeekday setting.
+    public func dayInWeek(of date: Date) -> Int {
+        return ordinality(of: .weekday, in: .weekOfYear, for: date)!
+    }
+
+    /// Returns the date of the first day of the week containing `date`. So if `date` falls on a Tuesday and the user has set the calendar week to start on Sunday, the date returned will be at the start of that Sunday, two days back. If `date` falls on that same Tuesday and the user has set the calendar week to start on Monday, the date returned will be the start of that Monday, one day back.
+    public func firstDayOfWeek(for date: Date) -> Date {
+        var d = startOfDay(for: date)
+        while weekday(of: d) != firstWeekday {
+            d = self.date(byAdding: .day, value: -1, to: d)!
+        }
+        return d
+    }
+
+    /// Returns the date 24 hours after `date`.
+    public func nextDay(after date: Date) -> Date {
+        return self.date(byAdding: .day, value: 1, to: date)!
     }
 }
 

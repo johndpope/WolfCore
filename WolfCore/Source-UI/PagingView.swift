@@ -219,8 +219,6 @@ open class PagingView: View {
             return
         }
 
-        let xOffset = scrollView.contentOffset.x
-        let firstSlotIndex = Int(xOffset / bounds.width)
         for index in 0..<arrangedViews.count {
             let x = CGFloat(index) * bounds.width
             arrangedViewsLeadingConstraints[index].constant = x

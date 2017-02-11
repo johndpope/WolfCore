@@ -33,7 +33,11 @@ open class Label: OSLabel, Skinnable {
     @IBInspectable public var scalesFontSize: Bool = false
     @IBInspectable public var transparentToTouches: Bool = false
     @IBInspectable public var fontStyle: String? = nil
-    public var fontStyleName: FontStyleName? = nil
+    public var fontStyleName: FontStyleName? {
+    didSet {
+    syncToFontStyle()
+    }
+    }
 
 //    @IBInspectable public var followsTintColor: Bool = false {
 //        didSet {
