@@ -135,3 +135,10 @@ extension CGRect {
         return joiner.description
     }
 }
+
+extension CGRect {
+    public init(center: CGPoint, size: CGSize) {
+        let o = CGPoint(x: center.x - size.width / 2, y: center.y - size.height / 2)
+        self.init(origin: o, size: size)
+    }
+}

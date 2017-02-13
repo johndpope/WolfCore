@@ -155,7 +155,7 @@ public class Hashids_<T> : HashidsGenerator where T: Equatable, T:UnsignedIntege
         return self._decode(value)
     }
 
-    // MARK: private funcitons
+    // MARK: private functions
 
     private func _encode(_ numbers: [Int]) -> [Char] {
         var alphabet = self.alphabet

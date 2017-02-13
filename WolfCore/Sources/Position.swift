@@ -7,11 +7,11 @@
 //
 
 public struct Position {
-    public let row: Int
-    public let column: Int
+    public var column: Int
+    public var row: Int
 
-    public init(row: Int, column: Int) {
-        self.row = row
+    public init(column: Int = 0, row: Int = 0) {
         self.column = column
+        self.row = row
     }
 }

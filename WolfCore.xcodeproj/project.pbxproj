@@ -317,6 +317,9 @@
 		038765421D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		038765431D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
+		038BB9411E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
+		038BB9421E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
+		038BB9431E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
 		0390BEC71E47F9E400EA937F /* BounceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390BEC61E47F9E400EA937F /* BounceAnimation.swift */; };
 		039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C91281E4CFCE2000AE01B /* OverlayWindow.swift */; };
 		039C912D1E4D1582000AE01B /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C912C1E4D1582000AE01B /* VideoControllerView.swift */; };
@@ -644,6 +647,7 @@
 		0387653C1D245BB60082FC79 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reference.swift; path = Sources/Reference.swift; sourceTree = "<group>"; };
 		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
+		038BB9401E51A25B00B957C2 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dimensions.swift; path = Sources/Dimensions.swift; sourceTree = "<group>"; };
 		0390BEC61E47F9E400EA937F /* BounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceAnimation.swift; sourceTree = "<group>"; };
 		039C91281E4CFCE2000AE01B /* OverlayWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OverlayWindow.swift; path = "Source-UI/OverlayWindow.swift"; sourceTree = "<group>"; };
 		039C912C1E4D1582000AE01B /* VideoControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoControllerView.swift; path = "Source-UI/VideoControllerView.swift"; sourceTree = "<group>"; };
@@ -793,6 +797,7 @@
 				0314DCF41D08F8FD00E23C67 /* DataExtensions.swift */,
 				0355531B1C0F622A00E0FCA7 /* DateExtensions.swift */,
 				036B833F1C40909700491AFF /* DictionaryExtensions.swift */,
+				038BB9401E51A25B00B957C2 /* Dimensions.swift */,
 				0359AF5D1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift */,
 				03E13B831C4FEE720074E447 /* Grid.swift */,
 				033E14FC1C7CC71C00BA3E63 /* Matrix.swift */,
@@ -1522,6 +1527,7 @@
 				0314DD121D09032400E23C67 /* Serializable.swift in Sources */,
 				033F5E9B1CA3096700647A0A /* ResourceUtils.swift in Sources */,
 				035CEB9C1D4883BC006FFD16 /* SwiftJSON.swift in Sources */,
+				038BB9421E51A25B00B957C2 /* Dimensions.swift in Sources */,
 				0303BCD01E3FF31500B196CA /* ObjectExtensions.swift in Sources */,
 				030C035B1D148F3900EF040E /* Locker.swift in Sources */,
 				03106F6B1D40D96800E21F82 /* RunesArray.swift in Sources */,
@@ -1647,6 +1653,7 @@
 				0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */,
 				03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */,
 				035553491C0F622A00E0FCA7 /* GeneralError.swift in Sources */,
+				038BB9411E51A25B00B957C2 /* Dimensions.swift in Sources */,
 				0314DD151D09044D00E23C67 /* NavigationBarExtensions.swift in Sources */,
 				0302D2F81CF8F34300717170 /* TextView.swift in Sources */,
 				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
@@ -1856,6 +1863,7 @@
 				034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */,
 				0309573E1E397DF80065F374 /* FontDebugging.swift in Sources */,
 				03E1731C1CF1C8FB0073F383 /* ImageExtensions.swift in Sources */,
+				038BB9431E51A25B00B957C2 /* Dimensions.swift in Sources */,
 				0303BCD11E3FF31500B196CA /* ObjectExtensions.swift in Sources */,
 				0314DCC21D08ED2200E23C67 /* NavigationController.swift in Sources */,
 				03E172D61CF1C8B60073F383 /* ColorFunc.swift in Sources */,
