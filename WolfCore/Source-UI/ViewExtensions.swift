@@ -61,6 +61,17 @@ extension OSView {
         return constraints
     }
 
+    @discardableResult public func constrainCenter(to point: CGPoint, of view: UIView, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let constraints = [
+            centerXAnchor == view.leadingAnchor + point.x =%= [identifier, "centerX"],
+            centerYAnchor == view.topAnchor + point.y =%= [identifier, "centerY"]
+        ]
+        if active {
+            activateConstraints(constraints)
+        }
+        return constraints
+    }
+    
     @discardableResult public func constrainCenterToCenterOfSuperview(active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         assert(superview != nil, "View must have a superview.")
         return constrainCenter(toCenterOfView: superview!, active: active, identifier: identifier)

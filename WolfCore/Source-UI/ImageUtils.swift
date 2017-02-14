@@ -25,6 +25,9 @@ import CoreGraphics
 
 #if os(iOS) || os(tvOS)
     public func newImage(withSize size: CGSize, opaque: Bool = false, background: UIColor? = nil, scale: CGFloat = 0.0, flipped: Bool = false, renderingMode: OSImageRenderingMode = .automatic, drawing: CGContextBlock? = nil) -> UIImage {
+        guard size.width > 0 && size.height > 0 else {
+            fatalError("Size may not be empty.")
+        }
         UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
         let context = currentGraphicsContext
 

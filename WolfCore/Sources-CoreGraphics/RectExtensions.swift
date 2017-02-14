@@ -141,4 +141,8 @@ extension CGRect {
         let o = CGPoint(x: center.x - size.width / 2, y: center.y - size.height / 2)
         self.init(origin: o, size: size)
     }
+
+    public init(center: CGPoint, size: CGFloat) {
+        self.init(center: center, size: CGSize(width: size, height: size))
+    }
 }
