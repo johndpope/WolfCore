@@ -130,8 +130,16 @@ extension CGRect {
 
 extension CGRect {
     public var debugSummary: String {
+        func format(_ n: CGFloat) -> String {
+            var s = n %% 3
+            if n <= 0 {
+                s += "⚠️"
+            }
+            return s
+        }
+
         let joiner = Joiner(left: "(", right: ")")
-        joiner.append(minX %% 3, minY %% 3, width %% 3, height %% 3)
+        joiner.append(minX %% 3, minY %% 3, format(width), format(height))
         return joiner.description
     }
 }

@@ -33,6 +33,10 @@ public protocol Skin {
     var toolbarItemColor: UIColor { get }
     var toolbarTintColor: UIColor { get }
 
+    var segbarBarColor: UIColor { get }
+    var segbarItemColor: UIColor { get }
+    var segbarTintColor: UIColor { get }
+
     var currentPageIndicatorTintColor: UIColor { get }
     var pageIndicatorTintColor: UIColor { get }
 
@@ -73,6 +77,10 @@ open class DefaultSkin: Skin {
     open var toolbarBarColor: UIColor { return navbarBarColor }
     open var toolbarItemColor: UIColor { return navbarTitleColor }
     open var toolbarTintColor: UIColor { return navbarTintColor }
+
+    open var segbarBarColor: UIColor { return navbarBarColor }
+    open var segbarItemColor: UIColor { return navbarTitleColor }
+    open var segbarTintColor: UIColor { return navbarTintColor }
 
     open var currentPageIndicatorTintColor: UIColor { return .black }
     open var pageIndicatorTintColor: UIColor { return currentPageIndicatorTintColor.withAlphaComponent(0.3) }
@@ -132,6 +140,10 @@ open class InterpolateSkin: Skin {
     open lazy var toolbarBarColor: UIColor = { return self.blend(from: self.skin1.toolbarBarColor, to: self.skin2.toolbarBarColor) }()
     open lazy var toolbarItemColor: UIColor = { return self.blend(from: self.skin1.toolbarItemColor, to: self.skin2.toolbarItemColor) }()
     open lazy var toolbarTintColor: UIColor = { return self.blend(from: self.skin1.toolbarTintColor, to: self.skin2.toolbarTintColor) }()
+
+    open lazy var segbarBarColor: UIColor = { return self.blend(from: self.skin1.segbarBarColor, to: self.skin2.segbarBarColor) }()
+    open lazy var segbarItemColor: UIColor = { return self.blend(from: self.skin1.segbarItemColor, to: self.skin2.segbarItemColor) }()
+    open lazy var segbarTintColor: UIColor = { return self.blend(from: self.skin1.segbarTintColor, to: self.skin2.segbarTintColor) }()
 
     open lazy var currentPageIndicatorTintColor: UIColor = { return self.blend(from: self.skin1.currentPageIndicatorTintColor, to: self.skin2.currentPageIndicatorTintColor) }()
     open lazy var pageIndicatorTintColor: UIColor = { return self.blend(from: self.skin1.pageIndicatorTintColor, to: self.skin2.pageIndicatorTintColor) }()

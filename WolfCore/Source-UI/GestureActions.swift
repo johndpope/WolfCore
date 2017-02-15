@@ -24,36 +24,36 @@ public class GestureActions {
         return gestureRecognizerActions[name]?.action
     }
 
-    func set(action: @escaping GestureBlock, gestureRecognizer: OSGestureRecognizer, name: String) {
+    func setAction(named name: String, gestureRecognizer: OSGestureRecognizer, action: @escaping GestureBlock) {
         gestureRecognizerActions[name] = view.addAction(forGestureRecognizer: gestureRecognizer) { recognizer in
             action(recognizer)
         }
     }
 
-    func set(swipeAction action: GestureBlock?, forDirection direction: UISwipeGestureRecognizerDirection, name: String) {
+    func setSwipeAction(named name: String, direction: UISwipeGestureRecognizerDirection, action: GestureBlock?) {
         if let action = action {
             let recognizer = UISwipeGestureRecognizer()
             recognizer.direction = direction
-            set(action: action, gestureRecognizer: recognizer, name: name)
+            setAction(named: name, gestureRecognizer: recognizer, action: action)
         } else {
             removeAction(for: name)
         }
     }
 
-    func set(pressAction action: GestureBlock?, forPress press: UIPressType, name: String) {
+    func setPressAction(named name: String, press: UIPressType, action: GestureBlock?) {
         if let action = action {
             let recognizer = UITapGestureRecognizer()
             recognizer.allowedPressTypes = [NSNumber(value: press.rawValue)]
-            set(action: action, gestureRecognizer: recognizer, name: name)
+            setAction(named: name, gestureRecognizer: recognizer, action: action)
         } else {
             removeAction(for: name)
         }
     }
 
-    func set(tapAction action: GestureBlock?, name: String) {
+    func setTapAction(named name: String, action: GestureBlock?) {
         if let action = action {
             let recognizer = UITapGestureRecognizer()
-            set(action: action, gestureRecognizer: recognizer, name: name)
+            setAction(named: name, gestureRecognizer: recognizer, action: action)
         } else {
             removeAction(for: name)
         }

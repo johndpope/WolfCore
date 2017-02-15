@@ -8,8 +8,8 @@
 
 import UIKit
 
-public class GradientOverlayView: View {
-    public override class var layerClass: AnyClass {
+open class GradientOverlayView: View {
+    open override class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
 
