@@ -84,6 +84,7 @@ public let defaultAnimationDuration: TimeInterval = 0.4
     }
 #else
 public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block) {
+    assert(Thread.isMainThread)
     if animated {
         UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: nil)
     } else {
@@ -92,6 +93,7 @@ public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = d
 }
 
 public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block, completion: @escaping ((Bool) -> Void)) {
+    assert(Thread.isMainThread)
     if animated {
         UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
     } else {

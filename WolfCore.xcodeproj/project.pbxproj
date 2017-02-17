@@ -364,6 +364,9 @@
 		03D3FA401E542CF000C8E550 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */; };
 		03D3FA411E542CF000C8E550 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */; };
 		03D3FA421E542CF000C8E550 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */; };
+		03D3FA471E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
+		03D3FA481E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
+		03D3FA491E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
 		03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDBACF1C5A9D5400A8CDAE /* Position.swift */; };
 		03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */; };
 		03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B761C4F28F60074E447 /* CGColorUtils.swift */; };
@@ -685,6 +688,7 @@
 		03D3FA391E542C8800C8E550 /* TableViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewExtensions.swift; path = "Source-UI/TableViewExtensions.swift"; sourceTree = "<group>"; };
 		03D3FA3B1E542CB500C8E550 /* URLComponentsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLComponentsExtensions.swift; path = "Sources-Foundation/URLComponentsExtensions.swift"; sourceTree = "<group>"; };
 		03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLExtensions.swift; path = "Sources-Foundation/URLExtensions.swift"; sourceTree = "<group>"; };
+		03D3FA461E550A8F00C8E550 /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = "Sources-Foundation/Timeline.swift"; sourceTree = "<group>"; };
 		03DDBACF1C5A9D5400A8CDAE /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Position.swift; path = Sources/Position.swift; sourceTree = "<group>"; };
 		03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AffineTransformUtils.swift; path = "Sources-CoreGraphics/AffineTransformUtils.swift"; sourceTree = "<group>"; };
 		03E13B761C4F28F60074E447 /* CGColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGColorUtils.swift; path = "Sources-CoreGraphics/CGColorUtils.swift"; sourceTree = "<group>"; };
@@ -1064,6 +1068,7 @@
 			children = (
 				035553111C0F622A00E0FCA7 /* AnimationUtils.swift */,
 				0390BEC61E47F9E400EA937F /* BounceAnimation.swift */,
+				03D3FA461E550A8F00C8E550 /* Timeline.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -1523,6 +1528,7 @@
 				034D312F1DF7F5E3004ADC34 /* AnimationUtils.swift in Sources */,
 				033F5E8F1CA3096700647A0A /* Color.swift in Sources */,
 				033F5E911CA3096700647A0A /* Hex.swift in Sources */,
+				03D3FA481E550A8F00C8E550 /* Timeline.swift in Sources */,
 				033F5E931CA3096700647A0A /* OutputStreamUtils.swift in Sources */,
 				03106F671D40D8F900E21F82 /* RunesOptional.swift in Sources */,
 				033F5E941CA3096700647A0A /* SizeExtensions.swift in Sources */,
@@ -1817,6 +1823,7 @@
 				035EB4551CF3CC2D006D73ED /* EmailUtils.swift in Sources */,
 				035A8C3C1D149F2900707E43 /* NetworkActivity.swift in Sources */,
 				035553601C0F622A00E0FCA7 /* UserDefaultsExtensions.swift in Sources */,
+				03D3FA471E550A8F00C8E550 /* Timeline.swift in Sources */,
 				035553481C0F622A00E0FCA7 /* ErrorExtensions.swift in Sources */,
 				0378EC951DF5123700E6A875 /* Joiner.swift in Sources */,
 				03FAF7831C53F6EF0045BB37 /* UTF8.swift in Sources */,
@@ -1947,6 +1954,7 @@
 				0359AF601D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				0324181B1E2EDE0400082E6A /* StrongComponents.swift in Sources */,
 				0378EC8C1DF4DA9900E6A875 /* SQLite.swift in Sources */,
+				03D3FA491E550A8F00C8E550 /* Timeline.swift in Sources */,
 				03E1731A1CF1C8FB0073F383 /* BezierPathExtensions.swift in Sources */,
 				03E173011CF1C8E70073F383 /* Heartbeat.swift in Sources */,
 				03E173121CF1C8FB0073F383 /* DeviceUtils.swift in Sources */,

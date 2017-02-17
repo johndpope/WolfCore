@@ -93,3 +93,7 @@ public func + (left: CGVector, right: CGSize) -> CGSize {
 public func - (left: CGVector, right: CGSize) -> CGSize {
     return CGSize(width: left.dx - right.width, height: left.dy - right.height)
 }
+
+public func * (left: CGSize, right: CGFloat) -> CGSize {
+    return CGSize(width: left.width * right, height: left.height * right)
+}

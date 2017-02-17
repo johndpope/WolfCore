@@ -9,6 +9,11 @@
 import CoreGraphics
 
 extension CGVector {
+    public init(angle theta: CGFloat, magnitude: CGFloat) {
+        dx = cos(theta) * magnitude
+        dy = sin(theta) * magnitude
+    }
+
     public init(_ point1: CGPoint, _ point2: CGPoint) {
         dx = point2.x - point1.x
         dy = point2.y - point1.y

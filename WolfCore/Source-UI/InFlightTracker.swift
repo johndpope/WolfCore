@@ -70,15 +70,16 @@ private var testTokens = [InFlightToken]()
 
 public func testInFlightTracker() {
     dispatchRepeatedOnMain(atInterval: 0.5) { canceler in
-        switch Random.randomDouble() {
+        let n: Double = Random.number()
+        switch n {
         case 0.0..<0.4:
             let token = inFlightTracker.start(withName: "Test")
             testTokens.append(token)
         case 0.4..<0.8:
             if testTokens.count > 0 {
-                let index = Random.randomInt(0..<testTokens.count)
+                let index = Random.number(0..<testTokens.count)
                 let token = testTokens.remove(at: index)
-                let result = Random.randomBoolean() ? Result<Int>.success(0) : Result<Int>.failure(GeneralError(message: "err"))
+                let result = Random.boolean() ? Result<Int>.success(0) : Result<Int>.failure(GeneralError(message: "err"))
                 inFlightTracker.end(withToken: token, result: result)
             }
         case 0.8..<1.0:
