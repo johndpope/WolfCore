@@ -14,6 +14,16 @@
 
 import Foundation
 
+extension Int {
+    public func mapped<T: BinaryFloatingPoint>(from r: CountableRange<Int>, to i: Interval<T>) -> T {
+        return T(self).mapped(from: T(r.lowerBound)..T(r.upperBound - 1), to: i)
+    }
+
+    public func mapped<T: BinaryFloatingPoint>(from r: CountableClosedRange<Int>, to i: Interval<T>) -> T {
+        return T(self).mapped(from: T(r.lowerBound)..T(r.upperBound), to: i)
+    }
+}
+
 extension BinaryFloatingPoint {
     /// The value mapped from the interval `a..b` into the interval `0..1`. (`a` may be greater than `b`).
     public func mapped(from i: Interval<Self>) -> Self {

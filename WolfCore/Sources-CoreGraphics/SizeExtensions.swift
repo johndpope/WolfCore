@@ -33,7 +33,7 @@ extension CGSize {
 
     public func scaleForAspectFit(within size: CGSize) -> CGFloat {
         if size.width != noSize && size.height != noSize {
-            return min(size.width / width, size.height / height)
+            return Swift.min(size.width / width, size.height / height)
         } else if size.width != noSize {
             return size.width / width
         } else {
@@ -43,7 +43,7 @@ extension CGSize {
 
     public func scaleForAspectFill(within size: CGSize) -> CGFloat {
         if size.width != noSize && size.height != noSize {
-            return max(size.width / width, size.height / height)
+            return Swift.max(size.width / width, size.height / height)
         } else if size.width != noSize {
             return size.width / width
         } else {
@@ -59,6 +59,14 @@ extension CGSize {
     public func aspectFill(within size: CGSize) -> CGSize {
         let scale = scaleForAspectFill(within: size)
         return CGSize(vector: CGVector(size: self) * scale)
+    }
+
+    public var max: CGFloat {
+        return Swift.max(width, height)
+    }
+
+    public var min: CGFloat {
+        return Swift.min(width, height)
     }
 }
 

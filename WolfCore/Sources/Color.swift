@@ -197,7 +197,7 @@ public struct Color {
         }
     }
 
-    public static func random(random: Random = Random.sharedInstance, alpha: Frac = 1.0) -> Color {
+    public static func random(random: Random = Random.shared, alpha: Frac = 1.0) -> Color {
         return Color(
             red: random.number(),
             green: random.number(),

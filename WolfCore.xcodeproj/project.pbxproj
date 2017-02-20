@@ -48,6 +48,11 @@
 		031631A31D0969C600DCBB3B /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
 		031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031631A01D09639F00DCBB3B /* FontExtensions.swift */; };
 		031BAB2E1D41E7690017DE30 /* UniqueIDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031BAB2D1D41E7690017DE30 /* UniqueIDTests.swift */; };
+		031D337F1E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D337E1E5A88C3005D4FFF /* FrameBasedSimulator.swift */; };
+		031D33801E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D337E1E5A88C3005D4FFF /* FrameBasedSimulator.swift */; };
+		031D33811E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D337E1E5A88C3005D4FFF /* FrameBasedSimulator.swift */; };
+		031D33851E5A8BE8005D4FFF /* FrameBasedSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D33841E5A8BE8005D4FFF /* FrameBasedSystemTests.swift */; };
+		031D33871E5AA3E9005D4FFF /* VectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D33861E5AA3E9005D4FFF /* VectorNode.swift */; };
 		03206B2D1C3B1B02001A463B /* BSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B2C1C3B1B02001A463B /* BSON.swift */; };
 		03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B301C3C7C5D001A463B /* RegexUtils.swift */; };
 		03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B321C3CBA7E001A463B /* RangeExtensions.swift */; };
@@ -492,6 +497,8 @@
 		03F5A8BA1C4970DF00B124A3 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8B91C4970DF00B124A3 /* Vector.swift */; };
 		03F5A8BC1C49746500B124A3 /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F5A8BB1C49746500B124A3 /* Rect.swift */; };
 		03F723CE1D25C55600D9A5ED /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */; };
+		03F9860F1E57B3EC00728A3D /* SpriteKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9860E1E57B3EC00728A3D /* SpriteKitExtensions.swift */; };
+		03F986111E57D58600728A3D /* DisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F986101E57D58600728A3D /* DisplayLink.swift */; };
 		03FAF77B1C532A640045BB37 /* ASN1Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF77A1C532A640045BB37 /* ASN1Parser.swift */; };
 		03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF77E1C538C3E0045BB37 /* Base64.swift */; };
 		03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7801C53F6DB0045BB37 /* Base64URL.swift */; };
@@ -533,6 +540,11 @@
 		0314DD161D09048C00E23C67 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = "Source-UI/TableViewCell.swift"; sourceTree = "<group>"; };
 		031631A01D09639F00DCBB3B /* FontExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontExtensions.swift; path = "Source-UI/FontExtensions.swift"; sourceTree = "<group>"; };
 		031BAB2D1D41E7690017DE30 /* UniqueIDTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniqueIDTests.swift; sourceTree = "<group>"; };
+		031D337E1E5A88C3005D4FFF /* FrameBasedSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FrameBasedSimulator.swift; path = Sources/FrameBasedSimulator.swift; sourceTree = "<group>"; };
+		031D33821E5A8ADE005D4FFF /* FrameBasedSimulator.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = FrameBasedSimulator.pdf; path = Sources/FrameBasedSimulator.pdf; sourceTree = "<group>"; };
+		031D33831E5A8ADE005D4FFF /* FrameBasedSimulator.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; name = FrameBasedSimulator.sketch; path = Sources/FrameBasedSimulator.sketch; sourceTree = "<group>"; };
+		031D33841E5A8BE8005D4FFF /* FrameBasedSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameBasedSystemTests.swift; sourceTree = "<group>"; };
+		031D33861E5AA3E9005D4FFF /* VectorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VectorNode.swift; path = "Source-UI/VectorNode.swift"; sourceTree = "<group>"; };
 		03206B2C1C3B1B02001A463B /* BSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BSON.swift; path = Sources/BSON.swift; sourceTree = "<group>"; };
 		03206B301C3C7C5D001A463B /* RegexUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegexUtils.swift; path = Sources/RegexUtils.swift; sourceTree = "<group>"; };
 		03206B321C3CBA7E001A463B /* RangeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RangeExtensions.swift; path = Sources/RangeExtensions.swift; sourceTree = "<group>"; };
@@ -720,6 +732,8 @@
 		03F5A8B91C4970DF00B124A3 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector.swift; path = Sources/Vector.swift; sourceTree = "<group>"; };
 		03F5A8BB1C49746500B124A3 /* Rect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rect.swift; path = Sources/Rect.swift; sourceTree = "<group>"; };
 		03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollingStackView.swift; path = "Source-UI/ScrollingStackView.swift"; sourceTree = "<group>"; };
+		03F9860E1E57B3EC00728A3D /* SpriteKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteKitExtensions.swift; path = "Source-UI/SpriteKitExtensions.swift"; sourceTree = "<group>"; };
+		03F986101E57D58600728A3D /* DisplayLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisplayLink.swift; path = "Sources-CoreGraphics/DisplayLink.swift"; sourceTree = "<group>"; };
 		03FAF77A1C532A640045BB37 /* ASN1Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASN1Parser.swift; path = Sources/ASN1Parser.swift; sourceTree = "<group>"; };
 		03FAF77E1C538C3E0045BB37 /* Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base64.swift; path = Sources/Base64.swift; sourceTree = "<group>"; };
 		03FAF7801C53F6DB0045BB37 /* Base64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base64URL.swift; path = Sources/Base64URL.swift; sourceTree = "<group>"; };
@@ -1068,7 +1082,13 @@
 			children = (
 				035553111C0F622A00E0FCA7 /* AnimationUtils.swift */,
 				0390BEC61E47F9E400EA937F /* BounceAnimation.swift */,
+				03F986101E57D58600728A3D /* DisplayLink.swift */,
 				03D3FA461E550A8F00C8E550 /* Timeline.swift */,
+				03F9860E1E57B3EC00728A3D /* SpriteKitExtensions.swift */,
+				031D33861E5AA3E9005D4FFF /* VectorNode.swift */,
+				031D337E1E5A88C3005D4FFF /* FrameBasedSimulator.swift */,
+				031D33821E5A8ADE005D4FFF /* FrameBasedSimulator.pdf */,
+				031D33831E5A8ADE005D4FFF /* FrameBasedSimulator.sketch */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -1243,6 +1263,7 @@
 				03D3D5EA1D41822E000D5236 /* UTF8Tests.swift */,
 				031BAB2D1D41E7690017DE30 /* UniqueIDTests.swift */,
 				032D77811E256D020058CF1B /* GraphTests.swift */,
+				031D33841E5A8BE8005D4FFF /* FrameBasedSystemTests.swift */,
 			);
 			path = "WolfCoreTests-iOS";
 			sourceTree = "<group>";
@@ -1548,6 +1569,7 @@
 				03106F6B1D40D96800E21F82 /* RunesArray.swift in Sources */,
 				033F5E9C1CA3096700647A0A /* Base64.swift in Sources */,
 				03CF07E71DF5340A00B7AD7E /* Skinnable.swift in Sources */,
+				031D33801E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */,
 				032D777F1E256C4D0058CF1B /* Graph.swift in Sources */,
 				038765421D2464CB0082FC79 /* Framework.swift in Sources */,
 				033F5E9D1CA3096700647A0A /* StringExtensions.swift in Sources */,
@@ -1690,6 +1712,7 @@
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
 				03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
+				031D337F1E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */,
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
 				03E13B811C4F28F60074E447 /* SizeExtensions.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
@@ -1707,6 +1730,7 @@
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				033AC3481D171703008C8B93 /* Interval.swift in Sources */,
 				03D3FA361E542C5600C8E550 /* ObjectExtensions.swift in Sources */,
+				031D33871E5AA3E9005D4FFF /* VectorNode.swift in Sources */,
 				039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */,
 				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				035E520E1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */,
@@ -1719,6 +1743,7 @@
 				03F5A8B21C485F6000B124A3 /* UniqueID.swift in Sources */,
 				038457971CED57E80012BCCE /* WindowExtensions.swift in Sources */,
 				03E3C7331D10E3120004DF98 /* Monad.swift in Sources */,
+				03F9860F1E57B3EC00728A3D /* SpriteKitExtensions.swift in Sources */,
 				035553411C0F622A00E0FCA7 /* Button.swift in Sources */,
 				03B218971C20F2900081CE39 /* Heartbeat.swift in Sources */,
 				035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */,
@@ -1736,6 +1761,7 @@
 				03106F661D40D8F900E21F82 /* RunesOptional.swift in Sources */,
 				032418051E2AD99300082E6A /* GraphVisitor.swift in Sources */,
 				03B0D9B71DF385F20073AF42 /* DescriptiveError.swift in Sources */,
+				03F986111E57D58600728A3D /* DisplayLink.swift in Sources */,
 				03D064EA1E54130C0049D61B /* Associated.swift in Sources */,
 				032417F91E2AD84000082E6A /* GraphProtocol.swift in Sources */,
 				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,
@@ -1852,6 +1878,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031D33851E5A8BE8005D4FFF /* FrameBasedSystemTests.swift in Sources */,
 				03D3D5EB1D41822E000D5236 /* UTF8Tests.swift in Sources */,
 				03B7BDED1D40B8D900177066 /* Base64Tests.swift in Sources */,
 				03D3D5E91D417803000D5236 /* HexTests.swift in Sources */,
@@ -1870,6 +1897,7 @@
 				03E173051CF1C8E70073F383 /* NotificationCenterExtensions.swift in Sources */,
 				03E1730E1CF1C8FB0073F383 /* AnimationUtils.swift in Sources */,
 				03E172E91CF1C8B60073F383 /* OutputStreamUtils.swift in Sources */,
+				031D33811E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */,
 				03E172C01CF1C8AD0073F383 /* Point.swift in Sources */,
 				030C035C1D148F3900EF040E /* Locker.swift in Sources */,
 				0378EC851DF4D89900E6A875 /* Cache.swift in Sources */,
