@@ -62,7 +62,7 @@ open class Button: UIButton, Skinnable {
 
         addSubview(customView)
         customView.makeTransparent()
-        customView.constrainToSuperview(identifier: identifier ?? "button")
+        customView.constrainFrame(identifier: identifier ?? "button")
         customView.isUserInteractionEnabled = false
     }
 

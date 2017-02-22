@@ -47,7 +47,7 @@ public class FlexView: View {
     private func setContentView(_ view: UIView) {
         view.makeTransparent()
         addSubview(view)
-        view.constrainToSuperview()
+        view.constrainFrame()
     }
 
     private func sync() {

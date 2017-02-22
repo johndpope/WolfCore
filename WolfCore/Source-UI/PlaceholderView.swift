@@ -83,7 +83,7 @@ open class PlaceholderView: View {
         makeTransparent()
         contentMode = .redraw
         addSubview(titleLabel)
-        titleLabel.constrainCenterToCenterOfSuperview()
+        titleLabel.constrainCenterToCenter()
     }
 
     open override func draw(_ rect: CGRect) {

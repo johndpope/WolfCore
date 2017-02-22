@@ -53,6 +53,9 @@
 		031D33811E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D337E1E5A88C3005D4FFF /* FrameBasedSimulator.swift */; };
 		031D33851E5A8BE8005D4FFF /* FrameBasedSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D33841E5A8BE8005D4FFF /* FrameBasedSystemTests.swift */; };
 		031D33871E5AA3E9005D4FFF /* VectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D33861E5AA3E9005D4FFF /* VectorNode.swift */; };
+		031D338D1E5B7385005D4FFF /* ConicalGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D338C1E5B7385005D4FFF /* ConicalGradientLayer.swift */; };
+		031D338F1E5B7A7C005D4FFF /* ConicalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D338E1E5B7A7C005D4FFF /* ConicalGradientView.swift */; };
+		031D33931E5B9D1A005D4FFF /* ConicalGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031D33921E5B9D1A005D4FFF /* ConicalGradient.swift */; };
 		03206B2D1C3B1B02001A463B /* BSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B2C1C3B1B02001A463B /* BSON.swift */; };
 		03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B301C3C7C5D001A463B /* RegexUtils.swift */; };
 		03206B331C3CBA7E001A463B /* RangeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03206B321C3CBA7E001A463B /* RangeExtensions.swift */; };
@@ -111,6 +114,9 @@
 		032D77891E256F370058CF1B /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032D77871E256F370058CF1B /* Edge.swift */; };
 		032D778A1E256F370058CF1B /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032D77871E256F370058CF1B /* Edge.swift */; };
 		032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F77AA1C1580B5001FCF2C /* ScrollView.swift */; };
+		033038071E5D12AB008E37F6 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033038061E5D12AB008E37F6 /* Lorem.swift */; };
+		033038081E5D12AB008E37F6 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033038061E5D12AB008E37F6 /* Lorem.swift */; };
+		033038091E5D12AB008E37F6 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033038061E5D12AB008E37F6 /* Lorem.swift */; };
 		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
 		033882241CFF97C200C8972B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033882231CFF97C200C8972B /* TextField.swift */; };
 		0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */; };
@@ -373,6 +379,11 @@
 		03D3FA481E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
 		03D3FA491E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
 		03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDBACF1C5A9D5400A8CDAE /* Position.swift */; };
+		03E006C41E5D65AE00AA8C3F /* ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E006C31E5D65AE00AA8C3F /* ModelObject.swift */; };
+		03E006C51E5D65AE00AA8C3F /* ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E006C31E5D65AE00AA8C3F /* ModelObject.swift */; };
+		03E006C61E5D65AE00AA8C3F /* ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E006C31E5D65AE00AA8C3F /* ModelObject.swift */; };
+		03E006C81E5D65E500AA8C3F /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E006C71E5D65E500AA8C3F /* ModelView.swift */; };
+		03E006CA1E5D662D00AA8C3F /* ModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E006C91E5D662D00AA8C3F /* ModelViewController.swift */; };
 		03E13B7C1C4F28F60074E447 /* AffineTransformUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */; };
 		03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B761C4F28F60074E447 /* CGColorUtils.swift */; };
 		03E13B7E1C4F28F60074E447 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E13B771C4F28F60074E447 /* PDF.swift */; };
@@ -545,6 +556,9 @@
 		031D33831E5A8ADE005D4FFF /* FrameBasedSimulator.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; name = FrameBasedSimulator.sketch; path = Sources/FrameBasedSimulator.sketch; sourceTree = "<group>"; };
 		031D33841E5A8BE8005D4FFF /* FrameBasedSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameBasedSystemTests.swift; sourceTree = "<group>"; };
 		031D33861E5AA3E9005D4FFF /* VectorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VectorNode.swift; path = "Source-UI/VectorNode.swift"; sourceTree = "<group>"; };
+		031D338C1E5B7385005D4FFF /* ConicalGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConicalGradientLayer.swift; path = "Source-UI/ConicalGradientLayer.swift"; sourceTree = "<group>"; };
+		031D338E1E5B7A7C005D4FFF /* ConicalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConicalGradientView.swift; path = "Source-UI/ConicalGradientView.swift"; sourceTree = "<group>"; };
+		031D33921E5B9D1A005D4FFF /* ConicalGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConicalGradient.swift; sourceTree = "<group>"; };
 		03206B2C1C3B1B02001A463B /* BSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BSON.swift; path = Sources/BSON.swift; sourceTree = "<group>"; };
 		03206B301C3C7C5D001A463B /* RegexUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegexUtils.swift; path = Sources/RegexUtils.swift; sourceTree = "<group>"; };
 		03206B321C3CBA7E001A463B /* RangeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RangeExtensions.swift; path = Sources/RangeExtensions.swift; sourceTree = "<group>"; };
@@ -575,6 +589,7 @@
 		032D77831E256F210058CF1B /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		032D77871E256F370058CF1B /* Edge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		032F77AA1C1580B5001FCF2C /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollView.swift; path = "Source-UI/ScrollView.swift"; sourceTree = "<group>"; };
+		033038061E5D12AB008E37F6 /* Lorem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lorem.swift; path = Sources/Lorem.swift; sourceTree = "<group>"; };
 		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraitCollectionExtensions.swift; path = "Source-UI/TraitCollectionExtensions.swift"; sourceTree = "<group>"; };
 		033882231CFF97C200C8972B /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextField.swift; path = "Source-UI/TextField.swift"; sourceTree = "<group>"; };
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = Sources/SequenceExtensions.swift; sourceTree = "<group>"; };
@@ -702,6 +717,9 @@
 		03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLExtensions.swift; path = "Sources-Foundation/URLExtensions.swift"; sourceTree = "<group>"; };
 		03D3FA461E550A8F00C8E550 /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = "Sources-Foundation/Timeline.swift"; sourceTree = "<group>"; };
 		03DDBACF1C5A9D5400A8CDAE /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Position.swift; path = Sources/Position.swift; sourceTree = "<group>"; };
+		03E006C31E5D65AE00AA8C3F /* ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelObject.swift; path = Sources/ModelObject.swift; sourceTree = "<group>"; };
+		03E006C71E5D65E500AA8C3F /* ModelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelView.swift; path = "Source-UI/ModelView.swift"; sourceTree = "<group>"; };
+		03E006C91E5D662D00AA8C3F /* ModelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelViewController.swift; path = "Source-UI/ModelViewController.swift"; sourceTree = "<group>"; };
 		03E13B751C4F28F60074E447 /* AffineTransformUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AffineTransformUtils.swift; path = "Sources-CoreGraphics/AffineTransformUtils.swift"; sourceTree = "<group>"; };
 		03E13B761C4F28F60074E447 /* CGColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGColorUtils.swift; path = "Sources-CoreGraphics/CGColorUtils.swift"; sourceTree = "<group>"; };
 		03E13B771C4F28F60074E447 /* PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDF.swift; path = "Sources-CoreGraphics/PDF.swift"; sourceTree = "<group>"; };
@@ -825,6 +843,7 @@
 				0359AF5D1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift */,
 				03E13B831C4FEE720074E447 /* Grid.swift */,
 				033E14FC1C7CC71C00BA3E63 /* Matrix.swift */,
+				03E006C31E5D65AE00AA8C3F /* ModelObject.swift */,
 				03E3C7321D10E3120004DF98 /* Monad.swift */,
 				03D3FA351E542C5600C8E550 /* ObjectExtensions.swift */,
 				03DDBACF1C5A9D5400A8CDAE /* Position.swift */,
@@ -905,6 +924,9 @@
 				036B834A1C4320AC00491AFF /* ColorFunc.swift */,
 				036B834C1C4320F300491AFF /* Gradient.swift */,
 				03D064DF1E528EA70049D61B /* Shading.swift */,
+				031D33921E5B9D1A005D4FFF /* ConicalGradient.swift */,
+				031D338C1E5B7385005D4FFF /* ConicalGradientLayer.swift */,
+				031D338E1E5B7A7C005D4FFF /* ConicalGradientView.swift */,
 			);
 			name = Color;
 			sourceTree = "<group>";
@@ -945,6 +967,7 @@
 				037016031E0CC8A1006505EF /* OptionalExtensions.swift */,
 				0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */,
 				035553381C0F622A00E0FCA7 /* ViewDebugging.swift */,
+				033038061E5D12AB008E37F6 /* Lorem.swift */,
 				0314DCC41D08ED4D00E23C67 /* InFlight */,
 			);
 			name = Developer;
@@ -1053,6 +1076,7 @@
 				0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */,
 				035553251C0F622A00E0FCA7 /* ImageView.swift */,
 				035553281C0F622A00E0FCA7 /* Label.swift */,
+				03E006C71E5D65E500AA8C3F /* ModelView.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
 				039C91281E4CFCE2000AE01B /* OverlayWindow.swift */,
 				03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */,
@@ -1109,6 +1133,7 @@
 				035EB4541CF3CC2D006D73ED /* EmailUtils.swift */,
 				0389BD301CF5130600390914 /* AlertControllerExtensions.swift */,
 				0314DCBC1D08ECEC00E23C67 /* TabBarController.swift */,
+				03E006C91E5D662D00AA8C3F /* ModelViewController.swift */,
 				0314DCC01D08ED2200E23C67 /* NavigationController.swift */,
 				0314DCB81D08ECB100E23C67 /* ViewController.swift */,
 				035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */,
@@ -1607,6 +1632,7 @@
 				033F5EB21CA3096700647A0A /* ImageExtensions.swift in Sources */,
 				0378EC841DF4D89900E6A875 /* Cache.swift in Sources */,
 				0324181E1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
+				03E006C51E5D65AE00AA8C3F /* ModelObject.swift in Sources */,
 				03106F631D40D81F00E21F82 /* Runes.swift in Sources */,
 				033F5EB31CA3096700647A0A /* RegexUtils.swift in Sources */,
 				03D3FA371E542C5600C8E550 /* ObjectExtensions.swift in Sources */,
@@ -1633,6 +1659,7 @@
 				03B0D9B31DF33A6A0073AF42 /* Skin.swift in Sources */,
 				033F5EC11CA3096700647A0A /* Point.swift in Sources */,
 				033F5EC21CA3096700647A0A /* IntPoint.swift in Sources */,
+				033038081E5D12AB008E37F6 /* Lorem.swift in Sources */,
 				033F5EC51CA3096700647A0A /* Size.swift in Sources */,
 				033F5EC61CA3096700647A0A /* VectorExtensions.swift in Sources */,
 				0324181A1E2EDE0400082E6A /* StrongComponents.swift in Sources */,
@@ -1684,6 +1711,7 @@
 				03AC919C1CEB3DF3006AED00 /* PagingView.swift in Sources */,
 				0378EC991DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */,
 				03F261501D48B1D800523640 /* ImageViewerViewController.swift in Sources */,
+				03E006C41E5D65AE00AA8C3F /* ModelObject.swift in Sources */,
 				035553401C0F622A00E0FCA7 /* BundleExtensions.swift in Sources */,
 				0314DCC11D08ED2200E23C67 /* NavigationController.swift in Sources */,
 				0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */,
@@ -1693,6 +1721,7 @@
 				0314DD151D09044D00E23C67 /* NavigationBarExtensions.swift in Sources */,
 				0302D2F81CF8F34300717170 /* TextView.swift in Sources */,
 				03D064E81E5412AE0049D61B /* FlexView.swift in Sources */,
+				03E006CA1E5D662D00AA8C3F /* ModelViewController.swift in Sources */,
 				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
 				0324AEF81CF81ED50080DFF6 /* InFlightToken.swift in Sources */,
 				03CF08001DF5381A00B7AD7E /* WebViewController.swift in Sources */,
@@ -1783,6 +1812,7 @@
 				0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */,
 				0378EC921DF4F8E200E6A875 /* HTTPCacheLayer.swift in Sources */,
 				035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */,
+				03E006C81E5D65E500AA8C3F /* ModelView.swift in Sources */,
 				03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */,
 				0359AF5A1D1B1932001F71DC /* KeyboardMovement.swift in Sources */,
 				0322E89E1D13FAFC00EFF3F6 /* Block.swift in Sources */,
@@ -1795,6 +1825,7 @@
 				033AC34C1D17172E008C8B93 /* Frac.swift in Sources */,
 				038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */,
 				0303BCD31E404E6200B196CA /* PlaceholderView.swift in Sources */,
+				033038071E5D12AB008E37F6 /* Lorem.swift in Sources */,
 				0314DCBD1D08ECEC00E23C67 /* TabBarController.swift in Sources */,
 				0324AEFC1CF81F350080DFF6 /* StackView.swift in Sources */,
 				03B0D9B21DF33A6A0073AF42 /* Skin.swift in Sources */,
@@ -1823,6 +1854,7 @@
 				03CA5A401E39195E00A7D3C6 /* PageControl.swift in Sources */,
 				0314DCF51D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
 				038765411D2464CB0082FC79 /* Framework.swift in Sources */,
+				031D338D1E5B7385005D4FFF /* ConicalGradientLayer.swift in Sources */,
 				03D3FA401E542CF000C8E550 /* URLExtensions.swift in Sources */,
 				0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */,
 				0378EC8A1DF4DA9700E6A875 /* SQLite.swift in Sources */,
@@ -1830,6 +1862,7 @@
 				03F5A8B81C496F2400B124A3 /* Size.swift in Sources */,
 				03E13B821C4F28F60074E447 /* VectorExtensions.swift in Sources */,
 				0355534D1C0F622A00E0FCA7 /* HTTPError.swift in Sources */,
+				031D338F1E5B7A7C005D4FFF /* ConicalGradientView.swift in Sources */,
 				035CEB9B1D4883BB006FFD16 /* SwiftJSON.swift in Sources */,
 				037016041E0CC8A1006505EF /* OptionalExtensions.swift in Sources */,
 				034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
@@ -1855,6 +1888,7 @@
 				03FAF7831C53F6EF0045BB37 /* UTF8.swift in Sources */,
 				03F723CE1D25C55600D9A5ED /* ScrollingStackView.swift in Sources */,
 				03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */,
+				031D33931E5B9D1A005D4FFF /* ConicalGradient.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
 				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
 				0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */,
@@ -1974,6 +2008,7 @@
 				0322E8A41D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				03E172E11CF1C8B60073F383 /* ISO8601.swift in Sources */,
 				03E173071CF1C8E70073F383 /* NotificationActions.swift in Sources */,
+				033038091E5D12AB008E37F6 /* Lorem.swift in Sources */,
 				03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */,
 				03E172F81CF1C8CC0073F383 /* CGUtils.swift in Sources */,
 				03E172D71CF1C8B60073F383 /* CryptoUtils.swift in Sources */,
@@ -1990,6 +2025,7 @@
 				03E172FB1CF1C8CC0073F383 /* RectExtensions.swift in Sources */,
 				03E173261CF1C8FB0073F383 /* Label.swift in Sources */,
 				03E1730B1CF1C8FB0073F383 /* ApplicationNotificationActions.swift in Sources */,
+				03E006C61E5D65AE00AA8C3F /* ModelObject.swift in Sources */,
 				03E173231CF1C8FB0073F383 /* Button.swift in Sources */,
 				03E172FA1CF1C8CC0073F383 /* PointExtensions.swift in Sources */,
 				03E172F11CF1C8B60073F383 /* UTF8.swift in Sources */,

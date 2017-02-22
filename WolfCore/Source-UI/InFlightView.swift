@@ -207,6 +207,6 @@ public class InFlightView: View {
         columnsStackView.spacing = 20.0
 
         addSubview(columnsStackView)
-        columnsStackView.constrainToSuperview(insets: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20), identifier: "inFlightColumns")
+        columnsStackView.constrainFrame(insets: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20), identifier: "inFlightColumns")
     }
 }

@@ -20,10 +20,34 @@
 #endif
 
 import CoreGraphics
+import CoreImage
 
 extension OSImage {
     public var bounds: CGRect {
         return CGRect(origin: .zero, size: size)
+    }
+}
+
+extension OSImage {
+    public func filteredBlackAndWhite() -> OSImage {
+        let context = CIContext(options: nil)
+        let ciImage = CoreImage.CIImage(image: self)!
+
+        // Set image color to b/w
+        let bwFilter = CIFilter(name: "CIColorControls")!
+        bwFilter.setValuesForKeys([kCIInputImageKey: ciImage, kCIInputBrightnessKey: 0.0, kCIInputContrastKey: 1.1, kCIInputSaturationKey: 0.0])
+        let bwFilterOutput = (bwFilter.outputImage)!
+
+        // Adjust exposure
+        let exposureFilter = CIFilter(name: "CIExposureAdjust")!
+        exposureFilter.setValuesForKeys([kCIInputImageKey: bwFilterOutput, kCIInputEVKey: 0.7])
+        let exposureFilterOutput = (exposureFilter.outputImage)!
+
+        // Create OSImage from context
+        let bwCGIImage = context.createCGImage(exposureFilterOutput, from: ciImage.extent)
+        let resultImage = UIImage(cgImage: bwCGIImage!, scale: 1.0, orientation: self.imageOrientation)
+
+        return resultImage
     }
 }
 

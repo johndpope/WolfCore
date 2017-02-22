@@ -67,7 +67,7 @@ extension UIView {
         guard typeName(of: view) != "_UILayoutGuide" else { return }
 
         if let skinnable = view as? Skinnable {
-            logTrace("\(tabs(level))💟 💚 \(view††)", group: .skin)
+            logTrace("\(tabs(level))💟 💚 \(view††) to \(shortName(of: skin))", group: .skin)
             skinnable.updateAppearance(skin: skin)
         } else {
             logTrace("\(tabs(level))💟 🖤 \(view††)", group: .skin)
@@ -75,7 +75,7 @@ extension UIView {
 
         for subview in view.subviews {
             if let subviewSkin = subview.privateSkin {
-                logTrace("\(tabs(level))💟 ⛔️ \(subview††) has \(shortName(of: subviewSkin))", group: .skin)
+                logTrace("\(tabs(level + 1))💟 ⛔️ \(subview††) has \(shortName(of: subviewSkin))", group: .skin)
             } else {
                 propagate(skin: skin, to: subview, level: level + 1)
             }

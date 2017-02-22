@@ -43,12 +43,8 @@ extension OSView {
 }
 
 extension OSView {
-    @discardableResult public func constrainToSuperview(active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
-        assert(superview != nil, "View must have a superview.")
-        return constrain(toView: superview!, active: active, insets: insets, identifier: identifier)
-    }
-
-    @discardableResult public func constrain(toView view: OSView, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainFrame(to view: OSView? = nil, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
         let constraints = [
             leadingAnchor == view.leadingAnchor + insets.left =%= [identifier, "leading"],
             trailingAnchor == view.trailingAnchor - insets.right =%= [identifier, "trailing"],
@@ -61,7 +57,8 @@ extension OSView {
         return constraints
     }
 
-    @discardableResult public func constrainCenter(to point: CGPoint, of view: UIView, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainCenter(to point: CGPoint, of view: UIView? = nil, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
         let constraints = [
             centerXAnchor == view.leadingAnchor + point.x =%= [identifier, "centerX"],
             centerYAnchor == view.topAnchor + point.y =%= [identifier, "centerY"]
@@ -71,16 +68,12 @@ extension OSView {
         }
         return constraints
     }
-    
-    @discardableResult public func constrainCenterToCenterOfSuperview(active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
-        assert(superview != nil, "View must have a superview.")
-        return constrainCenter(toCenterOfView: superview!, active: active, identifier: identifier)
-    }
 
-    public func constrainCenter(toCenterOfView view: OSView, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainCenterToCenter(of view: OSView? = nil, offsets: CGVector = .zero, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
         let constraints = [
-            centerXAnchor == view.centerXAnchor =%= [identifier, "centerY"],
-            centerYAnchor == view.centerYAnchor =%= [identifier, "centerX"]
+            centerXAnchor == view.centerXAnchor + offsets.dx =%= [identifier, "centerY"],
+            centerYAnchor == view.centerYAnchor + offsets.dy =%= [identifier, "centerX"]
         ]
         if active {
             activateConstraints(constraints)
@@ -88,10 +81,39 @@ extension OSView {
         return constraints
     }
 
-    @discardableResult public func constrain(toSize size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainSize(to size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
-            widthAnchor == size.width =%= [identifier, "centerY"],
-            heightAnchor == size.height =%= [identifier, "centerY"]
+            widthAnchor == size.width =%= [identifier, "width"],
+            heightAnchor == size.height =%= [identifier, "height"]
+        ]
+        if active {
+            activateConstraints(constraints)
+        }
+        return constraints
+    }
+
+    private func checkTargetView(view: OSView?) -> OSView {
+        guard let view = view ?? superview else {
+            fatalError("View must have a superview.")
+        }
+        return view
+    }
+
+    @discardableResult public func constrainMaxWidth(to view: OSView? = nil, active: Bool = true, inset: CGFloat = 0, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
+        let constraints = [
+            widthAnchor <= view.widthAnchor - inset
+        ]
+        if active {
+            activateConstraints(constraints)
+        }
+        return constraints
+    }
+
+    @discardableResult public func constrainMaxHeight(to view: OSView? = nil, active: Bool = true, inset: CGFloat = 0, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
+        let constraints = [
+            heightAnchor <= view.heightAnchor - inset
         ]
         if active {
             activateConstraints(constraints)

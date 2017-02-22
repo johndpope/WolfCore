@@ -111,6 +111,70 @@ open class Label: OSLabel, Skinnable {
         syncToFontStyle(for: skin)
     }
 
+    public var drawAtTop = false {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    override open func drawText(in rect: CGRect) {
+        super.drawText(in: rect)
+
+//        guard drawAtTop else {
+//            super.drawText(in: rect)
+//            return
+//        }
+//
+//        guard let labelText = text else { return super.drawText(in: rect) }
+//
+//        let originalFont = font!
+//        let attrText: AString = (self.attributedText ?? NSAttributedString(string: labelText, attributes: [NSFontAttributeName: originalFont]))§
+//
+//        let context = NSStringDrawingContext()
+//        context.minimumScaleFactor = adjustsFontSizeToFitWidth ? self.minimumScaleFactor : 1.0
+//        var size = rect.size
+//        let firstBounds = attrText.boundingRect(with: size, options: [], context: context)
+//        let actualScaleFactor = context.actualScaleFactor
+//        print("rect: \(rect), totalBounds: \(context.totalBounds), actualScaleFactor: \(actualScaleFactor)")
+//        guard actualScaleFactor < 1.0 else {
+//            super.drawText(in: rect)
+//            return
+//        }
+//
+//        let reducedFont = originalFont.withSize(originalFont.pointSize * actualScaleFactor)
+//        attrText.font = reducedFont
+//        let newBounds = attrText.boundingRect(with: rect.size, options: [], context: context)
+//
+//        var newRect = rect
+//        newRect.origin.y = newRect.origin.y - newBounds.height / 2
+//        print("rect: \(rect), newRect: \(newRect), newBounds: \(newBounds)")
+//
+//        super.drawText(in: newRect)
+
+//        guard let labelText = text else { return super.drawText(in: rect) }
+//
+//        let attributedText = self.attributedText ?? NSAttributedString(string: labelText, attributes: [NSFontAttributeName: font])
+//        //var newRect = rect
+//            //newRect.size.height
+//        let context = NSStringDrawingContext()
+//        context.minimumScaleFactor = adjustsFontSizeToFitWidth ? self.minimumScaleFactor : 1.0
+//        var size = rect.size
+//        if numberOfLines != 0 {
+//            size.height = CGFloat(numberOfLines) * font.lineHeight
+//        }
+//        let newRect = attributedText.boundingRect(with: size, options: .usesLineFragmentOrigin, context: context)
+//        attributedText.draw(with: newRect, options: .usesLineFragmentOrigin, context: context)
+//        //        newRect.origin.y = newRect.origin.y - rect.height / 2 + newRect.height / 2
+//
+////        if numberOfLines != 0 {
+////            newRect.size.height = min(newRect.size.height, CGFloat(numberOfLines) * font.lineHeight)
+////        }
+//
+//        print("rect: \(rect), newRect: \(newRect), totalBounds: \(context.totalBounds)")
+//        //        newRect.origin.y = -20
+//        //super.drawText(in: newRect)
+    }
+
     open func setup() { }
 
 //    open func updateAppearance() {

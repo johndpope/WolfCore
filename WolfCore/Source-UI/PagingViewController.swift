@@ -55,7 +55,7 @@ open class PagingViewController: ViewController {
         super.viewDidLoad()
 
         view.insertSubview(pagingView, at: 0)
-        pagingView.constrainToSuperview()
+        pagingView.constrainFrame()
 
         if let bottomView = bottomView {
             bottomViewToPageControlConstraint = pagingView.pageControl.bottomAnchor == bottomView.topAnchor - 20

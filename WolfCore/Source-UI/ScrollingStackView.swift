@@ -69,7 +69,7 @@ open class ScrollingStackView: View {
 
     private func setupOuterStackView() {
         keyboardAvoidantView.addSubview(outerStackView)
-        outerStackView.constrainToSuperview()
+        outerStackView.constrainFrame()
     }
 
     private func setupScrollView() {

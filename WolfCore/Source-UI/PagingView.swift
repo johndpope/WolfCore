@@ -184,12 +184,12 @@ open class PagingView: View {
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         addSubview(scrollView)
-        scrollView.constrainToSuperview(identifier: "pagingScroll")
+        scrollView.constrainFrame(identifier: "pagingScroll")
 
         contentView = PagingContentView()
         contentView.makeTransparent(debugColor: .blue, debug: debug)
         scrollView.addSubview(contentView)
-        contentView.constrainToSuperview(identifier: "pagingScrollContent")
+        contentView.constrainFrame(identifier: "pagingScrollContent")
         contentWidthConstraint = contentView.widthAnchor == 500
         let contentHeightConstraint = contentView.heightAnchor == heightAnchor - 0.5
         activateConstraints(

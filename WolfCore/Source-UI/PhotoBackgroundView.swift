@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class PhotoBackgroundView: View {
+open class PhotoBackgroundView: View {
     public private(set) var safeAreaView: PhotoSafeAreaView!
 
     public private(set) lazy var gradientView: GradientOverlayView = {
@@ -17,19 +17,19 @@ public class PhotoBackgroundView: View {
         return view
     }()
 
-    private lazy var imageView: ImageView = {
+    public private(set) lazy var imageView: ImageView = {
         let view = ImageView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         return view
     }()
 
-    public override func setup() {
+    open override func setup() {
         super.setup()
         addSubview(imageView)
-        imageView.constrainToSuperview()
+        imageView.constrainFrame()
         addSubview(gradientView)
-        gradientView.constrainToSuperview()
+        gradientView.constrainFrame()
         safeAreaView = PhotoSafeAreaView.addToView(view: self)
     }
 

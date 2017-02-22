@@ -149,3 +149,17 @@ extension OSColor {
     }
 
 }
+
+extension OSColor {
+    public static func oneColor(_ color: OSColor) -> ColorFunc {
+        return WolfCore.oneColor(Color(color))
+    }
+
+    public static func twoColor(_ color1: OSColor, _ color2: OSColor) -> ColorFunc {
+        return WolfCore.twoColor(Color(color1), Color(color2))
+    }
+
+    public static func threeColor(_ color1: OSColor, _ color2: OSColor, _ color3: OSColor) -> ColorFunc {
+        return WolfCore.threeColor(Color(color1), Color(color2), Color(color3))
+    }
+}

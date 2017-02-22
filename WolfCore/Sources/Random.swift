@@ -13,7 +13,10 @@
     import Security
 #endif
 
-private var _instance = Random()
+private var _instance: Random = {
+    srand48(Int(arc4random()))
+    return Random()
+}()
 
 public struct Random {
     #if os(Linux)
@@ -63,6 +66,10 @@ public struct Random {
         return Int(number(Double(i.lowerBound)..Double(i.upperBound + 1)))
     }
 
+    public func count(_ i: CountableClosedRange<Int>) -> CountableClosedRange<Int> {
+        return 0 ... number(i.lowerBound..<i.upperBound)
+    }
+
     // returns a random boolean
     public func boolean() -> Bool {
         return number(0...1) > 0
@@ -104,6 +111,10 @@ public struct Random {
     // returns an integer in the closed range start...end
     public static func number(_ i: CountableClosedRange<Int>) -> Int {
         return Random.shared.number(i)
+    }
+
+    public static func count(_ i: CountableClosedRange<Int>) -> CountableClosedRange<Int> {
+        return Random.shared.count(i)
     }
 
     // returns a random boolean

@@ -107,13 +107,13 @@ public class ImageViewerViewController: ViewController {
 
     private func setupSubviews() {
         view.addSubview(scrollView)
-        scrollView.constrainToSuperview()
+        scrollView.constrainFrame()
 
         scrollView.addSubview(contentView)
-        contentView.constrainToSuperview()
+        contentView.constrainFrame()
 
         contentView.addSubview(imageView)
-        imageView.constrainCenterToCenterOfSuperview()
+        imageView.constrainCenterToCenter()
         activateConstraints(
             imageView.widthAnchor <= contentView.widthAnchor,
             imageView.heightAnchor <= contentView.heightAnchor,

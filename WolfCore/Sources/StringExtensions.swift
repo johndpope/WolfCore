@@ -427,3 +427,11 @@ public postfix func ® (lhs: StringName) -> String {
 public func tabs(_ count: Int) -> String {
     return String(repeating: "\t", count: count)
 }
+
+public extension String {
+    var capitalizedFirstCharacter: String {
+        let first = String(self.characters.first!).capitalized
+        let rest = String(self.characters.dropFirst())
+        return first + rest
+    }
+}

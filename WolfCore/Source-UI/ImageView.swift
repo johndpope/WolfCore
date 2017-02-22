@@ -12,6 +12,7 @@ public var sharedImageCache: Cache<UIImage>! = Cache<UIImage>(filename: "sharedI
 public var sharedDataCache: Cache<Data>! = Cache<Data>(filename: "sharedDataCache", sizeLimit: 100000, includeHTTP: true)
 
 public typealias ImageViewBlock = (ImageView) -> Void
+public typealias ImageProcessingBlock = (UIImage) -> UIImage
 
 open class ImageView: UIImageView, Skinnable {
     public var transparentToTouches = false
@@ -21,6 +22,21 @@ open class ImageView: UIImageView, Skinnable {
     public var onRetrieveSuccess: ImageViewBlock?
     public var onRetrieveFailure: ImageViewBlock?
     public var onRetrieveFinally: ImageViewBlock?
+    public var onPostprocessImage: ImageProcessingBlock?
+
+    open override var image: UIImage? {
+        get {
+            return super.image
+        }
+
+        set {
+            if let image = newValue, let onPostprocessImage = onPostprocessImage {
+                super.image = onPostprocessImage(image)
+            } else {
+                super.image = newValue
+            }
+        }
+    }
 
     public var pdfTintColor: UIColor? {
         didSet {
