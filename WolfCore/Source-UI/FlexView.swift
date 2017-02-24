@@ -48,6 +48,7 @@ public class FlexView: View {
         view.makeTransparent()
         addSubview(view)
         view.constrainFrame()
+        view.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
     }
 
     private func sync() {

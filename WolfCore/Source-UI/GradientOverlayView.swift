@@ -17,24 +17,21 @@ open class GradientOverlayView: View {
         return layer as! CAGradientLayer
     }
 
-    private var colors = [UIColor.red.cgColor, UIColor.blue.cgColor]
-
-    public var startColor: UIColor {
-        get { return UIColor(cgColor: colors[0]) }
-
-        set {
-            colors[0] = newValue.cgColor
-            gradientLayer.colors = colors
+    public var colorFracs: [ColorFrac]! {
+        didSet {
+            syncColors()
         }
     }
 
-    public var endColor: UIColor {
-        get { return UIColor(cgColor: colors[1]) }
-
-        set {
-            colors[1] = newValue.cgColor
-            gradientLayer.colors = colors
+    private func syncColors() {
+        var colors = [CGColor]()
+        var locations = [NSNumber]()
+        colorFracs.map { (color, frac) in
+            colors.append(color.cgColor)
+            locations.append(NSNumber(value: Double(frac)))
         }
+        gradientLayer.colors = colors
+        gradientLayer.locations = locations
     }
 
     public var startPoint: CGPoint {

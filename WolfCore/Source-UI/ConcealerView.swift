@@ -27,8 +27,10 @@ public class ConcealerView: GradientOverlayView {
     public override func setup() {
         super.setup()
         startPoint = CGPoint(x: 0, y: 0.5)
-        startColor = color.withAlphaComponent(0.0)
-        endColor = color
+        colorFracs = [
+            (Color(color.withAlphaComponent(0.0)), 0.0),
+            (Color(color), 1.0)
+        ]
     }
 
     public override func didMoveToSuperview() {

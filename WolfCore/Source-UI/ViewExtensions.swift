@@ -81,6 +81,14 @@ extension OSView {
         return constraints
     }
 
+    @discardableResult public func constrainWidth(to width: CGFloat, active: Bool = true, idenifier: String? = nil) -> NSLayoutConstraint {
+        return activateConstraint(widthAnchor == width)
+    }
+
+    @discardableResult public func constrainHeight(to height: CGFloat, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+        return activateConstraint(heightAnchor == height)
+    }
+
     @discardableResult public func constrainSize(to size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
             widthAnchor == size.width =%= [identifier, "width"],

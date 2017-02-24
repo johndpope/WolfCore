@@ -123,6 +123,23 @@ public class Lorem {
         return URL(string: Random.choice(among: imageURLs))!
     }
 
+    private static func _avatarURL(type: String) -> URL {
+        let n = Random.number(0...99)
+        return URL(string: "https://randomuser.me/api/portraits/\(type)/\(n).jpg")!
+    }
+
+    public static var maleAvatarURL: URL {
+        return _avatarURL(type: "men")
+    }
+
+    public static var femaleAvatarURL: URL {
+        return _avatarURL(type: "women")
+    }
+
+    public static var avatarURL: URL {
+        return Random.boolean() ? maleAvatarURL : femaleAvatarURL
+    }
+
     // ======================================================= //
     // MARK: - Private
     // ======================================================= //
