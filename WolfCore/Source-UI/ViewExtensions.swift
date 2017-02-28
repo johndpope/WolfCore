@@ -24,13 +24,6 @@ public typealias ViewBlock = (OSView) -> Bool
 
 extension OSView {
 #if !os(macOS)
-    public func makeTransparent(debugColor: OSColor = .clear, debug: Bool = false) {
-        isOpaque = false
-        backgroundColor = debug ? debugColor.withAlphaComponent(0.25) : .clear
-    }
-#endif
-
-#if !os(macOS)
     public func isTransparentToTouch(at point: CGPoint, with event: UIEvent?) -> Bool {
         for subview in subviews {
             if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
@@ -248,6 +241,14 @@ extension OSView {
 
 #if os(iOS)
     extension UIView {
+        public func __setup() {
+            translatesAutoresizingMaskIntoConstraints = false
+            isOpaque = false
+            normalBackgroundColor = .clear
+        }
+    }
+
+    extension UIView {
         public var statusBarFrame: CGRect? {
             guard let window = window else { return nil }
             let statusBarFrame = UIApplication.shared.statusBarFrame
@@ -270,6 +271,51 @@ extension OSView {
             for subview in subviews {
                 subview.removeFromSuperview()
             }
+        }
+    }
+
+    fileprivate struct AssociatedKeys {
+        static var debug = "WolfCore_debug"
+        static var debugBackgroundColor = "WolfCore_debugBackgroundColor"
+        static var normalBackgroundColor = "WolfCore_normalBackgroundColor"
+    }
+
+    extension UIView {
+        open var isDebug: Bool {
+            get {
+                return getAssociatedValue(for: &AssociatedKeys.debug) ?? false
+            }
+
+            set {
+                setAssociatedValue(newValue, for: &AssociatedKeys.debug)
+                _syncBackgroundColor()
+            }
+        }
+
+        public var debugBackgroundColor: UIColor? {
+            get {
+                return getAssociatedValue(for: &AssociatedKeys.debugBackgroundColor) ?? .red
+            }
+
+            set {
+                setAssociatedValue(newValue, for: &AssociatedKeys.debugBackgroundColor)
+                _syncBackgroundColor()
+            }
+        }
+
+        public var normalBackgroundColor: UIColor? {
+            get {
+                return getAssociatedValue(for: &AssociatedKeys.normalBackgroundColor) ?? .yellow
+            }
+
+            set {
+                setAssociatedValue(newValue, for: &AssociatedKeys.normalBackgroundColor)
+                _syncBackgroundColor()
+            }
+        }
+
+        private func _syncBackgroundColor() {
+            backgroundColor = isDebug ? (debugBackgroundColor?.withAlphaComponent(0.25) ?? normalBackgroundColor) : normalBackgroundColor
         }
     }
 #endif

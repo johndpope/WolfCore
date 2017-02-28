@@ -47,7 +47,6 @@ open class ImageView: UIImageView, Skinnable {
 
     public var pdf: PDF? {
         didSet {
-            makeTransparent(debugColor: .green, debug: false)
             //updatePDFImage()
             setNeedsLayout()
         }
@@ -153,7 +152,7 @@ open class ImageView: UIImageView, Skinnable {
     }
 
     private func _setup() {
-        ~~self
+        __setup()
         setup()
     }
 

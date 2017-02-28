@@ -13,7 +13,7 @@ extension Log.GroupName {
 }
 
 open class VideoControllerView: View {
-    public init() {
+    public required init() {
         super.init(frame: .zero)
     }
 

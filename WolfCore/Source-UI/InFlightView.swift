@@ -57,7 +57,6 @@ public class InFlightView: View {
     public override func setup() {
         super.setup()
         #if !os(macOS)
-        makeTransparent(debugColor: .red, debug: false)
         transparentToTouches = true
         #endif
         inFlightTracker.didStart = didStart
@@ -192,11 +191,10 @@ public class InFlightView: View {
 
     private func setupColumnViews() {
         leftColumnView = View()
-        leftColumnView.makeTransparent(debugColor: .red, debug: false)
         leftColumnView.transparentToTouches = true
 
         rightColumnView = View()
-        rightColumnView.makeTransparent(debugColor: .blue, debug: false)
+        rightColumnView.debugBackgroundColor = .blue
         rightColumnView.transparentToTouches = true
 
         columnsStackView = StackView(arrangedSubviews: [leftColumnView, rightColumnView])

@@ -263,16 +263,6 @@ public func deactivateConstraint(_ constraint: NSLayoutConstraint) {
         right.translatesAutoresizingMaskIntoConstraints = false
         return right
     }
-
-    prefix operator ~~
-
-    @discardableResult public prefix func ~~<T: OSView> (right: T) -> T {
-        right.translatesAutoresizingMaskIntoConstraints = false
-        #if !os(macOS)
-        right.makeTransparent()
-        #endif
-        return right
-    }
 //#endif
 
 public func string(forRelation relation: NSLayoutRelation) -> String {

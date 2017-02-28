@@ -28,7 +28,7 @@ open class View: OSView, Skinnable {
     }
 
     private func _setup() {
-        translatesAutoresizingMaskIntoConstraints = false
+        __setup()
         setup()
     }
 
@@ -41,27 +41,15 @@ open class View: OSView, Skinnable {
     #if os(iOS) || os(tvOS)
 
     var baseSize: CGSize!
-    public var managesSublabelScaling = false
+    @IBInspectable public var managesSublabelScaling = false
 
-    /// Can be set from Interface Builder
-    public var transparentToTouches: Bool = false
+    @IBInspectable public var transparentToTouches: Bool = false
 
-    /// Can be set from Interface Builder
-    public var transparentBackground: Bool = false {
-        didSet {
-            if transparentBackground {
-                makeTransparent()
-            }
-        }
-    }
-
-    /// Can be set from Interface Builder, or in the subclass's Setup() function.
-    public var contentNibName: String? = nil
+    @IBInspectable public var contentNibName: String? = nil
 
     private var endEditingAction: GestureRecognizerAction!
 
-    /// Can be set from Interface Builder
-    public var endsEditingWhenTapped: Bool = false {
+    @IBInspectable public var endsEditingWhenTapped: Bool = false {
         didSet {
             if endsEditingWhenTapped {
                 endEditingAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in

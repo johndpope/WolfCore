@@ -102,7 +102,7 @@ open class Label: OSLabel, Skinnable {
     }
 
     private func _setup() {
-        ~~self
+        __setup()
         setup()
     }
 

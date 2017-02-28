@@ -58,7 +58,6 @@ public class ImageViewerViewController: ViewController {
 
     lazy var contentView: View = {
         let view = View()
-        view.makeTransparent(debugColor: .red, debug: false)
         return view
     }()
 

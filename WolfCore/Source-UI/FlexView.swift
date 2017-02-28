@@ -34,7 +34,6 @@ public class FlexView: View {
 
     public override func setup() {
         super.setup()
-        makeTransparent()
         isUserInteractionEnabled = false
     }
 
@@ -45,7 +44,6 @@ public class FlexView: View {
     }
 
     private func setContentView(_ view: UIView) {
-        view.makeTransparent()
         addSubview(view)
         view.constrainFrame()
         view.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)

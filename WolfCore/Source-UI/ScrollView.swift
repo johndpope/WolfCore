@@ -9,17 +9,7 @@
 import UIKit
 
 open class ScrollView: UIScrollView, Skinnable {
-    /// Can be set from Interface Builder
-    public var transparentToTouches: Bool = false
-
-    /// Can be set from Interface Builder
-    public var transparentBackground = false {
-        didSet {
-            if transparentBackground {
-                makeTransparent()
-            }
-        }
-    }
+    @IBInspectable public var transparentToTouches: Bool = false
 
     public convenience init() {
         self.init(frame: .zero)

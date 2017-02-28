@@ -35,7 +35,7 @@ open class TextField: UITextField, Skinnable {
     }
 
     private func _setup() {
-        ~~self
+        __setup()
         setup()
    }
 

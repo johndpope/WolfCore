@@ -13,8 +13,6 @@ class PagingContentView: View { }
 open class PagingView: View {
     public typealias IndexDispatchBlock = (Int) -> Void
 
-    public var debug = false
-
     public var arrangedViewAtIndexDidBecomeVisible: IndexDispatchBlock?
     public var arrangedViewAtIndexDidBecomeInvisible: IndexDispatchBlock?
     public var onWillBeginDragging: Block?
@@ -179,7 +177,6 @@ open class PagingView: View {
 
     private func setupScrollView() {
         scrollView = ScrollView()
-        scrollView.makeTransparent(debugColor: .red, debug: debug)
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
@@ -187,7 +184,6 @@ open class PagingView: View {
         scrollView.constrainFrame(identifier: "pagingScroll")
 
         contentView = PagingContentView()
-        contentView.makeTransparent(debugColor: .blue, debug: debug)
         scrollView.addSubview(contentView)
         contentView.constrainFrame(identifier: "pagingScrollContent")
         contentWidthConstraint = contentView.widthAnchor == 500
@@ -200,7 +196,6 @@ open class PagingView: View {
 
     private func setupPageControl() {
         pageControl = PageControl()
-        pageControl.makeTransparent(debugColor: .red, debug: false)
         pageControl.isUserInteractionEnabled = false
         addSubview(pageControl)
         activateConstraints(

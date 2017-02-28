@@ -24,7 +24,7 @@ open class Control: UIControl, Skinnable {
     }
 
     private func _setup() {
-        ~~self
+        __setup()
         setup()
     }
 

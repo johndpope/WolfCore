@@ -37,7 +37,6 @@ class InFlightTokenView: View {
         label.font = OSFont.systemFont(ofSize: fontSize)
         #if !os(macOS)
         label.shadowColor = OSColor(white: 0.0, alpha: 0.5)
-        label.makeTransparent(debugColor: .purple, debug: false)
         label.shadowOffset = CGSize(width: 1.0, height: 1.0)
         #endif
 
@@ -48,7 +47,6 @@ class InFlightTokenView: View {
         super.setup()
 
         #if !os(macOS)
-        makeTransparent(debugColor: .yellow, debug: false)
         transparentToTouches = true
 
         layer.cornerRadius = type(of: self).viewHeight / 2

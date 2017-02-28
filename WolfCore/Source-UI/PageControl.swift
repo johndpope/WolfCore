@@ -24,7 +24,7 @@ public class PageControl: UIPageControl, Skinnable {
     }
 
     private func _setup() {
-        ~~self
+        __setup()
         setup()
     }
 

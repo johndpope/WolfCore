@@ -80,7 +80,6 @@ open class PlaceholderView: View {
 
     open override func setup() {
         super.setup()
-        makeTransparent()
         contentMode = .redraw
         addSubview(titleLabel)
         titleLabel.constrainCenterToCenter()

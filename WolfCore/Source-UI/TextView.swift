@@ -37,7 +37,7 @@ open class TextView: UITextView, Skinnable {
     }
 
     private func _setup() {
-        ~~self
+        __setup()
         setup()
     }
 

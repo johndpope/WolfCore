@@ -38,7 +38,7 @@ open class Button: UIButton, Skinnable {
     }
 
     private func _setup() {
-        ~~self
+        __setup()
         setup()
     }
 
@@ -61,7 +61,6 @@ open class Button: UIButton, Skinnable {
         guard let customView = customView else { return }
 
         addSubview(customView)
-        customView.makeTransparent()
         customView.constrainFrame(identifier: identifier ?? "button")
         customView.isUserInteractionEnabled = false
     }

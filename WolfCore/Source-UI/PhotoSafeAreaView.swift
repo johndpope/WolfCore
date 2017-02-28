@@ -9,11 +9,6 @@
 import UIKit
 
 public class PhotoSafeAreaView: View {
-    public override func setup() {
-        super.setup()
-        makeTransparent(debugColor: .red, debug: false)
-    }
-
     public static func addToView(view: UIView) -> PhotoSafeAreaView {
         let safeAreaView = PhotoSafeAreaView()
         view.addSubview(safeAreaView)

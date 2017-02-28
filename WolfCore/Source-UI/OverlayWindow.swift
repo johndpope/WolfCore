@@ -26,7 +26,7 @@ public class OverlayWindow: UIWindow {
     }
 
     private func _setup() {
-        makeTransparent()
+        __setup()
         frame = UIScreen.main.bounds
         rootViewController = overlayViewController
         windowLevel = UIWindowLevelAlert + 1
@@ -46,10 +46,5 @@ public class OverlayViewController: ViewController {
         let v = View()
         v.transparentToTouches = true
         view = v
-    }
-
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        view.makeTransparent()
     }
 }

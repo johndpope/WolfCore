@@ -1066,35 +1066,24 @@
 		0314DD071D08FC3700E23C67 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				03F0EBEE1E63BC0E00309C8D /* Direct Subclasses */,
 				039C912E1E4D1D67000AE01B /* BounceButton.swift */,
-				035553161C0F622A00E0FCA7 /* Button.swift */,
-				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
 				03D064EB1E542AC70049D61B /* ConcealerView.swift */,
-				036543F61E35E37700D4301F /* Control.swift */,
 				03D064E71E5412AE0049D61B /* FlexView.swift */,
 				0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */,
-				035553251C0F622A00E0FCA7 /* ImageView.swift */,
-				035553281C0F622A00E0FCA7 /* Label.swift */,
 				03E006C71E5D65E500AA8C3F /* ModelView.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
-				039C91281E4CFCE2000AE01B /* OverlayWindow.swift */,
-				03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
 				0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */,
 				0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */,
 				0303BCD21E404E6200B196CA /* PlaceholderView.swift */,
 				03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */,
-				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
 				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
 				035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */,
-				0314DD161D09048C00E23C67 /* TableViewCell.swift */,
 				03D3FA391E542C8800C8E550 /* TableViewExtensions.swift */,
-				033882231CFF97C200C8972B /* TextField.swift */,
-				0302D2F71CF8F34300717170 /* TextView.swift */,
 				0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */,
 				039C912C1E4D1582000AE01B /* VideoControllerView.swift */,
-				035553371C0F622A00E0FCA7 /* View.swift */,
 				035553391C0F622A00E0FCA7 /* ViewExtensions.swift */,
 				038457961CED57E80012BCCE /* WindowExtensions.swift */,
 			);
@@ -1310,6 +1299,25 @@
 				03E172B91CF1C8020073F383 /* Info.plist */,
 			);
 			path = WolfCore;
+			sourceTree = "<group>";
+		};
+		03F0EBEE1E63BC0E00309C8D /* Direct Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				035553161C0F622A00E0FCA7 /* Button.swift */,
+				03E173301CF8CCD20073F383 /* CollectionViewCell.swift */,
+				036543F61E35E37700D4301F /* Control.swift */,
+				035553251C0F622A00E0FCA7 /* ImageView.swift */,
+				035553281C0F622A00E0FCA7 /* Label.swift */,
+				039C91281E4CFCE2000AE01B /* OverlayWindow.swift */,
+				03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */,
+				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
+				0314DD161D09048C00E23C67 /* TableViewCell.swift */,
+				033882231CFF97C200C8972B /* TextField.swift */,
+				0302D2F71CF8F34300717170 /* TextView.swift */,
+				035553371C0F622A00E0FCA7 /* View.swift */,
+			);
+			name = "Direct Subclasses";
 			sourceTree = "<group>";
 		};
 		03F261481D48B1BF00523640 /* ImageViewerViewController */ = {
@@ -2188,6 +2196,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/CommonCrypto";
@@ -2231,6 +2240,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/CommonCrypto";
 				SWIFT_OBJC_BRIDGING_HEADER = "WolfCore-Bridging-Header.h";
@@ -2252,7 +2262,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "WolfCore/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.arciem.WolfCore;
 				PRODUCT_NAME = WolfCore;
@@ -2274,7 +2283,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "WolfCore/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.arciem.WolfCore;
 				PRODUCT_NAME = WolfCore;

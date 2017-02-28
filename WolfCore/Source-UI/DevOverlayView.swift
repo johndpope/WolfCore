@@ -20,7 +20,6 @@ public class DevOverlayView: View {
         transparentToTouches = true
         bounds = window.frame
         constrainFrame(identifier: "DevOverlay")
-        makeTransparent(debugColor: .red, debug: false)
         dispatchRepeatedOnMain(atInterval: 0.2) { canceler in
             window.bringSubview(toFront: self)
         }

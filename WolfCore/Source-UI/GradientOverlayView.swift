@@ -26,7 +26,7 @@ open class GradientOverlayView: View {
     private func syncColors() {
         var colors = [CGColor]()
         var locations = [NSNumber]()
-        colorFracs.map { (color, frac) in
+        colorFracs.forEach { (color, frac) in
             colors.append(color.cgColor)
             locations.append(NSNumber(value: Double(frac)))
         }

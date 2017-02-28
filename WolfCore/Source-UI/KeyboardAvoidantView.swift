@@ -20,7 +20,6 @@ public class KeyboardTrackerView: View {
     public override func setup() {
         super.setup()
 
-        makeTransparent(debugColor: .red, debug: false)
         isUserInteractionEnabled = false
         keyboardActions = KeyboardNotificationActions()
         keyboardActions.willChangeFrame = { [unowned self] info in
@@ -87,9 +86,6 @@ public class KeyboardAvoidantView: View {
 
     public override func setup() {
         super.setup()
-
-        makeTransparent(debugColor: .blue, debug: false)
-
         keyboardTrackerView = KeyboardTrackerView()
     }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+import AVFoundation
 
 open class SpriteNode: SKSpriteNode {
     public init(image: UIImage) {
