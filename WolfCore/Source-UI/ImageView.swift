@@ -122,15 +122,15 @@ open class ImageView: UIImageView, Skinnable {
         lastFittingSize = nil
     }
 
-    open override var intrinsicContentSize: CGSize {
-        let size: CGSize
-        if let pdf = pdf {
-            size = pdf.getSize()
-        } else {
-            size = super.intrinsicContentSize
-        }
-        return size
-    }
+//    open override var intrinsicContentSize: CGSize {
+//        let size: CGSize
+//        if let pdf = pdf {
+//            size = pdf.getSize()
+//        } else {
+//            size = super.intrinsicContentSize
+//        }
+//        return size
+//    }
 
     public convenience init() {
         self.init(frame: .zero)

@@ -241,10 +241,14 @@ extension OSView {
 
 #if os(iOS)
     extension UIView {
-        public func __setup() {
-            translatesAutoresizingMaskIntoConstraints = false
+        public func makeTransparent() {
             isOpaque = false
             normalBackgroundColor = .clear
+        }
+
+        public func __setup() {
+            translatesAutoresizingMaskIntoConstraints = false
+            makeTransparent()
         }
     }
 

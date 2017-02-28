@@ -38,6 +38,7 @@ open class VideoControllerView: View {
         case paused(Int)
         case playing
         case complete
+        case stopped
     }
 
     public var state: State = .paused(1) {
@@ -54,6 +55,8 @@ open class VideoControllerView: View {
             logTrace("PAUSED (\(level))", group: .video)
         case .complete:
             logTrace("COMPLETE", group: .video)
+        case .stopped:
+            logTrace("STOPPED", group: .video)
         }
     }
 
@@ -74,6 +77,8 @@ open class VideoControllerView: View {
             default:
                 state = .paused(level - 1)
             }
+        case .stopped:
+            break
         }
     }
 
@@ -85,9 +90,14 @@ open class VideoControllerView: View {
             state = .paused(1)
         case .paused(let level):
             state = .paused(level + 1)
-        case .complete:
+        case .complete, .stopped:
             break
         }
+    }
+
+    open func stop(reason: String) {
+        logTrace("stop (\(reason))", group: .video)
+        state = .stopped
     }
 
     open func toggle() {
@@ -96,6 +106,8 @@ open class VideoControllerView: View {
             pause(reason: "toggled")
         case .paused, .complete:
             play(reason: "toggled")
+        case .stopped:
+            break
         }
     }
 
@@ -106,4 +118,6 @@ open class VideoControllerView: View {
     open func review(secondsBack: TimeInterval) {
         logTrace("review secondsBack: (\(time))", group: .video)
     }
+
+    open var fileURL: URL!
 }

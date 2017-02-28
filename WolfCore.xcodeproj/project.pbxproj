@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0302D2F81CF8F34300717170 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302D2F71CF8F34300717170 /* TextView.swift */; };
 		0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */; };
-		0303BCB01E3E8C3D00B196CA /* PhotoBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */; };
+		0303BCB01E3E8C3D00B196CA /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */; };
 		0303BCB21E3E8C9B00B196CA /* PhotoSafeAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */; };
 		0303BCD31E404E6200B196CA /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCD21E404E6200B196CA /* PlaceholderView.swift */; };
 		0309573D1E397DF80065F374 /* FontDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0309573C1E397DF80065F374 /* FontDebugging.swift */; };
@@ -345,6 +345,9 @@
 		03BC18D01CF1054C005AF3C3 /* InfoDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */; };
 		03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
 		03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
+		03C9AA1C1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
+		03C9AA1D1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
+		03C9AA1E1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03CA5A401E39195E00A7D3C6 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */; };
 		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
@@ -532,7 +535,7 @@
 /* Begin PBXFileReference section */
 		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = "Source-UI/TextView.swift"; sourceTree = "<group>"; };
 		0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientOverlayView.swift; path = "Source-UI/GradientOverlayView.swift"; sourceTree = "<group>"; };
-		0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoBackgroundView.swift; path = "Source-UI/PhotoBackgroundView.swift"; sourceTree = "<group>"; };
+		0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoView.swift; path = "Source-UI/PhotoView.swift"; sourceTree = "<group>"; };
 		0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoSafeAreaView.swift; path = "Source-UI/PhotoSafeAreaView.swift"; sourceTree = "<group>"; };
 		0303BCD21E404E6200B196CA /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceholderView.swift; path = "Source-UI/PlaceholderView.swift"; sourceTree = "<group>"; };
 		0309573C1E397DF80065F374 /* FontDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontDebugging.swift; path = "Source-UI/FontDebugging.swift"; sourceTree = "<group>"; };
@@ -697,6 +700,7 @@
 		03B7BDEC1D40B8D900177066 /* Base64Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64Tests.swift; sourceTree = "<group>"; };
 		03BC18CE1CF104D9005AF3C3 /* InfoDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoDict.swift; path = "Sources-Foundation/InfoDict.swift"; sourceTree = "<group>"; };
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
+		03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreImageFilters.swift; sourceTree = "<group>"; };
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransferValue.swift; path = Sources/TransferValue.swift; sourceTree = "<group>"; };
@@ -1014,6 +1018,7 @@
 				035553231C0F622A00E0FCA7 /* ImageExtensions.swift */,
 				035553241C0F622A00E0FCA7 /* ImageUtils.swift */,
 				03E13B771C4F28F60074E447 /* PDF.swift */,
+				03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -1075,7 +1080,7 @@
 				03E006C71E5D65E500AA8C3F /* ModelView.swift */,
 				0314DD141D09044D00E23C67 /* NavigationBarExtensions.swift */,
 				03AC919B1CEB3DF3006AED00 /* PagingView.swift */,
-				0303BCAF1E3E8C3D00B196CA /* PhotoBackgroundView.swift */,
+				0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */,
 				0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */,
 				0303BCD21E404E6200B196CA /* PlaceholderView.swift */,
 				03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */,
@@ -1629,6 +1634,7 @@
 				038457921CED55690012BCCE /* RunLoopUtils.swift in Sources */,
 				033F5EA81CA3096700647A0A /* Vector.swift in Sources */,
 				033F5EA91CA3096700647A0A /* ColorFunc.swift in Sources */,
+				03C9AA1D1E65D26500ED449B /* CoreImageFilters.swift in Sources */,
 				033F5EAB1CA3096700647A0A /* ISO8601.swift in Sources */,
 				034D31241DF7A70F004ADC34 /* InFlightView.swift in Sources */,
 				033F5EAC1CA3096700647A0A /* Serializer.swift in Sources */,
@@ -1822,6 +1828,7 @@
 				035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */,
 				03E006C81E5D65E500AA8C3F /* ModelView.swift in Sources */,
 				03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */,
+				03C9AA1C1E65D26500ED449B /* CoreImageFilters.swift in Sources */,
 				0359AF5A1D1B1932001F71DC /* KeyboardMovement.swift in Sources */,
 				0322E89E1D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				03E13B7E1C4F28F60074E447 /* PDF.swift in Sources */,
@@ -1909,7 +1916,7 @@
 				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
-				0303BCB01E3E8C3D00B196CA /* PhotoBackgroundView.swift in Sources */,
+				0303BCB01E3E8C3D00B196CA /* PhotoView.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 				0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */,
 				0314DD0D1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
@@ -1965,6 +1972,7 @@
 				0322E8A01D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				03E173141CF1C8FB0073F383 /* GestureActions.swift in Sources */,
 				0314DCF61D08F8FD00E23C67 /* DataExtensions.swift in Sources */,
+				03C9AA1E1E65D26500ED449B /* CoreImageFilters.swift in Sources */,
 				031631A21D09639F00DCBB3B /* FontExtensions.swift in Sources */,
 				03E173031CF1C8E70073F383 /* Hysteresis.swift in Sources */,
 				03E172F61CF1C8CC0073F383 /* AffineTransformUtils.swift in Sources */,

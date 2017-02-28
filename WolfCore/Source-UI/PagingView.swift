@@ -200,7 +200,7 @@ open class PagingView: View {
         addSubview(pageControl)
         activateConstraints(
             pageControl.centerXAnchor == centerXAnchor =&= UILayoutPriorityDefaultLow,
-            pageControl.heightAnchor == 40.0 =&= UILayoutPriorityDefaultLow,
+            pageControl.heightAnchor == 40.0, // =&= UILayoutPriorityDefaultLow,
             pageControl.bottomAnchor == bottomAnchor - 20 =&= UILayoutPriorityDefaultLow
         )
     }

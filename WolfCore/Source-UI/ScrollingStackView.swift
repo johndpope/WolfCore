@@ -8,7 +8,7 @@
 
 import UIKit
 
-//  keyboardAvoidantView: KeyboardAvoidantView
+//  keyboardAvoidantView: KeyboardAvoidantView (optional)
 //      outerStackView: StackView
 //          < your non-scrolling views above the scrolling view >
 //          scrollView: ScrollView
@@ -17,6 +17,19 @@ import UIKit
 //          < your non-scrolling views below the scrolling view >
 
 open class ScrollingStackView: View {
+    public let hasKeyboardAvoidantView: Bool
+    public let axis: UILayoutConstraintAxis
+
+    public init(hasKeyboardAvoidantView: Bool = true, axis: UILayoutConstraintAxis = .vertical) {
+        self.hasKeyboardAvoidantView = hasKeyboardAvoidantView
+        self.axis = axis
+        super.init(frame: .zero)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public private(set) lazy var keyboardAvoidantView: KeyboardAvoidantView = {
         let view = KeyboardAvoidantView()
         return view
@@ -32,14 +45,13 @@ open class ScrollingStackView: View {
 
     public private(set) lazy var scrollView: ScrollView = {
         let view = ScrollView()
-        view.indicatorStyle = .white
         view.keyboardDismissMode = .interactive
         return view
     }()
 
     public private(set) lazy var stackView: StackView = {
         let view = StackView()
-        view.axis = .vertical
+        view.axis = self.axis
         view.distribution = .fill
         view.alignment = .fill
         return view
@@ -58,6 +70,7 @@ open class ScrollingStackView: View {
     }
 
     private func setupKeyboardAvoidantView() {
+        guard hasKeyboardAvoidantView else { return }
         addSubview(keyboardAvoidantView)
         activateConstraints(
             keyboardAvoidantView.leadingAnchor == leadingAnchor,
@@ -68,7 +81,11 @@ open class ScrollingStackView: View {
     }
 
     private func setupOuterStackView() {
-        keyboardAvoidantView.addSubview(outerStackView)
+        if hasKeyboardAvoidantView {
+            keyboardAvoidantView.addSubview(outerStackView)
+        } else {
+            addSubview(outerStackView)
+        }
         outerStackView.constrainFrame()
     }
 
@@ -78,10 +95,20 @@ open class ScrollingStackView: View {
 
     private func setupStackView() {
         scrollView.addSubview(stackView)
-        activateConstraints(
-            stackView.leadingAnchor == leadingAnchor,
-            stackView.trailingAnchor == trailingAnchor,
+        switch axis {
+        case .vertical:
+            activateConstraints(
+                stackView.leadingAnchor == leadingAnchor,
+                stackView.trailingAnchor == trailingAnchor
+            )
+        case .horizontal:
+            activateConstraints(
+                stackView.topAnchor == topAnchor,
+                stackView.bottomAnchor == bottomAnchor
+            )
+        }
 
+        activateConstraints(
             stackView.leadingAnchor == scrollView.leadingAnchor,
             stackView.trailingAnchor == scrollView.trailingAnchor,
             stackView.topAnchor == scrollView.topAnchor,

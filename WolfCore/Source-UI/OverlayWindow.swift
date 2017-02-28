@@ -45,6 +45,7 @@ public class OverlayViewController: ViewController {
     public override func loadView() {
         let v = View()
         v.transparentToTouches = true
+        v.translatesAutoresizingMaskIntoConstraints = true
         view = v
     }
 }

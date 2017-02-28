@@ -1,5 +1,5 @@
 //
-//  PhotoBackgroundView.swift
+//  PhotoView.swift
 //  WolfCore
 //
 //  Created by Wolf McNally on 1/29/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class PhotoBackgroundView: View {
+open class PhotoView: View {
     public private(set) var safeAreaView: PhotoSafeAreaView!
 
     public private(set) lazy var gradientView: GradientOverlayView = {
