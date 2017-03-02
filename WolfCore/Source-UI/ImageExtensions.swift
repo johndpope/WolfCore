@@ -29,17 +29,17 @@ extension OSImage {
 }
 
 extension OSImage {
-    public func blackAndWhite() -> OSImage {
+    public func desaturated(saturation: Double = 0.0, brightness: Double = 0.0, contrast: Double = 1.1, exposureAdjust: Double = 0.7) -> OSImage {
         return self
-            |> ColorControlsFilter(saturation: 0.0, contrast: 1.1)
-            |> ExposureAdjustFilter(ev: 0.7)
-            |> imageOrientation
+            |> ColorControlsFilter(saturation: saturation, brightness: brightness, contrast: contrast)
+            |> ExposureAdjustFilter(ev: exposureAdjust)
+            |> (imageOrientation, self.scale)
     }
 
     public func blurred(radius: Double = 5.0) -> OSImage {
         return self
             |> BlurFilter(radius: radius)
-            |> imageOrientation
+            |> (imageOrientation, self.scale)
     }
 }
 
@@ -53,16 +53,20 @@ extension OSImage {
         }
     }
 
-    public func shaded(withColor color: OSColor) -> OSImage {
+    public func shaded(withColor color: OSColor, blendMode: CGBlendMode = .multiply) -> OSImage {
         return newImage(withSize: size, opaque: false, scale: scale, flipped: true, renderingMode: .alwaysOriginal) { context in
             drawInto(context) { context in
                 context.clip(to: self.bounds, mask: self.cgImage!)
                 context.setFillColor(color.cgColor)
                 context.fill(self.bounds)
             }
-            context.setBlendMode(.multiply)
+            context.setBlendMode(blendMode)
             context.draw(self.cgImage!, in: self.bounds)
         }
+    }
+
+    public func dodged(withColor color: OSColor) -> OSImage {
+        return shaded(withColor: color, blendMode: .colorDodge)
     }
 
     public convenience init(size: CGSize, color: OSColor, opaque: Bool = false, scale: CGFloat = 0.0) {
@@ -79,8 +83,9 @@ extension OSImage {
     }
 
     public func scaled(toSize size: CGSize, opaque: Bool = false) -> OSImage {
-        return newImage(withSize: size, opaque: opaque, scale: scale) { context in
-            self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let targetSize = self.size.aspectFit(within: size)
+        return newImage(withSize: targetSize, opaque: opaque, scale: scale) { context in
+            self.draw(in: CGRect(origin: .zero, size: targetSize))
         }
     }
 

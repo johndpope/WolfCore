@@ -19,10 +19,15 @@ import UIKit
 open class ScrollingStackView: View {
     public let hasKeyboardAvoidantView: Bool
     public let axis: UILayoutConstraintAxis
+    public let snapsToDetent: Bool
+    private var showsDetentIndicator: Bool {
+        return false // snapsToDetent
+    }
 
-    public init(hasKeyboardAvoidantView: Bool = true, axis: UILayoutConstraintAxis = .vertical) {
+    public init(hasKeyboardAvoidantView: Bool = true, axis: UILayoutConstraintAxis = .vertical, snapsToDetent: Bool = false) {
         self.hasKeyboardAvoidantView = hasKeyboardAvoidantView
         self.axis = axis
+        self.snapsToDetent = snapsToDetent
         super.init(frame: .zero)
     }
     
@@ -63,6 +68,7 @@ open class ScrollingStackView: View {
         setupOuterStackView()
         setupScrollView()
         setupStackView()
+        setupDetent()
     }
 
     public func flashScrollIndicators() {
@@ -91,6 +97,10 @@ open class ScrollingStackView: View {
 
     private func setupScrollView() {
         outerStackView.addArrangedSubview(scrollView)
+        if axis == .horizontal {
+            scrollView.scrollsToTop = false
+        }
+        scrollView.delegate = self
     }
 
     private func setupStackView() {
@@ -114,5 +124,96 @@ open class ScrollingStackView: View {
             stackView.topAnchor == scrollView.topAnchor,
             stackView.bottomAnchor == scrollView.bottomAnchor
         )
+    }
+
+    lazy var detentIndicatorView: View = {
+        let view = View()
+        view.backgroundColor = .red
+        switch self.axis {
+        case .horizontal:
+            view.constrainSize(to: CGSize(width: 1, height: 10))
+        case .vertical:
+            view.constrainSize(to: CGSize(width: 10, height: 1))
+        }
+        return view
+    }()
+
+    var detentIndicatorPositionConstraint: NSLayoutConstraint?
+
+    func setupDetent() {
+        guard showsDetentIndicator else { return }
+
+        addSubview(detentIndicatorView)
+        switch axis {
+        case .horizontal:
+            activateConstraints(
+                detentIndicatorView.bottomAnchor == bottomAnchor
+            )
+        case .vertical:
+            activateConstraints(
+                detentIndicatorView.leadingAnchor == leadingAnchor
+            )
+        }
+        syncDetentIndicator()
+    }
+
+    var detentPosition: CGFloat = 0.0 {
+        didSet {
+            syncDetentIndicator()
+        }
+    }
+
+    func syncDetentIndicator() {
+        guard showsDetentIndicator else { return }
+        switch axis {
+        case .horizontal:
+            replaceConstraint(&detentIndicatorPositionConstraint, with: detentIndicatorView.centerXAnchor == leadingAnchor + detentPosition)
+        case .vertical:
+            replaceConstraint(&detentIndicatorPositionConstraint, with: detentIndicatorView.centerYAnchor == topAnchor + detentPosition)
+        }
+    }
+
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+
+        guard snapsToDetent else { return }
+        switch axis {
+        case .horizontal:
+            detentPosition = bounds.width / 2
+        case .vertical:
+            detentPosition = bounds.height / 2
+        }
+    }
+}
+
+extension ScrollingStackView: UIScrollViewDelegate {
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard snapsToDetent else { return }
+
+        let spacing = stackView.spacing
+        let views = stackView.arrangedSubviews
+        for (index, view) in views.enumerated() {
+            let isFirst = index == 0
+            let isLast = index == views.count - 1
+
+            switch axis {
+            case .horizontal:
+                let viewMin = isFirst ? -CGFloat.infinity : view.frame.minX - spacing / 2
+                let viewMax = isLast ? CGFloat.infinity : view.frame.maxX + spacing / 2
+                let range = viewMin...viewMax
+                if range.contains(targetContentOffset.pointee.x + detentPosition) {
+                    targetContentOffset.pointee.x = view.frame.midX - detentPosition
+                    break
+                }
+            case .vertical:
+                let viewMin = isFirst ? -CGFloat.infinity : view.frame.minY - spacing / 2
+                let viewMax = isLast ? CGFloat.infinity : view.frame.maxY + spacing / 2
+                let range = viewMin...viewMax
+                if range.contains(targetContentOffset.pointee.y + detentPosition) {
+                    targetContentOffset.pointee.y = view.frame.midY - detentPosition
+                    break
+                }
+            }
+        }
     }
 }

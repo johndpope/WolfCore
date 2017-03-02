@@ -29,10 +29,10 @@ public class CoreImageFilter {
         set { input = CIImage(image: newValue)! }
     }
 
-    public func outputImage(withOrientation orientation: UIImageOrientation) -> UIImage {
+    public func outputImage(withOrientation orientation: UIImageOrientation, scale: CGFloat) -> UIImage {
         let context = CIContext()
         let cgImage = context.createCGImage(output, from: output.extent)!
-        return UIImage(cgImage: cgImage, scale: 1.0, orientation: orientation)
+        return UIImage(cgImage: cgImage, scale: scale, orientation: orientation)
     }
 }
 
@@ -114,6 +114,6 @@ public func |> (lhs: CoreImageFilter, rhs: CoreImageFilter) -> CoreImageFilter {
     return rhs
 }
 
-public func |> (lhs: CoreImageFilter, rhs: UIImageOrientation) -> UIImage {
-    return lhs.outputImage(withOrientation: rhs)
+public func |> (lhs: CoreImageFilter, rhs: (orientation: UIImageOrientation, scale: CGFloat)) -> UIImage {
+    return lhs.outputImage(withOrientation: rhs.orientation, scale: rhs.scale)
 }

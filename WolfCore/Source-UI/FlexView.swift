@@ -8,13 +8,13 @@
 
 import UIKit
 
-public class FlexView: View {
-    public enum Content {
-        case string(String)
-        case image(UIImage)
-    }
+public enum FlexContent {
+    case string(String)
+    case image(UIImage)
+}
 
-    public var content: Content? {
+public class FlexView: View {
+    public var content: FlexContent? {
         didSet {
             sync()
         }

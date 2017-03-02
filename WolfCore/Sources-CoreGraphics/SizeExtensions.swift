@@ -37,7 +37,7 @@ extension CGSize {
         } else if size.width != noSize {
             return size.width / width
         } else {
-            return 1.0
+            return size.height / height
         }
     }
 

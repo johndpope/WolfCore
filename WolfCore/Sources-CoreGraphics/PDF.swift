@@ -87,7 +87,7 @@ public class PDF {
 
     #if os(iOS) || os(tvOS)
     public func getImage(forPageAtIndex index: Int = 0, fittingSize: CGSize, scale: CGFloat = 0.0, renderingMode: UIImageRenderingMode = .automatic) -> UIImage? {
-        guard fittingSize.width > 0 && fittingSize.height > 0 else { return nil }
+        guard fittingSize.width > 0 || fittingSize.height > 0 else { return nil }
         let size = getSize(ofPageAtIndex: index)
         let newSize = size.aspectFit(within: fittingSize)
         return getImage(forPageAtIndex: index, size: newSize, scale: scale, renderingMode: renderingMode)

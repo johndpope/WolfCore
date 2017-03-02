@@ -120,4 +120,8 @@ open class VideoControllerView: View {
     }
 
     open var fileURL: URL!
+
+    open var posterURL: URL!
+
+    open var volume: Frac = 1.0
 }
