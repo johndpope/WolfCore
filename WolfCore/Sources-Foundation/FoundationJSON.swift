@@ -25,6 +25,15 @@ public struct FoundationJSON {
         return try! data |> UTF8.init |> String.init
     }
 
+    public var prettyString: String {
+        let outputStream = OutputStream(toMemory: ())
+        outputStream.open()
+        defer { outputStream.close() }
+        JSONSerialization.writeJSONObject(value, to: outputStream, options: [.prettyPrinted], error: nil)
+        let data = outputStream.property(forKey: .dataWrittenToMemoryStreamKey) as! Data
+        return String(data: data, encoding: .utf8)!
+    }
+
     public var dictionary: Dictionary {
         return value as! Dictionary
     }
