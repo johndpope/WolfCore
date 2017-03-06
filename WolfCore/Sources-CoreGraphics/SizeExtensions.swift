@@ -2,7 +2,7 @@
 //  SizeExtensions.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 12/21/15.
+//  Created by Wolf McNally on 12/21/15.
 //  Copyright © 2015 Arciem. All rights reserved.
 //
 

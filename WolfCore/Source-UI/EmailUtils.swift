@@ -2,7 +2,7 @@
 //  EmailUtils.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 5/23/16.
+//  Created by Wolf McNally on 5/23/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 

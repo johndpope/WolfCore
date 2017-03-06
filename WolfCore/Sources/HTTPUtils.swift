@@ -2,7 +2,7 @@
 //  HTTPUtils.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 7/5/15.
+//  Created by Wolf McNally on 7/5/15.
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
@@ -12,10 +12,27 @@ public enum HTTPUtilsError: Error {
     case expectedJSONDict
 }
 
+public struct HTTPScheme: ExtensibleEnumeratedName {
+    public let name: String
+    public init(_ name: String) { self.name = name }
+
+    // Hashable
+    public var hashValue: Int { return name.hashValue }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+    public var rawValue: String { return name }
+}
+
+extension HTTPScheme {
+    public static let http = HTTPScheme("http")
+    public static let https = HTTPScheme("https")
+}
+
 public struct HTTPMethod: ExtensibleEnumeratedName {
     public let name: String
 
-    public init(_ name: String) { self.name = name}
+    public init(_ name: String) { self.name = name }
 
     // Hashable
     public var hashValue: Int { return name.hashValue }
@@ -28,6 +45,7 @@ public struct HTTPMethod: ExtensibleEnumeratedName {
 extension HTTPMethod {
     public static let get = HTTPMethod("GET")
     public static let post = HTTPMethod("POST")
+    public static let patch = HTTPMethod("PATCH")
     public static let head = HTTPMethod("HEAD")
     public static let options = HTTPMethod("OPTIONS")
     public static let put = HTTPMethod("PUT")
@@ -116,7 +134,7 @@ extension StatusCode {
 
 public class HTTP {
     @discardableResult public static func retrieveData(
-        withRequest request: URLRequest,
+        with request: URLRequest,
         successStatusCodes: [StatusCode], name: String,
         success: @escaping (HTTPURLResponse, Data) -> Void,
         failure: @escaping ErrorBlock,
@@ -158,7 +176,7 @@ public class HTTP {
             }
 
             guard sessionActions.data != nil else {
-                let error = HTTPError(response: httpResponse)
+                let error = HTTPError(request: request, response: httpResponse)
 
                 inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
                 logError("\(token) No data returned")
@@ -171,7 +189,7 @@ public class HTTP {
             }
 
             guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
-                let error = HTTPError(response: httpResponse, data: sessionActions.data)
+                let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
 
                 inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
                 logError("\(token) Unknown response code: \(httpResponse.statusCode)")
@@ -184,7 +202,7 @@ public class HTTP {
             }
 
             guard successStatusCodes.contains(statusCode) else {
-                let error = HTTPError(response: httpResponse, data: sessionActions.data)
+                let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
 
                 inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
                 logError("\(token) Failure response code: \(statusCode)")
@@ -214,7 +232,7 @@ public class HTTP {
     }
 
     @discardableResult public static func retrieveResponse(
-        withRequest request: URLRequest,
+        with request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
         success: @escaping (HTTPURLResponse) -> Void,
@@ -222,7 +240,7 @@ public class HTTP {
         finally: Block?) -> Cancelable {
 
         return retrieveData(
-            withRequest: request,
+            with: request,
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, _) in
@@ -234,14 +252,14 @@ public class HTTP {
     }
 
     @discardableResult public static func retrieve(
-        withRequest request: URLRequest,
+        with request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
         success: @escaping Block,
         failure: @escaping ErrorBlock,
         finally: Block?) -> Cancelable {
         return retrieveResponse(
-            withRequest: request,
+            with: request,
             successStatusCodes: successStatusCodes,
             name: name,
             success: { response in
@@ -253,7 +271,7 @@ public class HTTP {
     }
 
     @discardableResult public static func retrieveJSON(
-        withRequest request: URLRequest,
+        with request: URLRequest,
         successStatusCodes: [StatusCode],
         name: String,
         success: @escaping (HTTPURLResponse, JSON) -> Void,
@@ -264,7 +282,7 @@ public class HTTP {
         request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HeaderField.accept.rawValue)
 
         return retrieveData(
-            withRequest: request,
+            with: request,
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, data) in
@@ -281,13 +299,13 @@ public class HTTP {
     }
 
     @discardableResult public static func retrieveJSONDictionary(
-        withRequest request: URLRequest,
+        with request: URLRequest,
         successStatusCodes: [StatusCode], name: String,
         success: @escaping (HTTPURLResponse, JSON.Dictionary) -> Void,
         failure: @escaping ErrorBlock,
         finally: Block?) -> Cancelable {
         return retrieveJSON(
-            withRequest: request,
+            with: request,
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, json) in
@@ -316,14 +334,14 @@ public class HTTP {
         request.httpMethod = HTTPMethod.get.rawValue
 
         return retrieveData(
-            withRequest: request,
+            with: request,
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, data) in
                 if let image = OSImage(data: data) {
                     success(image)
                 } else {
-                    failure(HTTPError(response: response, data: data))
+                    failure(HTTPError(request: request, response: response, data: data))
                 }
             },
             failure: failure,
@@ -335,4 +353,63 @@ public class HTTP {
 
 extension URLSessionTask: Cancelable {
     public var isCanceled: Bool { return false }
+}
+
+extension URLRequest {
+    public func printRequest(includeAuxFields: Bool = false) {
+        print("request:")
+        print("\turl: \(url†)")
+        print("\thttpMethod: \(httpMethod†)")
+        print("\tallHTTPHeaderFields: \(allHTTPHeaderFields?.count ?? 0)")
+        if let headers = allHTTPHeaderFields {
+            for (key, value) in headers {
+                print("\t\t\(key): \(value)")
+            }
+        }
+        print("\thttpBody: \(httpBody?.count ?? 0)")
+        if let data = httpBody {
+            do {
+                let s = try (data |> JSON.init).string
+                print("\t\t\(s)")
+            } catch {
+                print(data)
+            }
+        }
+
+        guard includeAuxFields else { return }
+
+        let cachePolicyStrings: [URLRequest.CachePolicy: String] = [
+            .useProtocolCachePolicy: ".useProtocolCachePolicy",
+            .reloadIgnoringLocalCacheData: ".reloadIgnoringLocalCacheData",
+            .returnCacheDataElseLoad: ".returnCacheDataElseLoad",
+            .returnCacheDataDontLoad: ".returnCacheDataDontLoad",
+            ]
+        let networkServiceTypes: [URLRequest.NetworkServiceType: String]
+        if #available(iOS 10.0, *) {
+            networkServiceTypes = [
+                .`default`: ".default",
+                .voip: ".voip",
+                .video: ".video",
+                .background: ".background",
+                .voice: ".voice",
+                .networkServiceTypeCallSignaling: ".networkServiceTypeCallSignaling",
+            ]
+        } else {
+            networkServiceTypes = [
+                .`default`: ".default",
+                .voip: ".voip",
+                .video: ".video",
+                .background: ".background",
+                .voice: ".voice",
+            ]
+        }
+
+        print("\ttimeoutInterval: \(timeoutInterval)")
+        print("\tcachePolicy: \(cachePolicyStrings[cachePolicy]!)")
+        print("\tallowsCellularAccess: \(allowsCellularAccess)")
+        print("\thttpShouldHandleCookies: \(httpShouldHandleCookies)")
+        print("\thttpShouldUsePipelining: \(httpShouldUsePipelining)")
+        print("\tmainDocumentURL: \(mainDocumentURL†)")
+        print("\tnetworkServiceType: \(networkServiceTypes[networkServiceType]!)")
+    }
 }

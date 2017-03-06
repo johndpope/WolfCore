@@ -2,7 +2,7 @@
 //  Color.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 1/10/16.
+//  Created by Wolf McNally on 1/10/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
@@ -25,15 +25,17 @@
 //    func burned(by frac: Frac) -> Self
 //}
 
-// #abc
+// rgb
+// #rgb
 //
-// ^\s*#(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\s*$
-private let singleHexColorRegex = try! ~/"^\\s*#(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\\s*$"
+// ^\s*#?(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\s*$
+private let singleHexColorRegex = try! ~/"^\\s*#?(?<r>[[:xdigit:]])(?<g>[[:xdigit:]])(?<b>[[:xdigit:]])\\s*$"
 
-// #aabbcc
+// rrggbb
+// #rrggbb
 //
-// ^\s*#(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\s*$
-private let doubleHexColorRegex = try! ~/"^\\s*#(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\\s*$"
+// ^\s*#?(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\s*$
+private let doubleHexColorRegex = try! ~/"^\\s*#?(?<r>[[:xdigit:]]{2})(?<g>[[:xdigit:]]{2})(?<b>[[:xdigit:]]{2})\\s*$"
 
 // 1 0 0
 // 1 0 0 1

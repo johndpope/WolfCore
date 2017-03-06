@@ -2,15 +2,24 @@
 //  KeyChain.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 6/8/16.
+//  Created by Wolf McNally on 6/8/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
 import Foundation
 
-public struct KeyChain {
+private let defaultAccount = "default"
 
-    public static func add(data: Data, forKey key: String, inAccount account: String) throws {
+public struct KeyChain {
+    public enum Error: Swift.Error {
+        case couldNotAdd(Int)
+        case couldNotDelete(Int)
+        case couldNotUpdate(Int)
+        case couldNotRead(Int)
+        case wrongType
+    }
+
+    public static func add(data: Data, for key: String, in account: String = defaultAccount) throws {
         let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
@@ -20,15 +29,15 @@ public struct KeyChain {
         ]
         let result = SecItemAdd(query as NSDictionary, nil)
         guard result == errSecSuccess else {
-            throw GeneralError(message: "Could not add to keychain.", code: Int(result))
+            throw Error.couldNotAdd(Int(result))
         }
     }
 
-    public static func add(string: String, forKey key: String, inAccount account: String) throws {
-        try add(data: string |> UTF8.init |> Data.init, forKey: key, inAccount: account)
+    public static func add(string: String, for key: String, in account: String = defaultAccount) throws {
+        try add(data: string |> UTF8.init |> Data.init, for: key, in: account)
     }
 
-    public static func delete(key: String, account: String) throws {
+    public static func delete(key: String, account: String = defaultAccount) throws {
         let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
@@ -39,11 +48,11 @@ public struct KeyChain {
 
         let result = SecItemDelete(query as NSDictionary)
         guard result == errSecSuccess else {
-            throw GeneralError(message: "Could not delete from keychain.", code: Int(result))
+            throw Error.couldNotDelete(Int(result))
         }
     }
 
-    public static func update(data: Data, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
+    public static func update(data: Data, for key: String, in account: String = defaultAccount, addIfNotFound: Bool = true) throws {
         let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrAccount : account,
@@ -58,28 +67,32 @@ public struct KeyChain {
 
         let result = SecItemUpdate(query as NSDictionary, queryNew as NSDictionary)
         if result == errSecItemNotFound && addIfNotFound {
-            try add(data: data, forKey: key, inAccount: account)
+            try add(data: data, for: key, in: account)
             return
         }
 
         guard result == errSecSuccess else {
-            throw GeneralError(message: "Could not update keychain.", code: Int(result))
+            throw Error.couldNotUpdate(Int(result))
         }
     }
 
-    public static func update(string: String, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
-        try update(data: string |> UTF8.init |> Data.init, forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
+    public static func update(string: String, for key: String, in account: String = defaultAccount, addIfNotFound: Bool = true) throws {
+        try update(data: string |> UTF8.init |> Data.init, for: key, in: account, addIfNotFound: addIfNotFound)
     }
 
-    public static func update(number: NSNumber, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
-        try update(data: NSKeyedArchiver.archivedData(withRootObject: number), forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
+    public static func update(number: NSNumber, for key: String, in account: String = defaultAccount, addIfNotFound: Bool = true) throws {
+        try update(data: NSKeyedArchiver.archivedData(withRootObject: number), for: key, in: account, addIfNotFound: addIfNotFound)
     }
 
-    public static func update(bool: Bool, forKey key: String, inAccount account: String, addIfNotFound: Bool = false) throws {
-        try update(number:(bool as NSNumber), forKey: key, inAccount: account, addIfNotFound: addIfNotFound)
+    public static func update(bool: Bool, for key: String, in account: String = defaultAccount, addIfNotFound: Bool = true) throws {
+        try update(number:(bool as NSNumber), for: key, in: account, addIfNotFound: addIfNotFound)
     }
 
-    public static func readData(forKey key: String, inAccount account: String) throws -> Data? {
+    public static func update(json: JSON, for key: String, in account: String = defaultAccount, addIfNotFound: Bool = true) throws {
+        try update(data: json.data, for: key, in: account, addIfNotFound: addIfNotFound)
+    }
+
+    public static func data(for key: String, in account: String = defaultAccount) throws -> Data? {
         let query: [NSString : Any] = [
             kSecClass : kSecClassGenericPassword,
             kSecAttrService : key,
@@ -94,10 +107,10 @@ public struct KeyChain {
             return nil
         }
         guard result == errSecSuccess else {
-            throw GeneralError(message: "Unable to read keychain.", code: Int(result))
+            throw Error.couldNotRead(Int(result))
         }
         guard let dict = value as? [NSString: Any] else {
-            throw GeneralError(message: "Key chain data wrong type.")
+            throw Error.wrongType
         }
         guard let data = dict[kSecValueData] as? Data else {
             return nil
@@ -105,21 +118,26 @@ public struct KeyChain {
         return data
     }
 
-    public static func readString(forKey key: String, inAccount account: String) throws -> String? {
-        guard let data = try readData(forKey: key, inAccount: account) else {
+    public static func string(for key: String, in account: String = defaultAccount) throws -> String? {
+        guard let data = try data(for: key, in: account) else {
             return nil
         }
         return try data |> UTF8.init |> String.init
     }
 
-    public static func readNumber(forKey key: String, inAccount account: String) throws -> NSNumber? {
-        guard let data = try readData(forKey: key, inAccount: account) else {
+    public static func number(for key: String, in account: String = defaultAccount) throws -> NSNumber? {
+        guard let data = try data(for: key, in: account) else {
             return nil
         }
         return NSKeyedUnarchiver.unarchiveObject(with: data) as? NSNumber
     }
 
-    public static func readBool(forKey key: String, inAccount account: String) throws -> Bool? {
-        return try readNumber(forKey: key, inAccount: account) as? Bool
+    public static func bool(for key: String, in account: String = defaultAccount) throws -> Bool? {
+        return try number(for: key, in: account) as? Bool
+    }
+
+    public static func json(for key: String, in account: String = defaultAccount) throws -> JSON? {
+        guard let data = try data(for: key, in: account) else { return nil }
+        return try data |> JSON.init
     }
 }

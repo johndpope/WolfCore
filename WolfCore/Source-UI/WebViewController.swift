@@ -2,7 +2,7 @@
 //  WebViewController.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 8/10/15.
+//  Created by Wolf McNally on 8/10/15.
 //  Copyright © 2016 Vixlet. All rights reserved.
 //
 

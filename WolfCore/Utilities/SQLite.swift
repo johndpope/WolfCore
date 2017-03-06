@@ -2,7 +2,7 @@
 //  SQLite.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 6/6/15.
+//  Created by Wolf McNally on 6/6/15.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 

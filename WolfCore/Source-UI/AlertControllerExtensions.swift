@@ -2,7 +2,7 @@
 //  AlertControllerExtensions.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 5/24/16.
+//  Created by Wolf McNally on 5/24/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 

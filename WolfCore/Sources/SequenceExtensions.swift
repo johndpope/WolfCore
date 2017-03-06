@@ -2,7 +2,7 @@
 //  SequenceExtensions.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 4/1/16.
+//  Created by Wolf McNally on 4/1/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 

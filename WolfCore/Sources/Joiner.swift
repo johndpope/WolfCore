@@ -2,7 +2,7 @@
 //  Joiner.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 12/15/15.
+//  Created by Wolf McNally on 12/15/15.
 //  Copyright © 2015 Arciem. All rights reserved.
 //
 
@@ -22,6 +22,12 @@ public class Joiner {
 
     public func append(_ objs: Any...) {
         self.objs.append(contentsOf: objs)
+    }
+
+    public func append<S : Sequence>(contentsOf newElements: S) {
+        for element in newElements {
+            objs.append(element)
+        }
     }
 }
 

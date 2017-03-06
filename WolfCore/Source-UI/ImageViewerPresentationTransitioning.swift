@@ -2,7 +2,7 @@
 //  ImageViewerPresentationTransitioning.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 7/25/16.
+//  Created by Wolf McNally on 7/25/16.
 //  Copyright © 2016 Arciem LLC. All rights reserved.
 //
 

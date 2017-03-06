@@ -2,7 +2,7 @@
 //  JSON.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 1/23/16.
+//  Created by Wolf McNally on 1/23/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
@@ -15,6 +15,7 @@ public struct FoundationJSON {
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
     public typealias DictionaryOfStrings = [String: String]
+    public typealias ArrayOfStrings = [String]
     public typealias ArrayOfDictionaries = [Dictionary]
 
     public let value: Value
@@ -22,6 +23,22 @@ public struct FoundationJSON {
 
     public var string: String {
         return try! data |> UTF8.init |> String.init
+    }
+
+    public var dictionary: Dictionary {
+        return value as! Dictionary
+    }
+
+    public var array: Array {
+        return value as! Array
+    }
+
+    public var dictionaryOfStrings: DictionaryOfStrings {
+        return value as! DictionaryOfStrings
+    }
+
+    public var arrayOfDictionaries: ArrayOfDictionaries {
+        return value as! ArrayOfDictionaries
     }
 
     public init(value: Value) throws {

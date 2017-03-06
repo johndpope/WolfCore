@@ -2,7 +2,7 @@
 //  ArrayExtensions.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 7/5/15.
+//  Created by Wolf McNally on 7/5/15.
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
@@ -19,6 +19,26 @@ extension Array {
 
     public mutating func replaceElement(atCircularIndex index: Index, withElement element: Element) {
         self[circularIndex(at: index)] = element
+    }
+
+    public var randomIndex: Int {
+        return Random.number(0 ..< self.count)
+    }
+
+    public var randomElement: Element {
+        return self[randomIndex]
+    }
+
+    /// Fisher–Yates shuffle
+    /// http://datagenetics.com/blog/november42014/index.html
+    public var shuffled: Array<Element> {
+        var result = self
+        let hi = count - 1
+        for a in 0 ..< hi {
+            let b = Random.number(a + 1 ..< count)
+            swap(&result[a], &result[b])
+        }
+        return result
     }
 }
 

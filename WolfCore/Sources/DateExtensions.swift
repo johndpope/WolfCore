@@ -2,7 +2,7 @@
 //  DateExtensions.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 7/12/15.
+//  Created by Wolf McNally on 7/12/15.
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
@@ -51,20 +51,25 @@ extension Calendar {
 
 // Provide for converting dates to and from ISO8601 format.
 // Example: "1965-05-15T00:00:00.0Z"
-
-private var _iso8601DateFormatter: DateFormatter! = nil
-
 extension Date {
-    public static var iso8601Formatter: DateFormatter {
-        if _iso8601DateFormatter == nil {
-            _iso8601DateFormatter = DateFormatter()
-            _iso8601DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sZ"
-        }
-        return _iso8601DateFormatter
-    }
+    public static var iso8601Formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.sZ"
+        return formatter
+    }()
 
     public var iso8601: String {
         return type(of: self).iso8601Formatter.string(from: self)
+    }
+
+    public static var shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+
+    public var shortFormat: String {
+        return type(of: self).shortDateFormatter.string(from: self)
     }
 }
 

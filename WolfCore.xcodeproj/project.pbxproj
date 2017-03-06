@@ -323,6 +323,12 @@
 		038BB9421E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
 		038BB9431E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
 		0390BEC71E47F9E400EA937F /* BounceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390BEC61E47F9E400EA937F /* BounceAnimation.swift */; };
+		039AD2781E6913F600776D7B /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039AD2771E6913F600776D7B /* JSONUtils.swift */; };
+		039AD2791E6913F600776D7B /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039AD2771E6913F600776D7B /* JSONUtils.swift */; };
+		039AD27A1E6913F600776D7B /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039AD2771E6913F600776D7B /* JSONUtils.swift */; };
+		039AD2821E6A222300776D7B /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039AD2811E6A222300776D7B /* Credentials.swift */; };
+		039AD2831E6A222300776D7B /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039AD2811E6A222300776D7B /* Credentials.swift */; };
+		039AD2841E6A222300776D7B /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039AD2811E6A222300776D7B /* Credentials.swift */; };
 		039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C91281E4CFCE2000AE01B /* OverlayWindow.swift */; };
 		039C912D1E4D1582000AE01B /* VideoControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C912C1E4D1582000AE01B /* VideoControllerView.swift */; };
 		039C912F1E4D1D67000AE01B /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C912E1E4D1D67000AE01B /* BounceButton.swift */; };
@@ -381,6 +387,7 @@
 		03D3FA471E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
 		03D3FA481E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
 		03D3FA491E550A8F00C8E550 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3FA461E550A8F00C8E550 /* Timeline.swift */; };
+		03DA96CC1E6CA00A00C42B9E /* JSONUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DA96CB1E6CA00A00C42B9E /* JSONUtilsTests.swift */; };
 		03DDBAD01C5A9D5400A8CDAE /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDBACF1C5A9D5400A8CDAE /* Position.swift */; };
 		03E006C41E5D65AE00AA8C3F /* ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E006C31E5D65AE00AA8C3F /* ModelObject.swift */; };
 		03E006C51E5D65AE00AA8C3F /* ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E006C31E5D65AE00AA8C3F /* ModelObject.swift */; };
@@ -682,6 +689,8 @@
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
 		038BB9401E51A25B00B957C2 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dimensions.swift; path = Sources/Dimensions.swift; sourceTree = "<group>"; };
 		0390BEC61E47F9E400EA937F /* BounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BounceAnimation.swift; path = "Source-UI/BounceAnimation.swift"; sourceTree = "<group>"; };
+		039AD2771E6913F600776D7B /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONUtils.swift; path = "Sources-Foundation/JSONUtils.swift"; sourceTree = "<group>"; };
+		039AD2811E6A222300776D7B /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Credentials.swift; path = "Sources-Foundation/Credentials.swift"; sourceTree = "<group>"; };
 		039C91281E4CFCE2000AE01B /* OverlayWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OverlayWindow.swift; path = "Source-UI/OverlayWindow.swift"; sourceTree = "<group>"; };
 		039C912C1E4D1582000AE01B /* VideoControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoControllerView.swift; path = "Source-UI/VideoControllerView.swift"; sourceTree = "<group>"; };
 		039C912E1E4D1D67000AE01B /* BounceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BounceButton.swift; path = "Source-UI/BounceButton.swift"; sourceTree = "<group>"; };
@@ -720,6 +729,7 @@
 		03D3FA3B1E542CB500C8E550 /* URLComponentsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLComponentsExtensions.swift; path = "Sources-Foundation/URLComponentsExtensions.swift"; sourceTree = "<group>"; };
 		03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLExtensions.swift; path = "Sources-Foundation/URLExtensions.swift"; sourceTree = "<group>"; };
 		03D3FA461E550A8F00C8E550 /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = "Sources-Foundation/Timeline.swift"; sourceTree = "<group>"; };
+		03DA96CB1E6CA00A00C42B9E /* JSONUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilsTests.swift; sourceTree = "<group>"; };
 		03DDBACF1C5A9D5400A8CDAE /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Position.swift; path = Sources/Position.swift; sourceTree = "<group>"; };
 		03E006C31E5D65AE00AA8C3F /* ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelObject.swift; path = Sources/ModelObject.swift; sourceTree = "<group>"; };
 		03E006C71E5D65E500AA8C3F /* ModelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelView.swift; path = "Source-UI/ModelView.swift"; sourceTree = "<group>"; };
@@ -912,6 +922,7 @@
 				03F5A8B11C485F6000B124A3 /* UniqueID.swift */,
 				03FAF7841C53F6FF0045BB37 /* FoundationJSON.swift */,
 				0322E8A51D15378C00EFF3F6 /* SwiftJSON.swift */,
+				039AD2771E6913F600776D7B /* JSONUtils.swift */,
 				03FAF77A1C532A640045BB37 /* ASN1Parser.swift */,
 				03206B2C1C3B1B02001A463B /* BSON.swift */,
 				03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */,
@@ -941,6 +952,7 @@
 				035C36761C514A26000C04D0 /* CryptoUtils.swift */,
 				03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */,
 				0314DD0C1D08FFFC00E23C67 /* KeyChain.swift */,
+				039AD2811E6A222300776D7B /* Credentials.swift */,
 				035C36641C500333000C04D0 /* LifeHash.swift */,
 				035C36661C505DB0000C04D0 /* SHA256.swift */,
 			);
@@ -1283,6 +1295,7 @@
 				031BAB2D1D41E7690017DE30 /* UniqueIDTests.swift */,
 				032D77811E256D020058CF1B /* GraphTests.swift */,
 				031D33841E5A8BE8005D4FFF /* FrameBasedSystemTests.swift */,
+				03DA96CB1E6CA00A00C42B9E /* JSONUtilsTests.swift */,
 			);
 			path = "WolfCoreTests-iOS";
 			sourceTree = "<group>";
@@ -1646,6 +1659,7 @@
 				033F5EB21CA3096700647A0A /* ImageExtensions.swift in Sources */,
 				0378EC841DF4D89900E6A875 /* Cache.swift in Sources */,
 				0324181E1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
+				039AD2791E6913F600776D7B /* JSONUtils.swift in Sources */,
 				03E006C51E5D65AE00AA8C3F /* ModelObject.swift in Sources */,
 				03106F631D40D81F00E21F82 /* Runes.swift in Sources */,
 				033F5EB31CA3096700647A0A /* RegexUtils.swift in Sources */,
@@ -1688,6 +1702,7 @@
 				032418161E2C468100082E6A /* GraphError.swift in Sources */,
 				033F5ECB1CA3096700647A0A /* ArrayExtensions.swift in Sources */,
 				032D77891E256F370058CF1B /* Edge.swift in Sources */,
+				039AD2831E6A222300776D7B /* Credentials.swift in Sources */,
 				033F5ECD1CA3096700647A0A /* UserDefaultsExtensions.swift in Sources */,
 				033F5ECE1CA3096700647A0A /* ErrorExtensions.swift in Sources */,
 				034D31281DF7A96E004ADC34 /* NetworkActivity.swift in Sources */,
@@ -1754,6 +1769,7 @@
 				039C912F1E4D1D67000AE01B /* BounceButton.swift in Sources */,
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
+				039AD2821E6A222300776D7B /* Credentials.swift in Sources */,
 				03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
 				031D337F1E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */,
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
@@ -1838,6 +1854,7 @@
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
 				035C36651C500333000C04D0 /* LifeHash.swift in Sources */,
 				033AC34C1D17172E008C8B93 /* Frac.swift in Sources */,
+				039AD2781E6913F600776D7B /* JSONUtils.swift in Sources */,
 				038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */,
 				0303BCD31E404E6200B196CA /* PlaceholderView.swift in Sources */,
 				033038071E5D12AB008E37F6 /* Lorem.swift in Sources */,
@@ -1932,6 +1949,7 @@
 				03B7BDED1D40B8D900177066 /* Base64Tests.swift in Sources */,
 				03D3D5E91D417803000D5236 /* HexTests.swift in Sources */,
 				03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */,
+				03DA96CC1E6CA00A00C42B9E /* JSONUtilsTests.swift in Sources */,
 				03106F5F1D40CD6500E21F82 /* Base64URLTests.swift in Sources */,
 				031BAB2E1D41E7690017DE30 /* UniqueIDTests.swift in Sources */,
 				032D77821E256D020058CF1B /* GraphTests.swift in Sources */,
@@ -2030,6 +2048,7 @@
 				03E172D71CF1C8B60073F383 /* CryptoUtils.swift in Sources */,
 				03CF07E01DF531BE00B7AD7E /* TransferValue.swift in Sources */,
 				03B0D9B91DF385F20073AF42 /* DescriptiveError.swift in Sources */,
+				039AD27A1E6913F600776D7B /* JSONUtils.swift in Sources */,
 				0359AF601D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				0324181B1E2EDE0400082E6A /* StrongComponents.swift in Sources */,
 				0378EC8C1DF4DA9900E6A875 /* SQLite.swift in Sources */,
@@ -2085,6 +2104,7 @@
 				03E173021CF1C8E70073F383 /* HTTPError.swift in Sources */,
 				03E172DA1CF1C8B60073F383 /* GeometryUtils.swift in Sources */,
 				033AC34A1D171703008C8B93 /* Interval.swift in Sources */,
+				039AD2841E6A222300776D7B /* Credentials.swift in Sources */,
 				03E172BF1CF1C8AD0073F383 /* GeneralError.swift in Sources */,
 				032418131E2C440600082E6A /* TopologicalSort.swift in Sources */,
 				03106F6C1D40D96800E21F82 /* RunesArray.swift in Sources */,

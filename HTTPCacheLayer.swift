@@ -23,7 +23,7 @@ public class HTTPCacheLayer: CacheLayer {
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         request.httpMethod = HTTPMethod.get.rawValue
         HTTP.retrieveData(
-            withRequest: request,
+            with: request,
             successStatusCodes: [.ok],
             name: "CacheRetrieve",
             success: { (response, rawData) in

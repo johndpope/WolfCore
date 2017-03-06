@@ -45,6 +45,12 @@ public class Lorem {
         return compose({ word }, count: numberOfWordsInSentence, middleSeparator: .space, endSeparator: .dot, decorator: capitalizeFirstLetterDecorator)
     }
 
+    public static var shortSentence: String {
+        let numberOfWordsInSentence = Random.number(3...8)
+        let capitalizeFirstLetterDecorator: Decorator = { $0.capitalizedFirstCharacter }
+        return compose({ word }, count: numberOfWordsInSentence, middleSeparator: .space, endSeparator: .dot, decorator: capitalizeFirstLetterDecorator)
+    }
+
     public static func sentences(_ count: Int) -> String {
         return compose({ sentence }, count: count, middleSeparator: .space)
     }
@@ -73,6 +79,18 @@ public class Lorem {
     // ======================================================= //
     // MARK: - Misc
     // ======================================================= //
+
+    public static var femaleScreenName: String {
+        return "\(femaleFirstName)\(Random.number(100...999))"
+    }
+
+    public static var maleScreenName: String {
+        return "\(maleFirstName)\(Random.number(100...999))"
+    }
+
+    public static var screenName: String {
+        return "\(firstName)\(Random.number(100...999))"
+    }
 
     public static var femaleFirstName: String {
         return Random.choice(among: femaleFirstNames)
@@ -108,7 +126,7 @@ public class Lorem {
         return Random.choice(among: tweets)
     }
 
-    public static var date: Date {
+    public static var pastDate: Date {
         let currentDate = Date()
         let currentCalendar = Calendar.current
         var referenceDateComponents = DateComponents()
@@ -116,6 +134,17 @@ public class Lorem {
         let referenceDate: Date = currentCalendar.date(byAdding: referenceDateComponents, to: currentDate)!
         let timeIntervalSinceReferenceDate: Int = Int(referenceDate.timeIntervalSinceReferenceDate)
         let randomTimeInterval = TimeInterval(Random.number(0...timeIntervalSinceReferenceDate))
+        return referenceDate.addingTimeInterval(randomTimeInterval)
+    }
+
+    public static var futureDate: Date {
+        let currentDate = Date()
+        let currentCalendar = Calendar.current
+        var referenceDateComponents = DateComponents()
+        referenceDateComponents.year = 4
+        let referenceDate: Date = currentCalendar.date(byAdding: referenceDateComponents, to: currentDate)!
+        let timeIntervalSinceReferenceDate: Int = Int(referenceDate.timeIntervalSinceReferenceDate)
+        let randomTimeInterval = -TimeInterval(Random.number(0...timeIntervalSinceReferenceDate))
         return referenceDate.addingTimeInterval(randomTimeInterval)
     }
 
@@ -138,6 +167,23 @@ public class Lorem {
 
     public static var avatarURL: URL {
         return Random.boolean() ? maleAvatarURL : femaleAvatarURL
+    }
+
+    public static var password: String {
+        let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".characters
+        let digits = "0123456789".characters
+        let symbols = "!@#$%^&*-_=+".characters
+        var result = ""
+        Random.count(6...12).forEach { _ in
+            result += String(Random.choice(among: alphabet))
+        }
+        result.insert(Random.choice(among: digits), at: Random.insertionPoint(in: result))
+        result.insert(Random.choice(among: symbols), at: Random.insertionPoint(in: result))
+        return result
+    }
+
+    public static var recordID: Int {
+        return Random.number(10000...99999)
     }
 
     // ======================================================= //
@@ -189,14 +235,21 @@ public class Lorem {
 
     private static let lastNames = "Chung Chen Melton Hill Puckett Song Hamilton Bender Wagner McLaughlin McNamara Raynor Moon Woodard Desai Wallace Lawrence Griffin Dougherty Powers May Steele Teague Vick Gallagher Solomon Walsh Monroe Connolly Hawkins Middleton Goldstein Watts Johnston Weeks Wilkerson Barton Walton Hall Ross Chung Bender Woods Mangum Joseph Rosenthal Bowden Barton Underwood Jones Baker Merritt Cross Cooper Holmes Sharpe Morgan Hoyle Allen Rich Rich Grant Proctor Diaz Graham Watkins Hinton Marsh Hewitt Branch Walton O'Brien Case Watts Christensen Parks Hardin Lucas Eason Davidson Whitehead Rose Sparks Moore Pearson Rodgers Graves Scarborough Sutton Sinclair Bowman Olsen Love McLean Christian Lamb James Chandler Stout Cowan Golden Bowling Beasley Clapp Abrams Tilley Morse Boykin Sumner Cassidy Davidson Heath Blanchard McAllister McKenzie Byrne Schroeder Griffin Gross Perkins Robertson Palmer Brady Rowe Zhang Hodge Li Bowling Justice Glass Willis Hester Floyd Graves Fischer Norman Chan Hunt Byrd Lane Kaplan Heller May Jennings Hanna Locklear Holloway Jones Glover Vick O'Donnell Goldman McKenna Starr Stone McClure Watson Monroe Abbott Singer Hall Farrell Lucas Norman Atkins Monroe Robertson Sykes Reid Chandler Finch Hobbs Adkins Kinney Whitaker Alexander Conner Waters Becker Rollins Love Adkins Black Fox Hatcher Wu Lloyd Joyce Welch Matthews Chappell MacDonald Kane Butler Pickett Bowman Barton Kennedy Branch Thornton McNeill Weinstein Middleton Moss Lucas Rich Carlton Brady Schultz Nichols Harvey Stevenson Houston Dunn West O'Brien Barr Snyder Cain Heath Boswell Olsen Pittman Weiner Petersen Davis Coleman Terrell Norman Burch Weiner Parrott Henry Gray Chang McLean Eason Weeks Siegel Puckett Heath Hoyle Garrett Neal Baker Goldman Shaffer Choi Carver".components(separatedBy: " ")
 
-    private static let emailDomains = "gmail.com yahoo.com hotmail.com email.com live.com me.com mac.com aol.com fastmail.com mail.com".components(separatedBy: " ")
-
     private static let emailDelimiters = ["", ".", "-", "_"]
+
+    private static let emailDomains = "gmail.com yahoo.com hotmail.com email.com live.com me.com mac.com aol.com fastmail.com mail.com".components(separatedBy: " ")
 
     private static let domains = "twitter.com google.com youtube.com wordpress.org adobe.com blogspot.com godaddy.com wikipedia.org wordpress.com yahoo.com linkedin.com amazon.com flickr.com w3.org apple.com myspace.com tumblr.com digg.com microsoft.com vimeo.com pinterest.com qq.com stumbleupon.com youtu.be addthis.com miibeian.gov.cn delicious.com baidu.com feedburner.com bit.ly".components(separatedBy: " ")
 
-    // Source: http://www.kevadamson.com/talking-of-design/article/140-alternative-characters-to-lorem-ipsum
-    private static let tweets = ["Far away, in a forest next to a river beneath the mountains, there lived a small purple otter called Philip. Philip likes sausages. The End.", "He liked the quality sausages from Marks & Spencer but due to the recession he had been forced to shop in a less desirable supermarket. End.", "He awoke one day to find his pile of sausages missing. Roger the greedy boar with human eyes, had skateboarded into the forest & eaten them!"]
+    private static let tweets = [
+        "I was born in the cemetery under the blood red moon. From fire and death and brutal destruction I bring this unholy message: Surfs up.",
+        "I was driving last night on a lonely dark road and met this alien or maybe a really ugly girl and it gave me the lottery numbers.",
+        "\"I'm pretty popular on the internet,\" I whisper to my cat. Cat doesnt respond because cat doesnt exist. There is no cat and I am alone.",
+        "When I take a girl to meet my parents, I bring her to a cemetery and say \"There they are,\" and point to some ducks.",
+        "You're in a park hangin out w people. All the people are dogs and you're a dog. You've never heard of Twitter and your life isn't miserable.",
+        "Cat enters hotel room, tosses gun on bed, peers out window. \"So this is where it all ends,\" he softly whispers.",
+        "My brain says no but my heart says yes and my mouth says why do my organs have mouths and my spleen says dude a mad scientist kidnapped us."
+    ]
 
     private static let imageURLs = [
         "https://68.media.tumblr.com/3f5d6a2ed0c4a5f1f64c95d54073bf7f/tumblr_okametxqXC1w1ctyao1_500.png", // unlikely river

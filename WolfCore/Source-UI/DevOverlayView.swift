@@ -2,7 +2,7 @@
 //  DevOverlayView.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 5/26/16.
+//  Created by Wolf McNally on 5/26/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 

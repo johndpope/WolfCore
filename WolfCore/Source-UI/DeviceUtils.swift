@@ -2,7 +2,7 @@
 //  DeviceUtils.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 4/19/16.
+//  Created by Wolf McNally on 4/19/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 

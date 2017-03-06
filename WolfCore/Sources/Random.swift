@@ -2,7 +2,7 @@
 //  Random.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 1/10/16.
+//  Created by Wolf McNally on 1/10/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
@@ -94,6 +94,16 @@ public struct Random {
         return T(y1)
     }
 
+    public func index(in string: String) -> String.Index {
+        let i = number(0..<string.characters.count)
+        return string.index(string.startIndex, offsetBy: i)
+    }
+
+    public func insertionPoint(in string: String) -> String.Index {
+        let i = number(0...string.characters.count)
+        return string.index(string.startIndex, offsetBy: i)
+    }
+
     // returns a random number in the half-open range 0..<1
     public static func number<T: BinaryFloatingPoint>() -> T {
         return Random.shared.number()
@@ -134,5 +144,13 @@ public struct Random {
 
     public static func gaussian<T: BinaryFloatingPoint>() -> T {
         return Random.shared.gaussian()
+    }
+
+    public static func index(in string: String) -> String.Index {
+        return Random.shared.index(in: string)
+    }
+
+    public static func insertionPoint(in string: String) -> String.Index {
+        return Random.shared.insertionPoint(in: string)
     }
 }

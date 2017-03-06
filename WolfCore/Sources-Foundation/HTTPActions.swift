@@ -2,7 +2,7 @@
 //  HTTPActions.swift
 //  WolfCore
 //
-//  Created by Robert McNally on 11/21/16.
+//  Created by Wolf McNally on 11/21/16.
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
