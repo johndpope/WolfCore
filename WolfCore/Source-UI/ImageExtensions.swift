@@ -84,13 +84,13 @@ extension OSImage {
 
     public func scaled(toSize size: CGSize, opaque: Bool = false) -> OSImage {
         let targetSize = self.size.aspectFit(within: size)
-        return newImage(withSize: targetSize, opaque: opaque, scale: scale) { context in
+        return newImage(withSize: targetSize, opaque: opaque, scale: scale, renderingMode: self.renderingMode) { context in
             self.draw(in: CGRect(origin: .zero, size: targetSize))
         }
     }
 
     public func cropped(toRect rect: CGRect, opaque: Bool = false) -> OSImage {
-        return newImage(withSize: rect.size, opaque: opaque, scale: scale) { context in
+        return newImage(withSize: rect.size, opaque: opaque, scale: scale, renderingMode: self.renderingMode) { context in
             self.draw(in: CGRect(x: -rect.minX, y: -rect.minY, width: rect.width, height: rect.height))
         }
     }
