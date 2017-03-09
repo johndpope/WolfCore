@@ -69,3 +69,17 @@ open class StackView: OSStackView, Skinnable {
 
     open func setup() { }
 }
+
+open class HorizontalStackView: StackView {
+    open override func setup() {
+        super.setup()
+        axis = .horizontal
+    }
+}
+
+open class VerticalStackView: StackView {
+    open override func setup() {
+        super.setup()
+        axis = .vertical
+    }
+}

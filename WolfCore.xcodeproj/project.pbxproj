@@ -319,6 +319,7 @@
 		038765421D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		038765431D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
+		038B8C631E7111800073E770 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B8C621E7111800073E770 /* DividerView.swift */; };
 		038BB9411E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
 		038BB9421E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
 		038BB9431E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
@@ -687,6 +688,7 @@
 		0387653C1D245BB60082FC79 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reference.swift; path = Sources/Reference.swift; sourceTree = "<group>"; };
 		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
+		038B8C621E7111800073E770 /* DividerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DividerView.swift; path = "Source-UI/DividerView.swift"; sourceTree = "<group>"; };
 		038BB9401E51A25B00B957C2 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dimensions.swift; path = Sources/Dimensions.swift; sourceTree = "<group>"; };
 		0390BEC61E47F9E400EA937F /* BounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BounceAnimation.swift; path = "Source-UI/BounceAnimation.swift"; sourceTree = "<group>"; };
 		039AD2771E6913F600776D7B /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONUtils.swift; path = "Sources-Foundation/JSONUtils.swift"; sourceTree = "<group>"; };
@@ -1087,6 +1089,7 @@
 				039C912E1E4D1D67000AE01B /* BounceButton.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
 				03D064EB1E542AC70049D61B /* ConcealerView.swift */,
+				038B8C621E7111800073E770 /* DividerView.swift */,
 				03D064E71E5412AE0049D61B /* FlexView.swift */,
 				0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */,
 				03E006C71E5D65E500AA8C3F /* ModelView.swift */,
@@ -1872,6 +1875,7 @@
 				03D3FA3C1E542CB500C8E550 /* URLComponentsExtensions.swift in Sources */,
 				036307D61CB6DB0D00DC7070 /* OrientationNotificationActions.swift in Sources */,
 				0324181D1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
+				038B8C631E7111800073E770 /* DividerView.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationAction.swift in Sources */,
 				03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */,
 				0324AEFE1CF81F7D0080DFF6 /* InFlightTokenView.swift in Sources */,

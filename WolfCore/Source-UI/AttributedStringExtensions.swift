@@ -470,9 +470,24 @@ public postfix func § (left: AString) -> AString {
     return left.mutableCopy() as! AString
 }
 
+public postfix func § (left: String?) -> AString? {
+    guard let left = left else { return nil }
+    return AString(string: left)
+}
+
+public postfix func § (left: AString?) -> AString? {
+    guard let left = left else { return nil }
+    return left.mutableCopy() as? AString
+}
+
 // swiftlint:disable:next custom_rules
 public postfix func § (left: NSAttributedString) -> AString {
     return left.mutableCopy() as! AString
+}
+// swiftlint:disable:next custom_rules
+public postfix func § (left: NSAttributedString?) -> AString? {
+    guard let left = left else { return nil }
+    return left.mutableCopy() as? AString
 }
 
 // swiftlint:disable:next custom_rules

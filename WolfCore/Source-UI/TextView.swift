@@ -100,7 +100,7 @@ extension TextView {
         location.y -= textContainerInset.top
         let charIndex = layoutManager.characterIndex(for: location, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
         if charIndex < textStorage.length {
-            let attributedText = self.attributedText§
+            let attributedText = (self.attributedText§)!
             for (tag, action) in tagTapActions {
                 let index = attributedText.string.index(fromLocation: charIndex)
                 if let tappedText = attributedText.getString(forTag: tag, atIndex: index) {

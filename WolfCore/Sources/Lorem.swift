@@ -39,20 +39,36 @@ public class Lorem {
         return compose({ word }, count: count, middleSeparator: .space)
     }
 
+    private static let sentenceEnds: [Separator] = [
+        .dot,
+        .dot,
+        .dot,
+        .questionMark,
+        .exclamationPoint
+    ]
+
+    private static var sentenceEnd: Separator {
+        return Random.choice(among: sentenceEnds)
+    }
+
     public static var sentence: String {
         let numberOfWordsInSentence = Random.number(4...16)
         let capitalizeFirstLetterDecorator: Decorator = { $0.capitalizedFirstCharacter }
-        return compose({ word }, count: numberOfWordsInSentence, middleSeparator: .space, endSeparator: .dot, decorator: capitalizeFirstLetterDecorator)
+        return compose({ word }, count: numberOfWordsInSentence, middleSeparator: .space, endSeparator: sentenceEnd, decorator: capitalizeFirstLetterDecorator)
     }
 
     public static var shortSentence: String {
         let numberOfWordsInSentence = Random.number(3...8)
         let capitalizeFirstLetterDecorator: Decorator = { $0.capitalizedFirstCharacter }
-        return compose({ word }, count: numberOfWordsInSentence, middleSeparator: .space, endSeparator: .dot, decorator: capitalizeFirstLetterDecorator)
+        return compose({ word }, count: numberOfWordsInSentence, middleSeparator: .space, endSeparator: sentenceEnd, decorator: capitalizeFirstLetterDecorator)
     }
 
     public static func sentences(_ count: Int) -> String {
         return compose({ sentence }, count: count, middleSeparator: .space)
+    }
+
+    public static func shortSentences(_ count: Int) -> String {
+        return compose({ shortSentence }, count: count, middleSeparator: .space)
     }
 
     public static var paragraph: String {
@@ -71,7 +87,7 @@ public class Lorem {
     }
 
     public static var shortTitle: String {
-        let numberOfWordsInTitle = Random.number(1...3)
+        let numberOfWordsInTitle = Random.number(2...3)
         let capitalizeStringDecorator: Decorator = { $0.capitalized }
         return compose({ word }, count: numberOfWordsInTitle, middleSeparator: .space, decorator: capitalizeStringDecorator)
     }
@@ -81,15 +97,15 @@ public class Lorem {
     // ======================================================= //
 
     public static var femaleScreenName: String {
-        return "\(femaleFirstName)\(Random.number(100...999))"
+        return "\(femaleFirstName.lowercased())\(Random.number(100...999))"
     }
 
     public static var maleScreenName: String {
-        return "\(maleFirstName)\(Random.number(100...999))"
+        return "\(maleFirstName.lowercased())\(Random.number(100...999))"
     }
 
     public static var screenName: String {
-        return "\(firstName)\(Random.number(100...999))"
+        return "\(firstName.lowercased())\(Random.number(100...999))"
     }
 
     public static var femaleFirstName: String {
@@ -194,6 +210,8 @@ public class Lorem {
         case none = ""
         case space = " "
         case dot = "."
+        case questionMark = "?"
+        case exclamationPoint = "!"
         case newLine = "\n"
     }
 
