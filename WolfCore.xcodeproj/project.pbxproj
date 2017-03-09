@@ -320,6 +320,7 @@
 		038765431D2464CB0082FC79 /* Framework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038765401D2464CB0082FC79 /* Framework.swift */; };
 		0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389BD301CF5130600390914 /* AlertControllerExtensions.swift */; };
 		038B8C631E7111800073E770 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B8C621E7111800073E770 /* DividerView.swift */; };
+		038B8C6D1E714DE30073E770 /* SpacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B8C6C1E714DE30073E770 /* SpacerView.swift */; };
 		038BB9411E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
 		038BB9421E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
 		038BB9431E51A25B00B957C2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038BB9401E51A25B00B957C2 /* Dimensions.swift */; };
@@ -689,6 +690,7 @@
 		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
 		038B8C621E7111800073E770 /* DividerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DividerView.swift; path = "Source-UI/DividerView.swift"; sourceTree = "<group>"; };
+		038B8C6C1E714DE30073E770 /* SpacerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpacerView.swift; path = "Source-UI/SpacerView.swift"; sourceTree = "<group>"; };
 		038BB9401E51A25B00B957C2 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dimensions.swift; path = Sources/Dimensions.swift; sourceTree = "<group>"; };
 		0390BEC61E47F9E400EA937F /* BounceAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BounceAnimation.swift; path = "Source-UI/BounceAnimation.swift"; sourceTree = "<group>"; };
 		039AD2771E6913F600776D7B /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONUtils.swift; path = "Sources-Foundation/JSONUtils.swift"; sourceTree = "<group>"; };
@@ -1100,6 +1102,7 @@
 				0303BCD21E404E6200B196CA /* PlaceholderView.swift */,
 				03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */,
 				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
+				038B8C6C1E714DE30073E770 /* SpacerView.swift */,
 				035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */,
 				03D3FA391E542C8800C8E550 /* TableViewExtensions.swift */,
 				0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */,
@@ -1779,6 +1782,7 @@
 				03E13B811C4F28F60074E447 /* SizeExtensions.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
 				0355534C1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
+				038B8C6D1E714DE30073E770 /* SpacerView.swift in Sources */,
 				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
 				036307D21CB6DAA500DC7070 /* ApplicationNotificationActions.swift in Sources */,
 				036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */,
