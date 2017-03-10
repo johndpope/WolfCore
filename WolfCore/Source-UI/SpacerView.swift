@@ -9,24 +9,23 @@
 import UIKit
 
 public class SpacerView: View {
-    private var heightConstraint: NSLayoutConstraint!
-
     public var height: CGFloat {
-        get {
-            return heightConstraint.constant
-        }
-
-        set {
-            heightConstraint.constant = newValue
+        didSet {
+            invalidateIntrinsicContentSize()
         }
     }
 
     public init(height: CGFloat = 10) {
+        self.height = height
         super.init(frame: .zero)
-        heightConstraint = activateConstraint(heightAnchor == height)
     }
     
     public required init?(coder aDecoder: NSCoder) {
+        self.height = 10
         super.init(coder: aDecoder)
+    }
+
+    public override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIViewNoIntrinsicMetric, height: height)
     }
 }

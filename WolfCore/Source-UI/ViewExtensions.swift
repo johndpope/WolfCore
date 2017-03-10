@@ -82,6 +82,10 @@ extension OSView {
         return activateConstraint(heightAnchor == height)
     }
 
+    @discardableResult public func constrainAspect(to aspect: CGFloat, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+        return activateConstraint(widthAnchor == heightAnchor * aspect)
+    }
+
     @discardableResult public func constrainSize(to size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
             widthAnchor == size.width =%= [identifier, "width"],
