@@ -257,6 +257,16 @@ extension OSView {
     }
 
     extension UIView {
+        public func show() {
+            isHidden = false
+        }
+
+        public func hide() {
+            isHidden = true
+        }
+    }
+
+    extension UIView {
         public var statusBarFrame: CGRect? {
             guard let window = window else { return nil }
             let statusBarFrame = UIApplication.shared.statusBarFrame

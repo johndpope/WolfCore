@@ -6,8 +6,6 @@
 //  Copyright © 2017 Arciem. All rights reserved.
 //
 
-import Foundation
-
 enum NodeState {
     case new
     case working

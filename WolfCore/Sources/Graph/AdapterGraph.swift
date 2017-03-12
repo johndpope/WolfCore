@@ -6,8 +6,6 @@
 //  Copyright © 2017 Arciem. All rights reserved.
 //
 
-import Foundation
-
 public protocol AdapterGraph: GraphProtocol {
     associatedtype BaseGraph: GraphProtocol
 

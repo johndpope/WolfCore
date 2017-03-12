@@ -6,8 +6,6 @@
 //  Copyright © 2015 Arciem LLC. All rights reserved.
 //
 
-import Foundation
-
 extension Array {
     public func circularIndex(at index: Int) -> Int {
         return WolfCore.circularIndex(at: index, count: count)

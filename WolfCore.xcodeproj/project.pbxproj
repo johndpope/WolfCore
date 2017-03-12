@@ -357,6 +357,7 @@
 		03C9AA1D1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03C9AA1E1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03CA5A401E39195E00A7D3C6 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */; };
+		03CCED371E75188B0002BD68 /* Editable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCED361E75188B0002BD68 /* Editable.swift */; };
 		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
 		03CF07DF1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
@@ -715,6 +716,7 @@
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
 		03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreImageFilters.swift; sourceTree = "<group>"; };
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
+		03CCED361E75188B0002BD68 /* Editable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Editable.swift; path = "Source-UI/Editable.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransferValue.swift; path = Sources/TransferValue.swift; sourceTree = "<group>"; };
 		03CF07E51DF5340A00B7AD7E /* Skinnable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Skinnable.swift; path = "Source-UI/Skinnable.swift"; sourceTree = "<group>"; };
@@ -1092,6 +1094,7 @@
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
 				03D064EB1E542AC70049D61B /* ConcealerView.swift */,
 				038B8C621E7111800073E770 /* DividerView.swift */,
+				03CCED361E75188B0002BD68 /* Editable.swift */,
 				03D064E71E5412AE0049D61B /* FlexView.swift */,
 				0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */,
 				03E006C71E5D65E500AA8C3F /* ModelView.swift */,
@@ -1911,6 +1914,7 @@
 				035553471C0F622A00E0FCA7 /* DispatchUtils.swift in Sources */,
 				03F2614F1D48B1D800523640 /* ImageViewerPresentationTransitioning.swift in Sources */,
 				039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */,
+				03CCED371E75188B0002BD68 /* Editable.swift in Sources */,
 				03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */,
 				0378EC871DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,
