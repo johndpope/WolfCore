@@ -25,7 +25,7 @@ class ImageViewerDismissalTransitioning: NSObject, UIViewControllerAnimatedTrans
         viewerViewController.sourceImageView.alpha = 0.0
 
         fromView.alpha = 1.0
-        viewerViewController.imageViewHidden = true
+        viewerViewController.isImageViewHidden = true
 
         let movingImageViewStartFrame = viewerViewController.view.convert(viewerViewController.imageViewFrame, to: containerView)
 
@@ -47,7 +47,7 @@ class ImageViewerDismissalTransitioning: NSObject, UIViewControllerAnimatedTrans
             completion: { finished in
                 viewerViewController.sourceImageView.alpha = sourcePriorAlpha
                 movingImageView.removeFromSuperview()
-                viewerViewController.imageViewHidden = false
+                viewerViewController.isImageViewHidden = false
                 let cancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!cancelled)
             }

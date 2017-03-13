@@ -217,6 +217,7 @@
 		034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
+		035024751E76468300BAEFF9 /* PowerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035024741E76468300BAEFF9 /* PowerTextField.swift */; };
 		0355533C1C0F622A00E0FCA7 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
 		0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */; };
 		0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */; };
@@ -337,6 +338,7 @@
 		039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */; };
 		03A146731CAF5E0600FD6261 /* WolfCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035552F81C0F5F4200E0FCA7 /* WolfCore.framework */; };
 		03A1467A1CAF5E3900FD6261 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A146791CAF5E3900FD6261 /* StringTests.swift */; };
+		03A3DF361E767BA200F4023C /* EditableContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3DF351E767BA200F4023C /* EditableContainerView.swift */; };
 		03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D01CB4869800F25335 /* GestureActions.swift */; };
 		03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */; };
 		03AC919C1CEB3DF3006AED00 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC919B1CEB3DF3006AED00 /* PagingView.swift */; };
@@ -358,6 +360,7 @@
 		03C9AA1E1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03CA5A401E39195E00A7D3C6 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */; };
 		03CCED371E75188B0002BD68 /* Editable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCED361E75188B0002BD68 /* Editable.swift */; };
+		03CCED391E75248B0002BD68 /* Hideable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCED381E75248B0002BD68 /* Hideable.swift */; };
 		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
 		03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
 		03CF07DF1DF531BE00B7AD7E /* TransferValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */; };
@@ -613,6 +616,7 @@
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		033F5EE21CA3096700647A0A /* Info-MacOSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-MacOSX.plist"; path = "/Users/ironwolf/Dropbox/DevProjects/KagiProcess2/WolfCore/WolfCore/Info-MacOSX.plist"; sourceTree = "<absolute>"; };
 		034F48931D02490E0010ED1B /* HTTPDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPDebugging.swift; path = "Sources-Foundation/HTTPDebugging.swift"; sourceTree = "<group>"; };
+		035024741E76468300BAEFF9 /* PowerTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PowerTextField.swift; path = "Source-UI/PowerTextField.swift"; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		035552FD1C0F5F4200E0FCA7 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-iOS.plist"; path = "WolfCore/Info-iOS.plist"; sourceTree = "<group>"; };
 		035553111C0F622A00E0FCA7 /* AnimationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AnimationUtils.swift; path = "Source-UI/AnimationUtils.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -703,6 +707,7 @@
 		03A1466E1CAF5E0600FD6261 /* WolfCoreTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WolfCoreTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A146721CAF5E0600FD6261 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03A146791CAF5E3900FD6261 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
+		03A3DF351E767BA200F4023C /* EditableContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditableContainerView.swift; path = "Source-UI/EditableContainerView.swift"; sourceTree = "<group>"; };
 		03AB94D01CB4869800F25335 /* GestureActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GestureActions.swift; path = "Source-UI/GestureActions.swift"; sourceTree = "<group>"; };
 		03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewGestureActions.swift; path = "Source-UI/ViewGestureActions.swift"; sourceTree = "<group>"; };
 		03AC919B1CEB3DF3006AED00 /* PagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingView.swift; path = "Source-UI/PagingView.swift"; sourceTree = "<group>"; };
@@ -717,6 +722,7 @@
 		03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreImageFilters.swift; sourceTree = "<group>"; };
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
 		03CCED361E75188B0002BD68 /* Editable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Editable.swift; path = "Source-UI/Editable.swift"; sourceTree = "<group>"; };
+		03CCED381E75248B0002BD68 /* Hideable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hideable.swift; path = "Source-UI/Hideable.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/OutputStreamUtils.swift; sourceTree = "<group>"; };
 		03CF07DD1DF531BE00B7AD7E /* TransferValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransferValue.swift; path = Sources/TransferValue.swift; sourceTree = "<group>"; };
 		03CF07E51DF5340A00B7AD7E /* Skinnable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Skinnable.swift; path = "Source-UI/Skinnable.swift"; sourceTree = "<group>"; };
@@ -1095,6 +1101,8 @@
 				03D064EB1E542AC70049D61B /* ConcealerView.swift */,
 				038B8C621E7111800073E770 /* DividerView.swift */,
 				03CCED361E75188B0002BD68 /* Editable.swift */,
+				03A3DF351E767BA200F4023C /* EditableContainerView.swift */,
+				03CCED381E75248B0002BD68 /* Hideable.swift */,
 				03D064E71E5412AE0049D61B /* FlexView.swift */,
 				0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */,
 				03E006C71E5D65E500AA8C3F /* ModelView.swift */,
@@ -1103,6 +1111,7 @@
 				0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */,
 				0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */,
 				0303BCD21E404E6200B196CA /* PlaceholderView.swift */,
+				035024741E76468300BAEFF9 /* PowerTextField.swift */,
 				03F723CD1D25C55600D9A5ED /* ScrollingStackView.swift */,
 				0324AEFB1CF81F350080DFF6 /* StackView.swift */,
 				038B8C6C1E714DE30073E770 /* SpacerView.swift */,
@@ -1818,6 +1827,7 @@
 				035553641C0F622A00E0FCA7 /* ViewExtensions.swift in Sources */,
 				035C36671C505DB0000C04D0 /* SHA256.swift in Sources */,
 				03D064EC1E542AC70049D61B /* ConcealerView.swift in Sources */,
+				03A3DF361E767BA200F4023C /* EditableContainerView.swift in Sources */,
 				0324180D1E2B548800082E6A /* DepthFirstSearch.swift in Sources */,
 				035553561C0F622A00E0FCA7 /* NotificationCenterExtensions.swift in Sources */,
 				0378EC831DF4D89900E6A875 /* Cache.swift in Sources */,
@@ -1848,6 +1858,7 @@
 				0314DD111D09032400E23C67 /* Serializable.swift in Sources */,
 				0303BCB21E3E8C9B00B196CA /* PhotoSafeAreaView.swift in Sources */,
 				032D77841E256F210058CF1B /* Node.swift in Sources */,
+				035024751E76468300BAEFF9 /* PowerTextField.swift in Sources */,
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
 				0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */,
 				0378EC921DF4F8E200E6A875 /* HTTPCacheLayer.swift in Sources */,
@@ -1886,6 +1897,7 @@
 				035553571C0F622A00E0FCA7 /* NotificationAction.swift in Sources */,
 				03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */,
 				0324AEFE1CF81F7D0080DFF6 /* InFlightTokenView.swift in Sources */,
+				03CCED391E75248B0002BD68 /* Hideable.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
 				0378EC7F1DF4D78A00E6A875 /* MemoryCacheLayer.swift in Sources */,
 				0324AEF61CF81EB30080DFF6 /* InFlightTracker.swift in Sources */,

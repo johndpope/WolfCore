@@ -32,3 +32,5 @@ extension SKNode {
         return r
     }
 }
+
+extension SKNode: Hideable { }

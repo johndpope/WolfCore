@@ -55,7 +55,7 @@ open class PagingView: View {
             return
         }
 
-        pageControl.isHidden = false
+        pageControl.show()
 
         dispatchAnimated(
             animations: {
@@ -66,7 +66,7 @@ open class PagingView: View {
                 }
             },
             completion: { _ in
-                self.pageControl.isHidden = isHidden
+                self.pageControl.hideIf(isHidden)
             }
         )
     }

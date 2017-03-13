@@ -74,6 +74,40 @@ extension OSView {
         return constraints
     }
 
+    @discardableResult public func constrainSizeToSize(of view: OSView? = nil, offsets: CGVector = .zero, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
+        let constraints = [
+            widthAnchor == view.widthAnchor + offsets.dx =%= [identifier, "width"],
+            heightAnchor == view.heightAnchor + offsets.dy =%= [identifier, "height"]
+        ]
+        if active {
+            activateConstraints(constraints)
+        }
+        return constraints
+    }
+
+    @discardableResult public func constrainWidthToWidth(of view: OSView? = nil, offset: CGFloat = 0, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
+        let constraints = [
+            widthAnchor == view.widthAnchor + offset =%= [identifier, "width"]
+        ]
+        if active {
+            activateConstraints(constraints)
+        }
+        return constraints
+    }
+
+    @discardableResult public func constrainHeightToHeight(of view: OSView? = nil, offset: CGFloat = 0, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
+        let view = checkTargetView(view: view)
+        let constraints = [
+            heightAnchor == view.heightAnchor + offset =%= [identifier, "height"]
+            ]
+        if active {
+            activateConstraints(constraints)
+        }
+        return constraints
+    }
+
     @discardableResult public func constrainWidth(to width: CGFloat, active: Bool = true, idenifier: String? = nil) -> NSLayoutConstraint {
         return activateConstraint(widthAnchor == width)
     }
@@ -82,7 +116,7 @@ extension OSView {
         return activateConstraint(heightAnchor == height)
     }
 
-    @discardableResult public func constrainAspect(to aspect: CGFloat, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+    @discardableResult public func constrainAspect(to aspect: CGFloat = 1.0, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
         return activateConstraint(widthAnchor == heightAnchor * aspect)
     }
 
@@ -243,6 +277,8 @@ extension OSView {
     }
 #endif
 
+extension UIView: Hideable { }
+
 #if os(iOS)
     extension UIView {
         public func makeTransparent() {
@@ -253,16 +289,6 @@ extension OSView {
         public func __setup() {
             translatesAutoresizingMaskIntoConstraints = false
             makeTransparent()
-        }
-    }
-
-    extension UIView {
-        public func show() {
-            isHidden = false
-        }
-
-        public func hide() {
-            isHidden = true
         }
     }
 

@@ -30,7 +30,7 @@ public class OverlayWindow: UIWindow {
         frame = UIScreen.main.bounds
         rootViewController = overlayViewController
         windowLevel = UIWindowLevelAlert + 1
-        isHidden = false
+        show()
         setup()
     }
 

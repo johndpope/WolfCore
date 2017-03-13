@@ -45,9 +45,9 @@ public class VectorNode: SKShapeNode {
             path.addLine(to: CGPoint(vector: vector))
             strokeColor = color
             self.path = path
-            isHidden = false
+            show()
         } else {
-            isHidden = true
+            hide()
         }
     }
 }

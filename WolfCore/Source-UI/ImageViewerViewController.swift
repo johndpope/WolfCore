@@ -129,9 +129,9 @@ public class ImageViewerViewController: ViewController {
         )
     }
 
-    public var imageViewHidden: Bool = false {
+    public var isImageViewHidden: Bool = false {
         didSet {
-            imageView.isHidden = imageViewHidden
+            imageView.hideIf(isImageViewHidden)
         }
     }
 

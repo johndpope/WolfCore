@@ -18,7 +18,7 @@ public class InFlightTracker {
     private var tokens = Set<InFlightToken>()
     public var didStart: ((InFlightToken) -> Void)?
     public var didEnd: ((InFlightToken) -> Void)?
-    public var hidden: Bool = {
+    public var isHidden: Bool = {
         return !((userDefaults["DevInFlight"] as? Bool) ?? false)
         }() {
         didSet {
@@ -37,8 +37,8 @@ public class InFlightTracker {
     }
 
     public func syncToHidden() {
-        logTrace("syncToHidden: \(hidden)", group: .inFlight)
-        inFlightView.isHidden = hidden
+        logTrace("syncToHidden: \(isHidden)", group: .inFlight)
+        inFlightView.hideIf(isHidden)
     }
 
     public func start(withName name: String) -> InFlightToken {

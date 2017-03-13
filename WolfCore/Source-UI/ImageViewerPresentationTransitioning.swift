@@ -24,7 +24,7 @@ class ImageViewerPresentationTransitioning: NSObject, UIViewControllerAnimatedTr
         viewerViewController.sourceImageView.alpha = 0.0
 
         toView.alpha = 0.0
-        viewerViewController.imageViewHidden = true
+        viewerViewController.isImageViewHidden = true
 
         let movingImageViewStartFrame = viewerViewController.sourceImageView.superview!.convert(viewerViewController.sourceImageView.frame, to: containerView)
 
@@ -47,7 +47,7 @@ class ImageViewerPresentationTransitioning: NSObject, UIViewControllerAnimatedTr
             },
             completion: { finished in
                 movingImageView.removeFromSuperview()
-                viewerViewController.imageViewHidden = false
+                viewerViewController.isImageViewHidden = false
                 viewerViewController.sourceImageView.alpha = sourcePriorAlpha
                 let cancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!cancelled)

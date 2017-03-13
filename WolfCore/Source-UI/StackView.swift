@@ -14,8 +14,9 @@
     public typealias OSStackView = NSStackView
 #endif
 
-open class StackView: OSStackView, Skinnable {
+open class StackView: OSStackView, Skinnable, Editable {
     public var transparentToTouches = false
+    public var isEditing = false
 
     public convenience init() {
         self.init(frame: .zero)
@@ -24,6 +25,29 @@ open class StackView: OSStackView, Skinnable {
     public convenience init(arrangedSubviews views: [OSView]) {
         self.init(arrangedSubviews: views)
         _setup()
+    }
+
+    public func syncToEditing(animated: Bool) {
+        for view in arrangedSubviews {
+            if let editableView = view as? Editable {
+                editableView.setEditing(isEditing, animated: animated)
+            }
+        }
+        adjustToContentHeightChanges(animated: animated)
+    }
+
+    public func adjustToContentHeightChanges(animated: Bool) {
+        //setNeedsLayout()
+        dispatchAnimated(animated) {
+            // KLUDGE: As long as at least one arranged subview changes it's hidden status,
+            // the stack view will pick up and properly animated size changes of its other subviews.
+            // So here we simply toggle the first arranged subview's hidden status twice.
+            let view = self.arrangedSubviews[0]
+            view.isHidden = !view.isHidden
+            view.isHidden = !view.isHidden
+
+            self.layoutIfNeeded()
+        }
     }
 
     public override init(frame: CGRect) {
