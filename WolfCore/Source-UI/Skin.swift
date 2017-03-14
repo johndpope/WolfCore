@@ -88,7 +88,10 @@ open class DefaultSkin: Skin {
     public var fontStyles: FontStyles = [
         .display: FontStyle(family: .zapfino, size: 48.0),
         .title: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1)),
-        .book: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body))
+        .book: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body)),
+        .textFieldContent: FontStyle(font: .systemFont(ofSize: 12), color: .black),
+        .textFieldPlaceholder: FontStyle(font: .systemFont(ofSize: 12), color: .gray),
+        .textFieldCounter: FontStyle(font: .italicSystemFont(ofSize: 8), color: .darkGray)
     ]
 
     open func interpolated(to skin: Skin, at frac: Frac) -> Skin {

@@ -378,3 +378,50 @@ extension UIResponder {
         return resultViewController
     }
 }
+
+infix operator => : AttributeAssignmentPrecedence
+
+@discardableResult public func => (lhs: UIView, rhs: () -> UIView) -> UIView {
+    lhs.addSubview(rhs())
+    return lhs
+}
+
+@discardableResult public func => (lhs: UIStackView, rhs: () -> UIView) -> UIStackView {
+    lhs.addArrangedSubview(rhs())
+    return lhs
+}
+
+@discardableResult public func => (lhs: UIView, rhs: () -> [UIView]) -> UIView {
+    rhs().forEach { lhs.addSubview($0) }
+    return lhs
+}
+
+@discardableResult public func => (lhs: UIStackView, rhs: () -> [UIView]) -> UIStackView {
+    rhs().forEach { lhs.addArrangedSubview($0) }
+    return lhs
+}
+
+
+@discardableResult public func => (lhs: UIView, rhs: (v: () -> UIView, f: Block)) -> UIView {
+    lhs.addSubview(rhs.v())
+    rhs.f()
+    return lhs
+}
+
+@discardableResult public func => (lhs: UIStackView, rhs: (v: () -> UIView, f: Block)) -> UIStackView {
+    lhs.addArrangedSubview(rhs.v())
+    rhs.f()
+    return lhs
+}
+
+@discardableResult public func => (lhs: UIView, rhs: (v: () -> [UIView], f: Block)) -> UIView {
+    rhs.v().forEach { lhs.addSubview($0) }
+    rhs.f()
+    return lhs
+}
+
+@discardableResult public func => (lhs: UIStackView, rhs: (v: () -> [UIView], f: Block)) -> UIStackView {
+    rhs.v().forEach { lhs.addArrangedSubview($0) }
+    rhs.f()
+    return lhs
+}

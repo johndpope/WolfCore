@@ -35,6 +35,9 @@ extension FontStyleName {
     public static let display = FontStyleName("display")
     public static let title = FontStyleName("title")
     public static let book = FontStyleName("book")
+    public static let textFieldContent = FontStyleName("textFieldContent")
+    public static let textFieldPlaceholder = FontStyleName("textFieldPlaceholder")
+    public static let textFieldCounter = FontStyleName("textFieldCounter")
 }
 
 public struct FontFamilyName: ExtensibleEnumeratedName {
@@ -83,6 +86,12 @@ public struct FontStyle {
             a[NSForegroundColorAttributeName] = color
         }
         return a
+    }
+
+    public init(font: UIFont, color: UIColor? = nil, allCaps: Bool = false) {
+        self.descriptor = font.fontDescriptor
+        self.color = color
+        self.allCaps = allCaps
     }
 
     public init(descriptor: UIFontDescriptor, color: UIColor? = nil, allCaps: Bool = false) {

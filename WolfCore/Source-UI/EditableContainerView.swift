@@ -57,6 +57,7 @@ public class EditableContainerView: View, Editable {
             heightConstraint.constant = editingView.frame.height
             editingView.alpha = 0
         }
+        propagateSkin(why: "addedView")
         setNeedsLayout()
         dispatchAnimated(animated, animations: {
             switch self.isEditing {
