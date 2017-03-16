@@ -231,6 +231,7 @@ public class PowerTextField: View {
         textView.fontStyleName = .textFieldContent
         characterCountLabel.fontStyleName = .textFieldCounter
         placeholderLabel.fontStyleName = .textFieldPlaceholder
+        iconView.tintColor = skin?.textFieldIconTintColor
         syncToFont()
     }
 

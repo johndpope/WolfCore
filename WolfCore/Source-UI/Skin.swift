@@ -40,6 +40,8 @@ public protocol Skin {
     var currentPageIndicatorTintColor: UIColor { get }
     var pageIndicatorTintColor: UIColor { get }
 
+    var textFieldIconTintColor: UIColor { get }
+
     var fontStyles: FontStyles { get }
 
     func interpolated(to skin: Skin, at frac: Frac) -> Skin
@@ -84,6 +86,8 @@ open class DefaultSkin: Skin {
 
     open var currentPageIndicatorTintColor: UIColor { return .black }
     open var pageIndicatorTintColor: UIColor { return currentPageIndicatorTintColor.withAlphaComponent(0.3) }
+
+    open var textFieldIconTintColor: UIColor { return defaultTintColor }
 
     public var fontStyles: FontStyles = [
         .display: FontStyle(family: .zapfino, size: 48.0),
@@ -150,6 +154,8 @@ open class InterpolateSkin: Skin {
 
     open lazy var currentPageIndicatorTintColor: UIColor = { return self.blend(from: self.skin1.currentPageIndicatorTintColor, to: self.skin2.currentPageIndicatorTintColor) }()
     open lazy var pageIndicatorTintColor: UIColor = { return self.blend(from: self.skin1.pageIndicatorTintColor, to: self.skin2.pageIndicatorTintColor) }()
+
+    open lazy var textFieldIconTintColor: UIColor = { return self.blend(from: self.skin1.textFieldIconTintColor, to: self.skin2.textFieldIconTintColor) }()
 
     public var fontStyles: FontStyles { return self.skin1.fontStyles }
 
