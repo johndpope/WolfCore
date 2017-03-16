@@ -47,7 +47,7 @@ class InFlightTokenView: View {
         super.setup()
 
         #if !os(macOS)
-        transparentToTouches = true
+        isTransparentToTouches = true
 
         layer.cornerRadius = type(of: self).viewHeight / 2
         layer.borderWidth = 1.0

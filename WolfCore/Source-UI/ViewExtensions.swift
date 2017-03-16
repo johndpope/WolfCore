@@ -138,7 +138,7 @@ extension OSView {
         return view
     }
 
-    @discardableResult public func constrainMaxWidth(to view: OSView? = nil, active: Bool = true, inset: CGFloat = 0, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainMaxWidthToWidth(of view: OSView? = nil, active: Bool = true, inset: CGFloat = 0, identifier: String? = nil) -> [NSLayoutConstraint] {
         let view = checkTargetView(view: view)
         let constraints = [
             widthAnchor <= view.widthAnchor - inset
@@ -149,7 +149,7 @@ extension OSView {
         return constraints
     }
 
-    @discardableResult public func constrainMaxHeight(to view: OSView? = nil, active: Bool = true, inset: CGFloat = 0, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainMaxHeightToHeight(of view: OSView? = nil, active: Bool = true, inset: CGFloat = 0, identifier: String? = nil) -> [NSLayoutConstraint] {
         let view = checkTargetView(view: view)
         let constraints = [
             heightAnchor <= view.heightAnchor - inset
@@ -381,47 +381,12 @@ extension UIResponder {
 
 infix operator => : AttributeAssignmentPrecedence
 
-@discardableResult public func => (lhs: UIView, rhs: () -> UIView) -> UIView {
-    lhs.addSubview(rhs())
+@discardableResult public func => (lhs: UIView, rhs: [UIView]) -> UIView {
+    rhs.forEach { lhs.addSubview($0) }
     return lhs
 }
 
-@discardableResult public func => (lhs: UIStackView, rhs: () -> UIView) -> UIStackView {
-    lhs.addArrangedSubview(rhs())
-    return lhs
-}
-
-@discardableResult public func => (lhs: UIView, rhs: () -> [UIView]) -> UIView {
-    rhs().forEach { lhs.addSubview($0) }
-    return lhs
-}
-
-@discardableResult public func => (lhs: UIStackView, rhs: () -> [UIView]) -> UIStackView {
-    rhs().forEach { lhs.addArrangedSubview($0) }
-    return lhs
-}
-
-
-@discardableResult public func => (lhs: UIView, rhs: (v: () -> UIView, f: Block)) -> UIView {
-    lhs.addSubview(rhs.v())
-    rhs.f()
-    return lhs
-}
-
-@discardableResult public func => (lhs: UIStackView, rhs: (v: () -> UIView, f: Block)) -> UIStackView {
-    lhs.addArrangedSubview(rhs.v())
-    rhs.f()
-    return lhs
-}
-
-@discardableResult public func => (lhs: UIView, rhs: (v: () -> [UIView], f: Block)) -> UIView {
-    rhs.v().forEach { lhs.addSubview($0) }
-    rhs.f()
-    return lhs
-}
-
-@discardableResult public func => (lhs: UIStackView, rhs: (v: () -> [UIView], f: Block)) -> UIStackView {
-    rhs.v().forEach { lhs.addArrangedSubview($0) }
-    rhs.f()
+@discardableResult public func => (lhs: UIStackView, rhs: [UIView]) -> UIStackView {
+    rhs.forEach { lhs.addArrangedSubview($0) }
     return lhs
 }

@@ -43,7 +43,7 @@ open class View: OSView, Skinnable {
     var baseSize: CGSize!
     @IBInspectable public var managesSublabelScaling = false
 
-    @IBInspectable public var transparentToTouches: Bool = false
+    @IBInspectable public var isTransparentToTouches: Bool = false
 
     @IBInspectable public var contentNibName: String? = nil
 
@@ -52,7 +52,9 @@ open class View: OSView, Skinnable {
     @IBInspectable public var endsEditingWhenTapped: Bool = false {
         didSet {
             if endsEditingWhenTapped {
-                endEditingAction = addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in
+                let tapGestureRecognizer = UITapGestureRecognizer()
+                tapGestureRecognizer.cancelsTouchesInView = false
+                endEditingAction = addAction(forGestureRecognizer: tapGestureRecognizer) { [unowned self] _ in
                     self.window?.endEditing(false)
                 }
             } else {
@@ -110,7 +112,7 @@ extension View {
 
     #if os(iOS) || os(tvOS)
     override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if transparentToTouches {
+        if isTransparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {
             return super.point(inside: point, with: event)

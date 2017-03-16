@@ -9,7 +9,13 @@
 import UIKit
 
 public class SpacerView: View {
-    public var height: CGFloat {
+    public var width: CGFloat = UIViewNoIntrinsicMetric {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
+
+    public var height: CGFloat = UIViewNoIntrinsicMetric{
         didSet {
             invalidateIntrinsicContentSize()
         }
@@ -18,6 +24,7 @@ public class SpacerView: View {
     public init(height: CGFloat = 10) {
         self.height = height
         super.init(frame: .zero)
+        setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
     }
     
     public required init?(coder aDecoder: NSCoder) {

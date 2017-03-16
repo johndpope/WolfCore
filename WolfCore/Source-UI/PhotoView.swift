@@ -26,9 +26,12 @@ open class PhotoView: View {
 
     open override func setup() {
         super.setup()
-        addSubview(imageView)
+        isUserInteractionEnabled = false
+        self => [
+            imageView,
+            gradientView
+        ]
         imageView.constrainFrame()
-        addSubview(gradientView)
         gradientView.constrainFrame()
         safeAreaView = PhotoSafeAreaView.addToView(view: self)
     }

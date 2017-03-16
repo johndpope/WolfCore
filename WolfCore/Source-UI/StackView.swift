@@ -15,7 +15,7 @@
 #endif
 
 open class StackView: OSStackView, Skinnable, Editable {
-    public var transparentToTouches = false
+    public var isTransparentToTouches = false
     public var isEditing = false
 
     public convenience init() {
@@ -79,7 +79,7 @@ open class StackView: OSStackView, Skinnable, Editable {
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if transparentToTouches {
+        if isTransparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {
             return super.point(inside: point, with: event)

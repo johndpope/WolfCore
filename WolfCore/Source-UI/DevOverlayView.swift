@@ -17,7 +17,7 @@ public class DevOverlayView: View {
 
         let window = UIApplication.shared.windows[0]
         window.addSubview(self)
-        transparentToTouches = true
+        isTransparentToTouches = true
         bounds = window.frame
         constrainFrame(identifier: "DevOverlay")
         dispatchRepeatedOnMain(atInterval: 0.2) { canceler in

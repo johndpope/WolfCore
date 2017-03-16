@@ -9,18 +9,18 @@
 import UIKit
 
 public class PowerTextField: View {
-    public var characterLimit: Int?
-    public var showsCharacterCount: Bool = false {
+    public enum ContentType {
+        case text
+        case social
+    }
+
+    public var contentType: ContentType = .text {
         didSet {
-            setNeedsUpdateConstraints()
+            syncToContentType()
         }
     }
+
     public var numberOfLines: Int = 1
-    public var icon: UIImage? {
-        didSet {
-            setNeedsUpdateConstraints()
-        }
-    }
 
     public var text: String? {
         get {
@@ -29,6 +29,7 @@ public class PowerTextField: View {
 
         set {
             textView.text = newValue
+            syncToTextView()
         }
     }
 
@@ -42,6 +43,85 @@ public class PowerTextField: View {
         }
     }
 
+    public var icon: UIImage? {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
+
+    public var characterLimit: Int? {
+        didSet {
+            updateCharacterCount()
+        }
+    }
+
+    public var characterCount: Int {
+        return textView.text?.characters.count ?? 0
+    }
+
+    public var charactersLeft: Int? {
+        guard let characterLimit = characterLimit else { return nil }
+        return characterLimit - characterCount
+    }
+
+    public var showsCharacterCount: Bool = false {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
+
+    public var characterCountTemplate = "#{characterCount}/#{characterLimit}"
+
+    private var characterCountString: String {
+        return characterCountTemplate ¶ ["characterCount": String(characterCount), "characterLimit": characterLimit†, "charactersLeft": charactersLeft†]
+    }
+
+    fileprivate func updateCharacterCount() {
+        characterCountLabel.text = characterCountString
+    }
+
+    public var disallowedCharacters: CharacterSet? = CharacterSet.controlCharacters
+    public var allowedCharacters: CharacterSet?
+
+    public var autocapitalizationType: UITextAutocapitalizationType {
+        get { return textView.autocapitalizationType }
+        set { textView.autocapitalizationType = newValue }
+    }
+
+    public var spellCheckingType: UITextSpellCheckingType {
+        get { return textView.spellCheckingType }
+        set { textView.spellCheckingType = newValue }
+    }
+
+    public var autocorrectionType: UITextAutocorrectionType {
+        get { return textView.autocorrectionType }
+        set { textView.autocorrectionType = newValue }
+    }
+
+    public var returnKeyType: UIReturnKeyType {
+        get { return textView.returnKeyType }
+        set { textView.returnKeyType = newValue }
+    }
+
+    public var enablesReturnKeyAutomatically: Bool {
+        get { return textView.enablesReturnKeyAutomatically }
+        set { textView.enablesReturnKeyAutomatically = newValue }
+    }
+
+    public var isSecureTextEntry: Bool {
+        get { return textView.isSecureTextEntry }
+        set { textView.isSecureTextEntry = newValue }
+    }
+
+    @available(iOS 10.0, *)
+    public var textContentType: UITextContentType! {
+        get { return textView.textContentType }
+        set { textView.textContentType = newValue }
+    }
+
+    public typealias ResponseBlock = (PowerTextField) -> Void
+    public var didEndEditing: ResponseBlock?
+
     private lazy var verticalStackView: VerticalStackView = {
         let view = VerticalStackView()
         view.alignment = .leading
@@ -50,6 +130,7 @@ public class PowerTextField: View {
 
     private lazy var frameView: View = {
         let view = View()
+        view.isTransparentToTouches = true
         view.layer.borderColor = UIColor.gray.cgColor
         view.layer.borderWidth = 0.5
         return view
@@ -69,6 +150,7 @@ public class PowerTextField: View {
 
     private lazy var placeholderLabel: Label = {
         let label = Label()
+        label.numberOfLines = 0
         return label
     }()
 
@@ -101,21 +183,24 @@ public class PowerTextField: View {
 
     public override func setup() {
         super.setup()
+        textView.delegate = self
 
-        self => {[
-            verticalStackView => {[
-                frameView => {
-                    horizontalStackView => {[
+        textView.scrollsToTop = false
+
+        self => [
+            verticalStackView => [
+                frameView => [
+                    horizontalStackView => [
                         iconView,
                         textView
-                        ]}
-                },
+                    ]
+                ],
                 characterCountLabel
-                ]},
+            ],
             placeholderLabel
-        ]}
+        ]
 
-        constrainWidth(to: 200)
+        //activateConstraints([widthAnchor == 200 =&= UILayoutPriorityDefaultLow])
         activateConstraint(frameView.widthAnchor == verticalStackView.widthAnchor)
         verticalStackView.constrainFrame()
         horizontalStackView.constrainFrame(insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
@@ -125,10 +210,6 @@ public class PowerTextField: View {
             placeholderLabel.trailingAnchor == textView.trailingAnchor,
             placeholderLabel.topAnchor == textView.topAnchor
             )
-
-        //textView.text = "Something Fun"
-        placeholderLabel.text = "Placeholder"
-        characterCountLabel.text = "0/100"
     }
 
     private var textViewHeightConstraint: NSLayoutConstraint!
@@ -173,5 +254,120 @@ public class PowerTextField: View {
 
     private func syncToFont() {
         textViewHeightConstraint.constant = ceil(lineHeight * CGFloat(numberOfLines))
+    }
+
+    private func concealPlaceholder(animated: Bool) {
+        dispatchAnimated(animated) {
+            self.placeholderLabel.alpha = 0
+        }
+    }
+
+    private func revealPlaceholder(animated: Bool) {
+        dispatchAnimated(animated) {
+            self.placeholderLabel.alpha = 1
+        }
+    }
+
+    fileprivate lazy var placeholderHider: Locker = {
+        return Locker(onLocked: { [unowned self] in
+            self.concealPlaceholder(animated: true)
+            }, onUnlocked: { [unowned self] in
+                self.revealPlaceholder(animated: true)
+        })
+    }()
+
+    fileprivate func syncToTextView() {
+        updateCharacterCount()
+        if let text = textView.text {
+            placeholderHider["hasText"] = text.characters.count > 0
+        } else {
+            placeholderHider["hasText"] = false
+        }
+    }
+
+    private func syncToContentType() {
+        switch contentType {
+        case .text:
+            break
+        case .social:
+            autocapitalizationType = .none
+            spellCheckingType = .no
+            autocorrectionType = .no
+            allowedCharacters = CharacterSet.urlUserAllowed.intersection(.alphanumerics)
+            characterLimit = 20
+        }
+    }
+
+    private lazy var keyboardNotificationActions = KeyboardNotificationActions()
+
+    fileprivate var scrollToVisibleWhenKeyboardShows = false {
+        didSet {
+            if scrollToVisibleWhenKeyboardShows {
+                keyboardNotificationActions.didShow = { [unowned self] _ in
+                    self.scrollToVisible()
+                }
+            } else {
+                keyboardNotificationActions.didShow = nil
+            }
+        }
+    }
+
+    private func scrollToVisible() {
+        func doScroll() {
+            for ancestor in allAncestors() {
+                if let scrollView = ancestor as? UIScrollView {
+                    let rect = convert(bounds, to: scrollView).insetBy(dx: -8, dy: -8)
+                    scrollView.scrollRectToVisible(rect, animated: true)
+                    break
+                }
+            }
+        }
+
+        dispatchOnMain(afterDelay: 0.05) {
+            doScroll()
+        }
+    }
+}
+
+extension PowerTextField: UITextViewDelegate {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        placeholderHider["editing"] = true
+        scrollToVisibleWhenKeyboardShows = true
+    }
+
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        placeholderHider["editing"] = false
+        scrollToVisibleWhenKeyboardShows = false
+        didEndEditing?(self)
+    }
+
+    public func textViewDidChange(_ textView: UITextView) {
+        syncToTextView()
+    }
+
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Always allow deletions.
+        guard text.characters.count > 0 else { return true }
+
+        // If disallowedCharaters is provided, disallow any changes that include characters in the set.
+        if let disallowedCharacters = disallowedCharacters {
+            guard text.rangeOfCharacter(from: disallowedCharacters) == nil else { return false }
+        }
+
+        // If allowedCharacters is provided, disallow any changes that include characters not in the set.
+        if let allowedCharacters = allowedCharacters {
+            guard text.rangeOfCharacter(from: allowedCharacters.inverted) == nil else { return false }
+        }
+
+        // Determine the final string
+        let startText = textView.text ?? ""
+        let replacedString = startText.replacingCharacters(in: startText.range(from: range)!, with: text)
+
+        // Enforce the character limit, if any
+        if let characterLimit = characterLimit {
+            guard replacedString.characters.count <= characterLimit else { return false }
+        }
+
+        return true
     }
 }

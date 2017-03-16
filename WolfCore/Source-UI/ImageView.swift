@@ -15,7 +15,7 @@ public typealias ImageViewBlock = (ImageView) -> Void
 public typealias ImageProcessingBlock = (UIImage) -> UIImage
 
 open class ImageView: UIImageView, Skinnable {
-    public var transparentToTouches = false
+    public var isTransparentToTouches = false
     //private var updatePDFCanceler: Cancelable?
     private var retrieveCanceler: Cancelable?
     public var onRetrieveStart: ImageViewBlock?
@@ -168,7 +168,7 @@ open class ImageView: UIImageView, Skinnable {
     open func setup() { }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if transparentToTouches {
+        if isTransparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {
             return super.point(inside: point, with: event)

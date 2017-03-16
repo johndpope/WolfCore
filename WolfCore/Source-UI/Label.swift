@@ -31,7 +31,7 @@ open class Label: OSLabel, Skinnable {
     var tapAction: GestureRecognizerAction!
 
     @IBInspectable public var scalesFontSize: Bool = false
-    @IBInspectable public var transparentToTouches: Bool = false
+    @IBInspectable public var isTransparentToTouches: Bool = false
     @IBInspectable public var fontStyle: String? = nil
     public var fontStyleName: FontStyleName? {
         didSet {
@@ -73,7 +73,7 @@ open class Label: OSLabel, Skinnable {
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if transparentToTouches {
+        if isTransparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {
             return super.point(inside: point, with: event)

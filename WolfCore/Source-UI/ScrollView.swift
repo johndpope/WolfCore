@@ -9,7 +9,7 @@
 import UIKit
 
 open class ScrollView: UIScrollView, Skinnable {
-    @IBInspectable public var transparentToTouches: Bool = false
+    @IBInspectable public var isTransparentToTouches: Bool = false
 
     public convenience init() {
         self.init(frame: .zero)
@@ -36,7 +36,7 @@ open class ScrollView: UIScrollView, Skinnable {
     }
 
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if transparentToTouches {
+        if isTransparentToTouches {
             return isTransparentToTouch(at: point, with: event)
         } else {
             return super.point(inside: point, with: event)

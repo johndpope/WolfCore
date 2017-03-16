@@ -12,7 +12,7 @@ public class BounceButton: Button {
     @IBInspectable public var waitForBounce: Bool = true
 
     private lazy var bounceAnimation: BounceAnimation = { return BounceAnimation(view: self) }()
-    private var action: ControlAction!
+    private var action: ControlAction<BounceButton>!
     private var inSetup: Bool = false
     private weak var touchUpInsideTarget: AnyObject?
     private var touchUpInsideAction: Selector!
@@ -42,7 +42,7 @@ public class BounceButton: Button {
         inSetup = true
         defer { inSetup = false }
 
-        action = addTouchUpInsideAction { [unowned self] _ in
+        action = addTouchUpInsideAction(to: self) { [unowned self] _ in
             self.bounceAnimation.animateRelease() { [unowned self] in
                 if self.waitForBounce {
                     self.performTouchUpInsideAction()

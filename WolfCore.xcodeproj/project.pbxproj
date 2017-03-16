@@ -265,6 +265,7 @@
 		035E520E1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */; };
 		035EB4551CF3CC2D006D73ED /* EmailUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4541CF3CC2D006D73ED /* EmailUtils.swift */; };
 		035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */; };
+		03604A441E79C6C100CA8C89 /* SocialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A431E79C6C100CA8C89 /* SocialUtils.swift */; };
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
 		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
 		036307D01CB6DA7F00DC7070 /* NotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307CF1CB6DA7F00DC7070 /* NotificationActions.swift */; };
@@ -662,6 +663,7 @@
 		035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackViewExtensions.swift; path = "Source-UI/StackViewExtensions.swift"; sourceTree = "<group>"; };
 		035EB4541CF3CC2D006D73ED /* EmailUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailUtils.swift; path = "Source-UI/EmailUtils.swift"; sourceTree = "<group>"; };
 		035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerExtensions.swift; path = "Source-UI/ViewControllerExtensions.swift"; sourceTree = "<group>"; };
+		03604A431E79C6C100CA8C89 /* SocialUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialUtils.swift; path = "Source-UI/SocialUtils.swift"; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = Sources/Log.swift; sourceTree = "<group>"; };
 		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Serializer.swift; path = "Sources-Foundation/Serializer.swift"; sourceTree = "<group>"; };
 		036307CF1CB6DA7F00DC7070 /* NotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationActions.swift; path = "Sources-Foundation/NotificationActions.swift"; sourceTree = "<group>"; };
@@ -981,6 +983,7 @@
 				03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */,
 				03D3FA3B1E542CB500C8E550 /* URLComponentsExtensions.swift */,
 				03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */,
+				03604A431E79C6C100CA8C89 /* SocialUtils.swift */,
 			);
 			name = Internet;
 			sourceTree = "<group>";
@@ -1810,6 +1813,7 @@
 				03D3FA361E542C5600C8E550 /* ObjectExtensions.swift in Sources */,
 				031D33871E5AA3E9005D4FFF /* VectorNode.swift in Sources */,
 				039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */,
+				03604A441E79C6C100CA8C89 /* SocialUtils.swift in Sources */,
 				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				035E520E1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */,
 				0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */,

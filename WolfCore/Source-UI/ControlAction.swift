@@ -10,14 +10,16 @@ import UIKit
 
 private let controlActionSelector = #selector(ControlAction.controlAction)
 
-public typealias ControlBlock = (UIControl) -> Void
 
-public class ControlAction: NSObject {
-    public var action: ControlBlock?
-    private let control: UIControl
+public class ControlAction<C: UIControl>: NSObject {
+    public typealias ControlType = C
+    public typealias ResponseBlock = (ControlType) -> Void
+
+    public var action: ResponseBlock?
+    public let control: ControlType
     private let controlEvents: UIControlEvents
 
-    public init(control: UIControl, for controlEvents: UIControlEvents, action: ControlBlock? = nil) {
+    public init(control: ControlType, for controlEvents: UIControlEvents, action: ResponseBlock? = nil) {
         self.control = control
         self.action = action
         self.controlEvents = controlEvents
@@ -34,16 +36,14 @@ public class ControlAction: NSObject {
     }
 }
 
-extension UIControl {
-    public func addControlAction(for controlEvents: UIControlEvents, action: @escaping ControlBlock) -> ControlAction {
-        return ControlAction(control: self, for: controlEvents, action: action)
-    }
+public func addControlAction<ControlType: UIControl>(to control: ControlType, for controlEvents: UIControlEvents, action: ControlAction<ControlType>.ResponseBlock? = nil) -> ControlAction<ControlType> {
+    return ControlAction(control: control, for: controlEvents, action: action)
+}
 
-    public func addTouchUpInsideAction(action: @escaping ControlBlock) -> ControlAction {
-        return addControlAction(for: .touchUpInside, action: action)
-    }
+public func addTouchUpInsideAction<ControlType: UIControl>(to control: ControlType, action: ControlAction<ControlType>.ResponseBlock? = nil) -> ControlAction<ControlType> {
+    return addControlAction(to: control, for: .touchUpInside, action: action)
+}
 
-    public func addValueChangedAction(action: @escaping ControlBlock) -> ControlAction {
-        return addControlAction(for: .valueChanged, action: action)
-    }
+public func addValueChangedAction<ControlType: UIControl>(to control: ControlType, action: ControlAction<ControlType>.ResponseBlock? = nil) -> ControlAction<ControlType> {
+    return addControlAction(to: control, for: .valueChanged, action: action)
 }
