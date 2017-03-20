@@ -18,9 +18,10 @@ private let gestureActionSelector = #selector(GestureRecognizerAction.gestureAct
 
 public typealias GestureBlock = (OSGestureRecognizer) -> Void
 
-public class GestureRecognizerAction: NSObject {
+public class GestureRecognizerAction: NSObject, UIGestureRecognizerDelegate {
     public var action: GestureBlock?
     public let gestureRecognizer: OSGestureRecognizer
+    public var shouldReceiveTouch: ((UITouch) -> Bool)?
 
     public init(gestureRecognizer: OSGestureRecognizer, action: GestureBlock? = nil) {
         self.gestureRecognizer = gestureRecognizer
@@ -32,6 +33,7 @@ public class GestureRecognizerAction: NSObject {
             gestureRecognizer.target = self
             gestureRecognizer.action = gestureActionSelector
         #endif
+        gestureRecognizer.delegate = self
     }
 
     deinit {
@@ -45,6 +47,10 @@ public class GestureRecognizerAction: NSObject {
 
     public func gestureAction() {
         action?(gestureRecognizer)
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return shouldReceiveTouch?(touch) ?? true
     }
 }
 

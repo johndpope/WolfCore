@@ -44,6 +44,10 @@ public protocol Skin {
 
     var fontStyles: FontStyles { get }
 
+    var sliderThumbColor: UIColor { get }
+    var sliderMinTrackColor: UIColor { get }
+    var sliderMaxTrackColor: UIColor { get }
+
     func interpolated(to skin: Skin, at frac: Frac) -> Skin
 }
 
@@ -88,6 +92,10 @@ open class DefaultSkin: Skin {
     open var pageIndicatorTintColor: UIColor { return currentPageIndicatorTintColor.withAlphaComponent(0.3) }
 
     open var textFieldIconTintColor: UIColor { return defaultTintColor }
+
+    open var sliderThumbColor: UIColor { return defaultTintColor }
+    open var sliderMinTrackColor: UIColor { return .lightGray }
+    open var sliderMaxTrackColor: UIColor { return .darkGray }
 
     public var fontStyles: FontStyles = [
         .display: FontStyle(family: .zapfino, size: 48.0),
@@ -156,6 +164,10 @@ open class InterpolateSkin: Skin {
     open lazy var pageIndicatorTintColor: UIColor = { return self.blend(from: self.skin1.pageIndicatorTintColor, to: self.skin2.pageIndicatorTintColor) }()
 
     open lazy var textFieldIconTintColor: UIColor = { return self.blend(from: self.skin1.textFieldIconTintColor, to: self.skin2.textFieldIconTintColor) }()
+
+    open lazy var sliderThumbColor: UIColor = { return self.blend(from: self.skin1.sliderThumbColor, to: self.skin2.sliderThumbColor) }()
+    open lazy var sliderMinTrackColor: UIColor = { return self.blend(from: self.skin1.sliderMinTrackColor, to: self.skin2.sliderMinTrackColor) }()
+    open lazy var sliderMaxTrackColor: UIColor = { return self.blend(from: self.skin1.sliderMaxTrackColor, to: self.skin2.sliderMaxTrackColor) }()
 
     public var fontStyles: FontStyles { return self.skin1.fontStyles }
 

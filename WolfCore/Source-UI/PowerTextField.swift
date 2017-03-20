@@ -8,7 +8,9 @@
 
 import UIKit
 
-public class PowerTextField: View {
+public class PowerTextField: View, Editable {
+    public var isEditing: Bool = false
+
     public enum ContentType {
         case text
         case social
@@ -20,6 +22,11 @@ public class PowerTextField: View {
         }
     }
 
+    public var name: String = "Field"¶
+
+    public typealias EditValidator = (_ string: String?, _ name: String) -> String?
+    public var editValidator: EditValidator?
+
     public var numberOfLines: Int = 1
 
     public var text: String? {
@@ -29,7 +36,7 @@ public class PowerTextField: View {
 
         set {
             textView.text = newValue
-            syncToTextView()
+            syncToTextView(animated: false)
         }
     }
 
@@ -119,6 +126,40 @@ public class PowerTextField: View {
         set { textView.textContentType = newValue }
     }
 
+    public enum ClearButtonMode {
+        case never
+        case whileEditing
+        case unlessEditing
+        case always
+    }
+
+    public var clearButtonMode: ClearButtonMode = .never {
+        didSet {
+            syncClearButton(animated: false)
+        }
+    }
+
+    private func syncClearButton(animated: Bool) {
+        switch clearButtonMode {
+        case .never:
+            clearButtonView.conceal(animated: animated)
+        case .whileEditing:
+            if isEditing && characterCount > 0 {
+                clearButtonView.reveal(animated: animated)
+            } else {
+                clearButtonView.conceal(animated: animated)
+            }
+        case .unlessEditing:
+            if isEditing {
+                clearButtonView.conceal(animated: animated)
+            } else {
+                clearButtonView.reveal(animated: animated)
+            }
+        case .always:
+            clearButtonView.reveal(animated: animated)
+        }
+    }
+
     public typealias ResponseBlock = (PowerTextField) -> Void
     public var didEndEditing: ResponseBlock?
 
@@ -130,7 +171,7 @@ public class PowerTextField: View {
 
     private lazy var frameView: View = {
         let view = View()
-        view.isTransparentToTouches = true
+        //view.isTransparentToTouches = true
         view.layer.borderColor = UIColor.gray.cgColor
         view.layer.borderWidth = 0.5
         return view
@@ -167,12 +208,26 @@ public class PowerTextField: View {
         return view
     }()
 
+    private lazy var clearButtonView: ClearFieldButtonView = {
+        let view = ClearFieldButtonView()
+        view.button.onClear = { [unowned self] in
+            self.clear(animated: true)
+        }
+        return view
+    }()
+
+    public func clear(animated: Bool) {
+        textView.text = ""
+        syncToTextView(animated: animated)
+    }
+
     public override var isDebug: Bool {
         didSet {
             frameView.isDebug = isDebug
             characterCountLabel.isDebug = isDebug
             textView.isDebug = isDebug
             iconView.isDebug = isDebug
+            clearButtonView.isDebug = isDebug
 
             frameView.debugBackgroundColor = debugBackgroundColor
             characterCountLabel.debugBackgroundColor = debugBackgroundColor
@@ -192,7 +247,8 @@ public class PowerTextField: View {
                 frameView => [
                     horizontalStackView => [
                         iconView,
-                        textView
+                        textView,
+                        clearButtonView
                     ]
                 ],
                 characterCountLabel
@@ -210,6 +266,9 @@ public class PowerTextField: View {
             placeholderLabel.trailingAnchor == textView.trailingAnchor,
             placeholderLabel.topAnchor == textView.topAnchor
             )
+
+        syncClearButton(animated: false)
+        //isDebug = true
     }
 
     private var textViewHeightConstraint: NSLayoutConstraint!
@@ -277,15 +336,6 @@ public class PowerTextField: View {
         })
     }()
 
-    fileprivate func syncToTextView() {
-        updateCharacterCount()
-        if let text = textView.text {
-            placeholderHider["hasText"] = text.characters.count > 0
-        } else {
-            placeholderHider["hasText"] = false
-        }
-    }
-
     private func syncToContentType() {
         switch contentType {
         case .text:
@@ -294,8 +344,6 @@ public class PowerTextField: View {
             autocapitalizationType = .none
             spellCheckingType = .no
             autocorrectionType = .no
-            allowedCharacters = CharacterSet.urlUserAllowed.intersection(.alphanumerics)
-            characterLimit = 20
         }
     }
 
@@ -328,22 +376,37 @@ public class PowerTextField: View {
             doScroll()
         }
     }
+
+    fileprivate func syncToTextView(animated: Bool) {
+        syncClearButton(animated: animated)
+        updateCharacterCount()
+        placeholderHider["editing"] = isEditing
+        placeholderHider["hasText"] = characterCount > 0
+        scrollToVisibleWhenKeyboardShows = isEditing
+    }
+
+    public func syncToEditing(animated: Bool) {
+        syncToTextView(animated: animated)
+        if isEditing {
+            scrollToVisible()
+        } else {
+            textView.setContentOffset(.zero, animated: true)
+            didEndEditing?(self)
+        }
+    }
 }
 
 extension PowerTextField: UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        placeholderHider["editing"] = true
-        scrollToVisibleWhenKeyboardShows = true
+        setEditing(true, animated: true)
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {
-        placeholderHider["editing"] = false
-        scrollToVisibleWhenKeyboardShows = false
-        didEndEditing?(self)
+        setEditing(false, animated: true)
     }
 
     public func textViewDidChange(_ textView: UITextView) {
-        syncToTextView()
+        syncToTextView(animated: true)
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -367,6 +430,14 @@ extension PowerTextField: UITextViewDelegate {
         // Enforce the character limit, if any
         if let characterLimit = characterLimit {
             guard replacedString.characters.count <= characterLimit else { return false }
+        }
+
+        if let editValidator = editValidator {
+            if let _ = editValidator(replacedString, name) {
+                return true
+            } else {
+                return false
+            }
         }
 
         return true

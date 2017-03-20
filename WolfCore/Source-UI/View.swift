@@ -57,6 +57,9 @@ open class View: OSView, Skinnable {
                 endEditingAction = addAction(forGestureRecognizer: tapGestureRecognizer) { [unowned self] _ in
                     self.window?.endEditing(false)
                 }
+                endEditingAction.shouldReceiveTouch = { touch in
+                    return !(touch.view is UIControl)
+                }
             } else {
                 endEditingAction = nil
             }

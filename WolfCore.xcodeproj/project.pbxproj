@@ -266,6 +266,12 @@
 		035EB4551CF3CC2D006D73ED /* EmailUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4541CF3CC2D006D73ED /* EmailUtils.swift */; };
 		035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */; };
 		03604A441E79C6C100CA8C89 /* SocialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A431E79C6C100CA8C89 /* SocialUtils.swift */; };
+		03604A461E7E0F4B00CA8C89 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A451E7E0F4B00CA8C89 /* Validator.swift */; };
+		03604A471E7E0F4B00CA8C89 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A451E7E0F4B00CA8C89 /* Validator.swift */; };
+		03604A481E7E0F4B00CA8C89 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A451E7E0F4B00CA8C89 /* Validator.swift */; };
+		03604A4A1E7F6ED300CA8C89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03604A491E7F6ED300CA8C89 /* Assets.xcassets */; };
+		03604A4C1E7F6FE100CA8C89 /* ClearFieldButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */; };
+		03604A4E1E7FB15700CA8C89 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A4D1E7FB15700CA8C89 /* Slider.swift */; };
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
 		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
 		036307D01CB6DA7F00DC7070 /* NotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307CF1CB6DA7F00DC7070 /* NotificationActions.swift */; };
@@ -664,6 +670,10 @@
 		035EB4541CF3CC2D006D73ED /* EmailUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailUtils.swift; path = "Source-UI/EmailUtils.swift"; sourceTree = "<group>"; };
 		035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerExtensions.swift; path = "Source-UI/ViewControllerExtensions.swift"; sourceTree = "<group>"; };
 		03604A431E79C6C100CA8C89 /* SocialUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialUtils.swift; path = "Source-UI/SocialUtils.swift"; sourceTree = "<group>"; };
+		03604A451E7E0F4B00CA8C89 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = Sources/Validator.swift; sourceTree = "<group>"; };
+		03604A491E7F6ED300CA8C89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Source-UI/Assets.xcassets"; sourceTree = "<group>"; };
+		03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClearFieldButtonView.swift; path = "Source-UI/ClearFieldButtonView.swift"; sourceTree = "<group>"; };
+		03604A4D1E7FB15700CA8C89 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Slider.swift; path = "Source-UI/Slider.swift"; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = Sources/Log.swift; sourceTree = "<group>"; };
 		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Serializer.swift; path = "Sources-Foundation/Serializer.swift"; sourceTree = "<group>"; };
 		036307CF1CB6DA7F00DC7070 /* NotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationActions.swift; path = "Sources-Foundation/NotificationActions.swift"; sourceTree = "<group>"; };
@@ -1100,6 +1110,7 @@
 			children = (
 				03F0EBEE1E63BC0E00309C8D /* Direct Subclasses */,
 				039C912E1E4D1D67000AE01B /* BounceButton.swift */,
+				03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
 				03D064EB1E542AC70049D61B /* ConcealerView.swift */,
 				038B8C621E7111800073E770 /* DividerView.swift */,
@@ -1227,7 +1238,9 @@
 		035552FA1C0F5F4200E0FCA7 /* WolfCore */ = {
 			isa = PBXGroup;
 			children = (
+				03604A491E7F6ED300CA8C89 /* Assets.xcassets */,
 				038765401D2464CB0082FC79 /* Framework.swift */,
+				03604A451E7E0F4B00CA8C89 /* Validator.swift */,
 				032D777C1E256C1F0058CF1B /* Graph */,
 				03B0D9B51DF33AA40073AF42 /* Appearance */,
 				0314DD091D08FC9A00E23C67 /* Autolayout */,
@@ -1351,6 +1364,7 @@
 				039C91281E4CFCE2000AE01B /* OverlayWindow.swift */,
 				03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */,
 				032F77AA1C1580B5001FCF2C /* ScrollView.swift */,
+				03604A4D1E7FB15700CA8C89 /* Slider.swift */,
 				0314DD161D09048C00E23C67 /* TableViewCell.swift */,
 				033882231CFF97C200C8972B /* TextField.swift */,
 				0302D2F71CF8F34300717170 /* TextView.swift */,
@@ -1533,6 +1547,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03604A4A1E7F6ED300CA8C89 /* Assets.xcassets in Resources */,
 				03CF07FF1DF5381A00B7AD7E /* WebViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1607,6 +1622,7 @@
 				034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */,
 				033F5E841CA3096700647A0A /* TextCheckingResultExtensions.swift in Sources */,
 				033F5E851CA3096700647A0A /* ColorExtensions.swift in Sources */,
+				03604A471E7E0F4B00CA8C89 /* Validator.swift in Sources */,
 				0378EC8B1DF4DA9800E6A875 /* SQLite.swift in Sources */,
 				033F5E861CA3096700647A0A /* BundleExtensions.swift in Sources */,
 				033F5E881CA3096700647A0A /* AutolayoutUtils.swift in Sources */,
@@ -1848,6 +1864,7 @@
 				03D064EA1E54130C0049D61B /* Associated.swift in Sources */,
 				032417F91E2AD84000082E6A /* GraphProtocol.swift in Sources */,
 				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,
+				03604A4E1E7FB15700CA8C89 /* Slider.swift in Sources */,
 				0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */,
 				03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */,
 				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
@@ -1868,6 +1885,7 @@
 				0378EC921DF4F8E200E6A875 /* HTTPCacheLayer.swift in Sources */,
 				035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */,
 				03E006C81E5D65E500AA8C3F /* ModelView.swift in Sources */,
+				03604A461E7E0F4B00CA8C89 /* Validator.swift in Sources */,
 				03206B311C3C7C5D001A463B /* RegexUtils.swift in Sources */,
 				03C9AA1C1E65D26500ED449B /* CoreImageFilters.swift in Sources */,
 				0359AF5A1D1B1932001F71DC /* KeyboardMovement.swift in Sources */,
@@ -1901,6 +1919,7 @@
 				035553571C0F622A00E0FCA7 /* NotificationAction.swift in Sources */,
 				03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */,
 				0324AEFE1CF81F7D0080DFF6 /* InFlightTokenView.swift in Sources */,
+				03604A4C1E7F6FE100CA8C89 /* ClearFieldButtonView.swift in Sources */,
 				03CCED391E75248B0002BD68 /* Hideable.swift in Sources */,
 				035553541C0F622A00E0FCA7 /* LayoutConstraintsGroup.swift in Sources */,
 				0378EC7F1DF4D78A00E6A875 /* MemoryCacheLayer.swift in Sources */,
@@ -2070,6 +2089,7 @@
 				0322E8A41D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				03E172E11CF1C8B60073F383 /* ISO8601.swift in Sources */,
 				03E173071CF1C8E70073F383 /* NotificationActions.swift in Sources */,
+				03604A481E7E0F4B00CA8C89 /* Validator.swift in Sources */,
 				033038091E5D12AB008E37F6 /* Lorem.swift in Sources */,
 				03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */,
 				03E172F81CF1C8CC0073F383 /* CGUtils.swift in Sources */,

@@ -38,7 +38,7 @@ public struct Social {
 
     /// The scheme in `appTemplate` must be registered in the `LSApplicationQueriesSchemes` array in the app's Info.plist.
     /// The scheme in `browserTemplate` should be "https" or else the URL will also need to be registered in `NSAppTransportSecurity` in Info.plist.
-    private static func openSocialURL(appTemplate: String?, browserTemplate: String, userID: String?) throws {
+    fileprivate static func openURL(appTemplate: String?, browserTemplate: String, userID: String?) throws {
         if let appTemplate = appTemplate {
             let appURL = try newURL(with: appTemplate, userID: userID)
             guard !UIApplication.shared.canOpenURL(appURL) else {
@@ -49,29 +49,118 @@ public struct Social {
         let browserURL = try newURL(with: browserTemplate, userID: userID)
         UIApplication.shared.openURL(browserURL)
     }
+}
 
-    public static func openFacebook(user userID: String? = nil) throws {
+extension StringValidation {
+    fileprivate func beginsWithLetter() throws -> StringValidation {
+        do {
+            return try pattern("^[a-zA-Z]")
+        } catch is ValidationError {
+            throw ValidationError(message: "#{name} must begin with a letter.", violation: "beginsWithLetter")
+        }
+    }
+
+    fileprivate func beginsWithLetterOrNumber() throws -> StringValidation {
+        do {
+            return try pattern("^[a-zA-Z0-9]")
+        } catch is ValidationError {
+            throw ValidationError(message: "#{name} must begin with a letter or number.", violation: "beginsWithLetterOrNumber")
+        }
+    }
+
+    fileprivate func endsWithLetterOrNumber() throws -> StringValidation {
+        do {
+            return try pattern("[a-zA-Z0-9]$")
+        } catch is ValidationError {
+            throw ValidationError(message: "#{name} must end with a letter or number.", violation: "endsWithLetterOrNumber")
+        }
+    }
+
+    fileprivate func containsOnlyValidSnapchatCharacters() throws -> StringValidation {
+        do {
+            return try pattern("^[a-zA-Z0-9_.\\-]*$")
+        } catch is ValidationError {
+            throw ValidationError(message: "#{name} contains invalid characters.", violation: "containsOnlyValidSnapchatCharacters")
+        }
+    }
+
+    fileprivate func containsOnlyValidInstagramCharacters() throws -> StringValidation {
+        do {
+            return try pattern("^[_.a-zA-Z0-9]*$")
+        } catch is ValidationError {
+            throw ValidationError(message: "#{name} contains invalid characters.", violation: "containsOnlyValidInstagramCharacters")
+        }
+    }
+
+    fileprivate func containsOnlyValidFacebookCharacters() throws -> StringValidation {
+        do {
+            return try pattern("^[.a-zA-Z0-9]*$")
+        } catch is ValidationError {
+            throw ValidationError(message: "#{name} contains invalid characters.", violation: "containsOnlyValidFacebookCharacters")
+        }
+    }
+}
+
+public struct Facebook {
+    public static func open(userID: String? = nil) throws {
         if let userID = userID {
             // Facebook DOES NOT support a way to link into the native iOS app. The schema "fb://profile/#{userID}" does not work, nor does app-scoped IDs. See https://developers.facebook.com/bugs/332195860270199
-            try openSocialURL(appTemplate: nil, browserTemplate: "https://www.facebook.com/#{userID}", userID: userID)
+            try Social.openURL(appTemplate: nil, browserTemplate: "https://www.facebook.com/#{userID}", userID: userID)
         } else {
-            try openSocialURL(appTemplate: nil, browserTemplate: "https://www.facebook.com/", userID: userID)
+            try Social.openURL(appTemplate: nil, browserTemplate: "https://www.facebook.com/", userID: userID)
         }
     }
 
-    public static func openInstagram(user userID: String? = nil) throws {
+    private static let minLength = 5
+    private static let maxLength = 50
+
+    public static func editValidator(userID: String?, name: String = "Facebook") -> String? {
+        return try? StringValidation(value: userID, name: name).maxLength(maxLength).containsOnlyValidFacebookCharacters().value
+    }
+
+    public static func validate(userID: String, name: String = "Snapchat") throws -> String {
+        return try StringValidation(value: userID, name: name).minLength(minLength).maxLength(maxLength).beginsWithLetterOrNumber().endsWithLetterOrNumber().containsOnlyValidFacebookCharacters().value
+    }
+}
+
+public struct Instagram {
+    public static func open(userID: String? = nil) throws {
         if let userID = userID {
-            try openSocialURL(appTemplate: "instagram://user?username=#{userID}", browserTemplate: "https://instagram.com/#{userID}", userID: userID)
+            try Social.openURL(appTemplate: "instagram://user?username=#{userID}", browserTemplate: "https://instagram.com/#{userID}", userID: userID)
         } else {
-            try openSocialURL(appTemplate: "instagram://", browserTemplate: "https://instagram.com/", userID: userID)
+            try Social.openURL(appTemplate: "instagram://", browserTemplate: "https://instagram.com/", userID: userID)
         }
     }
 
-    public static func openSnapchat(user userID: String? = nil) throws {
+    private static let minLength = 1
+    private static let maxLength = 15
+
+    public static func editValidator(userID: String?, name: String = "Instagram") -> String? {
+        return try? StringValidation(value: userID, name: name).lowercased().maxLength(maxLength).containsOnlyValidSnapchatCharacters().value
+    }
+
+    public static func validate(userID: String, name: String = "Snapchat") throws -> String {
+        return try StringValidation(value: userID, name: name).lowercased().minLength(minLength).maxLength(maxLength).beginsWithLetter().endsWithLetterOrNumber().containsOnlyValidSnapchatCharacters().value
+    }
+}
+
+public struct Snapchat {
+    public static func open(userID: String? = nil) throws {
         if let userID = userID {
-            try openSocialURL(appTemplate: "snapchat://add/#{userID}", browserTemplate: "https://www.snapchat.com/add/#{userID}", userID: userID)
+            try Social.openURL(appTemplate: "snapchat://add/#{userID}", browserTemplate: "https://www.snapchat.com/add/#{userID}", userID: userID)
         } else {
-            try openSocialURL(appTemplate: "snapchat://", browserTemplate: "https://www.snapchat.com/", userID: userID)
+            try Social.openURL(appTemplate: "snapchat://", browserTemplate: "https://www.snapchat.com/", userID: userID)
         }
+    }
+
+    private static let minLength = 3
+    private static let maxLength = 15
+
+    public static func editValidator(userID: String?, name: String = "Snapchat") -> String? {
+        return try? StringValidation(value: userID, name: name).lowercased().maxLength(maxLength).containsOnlyValidSnapchatCharacters().value
+    }
+
+    public static func validate(userID: String, name: String = "Snapchat") throws -> String {
+        return try StringValidation(value: userID, name: name).lowercased().minLength(minLength).maxLength(maxLength).beginsWithLetter().endsWithLetterOrNumber().containsOnlyValidSnapchatCharacters().value
     }
 }

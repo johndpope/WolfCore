@@ -21,7 +21,7 @@ public class EditableContainerView: View, Editable {
         self.editingView = editingView
         super.init(frame: .zero)
 
-        isTransparentToTouches = true
+        //isTransparentToTouches = true
 
         widthConstraint = activateConstraint(widthAnchor == 20 =&= UILayoutPriorityDefaultHigh)
         heightConstraint = activateConstraint(heightAnchor == 20 =&= UILayoutPriorityDefaultHigh)
