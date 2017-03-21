@@ -38,6 +38,7 @@ open class StackView: OSStackView, Skinnable, Editable {
 
     public func adjustToContentHeightChanges(animated: Bool) {
         //setNeedsLayout()
+        guard arrangedSubviews.count > 0 else { return }
         dispatchAnimated(animated) {
             // KLUDGE: As long as at least one arranged subview changes it's hidden status,
             // the stack view will pick up and properly animated size changes of its other subviews.

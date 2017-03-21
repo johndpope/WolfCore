@@ -23,6 +23,11 @@ public protocol Skin {
     var viewControllerTintColor: UIColor { get }
     var viewControllerHighlightedTintColor: UIColor { get }
 
+    var buttonTintColor: UIColor { get }
+    var buttonHighlightedTintColor: UIColor { get }
+    var buttonDisabledColor: UIColor { get }
+    var buttonFontStyleName: FontStyleName { get }
+
     var textColor: UIColor { get }
 
     var navbarBarColor: UIColor { get }
@@ -74,6 +79,11 @@ open class DefaultSkin: Skin {
     open var viewControllerTintColor: UIColor { return defaultTintColor }
     open var viewControllerHighlightedTintColor: UIColor { return viewControllerTintColor.lightened(by: 0.5) }
 
+    open var buttonTintColor: UIColor { return viewControllerTintColor }
+    open var buttonHighlightedTintColor: UIColor { return viewControllerHighlightedTintColor }
+    open var buttonDisabledColor: UIColor { return UIColor.gray.withAlphaComponent(0.3) }
+    open var buttonFontStyleName: FontStyleName { return .buttonTitle }
+
     open var textColor: UIColor { return .black }
 
     open var navbarBarColor: UIColor { return UIColor.gray.withAlphaComponent(0.3) }
@@ -101,6 +111,7 @@ open class DefaultSkin: Skin {
         .display: FontStyle(family: .zapfino, size: 48.0),
         .title: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1)),
         .book: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body)),
+        .buttonTitle: FontStyle(font: .systemFont(ofSize: 12)),
         .textFieldContent: FontStyle(font: .systemFont(ofSize: 12), color: .black),
         .textFieldPlaceholder: FontStyle(font: .systemFont(ofSize: 12), color: .gray),
         .textFieldCounter: FontStyle(font: .italicSystemFont(ofSize: 8), color: .darkGray)
@@ -145,6 +156,12 @@ open class InterpolateSkin: Skin {
     open lazy var viewControllerBackgroundColor: UIColor = { return self.blend(from: self.skin1.viewControllerBackgroundColor, to: self.skin2.viewControllerBackgroundColor) }()
     open lazy var viewControllerTintColor: UIColor = { return self.blend(from: self.skin1.viewControllerTintColor, to: self.skin2.viewControllerTintColor) }()
     open lazy var viewControllerHighlightedTintColor: UIColor = { return self.blend(from: self.skin1.viewControllerHighlightedTintColor, to: self.skin2.viewControllerHighlightedTintColor) }()
+
+    open lazy var buttonTintColor: UIColor = { return self.blend(from: self.skin1.buttonTintColor, to: self.skin2.buttonTintColor) }()
+    open lazy var buttonHighlightedTintColor: UIColor = { return self.blend(from: self.skin1.buttonHighlightedTintColor, to: self.skin2.buttonHighlightedTintColor) }()
+    open lazy var buttonDisabledColor: UIColor = { return self.frac.ledge(self.skin1.buttonDisabledColor, self.skin2.buttonDisabledColor) }()
+
+    open lazy var buttonFontStyleName: FontStyleName = { return self.frac.ledge(self.skin1.buttonFontStyleName, self.skin2.buttonFontStyleName) }()
 
     open lazy var textColor: UIColor = { return self.blend(from: self.skin1.textColor, to: self.skin2.textColor) }()
 

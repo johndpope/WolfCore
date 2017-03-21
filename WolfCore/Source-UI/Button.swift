@@ -9,6 +9,20 @@
 import UIKit
 
 open class Button: UIButton, Skinnable {
+    private var controlAction: ControlAction<Button>!
+
+    public var action: Block? {
+        didSet {
+            if action != nil {
+                controlAction = addTouchUpInsideAction(to: self) { [unowned self] _ in
+                    self.action?()
+                }
+            } else {
+                controlAction = nil
+            }
+        }
+    }
+
     @IBOutlet var customView: UIView? {
         willSet {
             removeCustomView()
@@ -49,6 +63,13 @@ open class Button: UIButton, Skinnable {
 
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
+        guard let skin = skin else { return }
+        setTitleColor(skin.buttonTintColor, for: .normal)
+        setTitleColor(skin.buttonHighlightedTintColor, for: .highlighted)
+        setTitleColor(skin.buttonDisabledColor, for: .disabled)
+
+        guard let titleLabel = titleLabel, let fontStyle = skin.fontStyles[.buttonTitle] else { return }
+        titleLabel.font = fontStyle.font
     }
 
     open func setup() { }

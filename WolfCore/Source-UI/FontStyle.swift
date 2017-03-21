@@ -35,6 +35,7 @@ extension FontStyleName {
     public static let display = FontStyleName("display")
     public static let title = FontStyleName("title")
     public static let book = FontStyleName("book")
+    public static let buttonTitle = FontStyleName("buttonTitle")
     public static let textFieldContent = FontStyleName("textFieldContent")
     public static let textFieldPlaceholder = FontStyleName("textFieldPlaceholder")
     public static let textFieldCounter = FontStyleName("textFieldCounter")

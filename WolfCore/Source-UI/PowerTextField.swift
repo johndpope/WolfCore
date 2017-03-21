@@ -14,6 +14,7 @@ public class PowerTextField: View, Editable {
     public enum ContentType {
         case text
         case social
+        case date
     }
 
     public var contentType: ContentType = .text {
@@ -21,6 +22,61 @@ public class PowerTextField: View, Editable {
             syncToContentType()
         }
     }
+
+    public var textAlignment: NSTextAlignment = .natural {
+        didSet {
+            syncToAlignment()
+        }
+    }
+
+    public override var inputView: UIView? {
+        get {
+            return textView.inputView
+        }
+
+        set {
+            textView.inputView = newValue
+        }
+    }
+
+    public var datePickerChangedAction: ControlAction<UIDatePicker>!
+
+    public var datePicker: UIDatePicker! {
+        didSet {
+            inputView = datePicker
+            datePickerChangedAction = addValueChangedAction(to: datePicker) { [unowned self] _ in
+                self.syncTextToDate(animated: true)
+            }
+        }
+    }
+
+    private func syncTextToDate(animated: Bool) {
+        let align = textAlignment
+        if let date = date {
+            setText(dateFormatter.string(from: date), animated: animated)
+        } else {
+            clear(animated: animated)
+        }
+        textAlignment = align
+    }
+
+    public var date: Date? {
+        get {
+            return datePicker?.date
+        }
+
+        set {
+            if let date = newValue {
+                datePicker.date = date
+            }
+        }
+    }
+
+    public lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        return formatter
+    }()
 
     public var name: String = "Field"¶
 
@@ -33,11 +89,12 @@ public class PowerTextField: View, Editable {
         get {
             return textView.text
         }
+    }
 
-        set {
-            textView.text = newValue
-            syncToTextView(animated: false)
-        }
+    public func setText(_ text: String?, animated: Bool) {
+        textView.text = text
+        syncToTextView(animated: false)
+        onChanged?(self)
     }
 
     public var placeholder: String? {
@@ -63,7 +120,11 @@ public class PowerTextField: View, Editable {
     }
 
     public var characterCount: Int {
-        return textView.text?.characters.count ?? 0
+        return text?.characters.count ?? 0
+    }
+
+    public var isEmpty: Bool {
+        return characterCount == 0
     }
 
     public var charactersLeft: Int? {
@@ -144,7 +205,7 @@ public class PowerTextField: View, Editable {
         case .never:
             clearButtonView.conceal(animated: animated)
         case .whileEditing:
-            if isEditing && characterCount > 0 {
+            if isEditing && !isEmpty {
                 clearButtonView.reveal(animated: animated)
             } else {
                 clearButtonView.conceal(animated: animated)
@@ -161,7 +222,8 @@ public class PowerTextField: View, Editable {
     }
 
     public typealias ResponseBlock = (PowerTextField) -> Void
-    public var didEndEditing: ResponseBlock?
+    public var onEndEditing: ResponseBlock?
+    public var onChanged: ResponseBlock?
 
     private lazy var verticalStackView: VerticalStackView = {
         let view = VerticalStackView()
@@ -217,8 +279,7 @@ public class PowerTextField: View, Editable {
     }()
 
     public func clear(animated: Bool) {
-        textView.text = ""
-        syncToTextView(animated: animated)
+        setText("", animated: animated)
     }
 
     public override var isDebug: Bool {
@@ -344,6 +405,8 @@ public class PowerTextField: View, Editable {
             autocapitalizationType = .none
             spellCheckingType = .no
             autocorrectionType = .no
+        case .date:
+            datePicker = UIDatePicker()
         }
     }
 
@@ -377,11 +440,17 @@ public class PowerTextField: View, Editable {
         }
     }
 
+    private func syncToAlignment() {
+        textView.textAlignment = textAlignment
+        placeholderLabel.textAlignment = textAlignment
+    }
+
     fileprivate func syncToTextView(animated: Bool) {
+        syncToAlignment()
         syncClearButton(animated: animated)
         updateCharacterCount()
         placeholderHider["editing"] = isEditing
-        placeholderHider["hasText"] = characterCount > 0
+        placeholderHider["hasText"] = !isEmpty
         scrollToVisibleWhenKeyboardShows = isEditing
     }
 
@@ -391,7 +460,7 @@ public class PowerTextField: View, Editable {
             scrollToVisible()
         } else {
             textView.setContentOffset(.zero, animated: true)
-            didEndEditing?(self)
+            onEndEditing?(self)
         }
     }
 }
@@ -410,6 +479,9 @@ extension PowerTextField: UITextViewDelegate {
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Don't allow any keyboard-based changes when entering dates
+        guard contentType != .date else { return false }
+
         // Always allow deletions.
         guard text.characters.count > 0 else { return true }
 

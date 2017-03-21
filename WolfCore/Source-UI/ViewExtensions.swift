@@ -36,13 +36,13 @@ extension OSView {
 }
 
 extension OSView {
-    @discardableResult public func constrainFrame(to view: OSView? = nil, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
+    @discardableResult public func constrainFrame(to view: OSView? = nil, priority: UILayoutPriority = UILayoutPriorityRequired, active: Bool = true, insets: OSEdgeInsets = OSEdgeInsetsZero, identifier: String? = nil) -> [NSLayoutConstraint] {
         let view = checkTargetView(view: view)
         let constraints = [
-            leadingAnchor == view.leadingAnchor + insets.left =%= [identifier, "leading"],
-            trailingAnchor == view.trailingAnchor - insets.right =%= [identifier, "trailing"],
-            topAnchor == view.topAnchor + insets.top =%= [identifier, "top"],
-            bottomAnchor == view.bottomAnchor - insets.bottom =%= [identifier, "bottom"]
+            leadingAnchor == view.leadingAnchor + insets.left =&= priority =%= [identifier, "leading"],
+            trailingAnchor == view.trailingAnchor - insets.right =&= priority =%= [identifier, "trailing"],
+            topAnchor == view.topAnchor + insets.top =&= priority =%= [identifier, "top"],
+            bottomAnchor == view.bottomAnchor - insets.bottom =&= priority =%= [identifier, "bottom"]
         ]
         if active {
             activateConstraints(constraints)
@@ -277,7 +277,7 @@ extension OSView {
     }
 #endif
 
-extension UIView: Hideable { }
+extension UIView: AnimatedHideable { }
 
 #if os(iOS)
     extension UIView {
