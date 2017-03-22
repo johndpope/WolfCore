@@ -440,28 +440,33 @@ public class PowerTextField: View, Editable {
         }
     }
 
-    private func syncToAlignment() {
+    fileprivate func syncToAlignment() {
         textView.textAlignment = textAlignment
         placeholderLabel.textAlignment = textAlignment
     }
 
     fileprivate func syncToTextView(animated: Bool) {
-        syncToAlignment()
         syncClearButton(animated: animated)
         updateCharacterCount()
         placeholderHider["editing"] = isEditing
         placeholderHider["hasText"] = !isEmpty
         scrollToVisibleWhenKeyboardShows = isEditing
+        syncToAlignment()
     }
 
     public func syncToEditing(animated: Bool) {
-        syncToTextView(animated: animated)
         if isEditing {
             scrollToVisible()
         } else {
             textView.setContentOffset(.zero, animated: true)
             onEndEditing?(self)
         }
+        syncToTextView(animated: animated)
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        syncToAlignment()
     }
 }
 

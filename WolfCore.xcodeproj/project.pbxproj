@@ -272,6 +272,8 @@
 		03604A4A1E7F6ED300CA8C89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03604A491E7F6ED300CA8C89 /* Assets.xcassets */; };
 		03604A4C1E7F6FE100CA8C89 /* ClearFieldButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */; };
 		03604A4E1E7FB15700CA8C89 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A4D1E7FB15700CA8C89 /* Slider.swift */; };
+		03604A521E81B23F00CA8C89 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A511E81B23F00CA8C89 /* ImagePickerViewController.swift */; };
+		03604A541E82498F00CA8C89 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A531E82498F00CA8C89 /* ImageCropper.swift */; };
 		0362A1A71C19FBD20005371F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A61C19FBD20005371F /* Log.swift */; };
 		0362A1A91C1A22710005371F /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362A1A81C1A22710005371F /* Serializer.swift */; };
 		036307D01CB6DA7F00DC7070 /* NotificationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036307CF1CB6DA7F00DC7070 /* NotificationActions.swift */; };
@@ -674,6 +676,8 @@
 		03604A491E7F6ED300CA8C89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Source-UI/Assets.xcassets"; sourceTree = "<group>"; };
 		03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClearFieldButtonView.swift; path = "Source-UI/ClearFieldButtonView.swift"; sourceTree = "<group>"; };
 		03604A4D1E7FB15700CA8C89 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Slider.swift; path = "Source-UI/Slider.swift"; sourceTree = "<group>"; };
+		03604A511E81B23F00CA8C89 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagePickerViewController.swift; path = "Source-UI/ImagePickerViewController.swift"; sourceTree = "<group>"; };
+		03604A531E82498F00CA8C89 /* ImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCropper.swift; path = "Source-UI/ImageCropper.swift"; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = Sources/Log.swift; sourceTree = "<group>"; };
 		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Serializer.swift; path = "Sources-Foundation/Serializer.swift"; sourceTree = "<group>"; };
 		036307CF1CB6DA7F00DC7070 /* NotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationActions.swift; path = "Sources-Foundation/NotificationActions.swift"; sourceTree = "<group>"; };
@@ -1177,6 +1181,8 @@
 				035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */,
 				03CF07FE1DF5381A00B7AD7E /* WebViewController.swift */,
 				03CF07FD1DF5381A00B7AD7E /* WebViewController.storyboard */,
+				03604A531E82498F00CA8C89 /* ImageCropper.swift */,
+				03604A511E81B23F00CA8C89 /* ImagePickerViewController.swift */,
 				03F261481D48B1BF00523640 /* ImageViewerViewController */,
 			);
 			name = "View Controllers";
@@ -1805,6 +1811,7 @@
 				036307D01CB6DA7F00DC7070 /* NotificationActions.swift in Sources */,
 				039C912F1E4D1D67000AE01B /* BounceButton.swift in Sources */,
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
+				03604A541E82498F00CA8C89 /* ImageCropper.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
 				039AD2821E6A222300776D7B /* Credentials.swift in Sources */,
 				03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
@@ -1883,6 +1890,7 @@
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,
 				0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */,
 				0378EC921DF4F8E200E6A875 /* HTTPCacheLayer.swift in Sources */,
+				03604A521E81B23F00CA8C89 /* ImagePickerViewController.swift in Sources */,
 				035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */,
 				03E006C81E5D65E500AA8C3F /* ModelView.swift in Sources */,
 				03604A461E7E0F4B00CA8C89 /* Validator.swift in Sources */,
