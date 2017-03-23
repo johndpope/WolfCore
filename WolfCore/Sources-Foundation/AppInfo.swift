@@ -1,5 +1,5 @@
 //
-//  InfoDict.swift
+//  AppInfo.swift
 //  WolfCore
 //
 //  Created by Wolf McNally on 5/21/16.
@@ -8,9 +8,11 @@
 
 import Foundation
 
-public let infoDict = InfoDict(bundle: Bundle.main)
+public let appInfo = AppInfo(bundle: Bundle.main)
 
-public class InfoDict {
+private let kCFBundleShortVersionString = "CFBundleShortVersionString"
+
+public class AppInfo {
     private let bundle: Bundle
 
     public init(bundle: Bundle) {
@@ -29,12 +31,20 @@ public class InfoDict {
         return object(forKey: key as String)
     }
 
+    public func hasKey(key: String) -> Bool {
+        return self[key] != nil
+    }
+
+    public var appName: String {
+        return self[kCFBundleNameKey] as! String
+    }
+
     public var bundleIdentifier: String {
-        return self["CFBundleIdentifier"] as! String
+        return self[kCFBundleIdentifierKey] as! String
     }
 
     public var version: String {
-        return self["CFBundleShortVersionString"] as! String
+        return self[kCFBundleShortVersionString] as! String
     }
 
     public var build: String {
@@ -43,7 +53,7 @@ public class InfoDict {
 }
 
 extension Bundle {
-    public var infoDict: InfoDict {
-        return InfoDict(bundle: self)
+    public var appInfo: AppInfo {
+        return AppInfo(bundle: self)
     }
 }

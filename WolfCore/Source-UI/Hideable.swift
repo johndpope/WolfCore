@@ -37,10 +37,15 @@ public protocol AnimatedHideable: Hideable {
 extension AnimatedHideable {
     public func hide(animated: Bool) {
         guard !isHidden else { return }
-        dispatchAnimated(animated) {
-            self.alpha = 0
-            self.hide()
+        dispatchAnimated(
+            animated,
+            animations: {
+                self.alpha = 0
+        },
+            completion: { _ in
+                self.hide()
         }
+        )
     }
 
     public func show(animated: Bool) {

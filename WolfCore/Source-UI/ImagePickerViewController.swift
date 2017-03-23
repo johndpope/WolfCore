@@ -8,32 +8,48 @@
 
 import UIKit
 import MobileCoreServices
-//import RSKImageCropper
-
 import Photos
+
+//
+// NOTE:
+//
+// To use this, these keys must be provided in Info.plist along with purpose strings.
+//
+// NSCameraUsageDescription
+// NSPhotoLibraryUsageDescription
+//
+// https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW17
+//
 
 private let movieRawType: NSString = kUTTypeMovie
 
 public typealias ImagePickerSuccessAction = (UIImage?) -> Void
 
-public class ImagePickerViewController: UIImagePickerController {
+public class ImagePickerViewController: UIImagePickerController, Skinnable {
     private var successAction: ImagePickerSuccessAction!
     private var cancelAction: Block?
     fileprivate var allowsCropping: Bool = false
 
     public static func present(from presentingViewController: UIViewController, sourceView: UIView, requestedMediaTypes: [ImagePickerViewController.MediaType], allowsCropping: Bool, cancel cancelAction: Block? = nil, remove removeAction: Block?, success successAction: @escaping ImagePickerSuccessAction) {
         var actions = [
-            AlertAction(title: "take_photo"¶, style: .default, identifier: "takePhoto") { _ in
-                if cameraAuthorized(fromViewController: presentingViewController) {
+            AlertAction(title: "Take Photo"¶, style: .default, identifier: "takePhoto") { _ in
+                if DeviceAccess.checkCameraAuthorized(from: presentingViewController) {
                     ImagePickerViewController.present(fromViewController: presentingViewController, sourceType: .camera, requestedMediaTypes: requestedMediaTypes, allowsCropping: allowsCropping, cancel: cancelAction, success: successAction)
                 }
             },
-            AlertAction(title: "photo_library"¶, style: .default, identifier: "choosePhoto") { _ in
-                if photoLibraryAuthorized(fromViewController: presentingViewController) {
+            AlertAction(title: "Photo Library"¶, style: .default, identifier: "choosePhoto") { _ in
+                if DeviceAccess.checkPhotoLibraryAuthorized(from: presentingViewController) {
                     ImagePickerViewController.present(fromViewController: presentingViewController, sourceType: .photoLibrary, requestedMediaTypes: requestedMediaTypes, allowsCropping: allowsCropping, cancel: cancelAction, success: successAction)
                 }
             }
         ]
+
+        if let removeAction = removeAction {
+            let a = AlertAction(title: "Remove"¶, style: .destructive, identifier: "remove") { _ in
+                    removeAction()
+                }
+            actions.append(a)
+        }
 
         actions.append(
             AlertAction.newCancelAction { _ in
@@ -142,60 +158,19 @@ public class ImagePickerViewController: UIImagePickerController {
         popViewController(animated: true)
     }
 
-    static func cameraAuthorized(fromViewController presentingViewController: UIViewController) -> Bool {
-        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        switch authStatus {
-        case .authorized: return true
-        case .denied:
-            alertToChangeCameraAccess(fromViewController: presentingViewController)
-            return false
-        case .notDetermined: return true
-        default:
-            alertToChangeCameraAccess(fromViewController: presentingViewController)
-            return false
-        }
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        propagateSkin(why: "viewWillAppear")
     }
 
-    static func alertToChangeCameraAccess(fromViewController presentingViewController: UIViewController) {
-        let alert = UIAlertController(
-            title: "request_camera_permission_retry"¶,
-            message: nil,
-            preferredStyle: UIAlertControllerStyle.alert
-        )
-        alert.addAction(UIAlertAction(title: "cancel"¶, style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "grant_permission_action"¶, style: .cancel, handler: { _ in
-            UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-        }))
-        presentingViewController.present(alert, animated: true, completion: nil)
+    open func updateAppearance(skin: Skin?) {
+        _updateAppearance(skin: skin)
     }
 
-    static func alertToChangePhotoLibraryAccess(fromViewController presentingViewController: UIViewController) {
-        let alert = UIAlertController(
-            title: "request_camera_permission_retry"¶,
-            message: nil,
-            preferredStyle: UIAlertControllerStyle.alert
-        )
-        alert.addAction(UIAlertAction(title: "cancel"¶, style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "grant_permission_action"¶, style: .cancel, handler: { _ in
-            UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-        }))
-        presentingViewController.present(alert, animated: true, completion: nil)
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return _preferredStatusBarStyle(for: skin)
     }
-
-
-    static func photoLibraryAuthorized(fromViewController presentingViewController: UIViewController) -> Bool {
-        let status = PHPhotoLibrary.authorizationStatus()
-        switch status {
-        case .authorized:
-            return true
-        case .denied, .restricted :
-            alertToChangePhotoLibraryAccess(fromViewController: presentingViewController)
-            return false
-        case .notDetermined:
-            return true
-        }
-    }
-
 }
 
 extension ImagePickerViewController: UIImagePickerControllerDelegate {
@@ -223,6 +198,12 @@ extension ImagePickerViewController: UIImagePickerControllerDelegate {
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         cancel()
+    }
+
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        guard let style = skin.fontStyles[.navbarTitle] else { return }
+        guard style.allCaps else { return }
+        viewController.navigationItem.title = viewController.navigationItem.title?.uppercased()
     }
 }
 

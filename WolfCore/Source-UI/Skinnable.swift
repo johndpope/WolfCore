@@ -12,7 +12,16 @@ public protocol Skinnable {
     func updateAppearance(skin: Skin?)
 }
 
-public var defaultSkin = DefaultSkin()
+public var defaultSkin = DefaultSkin() {
+    didSet {
+        syncToDefaultSkin()
+    }
+}
+
+public func syncToDefaultSkin() {
+    let barButtonStyle = defaultSkin.fontStyles[.barbuttonTitle]!
+    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName : barButtonStyle.font], for: .normal)
+}
 
 fileprivate struct AssociatedKeys {
     static var skin = "WolfCore_skin"

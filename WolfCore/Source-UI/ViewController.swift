@@ -99,7 +99,10 @@ extension UIViewController {
                 let image = newImage(withSize: CGSize(width: 16, height: 16), background: skin.navbarBarColor)
                 navigationBar.setBackgroundImage(image, for: .default)
                 navigationBar.tintColor = skin.navbarTintColor
-                navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: skin.navbarTitleColor]
+                navigationBar.titleTextAttributes = [
+                    NSFontAttributeName: skin.fontStyles[.navbarTitle]!.font,
+                    NSForegroundColorAttributeName: skin.navbarTitleColor
+                ]
 
                 // Remove bottom bevel
                 navigationBar.shadowImage = UIImage()

@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  WolfCore
+
+  Created by Wolf McNally on 3/23/17.
+  Copyright © 2017 Arciem. All rights reserved.
+*/
+
+"OK¶" = "OK";
+"Cancel¶" = "Cancel";
+"Save¶" = "Save";
+"Error¶" = "Error";
+
+"true¶" = "true";
+"false¶" = "false";

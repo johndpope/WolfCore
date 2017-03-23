@@ -22,6 +22,8 @@
 import CoreGraphics
 import CoreImage
 
+public typealias ImageBlock = (OSImage) -> Void
+
 extension OSImage {
     public var bounds: CGRect {
         return CGRect(origin: .zero, size: size)
@@ -70,16 +72,37 @@ extension OSImage {
     }
 
     public convenience init(size: CGSize, color: OSColor, opaque: Bool = false, scale: CGFloat = 0.0) {
-        let image = newImage(withSize: size, opaque: opaque, scale: scale) { context in
-            let bounds = CGRect(origin: CGPoint.zero, size: size)
+        let image = newImage(withSize: size, opaque: opaque, scale: scale, renderingMode: .alwaysOriginal) { context in
             context.setFillColor(color.cgColor)
-            context.fill(bounds)
+            context.fill(CGRect(origin: .zero, size: size))
         }
         #if os(macOS)
-            self.init(cgImage: image.cgImage!, size: image.size)
+            self.init(cgImage: image.cgImage!, scale: scale, size: image.size)
         #else
-            self.init(cgImage: image.cgImage!)
+            self.init(cgImage: image.cgImage!, scale: scale, orientation: .up)
         #endif
+    }
+
+    public func composited(over backgroundImage: UIImage) -> UIImage {
+        let backgroundBounds = CGRect(origin: .zero, size: backgroundImage.size)
+        let foregroundBounds = CGRect(origin: .zero, size: self.size)
+
+        return newImage(withSize: backgroundBounds.size, opaque: false, scale: backgroundImage.scale, renderingMode: .alwaysOriginal) { context in
+            backgroundImage.draw(in: backgroundBounds)
+            self.draw(in: foregroundBounds)
+        }
+    }
+
+    public func masked(with path: UIBezierPath) -> UIImage {
+        return newImage(withSize: size, opaque: false, scale: scale, renderingMode: renderingMode) { context in
+            context.addPath(path.cgPath)
+            context.clip()
+            self.draw(in: self.bounds)
+        }
+    }
+
+    public func maskedWithCircle() -> UIImage {
+        return masked(with: UIBezierPath(ovalIn: bounds))
     }
 
     public func scaled(toSize size: CGSize, opaque: Bool = false) -> OSImage {

@@ -16,7 +16,7 @@ public class ImageViewerViewController: ViewController {
     var dismissAction: GestureRecognizerAction!
     private var chromeHidden = false
     private var willDismissAction: Block?
-    private var navBarTitle: String!
+    private var navbarTitle: String!
 
     public var image: UIImage {
         guard sourceImageView.image != nil else {
@@ -25,9 +25,9 @@ public class ImageViewerViewController: ViewController {
         return sourceImageView.image!
     }
 
-    public static func present(with sourceImageView: UIImageView, from presentingViewController: UIViewController, navBarTitle: String = "Photo"¶, willDismissAction: Block? = nil) {
+    public static func present(with sourceImageView: UIImageView, from presentingViewController: UIViewController, navbarTitle: String = "Photo"¶, willDismissAction: Block? = nil) {
         let viewController = ImageViewerViewController(with: sourceImageView)
-        viewController.navBarTitle = navBarTitle
+        viewController.navbarTitle = navbarTitle
         viewController.willDismissAction = willDismissAction
         viewController.present(from: presentingViewController, animated: true, completion: nil)
     }
@@ -101,7 +101,7 @@ public class ImageViewerViewController: ViewController {
             self.dismiss()
         }
         navigationItem.leftBarButtonItem = doneItem
-        navigationItem.title = navBarTitle
+        navigationItem.title = navbarTitle
     }
 
     private func setupSubviews() {

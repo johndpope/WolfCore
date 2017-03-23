@@ -28,7 +28,7 @@ public struct Social {
         guard let scheme = url.scheme else {
             throw Error.missingScheme
         }
-        let registeredSchemes: [String] = infoDict["LSApplicationQueriesSchemes"] as? [String] ?? []
+        let registeredSchemes: [String] = appInfo["LSApplicationQueriesSchemes"] as? [String] ?? []
         let allowedSchemes = registeredSchemes + ["https"]
         guard allowedSchemes.contains(scheme) else {
             throw Error.disallowedScheme(scheme)
