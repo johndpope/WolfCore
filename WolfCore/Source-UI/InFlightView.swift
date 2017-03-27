@@ -74,7 +74,9 @@ public class InFlightView: View {
             self.enteringTokenViews.append(tokenView)
         }
 
-        self.addSubview(tokenView)
+        self => [
+            tokenView
+        ]
         tokenView.token = token
         self.layout(tokenView: tokenView, index: 0, referenceView: self.leftColumnView)
         tokenView.alpha = 0.0
@@ -204,7 +206,9 @@ public class InFlightView: View {
         columnsStackView.alignment = .fill
         columnsStackView.spacing = 20.0
 
-        addSubview(columnsStackView)
+        self => [
+            columnsStackView
+        ]
         columnsStackView.constrainFrame(insets: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20), identifier: "inFlightColumns")
     }
 }

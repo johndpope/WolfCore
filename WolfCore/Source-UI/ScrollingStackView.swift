@@ -77,7 +77,9 @@ open class ScrollingStackView: View {
 
     private func setupKeyboardAvoidantView() {
         guard hasKeyboardAvoidantView else { return }
-        addSubview(keyboardAvoidantView)
+        self => [
+            keyboardAvoidantView
+        ]
         activateConstraints(
             keyboardAvoidantView.leadingAnchor == leadingAnchor,
             keyboardAvoidantView.trailingAnchor == trailingAnchor,
@@ -88,15 +90,21 @@ open class ScrollingStackView: View {
 
     private func setupOuterStackView() {
         if hasKeyboardAvoidantView {
-            keyboardAvoidantView.addSubview(outerStackView)
+            keyboardAvoidantView => [
+                outerStackView
+            ]
         } else {
-            addSubview(outerStackView)
+            self => [
+                outerStackView
+            ]
         }
         outerStackView.constrainFrame()
     }
 
     private func setupScrollView() {
-        outerStackView.addArrangedSubview(scrollView)
+        outerStackView => [
+            scrollView
+        ]
         if axis == .horizontal {
             scrollView.scrollsToTop = false
         }
@@ -104,7 +112,9 @@ open class ScrollingStackView: View {
     }
 
     private func setupStackView() {
-        scrollView.addSubview(stackView)
+        scrollView => [
+            stackView
+        ]
         switch axis {
         case .vertical:
             activateConstraints(
@@ -143,7 +153,9 @@ open class ScrollingStackView: View {
     func setupDetent() {
         guard showsDetentIndicator else { return }
 
-        addSubview(detentIndicatorView)
+        self => [
+            detentIndicatorView
+        ]
         switch axis {
         case .horizontal:
             activateConstraints(

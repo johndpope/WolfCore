@@ -36,7 +36,9 @@ class ImageViewerDismissalTransitioning: NSObject, UIViewControllerAnimatedTrans
         movingImageView.image = viewerViewController.image
         movingImageView.frame = movingImageViewStartFrame
 
-        containerView.addSubview(movingImageView)
+        containerView => [
+            movingImageView
+        ]
 
         dispatchAnimated(
             duration: transitionDuration(using: transitionContext),

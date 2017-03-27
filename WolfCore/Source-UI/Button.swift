@@ -81,7 +81,9 @@ open class Button: UIButton, Skinnable {
     private func addCustomView(constraintsIdentifier identifier: String? = nil) {
         guard let customView = customView else { return }
 
-        addSubview(customView)
+        self => [
+            customView
+        ]
         customView.constrainFrame(identifier: identifier ?? "button")
         customView.isUserInteractionEnabled = false
     }

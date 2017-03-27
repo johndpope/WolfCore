@@ -33,7 +33,9 @@ public class EditableContainerView: View, Editable {
     }
 
     private func addContentView(_ view: UIView) {
-        addSubview(view)
+        self => [
+            view
+        ]
         view.constrainCenterToCenter()
         view.constrainMaxWidthToWidth()
         view.setNeedsLayout()

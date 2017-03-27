@@ -43,15 +43,15 @@ extension UIStackViewAlignment: CustomStringConvertible {
         }
     }
 }
-
-extension UIStackView {
-    public func addArrangedSubviews(_ views: [UIView]) {
-        for view in views {
-            addArrangedSubview(view)
-        }
-    }
-
-    public func addArrangedSubviews(_ views: UIView...) {
-        addArrangedSubviews(views)
-    }
-}
+//
+//extension UIStackView {
+//    public func addArrangedSubviews(_ views: [UIView]) {
+//        for view in views {
+//            addArrangedSubview(view)
+//        }
+//    }
+//
+//    public func addArrangedSubviews(_ views: UIView...) {
+//        addArrangedSubviews(views)
+//    }
+//}

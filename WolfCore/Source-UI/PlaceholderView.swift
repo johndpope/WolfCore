@@ -81,7 +81,9 @@ open class PlaceholderView: View {
     open override func setup() {
         super.setup()
         contentMode = .redraw
-        addSubview(titleLabel)
+        self => [
+            titleLabel
+        ]
         titleLabel.constrainCenterToCenter()
     }
 

@@ -44,7 +44,9 @@ public class FlexView: View {
     }
 
     private func setContentView(_ view: UIView) {
-        addSubview(view)
+        self => [
+            view
+        ]
         view.constrainFrame()
         view.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
     }

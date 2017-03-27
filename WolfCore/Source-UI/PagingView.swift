@@ -157,7 +157,9 @@ open class PagingView: View {
     private func addArrangedViews(_ newViews: [UIView]) {
         for view in newViews {
             view.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(view)
+            contentView => [
+                view
+            ]
             let leadingConstraint = view.leadingAnchor == contentView.leadingAnchor
             arrangedViewsLeadingConstraints.append(leadingConstraint)
             activateConstraints(
@@ -180,11 +182,17 @@ open class PagingView: View {
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
-        addSubview(scrollView)
-        scrollView.constrainFrame(identifier: "pagingScroll")
 
         contentView = PagingContentView()
-        scrollView.addSubview(contentView)
+
+        self => [
+            scrollView => [
+                contentView
+            ]
+        ]
+
+        scrollView.constrainFrame(identifier: "pagingScroll")
+
         contentView.constrainFrame(identifier: "pagingScrollContent")
         contentWidthConstraint = contentView.widthAnchor == 500
         let contentHeightConstraint = contentView.heightAnchor == heightAnchor - 0.5
@@ -197,7 +205,9 @@ open class PagingView: View {
     private func setupPageControl() {
         pageControl = PageControl()
         pageControl.isUserInteractionEnabled = false
-        addSubview(pageControl)
+        self => [
+            pageControl
+        ]
         activateConstraints(
             pageControl.centerXAnchor == centerXAnchor =&= UILayoutPriorityDefaultLow,
             pageControl.heightAnchor == 40.0, // =&= UILayoutPriorityDefaultLow,

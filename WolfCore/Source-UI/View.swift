@@ -148,9 +148,7 @@ extension View {
         let constraints = view.constraints
         let subviews = view.subviews
 
-        for subview in subviews {
-            addSubview(subview)
-        }
+        self => subviews
 
         for constraint in constraints {
             var firstItem = constraint.firstItem

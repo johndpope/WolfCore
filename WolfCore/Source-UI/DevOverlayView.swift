@@ -16,7 +16,9 @@ public class DevOverlayView: View {
         super.setup()
 
         let window = UIApplication.shared.windows[0]
-        window.addSubview(self)
+        window => [
+            self
+        ]
         isTransparentToTouches = true
         bounds = window.frame
         constrainFrame(identifier: "DevOverlay")

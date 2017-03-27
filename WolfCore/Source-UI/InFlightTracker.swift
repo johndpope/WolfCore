@@ -30,7 +30,9 @@ public class InFlightTracker {
         inFlightTracker = InFlightTracker()
         if withView {
             inFlightView = InFlightView()
-            devOverlay.addSubview(inFlightView)
+            devOverlay => [
+                inFlightView
+            ]
             inFlightView.constrainFrame(identifier: "inFlight")
         }
         syncToHidden()

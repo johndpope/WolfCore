@@ -16,7 +16,9 @@ public class ClearFieldButtonView: View {
 
     public override func setup() {
         super.setup()
-        addSubview(button)
+        self => [
+            button
+        ]
         let image = button.image(for: .normal)!
         let size = image.size
         activateConstraints(

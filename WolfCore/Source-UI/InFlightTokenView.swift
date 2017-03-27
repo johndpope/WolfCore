@@ -55,7 +55,9 @@ class InFlightTokenView: View {
 
         idLabel = createLabel()
         idLabel.setContentCompressionResistancePriority(OSLayoutPriorityRequired, for: .horizontal)
-        addSubview(idLabel)
+        self => [
+            idLabel
+        ]
 
         activateConstraints(
             idLabel.leadingAnchor == leadingAnchor + 5,
@@ -70,7 +72,9 @@ class InFlightTokenView: View {
             #endif
             label.allowsDefaultTighteningForTruncation = true
             label.setContentCompressionResistancePriority(OSLayoutPriorityDefaultHigh, for: .horizontal)
-            self.addSubview(label)
+            self => [
+                label
+            ]
 
             activateConstraints(
                 label.centerXAnchor == self.centerXAnchor =&= OSLayoutPriorityDefaultHigh,
@@ -82,7 +86,9 @@ class InFlightTokenView: View {
 
         resultLabel = createLabel() |> { (label: Label) -> Label in
             label.setContentCompressionResistancePriority(OSLayoutPriorityRequired, for: .horizontal)
-            self.addSubview(label)
+            self => [
+                label
+            ]
 
             activateConstraints(
                 label.trailingAnchor == self.trailingAnchor - 5,
