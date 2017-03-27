@@ -15,7 +15,7 @@ extension Log.GroupName {
 }
 
 extension UserDefaults {
-    public subscript(key: String) -> AnyObject? {
+    public subscript(key: String) -> Any? {
         get {
             let value = userDefaults.object(forKey: key)
             logTrace("get key: \(key), value: \(value)", group: .userDefaults)
