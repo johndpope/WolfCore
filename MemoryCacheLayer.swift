@@ -23,7 +23,7 @@ public class MemoryCacheLayer: CacheLayer {
 
     public func retrieveData(forURL url: URL, completion: @escaping CacheLayerCompletion) {
         logTrace("retrieveDataForURL: \(url)", obj: self, group: .cache)
-        let data = cache.object(forKey: url as NSURL) as? Data
+        let data = cache.object(forKey: url as NSURL) as Data?
         completion(data)
     }
 

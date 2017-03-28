@@ -9,12 +9,12 @@
 import Foundation
 
 extension NSTextCheckingResult {
-    public func range(atIndex index: Int, inString string: String) -> StringRange {
-        return string.range(from: rangeAt(index))!
+    public func range(atIndex index: Int, inString string: String) -> Range<String.Index> {
+        return string.stringRange(from: rangeAt(index))!
     }
 
-    public func captureRanges(inString string: String) -> [StringRange] {
-        var result = [StringRange]()
+    public func captureRanges(inString string: String) -> [Range<String.Index>] {
+        var result = [Range<String.Index>]()
         for i in 1 ..< numberOfRanges {
             result.append(range(atIndex: i, inString: string))
         }
@@ -23,7 +23,7 @@ extension NSTextCheckingResult {
 }
 
 extension NSTextCheckingResult {
-    public func get(atIndex index: Int, inString string: String) -> (StringRange, String) {
+    public func get(atIndex index: Int, inString string: String) -> (Range<String.Index>, String) {
         let range = self.range(atIndex: index, inString: string)
         let text = string.substring(with: range)
         return (range, text)

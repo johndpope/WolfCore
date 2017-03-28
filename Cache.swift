@@ -70,7 +70,7 @@ public class Cache<T: Serializable> {
         }
     }
 
-    public func retrieveObject(forURL url: URL, withSize size: CGSize, completion: @escaping Completion) -> Cancelable? {
+    @discardableResult public func retrieveObject(forURL url: URL, withSize size: CGSize, completion: @escaping Completion) -> Cancelable? {
         let scale = mainScreenScale
 
         let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
@@ -82,13 +82,13 @@ public class Cache<T: Serializable> {
         if let url: URL = urlComponents?.url {
             return retrieveObject(forURL: url, completion: completion)
         } else {
-            logError("retrieveObjectForURL: \(urlComponents?.url)", obj: self, group: .cache)
+            logError("retrieveObjectForURL: \((urlComponents?.url)†)", obj: self, group: .cache)
             completion(nil)
             return nil
         }
     }
 
-    public func retrieveObject(forURL url: URL, completion: @escaping Completion) -> Cancelable? {
+    @discardableResult public func retrieveObject(forURL url: URL, completion: @escaping Completion) -> Cancelable? {
         logInfo("retrieveObjectForURL: \(url)", obj: self, group: .cache)
         let canceler = Canceler()
         layers[0].retrieveData(forURL: url, completion: retrieveLayerCompletion(forIndex: 0, url: url, completion: { value in

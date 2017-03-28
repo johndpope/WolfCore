@@ -18,11 +18,11 @@ extension UserDefaults {
     public subscript(key: String) -> Any? {
         get {
             let value = userDefaults.object(forKey: key)
-            logTrace("get key: \(key), value: \(value)", group: .userDefaults)
+            logTrace("get key: \(key), value: \(value†)", group: .userDefaults)
             return value as AnyObject?
         }
         set {
-            logTrace("set key: \(key), newValue: \(newValue)", group: .userDefaults)
+            logTrace("set key: \(key), newValue: \(newValue†)", group: .userDefaults)
             if let newValue = newValue {
                 userDefaults.set(newValue, forKey: key)
             } else {

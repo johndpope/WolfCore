@@ -502,7 +502,7 @@ extension PowerTextField: UITextViewDelegate {
 
         // Determine the final string
         let startText = textView.text ?? ""
-        let replacedString = startText.replacingCharacters(in: startText.range(from: range)!, with: text)
+        let replacedString = startText.replacingCharacters(in: startText.stringRange(from: range)!, with: text)
 
         // Enforce the character limit, if any
         if let characterLimit = characterLimit {

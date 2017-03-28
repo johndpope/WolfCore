@@ -46,10 +46,10 @@ public class ObjectAliaser {
                 }
 
             case let barItem as UIBarItem:
-                id = "\"\(barItem.accessibilityIdentifier)\""
+                id = "\"\(barItem.accessibilityIdentifier†)\""
 
             case let image as UIImage:
-                id = "\"\(image.accessibilityIdentifier)\""
+                id = "\"\(image.accessibilityIdentifier†)\""
 
             default:
                 break
@@ -97,7 +97,7 @@ public class ObjectAliaser {
 
     private func getID(forNumber number: NSNumber) -> String {
         if CFGetTypeID(number) == CFBooleanGetTypeID() {
-            return number as Bool ? "true" : "false"
+            return number as! Bool ? "true" : "false"
         } else {
             return String(describing: number)
         }

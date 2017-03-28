@@ -501,107 +501,107 @@ extension AString {
         return string.characters.count
     }
 
-    public func attributedSubstring(from range: StringRange) -> AString {
+    public func attributedSubstring(from range: Range<String.Index>) -> AString {
         return attributedSubstring(from: string.nsRange(from: range)!)§
     }
 
-    public func attributes(at index: StringIndex, in rangeLimit: StringRange? = nil) -> StringAttributes {
+    public func attributes(at index: String.Index, in rangeLimit: Range<String.Index>? = nil) -> StringAttributes {
         let location = string.location(fromIndex: index)
         let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
         let attrs = attributes(at: location, longestEffectiveRange: nil, in: nsRangeLimit)
         return attrs
     }
 
-    public func attributesWithLongestEffectiveRange(at index: StringIndex, in rangeLimit: StringRange? = nil) -> (attributes: StringAttributes, longestEffectiveRange: StringRange) {
+    public func attributesWithLongestEffectiveRange(at index: String.Index, in rangeLimit: Range<String.Index>? = nil) -> (attributes: StringAttributes, longestEffectiveRange: Range<String.Index>) {
         let location = string.location(fromIndex: index)
         let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
         var nsRange = NSRange()
         let attrs = attributes(at: location, longestEffectiveRange: &nsRange, in: nsRangeLimit)
-        let range = string.range(from: nsRange)!
+        let range = string.stringRange(from: nsRange)!
         return (attrs, range)
     }
 
-    public func attribute(_ name: String, at index: StringIndex, in rangeLimit: StringRange? = nil) -> Any? {
+    public func attribute(_ name: String, at index: String.Index, in rangeLimit: Range<String.Index>? = nil) -> Any? {
         let location = string.location(fromIndex: index)
         let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
         let attr = attribute(name, at: location, longestEffectiveRange: nil, in: nsRangeLimit)
         return attr
     }
 
-    public func attributeWithLongestEffectiveRange(_ name: String, at index: StringIndex, in rangeLimit: StringRange? = nil) -> (attribute: Any?, longestEffectiveRange: StringRange) {
+    public func attributeWithLongestEffectiveRange(_ name: String, at index: String.Index, in rangeLimit: Range<String.Index>? = nil) -> (attribute: Any?, longestEffectiveRange: Range<String.Index>) {
         let location = string.location(fromIndex: index)
         let nsRangeLimit = string.nsRange(from: rangeLimit) ?? string.nsRange
         var nsRange = NSRange()
         let attr = attribute(name, at: location, longestEffectiveRange: &nsRange, in: nsRangeLimit)
-        let range = string.range(from: nsRange)!
+        let range = string.stringRange(from: nsRange)!
         return (attr, range)
     }
 
     // swiftlint:disable:next custom_rules
-    public func enumerateAttributes(in enumerationRange: StringRange? = nil, options opts: NSAttributedString.EnumerationOptions = [], using block: (StringAttributes, StringRange, ASubstring) -> Bool) {
+    public func enumerateAttributes(in enumerationRange: Range<String.Index>? = nil, options opts: NSAttributedString.EnumerationOptions = [], using block: (StringAttributes, Range<String.Index>, ASubstring) -> Bool) {
         let nsRange = string.nsRange(from: enumerationRange) ?? string.nsRange
         enumerateAttributes(in: nsRange, options: opts) { (attrs, nsRange, stop) in
-            let range = self.string.range(from: nsRange)!
+            let range = self.string.stringRange(from: nsRange)!
             stop[0] = ObjCBool(block(attrs, range, self.substring(in: range)))
         }
     }
 
     // swiftlint:disable:next custom_rules
-    public func enumerateAttribute(_ name: String, in enumerationRange: StringRange? = nil, options opts: NSAttributedString.EnumerationOptions = [], using block: (Any?, StringRange, ASubstring) -> Bool) {
+    public func enumerateAttribute(_ name: String, in enumerationRange: Range<String.Index>? = nil, options opts: NSAttributedString.EnumerationOptions = [], using block: (Any?, Range<String.Index>, ASubstring) -> Bool) {
         let nsEnumerationRange = string.nsRange(from: enumerationRange) ?? string.nsRange
         enumerateAttribute(name, in: nsEnumerationRange, options: opts) { (value, nsRange, stop) in
-            let range = self.string.range(from: nsRange)!
+            let range = self.string.stringRange(from: nsRange)!
             stop[0] = ObjCBool(block(value, range, self.substring(in: range)))
         }
     }
 
-    public func replaceCharacters(in range: StringRange, with str: String) {
+    public func replaceCharacters(in range: Range<String.Index>, with str: String) {
         let nsRange = string.nsRange(from: range)!
         replaceCharacters(in: nsRange, with: str)
     }
 
-    public func setAttributes(_ attrs: StringAttributes?, range: StringRange? = nil) {
+    public func setAttributes(_ attrs: StringAttributes?, range: Range<String.Index>? = nil) {
         let nsRange = string.nsRange(from: range) ?? string.nsRange
         setAttributes(attrs, range: nsRange)
     }
 
-    public func addAttribute(_ name: String, value: Any, range: StringRange? = nil) {
+    public func addAttribute(_ name: String, value: Any, range: Range<String.Index>? = nil) {
         let nsRange = string.nsRange(from: range) ?? string.nsRange
         addAttribute(name, value: value, range: nsRange)
     }
 
-    public func addAttributes(_ attrs: StringAttributes, range: StringRange? = nil) {
+    public func addAttributes(_ attrs: StringAttributes, range: Range<String.Index>? = nil) {
         let nsRange = string.nsRange(from: range) ?? string.nsRange
         addAttributes(attrs, range: nsRange)
     }
 
-    public func removeAttribute(_ name: String, range: StringRange? = nil) {
+    public func removeAttribute(_ name: String, range: Range<String.Index>? = nil) {
         let nsRange = string.nsRange(from: range) ?? string.nsRange
         removeAttribute(name, range: nsRange)
     }
 
-    public func replaceCharacters(in range: StringRange, with attrString: AString) {
+    public func replaceCharacters(in range: Range<String.Index>, with attrString: AString) {
         let nsRange = string.nsRange(from: range)!
         replaceCharacters(in: nsRange, with: attrString)
     }
 
-    public func insert(_ attrString: AString, at index: StringIndex) {
+    public func insert(_ attrString: AString, at index: String.Index) {
         let location = string.location(fromIndex: index)
         insert(attrString, at: location)
     }
 
-    public func deleteCharacters(in range: StringRange) {
+    public func deleteCharacters(in range: Range<String.Index>) {
         let nsRange = string.nsRange(from: range)!
         deleteCharacters(in: nsRange)
     }
 }
 
 extension AString {
-    public func substring(in range: StringRange? = nil) -> ASubstring {
+    public func substring(in range: Range<String.Index>? = nil) -> ASubstring {
         return ASubstring(string: self, range: range)
     }
 
-    public func substring(from index: StringIndex) -> ASubstring {
+    public func substring(from index: String.Index) -> ASubstring {
         return ASubstring(string: self, fromIndex: index)
     }
 
@@ -654,11 +654,11 @@ extension AString {
         set { substring()[attribute] = newValue! }
     }
 
-    public func getString(forTag tag: String, atIndex index: StringIndex) -> String? {
+    public func getString(forTag tag: String, atIndex index: String.Index) -> String? {
         return substring(from: index).getString(forTag: tag)
     }
 
-    public func has(tag: String, atIndex index: StringIndex) -> Bool {
+    public func has(tag: String, atIndex index: String.Index) -> Bool {
         return substring(from: index).hasTag(tag)
     }
 
@@ -668,7 +668,7 @@ extension AString {
         endEditing()
     }
 
-    public func edit(in range: StringRange, f: (ASubstring) -> Void) {
+    public func edit(in range: Range<String.Index>, f: (ASubstring) -> Void) {
         beginEditing()
         f(substring(in: range))
         endEditing()
@@ -695,16 +695,16 @@ extension AString {
 
 public class ASubstring {
     public let attrString: AString
-    public let strRange: StringRange
+    public let strRange: Range<String.Index>
     public let nsRange: NSRange
 
-    public init(string attrString: AString, range strRange: StringRange? = nil) {
+    public init(string attrString: AString, range strRange: Range<String.Index>? = nil) {
         self.attrString = attrString
-        self.strRange = strRange ?? attrString.string.range
+        self.strRange = strRange ?? attrString.string.stringRange
         self.nsRange = attrString.string.nsRange(from: self.strRange)!
     }
 
-    public convenience init(string attrString: AString, fromIndex index: StringIndex) {
+    public convenience init(string attrString: AString, fromIndex index: String.Index) {
         self.init(string: attrString, range: index..<attrString.string.endIndex)
     }
 
@@ -720,29 +720,29 @@ public class ASubstring {
         return attrString.attributedSubstring(from: strRange)
     }
 
-    public func attributes(in rangeLimit: StringRange? = nil) -> StringAttributes {
+    public func attributes(in rangeLimit: Range<String.Index>? = nil) -> StringAttributes {
         return attrString.attributes(at: strRange.lowerBound, in: rangeLimit)
     }
 
-    public func attributesWithLongestEffectiveRange(in rangeLimit: StringRange? = nil) -> (attributes: StringAttributes, longestEffectiveRange: StringRange) {
+    public func attributesWithLongestEffectiveRange(in rangeLimit: Range<String.Index>? = nil) -> (attributes: StringAttributes, longestEffectiveRange: Range<String.Index>) {
         return attrString.attributesWithLongestEffectiveRange(at: strRange.lowerBound, in: rangeLimit)
     }
 
-    public func attribute(_ name: String, in rangeLimit: StringRange? = nil) -> Any? {
+    public func attribute(_ name: String, in rangeLimit: Range<String.Index>? = nil) -> Any? {
         return attrString.attribute(name, at: strRange.lowerBound, in: rangeLimit)
     }
 
-    public func attributeWithLongestEffectiveRange(_ name: String, in rangeLimit: StringRange? = nil) -> (attribute: Any?, longestEffectiveRange: StringRange) {
+    public func attributeWithLongestEffectiveRange(_ name: String, in rangeLimit: Range<String.Index>? = nil) -> (attribute: Any?, longestEffectiveRange: Range<String.Index>) {
         return attrString.attributeWithLongestEffectiveRange(name, at: strRange.lowerBound, in: rangeLimit)
     }
 
     // swiftlint:disable:next custom_rules
-    public func enumerateAttributes(options opts: NSAttributedString.EnumerationOptions = [], using block: (StringAttributes, StringRange, ASubstring) -> Bool) {
+    public func enumerateAttributes(options opts: NSAttributedString.EnumerationOptions = [], using block: (StringAttributes, Range<String.Index>, ASubstring) -> Bool) {
         attrString.enumerateAttributes(in: strRange, options: opts, using: block)
     }
 
     // swiftlint:disable:next custom_rules
-    public func enumerateAttribute(_ name: String, options opts: NSAttributedString.EnumerationOptions = [], using block: (Any?, StringRange, ASubstring) -> Bool) {
+    public func enumerateAttribute(_ name: String, options opts: NSAttributedString.EnumerationOptions = [], using block: (Any?, Range<String.Index>, ASubstring) -> Bool) {
         attrString.enumerateAttribute(name, in: strRange, options: opts, using: block)
     }
 
@@ -775,7 +775,7 @@ extension ASubstring {
         self[tag] = true
     }
 
-    public func getRange(forTag tag: String) -> StringRange? {
+    public func getRange(forTag tag: String) -> Range<String.Index>? {
         let (value, longestEffectiveRange) = attributeWithLongestEffectiveRange(tag)
         if value is Bool {
             return longestEffectiveRange
@@ -890,11 +890,11 @@ extension String {
         var tags = [String]()
 
         let matches = tagsReplacementRegex ~?? self
-        let replacements = matches.map { match -> RangeReplacement in
-            let matchRange = range(from: match.range)!
+        let replacements = matches.map { match -> (Range<String.Index>, String) in
+            let matchRange = stringRange(from: match.range)!
 
-            let textRange = range(from: match.rangeAt(1))!
-            let tagRange = range(from: match.rangeAt(2))!
+            let textRange = stringRange(from: match.rangeAt(1))!
+            let tagRange = stringRange(from: match.rangeAt(2))!
 
             let text = self.substring(with: textRange)
             let tag = self.substring(with: tagRange)

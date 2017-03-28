@@ -35,7 +35,7 @@ public class HTTPCacheLayer: CacheLayer {
                 let encoding = response.allHeaderFields[HeaderField.encoding.rawValue] as? String
 
                 guard encoding == nil else {
-                    logError("Unsupported encoding: \(encoding)", obj: self)
+                    logError("Unsupported encoding: \(encoding†)", obj: self)
                     completion(nil)
                     return
                 }

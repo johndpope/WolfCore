@@ -220,7 +220,7 @@ class ASN1Parser {
 
                 didEndContainerWithType?(tagType!)
             } else {
-                let typeBytes = Data(bytes: inData[subRange])
+                let typeBytes = Data(bytes: Array(inData[subRange]))
                 try parse(type: tagType!, data: typeBytes)
             }
 

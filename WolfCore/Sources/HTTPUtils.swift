@@ -149,8 +149,8 @@ public class HTTP {
 
         _sessionActions.didComplete = { (sessionActions, session, task, error) in
             guard error == nil else {
-                let error = error!
-                if let error = error as? DescriptiveError {
+                switch error {
+                case let error as DescriptiveError:
                     if error.isCancelled {
                         inFlightTracker.end(withToken: token, result: Result<Void>.canceled)
                         logTrace("\(token) retrieveData was cancelled")
@@ -159,12 +159,12 @@ public class HTTP {
                         failure(error)
                         finally?()
                     }
-                } else {
-                    inFlightTracker.end(withToken: token, result: Result<Error>.failure(error))
+                default:
+                    inFlightTracker.end(withToken: token, result: Result<Error>.failure(error!))
                     logError("\(token) retrieveData returned error")
 
                     dispatchOnMain {
-                        failure(error)
+                        failure(error!)
                         finally?()
                     }
                 }
@@ -172,7 +172,7 @@ public class HTTP {
             }
 
             guard let httpResponse = sessionActions.response as? HTTPURLResponse else {
-                fatalError("\(token) improper response type: \(sessionActions.response)")
+                fatalError("\(token) improper response type: \(sessionActions.response†)")
             }
 
             guard sessionActions.data != nil else {

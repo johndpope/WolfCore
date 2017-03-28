@@ -22,7 +22,7 @@ public class InFlightToken: Equatable, Hashable, CustomStringConvertible {
     public var hashValue: Int { return id }
 
     public var description: String {
-        return "InFlightToken(id: \(id), name: \(name), result: \(result))"
+        return "InFlightToken(id: \(id), name: \(name), result: \(result†))"
     }
 
     public var isNetworkActive: Bool = false {

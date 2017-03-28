@@ -13,10 +13,13 @@ import Foundation
     import UIKit
 #endif
 
-public typealias StringIndex = String.Index
-public typealias StringRange = Range<StringIndex>
 public typealias Replacements = [String: String]
-public typealias RangeReplacement = (StringRange, String)
+
+// KLUDGE: These are causing compiler crashes under Swift 3.1.
+//
+//public typealias StringIndex = String.Index
+//public typealias StringRange = Range<StringIndex>
+//public typealias RangeReplacement = (Range<String.Index>, String)
 
 extension Log.GroupName {
     public static let localization = Log.GroupName("localization")
@@ -108,56 +111,56 @@ extension String {
 }
 
 extension String {
-    public func range(from nsRange: NSRange?) -> StringRange? {
+    public func stringRange(from nsRange: NSRange?) -> Range<String.Index>? {
         guard let nsRange = nsRange else { return nil }
         let utf16view = utf16
         let from16 = utf16view.index(utf16view.startIndex, offsetBy: nsRange.location, limitedBy: utf16view.endIndex)!
         let to16 = utf16view.index(from16, offsetBy: nsRange.length, limitedBy: utf16view.endIndex)!
-        if let from = StringIndex(from16, within: self),
-            let to = StringIndex(to16, within: self) {
+        if let from = String.Index(from16, within: self),
+            let to = String.Index(to16, within: self) {
             return from ..< to
         }
         return nil
     }
 
-    public func nsRange(from range: StringRange?) -> NSRange? {
-        guard let range = range else { return nil }
+    public func nsRange(from stringRange: Range<String.Index>?) -> NSRange? {
+        guard let stringRange = stringRange else { return nil }
         let utf16view = utf16
-        let from = String.UTF16View.Index(range.lowerBound, within: utf16view)
-        let to = String.UTF16View.Index(range.upperBound, within: utf16view)
+        let from = String.UTF16View.Index(stringRange.lowerBound, within: utf16view)
+        let to = String.UTF16View.Index(stringRange.upperBound, within: utf16view)
         let location = utf16view.distance(from: utf16view.startIndex, to: from)
         let length = utf16view.distance(from: from, to: to)
         return NSRange(location: location, length: length)
     }
 
-    public func location(fromIndex index: StringIndex) -> Int {
+    public func location(fromIndex index: String.Index) -> Int {
         return nsRange(from: index..<index)!.location
     }
 
-    public func index(fromLocation location: Int) -> StringIndex {
-        return range(from: NSRange(location: location, length: 0))!.lowerBound
+    public func index(fromLocation location: Int) -> String.Index {
+        return stringRange(from: NSRange(location: location, length: 0))!.lowerBound
     }
 
     public var nsRange: NSRange {
-        return nsRange(from: range)!
+        return nsRange(from: stringRange)!
     }
 
-    public var range: StringRange {
+    public var stringRange: Range<String.Index> {
         return startIndex..<endIndex
     }
 
-    public func range(start: Int, end: Int? = nil) -> StringRange {
+    public func stringRange(start: Int, end: Int? = nil) -> Range<String.Index> {
         let s = self.index(self.startIndex, offsetBy: start)
         let e = self.index(self.startIndex, offsetBy: (end ?? start))
         return s..<e
     }
 
-    public func range(r: Range<Int>) -> StringRange {
-        return range(start: r.lowerBound, end: r.upperBound)
+    public func stringRange(r: Range<Int>) -> Range<String.Index> {
+        return stringRange(start: r.lowerBound, end: r.upperBound)
     }
 
     public func substring(start: Int, end: Int? = nil) -> String {
-        return substring(with: range(start: start, end: end))
+        return substring(with: stringRange(start: start, end: end))
     }
 
     public func substring(r: Range<Int>) -> String {
@@ -166,23 +169,23 @@ extension String {
 }
 
 extension String {
-    public func convert(index: StringIndex, fromString string: String, offset: Int = 0) -> StringIndex {
+    public func convert(index: String.Index, fromString string: String, offset: Int = 0) -> String.Index {
         let distance = string.distance(from: string.startIndex, to: index) + offset
         return self.index(self.startIndex, offsetBy: distance)
     }
 
-    public func convert(index: StringIndex, toString string: String, offset: Int = 0) -> StringIndex {
+    public func convert(index: String.Index, toString string: String, offset: Int = 0) -> String.Index {
         let distance = self.distance(from: self.startIndex, to: index) + offset
         return string.index(string.startIndex, offsetBy: distance)
     }
 
-    public func convert(range: StringRange, fromString string: String, offset: Int = 0) -> StringRange {
+    public func convert(range: Range<String.Index>, fromString string: String, offset: Int = 0) -> Range<String.Index> {
         let s = convert(index: range.lowerBound, fromString: string, offset: offset)
         let e = convert(index: range.upperBound, fromString: string, offset: offset)
         return s..<e
     }
 
-    public func convert(range: StringRange, toString string: String, offset: Int = 0) -> StringRange {
+    public func convert(range: Range<String.Index>, toString string: String, offset: Int = 0) -> Range<String.Index> {
         let s = convert(index: range.lowerBound, toString: string, offset: offset)
         let e = convert(index: range.upperBound, toString: string, offset: offset)
         return s..<e
@@ -190,10 +193,10 @@ extension String {
 }
 
 extension String {
-    public func replacing(replacements: [RangeReplacement]) -> (string: String, ranges: [StringRange]) {
+    public func replacing(replacements: [(Range<String.Index>, String)]) -> (string: String, ranges: [Range<String.Index>]) {
         let source = self
         var target = self
-        var targetReplacedRanges = [StringRange]()
+        var targetReplacedRanges = [Range<String.Index>]()
         let sortedReplacements = replacements.sorted { $0.0.lowerBound < $1.0.lowerBound }
 
         var totalOffset = 0
@@ -202,7 +205,7 @@ extension String {
             let rangeCount = source.distance(from: sourceRange.lowerBound, to: sourceRange.upperBound)
             let offset = replacementCount - rangeCount
 
-            let newTargetStartIndex: StringIndex
+            let newTargetStartIndex: String.Index
             let originalTarget = target
             do {
                 let targetStartIndex = target.convert(index: sourceRange.lowerBound, fromString: source, offset: totalOffset)
@@ -232,8 +235,8 @@ extension String {
 }
 
 extension String {
-    public func replacing(matchesTo regex: NSRegularExpression, usingBlock block: (RangeReplacement) -> String) -> (string: String, ranges: [StringRange]) {
-        let results = (regex ~?? self).map { match -> RangeReplacement in
+    public func replacing(matchesTo regex: NSRegularExpression, usingBlock block: ((Range<String.Index>, String)) -> String) -> (string: String, ranges: [Range<String.Index>]) {
+        let results = (regex ~?? self).map { match -> (Range<String.Index>, String) in
             let matchRange = match.range(atIndex: 0, inString: self)
             let substring = self.substring(with: matchRange)
             let replacement = block(matchRange, substring)
@@ -269,11 +272,11 @@ private let placeholderReplacementRegex = try! ~/"(?:(?<!\\\\)#\\{(\\w+)\\})"
 
 extension String {
     public func replacingPlaceholders(withReplacements replacementsDict: Replacements) -> String {
-        var replacements = [RangeReplacement]()
+        var replacements = [(Range<String.Index>, String)]()
         let matches = placeholderReplacementRegex ~?? self
         for match in matches {
-            let matchRange = range(from: match.range)!
-            let placeholderRange = range(from: match.rangeAt(1))!
+            let matchRange = stringRange(from: match.range)!
+            let placeholderRange = stringRange(from: match.rangeAt(1))!
             let replacementName = self[placeholderRange]
             if let replacement = replacementsDict[replacementName] {
                 replacements.append((matchRange, replacement))

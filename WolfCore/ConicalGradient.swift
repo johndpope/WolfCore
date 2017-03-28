@@ -20,7 +20,7 @@ public class ConicalGradient {
 
     public func draw(into context: CGContext, at center: CGPoint, radius: CGFloat) {
         drawInto(context) { context in
-            let step = CGFloat(M_PI_2) / radius * stepFactor
+            let step = (CGFloat.pi / 2) / radius * stepFactor
             let subtendedAngle = endAngle - startAngle
             let laps = floor(subtendedAngle / (.pi * 2))
 
