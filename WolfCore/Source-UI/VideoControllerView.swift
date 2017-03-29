@@ -123,6 +123,10 @@ open class VideoControllerView: View {
         logTrace("isInFullscreen()", group: .video)
         return false
     }
+    
+    open func setContentOverlay(view:UIView) {
+        logTrace("setContentOverlay()", group: .video)
+    }
 
     open var fileURL: URL!
 
@@ -131,4 +135,6 @@ open class VideoControllerView: View {
     open var volume: Frac = 1.0
     
     open var forceFullscreenOnLandscape:Bool = false
+    
+    open var contentOverlayView:UIView! = UIView()
 }
