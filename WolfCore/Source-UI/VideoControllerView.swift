@@ -118,10 +118,17 @@ open class VideoControllerView: View {
     open func review(secondsBack: TimeInterval) {
         logTrace("review secondsBack: (\(time))", group: .video)
     }
+    
+    open func isInFullscreen() -> Bool {
+        logTrace("isInFullscreen()", group: .video)
+        return false
+    }
 
     open var fileURL: URL!
 
     open var posterURL: URL!
 
     open var volume: Frac = 1.0
+    
+    open var forceFullscreenOnLandscape:Bool = false
 }
