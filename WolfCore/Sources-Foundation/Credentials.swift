@@ -10,9 +10,7 @@ import Foundation
 
 private let credentialsKey = "credentials"
 
-public protocol Credentials {
-    var json: JSON { get }
-    init(json: JSON) throws
+public protocol Credentials: JSONModel {
     func save() throws
     static func load() throws -> Self?
     static func delete() throws
