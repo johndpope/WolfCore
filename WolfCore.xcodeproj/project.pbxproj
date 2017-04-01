@@ -805,6 +805,8 @@
 		03FAF7841C53F6FF0045BB37 /* FoundationJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoundationJSON.swift; path = "Sources-Foundation/FoundationJSON.swift"; sourceTree = "<group>"; };
 		03FAF7881C53F7340045BB37 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hex.swift; path = Sources/Hex.swift; sourceTree = "<group>"; };
 		03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISO8601.swift; path = Sources/ISO8601.swift; sourceTree = "<group>"; };
+		8186B3761E8F3EBB00BB9FF2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		8186B3781E8F3EC500BB9FF2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1324,6 +1326,8 @@
 		0378EC8D1DF4DAC900E6A875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8186B3781E8F3EC500BB9FF2 /* CoreLocation.framework */,
+				8186B3761E8F3EBB00BB9FF2 /* CoreLocation.framework */,
 				0378EC8E1DF4DAC900E6A875 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
