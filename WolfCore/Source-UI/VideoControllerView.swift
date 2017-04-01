@@ -123,7 +123,7 @@ open class VideoControllerView: View {
         logTrace("review secondsBack: (\(time))", group: .video)
     }
     
-    open func setContentOverlay(view:UIView) {
+    open func setContentOverlay(view: UIView) {
         logTrace("setContentOverlay()", group: .video)
     }
 
@@ -133,11 +133,11 @@ open class VideoControllerView: View {
 
     open var volume: Frac = 1.0
     
-    open var forceFullscreenOnLandscape:Bool = false
+    open var forceFullscreenOnLandscape: Bool = false
     
-    open var isInFullscreen:Bool { return false }
+    open var isInFullscreen: Bool { return false }
     
-    open var contentOverlayView:UIView! = UIView()
+    open var contentOverlayView: UIView! = UIView()
     
     open var delegate:VideoControllerViewDelegate?
 }

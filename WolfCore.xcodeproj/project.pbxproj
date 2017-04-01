@@ -214,6 +214,9 @@
 		034D312D1DF7AA24004ADC34 /* InFlightTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0324AEFD1CF81F7D0080DFF6 /* InFlightTokenView.swift */; };
 		034D312E1DF7AB42004ADC34 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553281C0F622A00E0FCA7 /* Label.swift */; };
 		034D312F1DF7F5E3004ADC34 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553111C0F622A00E0FCA7 /* AnimationUtils.swift */; };
+		034DCA6C1E8E3B810073DFD3 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */; };
+		034DCA6D1E8E3B810073DFD3 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */; };
+		034DCA6E1E8E3B810073DFD3 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */; };
 		034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
@@ -626,6 +629,7 @@
 		033E14FC1C7CC71C00BA3E63 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = Sources/Matrix.swift; sourceTree = "<group>"; };
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		033F5EE21CA3096700647A0A /* Info-MacOSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-MacOSX.plist"; path = "/Users/ironwolf/Dropbox/DevProjects/KagiProcess2/WolfCore/WolfCore/Info-MacOSX.plist"; sourceTree = "<absolute>"; };
+		034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONModel.swift; path = Sources/JSONModel.swift; sourceTree = "<group>"; };
 		034F48931D02490E0010ED1B /* HTTPDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPDebugging.swift; path = "Sources-Foundation/HTTPDebugging.swift"; sourceTree = "<group>"; };
 		035024741E76468300BAEFF9 /* PowerTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PowerTextField.swift; path = "Source-UI/PowerTextField.swift"; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -890,6 +894,7 @@
 				03E13B831C4FEE720074E447 /* Grid.swift */,
 				033E14FC1C7CC71C00BA3E63 /* Matrix.swift */,
 				03E006C31E5D65AE00AA8C3F /* ModelObject.swift */,
+				034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */,
 				03E3C7321D10E3120004DF98 /* Monad.swift */,
 				03D3FA351E542C5600C8E550 /* ObjectExtensions.swift */,
 				03DDBACF1C5A9D5400A8CDAE /* Position.swift */,
@@ -1673,6 +1678,7 @@
 				031D33801E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */,
 				032D777F1E256C4D0058CF1B /* Graph.swift in Sources */,
 				038765421D2464CB0082FC79 /* Framework.swift in Sources */,
+				034DCA6D1E8E3B810073DFD3 /* JSONModel.swift in Sources */,
 				033F5E9D1CA3096700647A0A /* StringExtensions.swift in Sources */,
 				0378EC881DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				033F5E9E1CA3096700647A0A /* AffineTransformUtils.swift in Sources */,
@@ -1965,6 +1971,7 @@
 				03F2614F1D48B1D800523640 /* ImageViewerPresentationTransitioning.swift in Sources */,
 				039E2D461CC6BB4700B9F078 /* DeviceUtils.swift in Sources */,
 				03CCED371E75188B0002BD68 /* Editable.swift in Sources */,
+				034DCA6C1E8E3B810073DFD3 /* JSONModel.swift in Sources */,
 				03206B371C3CBADF001A463B /* RegularExpressionExtensions.swift in Sources */,
 				0378EC871DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,
@@ -2108,6 +2115,7 @@
 				03604A481E7E0F4B00CA8C89 /* Validator.swift in Sources */,
 				033038091E5D12AB008E37F6 /* Lorem.swift in Sources */,
 				03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */,
+				034DCA6E1E8E3B810073DFD3 /* JSONModel.swift in Sources */,
 				03E172F81CF1C8CC0073F383 /* CGUtils.swift in Sources */,
 				03E172D71CF1C8B60073F383 /* CryptoUtils.swift in Sources */,
 				03CF07E01DF531BE00B7AD7E /* TransferValue.swift in Sources */,

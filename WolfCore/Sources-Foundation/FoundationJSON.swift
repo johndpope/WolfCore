@@ -70,3 +70,9 @@ public struct FoundationJSON {
 
     public static let null = NSNull()
 }
+
+extension FoundationJSON: CustomStringConvertible {
+    public var description: String {
+        return "\(value)"
+    }
+}

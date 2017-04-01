@@ -202,6 +202,14 @@ public class Lorem {
         return Random.number(10000...99999)
     }
 
+    public static var uuid: UUID {
+        return UUID()
+    }
+
+    public static var uuidString: String {
+        return uuid.uuidString
+    }
+
     // ======================================================= //
     // MARK: - Private
     // ======================================================= //
