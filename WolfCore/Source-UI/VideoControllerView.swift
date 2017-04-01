@@ -118,10 +118,20 @@ open class VideoControllerView: View {
     open func review(secondsBack: TimeInterval) {
         logTrace("review secondsBack: (\(time))", group: .video)
     }
+    
+    open func setContentOverlay(view: UIView) {
+        logTrace("setContentOverlay()", group: .video)
+    }
 
     open var fileURL: URL!
 
     open var posterURL: URL!
 
     open var volume: Frac = 1.0
+    
+    open var forceFullscreenOnLandscape: Bool = false
+    
+    open var isInFullscreen: Bool { return false }
+    
+    open var contentOverlayView: UIView! = UIView()
 }
