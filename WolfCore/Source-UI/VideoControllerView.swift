@@ -13,6 +13,9 @@ extension Log.GroupName {
 }
 
 open class VideoControllerView: View {
+    public typealias UpdatePositionBlock = (_ position: TimeInterval, _ duration: TimeInterval) -> Void
+    public var onUpdatePosition: UpdatePositionBlock?
+
     public required init() {
         super.init(frame: .zero)
     }
