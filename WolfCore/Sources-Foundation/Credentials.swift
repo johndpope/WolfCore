@@ -23,7 +23,7 @@ extension Credentials {
 
     public static func load() throws -> Self? {
         guard let json = try KeyChain.json(for: credentialsKey) else { return nil }
-        return try Self(json: json)
+        return Self(json: json)
     }
 
     public static func delete() throws {

@@ -52,7 +52,7 @@ extension JSON {
     /// An error will be thrown if the value exists but cannot be used as a valid JSON.Dictionary.
     public func value<T: JSONModel>(for key: String) throws -> T? {
         guard let v: JSON = try value(for: key) else { return nil }
-        return try T(json: v)
+        return T(json: v)
     }
 
     /// Get a `UIColor` value for a given key in the JSON dictionary. The value is nullable,

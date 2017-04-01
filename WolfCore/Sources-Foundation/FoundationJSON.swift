@@ -70,6 +70,12 @@ public struct FoundationJSON {
         }
     }
 
+    public init(builds: (JSONBuilder) -> Void) throws {
+        let j = JSONBuilder()
+        builds(j)
+        try self.init(value: j.dict)
+    }
+
     public init(string: String) throws {
         try self.init(data: string |> UTF8.init |> Data.init)
     }

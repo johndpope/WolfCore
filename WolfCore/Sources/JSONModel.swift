@@ -7,7 +7,7 @@
 //
 
 public protocol JSONModel: CustomStringConvertible {
-    init(json: JSON) throws
+    init(json: JSON)
 
     var json: JSON { get }
 }

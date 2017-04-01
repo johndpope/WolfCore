@@ -217,6 +217,9 @@
 		034DCA6C1E8E3B810073DFD3 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */; };
 		034DCA6D1E8E3B810073DFD3 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */; };
 		034DCA6E1E8E3B810073DFD3 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */; };
+		034DCA721E8FB2CA0073DFD3 /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA711E8FB2CA0073DFD3 /* JSONBuilder.swift */; };
+		034DCA731E8FB2CA0073DFD3 /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA711E8FB2CA0073DFD3 /* JSONBuilder.swift */; };
+		034DCA741E8FB2CA0073DFD3 /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034DCA711E8FB2CA0073DFD3 /* JSONBuilder.swift */; };
 		034F48941D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48951D02490E0010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
 		034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F48931D02490E0010ED1B /* HTTPDebugging.swift */; };
@@ -630,6 +633,7 @@
 		033F5EE11CA3096700647A0A /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		033F5EE21CA3096700647A0A /* Info-MacOSX.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-MacOSX.plist"; path = "/Users/ironwolf/Dropbox/DevProjects/KagiProcess2/WolfCore/WolfCore/Info-MacOSX.plist"; sourceTree = "<absolute>"; };
 		034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONModel.swift; path = Sources/JSONModel.swift; sourceTree = "<group>"; };
+		034DCA711E8FB2CA0073DFD3 /* JSONBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONBuilder.swift; path = Sources/JSONBuilder.swift; sourceTree = "<group>"; };
 		034F48931D02490E0010ED1B /* HTTPDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPDebugging.swift; path = "Sources-Foundation/HTTPDebugging.swift"; sourceTree = "<group>"; };
 		035024741E76468300BAEFF9 /* PowerTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PowerTextField.swift; path = "Source-UI/PowerTextField.swift"; sourceTree = "<group>"; };
 		035552F81C0F5F4200E0FCA7 /* WolfCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WolfCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -960,6 +964,7 @@
 				03FAF7841C53F6FF0045BB37 /* FoundationJSON.swift */,
 				0322E8A51D15378C00EFF3F6 /* SwiftJSON.swift */,
 				039AD2771E6913F600776D7B /* JSONUtils.swift */,
+				034DCA711E8FB2CA0073DFD3 /* JSONBuilder.swift */,
 				03FAF77A1C532A640045BB37 /* ASN1Parser.swift */,
 				03206B2C1C3B1B02001A463B /* BSON.swift */,
 				03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */,
@@ -1681,6 +1686,7 @@
 				034DCA6D1E8E3B810073DFD3 /* JSONModel.swift in Sources */,
 				033F5E9D1CA3096700647A0A /* StringExtensions.swift in Sources */,
 				0378EC881DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
+				034DCA731E8FB2CA0073DFD3 /* JSONBuilder.swift in Sources */,
 				033F5E9E1CA3096700647A0A /* AffineTransformUtils.swift in Sources */,
 				0314DD0E1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
 				033F5E9F1CA3096700647A0A /* Grid.swift in Sources */,
@@ -1837,6 +1843,7 @@
 				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
 				036307D21CB6DAA500DC7070 /* ApplicationNotificationActions.swift in Sources */,
 				036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */,
+				034DCA721E8FB2CA0073DFD3 /* JSONBuilder.swift in Sources */,
 				033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */,
 				0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */,
 				03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */,
@@ -2151,6 +2158,7 @@
 				03E172F71CF1C8CC0073F383 /* CGColorUtils.swift in Sources */,
 				03E173101CF1C8FB0073F383 /* BarButtonItemAction.swift in Sources */,
 				03E172D81CF1C8B60073F383 /* DateExtensions.swift in Sources */,
+				034DCA741E8FB2CA0073DFD3 /* JSONBuilder.swift in Sources */,
 				03E173041CF1C8E70073F383 /* AppInfo.swift in Sources */,
 				03D3FA3E1E542CB500C8E550 /* URLComponentsExtensions.swift in Sources */,
 				03E173281CF1C8FB0073F383 /* View.swift in Sources */,
