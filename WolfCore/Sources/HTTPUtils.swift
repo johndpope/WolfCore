@@ -301,7 +301,7 @@ public class HTTP {
     @discardableResult public static func retrieveJSONDictionary(
         with request: URLRequest,
         successStatusCodes: [StatusCode], name: String,
-        success: @escaping (HTTPURLResponse, JSON.Dictionary) -> Void,
+        success: @escaping (HTTPURLResponse, JSON) -> Void,
         failure: @escaping ErrorBlock,
         finally: Block?) -> Cancelable {
         return retrieveJSON(
@@ -309,12 +309,12 @@ public class HTTP {
             successStatusCodes: successStatusCodes,
             name: name,
             success: { (response, json) in
-                guard let jsonDict = json.value as? JSON.Dictionary else {
+                guard json.value is JSON.Dictionary else {
                     failure(HTTPUtilsError.expectedJSONDict)
                     return
                 }
 
-                success(response, jsonDict)
+                success(response, json)
             },
             failure: failure,
             finally: finally
