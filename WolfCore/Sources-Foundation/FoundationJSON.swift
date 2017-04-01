@@ -51,13 +51,23 @@ public struct FoundationJSON {
     }
 
     public init(value: Value) throws {
-        data = try JSONSerialization.data(withJSONObject: value)
-        self.value = value
+        do {
+            data = try JSONSerialization.data(withJSONObject: value)
+            self.value = value
+        } catch(let error) {
+            logError(error)
+            throw error
+        }
     }
 
     public init(data: Data) throws {
-        value = try JSONSerialization.jsonObject(with: data)
-        self.data = data
+        do {
+            value = try JSONSerialization.jsonObject(with: data)
+            self.data = data
+        } catch(let error) {
+            logError(error)
+            throw error
+        }
     }
 
     public init(string: String) throws {
@@ -67,7 +77,7 @@ public struct FoundationJSON {
     public static func isNull(_ value: Value) -> Bool {
         return value is NSNull
     }
-
+    
     public static let null = NSNull()
 }
 
