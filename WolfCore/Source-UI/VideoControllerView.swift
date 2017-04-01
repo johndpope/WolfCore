@@ -12,6 +12,10 @@ extension Log.GroupName {
     public static let video = Log.GroupName("video")
 }
 
+public protocol VideoControllerViewDelegate {
+    func onTime(_ position: Double, ofDuration duration: Double)
+}
+
 open class VideoControllerView: View {
     public required init() {
         super.init(frame: .zero)
@@ -134,4 +138,6 @@ open class VideoControllerView: View {
     open var isInFullscreen:Bool { return false }
     
     open var contentOverlayView:UIView! = UIView()
+    
+    open var delegate:VideoControllerViewDelegate?
 }
