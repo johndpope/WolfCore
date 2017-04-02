@@ -6,7 +6,7 @@
 //  Copyright © 2017 Arciem. All rights reserved.
 //
 
-public protocol JSONModel: CustomStringConvertible {
+public protocol JSONModel: CustomStringConvertible, JSONRepresentable {
     init(json: JSON)
 
     var json: JSON { get }
@@ -15,5 +15,9 @@ public protocol JSONModel: CustomStringConvertible {
 extension JSONModel {
     public var description: String {
         return json.description
+    }
+
+    public var jsonRepresentation: JSON.Value {
+        return json.value
     }
 }

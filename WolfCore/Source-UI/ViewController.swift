@@ -34,7 +34,7 @@ open class ViewController: UIViewController, Skinnable {
     }
 
     deinit {
-        logInfo("deinit \(self)", group: .viewControllerLifecycle)
+        //logInfo("deinit \(self)", group: .viewControllerLifecycle)
     }
 
     open override func viewDidLoad() {

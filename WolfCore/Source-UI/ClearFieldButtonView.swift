@@ -51,10 +51,6 @@ public class ClearFieldButtonView: View {
 }
 
 public class ClearFieldButton: Button {
-    private var touchUpInsideAction: ControlAction<Button>!
-
-    public var onClear: Block?
-
     public override func setup() {
         super.setup()
 
@@ -62,9 +58,5 @@ public class ClearFieldButton: Button {
         setImage(image, for: .normal)
         setContentHuggingPriority(UILayoutPriorityRequired, for: .horizontal)
         setContentHuggingPriority(UILayoutPriorityRequired, for: .vertical)
-
-        touchUpInsideAction = addTouchUpInsideAction(to: self) { [unowned self] _ in
-            self.onClear?()
-        }
     }
 }

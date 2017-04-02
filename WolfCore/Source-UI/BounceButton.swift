@@ -12,9 +12,6 @@ public class BounceButton: Button {
     @IBInspectable public var waitForBounce: Bool = true
 
     private lazy var bounceAnimation: BounceAnimation = { return BounceAnimation(view: self) }()
-    private var inSetup: Bool = false
-    private weak var touchUpInsideTarget: AnyObject?
-    private var touchUpInsideAction: Selector!
 
     public override var isHighlighted: Bool {
         didSet(oldHighlighted) {
@@ -22,34 +19,15 @@ public class BounceButton: Button {
         }
     }
 
-    private func performTouchUpInsideAction() {
-        touchUpInsideTarget?.performSelector(onMainThread: touchUpInsideAction, with: nil, waitUntilDone: false)
-    }
-
-    public override func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
-        if !inSetup && controlEvents == .touchUpInside {
-            touchUpInsideTarget = target as AnyObject
-            touchUpInsideAction = action
-        } else {
-            super.addTarget(target, action: action, for: controlEvents)
+    public override func sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) {
+        let waitForBounce = self.waitForBounce
+        bounceAnimation.animateRelease() {
+            if waitForBounce {
+                super.sendAction(action, to: target, for: event)
+            }
         }
-    }
-
-    public override func setup() {
-        super.setup()
-
-        inSetup = true
-        defer { inSetup = false }
-
-        action = { [unowned self] in
-            self.bounceAnimation.animateRelease() { [unowned self] in
-                if self.waitForBounce {
-                    self.performTouchUpInsideAction()
-                }
-            }
-            if !self.waitForBounce {
-                self.performTouchUpInsideAction()
-            }
+        if !waitForBounce {
+            super.sendAction(action, to: target, for: event)
         }
     }
 }

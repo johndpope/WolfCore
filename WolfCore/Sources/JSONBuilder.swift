@@ -8,12 +8,26 @@
 
 import Foundation
 
+infix operator ∆ : AttributeAssignmentPrecedence
+
 public class JSONBuilder {
-    public var dict = JSON.Dictionary()
+    private var dict: JSON.Dictionary!
+    private var array: JSON.Array!
+    public var value: JSON.Value {
+        if dict != nil {
+            return dict
+        } else {
+            return array
+        }
+    }
 
     public init() { }
 
-    public func set(_ key: String, to value: JSON.Value?, isNullable: Bool = false) {
+    @discardableResult public func set(_ key: String, to value: JSON.Value?, isNullable: Bool = false) -> JSONBuilder {
+        assert(array == nil)
+        if dict == nil {
+            dict = JSON.Dictionary()
+        }
         if let value = value {
             dict[key] = value
         } else {
@@ -21,21 +35,52 @@ public class JSONBuilder {
                 dict[key] = JSON.null
             }
         }
+        return self
     }
 
-    public func set<T: RawRepresentable>(_ key: String, to value: T?, isNullable: Bool = false) {
-        set(key, to: value?.rawValue, isNullable: isNullable)
+    @discardableResult public func append(_ value: JSON.Value?, isNullable: Bool = false) -> JSONBuilder {
+        assert(dict == nil)
+        if array == nil {
+            array = JSON.Array()
+        }
+        if let value = value {
+            array.append(value)
+        } else {
+            if isNullable {
+                array.append(JSON.null)
+            }
+        }
+        return self
     }
 
-    public func set<T: JSONModel>(_ key: String, to value: T?, isNullable: Bool = false) {
-        set(key, to: value?.json.value, isNullable: isNullable)
+    @discardableResult public static func ∆<T: JSONRepresentable>(lhs: JSONBuilder, rhs: (key: String, value: T)) -> JSONBuilder {
+        return lhs.set(rhs.key, to: rhs.value.jsonRepresentation)
     }
 
-    public func set(_ key: String, to value: Date?, isNullable: Bool = false) {
-        set(key, to: value?.iso8601, isNullable: isNullable)
+    @discardableResult public static func ∆<T: JSONRepresentable>(lhs: JSONBuilder, rhs: (key: String, value: T?)) -> JSONBuilder {
+        return lhs.set(rhs.key, to: rhs.value?.jsonRepresentation)
     }
 
-    public func set(_ key: String, to value: URL?, isNullable: Bool = false) {
-        set(key, to: value?.absoluteString, isNullable: isNullable)
+    @discardableResult public static func ∆<T: JSONRepresentable>(lhs: JSONBuilder, rhs: T) -> JSONBuilder {
+        return lhs.append(rhs.jsonRepresentation)
+    }
+
+    @discardableResult public static func ∆<T: JSONRepresentable>(lhs: JSONBuilder, rhs: T?) -> JSONBuilder {
+        return lhs.append(rhs?.jsonRepresentation)
+    }
+
+    @discardableResult public static func ∆<T: JSONRepresentable>(lhs: JSONBuilder, rhs: (key: String, value: [T])) -> JSONBuilder {
+        let a = rhs.value.map {
+            return $0.jsonRepresentation
+        }
+        return lhs.set(rhs.key, to: a)
+    }
+
+    @discardableResult public static func ∆<T1: JSONRepresentable, T2: JSONRepresentable>(lhs: JSONBuilder, rhs: (key: String, value: Dictionary<T1, T2>)) -> JSONBuilder where T1.JSONValue == String {
+        var d = JSON.Dictionary()
+        rhs.value.forEach { (k, v) in
+            d[k.jsonRepresentation] = v.jsonRepresentation
+        }
+        return lhs.set(rhs.key, to: d)
     }
 }

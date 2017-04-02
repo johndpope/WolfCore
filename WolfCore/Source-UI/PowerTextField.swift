@@ -270,9 +270,11 @@ public class PowerTextField: View, Editable {
         return view
     }()
 
+    private var onClearAction: ControlAction<Button>!
+
     private lazy var clearButtonView: ClearFieldButtonView = {
         let view = ClearFieldButtonView()
-        view.button.onClear = { [unowned self] in
+        self.onClearAction = addTouchUpInsideAction(to: view.button) { [unowned self] _ in
             self.clear(animated: true)
         }
         return view

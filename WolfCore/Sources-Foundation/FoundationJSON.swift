@@ -50,14 +50,10 @@ public struct FoundationJSON {
         return value as! ArrayOfDictionaries
     }
 
-    public init(value: Value) throws {
-        do {
-            data = try JSONSerialization.data(withJSONObject: value)
-            self.value = value
-        } catch(let error) {
-            logError(error)
-            throw error
-        }
+    public static func build(_ builds: (JSONBuilder) -> Void) -> JSON {
+        let j = JSONBuilder()
+        builds(j)
+        return try! JSON(value: j.value)
     }
 
     public init(data: Data) throws {
@@ -70,10 +66,14 @@ public struct FoundationJSON {
         }
     }
 
-    public init(builds: (JSONBuilder) -> Void) throws {
-        let j = JSONBuilder()
-        builds(j)
-        try self.init(value: j.dict)
+    public init(value: Value) throws {
+        do {
+            data = try JSONSerialization.data(withJSONObject: value)
+            self.value = value
+        } catch(let error) {
+            logError(error)
+            throw error
+        }
     }
 
     public init(string: String) throws {

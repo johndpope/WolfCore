@@ -120,6 +120,9 @@
 		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
 		033882241CFF97C200C8972B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033882231CFF97C200C8972B /* TextField.swift */; };
 		0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */; };
+		033A7AFB1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
+		033A7AFC1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
+		033A7AFD1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
 		033AC3481D171703008C8B93 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC3471D171703008C8B93 /* Interval.swift */; };
 		033AC3491D171703008C8B93 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC3471D171703008C8B93 /* Interval.swift */; };
 		033AC34A1D171703008C8B93 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033AC3471D171703008C8B93 /* Interval.swift */; };
@@ -626,6 +629,7 @@
 		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraitCollectionExtensions.swift; path = "Source-UI/TraitCollectionExtensions.swift"; sourceTree = "<group>"; };
 		033882231CFF97C200C8972B /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextField.swift; path = "Source-UI/TextField.swift"; sourceTree = "<group>"; };
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = Sources/SequenceExtensions.swift; sourceTree = "<group>"; };
+		033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONRepresentable.swift; path = Sources/JSONRepresentable.swift; sourceTree = "<group>"; };
 		033AC3471D171703008C8B93 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interval.swift; path = Sources/Interval.swift; sourceTree = "<group>"; };
 		033AC34B1D17172E008C8B93 /* Frac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Frac.swift; path = Sources/Frac.swift; sourceTree = "<group>"; };
 		033B52DE1E31E8E40052E396 /* PagingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewController.swift; path = "Source-UI/PagingViewController.swift"; sourceTree = "<group>"; };
@@ -899,6 +903,7 @@
 				033E14FC1C7CC71C00BA3E63 /* Matrix.swift */,
 				03E006C31E5D65AE00AA8C3F /* ModelObject.swift */,
 				034DCA6B1E8E3B810073DFD3 /* JSONModel.swift */,
+				033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */,
 				03E3C7321D10E3120004DF98 /* Monad.swift */,
 				03D3FA351E542C5600C8E550 /* ObjectExtensions.swift */,
 				03DDBACF1C5A9D5400A8CDAE /* Position.swift */,
@@ -1718,6 +1723,7 @@
 				033F5EAF1CA3096700647A0A /* FoundationJSON.swift in Sources */,
 				034D311E1DF7A0F9004ADC34 /* DeviceUtils.swift in Sources */,
 				033F5EB01CA3096700647A0A /* Rect.swift in Sources */,
+				033A7AFC1E90963A000624D3 /* JSONRepresentable.swift in Sources */,
 				033F5EB21CA3096700647A0A /* ImageExtensions.swift in Sources */,
 				0378EC841DF4D89900E6A875 /* Cache.swift in Sources */,
 				0324181E1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
@@ -1985,6 +1991,7 @@
 				032D777E1E256C4D0058CF1B /* Graph.swift in Sources */,
 				0324AF001CF81FD40080DFF6 /* DevOverlayView.swift in Sources */,
 				032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */,
+				033A7AFB1E90963A000624D3 /* JSONRepresentable.swift in Sources */,
 				032418151E2C468100082E6A /* GraphError.swift in Sources */,
 				03D3FA3A1E542C8800C8E550 /* TableViewExtensions.swift in Sources */,
 				035EB4551CF3CC2D006D73ED /* EmailUtils.swift in Sources */,
@@ -2127,6 +2134,7 @@
 				03E172D71CF1C8B60073F383 /* CryptoUtils.swift in Sources */,
 				03CF07E01DF531BE00B7AD7E /* TransferValue.swift in Sources */,
 				03B0D9B91DF385F20073AF42 /* DescriptiveError.swift in Sources */,
+				033A7AFD1E90963A000624D3 /* JSONRepresentable.swift in Sources */,
 				039AD27A1E6913F600776D7B /* JSONUtils.swift in Sources */,
 				0359AF601D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				0324181B1E2EDE0400082E6A /* StrongComponents.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 
 public class BounceAnimation {
-    private weak var view: UIView?
+    private unowned let view: UIView
     private var isReleased = false
 
     public init(view: UIView) {
@@ -19,14 +19,14 @@ public class BounceAnimation {
     public func animateDown() {
         isReleased = false
         dispatchAnimated(duration: 0.1, options: [.beginFromCurrentState, .curveEaseOut]) {
-            self.view?.transform = .init(scaleX: 0.7, y: 0.7)
+            self.view.transform = .init(scaleX: 0.7, y: 0.7)
         }
     }
 
     public func animateUp() {
         guard !isReleased else { return }
         dispatchAnimated(duration: 0.1, options: [.beginFromCurrentState, .curveEaseInOut]) {
-            self.view?.transform = .identity
+            self.view.transform = .identity
         }
     }
 
@@ -36,7 +36,7 @@ public class BounceAnimation {
         isReleased = true
         self.completion = completion
         UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 40.0, options: [.allowUserInteraction], animations: {
-            self.view?.transform = .identity
+            self.view.transform = .identity
         }, completion: { _ in
         }
         )

@@ -10,8 +10,8 @@ import UIKit
 
 public class EditableContainerView: View, Editable {
     public var isEditing = false
-    public let normalView: UIView
-    public let editingView: UIView
+    public unowned let normalView: UIView
+    public unowned let editingView: UIView
 
     private var widthConstraint: NSLayoutConstraint!
     private var heightConstraint: NSLayoutConstraint!
@@ -42,7 +42,7 @@ public class EditableContainerView: View, Editable {
         view.layoutIfNeeded()
     }
 
-    private var currentContentView: UIView!
+    private weak var currentContentView: UIView!
 
     private func setContentView(_ view: UIView) {
         currentContentView = view

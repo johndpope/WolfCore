@@ -28,7 +28,7 @@ extension Associated where T: NSCopying {
 extension NSObject {
     public func setAssociatedValue<T>(_ value: T?, for key: UnsafeRawPointer) {
         let v = value.map { Associated<T>($0) }
-        objc_setAssociatedObject(self, key, v, .OBJC_ASSOCIATION_RETAIN)
+        objc_setAssociatedObject(self, key, v, .OBJC_ASSOCIATION_COPY)
     }
 
     public func getAssociatedValue<T>(for key: UnsafeRawPointer) -> T? {

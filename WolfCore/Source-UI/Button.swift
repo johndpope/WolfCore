@@ -9,19 +9,19 @@
 import UIKit
 
 open class Button: UIButton, Skinnable {
-    private var controlAction: ControlAction<Button>!
-
-    public var action: Block? {
-        didSet {
-            if action != nil {
-                controlAction = addTouchUpInsideAction(to: self) { [unowned self] _ in
-                    self.action?()
-                }
-            } else {
-                controlAction = nil
-            }
-        }
-    }
+//    private var controlAction: ControlAction<Button>!
+//
+//    public var action: Block? {
+//        didSet {
+//            if action != nil {
+//                controlAction = addTouchUpInsideAction(to: self) { [unowned self] _ in
+//                    self.action?()
+//                }
+//            } else {
+//                controlAction = nil
+//            }
+//        }
+//    }
 
     @IBOutlet var customView: UIView? {
         willSet {
