@@ -16,20 +16,23 @@ public struct DeviceAccess {
     public enum Item: String {
         case camera
         case photoLibrary
-        case location
+        case locationWhenInUse
+        case locationAlways
 
         private typealias `Self` = Item
 
         private static let messages: [Item: String] = [
             .camera : "Please allow #{appName} to access the camera.",
             .photoLibrary : "Please allow #{appName} to access your photo library.",
-            .location : "Please allow #{appName} to access location."
+            .locationWhenInUse : "Please allow #{appName} to access your location.",
+            .locationAlways : "Please allow #{appName} to access your location."
         ]
 
         private static let usageDescriptionKeys: [Item: String] = [
             .camera : "NSCameraUsageDescription",
             .photoLibrary: "NSPhotoLibraryUsageDescription",
-            .location: "NSLocationAlwaysUsageDescription"
+            .locationWhenInUse: "NSLocationWhenInUseUsageDescription",
+            .locationAlways: "NSLocationAlwaysUsageDescription"
         ]
 
         public var message: String {
@@ -77,15 +80,30 @@ public struct DeviceAccess {
         }
     }
     
-    public static func checkLocationAuthorized(from viewController: UIViewController) -> Bool {
-        Item.location.checkUsageDescription()
+    public static func checkLocationAlwaysAuthorized(from viewController: UIViewController) -> Bool {
+        Item.locationAlways.checkUsageDescription()
         
         let status = CLLocationManager.authorizationStatus()
         switch status {
-        case .authorized, .authorizedAlways, .authorizedWhenInUse, .notDetermined:
+        case .authorizedAlways, .notDetermined:
+            return true
+        case .authorizedWhenInUse:
+            return false
+        case .denied, .restricted:
+            viewController.presentAccessSheet(for: .locationAlways)
+            return false
+        }
+    }
+
+    public static func checkLocationWhenInUseAuthorized(from viewController: UIViewController) -> Bool {
+        Item.locationWhenInUse.checkUsageDescription()
+
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse, .notDetermined:
             return true
         case .denied, .restricted:
-            viewController.presentAccessSheet(for: .location)
+            viewController.presentAccessSheet(for: .locationWhenInUse)
             return false
         }
     }
