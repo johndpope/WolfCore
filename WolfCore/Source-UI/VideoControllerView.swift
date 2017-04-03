@@ -15,6 +15,7 @@ extension Log.GroupName {
 open class VideoControllerView: View {
     public typealias UpdatePositionBlock = (_ position: TimeInterval, _ duration: TimeInterval) -> Void
     public var onUpdatePosition: UpdatePositionBlock?
+    public var contentView: UIView!
 
     public required init() {
         super.init(frame: .zero)
@@ -122,9 +123,9 @@ open class VideoControllerView: View {
         logTrace("review secondsBack: (\(time))", group: .video)
     }
     
-    open func setContentOverlay(view: UIView) {
-        logTrace("setContentOverlay()", group: .video)
-    }
+//    open func setContentOverlay(view: UIView) {
+//        logTrace("setContentOverlay()", group: .video)
+//    }
 
     open var fileURL: URL!
 
@@ -136,5 +137,5 @@ open class VideoControllerView: View {
     
     open var isInFullscreen: Bool { return false }
     
-    open var contentOverlayView: UIView! = UIView()
+    //open var contentOverlayView: UIView! = UIView()
 }
