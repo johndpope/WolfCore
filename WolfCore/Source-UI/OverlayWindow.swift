@@ -8,10 +8,10 @@
 
 import UIKit
 
-public var overlayWindow = OverlayWindow()
+public var overlayWindow:OverlayWindow? = OverlayWindow()
 public var overlayViewController = OverlayViewController()
 public var overlayView: View {
-    return overlayWindow.subviews[0] as! View
+    return overlayWindow!.subviews[0] as! View
 }
 
 public class OverlayWindow: UIWindow {
