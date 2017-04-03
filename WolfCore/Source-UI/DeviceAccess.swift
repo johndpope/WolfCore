@@ -9,23 +9,27 @@
 import UIKit
 import MobileCoreServices
 import Photos
+import CoreLocation
 
 public struct DeviceAccess {
 
     public enum Item: String {
         case camera
         case photoLibrary
+        case location
 
         private typealias `Self` = Item
 
         private static let messages: [Item: String] = [
             .camera : "Please allow #{appName} to access the camera.",
-            .photoLibrary : "Please allow #{appName} to access your photo library."
+            .photoLibrary : "Please allow #{appName} to access your photo library.",
+            .location : "Please allow #{appName} to access location."
         ]
 
         private static let usageDescriptionKeys: [Item: String] = [
             .camera : "NSCameraUsageDescription",
-            .photoLibrary: "NSPhotoLibraryUsageDescription"
+            .photoLibrary: "NSPhotoLibraryUsageDescription",
+            .location: "NSLocationAlwaysUsageDescription"
         ]
 
         public var message: String {
@@ -69,6 +73,19 @@ public struct DeviceAccess {
             return true
         case .denied, .restricted:
             viewController.presentAccessSheet(for: .photoLibrary)
+            return false
+        }
+    }
+    
+    public static func checkLocationAuthorized(from viewController: UIViewController) -> Bool {
+        Item.location.checkUsageDescription()
+        
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .authorized, .authorizedAlways, .authorizedWhenInUse, .notDetermined:
+            return true
+        case .denied, .restricted:
+            viewController.presentAccessSheet(for: .location)
             return false
         }
     }
