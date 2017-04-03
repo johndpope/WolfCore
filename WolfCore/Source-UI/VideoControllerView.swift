@@ -15,10 +15,8 @@ extension Log.GroupName {
 open class VideoControllerView: View {
     public typealias UpdatePositionBlock = (_ position: TimeInterval, _ duration: TimeInterval) -> Void
     public var onUpdatePosition: UpdatePositionBlock?
-    public typealias EnterFullscreenBlock = () -> Void
-    public var onEnterFullscreen: EnterFullscreenBlock?
-    public typealias ExitFullscreenBlock = () -> Void
-    public var onExitFullscreen: ExitFullscreenBlock?
+    public var onEnterFullscreen: Block?
+    public var onExitFullscreen: Block?
     public var contentView: UIView!
 
     public required init() {
