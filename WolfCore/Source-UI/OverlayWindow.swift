@@ -13,6 +13,9 @@ public var overlayViewController = OverlayViewController()
 public var overlayView: View {
     return overlayWindow!.subviews[0] as! View
 }
+public func removeOverlayWindow() {
+    overlayWindow = nil
+}
 
 public class OverlayWindow: UIWindow {
     public init() {
