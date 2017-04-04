@@ -8,16 +8,25 @@
 
 import UIKit
 
-private var _overlayWindow:OverlayWindow? = OverlayWindow()
+private var _overlayWindow: OverlayWindow?
 public var overlayWindow: OverlayWindow! {
-    get { if _overlayWindow == nil { _overlayWindow = OverlayWindow() }
-        return _overlayWindow }
-    set { _overlayWindow = newValue }
+    get {
+        if _overlayWindow == nil {
+            _overlayWindow = OverlayWindow()
+        }
+        return _overlayWindow
+    }
+
+    set {
+        _overlayWindow = newValue
+    }
 }
+
 public var overlayViewController = OverlayViewController()
 public var overlayView: View {
     return overlayWindow!.subviews[0] as! View
 }
+
 public func removeOverlayWindow() {
     overlayWindow = nil
 }

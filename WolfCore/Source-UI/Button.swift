@@ -9,29 +9,6 @@
 import UIKit
 
 open class Button: UIButton, Skinnable {
-//    private var controlAction: ControlAction<Button>!
-//
-//    public var action: Block? {
-//        didSet {
-//            if action != nil {
-//                controlAction = addTouchUpInsideAction(to: self) { [unowned self] _ in
-//                    self.action?()
-//                }
-//            } else {
-//                controlAction = nil
-//            }
-//        }
-//    }
-
-    @IBOutlet var customView: UIView? {
-        willSet {
-            removeCustomView()
-        }
-        didSet {
-            addCustomView()
-        }
-    }
-
     open override func awakeFromNib() {
         super.awakeFromNib()
         setTitle(title(for: .normal)?.localized(onlyIfTagged: true), for: .normal)
@@ -64,6 +41,7 @@ open class Button: UIButton, Skinnable {
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
         guard let skin = skin else { return }
+        tintColor = skin.buttonTintColor
         setTitleColor(skin.buttonTintColor, for: .normal)
         setTitleColor(skin.buttonHighlightedTintColor, for: .highlighted)
         setTitleColor(skin.buttonDisabledColor, for: .disabled)
@@ -73,34 +51,4 @@ open class Button: UIButton, Skinnable {
     }
 
     open func setup() { }
-
-    private func removeCustomView() {
-        customView?.removeFromSuperview()
-    }
-
-    private func addCustomView(constraintsIdentifier identifier: String? = nil) {
-        guard let customView = customView else { return }
-
-        self => [
-            customView
-        ]
-        customView.constrainFrame(identifier: identifier ?? "button")
-        customView.isUserInteractionEnabled = false
-    }
-
-    private func syncToHighlighted() {
-        guard let customView = self.customView else { return }
-        let isHighlighted = self.isHighlighted
-        customView.tintColor = titleColor(for: isHighlighted ? .highlighted : [])!.withAlphaComponent(isHighlighted ? 0.4 : 1.0)
-        customView.forViewsInHierarchy { view -> Bool in
-            (view as? UIImageView)?.isHighlighted = isHighlighted
-            return false
-        }
-    }
-
-    open override var isHighlighted: Bool {
-        didSet {
-            syncToHighlighted()
-        }
-    }
 }

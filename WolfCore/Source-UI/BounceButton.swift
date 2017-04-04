@@ -8,18 +8,18 @@
 
 import UIKit
 
-public class BounceButton: Button {
+open class BounceButton: Button {
     @IBInspectable public var waitForBounce: Bool = true
 
     private lazy var bounceAnimation: BounceAnimation = { return BounceAnimation(view: self) }()
 
-    public override var isHighlighted: Bool {
+    open override var isHighlighted: Bool {
         didSet(oldHighlighted) {
             bounceAnimation.animate(oldHighlighted: oldHighlighted, newHighlighted: isHighlighted)
         }
     }
 
-    public override func sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) {
+    open override func sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) {
         let waitForBounce = self.waitForBounce
         bounceAnimation.animateRelease() {
             if waitForBounce {
