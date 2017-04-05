@@ -40,4 +40,33 @@ extension UIWindow {
             animateTransition()
         }
     }
+
+    public func updateForOrientation() {
+        let orientation = UIApplication.shared.statusBarOrientation
+        transform = transformForOrientation(orientation)
+
+        let screen = UIScreen.main
+        let screenRect = screen.nativeBounds
+        let scale = screen.nativeScale
+        frame = CGRect(x: 0, y: 0, width: screenRect.width / scale, height: screenRect.height / scale)
+    }
+}
+
+public func transformForOrientation(_ orientation: UIInterfaceOrientation) -> CGAffineTransform {
+    switch orientation {
+    case .landscapeLeft:
+        return CGAffineTransform(rotationAngle: radians(for: -90))
+    case .landscapeRight:
+        return CGAffineTransform(rotationAngle: radians(for: 90))
+    case .portraitUpsideDown:
+        return CGAffineTransform(rotationAngle: radians(for: 180))
+    default:
+        return CGAffineTransform(rotationAngle: radians(for: 0))
+    }
+}
+
+public func printWindows() {
+    for window in UIApplication.shared.windows {
+        print("\(window), windowLevel: \(window.windowLevel)")
+    }
 }

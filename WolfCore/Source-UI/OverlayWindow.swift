@@ -22,7 +22,6 @@ public var overlayWindow: OverlayWindow! {
     }
 }
 
-public var overlayViewController = OverlayViewController()
 public var overlayView: View {
     return overlayWindow!.subviews[0] as! View
 }
@@ -44,9 +43,10 @@ public class OverlayWindow: UIWindow {
 
     private func _setup() {
         __setup()
+
+        windowLevel = UIWindowLevelAlert + 100
         frame = UIScreen.main.bounds
-        rootViewController = overlayViewController
-        windowLevel = UIWindowLevelAlert + 1
+        rootViewController = OverlayViewController()
         show()
         setup()
     }

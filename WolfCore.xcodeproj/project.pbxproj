@@ -553,6 +553,7 @@
 		03FAF7851C53F6FF0045BB37 /* FoundationJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7841C53F6FF0045BB37 /* FoundationJSON.swift */; };
 		03FAF7891C53F7340045BB37 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF7881C53F7340045BB37 /* Hex.swift */; };
 		03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */; };
+		03FC68551E9475C20088AB1B /* DeviceOrientationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FC68541E9475C20088AB1B /* DeviceOrientationAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -817,6 +818,7 @@
 		03FAF7841C53F6FF0045BB37 /* FoundationJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoundationJSON.swift; path = "Sources-Foundation/FoundationJSON.swift"; sourceTree = "<group>"; };
 		03FAF7881C53F7340045BB37 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hex.swift; path = Sources/Hex.swift; sourceTree = "<group>"; };
 		03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISO8601.swift; path = Sources/ISO8601.swift; sourceTree = "<group>"; };
+		03FC68541E9475C20088AB1B /* DeviceOrientationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceOrientationAction.swift; path = "Source-UI/DeviceOrientationAction.swift"; sourceTree = "<group>"; };
 		8186B3761E8F3EBB00BB9FF2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		8186B3781E8F3EC500BB9FF2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -1091,6 +1093,7 @@
 				036307D11CB6DAA500DC7070 /* ApplicationNotificationActions.swift */,
 				035553151C0F622A00E0FCA7 /* BundleExtensions.swift */,
 				039E2D451CC6BB4700B9F078 /* DeviceUtils.swift */,
+				03FC68541E9475C20088AB1B /* DeviceOrientationAction.swift */,
 				03768C391E83BA3600C934CA /* DeviceAccess.swift */,
 				03BC18CE1CF104D9005AF3C3 /* AppInfo.swift */,
 				035A8C3B1D149F2900707E43 /* NetworkActivity.swift */,
@@ -1852,6 +1855,7 @@
 				038B8C6D1E714DE30073E770 /* SpacerView.swift in Sources */,
 				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
 				036307D21CB6DAA500DC7070 /* ApplicationNotificationActions.swift in Sources */,
+				03FC68551E9475C20088AB1B /* DeviceOrientationAction.swift in Sources */,
 				036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */,
 				034DCA721E8FB2CA0073DFD3 /* JSONBuilder.swift in Sources */,
 				033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */,

@@ -83,9 +83,39 @@ extension UIInterfaceOrientationMask: CustomStringConvertible {
     }
 }
 
+extension UIDeviceOrientation: CustomStringConvertible {
+    public var description: String {
+        let s: String
+        switch self {
+        case .unknown:
+            s = "unknown"
+        case .portrait:
+            s = "portrait"
+        case .portraitUpsideDown:
+            s = "portraitUpsideDown"
+        case .landscapeLeft:
+            s = "landscapeLeft"
+        case .landscapeRight:
+            s = "landscapeRight"
+        case .faceUp:
+            s = "faceUp"
+        case .faceDown:
+            s = "faceDown"
+        }
+        return "[\(s)]"
+    }
+}
+
 extension UIDevice {
     public func force(toOrientation orientation: UIInterfaceOrientation) {
         setValue(orientation.rawValue, forKey: "orientation")
+    }
+
+    public static var currentOrientation: UIDeviceOrientation {
+        let device = UIDevice.current
+        device.beginGeneratingDeviceOrientationNotifications()
+        defer { device.endGeneratingDeviceOrientationNotifications() }
+        return device.orientation
     }
 }
 
