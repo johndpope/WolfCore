@@ -57,8 +57,8 @@ public struct DeviceAccess {
     public static func checkCameraAuthorized(from viewController: UIViewController) -> Bool {
         Item.camera.checkUsageDescription()
 
-        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        switch authStatus {
+        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        switch status {
         case .authorized, .notDetermined:
             return true
         case .denied, .restricted:
