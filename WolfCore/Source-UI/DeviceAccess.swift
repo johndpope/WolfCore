@@ -66,6 +66,18 @@ public struct DeviceAccess {
             return false
         }
     }
+    
+    public static func checkCameraNeedsAuthorization() -> Bool {
+        Item.camera.checkUsageDescription()
+        
+        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        switch status {
+        case .notDetermined:
+            return true
+        default:
+            return false
+        }
+    }
 
     public static func checkPhotoLibraryAuthorized(from viewController: UIViewController) -> Bool {
         Item.photoLibrary.checkUsageDescription()
@@ -76,6 +88,18 @@ public struct DeviceAccess {
             return true
         case .denied, .restricted:
             viewController.presentAccessSheet(for: .photoLibrary)
+            return false
+        }
+    }
+    
+    public static func checkPhotoLibraryNeedsAuthorization() -> Bool {
+        Item.photoLibrary.checkUsageDescription()
+        
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .notDetermined:
+            return true
+        default:
             return false
         }
     }
@@ -104,6 +128,18 @@ public struct DeviceAccess {
             return true
         case .denied, .restricted:
             viewController.presentAccessSheet(for: .locationWhenInUse)
+            return false
+        }
+    }
+    
+    public static func checkLocationNeedsAuthorization() -> Bool {
+        Item.locationAlways.checkUsageDescription()
+        
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .notDetermined:
+            return true
+        default:
             return false
         }
     }
