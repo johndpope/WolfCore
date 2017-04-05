@@ -25,12 +25,12 @@ private let movieRawType: NSString = kUTTypeMovie
 
 public typealias ImagePickerSuccessAction = (UIImage?) -> Void
 
-public class ImagePickerViewController: UIImagePickerController, Skinnable {
+open class ImagePickerViewController: UIImagePickerController, Skinnable {
     private var successAction: ImagePickerSuccessAction!
     private var cancelAction: Block?
     fileprivate var allowsCropping: Bool = false
 
-    public static func present(from presentingViewController: UIViewController, sourceView: UIView, requestedMediaTypes: [ImagePickerViewController.MediaType], allowsCropping: Bool, cancel cancelAction: Block? = nil, remove removeAction: Block?, success successAction: @escaping ImagePickerSuccessAction) {
+    open static func present(from presentingViewController: UIViewController, sourceView: UIView, requestedMediaTypes: [ImagePickerViewController.MediaType], allowsCropping: Bool, cancel cancelAction: Block? = nil, remove removeAction: Block?, success successAction: @escaping ImagePickerSuccessAction) {
         var actions = [
             AlertAction(title: "Take Photo"¶, style: .default, identifier: "takePhoto") { _ in
                 if DeviceAccess.checkCameraAuthorized(from: presentingViewController) {
@@ -96,7 +96,7 @@ public class ImagePickerViewController: UIImagePickerController, Skinnable {
         logInfo("deinit \(self)", group: .viewControllerLifecycle)
     }
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         logInfo("awakeFromNib \(self)", group: .viewControllerLifecycle)
     }
