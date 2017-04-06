@@ -57,12 +57,24 @@ public struct DeviceAccess {
     public static func checkCameraAuthorized(from viewController: UIViewController) -> Bool {
         Item.camera.checkUsageDescription()
 
-        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        switch authStatus {
+        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        switch status {
         case .authorized, .notDetermined:
             return true
         case .denied, .restricted:
             viewController.presentAccessSheet(for: .camera)
+            return false
+        }
+    }
+    
+    public static func checkCameraNeedsAuthorization() -> Bool {
+        Item.camera.checkUsageDescription()
+        
+        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        switch status {
+        case .notDetermined:
+            return true
+        default:
             return false
         }
     }
@@ -76,6 +88,18 @@ public struct DeviceAccess {
             return true
         case .denied, .restricted:
             viewController.presentAccessSheet(for: .photoLibrary)
+            return false
+        }
+    }
+    
+    public static func checkPhotoLibraryNeedsAuthorization() -> Bool {
+        Item.photoLibrary.checkUsageDescription()
+        
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .notDetermined:
+            return true
+        default:
             return false
         }
     }
@@ -104,6 +128,18 @@ public struct DeviceAccess {
             return true
         case .denied, .restricted:
             viewController.presentAccessSheet(for: .locationWhenInUse)
+            return false
+        }
+    }
+    
+    public static func checkLocationNeedsAuthorization() -> Bool {
+        Item.locationAlways.checkUsageDescription()
+        
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .notDetermined:
+            return true
+        default:
             return false
         }
     }
