@@ -119,6 +119,18 @@ public struct DeviceAccess {
         }
     }
 
+    public static func checkLocationAlwaysNeedsAuthorization() -> Bool {
+        Item.locationAlways.checkUsageDescription()
+
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .notDetermined:
+            return true
+        default:
+            return false
+        }
+    }
+
     public static func checkLocationWhenInUseAuthorized(from viewController: UIViewController) -> Bool {
         Item.locationWhenInUse.checkUsageDescription()
 
@@ -131,10 +143,10 @@ public struct DeviceAccess {
             return false
         }
     }
-    
-    public static func checkLocationNeedsAuthorization() -> Bool {
-        Item.locationAlways.checkUsageDescription()
-        
+
+    public static func checkLocationWhenInUseNeedsAuthorization() -> Bool {
+        Item.locationWhenInUse.checkUsageDescription()
+
         let status = CLLocationManager.authorizationStatus()
         switch status {
         case .notDetermined:
