@@ -7,7 +7,11 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import Cocoa
+#endif
 
 extension JSON {
     public enum Error: Swift.Error {
@@ -53,14 +57,6 @@ extension JSON {
     public func value<T: JSONModel>(for key: String) throws -> T? {
         guard let v: JSON = try value(for: key) else { return nil }
         return T(json: v)
-    }
-
-    /// Get a `UIColor` value for a given key in the JSON dictionary. The value is nullable,
-    /// and the return value will be `nil` if either the key does not exist or the value is `null`.
-    /// An error will be thrown if the value exists but cannot be parsed into a color.
-    public func value(for key: String) throws -> UIColor? {
-        guard let s: String = try value(for: key) else { return nil }
-        return UIColor(try Color(string: s))
     }
 
     /// Get a `URL` value for a given key in the JSON dictionary. The value is nullable,
@@ -124,15 +120,6 @@ extension JSON {
         }
     }
 
-    /// Get a `UIColor` value for a given key in the JSON dictionary. The color will be parsed from a string value in
-    /// the dictionary. If the `fallback` argument is provided, it will be substituted only if the key is `null`
-    /// or nonexistent. An error will be thrown if the value exists but cannot be parsed into a `UIColor`.
-    public func value(for key: String, fallback: UIColor? = nil) throws -> UIColor {
-        return try value(for: key, fallback: fallback) {
-            return try UIColor(Color(string: $0))
-        }
-    }
-
     /// Get a `URL` value for a given key in the JSON dictionary. The URL will be parsed from a string value in
     /// the dictionary. If the `fallback` argument is provided, it will be substituted only if the key is `null`
     /// or nonexistent. An error will be thrown if the value exists but cannot be parsed into a `URL`.
@@ -152,3 +139,24 @@ extension JSON {
         }
     }
 }
+
+#if os(iOS) || os(macOS) || os(tvOS)
+extension JSON {
+    /// Get a `OSColor` value for a given key in the JSON dictionary. The value is nullable,
+    /// and the return value will be `nil` if either the key does not exist or the value is `null`.
+    /// An error will be thrown if the value exists but cannot be parsed into a color.
+    public func value(for key: String) throws -> OSColor? {
+        guard let s: String = try value(for: key) else { return nil }
+        return OSColor(try Color(string: s))
+    }
+
+    /// Get a `OSColor` value for a given key in the JSON dictionary. The color will be parsed from a string value in
+    /// the dictionary. If the `fallback` argument is provided, it will be substituted only if the key is `null`
+    /// or nonexistent. An error will be thrown if the value exists but cannot be parsed into a `OSColor`.
+    public func value(for key: String, fallback: OSColor? = nil) throws -> OSColor {
+        return try value(for: key, fallback: fallback) {
+            return try OSColor(Color(string: $0))
+        }
+    }
+}
+#endif
