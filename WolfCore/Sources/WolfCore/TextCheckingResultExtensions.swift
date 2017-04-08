@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NSTextCheckingResult {
+extension TextCheckingResult {
     public func range(atIndex index: Int, inString string: String) -> Range<String.Index> {
         return string.stringRange(from: rangeAt(index))!
     }
@@ -22,7 +22,7 @@ extension NSTextCheckingResult {
     }
 }
 
-extension NSTextCheckingResult {
+extension TextCheckingResult {
     public func get(atIndex index: Int, inString string: String) -> (Range<String.Index>, String) {
         let range = self.range(atIndex: index, inString: string)
         let text = string.substring(with: range)
