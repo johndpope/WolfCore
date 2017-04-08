@@ -9,7 +9,7 @@ package.dependencies.append(.Package(url: "https://github.com/venj/CommonCrypto.
 #endif
 
 #if os(Linux)
-package.dependencies.append(url: "https://github.com/Zewo/COpenSSL.git", majorVersion: 0, minor: 1)
+package.dependencies.append(.Package(url: "https://github.com/Zewo/COpenSSL.git", majorVersion: 0, minor: 14))
 #endif
 
 //    dependencies: [
