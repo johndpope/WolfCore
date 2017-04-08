@@ -573,7 +573,7 @@
 		0303BCB11E3E8C9B00B196CA /* PhotoSafeAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoSafeAreaView.swift; path = "Source-UI/PhotoSafeAreaView.swift"; sourceTree = "<group>"; };
 		0303BCD21E404E6200B196CA /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceholderView.swift; path = "Source-UI/PlaceholderView.swift"; sourceTree = "<group>"; };
 		0309573C1E397DF80065F374 /* FontDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontDebugging.swift; path = "Source-UI/FontDebugging.swift"; sourceTree = "<group>"; };
-		030C03591D148F3900EF040E /* Locker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Locker.swift; path = Sources/Locker.swift; sourceTree = "<group>"; };
+		030C03591D148F3900EF040E /* Locker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Locker.swift; path = Sources/WolfCore/Locker.swift; sourceTree = "<group>"; };
 		03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64URLTests.swift; sourceTree = "<group>"; };
 		03106F611D40D81F00E21F82 /* Runes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runes.swift; sourceTree = "<group>"; };
 		03106F651D40D8F900E21F82 /* RunesOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunesOptional.swift; sourceTree = "<group>"; };
@@ -601,9 +601,8 @@
 		03206B321C3CBA7E001A463B /* RangeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RangeExtensions.swift; path = Sources/RangeExtensions.swift; sourceTree = "<group>"; };
 		03206B361C3CBADF001A463B /* RegularExpressionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegularExpressionExtensions.swift; path = Sources/RegularExpressionExtensions.swift; sourceTree = "<group>"; };
 		03206B3A1C3CBB36001A463B /* TextCheckingResultExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextCheckingResultExtensions.swift; path = Sources/TextCheckingResultExtensions.swift; sourceTree = "<group>"; };
-		0322E89C1D13BB2F00EFF3F6 /* LinuxCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinuxCompatibility.swift; path = Sources/LinuxCompatibility.swift; sourceTree = "<group>"; };
-		0322E89D1D13FAFC00EFF3F6 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Block.swift; path = Sources/Block.swift; sourceTree = "<group>"; };
-		0322E8A11D13FB8900EFF3F6 /* Canceler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Canceler.swift; path = Sources/Canceler.swift; sourceTree = "<group>"; };
+		0322E89D1D13FAFC00EFF3F6 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Block.swift; path = Sources/WolfCore/Block.swift; sourceTree = "<group>"; };
+		0322E8A11D13FB8900EFF3F6 /* Canceler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Canceler.swift; path = Sources/WolfCore/Canceler.swift; sourceTree = "<group>"; };
 		0322E8A51D15378C00EFF3F6 /* SwiftJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftJSON.swift; path = Sources/SwiftJSON.swift; sourceTree = "<group>"; };
 		032417F81E2AD84000082E6A /* GraphProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphProtocol.swift; sourceTree = "<group>"; };
 		032417FC1E2AD8F700082E6A /* AdapterGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdapterGraph.swift; sourceTree = "<group>"; };
@@ -647,7 +646,7 @@
 		035553121C0F622A00E0FCA7 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ArrayExtensions.swift; path = Sources/ArrayExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553131C0F622A00E0FCA7 /* AutolayoutUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AutolayoutUtils.swift; path = "Source-UI/AutolayoutUtils.swift"; sourceTree = "<group>"; };
 		035553141C0F622A00E0FCA7 /* BezierPathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = BezierPathExtensions.swift; path = "Source-UI/BezierPathExtensions.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		035553151C0F622A00E0FCA7 /* BundleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = BundleExtensions.swift; path = "Sources-Foundation/BundleExtensions.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		035553151C0F622A00E0FCA7 /* BundleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = BundleExtensions.swift; path = Sources/WolfCore/BundleExtensions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553161C0F622A00E0FCA7 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Button.swift; path = "Source-UI/Button.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553181C0F622A00E0FCA7 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ColorExtensions.swift; path = "Source-UI/ColorExtensions.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		035553191C0F622A00E0FCA7 /* ControlAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ControlAction.swift; path = "Source-UI/ControlAction.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -687,14 +686,14 @@
 		035EB4541CF3CC2D006D73ED /* EmailUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailUtils.swift; path = "Source-UI/EmailUtils.swift"; sourceTree = "<group>"; };
 		035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerExtensions.swift; path = "Source-UI/ViewControllerExtensions.swift"; sourceTree = "<group>"; };
 		03604A431E79C6C100CA8C89 /* SocialUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialUtils.swift; path = "Source-UI/SocialUtils.swift"; sourceTree = "<group>"; };
-		03604A451E7E0F4B00CA8C89 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = Sources/Validator.swift; sourceTree = "<group>"; };
+		03604A451E7E0F4B00CA8C89 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = Sources/WolfCore/Validator.swift; sourceTree = "<group>"; };
 		03604A491E7F6ED300CA8C89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Source-UI/Assets.xcassets"; sourceTree = "<group>"; };
 		03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClearFieldButtonView.swift; path = "Source-UI/ClearFieldButtonView.swift"; sourceTree = "<group>"; };
 		03604A4D1E7FB15700CA8C89 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Slider.swift; path = "Source-UI/Slider.swift"; sourceTree = "<group>"; };
 		03604A511E81B23F00CA8C89 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagePickerViewController.swift; path = "Source-UI/ImagePickerViewController.swift"; sourceTree = "<group>"; };
 		03604A531E82498F00CA8C89 /* ImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCropper.swift; path = "Source-UI/ImageCropper.swift"; sourceTree = "<group>"; };
 		0362A1A61C19FBD20005371F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = Sources/Log.swift; sourceTree = "<group>"; };
-		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Serializer.swift; path = "Sources-Foundation/Serializer.swift"; sourceTree = "<group>"; };
+		0362A1A81C1A22710005371F /* Serializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Serializer.swift; path = Sources/WolfCore/Serializer.swift; sourceTree = "<group>"; };
 		036307CF1CB6DA7F00DC7070 /* NotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationActions.swift; path = "Sources-Foundation/NotificationActions.swift"; sourceTree = "<group>"; };
 		036307D11CB6DAA500DC7070 /* ApplicationNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicationNotificationActions.swift; path = "Source-UI/ApplicationNotificationActions.swift"; sourceTree = "<group>"; };
 		036307D51CB6DB0D00DC7070 /* OrientationNotificationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrientationNotificationActions.swift; path = "Source-UI/OrientationNotificationActions.swift"; sourceTree = "<group>"; };
@@ -725,7 +724,7 @@
 		038457901CED55690012BCCE /* RunLoopUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunLoopUtils.swift; path = "Source-UI/RunLoopUtils.swift"; sourceTree = "<group>"; };
 		038457961CED57E80012BCCE /* WindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WindowExtensions.swift; path = "Source-UI/WindowExtensions.swift"; sourceTree = "<group>"; };
 		0387653C1D245BB60082FC79 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reference.swift; path = Sources/Reference.swift; sourceTree = "<group>"; };
-		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/Framework.swift; sourceTree = "<group>"; };
+		038765401D2464CB0082FC79 /* Framework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Framework.swift; path = Sources/WolfCore/Framework.swift; sourceTree = "<group>"; };
 		0389BD301CF5130600390914 /* AlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertControllerExtensions.swift; path = "Source-UI/AlertControllerExtensions.swift"; sourceTree = "<group>"; };
 		038B8C621E7111800073E770 /* DividerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DividerView.swift; path = "Source-UI/DividerView.swift"; sourceTree = "<group>"; };
 		038B8C6C1E714DE30073E770 /* SpacerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpacerView.swift; path = "Source-UI/SpacerView.swift"; sourceTree = "<group>"; };
@@ -1213,14 +1212,6 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		0322E89B1D13BB1400EFF3F6 /* Platform */ = {
-			isa = PBXGroup;
-			children = (
-				0322E89C1D13BB2F00EFF3F6 /* LinuxCompatibility.swift */,
-			);
-			name = Platform;
-			sourceTree = "<group>";
-		};
 		032D777C1E256C1F0058CF1B /* Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -1239,7 +1230,7 @@
 				0324181C1E2F12D800082E6A /* TransitiveClosure.swift */,
 			);
 			name = Graph;
-			path = Sources/Graph;
+			path = Sources/WolfCore/Graph;
 			sourceTree = "<group>";
 		};
 		035552EE1C0F5F4200E0FCA7 = {
@@ -1276,7 +1267,6 @@
 				032D777C1E256C1F0058CF1B /* Graph */,
 				03B0D9B51DF33AA40073AF42 /* Appearance */,
 				0314DD091D08FC9A00E23C67 /* Autolayout */,
-				0322E89B1D13BB1400EFF3F6 /* Platform */,
 				0314DD041D08FB4C00E23C67 /* App */,
 				0314DD051D08FB5F00E23C67 /* Concurrency */,
 				0314DCF11D08F7F100E23C67 /* Errors */,

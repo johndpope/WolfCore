@@ -50,3 +50,7 @@ public func drawPlaceholderRect(_ rect: CGRect, lineWidth: CGFloat = 1.0, color:
         path.stroke()
     }
 }
+
+extension CGFloat: JSONRepresentable {
+    public var jsonRepresentation: Double { return Double(self) }
+}

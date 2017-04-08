@@ -171,12 +171,6 @@ public func <= (left: NSLayoutDimension, right: (anchor: NSLayoutDimension, mult
     return left.constraint(lessThanOrEqualTo: right.anchor, multiplier: right.multiplier, constant: right.constant)
 }
 
-precedencegroup AttributeAssignmentPrecedence {
-    associativity: left
-    higherThan: AssignmentPrecedence
-    lowerThan: ComparisonPrecedence
-}
-
 // "priority assign"
 infix operator =&= : AttributeAssignmentPrecedence
 //{ associativity left precedence 95 }

@@ -55,3 +55,9 @@ extension CGGradient {
         return new(from: color1 |> Color.init, to: color2 |> Color.init)
     }
 }
+
+extension Color {
+    public var cgColor: CGColor {
+        return CGColor(colorSpace: sharedColorSpaceRGB, components: [CGFloat(red), CGFloat(green), CGFloat(blue), CGFloat(alpha)])!
+    }
+}
