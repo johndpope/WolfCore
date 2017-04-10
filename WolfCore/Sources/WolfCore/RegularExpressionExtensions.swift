@@ -8,14 +8,18 @@
 
 import Foundation
 
-extension RegularExpression {
-    public func firstMatch(inString string: String, options: RegularExpression.MatchingOptions, range: Range<String.Index>? = nil) -> TextCheckingResult? {
+#if !os(Linux)
+    public typealias TextCheckingResult = NSTextCheckingResult
+#endif
+
+extension NSRegularExpression {
+    public func firstMatch(inString string: String, options: NSRegularExpression.MatchingOptions, range: Range<String.Index>? = nil) -> TextCheckingResult? {
         let range = range ?? string.stringRange
         let nsRange = string.nsRange(from: range)!
         return firstMatch(in: string, options: options, range: nsRange)
     }
 
-    public func matchedSubstrings(inString string: String, options: RegularExpression.MatchingOptions = [], range: Range<String.Index>? = nil) -> [String]? {
+    public func matchedSubstrings(inString string: String, options: NSRegularExpression.MatchingOptions = [], range: Range<String.Index>? = nil) -> [String]? {
         var result: [String]! = nil
         if let textCheckingResult = self.firstMatch(inString: string, options: options, range: range) {
             result = [String]()
