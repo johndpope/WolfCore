@@ -43,7 +43,7 @@ public struct NetworkError: Error, CustomStringConvertible {
         //     }
         // }
 
-        public static func checkCode(ret: Int32, message: String) throws {
+        public static func checkCode(_ ret: Int32, message: String) throws {
             guard ret == 0 else {
                 throw NetworkError(message: message, code: Int(ret))
             }
@@ -62,19 +62,19 @@ public class Host {
         self.port = port
     }
 
-    public func resolveForAddressType(addressType: IPAddressType) throws {
-        var hostent_p = UnsafeMutablePointer<hostent>.alloc(1)
-        defer { hostent_p.dealloc(1) }
+    public func resolve(for addressType: IPAddressType) throws {
+        var hostent_p = UnsafeMutablePointer<hostent>.allocate(capacity: 1)
+        defer { hostent_p.deallocate(capacity: 1) }
 
         let buflen = 2048
-        var buf_p = UnsafeMutablePointer<Byte>.alloc(buflen)
-        defer { buf_p.dealloc(buflen) }
+        var buf_p = UnsafeMutablePointer<UInt8>.allocate(capacity: buflen)
+        defer { buf_p.deallocate(capacity: buflen) }
 
-        var result_p = UnsafeMutablePointer<HostEntRef>.alloc(1)
-        defer { result_p.dealloc(1) }
+        var result_p = UnsafeMutablePointer<HostEntRef>.allocate(capacity: 1)
+        defer { result_p.deallocate(capacity: 1) }
 
-        var errno_p = UnsafeMutablePointer<Int32>.alloc(1)
-        defer { errno_p.dealloc(1) }
+        var errno_p = UnsafeMutablePointer<Int32>.allocate(capacity: 1)
+        defer { errno_p.deallocate(capacity: 1) }
 
         try NetworkError.checkCode(
             gethostbyname2_r(
@@ -88,11 +88,11 @@ public class Host {
             ),
         message: "Resolving address.")
 
-        officialHostname = String.fromCString(hostent_p.memory.h_name)!
+        officialHostname = String(cString: hostent_p.pointee.h_name!)
 
-        var nextAlias_p = hostent_p.memory.h_aliases
-        while nextAlias_p.memory != nil {
-            let alias = String.fromCString(UnsafePointer(nextAlias_p.memory))!
+        var nextAlias_p = hostent_p.pointee.h_aliases
+        while nextAlias_p.pointee != nil {
+            let alias = String(cString: UnsafePointer(nextAlias_p.pointee!))
             aliases.append(alias)
             nextAlias_p += 1
         }

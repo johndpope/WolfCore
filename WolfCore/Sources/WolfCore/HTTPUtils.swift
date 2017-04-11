@@ -139,7 +139,7 @@ public class HTTP {
         success: @escaping (HTTPURLResponse, Data) -> Void,
         failure: @escaping ErrorBlock,
         finally: Block?) -> Cancelable {
-        let token = inFlightTracker.start(withName: name)
+        let token: InFlightToken! = inFlightTracker?.start(withName: name)
 
         let _sessionActions = HTTPActions()
 
@@ -152,7 +152,7 @@ public class HTTP {
                 switch error {
                 case let error as DescriptiveError:
                     if error.isCancelled {
-                        inFlightTracker.end(withToken: token, result: Result<Void>.canceled)
+                        inFlightTracker?.end(withToken: token, result: Result<Void>.canceled)
                         logTrace("\(token) retrieveData was cancelled")
                     }
                     dispatchOnMain {
@@ -160,7 +160,7 @@ public class HTTP {
                         finally?()
                     }
                 default:
-                    inFlightTracker.end(withToken: token, result: Result<Error>.failure(error!))
+                    inFlightTracker?.end(withToken: token, result: Result<Error>.failure(error!))
                     logError("\(token) retrieveData returned error")
 
                     dispatchOnMain {
@@ -178,7 +178,7 @@ public class HTTP {
             guard sessionActions.data != nil else {
                 let error = HTTPError(request: request, response: httpResponse)
 
-                inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
                 logError("\(token) No data returned")
 
                 dispatchOnMain {
@@ -191,7 +191,7 @@ public class HTTP {
             guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
                 let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
 
-                inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
                 logError("\(token) Unknown response code: \(httpResponse.statusCode)")
 
                 dispatchOnMain {
@@ -204,7 +204,7 @@ public class HTTP {
             guard successStatusCodes.contains(statusCode) else {
                 let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
 
-                inFlightTracker.end(withToken: token, result: Result<HTTPError>.failure(error))
+                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
                 logError("\(token) Failure response code: \(statusCode)")
 
                 dispatchOnMain {
@@ -214,7 +214,7 @@ public class HTTP {
                 return
             }
 
-            inFlightTracker.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
+            inFlightTracker?.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
 
             let inFlightData = sessionActions.data!
             dispatchOnMain {

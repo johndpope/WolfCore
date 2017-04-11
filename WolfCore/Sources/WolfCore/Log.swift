@@ -88,13 +88,13 @@ public class Log {
     }
 
     private func shortenFile(_ file: String) -> String {
-        let components = (file as NSString).pathComponents
+        let components = file.components(separatedBy: "/")
         let originalCount = components.count
         let newCount = min(3, components.count)
         let end = originalCount
         let begin = end - newCount
         let lastComponents = components[begin..<end]
-        let result = NSString.path(withComponents: [String](lastComponents))
+        let result = lastComponents.joined(separator: "/")
         return result
     }
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Dispatch
 
 private typealias SerializerKey = DispatchSpecificKey<Int>
 private let serializerKey = SerializerKey()

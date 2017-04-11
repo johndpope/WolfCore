@@ -73,83 +73,42 @@ extension Date {
     }
 }
 
-#if os(Linux)
-    extension Date {
-        public convenience init(iso8601: String) throws {
-            if let date = type(of: self).iso8601Formatter.date(from: iso8601) {
-                let timeInterval = date.timeIntervalSinceReferenceDate
-                self.init(timeIntervalSinceReferenceDate: timeInterval)
-            } else {
-                throw ValidationError(message: "Invalid ISO8601 format", violation: "8601Format")
-            }
-        }
-
-        public convenience init(year: Int, month: Int, day: Int) throws {
-            guard year > 0 else {
-                throw ValidationError(message: "Invalid year", violation: "dateFormat")
-            }
-            guard 1...12 ~= month else {
-                throw ValidationError(message: "Invalid month", violation: "dateFormat")
-            }
-            guard 1...31 ~= day else {
-                throw ValidationError(message: "Invalid day", violation: "dateFormat")
-            }
-            let yearString = String(year)
-            let monthString = String(month).paddedWithZeros(to: 2)
-            let dayString = String(day).paddedWithZeros(to: 2)
-            try self.init(iso8601: "\(yearString)-\(monthString)-\(dayString)T00:00:00.0Z")
+extension Date {
+    public init(iso8601: String) throws {
+        if let date = type(of: self).iso8601Formatter.date(from: iso8601) {
+            let timeInterval = date.timeIntervalSinceReferenceDate
+            self.init(timeIntervalSinceReferenceDate: timeInterval)
+        } else {
+            throw ValidationError(message: "Invalid ISO8601 format", violation: "8601Format")
         }
     }
 
-    extension Date {
-        public convenience init(millisecondsSince1970 ms: Double) {
-            self.init(timeIntervalSince1970: ms / 1000.0)
+    public init(year: Int, month: Int, day: Int) throws {
+        guard year > 0 else {
+            throw ValidationError(message: "Invalid year", violation: "dateFormat")
         }
-
-        public var millisecondsSince1970: Double {
-            return timeIntervalSince1970 * 1000.0
+        guard 1...12 ~= month else {
+            throw ValidationError(message: "Invalid month", violation: "dateFormat")
         }
+        guard 1...31 ~= day else {
+            throw ValidationError(message: "Invalid day", violation: "dateFormat")
+        }
+        let yearString = String(year)
+        let monthString = String(month).paddedWithZeros(to: 2)
+        let dayString = String(day).paddedWithZeros(to: 2)
+        try self.init(iso8601: "\(yearString)-\(monthString)-\(dayString)T00:00:00.0Z")
     }
-#endif
+}
 
-#if !os(Linux)
-    extension Date {
-        public init(iso8601: String) throws {
-            if let date = type(of: self).iso8601Formatter.date(from: iso8601) {
-                let timeInterval = date.timeIntervalSinceReferenceDate
-                self.init(timeIntervalSinceReferenceDate: timeInterval)
-            } else {
-                throw ValidationError(message: "Invalid ISO8601 format", violation: "8601Format")
-            }
-        }
-
-        public init(year: Int, month: Int, day: Int) throws {
-            guard year > 0 else {
-                throw ValidationError(message: "Invalid year", violation: "dateFormat")
-            }
-            guard 1...12 ~= month else {
-                throw ValidationError(message: "Invalid month", violation: "dateFormat")
-            }
-            guard 1...31 ~= day else {
-                throw ValidationError(message: "Invalid day", violation: "dateFormat")
-            }
-            let yearString = String(year)
-            let monthString = String(month).paddedWithZeros(to: 2)
-            let dayString = String(day).paddedWithZeros(to: 2)
-            try self.init(iso8601: "\(yearString)-\(monthString)-\(dayString)T00:00:00.0Z")
-        }
+extension Date {
+    public init(millisecondsSince1970 ms: Double) {
+        self.init(timeIntervalSince1970: ms / 1000.0)
     }
 
-    extension Date {
-        public init(millisecondsSince1970 ms: Double) {
-            self.init(timeIntervalSince1970: ms / 1000.0)
-        }
-
-        public var millisecondsSince1970: Double {
-            return timeIntervalSince1970 * 1000.0
-        }
+    public var millisecondsSince1970: Double {
+        return timeIntervalSince1970 * 1000.0
     }
-#endif
+}
 
 extension Date {
     public var julianDay: Int {

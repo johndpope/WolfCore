@@ -13,6 +13,7 @@
 #endif
 
 private let animationDuration: TimeInterval = 0.3
+public internal(set) var inFlightView: InFlightView!
 
 public class InFlightView: View {
     private var columnsStackView: StackView!
@@ -59,8 +60,8 @@ public class InFlightView: View {
         #if !os(macOS)
         isTransparentToTouches = true
         #endif
-        inFlightTracker.didStart = didStart
-        inFlightTracker.didEnd = didEnd
+        inFlightTracker!.didStart = didStart
+        inFlightTracker!.didEnd = didEnd
 
         setupColumnViews()
     }

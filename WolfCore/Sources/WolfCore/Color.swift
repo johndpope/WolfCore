@@ -6,6 +6,8 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+import Foundation
+
 #if os(Linux)
     import Glibc
 #elseif os(iOS) || os(tvOS)

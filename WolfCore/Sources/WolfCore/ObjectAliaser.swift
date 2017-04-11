@@ -7,7 +7,7 @@
 //
 
 import Foundation
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
 #elseif os(macOS)
     import Cocoa
@@ -56,27 +56,34 @@ public class ObjectAliaser {
             }
         #endif
 
+        #if os(iOS) || os(tvOS) || os(macOS)
+            switch object {
+
+            case let color as OSColor:
+                className = "Color"
+                id = color.debugSummary
+
+            case let font as OSFont:
+                className = "Font"
+                id = getID(for: font)
+
+            case let layoutConstraint as NSLayoutConstraint:
+                if let identifier = layoutConstraint.identifier {
+                    id = "\"\(identifier)\""
+                }
+                if type(of: layoutConstraint) == NSLayoutConstraint.self {
+                    className = nil
+                }
+                
+            default:
+                break
+            }
+        #endif
+
         switch object {
-
-        case let color as OSColor:
-            className = "Color"
-            id = color.debugSummary
-
-        case let font as OSFont:
-            className = "Font"
-            id = getID(forFont: font)
-
         case let number as NSNumber:
             className = nil
-            id = getID(forNumber: number)
-
-        case let layoutConstraint as NSLayoutConstraint:
-            if let identifier = layoutConstraint.identifier {
-                id = "\"\(identifier)\""
-            }
-            if type(of: layoutConstraint) == NSLayoutConstraint.self {
-                className = nil
-            }
+            id = getID(for: number)
 
         default:
             break
@@ -95,7 +102,12 @@ public class ObjectAliaser {
 
     // swiftlint:enable cyclomatic_complexity
 
-    private func getID(forNumber number: NSNumber) -> String {
+    #if os(Linux)
+    private func getID(for number: NSNumber) -> String {
+        return String(describing: number)
+    }
+    #else
+    private func getID(for number: NSNumber) -> String {
         if CFGetTypeID(number) == CFBooleanGetTypeID() {
             return number as! Bool ? "true" : "false"
         } else {
@@ -103,7 +115,7 @@ public class ObjectAliaser {
         }
     }
 
-    private func getID(forFont font: OSFont) -> String {
+    private func getID(for font: OSFont) -> String {
         let idJoiner = Joiner()
         idJoiner.append("\"\(font.familyName)\"")
         if font.isBold {
@@ -115,4 +127,5 @@ public class ObjectAliaser {
         idJoiner.append(font.pointSize)
         return idJoiner.description
     }
+    #endif
 }

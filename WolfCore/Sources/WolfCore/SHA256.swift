@@ -6,11 +6,12 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
+import Foundation
+
 #if os(Linux)
     import COpenSSL
     private let sha256DigestLength = SHA256_DIGEST_LENGTH
 #else
-    import Foundation
     import CommonCrypto
     private let sha256DigestLength = CC_SHA256_DIGEST_LENGTH
 #endif

@@ -29,11 +29,11 @@ public struct SSLError: Error, CustomStringConvertible {
             c.append("[\(code)]")
         }
 
-        return "SSLError(\(c.joinWithSeparator(" ")))"
+        return "SSLError(\(c.joined(separator: " ")))"
     }
 
     #if os(Linux)
-        public static func checkNotNil<T>(value: UnsafeMutablePointer<T>, message: String) throws -> UnsafeMutablePointer<T> {
+        public static func checkNotNil<T>(_ value: UnsafeMutablePointer<T>, message: String) throws -> UnsafeMutablePointer<T> {
             if value != nil {
                 return value
             } else {
@@ -53,7 +53,7 @@ public struct SSLError: Error, CustomStringConvertible {
 
 public class SSL {
     #if os(Linux)
-        private static var context: SSLContextRef = nil
+        private static var context: SSLContextRef! = nil
     #endif
 
     public static func setup() throws {

@@ -8,9 +8,9 @@
 
 #if os(Linux)
     import COpenSSL
-    typealias KeyRef = UnsafePointer<RSA>
+    typealias KeyRef = UnsafeMutablePointer<RSA>
     typealias Bignum = bignum_st
-    typealias BignumRef = UnsafePointer<Bignum>
+    typealias BignumRef = UnsafeMutablePointer<Bignum>
     typealias BignumGenCallback = bn_gencb_st
 #else
     import Security
@@ -32,9 +32,9 @@ public struct CryptoError: Error {
     }
 
     #if os(Linux)
-        public static func checkNotNil<T>(value: UnsafeMutablePointer<T>, message: String) throws -> UnsafeMutablePointer<T> {
+        public static func checkNotNil<T>(_ value: UnsafeMutablePointer<T>?, message: String) throws -> UnsafeMutablePointer<T> {
             if value != nil {
-                return value
+                return value!
             } else {
                 let code = Int(ERR_get_error())
                 throw CryptoError(message: message, code: code)
@@ -74,53 +74,52 @@ public class CryptoKey: CustomStringConvertible {
         }
 
         deinit {
-            RSA_free(UnsafeMutablePointer(keyRef))
+            RSA_free(keyRef)
         }
 
-        static func bignumToBytes(bn: BignumRef) -> Bytes {
+        static func bignumToData(_ bn: BignumRef) -> Data {
             let count = Int(BN_bn2mpi(bn, nil))
-            var data = UnsafeMutablePointer<Byte>.alloc(count); defer {
-                data.dealloc(count)
-            }
+
+            var data = UnsafeMutablePointer<UInt8>.allocate(capacity: count)
+            defer { data.deallocate(capacity: count) }
+
             BN_bn2mpi(bn, data)
             let buffer = UnsafeBufferPointer(start: data + 4, count: count - 4)
-            return Bytes(buffer)
+            return Data(buffer: buffer)
         }
 
-        static func bignumToDecString(bn: BignumRef) -> String {
-            let sc = BN_bn2dec(bn); defer {
-                OPENSSL_free(sc)
-            }
-            return String.fromCString(sc)!
+        static func bignumToDecString(_ bn: BignumRef) -> String {
+            let sc = BN_bn2dec(bn)!
+            defer { OPENSSL_free(sc) }
+
+            return String(cString: sc)
         }
 
-        static func bignumToBase64URL(bn: BignumRef) -> String {
-            return Base64URL.encode(bignumToBytes(bn))
+        static func bignumToBase64URL(_ bn: BignumRef) -> Base64URL {
+            return bignumToData(bn) |> Base64URL.init
         }
 
-        static func addKeyFieldAsBase64URLToDict(dict: inout JSON.Dictionary, field: String, value: BignumRef) {
-            if value != nil {
-                dict[field] = NSString(UTF8String: bignumToBase64URL(value))
-            }
+        static func addKeyFieldAsBase64URLToDict(_ dict: inout JSON.Dictionary, field: String, value: BignumRef?) {
+            guard let value = value else { return }
+            dict[field] = bignumToBase64URL(value).string
         }
 
-        static func addKeyFieldAsBytesToDict(dict: inout BSONDictionary, field: String, value: BignumRef) {
-            if value != nil {
-                dict[field] = bignumToBytes(value)
-            }
+        static func addKeyFieldAsBytesToDict(_ dict: inout BSON.Dictionary, field: String, value: BignumRef?) {
+            guard let value = value else { return }
+            dict[field] = bignumToData(value)
         }
 
         func json(onlyPublic: Bool, keyID: String? = nil) throws -> JSON.Dictionary {
             var dict = JSON.Dictionary()
 
-            dict["kty"] = "RSA" as NSString
+            dict["kty"] = "RSA"
 
             if let keyID = keyID {
-                dict["kid"] = NSString(UTF8String: keyID)
+                dict["kid"] = String(utf8String: keyID)
             }
 
-            let r = keyRef.memory
-            dict["e"] = NSNumber(integer: Int(BN_get_word(r.e)))
+            let r = keyRef.pointee
+            dict["e"] = Int(BN_get_word(r.e))
 
             type(of: self).addKeyFieldAsBase64URLToDict(&dict, field: "n", value: r.n)
 
@@ -135,13 +134,13 @@ public class CryptoKey: CustomStringConvertible {
             return dict
         }
 
-        func bson(onlyPublic: Bool, keyID: String? = nil) throws -> BSONDictionary {
-            var dict = BSONDictionary()
+        func bson(onlyPublic: Bool, keyID: String? = nil) throws -> BSON.Dictionary {
+            var dict = BSON.Dictionary()
 
             dict["kty"] = Optional("RSA")
             dict["kid"] = keyID
 
-            let r = keyRef.memory
+            let r = keyRef.pointee
             dict["e"] = Optional(Int(BN_get_word(r.e)))
 
             type(of: self).addKeyFieldAsBytesToDict(&dict, field: "n", value: r.n)
@@ -326,7 +325,9 @@ public class Crypto {
     public static func generateRandomBytes(_ count: Int) -> Data {
         var data = Data(capacity: count)
 #if os(Linux)
-        RAND_bytes(&bytes, Int32(count))
+        data.withUnsafeMutableBytes { (p: UnsafeMutablePointer<UInt8>) -> Void in
+            RAND_bytes(p, Int32(count))
+        }
 #else
         data.withUnsafeMutableBytes { (p: UnsafeMutablePointer<UInt8>) -> Void in
             let _ = SecRandomCopyBytes(kSecRandomDefault, count, p)
@@ -358,18 +359,18 @@ public class Crypto {
                 return 1
             }
 
-            let rsa = try CryptoError.checkNotNil(RSA_new(), message: "Allocating key pair."); defer {
-                RSA_free(rsa)
-            }
-            let bne = try CryptoError.checkNotNil(BN_new(), message: "Allocating exponent."); defer {
-                BN_free(bne)
-            }
-            try CryptoError.checkCode(BN_set_word(bne, UInt(exponent)), message: "Setting exponent.")
+            let rsa = try CryptoError.checkNotNil(RSA_new(), message: "Allocating key pair.")
+            defer { RSA_free(rsa) }
+
+            let bne = try CryptoError.checkNotNil(BN_new(), message: "Allocating exponent.")
+            defer { BN_free(bne) }
+            
+            try CryptoError.check(code: BN_set_word(bne, UInt(exponent)), message: "Setting exponent.")
             try withUnsafeMutablePointer(&cb) { cbp in
-                try CryptoError.checkCode(RSA_generate_key_ex(rsa, Int32(keySize), bne, cbp), message: "Generating key pair.")
+                try CryptoError.check(code: RSA_generate_key_ex(rsa, Int32(keySize), bne, cbp), message: "Generating key pair.")
             }
-            let publicKey = RSAPublicKey_dup(rsa)
-            let privateKey = RSAPrivateKey_dup(rsa)
+            let publicKey = RSAPublicKey_dup(rsa)!
+            let privateKey = RSAPrivateKey_dup(rsa)!
             return KeyPair(publicKey: publicKey, privateKey: privateKey)
         #else
             var publicKey: SecKey?

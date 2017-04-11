@@ -29,7 +29,11 @@ public struct FoundationJSON {
         let outputStream = OutputStream(toMemory: ())
         outputStream.open()
         defer { outputStream.close() }
-        JSONSerialization.writeJSONObject(value, to: outputStream, options: [.prettyPrinted], error: nil)
+        #if os(Linux)
+            _ = try! JSONSerialization.writeJSONObject(value, toStream: outputStream, options: [.prettyPrinted])
+        #else
+            JSONSerialization.writeJSONObject(value, to: outputStream, options: [.prettyPrinted], error: nil)
+        #endif
         let data = outputStream.property(forKey: .dataWrittenToMemoryStreamKey) as! Data
         return String(data: data, encoding: .utf8)!
     }
