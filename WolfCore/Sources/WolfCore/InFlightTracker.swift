@@ -17,13 +17,23 @@ public class InFlightTracker {
     private var tokens = Set<InFlightToken>()
     public var didStart: ((InFlightToken) -> Void)?
     public var didEnd: ((InFlightToken) -> Void)?
-    public var isHidden: Bool = {
-        return !((userDefaults["DevInFlight"] as? Bool) ?? false)
-        }() {
+    #if os(Linux)
+    public var isHidden: Bool = false
+    {
         didSet {
             syncToHidden()
         }
     }
+    #else
+    public var isHidden: Bool = {
+        return !((userDefaults["DevInFlight"] as? Bool) ?? false)
+    }()
+    {
+        didSet {
+            syncToHidden()
+        }
+    }
+    #endif
 
     #if os(Linux)
     public static func setup(withView: Bool = false) {

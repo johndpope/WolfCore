@@ -8,9 +8,17 @@
 
 import Foundation
 
+#if !os(Linux)
+    extension TextCheckingResult {
+        public func range(at idx: Int) -> NSRange {
+            return rangeAt(idx)
+        }
+    }
+#endif
+
 extension TextCheckingResult {
     public func range(atIndex index: Int, inString string: String) -> Range<String.Index> {
-        return string.stringRange(from: rangeAt(index))!
+        return string.stringRange(from: range(at: index))!
     }
 
     public func captureRanges(inString string: String) -> [Range<String.Index>] {

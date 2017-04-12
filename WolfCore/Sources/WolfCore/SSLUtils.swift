@@ -11,7 +11,7 @@
     import COpenSSL
     let OPENSSL_free = CRYPTO_free  // swiftlint:disable:this variable_name
     typealias SSLContextRef = UnsafeMutablePointer<SSL_CTX>
-    typealias HostEntRef = UnsafeMutablePointer<hostent>
+    typealias HostEntRef = UnsafeMutablePointer<hostent>?
 #endif
 
 public struct SSLError: Error, CustomStringConvertible {
@@ -33,9 +33,9 @@ public struct SSLError: Error, CustomStringConvertible {
     }
 
     #if os(Linux)
-        public static func checkNotNil<T>(_ value: UnsafeMutablePointer<T>, message: String) throws -> UnsafeMutablePointer<T> {
+        public static func checkNotNil<T>(_ value: UnsafeMutablePointer<T>?, message: String) throws -> UnsafeMutablePointer<T> {
             if value != nil {
-                return value
+                return value!
             } else {
                 let code = Int(ERR_get_error())
                 throw CryptoError(message: message, code: code)

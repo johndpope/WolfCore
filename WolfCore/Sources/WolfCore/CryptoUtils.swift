@@ -354,7 +354,7 @@ public class Crypto {
         #if os(Linux)
             var cb = BignumGenCallback()
             cb.ver = 2
-            cb.cb.cb_2 = { (a: Int32, b: Int32, arg: UnsafeMutablePointer<BignumGenCallback>) -> Int32 in
+            cb.cb.cb_2 = { (a: Int32, b: Int32, arg: UnsafeMutablePointer<BignumGenCallback>?) -> Int32 in
                 // print("a: \(a), b: \(b)")
                 return 1
             }
@@ -366,7 +366,7 @@ public class Crypto {
             defer { BN_free(bne) }
             
             try CryptoError.check(code: BN_set_word(bne, UInt(exponent)), message: "Setting exponent.")
-            try withUnsafeMutablePointer(&cb) { cbp in
+            try withUnsafeMutablePointer(to: &cb) { cbp in
                 try CryptoError.check(code: RSA_generate_key_ex(rsa, Int32(keySize), bne, cbp), message: "Generating key pair.")
             }
             let publicKey = RSAPublicKey_dup(rsa)!

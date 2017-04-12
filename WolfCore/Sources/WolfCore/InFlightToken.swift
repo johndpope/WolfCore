@@ -11,7 +11,9 @@ public class InFlightToken: Equatable, Hashable, CustomStringConvertible {
     public let id: Int
     public let name: String
     var result: ResultSummary?
+    #if !os(Linux)
     private var networkActivityRef: Locker.Ref?
+    #endif
 
     init(name: String) {
         id = InFlightToken.nextID
@@ -27,11 +29,13 @@ public class InFlightToken: Equatable, Hashable, CustomStringConvertible {
 
     public var isNetworkActive: Bool = false {
         didSet {
+            #if !os(Linux)
             if isNetworkActive {
                 networkActivityRef = networkActivity.newActivity()
             } else {
                 networkActivityRef = nil
             }
+            #endif
         }
     }
 }

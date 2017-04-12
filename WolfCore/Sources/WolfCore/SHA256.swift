@@ -21,10 +21,14 @@ public class SHA256 {
 
     public init(data: Data) {
 #if os(Linux)
-        var ctx = SHA256_CTX()
-        SHA256_Init(&ctx)
-        SHA256_Update(&ctx, bytes, bytes.count)
-        SHA256_Final(&digest, &ctx)
+    var ctx = SHA256_CTX()
+    SHA256_Init(&ctx)
+    data.withUnsafeBytes { (dataPtr: UnsafePointer<UInt8>) -> Void in
+        self.digest.withUnsafeMutableBytes { (digestPtr: UnsafeMutablePointer<UInt8>) -> Void in
+            SHA256_Update(&ctx, dataPtr, data.count)
+            SHA256_Final(digestPtr, &ctx)
+        }
+    }
 #else
     _ = data.withUnsafeBytes { dataPtr in
         self.digest.withUnsafeMutableBytes { digestPtr in

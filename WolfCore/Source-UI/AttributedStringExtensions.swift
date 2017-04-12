@@ -893,8 +893,8 @@ extension String {
         let replacements = matches.map { match -> (Range<String.Index>, String) in
             let matchRange = stringRange(from: match.range)!
 
-            let textRange = stringRange(from: match.rangeAt(1))!
-            let tagRange = stringRange(from: match.rangeAt(2))!
+            let textRange = stringRange(from: match.range(at: 11))!
+            let tagRange = stringRange(from: match.range(at: 2))!
 
             let text = self.substring(with: textRange)
             let tag = self.substring(with: tagRange)

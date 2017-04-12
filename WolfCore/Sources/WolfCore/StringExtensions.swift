@@ -123,6 +123,14 @@ extension String {
         return nil
     }
 
+    public func location(fromIndex index: String.Index) -> Int {
+        return nsRange(from: index..<index)!.location
+    }
+
+    public func index(fromLocation location: Int) -> String.Index {
+        return stringRange(from: NSRange(location: location, length: 0))!.lowerBound
+    }
+
     public func nsRange(from stringRange: Range<String.Index>?) -> NSRange? {
         guard let stringRange = stringRange else { return nil }
         let utf16view = utf16
@@ -131,14 +139,6 @@ extension String {
         let location = utf16view.distance(from: utf16view.startIndex, to: from)
         let length = utf16view.distance(from: from, to: to)
         return NSRange(location: location, length: length)
-    }
-
-    public func location(fromIndex index: String.Index) -> Int {
-        return nsRange(from: index..<index)!.location
-    }
-
-    public func index(fromLocation location: Int) -> String.Index {
-        return stringRange(from: NSRange(location: location, length: 0))!.lowerBound
     }
 
     public var nsRange: NSRange {
@@ -276,7 +276,7 @@ extension String {
         let matches = placeholderReplacementRegex ~?? self
         for match in matches {
             let matchRange = stringRange(from: match.range)!
-            let placeholderRange = stringRange(from: match.rangeAt(1))!
+            let placeholderRange = stringRange(from: match.range(at: 1))!
             let replacementName = self[placeholderRange]
             if let replacement = replacementsDict[replacementName] {
                 replacements.append((matchRange, replacement))

@@ -67,7 +67,7 @@ public class Host {
         defer { hostent_p.deallocate(capacity: 1) }
 
         let buflen = 2048
-        var buf_p = UnsafeMutablePointer<UInt8>.allocate(capacity: buflen)
+        var buf_p = UnsafeMutablePointer<Int8>.allocate(capacity: buflen)
         defer { buf_p.deallocate(capacity: buflen) }
 
         var result_p = UnsafeMutablePointer<HostEntRef>.allocate(capacity: 1)
@@ -81,7 +81,7 @@ public class Host {
                 hostname,
                 Int32(addressType.rawValue),
                 hostent_p,
-                UnsafeMutablePointer(buf_p),
+                buf_p,
                 buflen,
                 result_p,
                 errno_p
@@ -90,11 +90,12 @@ public class Host {
 
         officialHostname = String(cString: hostent_p.pointee.h_name!)
 
-        var nextAlias_p = hostent_p.pointee.h_aliases
+        var nextAlias_p = hostent_p.pointee.h_aliases!
+        //var q: String = nextAlias_p
         while nextAlias_p.pointee != nil {
             let alias = String(cString: UnsafePointer(nextAlias_p.pointee!))
             aliases.append(alias)
-            nextAlias_p += 1
+            nextAlias_p = nextAlias_p + 1
         }
     }
 }

@@ -14,7 +14,11 @@
 #endif
 
 private var _instance: Random = {
-    srand48(Int(arc4random()))
+    #if os(Linux)
+        srand48(Int(time(nil)))
+    #else
+        srand48(Int(arc4random()))
+    #endif
     return Random()
 }()
 
