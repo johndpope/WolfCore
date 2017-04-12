@@ -89,6 +89,10 @@ public struct FoundationJSON {
     }
     
     public static let null = NSNull()
+
+    public static func ∆<T>(lhs: JSON, rhs: String) -> T {
+        return try! lhs.value(for: rhs)
+    }
 }
 
 extension FoundationJSON: CustomStringConvertible {
