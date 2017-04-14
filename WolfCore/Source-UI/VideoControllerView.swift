@@ -47,13 +47,24 @@ open class VideoControllerView: View {
         case stopped
     }
 
-    public var state: State = .paused(1) {
-        didSet {
-            syncToState()
-        }
+    private var _state: State = .paused(1)
+
+    public func setState(_ state: State, animated: Bool) {
+        _state = state
+        syncToState(animated: animated)
     }
 
-    open func syncToState() {
+    public var state: State {
+        return _state
+    }
+
+//    public var state: State = .paused(1) {
+//        didSet {
+//            syncToState(animated: false)
+//        }
+//    }
+
+    open func syncToState(animated: Bool) {
         switch state {
         case .playing:
             logTrace("PLAYING", group: .video)
@@ -70,48 +81,57 @@ open class VideoControllerView: View {
         return 0
     }
 
-    open func play(reason: String) {
+    open func play(animated: Bool, reason: String) {
         logTrace("play (\(reason))", group: .video)
 
         switch state {
         case .playing, .complete:
-            state = .playing
+            setState(.playing, animated: animated)
         case .paused(let level):
             switch level {
             case 1:
-                state = .playing
+                setState(.playing, animated: animated)
             default:
-                state = .paused(level - 1)
+                setState(.paused(level - 1), animated: animated)
             }
         case .stopped:
             break
         }
     }
 
-    open func pause(reason: String) {
+    open func pauseIfNeeded(animated: Bool, reason: String) {
+        switch state {
+        case .playing:
+            pause(animated: animated, reason: reason)
+        default:
+            break
+        }
+    }
+
+    open func pause(animated: Bool, reason: String) {
         logTrace("pause (\(reason))", group: .video)
 
         switch state {
         case .playing:
-            state = .paused(1)
+            setState(.paused(1), animated: animated)
         case .paused(let level):
-            state = .paused(level + 1)
+            setState(.paused(level + 1), animated: animated)
         case .complete, .stopped:
             break
         }
     }
 
-    open func stop(reason: String) {
+    open func stop(animated: Bool, reason: String) {
         logTrace("stop (\(reason))", group: .video)
-        state = .stopped
+        setState(.stopped, animated: animated)
     }
 
-    open func toggle() {
+    open func toggle(animated: Bool) {
         switch state {
         case .playing:
-            pause(reason: "toggled")
+            pause(animated: animated, reason: "toggled")
         case .paused, .complete:
-            play(reason: "toggled")
+            play(animated: animated, reason: "toggled")
         case .stopped:
             break
         }

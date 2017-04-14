@@ -40,4 +40,9 @@ open class PhotoView: View {
         get { return imageView.image }
         set { imageView.image = newValue }
     }
+
+    public var imageURL: URL? {
+        get { return imageView.url }
+        set { imageView.url = newValue }
+    }
 }

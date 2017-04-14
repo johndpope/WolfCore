@@ -120,6 +120,18 @@ extension OSView {
         return activateConstraint(widthAnchor == heightAnchor * aspect)
     }
 
+    @discardableResult @nonobjc public func constrainAspect(to aspectSize: CGSize, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+        return constrainAspect(to: aspectSize.aspect, active: active, identifier: identifier)
+    }
+
+    @discardableResult @nonobjc public func constrainAspect(to aspectSize: Size, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+        return constrainAspect(to: CGFloat(aspectSize.aspect), active: active, identifier: identifier)
+    }
+
+    @discardableResult public func constrainAspect(to aspectRatio: AspectRatio, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+        return constrainAspect(to: CGFloat(aspectRatio.aspectSize.aspect), active: active, identifier: identifier)
+    }
+
     @discardableResult public func constrainSize(to size: CGSize, active: Bool = true, identifier: String? = nil) -> [NSLayoutConstraint] {
         let constraints = [
             widthAnchor == size.width =%= [identifier, "width"],

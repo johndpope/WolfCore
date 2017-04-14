@@ -18,6 +18,23 @@ extension Log.GroupName {
 open class ViewController: UIViewController, Skinnable {
     open var navigationItemTitleView: UIView? { return nil }
 
+    private lazy var activityOverlayView: ActivityOverlayView = {
+        let activityView = ActivityOverlayView()
+        self.view => [
+            activityView
+        ]
+        return activityView
+    }()
+
+    public func showActivityOverlay(animated: Bool) {
+        self.view.bringSubview(toFront: activityOverlayView)
+        activityOverlayView.show(animated: animated)
+    }
+
+    public func hideActivityOverlay(animated: Bool) {
+        activityOverlayView.hide(animated: animated)
+    }
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         _setup()

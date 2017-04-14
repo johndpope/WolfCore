@@ -15,9 +15,11 @@ open class PagingView: View {
 
     public var arrangedViewAtIndexDidBecomeVisible: IndexDispatchBlock?
     public var arrangedViewAtIndexDidBecomeInvisible: IndexDispatchBlock?
+
     public var onWillBeginDragging: Block?
     public var onDidEndDragging: Block?
     public var onDidLayout: ((_ fromIndex: Int, _ toIndex: Int, _ frac: Frac) -> Void)?
+
     public private(set) var scrollingFromIndex: Int = 0
     public private(set) var scrollingToIndex: Int = 0
     public private(set) var scrollingFrac: Frac = 0.0

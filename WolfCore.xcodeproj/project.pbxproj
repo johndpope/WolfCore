@@ -302,6 +302,10 @@
 		037016041E0CC8A1006505EF /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037016031E0CC8A1006505EF /* OptionalExtensions.swift */; };
 		037016051E0CC8A1006505EF /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037016031E0CC8A1006505EF /* OptionalExtensions.swift */; };
 		037016061E0CC8A1006505EF /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037016031E0CC8A1006505EF /* OptionalExtensions.swift */; };
+		03749FC01E9EB1A3005328D6 /* ActivityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03749FBF1E9EB1A3005328D6 /* ActivityOverlayView.swift */; };
+		03749FC51E9F13F5005328D6 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03749FC41E9F13F5005328D6 /* AspectRatio.swift */; };
+		03749FC61E9F13F5005328D6 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03749FC41E9F13F5005328D6 /* AspectRatio.swift */; };
+		03749FC71E9F13F5005328D6 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03749FC41E9F13F5005328D6 /* AspectRatio.swift */; };
 		0375EC391CF1B19A001E6D45 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035553371C0F622A00E0FCA7 /* View.swift */; };
 		03768C381E83AA4C00C934CA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03768C371E83AA4C00C934CA /* Localizable.strings */; };
 		03768C3A1E83BA3600C934CA /* DeviceAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03768C391E83BA3600C934CA /* DeviceAccess.swift */; };
@@ -711,6 +715,8 @@
 		036FECA31C73CFB100B09489 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		036FECB01C766E6B00B09489 /* BarButtonItemAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarButtonItemAction.swift; path = "Source-UI/BarButtonItemAction.swift"; sourceTree = "<group>"; };
 		037016031E0CC8A1006505EF /* OptionalExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionalExtensions.swift; path = Sources/WolfCore/OptionalExtensions.swift; sourceTree = "<group>"; };
+		03749FBF1E9EB1A3005328D6 /* ActivityOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityOverlayView.swift; path = "Source-UI/ActivityOverlayView.swift"; sourceTree = "<group>"; };
+		03749FC41E9F13F5005328D6 /* AspectRatio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AspectRatio.swift; path = Sources/AspectRatio.swift; sourceTree = "<group>"; };
 		03768C371E83AA4C00C934CA /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		03768C391E83BA3600C934CA /* DeviceAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceAccess.swift; path = "Source-UI/DeviceAccess.swift"; sourceTree = "<group>"; };
 		0378EC7A1DF4D74500E6A875 /* CacheLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheLayer.swift; path = "WolfCore/Source-UI/CacheLayer.swift"; sourceTree = "<group>"; };
@@ -959,6 +965,7 @@
 				03E13B7A1C4F28F60074E447 /* SizeExtensions.swift */,
 				03F5A8B91C4970DF00B124A3 /* Vector.swift */,
 				03E13B7B1C4F28F60074E447 /* VectorExtensions.swift */,
+				03749FC41E9F13F5005328D6 /* AspectRatio.swift */,
 			);
 			name = Geometry;
 			sourceTree = "<group>";
@@ -1141,6 +1148,7 @@
 			isa = PBXGroup;
 			children = (
 				03F0EBEE1E63BC0E00309C8D /* Direct Subclasses */,
+				03749FBF1E9EB1A3005328D6 /* ActivityOverlayView.swift */,
 				039C912E1E4D1D67000AE01B /* BounceButton.swift */,
 				03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
@@ -1706,6 +1714,7 @@
 				031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */,
 				034D31201DF7A6BD004ADC34 /* InFlightTracker.swift in Sources */,
 				0359AF5F1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
+				03749FC61E9F13F5005328D6 /* AspectRatio.swift in Sources */,
 				032417FA1E2AD84000082E6A /* GraphProtocol.swift in Sources */,
 				033F5EA61CA3096700647A0A /* DictionaryExtensions.swift in Sources */,
 				033F5EA71CA3096700647A0A /* BSON.swift in Sources */,
@@ -1818,6 +1827,7 @@
 				038BB9411E51A25B00B957C2 /* Dimensions.swift in Sources */,
 				0314DD151D09044D00E23C67 /* NavigationBarExtensions.swift in Sources */,
 				0302D2F81CF8F34300717170 /* TextView.swift in Sources */,
+				03749FC51E9F13F5005328D6 /* AspectRatio.swift in Sources */,
 				03D064E81E5412AE0049D61B /* FlexView.swift in Sources */,
 				03E006CA1E5D662D00AA8C3F /* ModelViewController.swift in Sources */,
 				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
@@ -1904,6 +1914,7 @@
 				03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */,
 				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
 				036B834D1C4320F300491AFF /* Gradient.swift in Sources */,
+				03749FC01E9EB1A3005328D6 /* ActivityOverlayView.swift in Sources */,
 				0314DD171D09048C00E23C67 /* TableViewCell.swift in Sources */,
 				030C035A1D148F3900EF040E /* Locker.swift in Sources */,
 				0390BEC71E47F9E400EA937F /* BounceAnimation.swift in Sources */,
@@ -2191,6 +2202,7 @@
 				0387653F1D245BB60082FC79 /* Reference.swift in Sources */,
 				03E173181CF1C8FB0073F383 /* ImageUtils.swift in Sources */,
 				03E172C21CF1C8AD0073F383 /* Size.swift in Sources */,
+				03749FC71E9F13F5005328D6 /* AspectRatio.swift in Sources */,
 				03E173021CF1C8E70073F383 /* HTTPError.swift in Sources */,
 				03E172DA1CF1C8B60073F383 /* GeometryUtils.swift in Sources */,
 				033AC34A1D171703008C8B93 /* Interval.swift in Sources */,
