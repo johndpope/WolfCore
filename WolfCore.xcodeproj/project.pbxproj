@@ -333,6 +333,15 @@
 		0378EC971DF5123800E6A875 /* Joiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B218941C20E90A0081CE39 /* Joiner.swift */; };
 		0378EC991DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */; };
 		0378EC9B1DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */; };
+		037BB95A1EA880B900028A33 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9591EA880B900028A33 /* MD5.swift */; };
+		037BB95B1EA880B900028A33 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9591EA880B900028A33 /* MD5.swift */; };
+		037BB95C1EA880B900028A33 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9591EA880B900028A33 /* MD5.swift */; };
+		037BB95E1EA89B6700028A33 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB95D1EA89B6700028A33 /* SHA1.swift */; };
+		037BB95F1EA89B6700028A33 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB95D1EA89B6700028A33 /* SHA1.swift */; };
+		037BB9601EA89B6700028A33 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB95D1EA89B6700028A33 /* SHA1.swift */; };
+		037BB9621EA8A34F00028A33 /* HMACSHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9611EA8A34F00028A33 /* HMACSHA256.swift */; };
+		037BB9631EA8A34F00028A33 /* HMACSHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9611EA8A34F00028A33 /* HMACSHA256.swift */; };
+		037BB9641EA8A34F00028A33 /* HMACSHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9611EA8A34F00028A33 /* HMACSHA256.swift */; };
 		0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
 		0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */; };
 		038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
@@ -716,7 +725,7 @@
 		036FECB01C766E6B00B09489 /* BarButtonItemAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarButtonItemAction.swift; path = "Source-UI/BarButtonItemAction.swift"; sourceTree = "<group>"; };
 		037016031E0CC8A1006505EF /* OptionalExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionalExtensions.swift; path = Sources/WolfCore/OptionalExtensions.swift; sourceTree = "<group>"; };
 		03749FBF1E9EB1A3005328D6 /* ActivityOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityOverlayView.swift; path = "Source-UI/ActivityOverlayView.swift"; sourceTree = "<group>"; };
-		03749FC41E9F13F5005328D6 /* AspectRatio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AspectRatio.swift; path = Sources/AspectRatio.swift; sourceTree = "<group>"; };
+		03749FC41E9F13F5005328D6 /* AspectRatio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AspectRatio.swift; path = Sources/WolfCore/AspectRatio.swift; sourceTree = "<group>"; };
 		03768C371E83AA4C00C934CA /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		03768C391E83BA3600C934CA /* DeviceAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceAccess.swift; path = "Source-UI/DeviceAccess.swift"; sourceTree = "<group>"; };
 		0378EC7A1DF4D74500E6A875 /* CacheLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheLayer.swift; path = "WolfCore/Source-UI/CacheLayer.swift"; sourceTree = "<group>"; };
@@ -727,6 +736,10 @@
 		0378EC901DF4DC6800E6A875 /* WolfCore-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WolfCore-Bridging-Header.h"; sourceTree = "<group>"; };
 		0378EC911DF4F8E200E6A875 /* HTTPCacheLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPCacheLayer.swift; path = "WolfCore/Source-UI/HTTPCacheLayer.swift"; sourceTree = "<group>"; };
 		0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewExtensions.swift; path = "Source-UI/CollectionViewExtensions.swift"; sourceTree = "<group>"; };
+		037BB9581EA83E3300028A33 /* Notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
+		037BB9591EA880B900028A33 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = Sources/WolfCore/MD5.swift; sourceTree = "<group>"; };
+		037BB95D1EA89B6700028A33 /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHA1.swift; path = Sources/WolfCore/SHA1.swift; sourceTree = "<group>"; };
+		037BB9611EA8A34F00028A33 /* HMACSHA256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACSHA256.swift; path = Sources/WolfCore/HMACSHA256.swift; sourceTree = "<group>"; };
 		038457891CED0C810012BCCE /* ObjectAliaser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectAliaser.swift; path = Sources/WolfCore/ObjectAliaser.swift; sourceTree = "<group>"; };
 		0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerDebugging.swift; path = "Source-UI/ViewControllerDebugging.swift"; sourceTree = "<group>"; };
 		038457901CED55690012BCCE /* RunLoopUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunLoopUtils.swift; path = "Source-UI/RunLoopUtils.swift"; sourceTree = "<group>"; };
@@ -825,6 +838,8 @@
 		03FAF7841C53F6FF0045BB37 /* FoundationJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoundationJSON.swift; path = Sources/WolfCore/FoundationJSON.swift; sourceTree = "<group>"; };
 		03FAF7881C53F7340045BB37 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hex.swift; path = Sources/WolfCore/Hex.swift; sourceTree = "<group>"; };
 		03FAF78A1C53FF9F0045BB37 /* ISO8601.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISO8601.swift; path = Sources/WolfCore/ISO8601.swift; sourceTree = "<group>"; };
+		03FC34441EA8052600F1E9BC /* AWSSigner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSSigner.swift; sourceTree = "<group>"; };
+		03FC34481EA8057800F1E9BC /* AWSRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSRegion.swift; sourceTree = "<group>"; };
 		03FC68541E9475C20088AB1B /* DeviceOrientationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceOrientationAction.swift; path = "Source-UI/DeviceOrientationAction.swift"; sourceTree = "<group>"; };
 		8186B3761E8F3EBB00BB9FF2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		8186B3781E8F3EC500BB9FF2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1013,7 +1028,10 @@
 				0314DD0C1D08FFFC00E23C67 /* KeyChain.swift */,
 				039AD2811E6A222300776D7B /* Credentials.swift */,
 				035C36641C500333000C04D0 /* LifeHash.swift */,
+				037BB95D1EA89B6700028A33 /* SHA1.swift */,
 				035C36661C505DB0000C04D0 /* SHA256.swift */,
+				037BB9591EA880B900028A33 /* MD5.swift */,
+				037BB9611EA8A34F00028A33 /* HMACSHA256.swift */,
 			);
 			name = Security;
 			sourceTree = "<group>";
@@ -1248,6 +1266,7 @@
 		035552EE1C0F5F4200E0FCA7 = {
 			isa = PBXGroup;
 			children = (
+				037BB9581EA83E3300028A33 /* Notes.txt */,
 				035552FA1C0F5F4200E0FCA7 /* WolfCore */,
 				035553661C0F6E6A00E0FCA7 /* Supporting Files */,
 				036FECA21C73CF2000B09489 /* Libraries */,
@@ -1272,6 +1291,7 @@
 		035552FA1C0F5F4200E0FCA7 /* WolfCore */ = {
 			isa = PBXGroup;
 			children = (
+				03FC34431EA8051500F1E9BC /* AWS */,
 				03604A491E7F6ED300CA8C89 /* Assets.xcassets */,
 				03768C371E83AA4C00C934CA /* Localizable.strings */,
 				038765401D2464CB0082FC79 /* Framework.swift */,
@@ -1418,6 +1438,16 @@
 				03F2614B1D48B1D800523640 /* ImageViewerPresentationTransitioning.swift */,
 			);
 			name = ImageViewerViewController;
+			sourceTree = "<group>";
+		};
+		03FC34431EA8051500F1E9BC /* AWS */ = {
+			isa = PBXGroup;
+			children = (
+				03FC34441EA8052600F1E9BC /* AWSSigner.swift */,
+				03FC34481EA8057800F1E9BC /* AWSRegion.swift */,
+			);
+			name = AWS;
+			path = Sources/WolfCore/AWS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1704,6 +1734,7 @@
 				033F5E9E1CA3096700647A0A /* AffineTransformUtils.swift in Sources */,
 				0314DD0E1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
 				033F5E9F1CA3096700647A0A /* Grid.swift in Sources */,
+				037BB9631EA8A34F00028A33 /* HMACSHA256.swift in Sources */,
 				03B0D9B81DF385F20073AF42 /* DescriptiveError.swift in Sources */,
 				033F5EA01CA3096700647A0A /* UniqueID.swift in Sources */,
 				033F5EA21CA3096700647A0A /* Heartbeat.swift in Sources */,
@@ -1753,6 +1784,7 @@
 				033F5EB91CA3096700647A0A /* MathUtils.swift in Sources */,
 				033F5EBA1CA3096700647A0A /* CryptoUtils.swift in Sources */,
 				0378EC801DF4D78A00E6A875 /* MemoryCacheLayer.swift in Sources */,
+				037BB95B1EA880B900028A33 /* MD5.swift in Sources */,
 				033F5EBC1CA3096700647A0A /* PointExtensions.swift in Sources */,
 				033F5EBD1CA3096700647A0A /* NotificationAction.swift in Sources */,
 				034D311F1DF7A1D3004ADC34 /* DataExtensions.swift in Sources */,
@@ -1772,6 +1804,7 @@
 				0378EC7C1DF4D74500E6A875 /* CacheLayer.swift in Sources */,
 				033F5EC71CA3096700647A0A /* HTTPError.swift in Sources */,
 				033F5EC81CA3096700647A0A /* IPAddress6.swift in Sources */,
+				037BB95F1EA89B6700028A33 /* SHA1.swift in Sources */,
 				03CF07FB1DF5367400B7AD7E /* HTTPActions.swift in Sources */,
 				037016051E0CC8A1006505EF /* OptionalExtensions.swift in Sources */,
 				033F5EE31CA31AF200647A0A /* ViewExtensions.swift in Sources */,
@@ -1870,6 +1903,7 @@
 				03FAF77F1C538C3E0045BB37 /* Base64.swift in Sources */,
 				03106F621D40D81F00E21F82 /* Runes.swift in Sources */,
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
+				037BB95E1EA89B6700028A33 /* SHA1.swift in Sources */,
 				033AC3481D171703008C8B93 /* Interval.swift in Sources */,
 				03D3FA361E542C5600C8E550 /* ObjectExtensions.swift in Sources */,
 				031D33871E5AA3E9005D4FFF /* VectorNode.swift in Sources */,
@@ -1957,6 +1991,7 @@
 				035C36771C514A26000C04D0 /* CryptoUtils.swift in Sources */,
 				032418111E2C440600082E6A /* TopologicalSort.swift in Sources */,
 				036FECB11C766E6B00B09489 /* BarButtonItemAction.swift in Sources */,
+				037BB9621EA8A34F00028A33 /* HMACSHA256.swift in Sources */,
 				032418091E2AF9D200082E6A /* BreadthFirstSearch.swift in Sources */,
 				03E13B7F1C4F28F60074E447 /* PointExtensions.swift in Sources */,
 				03D3FA3C1E542CB500C8E550 /* URLComponentsExtensions.swift in Sources */,
@@ -2028,6 +2063,7 @@
 				03E13B801C4F28F60074E447 /* RectExtensions.swift in Sources */,
 				032417FD1E2AD8F700082E6A /* AdapterGraph.swift in Sources */,
 				036307DA1CB6DE0600DC7070 /* TVControllerActions.swift in Sources */,
+				037BB95A1EA880B900028A33 /* MD5.swift in Sources */,
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
 				0303BCB01E3E8C3D00B196CA /* PhotoView.swift in Sources */,
@@ -2074,15 +2110,18 @@
 				034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */,
 				0309573E1E397DF80065F374 /* FontDebugging.swift in Sources */,
 				03E1731C1CF1C8FB0073F383 /* ImageExtensions.swift in Sources */,
+				037BB9641EA8A34F00028A33 /* HMACSHA256.swift in Sources */,
 				038BB9431E51A25B00B957C2 /* Dimensions.swift in Sources */,
 				0314DCC21D08ED2200E23C67 /* NavigationController.swift in Sources */,
 				03E172D61CF1C8B60073F383 /* ColorFunc.swift in Sources */,
+				037BB9601EA89B6700028A33 /* SHA1.swift in Sources */,
 				03E172D11CF1C8B60073F383 /* Base64URL.swift in Sources */,
 				03E172BE1CF1C8AD0073F383 /* ErrorExtensions.swift in Sources */,
 				03E3C7351D10E3120004DF98 /* Monad.swift in Sources */,
 				03E172DB1CF1C8B60073F383 /* Gradient.swift in Sources */,
 				032D77801E256C4D0058CF1B /* Graph.swift in Sources */,
 				03E173291CF1C8FB0073F383 /* ScrollView.swift in Sources */,
+				037BB95C1EA880B900028A33 /* MD5.swift in Sources */,
 				034D31211DF7A6BD004ADC34 /* InFlightTracker.swift in Sources */,
 				0322E8A01D13FAFC00EFF3F6 /* Block.swift in Sources */,
 				03E173141CF1C8FB0073F383 /* GestureActions.swift in Sources */,

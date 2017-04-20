@@ -25,3 +25,9 @@ extension Data: Serializable {
         self.init(bytes: Array(bytes))
     }
 }
+
+extension Data {
+    public init(string: String) {
+        self.init(utf8: string |> UTF8.init)
+    }
+}

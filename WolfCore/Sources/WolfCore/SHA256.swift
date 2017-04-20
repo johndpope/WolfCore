@@ -10,14 +10,20 @@ import Foundation
 
 #if os(Linux)
     import COpenSSL
-    private let sha256DigestLength = SHA256_DIGEST_LENGTH
 #else
     import CommonCrypto
-    private let sha256DigestLength = CC_SHA256_DIGEST_LENGTH
 #endif
 
-public class SHA256 {
-    private(set) var digest = Data(capacity: Int(sha256DigestLength))
+public struct SHA256 {
+    private typealias `Self` = SHA256
+
+    #if os(Linux)
+        private static let digestLength = Int(SHA256_DIGEST_LENGTH)
+    #else
+        private static let digestLength = Int(CC_SHA256_DIGEST_LENGTH)
+    #endif
+
+    public private(set) var digest = Data(repeating: 0, count: Self.digestLength)
 
     public init(data: Data) {
 #if os(Linux)
@@ -38,19 +44,16 @@ public class SHA256 {
 #endif
     }
 
-    public static func encode(_ data: Data) -> SHA256 {
-        return SHA256(data: data)
-    }
-
     public static func test() {
         // $ openssl dgst -sha256 -hex
         // The quick brown fox\n^d
         // 35fb7cc2337d10d618a1bad35c7a9e957c213f00d0ed32f2454b2a99a971c0d8
-        let data = "The quick brown fox\n" |> UTF8.init |> Data.init
-        let sha256 = data |> encode
+        let data = "The quick brown fox\n" |> Data.init
+        let sha256 = data |> SHA256.init
         print(sha256)
-        // prints 35fb7cc2337d10d618a1bad35c7a9e957c213f0d0ed32f2454b2a99a971c0d8
-        print(sha256.description == "35fb7cc2337d10d618a1bad35c7a9e957c213f00d0ed32f2454b2a99a971c0d8")
+        // prints 35fb7cc2337d10d618a1bad35c7a9e957c213f00d0ed32f2454b2a99a971c0d8
+        let string = sha256 |> String.init
+        print(string == "35fb7cc2337d10d618a1bad35c7a9e957c213f00d0ed32f2454b2a99a971c0d8")
         // prints true
     }
 }
@@ -58,5 +61,11 @@ public class SHA256 {
 extension SHA256: CustomStringConvertible {
     public var description: String {
         return digest |> Hex.init |> String.init
+    }
+}
+
+extension String {
+    public init(sha256: SHA256) {
+        self.init(sha256.description)!
     }
 }

@@ -20,7 +20,7 @@ class UTF8Tests: XCTestCase {
     }
 
     func testUTF8ToData() {
-        let data = knownString |> UTF8.init |> Data.init
+        let data = knownString |> Data.init
         XCTAssert(data == knownData)
     }
 }

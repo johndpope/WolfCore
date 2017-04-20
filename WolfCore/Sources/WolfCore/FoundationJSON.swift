@@ -81,7 +81,7 @@ public struct FoundationJSON {
     }
 
     public init(string: String) throws {
-        try self.init(data: string |> UTF8.init |> Data.init)
+        try self.init(data: string |> Data.init)
     }
 
     public static func isNull(_ value: Value) -> Bool {

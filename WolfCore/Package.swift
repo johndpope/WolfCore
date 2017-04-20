@@ -12,6 +12,10 @@ package.dependencies.append(.Package(url: "https://github.com/venj/CommonCrypto.
 package.dependencies.append(.Package(url: "https://github.com/Zewo/COpenSSL.git", majorVersion: 0, minor: 14))
 #endif
 
+products.append(
+    Product(name: "WolfCore", type: .Library(.Dynamic), modules: "WolfCore")
+)
+
 //    dependencies: [
 //        //.Package(url: "https://github.com/PureSwift/CUUID.git", majorVersion: 1),
 //        //.Package(url: "https://github.com/Zewo/COpenSSL.git", majorVersion: 0, minor: 1),

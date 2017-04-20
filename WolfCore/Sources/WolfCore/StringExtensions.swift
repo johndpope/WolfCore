@@ -295,7 +295,7 @@ extension String: Serializable {
     public typealias ValueType = String
 
     public func serialize() -> Data {
-        return self |> UTF8.init |> Data.init
+        return self |> Data.init
     }
 
     public static func deserialize(from data: Data) throws -> String {

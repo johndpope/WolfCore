@@ -34,7 +34,7 @@ public struct KeyChain {
     }
 
     public static func add(string: String, for key: String, in account: String = defaultAccount) throws {
-        try add(data: string |> UTF8.init |> Data.init, for: key, in: account)
+        try add(data: string |> Data.init, for: key, in: account)
     }
 
     public static func delete(key: String, account: String = defaultAccount) throws {
@@ -77,7 +77,7 @@ public struct KeyChain {
     }
 
     public static func update(string: String, for key: String, in account: String = defaultAccount, addIfNotFound: Bool = true) throws {
-        try update(data: string |> UTF8.init |> Data.init, for: key, in: account, addIfNotFound: addIfNotFound)
+        try update(data: string |> Data.init, for: key, in: account, addIfNotFound: addIfNotFound)
     }
 
     public static func update(number: NSNumber, for key: String, in account: String = defaultAccount, addIfNotFound: Bool = true) throws {

@@ -166,7 +166,7 @@ public class CryptoKey: CustomStringConvertible {
 
         func data() throws -> Data {
             let tag = "tempkey.\(UUID())"
-            let tagData = tag |> UTF8.init |> Data.init
+            let tagData = tag |> Data.init
 
             let query: [NSString: Any] = [
                 kSecClass: kSecClassKey,

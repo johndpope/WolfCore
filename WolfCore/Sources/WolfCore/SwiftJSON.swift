@@ -28,7 +28,7 @@ public struct SwiftJSON {
         self.value = value
         let writer = Writer()
         try writer.emit(value: value, allowsFragment: false)
-        data = writer.string |> UTF8.init |> Data.init
+        data = writer.string |> Data.init
     }
 
     public init(data: Data) throws {
@@ -38,7 +38,7 @@ public struct SwiftJSON {
     }
 
     public init(string: String) throws {
-        try self.init(data: string |> UTF8.init |> Data.init)
+        try self.init(data: string |> Data.init)
     }
 
     private static let space: Character = " "
