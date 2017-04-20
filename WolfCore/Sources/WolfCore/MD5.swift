@@ -26,22 +26,15 @@ public struct MD5 {
     public private(set) var digest = Data(repeating: 0, count: Self.digestLength)
 
     public init(data: Data) {
-        #if os(Linux)
-            var ctx = MD5_CTX()
-            MD5_Init(&ctx)
-            data.withUnsafeBytes { (dataPtr: UnsafePointer<UInt8>) -> Void in
-                self.digest.withUnsafeMutableBytes { (digestPtr: UnsafeMutablePointer<UInt8>) -> Void in
-                    MD5_Update(&ctx, dataPtr, data.count)
-                    MD5_Final(digestPtr, &ctx)
-                }
+        digest.withUnsafeMutableBytes { (digestPtr: UnsafeMutablePointer<UInt8>) in
+            data.withUnsafeBytes { (dataPtr: UnsafePointer<UInt8>) in
+                #if os(Linux)
+                    _ = COpenSSL.MD5(dataPtr, data.count, digestPtr)
+                #else
+                    CC_MD5(dataPtr, CC_LONG(data.count), digestPtr)
+                #endif
             }
-        #else
-            _ = data.withUnsafeBytes { dataPtr in
-                self.digest.withUnsafeMutableBytes { digestPtr in
-                    return CC_MD5(dataPtr, CC_LONG(data.count), digestPtr)
-                }
-            }
-        #endif
+        }
     }
 
     public static func test() {

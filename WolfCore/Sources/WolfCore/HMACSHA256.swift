@@ -26,23 +26,17 @@ public struct HMACSHA256 {
     public private(set) var digest = Data(repeating: 0, count: Self.digestLength)
 
     public init(data: Data, key: Data) {
-        #if os(Linux)
-            data.withUnsafeBytes { (dataPtr: UnsafePointer<UInt8>) -> Void in
-                key.withUnsafeBytes { keyPtr in
-                    self.digest.withUnsafeMutableBytes { (digestPtr: UnsafeMutablePointer<UInt8>) -> Void in
-                        HMAC(EVP_sha256(), keyPtr, Int32(key.count), dataPtr, data.count, digestPtr, nil)
-                    }
+        digest.withUnsafeMutableBytes { (digestPtr: UnsafeMutablePointer<UInt8>) in
+            data.withUnsafeBytes { (dataPtr: UnsafePointer<UInt8>) in
+                key.withUnsafeBytes { (keyPtr: UnsafePointer<UInt8>) in
+                    #if os(Linux)
+                        _ = HMAC(EVP_sha256(), keyPtr, Int32(key.count), dataPtr, data.count, digestPtr, nil)
+                    #else
+                        CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyPtr, key.count, dataPtr, data.count, digestPtr)
+                    #endif
                 }
             }
-        #else
-            _ = data.withUnsafeBytes { dataPtr in
-                key.withUnsafeBytes { keyPtr in
-                    self.digest.withUnsafeMutableBytes { digestPtr in
-                        return CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyPtr, key.count, dataPtr, data.count, digestPtr)
-                    }
-                }
-            }
-        #endif
+        }
     }
 
     public static func test() {

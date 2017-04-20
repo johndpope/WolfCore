@@ -26,22 +26,15 @@ public struct SHA256 {
     public private(set) var digest = Data(repeating: 0, count: Self.digestLength)
 
     public init(data: Data) {
-#if os(Linux)
-    var ctx = SHA256_CTX()
-    SHA256_Init(&ctx)
-    data.withUnsafeBytes { (dataPtr: UnsafePointer<UInt8>) -> Void in
-        self.digest.withUnsafeMutableBytes { (digestPtr: UnsafeMutablePointer<UInt8>) -> Void in
-            SHA256_Update(&ctx, dataPtr, data.count)
-            SHA256_Final(digestPtr, &ctx)
+        digest.withUnsafeMutableBytes { (digestPtr: UnsafeMutablePointer<UInt8>) in
+            data.withUnsafeBytes { (dataPtr: UnsafePointer<UInt8>) in
+                #if os(Linux)
+                    _ = COpenSSL.SHA256(dataPtr, data.count, digestPtr)
+                #else
+                    CC_SHA256(dataPtr, CC_LONG(data.count), digestPtr)
+                #endif
+            }
         }
-    }
-#else
-    _ = data.withUnsafeBytes { dataPtr in
-        self.digest.withUnsafeMutableBytes { digestPtr in
-            return CC_SHA256(dataPtr, CC_LONG(data.count), digestPtr)
-        }
-    }
-#endif
     }
 
     public static func test() {
