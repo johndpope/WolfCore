@@ -369,7 +369,7 @@ extension URLRequest {
         print("\thttpBody: \(httpBody?.count ?? 0)")
         if let data = httpBody {
             do {
-                let s = try (data |> JSON.init).prettyString
+                let s = try JSON.prettyString(from: data)
                 let ss = s.components(separatedBy: "\n")
                 let sss = ss.joined(separator: "\n\t\t")
                 print("\t\t\(sss)")

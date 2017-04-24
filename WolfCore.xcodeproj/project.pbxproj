@@ -342,6 +342,8 @@
 		037BB9621EA8A34F00028A33 /* HMACSHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9611EA8A34F00028A33 /* HMACSHA256.swift */; };
 		037BB9631EA8A34F00028A33 /* HMACSHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9611EA8A34F00028A33 /* HMACSHA256.swift */; };
 		037BB9641EA8A34F00028A33 /* HMACSHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9611EA8A34F00028A33 /* HMACSHA256.swift */; };
+		037BB9661EA99ADC00028A33 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9651EA99ADC00028A33 /* StoreManager.swift */; };
+		037BB9671EA99ADC00028A33 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037BB9651EA99ADC00028A33 /* StoreManager.swift */; };
 		0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457891CED0C810012BCCE /* ObjectAliaser.swift */; };
 		0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */; };
 		038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038457901CED55690012BCCE /* RunLoopUtils.swift */; };
@@ -740,6 +742,7 @@
 		037BB9591EA880B900028A33 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = Sources/WolfCore/MD5.swift; sourceTree = "<group>"; };
 		037BB95D1EA89B6700028A33 /* SHA1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SHA1.swift; path = Sources/WolfCore/SHA1.swift; sourceTree = "<group>"; };
 		037BB9611EA8A34F00028A33 /* HMACSHA256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACSHA256.swift; path = Sources/WolfCore/HMACSHA256.swift; sourceTree = "<group>"; };
+		037BB9651EA99ADC00028A33 /* StoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreManager.swift; path = "Source-UI/StoreManager.swift"; sourceTree = "<group>"; };
 		038457891CED0C810012BCCE /* ObjectAliaser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectAliaser.swift; path = Sources/WolfCore/ObjectAliaser.swift; sourceTree = "<group>"; };
 		0384578E1CED30980012BCCE /* ViewControllerDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerDebugging.swift; path = "Source-UI/ViewControllerDebugging.swift"; sourceTree = "<group>"; };
 		038457901CED55690012BCCE /* RunLoopUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunLoopUtils.swift; path = "Source-UI/RunLoopUtils.swift"; sourceTree = "<group>"; };
@@ -1316,6 +1319,7 @@
 				0314DCFF1D08F9F400E23C67 /* String */,
 				0314DD071D08FC3700E23C67 /* Views */,
 				0314DD0A1D08FD2200E23C67 /* View Controllers */,
+				037BB9651EA99ADC00028A33 /* StoreManager.swift */,
 			);
 			path = WolfCore;
 			sourceTree = "<group>";
@@ -1888,6 +1892,7 @@
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
 				03E13B811C4F28F60074E447 /* SizeExtensions.swift in Sources */,
 				035553531C0F622A00E0FCA7 /* Label.swift in Sources */,
+				037BB9661EA99ADC00028A33 /* StoreManager.swift in Sources */,
 				0355534C1C0F622A00E0FCA7 /* HTTPUtils.swift in Sources */,
 				038B8C6D1E714DE30073E770 /* SpacerView.swift in Sources */,
 				035553631C0F622A00E0FCA7 /* ViewDebugging.swift in Sources */,
@@ -2231,6 +2236,7 @@
 				032417FB1E2AD84000082E6A /* GraphProtocol.swift in Sources */,
 				0378EC7D1DF4D74500E6A875 /* CacheLayer.swift in Sources */,
 				03E172C31CF1C8AD0073F383 /* IntSize.swift in Sources */,
+				037BB9671EA99ADC00028A33 /* StoreManager.swift in Sources */,
 				03E173091CF1C8E70073F383 /* Serializer.swift in Sources */,
 				034D31251DF7A710004ADC34 /* InFlightView.swift in Sources */,
 				03E172EF1CF1C8B60073F383 /* TextCheckingResultExtensions.swift in Sources */,

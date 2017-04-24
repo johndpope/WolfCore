@@ -44,3 +44,11 @@ extension URL: JSONRepresentable {
 extension Date: JSONRepresentable {
     public var jsonRepresentation: String { return self.iso8601 }
 }
+
+extension NSNumber: JSONRepresentable {
+    public var jsonRepresentation: Double { return doubleValue }
+}
+
+extension Locale: JSONRepresentable {
+    public var jsonRepresentation: String { return "\(self)" }
+}

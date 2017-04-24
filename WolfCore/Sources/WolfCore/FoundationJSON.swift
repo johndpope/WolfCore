@@ -10,7 +10,22 @@ import Foundation
 
 public typealias JSON = FoundationJSON
 
+//public func prettyString(value: JSON.Value) -> String {
+//    let outputStream = OutputStream(toMemory: ())
+//    outputStream.open()
+//    defer { outputStream.close() }
+//    #if os(Linux)
+//        _ = try! JSONSerialization.writeJSONObject(value, toStream: outputStream, options: [.prettyPrinted])
+//    #else
+//        JSONSerialization.writeJSONObject(value, to: outputStream, options: [.prettyPrinted], error: nil)
+//    #endif
+//    let data = outputStream.property(forKey: .dataWrittenToMemoryStreamKey) as! Data
+//    return String(data: data, encoding: .utf8)!
+//}
+
 public struct FoundationJSON {
+    private typealias `Self` = FoundationJSON
+
     public typealias Value = Any
     public typealias Array = [Value]
     public typealias Dictionary = [String: Value]
@@ -25,7 +40,7 @@ public struct FoundationJSON {
         return try! data |> UTF8.init |> String.init
     }
 
-    public var prettyString: String {
+    public static func prettyString(from value: JSON.Value) -> String {
         let outputStream = OutputStream(toMemory: ())
         outputStream.open()
         defer { outputStream.close() }
@@ -36,6 +51,15 @@ public struct FoundationJSON {
         #endif
         let data = outputStream.property(forKey: .dataWrittenToMemoryStreamKey) as! Data
         return String(data: data, encoding: .utf8)!
+    }
+
+    public static func prettyString(from data: Data) throws -> String {
+        let json = try data |> JSON.init
+        return prettyString(from: json.value)
+    }
+
+    public var prettyString: String {
+        return Self.prettyString(from: value)
     }
 
     public var dictionary: Dictionary {
@@ -89,10 +113,6 @@ public struct FoundationJSON {
     }
     
     public static let null = NSNull()
-
-//    public static func ∆<T: JSONRepresentable>(lhs: JSON, rhs: String) -> T {
-//        return try! lhs.value(for: rhs)
-//    }
 }
 
 extension FoundationJSON: CustomStringConvertible {
