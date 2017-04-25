@@ -29,4 +29,9 @@ extension NSError {
     public var isCancelled: Bool {
         return domain == NSURLErrorDomain && code == NSURLErrorCancelled
     }
+
+    // Thrown by poorly-bridged Objective-C frameworks.
+    public var isNilError: Bool {
+        return domain == "Foundation._GenericObjCError" && code == 0
+    }
 }

@@ -374,7 +374,7 @@ extension URLRequest {
                 let sss = ss.joined(separator: "\n\t\t")
                 print("\t\t\(sss)")
             } catch {
-                print(data)
+                print("Non-JSON Data: \(data)")
             }
         }
 

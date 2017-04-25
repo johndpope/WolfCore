@@ -89,7 +89,6 @@ public struct FoundationJSON {
             value = try JSONSerialization.jsonObject(with: data)
             self.data = data
         } catch(let error) {
-            logError(error)
             throw error
         }
     }

@@ -19,4 +19,16 @@ extension URLComponents {
         }
         return dict
     }
+
+    public static func parametersDictionary(from string: String?) -> [String: String] {
+        var dict = [String: String]()
+        guard let string = string else { return dict }
+        let items = string.components(separatedBy: "&")
+        for item in items {
+            let parts = item.components(separatedBy: "=")
+            assert(parts.count == 2)
+            dict[parts[0]] = parts[1]
+        }
+        return dict
+    }
 }

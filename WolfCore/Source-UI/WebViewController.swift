@@ -12,15 +12,32 @@ import WebKit
 open class WebViewController: ViewController {
     var url: URL!
 
+    public var bounces: Bool = true {
+        didSet {
+            webView.scrollView.bounces = bounces
+        }
+    }
+
+    public typealias ShouldStartLoadBlock = (WebViewController, URLRequest, UIWebViewNavigationType) -> Bool
+    public var onShouldStartLoad: ShouldStartLoadBlock?
+    public var onDone: Block?
+
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var backItem: UIBarButtonItem!
     @IBOutlet weak var forwardItem: UIBarButtonItem!
     @IBOutlet weak var reloadItem: UIBarButtonItem!
 
-    public static func present(from presentingViewController: UIViewController, url: URL) {
+    public static func present(from presentingViewController: UIViewController, with url: URL, bounces: Bool = true, onShouldStartLoad: ShouldStartLoadBlock? = nil, onDone: Block? = nil) {
         let navController: NavigationController = loadInitialViewController(fromStoryboardNamed: "WebViewController", in: Framework.bundle)
+        navController.loadViewIfNeeded()
+
         let webController = navController.viewControllers[0] as! WebViewController
+        webController.loadViewIfNeeded()
+
         webController.url = url
+        webController.bounces = bounces
+        webController.onShouldStartLoad = onShouldStartLoad
+        webController.onDone = onDone
         presentingViewController.present(navController, animated: true, completion: nil)
     }
 
@@ -31,7 +48,6 @@ open class WebViewController: ViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        logTrace(navigationController)
         navigationController?.isToolbarHidden = false
         var titleTextAttributes = navigationController!.navigationBar.titleTextAttributes ?? [String: AnyObject]()
         titleTextAttributes[NSFontAttributeName] = UIFont.boldSystemFont(ofSize: 12)
@@ -55,6 +71,11 @@ open class WebViewController: ViewController {
     }
 
     @IBAction func doneAction() {
+        dismiss()
+        onDone?()
+    }
+
+    public func dismiss() {
         dismiss(animated: true, completion: nil)
     }
 
@@ -77,5 +98,32 @@ extension WebViewController: UIWebViewDelegate {
 
     public func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
         syncToWebView()
+    }
+
+    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        guard let onShouldStartLoad = onShouldStartLoad else {
+            return true
+        }
+
+        return onShouldStartLoad(self, request, navigationType)
+    }
+}
+
+extension UIWebViewNavigationType: CustomStringConvertible {
+    public var description: String {
+        switch self {
+            case .linkClicked:
+                return "linkClicked"
+            case .formSubmitted:
+                return "formSubmitted"
+            case .backForward:
+                return "backForward"
+            case .reload:
+                return "reload"
+            case .formResubmitted:
+                return "formResubmitted"
+            case .other:
+                return "other"
+        }
     }
 }
