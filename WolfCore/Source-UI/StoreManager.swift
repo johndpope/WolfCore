@@ -33,35 +33,33 @@ extension StoreManager: SKProductsRequestDelegate {
     public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         productsResponse = response
 
-        print(JSON.prettyString(from: response.jsonRepresentation))
+        print(response.json.prettyString)
 
         productsCompletionBlock(response)
         productsCompletionBlock = nil
     }
 }
 
-extension SKProductsResponse {
-    public var jsonRepresentation: JSON.Dictionary {
-        let json = JSON.build {
-            $0  ∆   ("products", products)
-                ∆   ("invalidProductIdentifiers", invalidProductIdentifiers)
-        }
-        return json.dictionary
+extension SKProduct: JSONRepresentable {
+    public var json: JSON {
+        return JSON([
+            "localizedDescription": localizedDescription,
+            "localizedTitle": localizedTitle,
+            "price": price,
+            "priceLocale": priceLocale,
+            "productIdentifier": productIdentifier,
+            "isDownloadable": isDownloadable,
+            "downloadContentLengths": downloadContentLengths,
+            "downloadContentVersion": downloadContentVersion
+            ])
     }
 }
 
-extension SKProduct: JSONRepresentable {
-    public var jsonRepresentation: JSON.Dictionary {
-        let json = JSON.build {
-            $0  ∆   ("localizedDescription", localizedDescription)
-                ∆   ("localizedTitle", localizedTitle)
-                ∆   ("price", price)
-                ∆   ("priceLocale", priceLocale)
-                ∆   ("productIdentifier", productIdentifier)
-                ∆   ("isDownloadable", isDownloadable)
-                ∆   ("downloadContentLengths", downloadContentLengths)
-                ∆   ("downloadContentVersion", downloadContentVersion)
-        }
-        return json.dictionary
+extension SKProductsResponse {
+    public var json: JSON {
+        return JSON([
+            "products": products,
+            "invalidProductIdentifiers": invalidProductIdentifiers
+        ])
     }
 }

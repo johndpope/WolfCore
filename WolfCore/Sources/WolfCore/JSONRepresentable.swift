@@ -9,46 +9,45 @@
 import Foundation
 
 public protocol JSONRepresentable {
-    associatedtype JSONValue
-    var jsonRepresentation: JSONValue { get }
+    var json: JSON { get }
 }
 
 extension Int: JSONRepresentable {
-    public var jsonRepresentation: Int { return self }
+    public var json: JSON { return JSON(self) }
 }
 
 extension Double: JSONRepresentable {
-    public var jsonRepresentation: Double { return self }
+    public var json: JSON { return JSON(self) }
 }
 
 extension Float: JSONRepresentable {
-    public var jsonRepresentation: Double { return Double(self) }
+    public var json: JSON { return JSON(self) }
 }
 
 extension Bool: JSONRepresentable {
-    public var jsonRepresentation: Bool { return self }
+    public var json: JSON { return JSON(self) }
 }
 
 extension String: JSONRepresentable {
-    public var jsonRepresentation: String { return self }
+    public var json: JSON { return JSON(self) }
 }
 
 extension JSON: JSONRepresentable {
-    public var jsonRepresentation: JSON.Value { return self.value }
+    public var json: JSON { return self }
 }
 
 extension URL: JSONRepresentable {
-    public var jsonRepresentation: String { return self.absoluteString }
+    public var json: JSON { return JSON(absoluteString) }
 }
 
 extension Date: JSONRepresentable {
-    public var jsonRepresentation: String { return self.iso8601 }
+    public var json: JSON { return JSON(iso8601) }
 }
 
 extension NSNumber: JSONRepresentable {
-    public var jsonRepresentation: Double { return doubleValue }
+    public var json: JSON { return JSON(doubleValue) }
 }
 
 extension Locale: JSONRepresentable {
-    public var jsonRepresentation: String { return "\(self)" }
+    public var json: JSON { return JSON("\(self)") }
 }

@@ -52,5 +52,5 @@ public func drawPlaceholderRect(_ rect: CGRect, lineWidth: CGFloat = 1.0, color:
 }
 
 extension CGFloat: JSONRepresentable {
-    public var jsonRepresentation: Double { return Double(self) }
+    public var json: JSON { return JSON(Double(self)) }
 }

@@ -8,16 +8,10 @@
 
 public protocol JSONModel: CustomStringConvertible, JSONRepresentable {
     init(json: JSON)
-
-    var json: JSON { get }
 }
 
 extension JSONModel {
     public var description: String {
-        return json.description
-    }
-
-    public var jsonRepresentation: JSON.Value {
-        return json.value
+        return json.prettyString
     }
 }

@@ -22,12 +22,13 @@ public class HTTPCacheLayer: CacheLayer {
         logTrace("retrieveDataForURL: \(url)", obj: self, group: .cache)
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         request.httpMethod = HTTPMethod.get.rawValue
-        HTTP.retrieveData(
-            with: request,
-            successStatusCodes: [.ok],
-            name: "CacheRetrieve",
-            success: { (response, rawData) in
+
+        HTTP.retrieveData(with: request).run { dataPromise in
+            switch dataPromise.result! {
+            case .success(let rawData):
                 var contentType: ContentType?
+                let task = dataPromise.task as! URLSessionDataTask
+                let response = task.response as! HTTPURLResponse
                 if let contentTypeString = response.allHeaderFields[HeaderField.contentType.rawValue] as? String {
                     contentType = ContentType(rawValue: contentTypeString)
                 }
@@ -55,15 +56,60 @@ public class HTTPCacheLayer: CacheLayer {
                         logError("Unsupported content type: \(contentType)", obj: self)
                     }
                 }
-
+                
                 completion(data)
-        },
-            failure: { error in
+
+            case .failure(let error):
                 logError("Retrieving cache URL: \(url) (\(error))", obj: self)
                 completion(nil)
-        },
-            finally: nil
-        )
+
+            case .canceled:
+                break
+            }
+        }
+
+//        HTTP.retrieveData(
+//            with: request,
+//            successStatusCodes: [.ok],
+//            name: "CacheRetrieve",
+//            success: { (response, rawData) in
+//                var contentType: ContentType?
+//                if let contentTypeString = response.allHeaderFields[HeaderField.contentType.rawValue] as? String {
+//                    contentType = ContentType(rawValue: contentTypeString)
+//                }
+//
+//                let encoding = response.allHeaderFields[HeaderField.encoding.rawValue] as? String
+//
+//                guard encoding == nil else {
+//                    logError("Unsupported encoding: \(encoding†)", obj: self)
+//                    completion(nil)
+//                    return
+//                }
+//
+//                var data: Data?
+//                if let contentType = contentType {
+//                    switch contentType {
+//                    case ContentType.jpg:
+//                        data = OSImage(data: rawData)?.serialize()
+//                    case ContentType.png:
+//                        data = OSImage(data: rawData)?.serialize()
+//                    case ContentType.gif:
+//                        data = OSImage(data: rawData)?.serialize()
+//                    case ContentType.pdf:
+//                        data = rawData
+//                    default:
+//                        logError("Unsupported content type: \(contentType)", obj: self)
+//                    }
+//                }
+//
+//                completion(data)
+//        },
+//            failure: { error in
+//                logError("Retrieving cache URL: \(url) (\(error))", obj: self)
+//                completion(nil)
+//        },
+//            finally: nil
+//        )
     }
 
     public func removeData(forURL url: URL) {

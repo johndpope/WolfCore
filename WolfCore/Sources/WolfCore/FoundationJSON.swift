@@ -10,19 +10,6 @@ import Foundation
 
 public typealias JSON = FoundationJSON
 
-//public func prettyString(value: JSON.Value) -> String {
-//    let outputStream = OutputStream(toMemory: ())
-//    outputStream.open()
-//    defer { outputStream.close() }
-//    #if os(Linux)
-//        _ = try! JSONSerialization.writeJSONObject(value, toStream: outputStream, options: [.prettyPrinted])
-//    #else
-//        JSONSerialization.writeJSONObject(value, to: outputStream, options: [.prettyPrinted], error: nil)
-//    #endif
-//    let data = outputStream.property(forKey: .dataWrittenToMemoryStreamKey) as! Data
-//    return String(data: data, encoding: .utf8)!
-//}
-
 public struct FoundationJSON {
     private typealias `Self` = FoundationJSON
 
@@ -34,13 +21,13 @@ public struct FoundationJSON {
     public typealias ArrayOfDictionaries = [Dictionary]
 
     public let value: Value
-    public let data: Data
+    public let data: Data!
 
     public var string: String {
         return try! data |> UTF8.init |> String.init
     }
 
-    public static func prettyString(from value: JSON.Value) -> String {
+    public var prettyString: String {
         let outputStream = OutputStream(toMemory: ())
         outputStream.open()
         defer { outputStream.close() }
@@ -51,15 +38,6 @@ public struct FoundationJSON {
         #endif
         let data = outputStream.property(forKey: .dataWrittenToMemoryStreamKey) as! Data
         return String(data: data, encoding: .utf8)!
-    }
-
-    public static func prettyString(from data: Data) throws -> String {
-        let json = try data |> JSON.init
-        return prettyString(from: json.value)
-    }
-
-    public var prettyString: String {
-        return Self.prettyString(from: value)
     }
 
     public var dictionary: Dictionary {
@@ -76,12 +54,6 @@ public struct FoundationJSON {
 
     public var arrayOfDictionaries: ArrayOfDictionaries {
         return value as! ArrayOfDictionaries
-    }
-
-    public static func build(_ builds: (JSONBuilder) -> Void) -> JSON {
-        let j = JSONBuilder()
-        builds(j)
-        return try! JSON(value: j.value)
     }
 
     public init(data: Data) throws {
@@ -101,6 +73,78 @@ public struct FoundationJSON {
             logError(error)
             throw error
         }
+    }
+
+    private init(fragment: Value) {
+        self.value = fragment
+        self.data = nil
+    }
+
+    public init(_ n: Int) {
+        self.init(fragment: n)
+    }
+
+    public init(_ d: Double) {
+        self.init(fragment: d)
+    }
+
+    public init(_ f: Float) {
+        self.init(fragment: f)
+    }
+
+    public init(_ s: String) {
+        self.init(fragment: s)
+    }
+
+    public init(_ b: Bool) {
+        self.init(fragment: b)
+    }
+
+    public init() {
+        self.init(fragment: Self.null)
+    }
+
+    public init(_ inArray: [Any?]) {
+        var outArray = [Value]()
+        for inValue in inArray {
+            if let inValue = inValue {
+                if let v = inValue as? JSONRepresentable {
+                    outArray.append(v.json.value)
+                } else if let a = inValue as? [Any?] {
+                    let j = JSON(a)
+                    outArray.append(j.value)
+                } else if let d = inValue as? [AnyHashable: Any?] {
+                    let j = JSON(d)
+                    outArray.append(j.value)
+                } else {
+                    fatalError("Not a JSON value.")
+                }
+            } else {
+                outArray.append(Self.null)
+            }
+        }
+        try! self.init(value: outArray)
+    }
+
+    public init(_ dict: [AnyHashable: Any?]) {
+        var outDict = [String : Value]()
+        for (name, inValue) in dict {
+            let name = "\(name)"
+            if let inValue = inValue {
+                if let v = inValue as? JSONRepresentable {
+                    outDict[name] = v.json.value
+                } else if let a = inValue as? [Any?] {
+                    let j = JSON(a)
+                    outDict[name] = j.value
+                } else if let d = inValue as? [AnyHashable: Any?] {
+                    let j = JSON(d)
+                    outDict[name] = j.value
+                } else {
+                    fatalError("Not a JSON value.")
+                }
+            }
+        }
+        try! self.init(value: outDict)
     }
 
     public init(string: String) throws {

@@ -542,6 +542,9 @@
 		03E1732E1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */; };
 		03E1732F1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */; };
 		03E173311CF8CCD20073F383 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E173301CF8CCD20073F383 /* CollectionViewCell.swift */; };
+		03E31D5F1EB1BBE700498CAC /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E31D5E1EB1BBE700498CAC /* Promise.swift */; };
+		03E31D601EB1BBE700498CAC /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E31D5E1EB1BBE700498CAC /* Promise.swift */; };
+		03E31D611EB1BBE700498CAC /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E31D5E1EB1BBE700498CAC /* Promise.swift */; };
 		03E3C7331D10E3120004DF98 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E3C7321D10E3120004DF98 /* Monad.swift */; };
 		03E3C7341D10E3120004DF98 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E3C7321D10E3120004DF98 /* Monad.swift */; };
 		03E3C7351D10E3120004DF98 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E3C7321D10E3120004DF98 /* Monad.swift */; };
@@ -817,6 +820,7 @@
 		03E172B91CF1C8020073F383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03E1732D1CF8CC350073F383 /* AttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttributedStringExtensions.swift; path = "Source-UI/AttributedStringExtensions.swift"; sourceTree = "<group>"; };
 		03E173301CF8CCD20073F383 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = "Source-UI/CollectionViewCell.swift"; sourceTree = "<group>"; };
+		03E31D5E1EB1BBE700498CAC /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Promise.swift; path = Sources/WolfCore/Promise.swift; sourceTree = "<group>"; };
 		03E3C7321D10E3120004DF98 /* Monad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Monad.swift; path = Sources/WolfCore/Monad.swift; sourceTree = "<group>"; };
 		03EB6FEB1E3A8D7F00446F07 /* FontStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontStyle.swift; path = "Source-UI/FontStyle.swift"; sourceTree = "<group>"; };
 		03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IPAddress4.swift; path = Sources/WolfCore/IPAddress4.swift; sourceTree = "<group>"; };
@@ -1147,6 +1151,7 @@
 				030C03591D148F3900EF040E /* Locker.swift */,
 				038457901CED55690012BCCE /* RunLoopUtils.swift */,
 				0362A1A81C1A22710005371F /* Serializer.swift */,
+				03E31D5E1EB1BBE700498CAC /* Promise.swift */,
 			);
 			name = Concurrency;
 			sourceTree = "<group>";
@@ -1766,6 +1771,7 @@
 				033F5EAD1CA3096700647A0A /* Gradient.swift in Sources */,
 				033F5EAE1CA3096700647A0A /* ValidationError.swift in Sources */,
 				033F5EAF1CA3096700647A0A /* FoundationJSON.swift in Sources */,
+				03E31D601EB1BBE700498CAC /* Promise.swift in Sources */,
 				034D311E1DF7A0F9004ADC34 /* DeviceUtils.swift in Sources */,
 				033F5EB01CA3096700647A0A /* Rect.swift in Sources */,
 				033A7AFC1E90963A000624D3 /* JSONRepresentable.swift in Sources */,
@@ -1952,6 +1958,7 @@
 				0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */,
 				03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */,
 				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
+				03E31D5F1EB1BBE700498CAC /* Promise.swift in Sources */,
 				036B834D1C4320F300491AFF /* Gradient.swift in Sources */,
 				03749FC01E9EB1A3005328D6 /* ActivityOverlayView.swift in Sources */,
 				0314DD171D09048C00E23C67 /* TableViewCell.swift in Sources */,
@@ -2121,6 +2128,7 @@
 				03E172D61CF1C8B60073F383 /* ColorFunc.swift in Sources */,
 				037BB9601EA89B6700028A33 /* SHA1.swift in Sources */,
 				03E172D11CF1C8B60073F383 /* Base64URL.swift in Sources */,
+				03E31D611EB1BBE700498CAC /* Promise.swift in Sources */,
 				03E172BE1CF1C8AD0073F383 /* ErrorExtensions.swift in Sources */,
 				03E3C7351D10E3120004DF98 /* Monad.swift in Sources */,
 				03E172DB1CF1C8B60073F383 /* Gradient.swift in Sources */,
