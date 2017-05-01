@@ -33,6 +33,12 @@ public postfix func ¶ (left: String) -> String {
     return left.localized()
 }
 
+precedencegroup AttributeAssignmentPrecedence {
+    associativity: left
+    higherThan: AssignmentPrecedence
+    lowerThan: ComparisonPrecedence
+}
+
 infix operator ¶ : AttributeAssignmentPrecedence
 
 public func ¶ (left: String, right: Replacements) -> String {
