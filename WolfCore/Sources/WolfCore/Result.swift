@@ -45,6 +45,15 @@ public enum Result<T>: ResultSummary {
         }
     }
 
+    public var isFailure: Bool {
+        switch self {
+        case .failure:
+            return true
+        default:
+            return false
+        }
+    }
+
     public var isCanceled: Bool {
         switch self {
         case .success, .failure:

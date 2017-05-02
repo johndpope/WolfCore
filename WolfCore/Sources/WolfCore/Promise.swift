@@ -38,6 +38,12 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         self.onRun = onRun
     }
 
+    public convenience init(error: Error) {
+        self.init {
+            $0.fail(error)
+        }
+    }
+
     @discardableResult public func run(onDone: @escaping DoneBlock) -> Self {
         assert(self.onDone == nil)
         self.onDone = onDone
@@ -45,8 +51,12 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         return self
     }
 
-    @discardableResult public func map<B>(to promise: Promise<B>, with success: @escaping (ValueType) -> Void) -> Promise<B> {
-        self.run { p in
+    @discardableResult public func run() -> Self {
+        return run { _ in }
+    }
+
+    @discardableResult public func map<U>(to promise: Promise<U>, with success: @escaping (ValueType) -> Void) -> Promise<U> {
+        run { p in
             switch p.result! {
             case .success(let value):
                 success(value)
@@ -59,11 +69,53 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         return promise
     }
 
-    @discardableResult public func succeed(with promise: SuccessPromise) -> SuccessPromise {
-        self.map(to: promise) { _ in
-            promise.keep()
+    @discardableResult public func succeed() -> SuccessPromise {
+        return then { _ in }
+    }
+
+    public func then<U>(with success: @escaping (ValueType) throws -> U) -> Promise<U> {
+        return Promise<U> { promise in
+            self.map(to: promise) { value in
+                do {
+                    try promise.keep(success(value))
+                } catch(let error) {
+                    promise.fail(error)
+                }
+            }
         }
-        return promise
+    }
+
+    public func `catch`(with failure: @escaping ErrorBlock) -> Promise<T> {
+        return Promise<T> { promise in
+            self.run { p in
+                switch p.result! {
+                case .success(let value):
+                    promise.keep(value)
+                case .failure(let error):
+                    promise.fail(error)
+                    failure(error)
+                case .canceled:
+                    promise.cancel()
+                }
+            }
+        }
+    }
+
+    public func finally(with block: @escaping Block) -> Promise<T> {
+        return Promise<T> { promise in
+            self.run { p in
+                switch p.result! {
+                case .success(let value):
+                    promise.keep(value)
+                    block()
+                case .failure(let error):
+                    promise.fail(error)
+                    block()
+                case .canceled:
+                    promise.cancel()
+                }
+            }
+        }
     }
 
     public func keep(_ value: ValueType) {

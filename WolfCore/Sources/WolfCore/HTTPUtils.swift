@@ -10,6 +10,7 @@ import Foundation
 
 public enum HTTPUtilsError: Error {
     case expectedJSONDict
+    case expectedImage
 }
 
 public struct HTTPScheme: ExtensibleEnumeratedName {
@@ -227,286 +228,47 @@ public class HTTP {
         }
     }
 
-//    @discardableResult public static func retrieveData(
-//        with request: URLRequest,
-//        successStatusCodes: [StatusCode] = [.ok], name: String? = nil,
-//        success: @escaping (HTTPURLResponse, Data) -> Void,
-//        failure: @escaping ErrorBlock,
-//        finally: Block?) -> Cancelable {
-//        let token: InFlightToken! = inFlightTracker?.start(withName: name)
-//
-//        let _sessionActions = HTTPActions()
-//
-//        _sessionActions.didReceiveResponse = { (sessionActions, session, dataTask, response, completionHandler) in
-//            completionHandler(.allow)
-//        }
-//
-//        _sessionActions.didComplete = { (sessionActions, session, task, error) in
-//            guard error == nil else {
-//                switch error {
-//                case let error as DescriptiveError:
-//                    if error.isCancelled {
-//                        inFlightTracker?.end(withToken: token, result: Result<Void>.canceled)
-//                        logTrace("\(token) retrieveData was cancelled")
-//                    }
-//                    dispatchOnMain {
-//                        failure(error)
-//                        finally?()
-//                    }
-//                default:
-//                    inFlightTracker?.end(withToken: token, result: Result<Error>.failure(error!))
-//                    logError("\(token) retrieveData returned error")
-//
-//                    dispatchOnMain {
-//                        failure(error!)
-//                        finally?()
-//                    }
-//                }
-//                return
-//            }
-//
-//            guard let httpResponse = sessionActions.response as? HTTPURLResponse else {
-//                fatalError("\(token) improper response type: \(sessionActions.response†)")
-//            }
-//
-//            guard sessionActions.data != nil else {
-//                let error = HTTPError(request: request, response: httpResponse)
-//
-//                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
-//                logError("\(token) No data returned")
-//
-//                dispatchOnMain {
-//                    failure(error)
-//                    finally?()
-//                }
-//                return
-//            }
-//
-//            guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
-//                let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
-//
-//                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
-//                logError("\(token) Unknown response code: \(httpResponse.statusCode)")
-//
-//                dispatchOnMain {
-//                    failure(error)
-//                    finally?()
-//                }
-//                return
-//            }
-//
-//            guard successStatusCodes.contains(statusCode) else {
-//                let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
-//
-//                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
-//                logError("\(token) Failure response code: \(statusCode)")
-//
-//                dispatchOnMain {
-//                    failure(error)
-//                    finally?()
-//                }
-//                return
-//            }
-//
-//            inFlightTracker?.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
-//
-//            let inFlightData = sessionActions.data!
-//            dispatchOnMain {
-//                success(httpResponse, inFlightData)
-//                finally?()
-//            }
-//        }
-//
-//        let sharedSession = URLSession.shared
-//        let config = sharedSession.configuration.copy() as! URLSessionConfiguration
-//        let session = URLSession(configuration: config, delegate: _sessionActions, delegateQueue: nil)
-//        let task = session.dataTask(with: request)
-//        task.resume()
-//        return task
-//    }
-//
-//    public typealias ResponsePromise = Promise<HTTPURLResponse>
-//
-//    public static func retrieveResponse(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> ResponsePromise {
-//        return ResponsePromise { responsePromise in
-//            retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).map(to: responsePromise) { (response, _) in
-//                responsePromise.keep(response)
-//            }
-//        }
-//    }
-
-//    @discardableResult public static func retrieveResponse(
-//        with request: URLRequest,
-//        successStatusCodes: [StatusCode] = [.ok],
-//        name: String,
-//        success: @escaping (HTTPURLResponse) -> Void,
-//        failure: @escaping ErrorBlock,
-//        finally: Block?) -> Cancelable {
-//
-//        return retrieveData(
-//            with: request,
-//            successStatusCodes: successStatusCodes,
-//            name: name,
-//            success: { (response, _) in
-//                success(response)
-//            },
-//            failure: failure,
-//            finally: finally
-//        )
-//    }
 
     public static func retrieve(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> SuccessPromise {
-        return SuccessPromise { promise in
-            retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).map(to: promise) { _ in
-                promise.keep()
-            }
-        }
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { _ in }
     }
 
-//    @discardableResult public static func retrieve(
-//        with request: URLRequest,
-//        successStatusCodes: [StatusCode] = [.ok],
-//        name: String,
-//        success: @escaping Block,
-//        failure: @escaping ErrorBlock,
-//        finally: Block?) -> Cancelable {
-//        return retrieveResponse(
-//            with: request,
-//            successStatusCodes: successStatusCodes,
-//            name: name,
-//            success: { response in
-//                success()
-//            },
-//            failure: failure,
-//            finally: finally
-//        )
-//    }
 
     public typealias JSONPromise = Promise<JSON>
 
     public static func retrieveJSON(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> JSONPromise {
-        return JSONPromise { promise in
-            var request = request
-            request.setAcceptContentType(.json)
+        var request = request
+        request.setAcceptContentType(.json)
 
-            retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).map(to: promise) { data in
-                do {
-                    promise.keep(try data |> JSON.init)
-                } catch let error {
-                    promise.fail(error)
-                }
-            }
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { data in
+            return try data |> JSON.init
         }
     }
 
-//    @discardableResult public static func retrieveJSON(
-//        with request: URLRequest,
-//        successStatusCodes: [StatusCode] = [.ok],
-//        name: String,
-//        success: @escaping (HTTPURLResponse, JSON) -> Void,
-//        failure: @escaping ErrorBlock,
-//        finally: Block?) -> Cancelable {
-//
-//        var request = request
-//        request.setAcceptContentType(.json)
-//
-//        return retrieveData(
-//            with: request,
-//            successStatusCodes: successStatusCodes,
-//            name: name,
-//            success: { (response, data) in
-//                do {
-//                    let json = try data |> JSON.init
-//                    success(response, json)
-//                } catch let error {
-//                    failure(error)
-//                }
-//            },
-//            failure: failure,
-//            finally: finally
-//        )
-//    }
 
     public typealias JSONDictionaryPromise = Promise<JSON>
 
     public static func retrieveJSONDictionary(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> JSONDictionaryPromise {
-        return JSONDictionaryPromise { promise in
-            retrieveJSON(with: request, successStatusCodes: successStatusCodes, name: name).map(to: promise) { json in
-                if json.value is JSON.Dictionary {
-                    promise.keep(json)
-                } else {
-                    promise.fail(HTTPUtilsError.expectedJSONDict)
-                }
+        return retrieveJSON(with: request, successStatusCodes: successStatusCodes, name: name).then { json in
+            guard json.value is JSON.Dictionary else {
+                throw HTTPUtilsError.expectedJSONDict
             }
+            return json
         }
     }
 
-//    @discardableResult public static func retrieveJSONDictionary(
-//        with request: URLRequest,
-//        successStatusCodes: [StatusCode] = [.ok], name: String? = nil,
-//        success: @escaping (HTTPURLResponse, JSON) -> Void,
-//        failure: @escaping ErrorBlock,
-//        finally: Block?) -> Cancelable {
-//        return retrieveJSON(
-//            with: request,
-//            successStatusCodes: successStatusCodes,
-//            name: name,
-//            success: { (response, json) in
-//                guard json.value is JSON.Dictionary else {
-//                    failure(HTTPUtilsError.expectedJSONDict)
-//                    return
-//                }
-//
-//                success(response, json)
-//            },
-//            failure: failure,
-//            finally: finally
-//        )
-//    }
 
     #if !os(Linux)
     public typealias ImagePromise = Promise<OSImage>
 
     public static func retrieveImage(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> ImagePromise {
-        return ImagePromise { promise in
-            retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).map(to: promise) { data in
-                if let image = OSImage(data: data) {
-                    promise.keep(image)
-                } else {
-                    let task = promise.task as! URLSessionDataTask
-                    let response = task.response as! HTTPURLResponse
-                    promise.fail(HTTPError(request: request, response: response, data: data))
-                }
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { data in
+            guard let image = OSImage(data: data) else {
+                throw HTTPUtilsError.expectedImage
             }
+            return image
         }
     }
-
-//    @discardableResult public static func retrieveImage(
-//        withURL url: URL,
-//        successStatusCodes: [StatusCode] = [.ok],
-//        name: String,
-//        success: @escaping (OSImage) -> Void,
-//        failure: @escaping ErrorBlock,
-//        finally: Block?) -> Cancelable {
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = HTTPMethod.get.rawValue
-//
-//        return retrieveData(
-//            with: request,
-//            successStatusCodes: successStatusCodes,
-//            name: name,
-//            success: { (response, data) in
-//                if let image = OSImage(data: data) {
-//                    success(image)
-//                } else {
-//                    failure(HTTPError(request: request, response: response, data: data))
-//                }
-//            },
-//            failure: failure,
-//            finally: finally
-//        )
-//    }
     #endif
 }
 
