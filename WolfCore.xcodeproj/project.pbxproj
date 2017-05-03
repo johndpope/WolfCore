@@ -783,7 +783,7 @@
 		03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreImageFilters.swift; path = "Source-UI/CoreImageFilters.swift"; sourceTree = "<group>"; };
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
 		03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endpoint.swift; path = Sources/WolfCore/Endpoint.swift; sourceTree = "<group>"; };
-		03CB8C731EB9726600FBC3A6 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = Sources/WolfCore/API.swift; sourceTree = "<group>"; };
+		03CB8C731EB9726600FBC3A6 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = "Sources-Foundation/API.swift"; sourceTree = "<group>"; };
 		03CCED361E75188B0002BD68 /* Editable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Editable.swift; path = "Source-UI/Editable.swift"; sourceTree = "<group>"; };
 		03CCED381E75248B0002BD68 /* Hideable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hideable.swift; path = "Source-UI/Hideable.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/WolfCore/OutputStreamUtils.swift; sourceTree = "<group>"; };
@@ -1038,7 +1038,6 @@
 				0314DD0C1D08FFFC00E23C67 /* KeyChain.swift */,
 				039AD2811E6A222300776D7B /* Credentials.swift */,
 				03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */,
-				03CB8C731EB9726600FBC3A6 /* API.swift */,
 				035C36641C500333000C04D0 /* LifeHash.swift */,
 				037BB95D1EA89B6700028A33 /* SHA1.swift */,
 				035C36661C505DB0000C04D0 /* SHA256.swift */,
@@ -1061,6 +1060,7 @@
 				03D3FA3B1E542CB500C8E550 /* URLComponentsExtensions.swift */,
 				03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */,
 				03604A431E79C6C100CA8C89 /* SocialUtils.swift */,
+				03CB8C731EB9726600FBC3A6 /* API.swift */,
 			);
 			name = Internet;
 			sourceTree = "<group>";
