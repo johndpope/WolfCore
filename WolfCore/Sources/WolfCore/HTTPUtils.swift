@@ -125,6 +125,7 @@ extension StatusCode {
     public static let unauthorized = StatusCode(401)
     public static let forbidden = StatusCode(403)
     public static let notFound = StatusCode(404)
+    public static let conflict = StatusCode(409)
     public static let tooManyRequests = StatusCode(429)
 
     public static let internalServerError = StatusCode(500)

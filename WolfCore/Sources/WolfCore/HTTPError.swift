@@ -8,6 +8,13 @@
 
 import Foundation
 
+extension Error {
+    public var httpStatusCode: StatusCode? {
+        guard let e = self as? HTTPError else { return nil }
+        return e.statusCode
+    }
+}
+
 public struct HTTPError: DescriptiveError {
     public let request: URLRequest
     public let response: HTTPURLResponse
@@ -51,25 +58,4 @@ extension HTTPError: CustomStringConvertible {
     public var description: String {
         return "HTTPError(\(code) \(message))"
     }
-}
-
-public func logHTTPError(_ error: Error) {
-    guard let err = error as? HTTPError else {
-        logError(error)
-        return
-    }
-    err.request.printRequest()
-    guard let json = err.json else {
-        logError("Error contains no JSON.")
-        return
-    }
-    guard let dict = json.value as? JSON.Dictionary else {
-        logError("JSON is not dictionary.")
-        return
-    }
-    guard let message = dict["message"] else {
-        logError("Error dictionary contains no message field.")
-        return
-    }
-    logError("message: \(message)")
 }

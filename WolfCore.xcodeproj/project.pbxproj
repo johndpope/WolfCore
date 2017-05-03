@@ -392,6 +392,12 @@
 		03C9AA1D1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03C9AA1E1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03CA5A401E39195E00A7D3C6 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */; };
+		03CB8C701EB9723A00FBC3A6 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */; };
+		03CB8C711EB9723A00FBC3A6 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */; };
+		03CB8C721EB9723A00FBC3A6 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */; };
+		03CB8C741EB9726600FBC3A6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB8C731EB9726600FBC3A6 /* API.swift */; };
+		03CB8C751EB9726600FBC3A6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB8C731EB9726600FBC3A6 /* API.swift */; };
+		03CB8C761EB9726600FBC3A6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB8C731EB9726600FBC3A6 /* API.swift */; };
 		03CCED371E75188B0002BD68 /* Editable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCED361E75188B0002BD68 /* Editable.swift */; };
 		03CCED391E75248B0002BD68 /* Hideable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCED381E75248B0002BD68 /* Hideable.swift */; };
 		03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */; };
@@ -776,6 +782,8 @@
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
 		03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreImageFilters.swift; path = "Source-UI/CoreImageFilters.swift"; sourceTree = "<group>"; };
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
+		03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endpoint.swift; path = Sources/WolfCore/Endpoint.swift; sourceTree = "<group>"; };
+		03CB8C731EB9726600FBC3A6 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = Sources/WolfCore/API.swift; sourceTree = "<group>"; };
 		03CCED361E75188B0002BD68 /* Editable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Editable.swift; path = "Source-UI/Editable.swift"; sourceTree = "<group>"; };
 		03CCED381E75248B0002BD68 /* Hideable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hideable.swift; path = "Source-UI/Hideable.swift"; sourceTree = "<group>"; };
 		03CEACF81C5FB9860014A07A /* OutputStreamUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputStreamUtils.swift; path = Sources/WolfCore/OutputStreamUtils.swift; sourceTree = "<group>"; };
@@ -1029,6 +1037,8 @@
 				03CFAC011C2F1DA6007DAAC2 /* HashIDs.swift */,
 				0314DD0C1D08FFFC00E23C67 /* KeyChain.swift */,
 				039AD2811E6A222300776D7B /* Credentials.swift */,
+				03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */,
+				03CB8C731EB9726600FBC3A6 /* API.swift */,
 				035C36641C500333000C04D0 /* LifeHash.swift */,
 				037BB95D1EA89B6700028A33 /* SHA1.swift */,
 				035C36661C505DB0000C04D0 /* SHA256.swift */,
@@ -1732,6 +1742,7 @@
 				032D777F1E256C4D0058CF1B /* Graph.swift in Sources */,
 				038765421D2464CB0082FC79 /* Framework.swift in Sources */,
 				034DCA6D1E8E3B810073DFD3 /* JSONModel.swift in Sources */,
+				03CB8C751EB9726600FBC3A6 /* API.swift in Sources */,
 				033F5E9D1CA3096700647A0A /* StringExtensions.swift in Sources */,
 				0378EC881DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				033F5E9E1CA3096700647A0A /* AffineTransformUtils.swift in Sources */,
@@ -1813,6 +1824,7 @@
 				037016051E0CC8A1006505EF /* OptionalExtensions.swift in Sources */,
 				033F5EE31CA31AF200647A0A /* ViewExtensions.swift in Sources */,
 				033F5ECA1CA3096700647A0A /* RegularExpressionExtensions.swift in Sources */,
+				03CB8C711EB9723A00FBC3A6 /* Endpoint.swift in Sources */,
 				032418161E2C468100082E6A /* GraphError.swift in Sources */,
 				033F5ECB1CA3096700647A0A /* ArrayExtensions.swift in Sources */,
 				032D77891E256F370058CF1B /* Edge.swift in Sources */,
@@ -1859,6 +1871,7 @@
 				035553401C0F622A00E0FCA7 /* BundleExtensions.swift in Sources */,
 				0314DCC11D08ED2200E23C67 /* NavigationController.swift in Sources */,
 				0355533E1C0F622A00E0FCA7 /* AutolayoutUtils.swift in Sources */,
+				03CB8C741EB9726600FBC3A6 /* API.swift in Sources */,
 				03E13B7D1C4F28F60074E447 /* CGColorUtils.swift in Sources */,
 				035553491C0F622A00E0FCA7 /* GeneralError.swift in Sources */,
 				038BB9411E51A25B00B957C2 /* Dimensions.swift in Sources */,
@@ -2041,6 +2054,7 @@
 				0378EC871DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				0355533D1C0F622A00E0FCA7 /* ArrayExtensions.swift in Sources */,
 				032D777E1E256C4D0058CF1B /* Graph.swift in Sources */,
+				03CB8C701EB9723A00FBC3A6 /* Endpoint.swift in Sources */,
 				0324AF001CF81FD40080DFF6 /* DevOverlayView.swift in Sources */,
 				032F77AB1C1580B5001FCF2C /* ScrollView.swift in Sources */,
 				033A7AFB1E90963A000624D3 /* JSONRepresentable.swift in Sources */,
@@ -2197,6 +2211,7 @@
 				0359AF601D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				0324181B1E2EDE0400082E6A /* StrongComponents.swift in Sources */,
 				0378EC8C1DF4DA9900E6A875 /* SQLite.swift in Sources */,
+				03CB8C761EB9726600FBC3A6 /* API.swift in Sources */,
 				03D3FA491E550A8F00C8E550 /* Timeline.swift in Sources */,
 				03E1731A1CF1C8FB0073F383 /* BezierPathExtensions.swift in Sources */,
 				03E173011CF1C8E70073F383 /* Heartbeat.swift in Sources */,
@@ -2252,6 +2267,7 @@
 				03E172DA1CF1C8B60073F383 /* GeometryUtils.swift in Sources */,
 				033AC34A1D171703008C8B93 /* Interval.swift in Sources */,
 				039AD2841E6A222300776D7B /* Credentials.swift in Sources */,
+				03CB8C721EB9723A00FBC3A6 /* Endpoint.swift in Sources */,
 				03E172BF1CF1C8AD0073F383 /* GeneralError.swift in Sources */,
 				032418131E2C440600082E6A /* TopologicalSort.swift in Sources */,
 				03106F6C1D40D96800E21F82 /* RunesArray.swift in Sources */,

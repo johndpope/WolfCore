@@ -55,13 +55,17 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         return run { _ in }
     }
 
-    @discardableResult public func map<U>(to promise: Promise<U>, with success: @escaping (ValueType) -> Void) -> Promise<U> {
+    @discardableResult public func map<U>(to promise: Promise<U>, failing: ((Error) -> Void)? = nil, with success: @escaping (ValueType) -> Void) -> Promise<U> {
         run { p in
             switch p.result! {
             case .success(let value):
                 success(value)
             case .failure(let error):
-                promise.fail(error)
+                if let failing = failing {
+                    failing(error)
+                } else {
+                    promise.fail(error)
+                }
             case .canceled:
                 promise.cancel()
             }
@@ -94,6 +98,21 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
                 case .failure(let error):
                     promise.fail(error)
                     failure(error)
+                case .canceled:
+                    promise.cancel()
+                }
+            }
+        }
+    }
+
+    public func recover(with failing: @escaping (Error, Promise<T>) -> Void) -> Promise<T> {
+        return Promise<T> { promise in
+            self.run { p in
+                switch p.result! {
+                case .success(let value):
+                    promise.keep(value)
+                case .failure(let error):
+                    failing(error, promise)
                 case .canceled:
                     promise.cancel()
                 }
