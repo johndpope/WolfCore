@@ -76,7 +76,7 @@ open class WebViewController: ViewController {
     }
 
     public func dismiss() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 
     func syncToWebView() {

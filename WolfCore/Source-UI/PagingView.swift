@@ -59,18 +59,15 @@ open class PagingView: View {
 
         pageControl.show()
 
-        dispatchAnimated(
-            animations: {
-                if isHidden {
-                    self.pageControl.alpha = 0.0
-                } else {
-                    self.pageControl.alpha = 1.0
-                }
-            },
-            completion: { _ in
-                self.pageControl.hideIf(isHidden)
+        dispatchAnimated {
+            if isHidden {
+                self.pageControl.alpha = 0.0
+            } else {
+                self.pageControl.alpha = 1.0
             }
-        )
+        }.run { _ in
+            self.pageControl.hideIf(isHidden)
+        }
     }
 
     public var arrangedViews: [UIView] {

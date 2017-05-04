@@ -115,24 +115,19 @@ public class InFlightView: View {
 
     private func layoutTokenViews(animated: Bool) {
         for tokenView in leavingTokenViews {
-            dispatchAnimated(animated,
-                duration: animationDuration,
-                options: [.beginFromCurrentState, .curveEaseOut],
-                animations: {
-                    tokenView.alpha = 0.0
-                },
-                completion: { finished in
-                    tokenView.removeFromSuperview()
-                    self.tokenViewsByID.removeValue(forKey: tokenView.token.id)
-                    if let index = self.leftTokenViews.index(of: tokenView) {
-                        self.leftTokenViews.remove(at: index)
-                    }
-                    if let index = self.rightTokenViews.index(of: tokenView) {
-                        self.rightTokenViews.remove(at: index)
-                    }
-                    self.needsTokenViewLayout = true
+            dispatchAnimated(animated, duration: animationDuration, options: [.beginFromCurrentState, .curveEaseOut]) {
+                tokenView.alpha = 0.0
+            }.then { finished in
+                tokenView.removeFromSuperview()
+                self.tokenViewsByID.removeValue(forKey: tokenView.token.id)
+                if let index = self.leftTokenViews.index(of: tokenView) {
+                    self.leftTokenViews.remove(at: index)
                 }
-            )
+                if let index = self.rightTokenViews.index(of: tokenView) {
+                    self.rightTokenViews.remove(at: index)
+                }
+                self.needsTokenViewLayout = true
+            }.run()
         }
 
         for (index, tokenView) in leftTokenViews.enumerated() {
@@ -144,27 +139,17 @@ public class InFlightView: View {
         }
 
         for tokenView in enteringTokenViews {
-            dispatchAnimated(animated,
-                duration: animationDuration,
-                delay: 0.0,
-                options: [.beginFromCurrentState, .curveEaseOut],
-                animations: {
-                    tokenView.alpha = 1.0
-                }
-            )
+            dispatchAnimated(animated, duration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, .curveEaseOut]) {
+                tokenView.alpha = 1.0
+            }.run()
         }
         enteringTokenViews.removeAll()
 
         setNeedsLayout()
 
-        dispatchAnimated(animated,
-            duration: animationDuration,
-            delay: 0.0,
-            options: [.beginFromCurrentState, .curveEaseOut],
-            animations: {
-                self.layoutIfNeeded()
-            }
-        )
+        dispatchAnimated(animated, duration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, .curveEaseOut]) {
+            self.layoutIfNeeded()
+        }.run()
     }
 
     private func layout(tokenView: InFlightTokenView, index: Int, referenceView: OSView) {

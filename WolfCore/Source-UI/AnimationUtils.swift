@@ -47,60 +47,49 @@
 public let defaultAnimationDuration: TimeInterval = 0.4
 
 #if os(macOS)
-    public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block) {
-        if animated {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = duration
-                context.allowsImplicitAnimation = true
-                if options.contains(.curveEaseInOut) {
-                    context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                } else if options.contains(.curveEaseIn) {
-                    context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-                } else if options.contains(.curveEaseOut) {
-                    context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                } else if options.contains(.curveLinear) {
-                    context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+
+    public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block) -> SuccessPromise {
+        return SuccessPromise { promise in
+            if animated {
+                NSAnimationContext.runAnimationGroup({ context in
+                    context.duration = duration
+                    context.allowsImplicitAnimation = true
+                    if options.contains(.curveEaseInOut) {
+                        context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    } else if options.contains(.curveEaseIn) {
+                        context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+                    } else if options.contains(.curveEaseOut) {
+                        context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                    } else if options.contains(.curveLinear) {
+                        context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+                    }
+                    animations()
+                }, completionHandler: {
+                    promise.keep()
                 }
+                )
+            } else {
                 animations()
-            })
-        } else {
-            animations()
+                promise.keep()
+            }
         }
     }
 
-    public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block, completion: @escaping Block) {
-        if animated {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = duration
-                context.allowsImplicitAnimation = true
-                animations()
-            },
-                completionHandler: completion
-            )
-        } else {
-            animations()
-            completion()
-        }
-    }
 #else
-public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block) {
-    assert(Thread.isMainThread)
-    if animated {
-        UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: nil)
-    } else {
-        animations()
-    }
-}
 
-public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block, completion: @escaping ((Bool) -> Void)) {
-    assert(Thread.isMainThread)
-    if animated {
-        UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
-    } else {
-        animations()
-        completion(true)
+    public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = defaultAnimationDuration, delay: TimeInterval = 0.0, options: OSViewAnimationOptions = [], animations: @escaping Block) -> Promise<Bool> {
+        return Promise<Bool> { promise in
+            assert(Thread.isMainThread)
+            if animated {
+                UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations) { finished in
+                    promise.keep(finished)
+                }
+            } else {
+                animations()
+                promise.keep(true)
+            }
+        }
     }
-}
 
     public func animationOptions(for curve: UIViewAnimationCurve) -> UIViewAnimationOptions {
         switch curve {
@@ -114,4 +103,5 @@ public func dispatchAnimated(_ animated: Bool = true, duration: TimeInterval = d
             return [.curveLinear]
         }
     }
+
 #endif

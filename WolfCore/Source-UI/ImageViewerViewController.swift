@@ -188,7 +188,7 @@ public class ImageViewerViewController: ViewController {
         dispatchAnimated(animated) {
             self.setNeedsStatusBarAppearanceUpdate()
             self.view.backgroundColor = .black
-        }
+        }.run()
     }
 
     private func showChrome(animated: Bool) {
@@ -197,7 +197,7 @@ public class ImageViewerViewController: ViewController {
         dispatchAnimated(animated) {
             self.setNeedsStatusBarAppearanceUpdate()
 //            self.view.backgroundColor = .white
-        }
+        }.run()
     }
 
     private func toggleZoom(animated: Bool, focusPoint point: CGPoint) {
@@ -219,7 +219,7 @@ public class ImageViewerViewController: ViewController {
 
     private func dismiss() {
         willDismissAction?()
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 

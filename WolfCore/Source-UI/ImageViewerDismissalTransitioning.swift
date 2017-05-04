@@ -40,19 +40,15 @@ class ImageViewerDismissalTransitioning: NSObject, UIViewControllerAnimatedTrans
             movingImageView
         ]
 
-        dispatchAnimated(
-            duration: transitionDuration(using: transitionContext),
-            animations: {
-                fromView.alpha = 0.0
-                movingImageView.frame = movingImageViewEndFrame
-            },
-            completion: { finished in
-                viewerViewController.sourceImageView.alpha = sourcePriorAlpha
-                movingImageView.removeFromSuperview()
-                viewerViewController.isImageViewHidden = false
-                let cancelled = transitionContext.transitionWasCancelled
-                transitionContext.completeTransition(!cancelled)
-            }
-        )
+        dispatchAnimated(duration: transitionDuration(using: transitionContext)) {
+            fromView.alpha = 0.0
+            movingImageView.frame = movingImageViewEndFrame
+        }.then { _ in
+            viewerViewController.sourceImageView.alpha = sourcePriorAlpha
+            movingImageView.removeFromSuperview()
+            viewerViewController.isImageViewHidden = false
+            let cancelled = transitionContext.transitionWasCancelled
+            transitionContext.completeTransition(!cancelled)
+        }.run()
     }
 }

@@ -382,13 +382,13 @@ public class PowerTextField: View, Editable {
     private func concealPlaceholder(animated: Bool) {
         dispatchAnimated(animated) {
             self.placeholderLabel.alpha = 0
-        }
+        }.run()
     }
 
     private func revealPlaceholder(animated: Bool) {
         dispatchAnimated(animated) {
             self.placeholderLabel.alpha = 1
-        }
+        }.run()
     }
 
     fileprivate lazy var placeholderHider: Locker = {

@@ -23,11 +23,11 @@ extension UIWindow {
                 rootViewController = newController
                 bringSubview(toFront: snapshotImageView)
                 if animated {
-                    dispatchAnimated(animations: {
+                    dispatchAnimated {
                         snapshotImageView.alpha = 0
-                    }, completion: { _ in
+                    }.then { _ in
                         onCompletion()
-                    })
+                    }.run()
                 } else {
                     onCompletion()
                 }

@@ -27,9 +27,9 @@ extension UITableView {
                 dispatchAnimated {
                     let cellFrame = self.rectForRow(at: indexPath)
                     self.scrollRectToVisible(cellFrame, animated: false)
-                }
+                }.run()
             }
-        }
+        }.run()
         endUpdates()
     }
 
