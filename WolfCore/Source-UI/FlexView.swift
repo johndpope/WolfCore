@@ -9,8 +9,8 @@
 import UIKit
 
 public struct FlexImageLabel {
-    var image: UIImage
-    var string: String
+    public var image: UIImage
+    public var string: String
     public init(image: UIImage, string: String) {
         self.image = image
         self.string = string
