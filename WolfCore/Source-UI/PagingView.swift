@@ -107,6 +107,11 @@ open class PagingView: View {
         let nextPage = arrangedViews.circularIndex(at: currentPage + 1)
         scroll(toPage: nextPage, animated: animated)
     }
+    
+    public func scrollToPreviousPage(animated: Bool = true) {
+        let previousPage = arrangedViews.circularIndex(at: currentPage - 1)
+        scroll(toPage: previousPage, animated: animated)
+    }
 
     private var previousSize: CGSize?
 
