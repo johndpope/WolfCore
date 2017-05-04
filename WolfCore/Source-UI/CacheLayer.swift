@@ -8,11 +8,9 @@
 
 import Foundation
 
-public typealias CacheLayerCompletion = (Data?) -> Void
-
 public protocol CacheLayer {
-    func store(data: Data, forURL url: URL)
-    func retrieveData(forURL url: URL, completion: @escaping CacheLayerCompletion)
-    func removeData(forURL url: URL)
+    func store(data: Data, for url: URL)
+    func retrieveData(for url: URL) -> DataPromise
+    func removeData(for url: URL)
     func removeAll()
 }

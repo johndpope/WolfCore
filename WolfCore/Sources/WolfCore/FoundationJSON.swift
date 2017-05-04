@@ -10,6 +10,8 @@ import Foundation
 
 public typealias JSON = FoundationJSON
 
+public typealias JSONPromise = Promise<JSON>
+
 public struct FoundationJSON {
     private typealias `Self` = FoundationJSON
 

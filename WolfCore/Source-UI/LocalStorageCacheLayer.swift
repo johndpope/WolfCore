@@ -50,16 +50,16 @@ public class LocalStorageCacheLayer: CacheLayer {
         }
     }
 
-    public func store(data: Data, forURL url: URL) {
-        logTrace("storeData forURL: \(url)", obj: self, group: .cache)
+    public func store(data: Data, for url: URL) {
+        logTrace("storeData for: \(url)", obj: self, group: .cache)
         dispatchOnBackground {
             self.serializer.dispatch {
-                self._store(data: data, forURL: url)
+                self._store(data: data, for: url)
             }
         }
     }
 
-    private func _store(data: Data, forURL url: URL) {
+    private func _store(data: Data, for url: URL) {
 
         // Get the current total size of the cache
         var totalSize: Int
@@ -177,51 +177,57 @@ public class LocalStorageCacheLayer: CacheLayer {
         return sizeReclaimed
     }
 
-    public func retrieveData(forURL url: URL, completion: @escaping CacheLayerCompletion) {
-        logTrace("retrieveDataForURL: \(url)", obj: self, group: .cache)
-        dispatchOnBackground {
-            self.serializer.dispatch {
-                self._retrieveData(forURL: url, completion: completion)
-            }
-        }
-    }
-
-    private func _retrieveData(forURL url: URL, completion: @escaping CacheLayerCompletion) {
-        do {
-            let selectStatement = try db.prepare(sql: "SELECT data FROM cache where url=:url")
-            selectStatement.bindParameter(named: "url", toURL: url)
-            switch try selectStatement.step() {
-            case .row:
-                let data = selectStatement.blobValue(forColumnIndex: 0)
-                dispatchOnMain {
-                    completion(data)
-                }
-
-                let updateStatement = try db.prepare(sql: "UPDATE cache SET dateAccessed=CURRENT_TIMESTAMP WHERE url=:url")
-                updateStatement.bindParameter(named: "url", toURL: url)
-                try updateStatement.step()
-
-            case .done:
-                dispatchOnMain {
-                    completion(nil)
+    public func retrieveData(for url: URL) -> DataPromise {
+        func perform(promise: DataPromise) {
+            logTrace("retrieveDataForURL: \(url)", obj: self, group: .cache)
+            dispatchOnBackground {
+                self.serializer.dispatch {
+                    _perform(promise: promise)
                 }
             }
-        } catch let error {
-            logError("Retrieving cache data for URL: \(url) error: \(error).", obj: self)
-            completion(nil)
         }
+
+        func _perform(promise: DataPromise) {
+            do {
+                let selectStatement = try db.prepare(sql: "SELECT data FROM cache where url=:url")
+                selectStatement.bindParameter(named: "url", toURL: url)
+                switch try selectStatement.step() {
+                case .row:
+                    let data = selectStatement.blobValue(forColumnIndex: 0)!
+                    dispatchOnMain {
+                        promise.keep(data)
+                    }
+
+                    let updateStatement = try db.prepare(sql: "UPDATE cache SET dateAccessed=CURRENT_TIMESTAMP WHERE url=:url")
+                    updateStatement.bindParameter(named: "url", toURL: url)
+                    try updateStatement.step()
+
+                case .done:
+                    dispatchOnMain {
+                        promise.fail(CacheError.miss(url))
+                    }
+                }
+            } catch let error {
+                logError("Retrieving cache data for URL: \(url) error: \(error).", obj: self)
+                dispatchOnMain {
+                    promise.fail(error)
+                }
+            }
+        }
+
+        return DataPromise(with: perform)
     }
 
-    public func removeData(forURL url: URL) {
+    public func removeData(for url: URL) {
         logTrace("removeDataForURL: \(url)", obj: self, group: .cache)
         dispatchOnBackground {
             self.serializer.dispatch {
-                self._removeData(forURL: url)
+                self._removeData(for: url)
             }
         }
     }
 
-    private func _removeData(forURL url: URL) {
+    private func _removeData(for url: URL) {
         do {
             let deleteStatement = try db.prepare(sql: "DELETE FROM cache WHERE url=:url")
             deleteStatement.bindParameter(named: "url", toURL: url)
