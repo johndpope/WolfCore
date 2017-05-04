@@ -231,10 +231,18 @@ public class PowerTextField: View, Editable {
         return view
     }()
 
+    public var frameColor: UIColor = .black {
+        didSet {
+            syncFrame()
+        }
+    }
+
+    private func syncFrame() {
+        frameView.layer.borderColor = frameColor.cgColor
+    }
+
     private lazy var frameView: View = {
         let view = View()
-        //view.isTransparentToTouches = true
-        view.layer.borderColor = UIColor.gray.cgColor
         view.layer.borderWidth = 0.5
         return view
     }()
@@ -350,10 +358,12 @@ public class PowerTextField: View, Editable {
 
     public override func updateAppearance(skin: Skin?) {
         super.updateAppearance(skin: skin)
+        guard let skin = skin else { return }
         textView.fontStyleName = .textFieldContent
         characterCountLabel.fontStyleName = .textFieldCounter
         placeholderLabel.fontStyleName = .textFieldPlaceholder
-        iconView.tintColor = skin?.textFieldIconTintColor
+        iconView.tintColor = skin.textFieldIconTintColor
+        frameColor = skin.textFieldFrameColor
         syncToFont()
     }
 

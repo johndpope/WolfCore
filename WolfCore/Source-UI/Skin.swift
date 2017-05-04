@@ -46,6 +46,7 @@ public protocol Skin {
     var pageIndicatorTintColor: UIColor { get }
 
     var textFieldIconTintColor: UIColor { get }
+    var textFieldFrameColor: UIColor { get }
 
     var fontStyles: FontStyles { get }
 
@@ -102,6 +103,7 @@ open class DefaultSkin: Skin {
     open var pageIndicatorTintColor: UIColor { return currentPageIndicatorTintColor.withAlphaComponent(0.3) }
 
     open var textFieldIconTintColor: UIColor { return defaultTintColor }
+    open var textFieldFrameColor: UIColor { return textColor }
 
     open var sliderThumbColor: UIColor { return defaultTintColor }
     open var sliderMinTrackColor: UIColor { return .lightGray }
@@ -185,6 +187,7 @@ open class InterpolateSkin: Skin {
     open lazy var pageIndicatorTintColor: UIColor = { return self.blend(from: self.skin1.pageIndicatorTintColor, to: self.skin2.pageIndicatorTintColor) }()
 
     open lazy var textFieldIconTintColor: UIColor = { return self.blend(from: self.skin1.textFieldIconTintColor, to: self.skin2.textFieldIconTintColor) }()
+    open lazy var textFieldFrameColor: UIColor = { return self.blend(from: self.skin1.textFieldFrameColor, to: self.skin2.textFieldFrameColor) }()
 
     open lazy var sliderThumbColor: UIColor = { return self.blend(from: self.skin1.sliderThumbColor, to: self.skin2.sliderThumbColor) }()
     open lazy var sliderMinTrackColor: UIColor = { return self.blend(from: self.skin1.sliderMinTrackColor, to: self.skin2.sliderMinTrackColor) }()
