@@ -48,7 +48,7 @@ open class StackView: OSStackView, Skinnable, Editable {
             view.isHidden = !view.isHidden
 
             self.layoutIfNeeded()
-        }
+        }.run()
     }
 
     public override init(frame: CGRect) {

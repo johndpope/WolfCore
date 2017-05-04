@@ -59,7 +59,7 @@ public class ConcealerView: GradientOverlayView {
         superview.layoutIfNeeded()
         dispatchAnimated(animated) {
             self.alpha = 1
-        }
+        }.run()
     }
 
     public func reveal(animated: Bool) {
@@ -68,6 +68,6 @@ public class ConcealerView: GradientOverlayView {
         leadingConstraint = activateConstraint(leadingAnchor == superview.trailingAnchor)
         dispatchAnimated(animated, duration: 1.0, options: [.curveLinear]) {
             superview.layoutIfNeeded()
-        }
+        }.run()
     }
 }

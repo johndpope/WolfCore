@@ -17,7 +17,7 @@ public typealias ImageProcessingBlock = (UIImage) -> UIImage
 open class ImageView: UIImageView, Skinnable {
     public var isTransparentToTouches = false
     //private var updatePDFCanceler: Cancelable?
-    private var retrieveCanceler: Cancelable?
+    private var retrievePromise: Cancelable?
     public var onRetrieveStart: ImageViewBlock?
     public var onRetrieveSuccess: ImageViewBlock?
     public var onRetrieveFailure: ImageViewBlock?
@@ -55,28 +55,26 @@ open class ImageView: UIImageView, Skinnable {
     public var url: URL? {
         didSet {
             guard let url = self.url else { return }
-            retrieveCanceler?.cancel()
+            retrievePromise?.cancel()
             self.pdf = nil
             self.image = nil
             self.onRetrieveStart?(self)
             if url.absoluteString.hasSuffix("pdf") {
-                self.retrieveCanceler = sharedDataCache.retrieveObject(forURL: url) { data in
-                    if let data = data {
-                        self.pdf = PDF(data: data)
-                        self.onRetrieveSuccess?(self)
-                    } else {
-                        self.onRetrieveFailure?(self)
-                    }
+                self.retrievePromise = sharedDataCache.retrieveObject(for: url).then { data in
+                    self.pdf = PDF(data: data)
+                    self.onRetrieveSuccess?(self)
+                }.catch { error in
+                    self.onRetrieveFailure?(self)
+                }.run { _ in
                     self.onRetrieveFinally?(self)
                 }
             } else {
-                self.retrieveCanceler = sharedImageCache.retrieveObject(forURL: url) { image in
-                    if let image = image {
-                        self.image = image
-                        self.onRetrieveSuccess?(self)
-                    } else {
-                        self.onRetrieveFailure?(self)
-                    }
+                self.retrievePromise = sharedImageCache.retrieveObject(for: url).then { image in
+                    self.image = image
+                    self.onRetrieveSuccess?(self)
+                }.catch { error in
+                    self.onRetrieveFailure?(self)
+                }.run { _ in
                     self.onRetrieveFinally?(self)
                 }
             }

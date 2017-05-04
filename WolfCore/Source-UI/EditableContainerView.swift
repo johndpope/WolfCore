@@ -88,6 +88,6 @@ public class EditableContainerView: View, Editable {
                 self.normalView.alpha = 0
             }
             self.layoutIfNeeded()
-        }
+        }.run()
     }
 }

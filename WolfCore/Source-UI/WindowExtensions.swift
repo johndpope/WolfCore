@@ -9,36 +9,40 @@
 import UIKit
 
 extension UIWindow {
-    public func replaceRootViewController(with newController: UIViewController, animated: Bool = true, completion: Block? = nil) {
-        let snapshotImageView = UIImageView(image: self.snapshot())
-        self.addSubview(snapshotImageView)
+    public func replaceRootViewController(with newController: UIViewController, animated: Bool = true) -> SuccessPromise {
+        func perform(promise: SuccessPromise) {
+            let snapshotImageView = UIImageView(image: snapshot())
+            self.addSubview(snapshotImageView)
 
-        func onCompletion() {
-            snapshotImageView.removeFromSuperview()
-            completion?()
-        }
-
-        func animateTransition() {
-            rootViewController = newController
-            bringSubview(toFront: snapshotImageView)
-            if animated {
-                dispatchAnimated(animations: {
-                    snapshotImageView.alpha = 0
-                }, completion: { _ in
-                    onCompletion()
-                })
-            } else {
-                onCompletion()
+            func onCompletion() {
+                snapshotImageView.removeFromSuperview()
+                promise.keep()
             }
-        }
 
-        if let presentedViewController = rootViewController?.presentedViewController {
-            presentedViewController.dismiss(animated: false) {
+            func animateTransition() {
+                rootViewController = newController
+                bringSubview(toFront: snapshotImageView)
+                if animated {
+                    dispatchAnimated {
+                        snapshotImageView.alpha = 0
+                    }.then { _ in
+                        onCompletion()
+                    }.run()
+                } else {
+                    onCompletion()
+                }
+            }
+
+            if let presentedViewController = rootViewController?.presentedViewController {
+                presentedViewController.dismiss(animated: false) {
+                    animateTransition()
+                }
+            } else {
                 animateTransition()
             }
-        } else {
-            animateTransition()
         }
+
+        return SuccessPromise(with: perform)
     }
 
     public func updateForOrientation() {

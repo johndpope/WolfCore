@@ -13,106 +13,62 @@ public class HTTPCacheLayer: CacheLayer {
         logTrace("init", obj: self, group: .cache)
     }
 
-    public func store(data: Data, forURL url: URL) {
-        logTrace("storeData forURL: \(url)", obj: self, group: .cache)
+    public func store(data: Data, for url: URL) {
+        logTrace("storeData for: \(url)", obj: self, group: .cache)
         // Do nothing.
     }
 
-    public func retrieveData(forURL url: URL, completion: @escaping CacheLayerCompletion) {
+    public func retrieveData(for url: URL) -> DataPromise {
         logTrace("retrieveDataForURL: \(url)", obj: self, group: .cache)
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
-        request.httpMethod = HTTPMethod.get.rawValue
+        request.setMethod(.get)
 
-        HTTP.retrieveData(with: request).run { dataPromise in
-            switch dataPromise.result! {
-            case .success(let rawData):
-                var contentType: ContentType?
-                let task = dataPromise.task as! URLSessionDataTask
-                let response = task.response as! HTTPURLResponse
-                if let contentTypeString = response.allHeaderFields[HeaderField.contentType.rawValue] as? String {
-                    contentType = ContentType(rawValue: contentTypeString)
+        return HTTP.retrieveData(with: request).thenWith { promise in
+            let task = promise.task as! URLSessionDataTask
+            let response = task.response as! HTTPURLResponse
+
+            var contentType: ContentType?
+            if let contentTypeString = response.value(for: .contentType) {
+                contentType = ContentType(rawValue: contentTypeString)
+                guard contentType != nil else {
+                    throw CacheError.unsupportedContentType(url, contentType!.rawValue)
                 }
+            }
 
-                let encoding = response.allHeaderFields[HeaderField.encoding.rawValue] as? String
+            let encoding = response.value(for: .encoding)
 
-                guard encoding == nil else {
-                    logError("Unsupported encoding: \(encoding†)", obj: self)
-                    completion(nil)
-                    return
-                }
+            guard encoding == nil else {
+                throw CacheError.unsupportedEncoding(url, encoding!)
+            }
 
-                var data: Data?
-                if let contentType = contentType {
-                    switch contentType {
-                    case ContentType.jpg:
-                        data = OSImage(data: rawData)?.serialize()
-                    case ContentType.png:
-                        data = OSImage(data: rawData)?.serialize()
-                    case ContentType.gif:
-                        data = OSImage(data: rawData)?.serialize()
-                    case ContentType.pdf:
-                        data = rawData
-                    default:
-                        logError("Unsupported content type: \(contentType)", obj: self)
+            let data = promise.value!
+            
+            if let contentType = contentType {
+                switch contentType {
+                case ContentType.jpg, ContentType.png, ContentType.gif:
+                    if let serializedImageData = OSImage(data: data)?.serialize() {
+                        return serializedImageData
+                    } else {
+                        throw CacheError.badImageData(url)
                     }
+                case ContentType.pdf:
+                    return data
+                default:
+                    throw CacheError.unsupportedEncoding(url, contentType.rawValue)
                 }
-                
-                completion(data)
-
-            case .failure(let error):
-                logError("Retrieving cache URL: \(url) (\(error))", obj: self)
-                completion(nil)
-
-            case .canceled:
-                break
+            } else {
+                return data
+            }
+        }.recover { (error, promise) in
+            if error.httpStatusCode == .notFound {
+                promise.fail(CacheError.miss(url))
+            } else {
+                promise.fail(error)
             }
         }
-
-//        HTTP.retrieveData(
-//            with: request,
-//            successStatusCodes: [.ok],
-//            name: "CacheRetrieve",
-//            success: { (response, rawData) in
-//                var contentType: ContentType?
-//                if let contentTypeString = response.allHeaderFields[HeaderField.contentType.rawValue] as? String {
-//                    contentType = ContentType(rawValue: contentTypeString)
-//                }
-//
-//                let encoding = response.allHeaderFields[HeaderField.encoding.rawValue] as? String
-//
-//                guard encoding == nil else {
-//                    logError("Unsupported encoding: \(encoding†)", obj: self)
-//                    completion(nil)
-//                    return
-//                }
-//
-//                var data: Data?
-//                if let contentType = contentType {
-//                    switch contentType {
-//                    case ContentType.jpg:
-//                        data = OSImage(data: rawData)?.serialize()
-//                    case ContentType.png:
-//                        data = OSImage(data: rawData)?.serialize()
-//                    case ContentType.gif:
-//                        data = OSImage(data: rawData)?.serialize()
-//                    case ContentType.pdf:
-//                        data = rawData
-//                    default:
-//                        logError("Unsupported content type: \(contentType)", obj: self)
-//                    }
-//                }
-//
-//                completion(data)
-//        },
-//            failure: { error in
-//                logError("Retrieving cache URL: \(url) (\(error))", obj: self)
-//                completion(nil)
-//        },
-//            finally: nil
-//        )
     }
 
-    public func removeData(forURL url: URL) {
+    public func removeData(for url: URL) {
         logTrace("removeDataForURL: \(url)", obj: self, group: .cache)
         // Do nothing.
     }

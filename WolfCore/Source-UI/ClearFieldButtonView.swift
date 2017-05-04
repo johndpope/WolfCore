@@ -32,11 +32,11 @@ public class ClearFieldButtonView: View {
 
     public func conceal(animated: Bool) {
         if !isHidden {
-            dispatchAnimated(animated, animations: {
+            dispatchAnimated(animated) {
                 self.button.alpha = 0
-            }, completion: { _ in
+            }.then { _ in
                 self.hide()
-            })
+            }.run()
         }
     }
 
@@ -45,7 +45,7 @@ public class ClearFieldButtonView: View {
             self.show()
             dispatchAnimated(animated) {
                 self.button.alpha = 1
-            }
+            }.run()
         }
     }
 }

@@ -136,10 +136,8 @@ extension StatusCode {
 }
 
 public class HTTP {
-    public typealias DataPromise = Promise<Data>
-
     public static func retrieveData(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> DataPromise {
-        return DataPromise { promise in
+        func perform(promise: DataPromise) {
             let name = name ?? request.name
             
             let token: InFlightToken! = inFlightTracker?.start(withName: name)
@@ -228,6 +226,8 @@ public class HTTP {
             promise.task = session.dataTask(with: request)
             task.resume()
         }
+
+        return DataPromise(with: perform)
     }
 
 
@@ -235,8 +235,6 @@ public class HTTP {
         return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { _ in }
     }
 
-
-    public typealias JSONPromise = Promise<JSON>
 
     public static func retrieveJSON(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> JSONPromise {
         var request = request
@@ -248,9 +246,7 @@ public class HTTP {
     }
 
 
-    public typealias JSONDictionaryPromise = Promise<JSON>
-
-    public static func retrieveJSONDictionary(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> JSONDictionaryPromise {
+    public static func retrieveJSONDictionary(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> JSONPromise {
         return retrieveJSON(with: request, successStatusCodes: successStatusCodes, name: name).then { json in
             guard json.value is JSON.Dictionary else {
                 throw HTTPUtilsError.expectedJSONDict
@@ -261,8 +257,6 @@ public class HTTP {
 
 
     #if !os(Linux)
-    public typealias ImagePromise = Promise<OSImage>
-
     public static func retrieveImage(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> ImagePromise {
         return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { data in
             guard let image = OSImage(data: data) else {
@@ -369,5 +363,11 @@ extension URLRequest {
         print("\thttpShouldUsePipelining: \(httpShouldUsePipelining)")
         print("\tmainDocumentURL: \(mainDocumentURL†)")
         print("\tnetworkServiceType: \(networkServiceTypes[networkServiceType]!)")
+    }
+}
+
+extension HTTPURLResponse {
+    public func value(for headerField: HeaderField) -> String? {
+        return allHeaderFields[headerField.rawValue] as? String
     }
 }

@@ -23,6 +23,7 @@ import CoreGraphics
 import CoreImage
 
 public typealias ImageBlock = (OSImage) -> Void
+public typealias ImagePromise = Promise<OSImage>
 
 extension OSImage {
     public var bounds: CGRect {

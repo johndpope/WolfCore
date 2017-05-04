@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias DataPromise = Promise<Data>
+
 // Support the Serializable protocol used for caching
 
 extension Data: Serializable {

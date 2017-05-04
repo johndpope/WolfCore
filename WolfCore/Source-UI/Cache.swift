@@ -9,6 +9,21 @@
 import Foundation
 import CoreGraphics
 
+public enum CacheError: Error {
+    case miss(URL)
+    case unsupportedEncoding(URL, String)
+    case unsupportedContentType(URL, String)
+    case badImageData(URL)
+}
+
+extension Error {
+    public var isCacheMiss: Bool {
+        guard let e = self as? CacheError else { return false }
+        guard case .miss = e else { return false }
+        return true
+    }
+}
+
 extension Log.GroupName {
     public static let cache = Log.GroupName("cache")
 }
@@ -16,7 +31,6 @@ extension Log.GroupName {
 public class Cache<T: Serializable> {
     public typealias SerializableType = T
     public typealias ValueType = T.ValueType
-    public typealias Completion = (ValueType?) -> Void
 
     private let layers: [CacheLayer]
 
@@ -42,7 +56,7 @@ public class Cache<T: Serializable> {
         self.init(layers: layers)
     }
 
-    public func storeObject(obj: SerializableType, forURL url: URL, withSize size: CGSize) {
+    public func storeObject(obj: SerializableType, for url: URL, withSize size: CGSize) {
         let scale = mainScreenScale
 
         let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
@@ -52,56 +66,33 @@ public class Cache<T: Serializable> {
             URLQueryItem(name: "h", value: "\(Int(size.height * scale))"),
         ]
         if let url: URL = urlComponents?.url {
-            logInfo("storeObject obj: \(obj), forURL: \(url)", obj: self, group: .cache)
+            logInfo("storeObject obj: \(obj), for: \(url)", obj: self, group: .cache)
             let data = obj.serialize()
             for layer in layers {
-                layer.store(data: data, forURL: url)
+                layer.store(data: data, for: url)
             }
         } else {
-            logError("storeObject obj: \(obj), forURL: \(url)", obj: self, group: .cache)
+            logError("storeObject obj: \(obj), for: \(url)", obj: self, group: .cache)
         }
     }
 
-    public func store(obj: SerializableType, forURL url: URL) {
-        logInfo("storeObject obj: \(obj), forURL: \(url)", obj: self, group: .cache)
+    public func store(obj: SerializableType, for url: URL) {
+        logInfo("storeObject obj: \(obj), for: \(url)", obj: self, group: .cache)
         let data = obj.serialize()
         for layer in layers {
-            layer.store(data: data, forURL: url)
+            layer.store(data: data, for: url)
         }
     }
 
-    @discardableResult public func retrieveObject(forURL url: URL, withSize size: CGSize, completion: @escaping Completion) -> Cancelable? {
-        let scale = mainScreenScale
-
-        let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = [
-            URLQueryItem(name: "fit", value: "max"),
-            URLQueryItem(name: "w", value: "\(Int(size.width * scale))"),
-            URLQueryItem(name: "h", value: "\(Int(size.height * scale))"),
-        ]
-        if let url: URL = urlComponents?.url {
-            return retrieveObject(forURL: url, completion: completion)
-        } else {
-            logError("retrieveObjectForURL: \((urlComponents?.url)†)", obj: self, group: .cache)
-            completion(nil)
-            return nil
-        }
-    }
-
-    @discardableResult public func retrieveObject(forURL url: URL, completion: @escaping Completion) -> Cancelable? {
+    @discardableResult public func retrieveObject(for url: URL) -> Promise<ValueType> {
         logInfo("retrieveObjectForURL: \(url)", obj: self, group: .cache)
-        let canceler = Canceler()
-        layers[0].retrieveData(forURL: url, completion: retrieveLayerCompletion(forIndex: 0, url: url, completion: { value in
-            guard !canceler.isCanceled else { return }
-            completion(value)
-        }))
-        return canceler
+        return retrieveObject(at: 0, for: url)
     }
 
-    public func removeObject(forURL url: URL) {
+    public func removeObject(for url: URL) {
         logInfo("removeObjectForURL: \(url)", obj: self, group: .cache)
         for layer in layers {
-            layer.removeData(forURL: url)
+            layer.removeData(for: url)
         }
     }
 
@@ -112,37 +103,41 @@ public class Cache<T: Serializable> {
         }
     }
 
-    private func retrieveLayerCompletion(forIndex layerIndex: Int, url: URL, completion: @escaping Completion) -> (Data?) -> Void {
-        return { data in
-            let layer = self.layers[layerIndex]
-            guard let data = data else {
-                logInfo("Data not found for URL: \(url) layer: \(layer)", obj: self, group: .cache)
-                if layerIndex < self.layers.count - 1 {
-                    let nextIndex = layerIndex + 1
-                    self.layers[nextIndex].retrieveData(forURL: url, completion: self.retrieveLayerCompletion(forIndex: nextIndex, url: url, completion: completion))
-                } else {
-                    completion(nil)
-                }
-                return
-            }
-
+    private func retrieveObject(at layerIndex: Int, for url: URL) -> Promise<ValueType> {
+        let layer = layers[layerIndex]
+        return layer.retrieveData(for: url).then { data in
             do {
                 let obj: ValueType = try SerializableType.deserialize(from: data)
                 logInfo("Found object for URL: \(url) layer: \(layer)", obj: self, group: .cache)
                 // If we found the data and successfully deserialized it, then store it in all the layers above this one
                 for i in 0 ..< layerIndex {
-                    self.layers[i].store(data: data, forURL: url)
+                    self.layers[i].store(data: data, for: url)
                 }
-                completion(obj)
+                return obj
             } catch let error {
                 logError("Could not deserialize data for URL: \(url) layer: \(layer) error: \(error)", obj: self)
                 // If the data can't be deserialized then it's corrupt, so remove it from this layer and all the layers beneath it
                 for i in layerIndex ..< self.layers.count {
-                    self.layers[i].removeData(forURL: url)
+                    self.layers[i].removeData(for: url)
                 }
-                completion(nil)
+                throw error
+            }
+        }.recover { (error, promise) in
+            guard error.isCacheMiss else {
+                promise.fail(error)
                 return
             }
+
+            guard layerIndex < self.layers.count - 1 else {
+                promise.fail(CacheError.miss(url))
+                return
+            }
+
+            self.retrieveObject(at: layerIndex + 1, for: url).then { value in
+                promise.keep(value)
+            }.catch { error in
+                promise.fail(error)
+            }.run()
         }
     }
 }

@@ -16,8 +16,9 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
     public typealias ResultType = Result<T>
     public typealias RunBlock = (Self) -> Void
     public typealias DoneBlock = (Self) -> Void
+    public typealias TaskType = Cancelable
 
-    public var task: Cancelable?
+    public var task: TaskType?
     private let onRun: RunBlock
     private var onDone: DoneBlock!
     public private(set) var result: ResultType?
@@ -33,7 +34,7 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         }
     }
 
-    public init(task: Cancelable? = nil, onRun: @escaping RunBlock) {
+    public init(task: TaskType? = nil, with onRun: @escaping RunBlock) {
         self.task = task
         self.onRun = onRun
     }
@@ -44,7 +45,7 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         }
     }
 
-    @discardableResult public func run(onDone: @escaping DoneBlock) -> Self {
+    @discardableResult public func run(with onDone: @escaping DoneBlock) -> Self {
         assert(self.onDone == nil)
         self.onDone = onDone
         onRun(self)
@@ -55,17 +56,13 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         return run { _ in }
     }
 
-    @discardableResult public func map<U>(to promise: Promise<U>, failing: ((Error) -> Void)? = nil, with success: @escaping (ValueType) -> Void) -> Promise<U> {
+    @discardableResult public func map<U>(to promise: Promise<U>, with success: @escaping (ValueType) -> Void) -> Promise<U> {
         run { p in
             switch p.result! {
             case .success(let value):
                 success(value)
             case .failure(let error):
-                if let failing = failing {
-                    failing(error)
-                } else {
-                    promise.fail(error)
-                }
+                promise.fail(error)
             case .canceled:
                 promise.cancel()
             }
@@ -74,7 +71,7 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
     }
 
     @discardableResult public func succeed() -> SuccessPromise {
-        return then { _ in }
+        return then { (_: ValueType) in }
     }
 
     public func then<U>(with success: @escaping (ValueType) throws -> U) -> Promise<U> {
@@ -82,6 +79,18 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
             self.map(to: promise) { value in
                 do {
                     try promise.keep(success(value))
+                } catch(let error) {
+                    promise.fail(error)
+                }
+            }
+        }
+    }
+
+    public func thenWith<U>(_ success: @escaping (Promise<T>) throws -> U) -> Promise<U> {
+        return Promise<U> { promise in
+            self.map(to: promise) { value in
+                do {
+                    try promise.keep(success(self))
                 } catch(let error) {
                     promise.fail(error)
                 }
