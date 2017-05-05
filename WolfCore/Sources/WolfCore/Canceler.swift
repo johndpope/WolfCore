@@ -6,7 +6,7 @@
 //  Copyright © 2016 Arciem. All rights reserved.
 //
 
-public protocol Cancelable {
+public protocol Cancelable: class {
     var isCanceled: Bool { get }
     func cancel()
 }

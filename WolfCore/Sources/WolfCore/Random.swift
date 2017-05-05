@@ -13,12 +13,16 @@
     import Security
 #endif
 
-private var _instance: Random = {
+private func seedRandom() {
     #if os(Linux)
         srand48(Int(time(nil)))
     #else
-        srand48(Int(arc4random()))
+        srand48(Int(truncatingBitPattern: UInt64(arc4random())))
     #endif
+}
+
+private var _instance: Random = {
+    seedRandom()
     return Random()
 }()
 

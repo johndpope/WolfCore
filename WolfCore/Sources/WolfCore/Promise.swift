@@ -19,7 +19,7 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
     public typealias TaskType = Cancelable
 
     public var task: TaskType?
-    private let onRun: RunBlock
+    private var onRun: RunBlock!
     private var onDone: DoneBlock!
     public private(set) var result: ResultType?
 
@@ -49,6 +49,9 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         assert(self.onDone == nil)
         self.onDone = onDone
         onRun(self)
+        onRun = { _ in
+            fatalError("ran")
+        }
         return self
     }
 
@@ -56,18 +59,18 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         return run { _ in }
     }
 
-    @discardableResult public func map<U>(to promise: Promise<U>, with success: @escaping (ValueType) -> Void) -> Promise<U> {
-        run { p in
-            switch p.result! {
+    @discardableResult public func map<U>(to uPromise: Promise<U>, with success: @escaping (Promise<U>, ValueType) -> Void) -> Promise<U> {
+        run { tPromise in
+            switch tPromise.result! {
             case .success(let value):
-                success(value)
+                success(uPromise, value)
             case .failure(let error):
-                promise.fail(error)
+                uPromise.fail(error)
             case .canceled:
-                promise.cancel()
+                uPromise.cancel()
             }
         }
-        return promise
+        return uPromise
     }
 
     @discardableResult public func succeed() -> SuccessPromise {
@@ -75,89 +78,99 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
     }
 
     public func then<U>(with success: @escaping (ValueType) throws -> U) -> Promise<U> {
-        return Promise<U> { promise in
-            self.map(to: promise) { value in
+        return Promise<U> { (uPromise: Promise<U>) in
+            self.map(to: uPromise) { (uPromise2, tValue) in
                 do {
-                    try promise.keep(success(value))
+                    let uValue = try success(tValue)
+                    uPromise2.keep(uValue)
                 } catch(let error) {
-                    promise.fail(error)
+                    uPromise2.fail(error)
                 }
             }
         }
     }
 
     public func thenWith<U>(_ success: @escaping (Promise<T>) throws -> U) -> Promise<U> {
-        return Promise<U> { promise in
-            self.map(to: promise) { value in
+        return Promise<U> { (uPromise: Promise<U>) in
+            self.map(to: uPromise) { (uPromise2, tValue) in
                 do {
-                    try promise.keep(success(self))
+                    let uValue = try success(self)
+                    uPromise2.keep(uValue)
                 } catch(let error) {
-                    promise.fail(error)
+                    uPromise2.fail(error)
                 }
             }
         }
     }
 
     public func `catch`(with failure: @escaping ErrorBlock) -> Promise<T> {
-        return Promise<T> { promise in
-            self.run { p in
-                switch p.result! {
+        return Promise<T> { (catchPromise: Promise<T>) in
+            self.run { throwPromise in
+                switch throwPromise.result! {
                 case .success(let value):
-                    promise.keep(value)
+                    catchPromise.keep(value)
                 case .failure(let error):
-                    promise.fail(error)
+                    catchPromise.fail(error)
                     failure(error)
                 case .canceled:
-                    promise.cancel()
+                    catchPromise.cancel()
                 }
             }
         }
     }
 
     public func recover(with failing: @escaping (Error, Promise<T>) -> Void) -> Promise<T> {
-        return Promise<T> { promise in
-            self.run { p in
-                switch p.result! {
+        return Promise<T> { (recoverPromise: Promise<T>) in
+            self.run { failingPromise in
+                switch failingPromise.result! {
                 case .success(let value):
-                    promise.keep(value)
+                    recoverPromise.keep(value)
                 case .failure(let error):
-                    failing(error, promise)
+                    failing(error, recoverPromise)
                 case .canceled:
-                    promise.cancel()
+                    recoverPromise.cancel()
                 }
             }
         }
     }
 
     public func finally(with block: @escaping Block) -> Promise<T> {
-        return Promise<T> { promise in
-            self.run { p in
-                switch p.result! {
+        return Promise<T> { (finallyPromise: Promise<T>) in
+            self.run { finishedPromise in
+                switch finishedPromise.result! {
                 case .success(let value):
-                    promise.keep(value)
+                    finallyPromise.keep(value)
                     block()
                 case .failure(let error):
-                    promise.fail(error)
+                    finallyPromise.fail(error)
                     block()
                 case .canceled:
-                    promise.cancel()
+                    finallyPromise.cancel()
                 }
             }
         }
+    }
+
+    private func done() {
+        onDone(self)
+        onDone = { _ in
+            fatalError("done")
+        }
+        task = nil
     }
 
     public func keep(_ value: ValueType) {
         guard self.result == nil else { return }
 
         self.result = ResultType.success(value)
-        onDone(self)
+        done()
     }
 
     public func fail(_ error: Error) {
         guard self.result == nil else { return }
 
         self.result = ResultType.failure(error)
-        onDone(self)
+        done()
     }
 
     public func cancel() {
@@ -166,7 +179,7 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
         task?.cancel()
         self.result = ResultType.canceled
 
-        onDone(self)
+        done()
     }
 
     public var isCanceled: Bool {
