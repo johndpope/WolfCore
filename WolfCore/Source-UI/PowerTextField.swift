@@ -231,19 +231,37 @@ public class PowerTextField: View, Editable {
         return view
     }()
 
-    public var frameColor: UIColor = .black {
-        didSet {
-            syncFrame()
+    public var frameColor: UIColor {
+        get {
+            return frameView.color
+        }
+        set {
+            frameView.color = newValue
         }
     }
 
-    private func syncFrame() {
-        frameView.layer.borderColor = frameColor.cgColor
+    public var frameMode: FrameView.Mode {
+        get {
+            return frameView.mode
+        }
+
+        set {
+            frameView.mode = newValue
+        }
     }
 
-    private lazy var frameView: View = {
-        let view = View()
-        view.layer.borderWidth = 0.5
+    public var frameLineWidth: CGFloat {
+        get {
+            return frameView.lineWidth
+        }
+
+        set {
+            frameView.lineWidth = newValue
+        }
+    }
+
+    private lazy var frameView: FrameView = {
+        let view = FrameView()
         return view
     }()
 
