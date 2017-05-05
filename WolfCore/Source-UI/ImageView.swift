@@ -56,6 +56,7 @@ open class ImageView: UIImageView, Skinnable {
         didSet {
             guard let url = self.url else { return }
             retrievePromise?.cancel()
+            self.retrievePromise = nil
             self.pdf = nil
             self.image = nil
             self.onRetrieveStart?(self)
@@ -67,6 +68,7 @@ open class ImageView: UIImageView, Skinnable {
                     self.onRetrieveFailure?(self)
                 }.run { _ in
                     self.onRetrieveFinally?(self)
+                    self.retrievePromise = nil
                 }
             } else {
                 self.retrievePromise = sharedImageCache.retrieveObject(for: url).then { image in
@@ -76,6 +78,7 @@ open class ImageView: UIImageView, Skinnable {
                     self.onRetrieveFailure?(self)
                 }.run { _ in
                     self.onRetrieveFinally?(self)
+                    self.retrievePromise = nil
                 }
             }
         }
