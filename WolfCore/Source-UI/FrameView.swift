@@ -58,7 +58,7 @@ public class FrameView: View {
                     return
                 }
 
-                let childFrame = childView.frame
+                let childFrame = childView.frame.offsetBy(dx: 0, dy: 4)
                 let path = UIBezierPath()
                 path.move(to: childFrame.minXmaxY)
                 path.addLine(to: childFrame.maxXmaxY)

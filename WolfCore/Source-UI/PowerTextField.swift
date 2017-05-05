@@ -8,20 +8,55 @@
 
 import UIKit
 
+
+private protocol TextEditor: class {
+    var inputView: UIView? { get set }
+    var text: String! { get set }
+    var font: UIFont? { get set }
+    var isDebug: Bool { get set }
+    var debugBackgroundColor: UIColor? { get set }
+    var textAlignment: NSTextAlignment { get set }
+    var fontStyleName: FontStyleName? { get set }
+
+    // UITextInputTraits
+    var autocapitalizationType: UITextAutocapitalizationType { get set }
+    var autocorrectionType: UITextAutocorrectionType { get set }
+    var spellCheckingType: UITextSpellCheckingType { get set }
+    var returnKeyType: UIReturnKeyType { get set }
+    var enablesReturnKeyAutomatically: Bool { get set }
+    var isSecureTextEntry: Bool { get set }
+
+    @available(iOS 10.0, *)
+    var textContentType: UITextContentType! { get set }
+}
+
+extension TextField: TextEditor { }
+
+extension TextView: TextEditor { }
+
 public class PowerTextField: View, Editable {
+    public init(contentType: ContentType = .text, numberOfLines: Int = 1) {
+        self.contentType = contentType
+        self.numberOfLines = numberOfLines
+        super.init(frame: .zero)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public var isEditing: Bool = false
 
     public enum ContentType {
         case text
         case social
         case date
+        case email
+        case password
     }
 
-    public var contentType: ContentType = .text {
-        didSet {
-            syncToContentType()
-        }
-    }
+    public private(set) var contentType: ContentType
+    public private(set) var numberOfLines: Int
 
     public var textAlignment: NSTextAlignment = .natural {
         didSet {
@@ -31,11 +66,11 @@ public class PowerTextField: View, Editable {
 
     public override var inputView: UIView? {
         get {
-            return textView.inputView
+            return textEditor.inputView
         }
 
         set {
-            textView.inputView = newValue
+            textEditor.inputView = newValue
         }
     }
 
@@ -83,16 +118,14 @@ public class PowerTextField: View, Editable {
     public typealias EditValidator = (_ string: String?, _ name: String) -> String?
     public var editValidator: EditValidator?
 
-    public var numberOfLines: Int = 1
-
     public var text: String? {
         get {
-            return textView.text
+            return textEditor.text
         }
     }
 
     public func setText(_ text: String?, animated: Bool) {
-        textView.text = text
+        textEditor.text = text
         syncToTextView(animated: false)
         onChanged?(self)
     }
@@ -152,39 +185,39 @@ public class PowerTextField: View, Editable {
     public var allowedCharacters: CharacterSet?
 
     public var autocapitalizationType: UITextAutocapitalizationType {
-        get { return textView.autocapitalizationType }
-        set { textView.autocapitalizationType = newValue }
+        get { return textEditor.autocapitalizationType }
+        set { textEditor.autocapitalizationType = newValue }
     }
 
     public var spellCheckingType: UITextSpellCheckingType {
-        get { return textView.spellCheckingType }
-        set { textView.spellCheckingType = newValue }
+        get { return textEditor.spellCheckingType }
+        set { textEditor.spellCheckingType = newValue }
     }
 
     public var autocorrectionType: UITextAutocorrectionType {
-        get { return textView.autocorrectionType }
-        set { textView.autocorrectionType = newValue }
+        get { return textEditor.autocorrectionType }
+        set { textEditor.autocorrectionType = newValue }
     }
 
     public var returnKeyType: UIReturnKeyType {
-        get { return textView.returnKeyType }
-        set { textView.returnKeyType = newValue }
+        get { return textEditor.returnKeyType }
+        set { textEditor.returnKeyType = newValue }
     }
 
     public var enablesReturnKeyAutomatically: Bool {
-        get { return textView.enablesReturnKeyAutomatically }
-        set { textView.enablesReturnKeyAutomatically = newValue }
+        get { return textEditor.enablesReturnKeyAutomatically }
+        set { textEditor.enablesReturnKeyAutomatically = newValue }
     }
 
-    public var isSecureTextEntry: Bool {
-        get { return textView.isSecureTextEntry }
-        set { textView.isSecureTextEntry = newValue }
+    public private(set) var isSecureTextEntry: Bool {
+        get { return textEditor.isSecureTextEntry }
+        set { textEditor.isSecureTextEntry = newValue }
     }
 
     @available(iOS 10.0, *)
     public var textContentType: UITextContentType! {
-        get { return textView.textContentType }
-        set { textView.textContentType = newValue }
+        get { return textEditor.textContentType }
+        set { textEditor.textContentType = newValue }
     }
 
     public enum ClearButtonMode {
@@ -283,10 +316,37 @@ public class PowerTextField: View, Editable {
         return label
     }()
 
+    private lazy var textEditorView: UIView = {
+        let needsTextField = self.contentType == .password
+        let needsTextView = self.numberOfLines > 1
+        assert(!needsTextField || !needsTextView)
+        if needsTextView {
+            return self.textView
+        } else {
+            return self.textField
+        }
+    }()
+
+    private var textEditor: TextEditor {
+        return textEditorView as! TextEditor
+    }
+
+    private var textChangedAction: ControlAction<TextField>!
+    private lazy var textField: TextField = {
+        let view = TextField()
+        self.textChangedAction = addControlAction(to: view, for: .editingChanged) { [unowned self] field in
+            self.syncToTextView(animated: true)
+        }
+        view.delegate = self
+        return view
+    }()
+
     private lazy var textView: TextView = {
         let view = TextView()
         view.contentInset = .zero
         view.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: -4)
+        view.scrollsToTop = false
+        view.delegate = self
         return view
     }()
 
@@ -314,29 +374,25 @@ public class PowerTextField: View, Editable {
         didSet {
             frameView.isDebug = isDebug
             characterCountLabel.isDebug = isDebug
-            textView.isDebug = isDebug
+            textEditor.isDebug = isDebug
             iconView.isDebug = isDebug
             clearButtonView.isDebug = isDebug
 
             frameView.debugBackgroundColor = debugBackgroundColor
             characterCountLabel.debugBackgroundColor = debugBackgroundColor
-            textView.debugBackgroundColor = debugBackgroundColor
+            textEditor.debugBackgroundColor = debugBackgroundColor
             iconView.debugBackgroundColor = debugBackgroundColor
         }
     }
 
-    public override func setup() {
-        super.setup()
-        textView.delegate = self
-
-        textView.scrollsToTop = false
-
+    private func build() {
+        syncToContentType()
         self => [
             verticalStackView => [
                 frameView => [
                     horizontalStackView => [
                         iconView,
-                        textView,
+                        textEditorView,
                         clearButtonView
                     ]
                 ],
@@ -349,21 +405,26 @@ public class PowerTextField: View, Editable {
         activateConstraint(frameView.widthAnchor == verticalStackView.widthAnchor)
         verticalStackView.constrainFrame()
         horizontalStackView.constrainFrame(insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
-        textViewHeightConstraint = textView.constrainHeight(to: 20)
+        textViewHeightConstraint = textEditorView.constrainHeight(to: 20)
         activateConstraints(
-            placeholderLabel.leadingAnchor == textView.leadingAnchor,
-            placeholderLabel.trailingAnchor == textView.trailingAnchor,
-            placeholderLabel.topAnchor == textView.topAnchor
-            )
+            placeholderLabel.leadingAnchor == textEditorView.leadingAnchor,
+            placeholderLabel.trailingAnchor == textEditorView.trailingAnchor,
+            placeholderLabel.topAnchor == textEditorView.topAnchor
+        )
 
         syncClearButton(animated: false)
         //isDebug = true
     }
 
+    public override func setup() {
+        super.setup()
+        build()
+    }
+
     private var textViewHeightConstraint: NSLayoutConstraint!
 
     private var lineHeight: CGFloat {
-        return textView.font?.lineHeight ?? 20
+        return textEditor.font?.lineHeight ?? 20
     }
 
     public override func updateConstraints() {
@@ -377,7 +438,7 @@ public class PowerTextField: View, Editable {
     public override func updateAppearance(skin: Skin?) {
         super.updateAppearance(skin: skin)
         guard let skin = skin else { return }
-        textView.fontStyleName = .textFieldContent
+        textEditor.fontStyleName = .textFieldContent
         characterCountLabel.fontStyleName = .textFieldCounter
         placeholderLabel.fontStyleName = .textFieldPlaceholder
         iconView.tintColor = skin.textFieldIconTintColor
@@ -431,12 +492,17 @@ public class PowerTextField: View, Editable {
         switch contentType {
         case .text:
             break
-        case .social:
+        case .social, .email:
             autocapitalizationType = .none
             spellCheckingType = .no
             autocorrectionType = .no
         case .date:
             datePicker = UIDatePicker()
+        case .password:
+            isSecureTextEntry = true
+            autocapitalizationType = .none
+            spellCheckingType = .no
+            autocorrectionType = .no
         }
     }
 
@@ -471,7 +537,7 @@ public class PowerTextField: View, Editable {
     }
 
     fileprivate func syncToAlignment() {
-        textView.textAlignment = textAlignment
+        textEditor.textAlignment = textAlignment
         placeholderLabel.textAlignment = textAlignment
     }
 
@@ -488,7 +554,7 @@ public class PowerTextField: View, Editable {
         if isEditing {
             scrollToVisible()
         } else {
-            textView.setContentOffset(.zero, animated: true)
+            (textEditorView as? TextView)?.setContentOffset(.zero, animated: true)
             onEndEditing?(self)
         }
         syncToTextView(animated: animated)
@@ -498,22 +564,8 @@ public class PowerTextField: View, Editable {
         super.layoutSubviews()
         syncToAlignment()
     }
-}
 
-extension PowerTextField: UITextViewDelegate {
-    public func textViewDidBeginEditing(_ textView: UITextView) {
-        setEditing(true, animated: true)
-    }
-
-    public func textViewDidEndEditing(_ textView: UITextView) {
-        setEditing(false, animated: true)
-    }
-
-    public func textViewDidChange(_ textView: UITextView) {
-        syncToTextView(animated: true)
-    }
-
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    fileprivate func shouldChange(from startText: String, in range: NSRange, replacementText text: String) -> Bool {
         // Don't allow any keyboard-based changes when entering dates
         guard contentType != .date else { return false }
 
@@ -531,7 +583,6 @@ extension PowerTextField: UITextViewDelegate {
         }
 
         // Determine the final string
-        let startText = textView.text ?? ""
         let replacedString = startText.replacingCharacters(in: startText.stringRange(from: range)!, with: text)
 
         // Enforce the character limit, if any
@@ -546,7 +597,41 @@ extension PowerTextField: UITextViewDelegate {
                 return false
             }
         }
-
+        
         return true
+    }
+}
+
+extension PowerTextField: UITextFieldDelegate {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        setEditing(true, animated: true)
+    }
+
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        setEditing(false, animated: true)
+    }
+
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let startText = textField.text ?? ""
+        return shouldChange(from: startText, in: range, replacementText: string)
+    }
+}
+
+extension PowerTextField: UITextViewDelegate {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        setEditing(true, animated: true)
+    }
+
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        setEditing(false, animated: true)
+    }
+
+    public func textViewDidChange(_ textView: UITextView) {
+        syncToTextView(animated: true)
+    }
+
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let startText = textView.text ?? ""
+        return shouldChange(from: startText, in: range, replacementText: text)
     }
 }

@@ -52,30 +52,6 @@ public struct Social {
 }
 
 extension StringValidation {
-    fileprivate func beginsWithLetter() throws -> StringValidation {
-        do {
-            return try pattern("^[a-zA-Z]")
-        } catch is ValidationError {
-            throw ValidationError(message: "#{name} must begin with a letter.", violation: "beginsWithLetter")
-        }
-    }
-
-    fileprivate func beginsWithLetterOrNumber() throws -> StringValidation {
-        do {
-            return try pattern("^[a-zA-Z0-9]")
-        } catch is ValidationError {
-            throw ValidationError(message: "#{name} must begin with a letter or number.", violation: "beginsWithLetterOrNumber")
-        }
-    }
-
-    fileprivate func endsWithLetterOrNumber() throws -> StringValidation {
-        do {
-            return try pattern("[a-zA-Z0-9]$")
-        } catch is ValidationError {
-            throw ValidationError(message: "#{name} must end with a letter or number.", violation: "endsWithLetterOrNumber")
-        }
-    }
-
     fileprivate func containsOnlyValidSnapchatCharacters() throws -> StringValidation {
         do {
             return try pattern("^[a-zA-Z0-9_.\\-]*$")
@@ -118,7 +94,7 @@ public struct Facebook {
         return try? StringValidation(value: userID, name: name).maxLength(maxLength).containsOnlyValidFacebookCharacters().value
     }
 
-    public static func validate(userID: String, name: String = "Snapchat") throws -> String {
+    public static func validate(userID: String, name: String = "Facebook") throws -> String {
         return try StringValidation(value: userID, name: name).minLength(minLength).maxLength(maxLength).beginsWithLetterOrNumber().endsWithLetterOrNumber().containsOnlyValidFacebookCharacters().value
     }
 }
@@ -139,7 +115,7 @@ public struct Instagram {
         return try? StringValidation(value: userID, name: name).lowercased().maxLength(maxLength).containsOnlyValidSnapchatCharacters().value
     }
 
-    public static func validate(userID: String, name: String = "Snapchat") throws -> String {
+    public static func validate(userID: String, name: String = "Instagram") throws -> String {
         return try StringValidation(value: userID, name: name).lowercased().minLength(minLength).maxLength(maxLength).beginsWithLetter().endsWithLetterOrNumber().containsOnlyValidSnapchatCharacters().value
     }
 }

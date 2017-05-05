@@ -51,14 +51,41 @@ open class TextField: UITextField, Skinnable {
 
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
+        syncToFontStyle(for: skin)
     }
 
     open func setup() {
     }
 
-//    open func updateAppearance() {
-//        syncToTintColor()
-//    }
+    @IBInspectable public var fontStyle: String? = nil
+    public var fontStyleName: FontStyleName? {
+        didSet {
+            syncToFontStyle()
+        }
+    }
+
+    open override var text: String! {
+        didSet {
+            syncToFontStyle()
+        }
+    }
+}
+
+extension TextField {
+    func syncToFontStyle(for skin: Skin?) {
+        textColor = skin?.textColor
+        guard let skin = skin else { return }
+        let fontStyle = self.fontStyle ?? fontStyleName?.rawValue
+        if let style = skin.fontStyleNamed(fontStyle) {
+            font = style.font
+            textColor = style.color
+            attributedText = style.apply(to: text)
+        }
+    }
+
+    func syncToFontStyle() {
+        syncToFontStyle(for: skin)
+    }
 }
 
 extension TextField {

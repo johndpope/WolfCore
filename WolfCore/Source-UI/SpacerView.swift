@@ -9,16 +9,20 @@
 import UIKit
 
 public class SpacerView: View {
-    public var width: CGFloat = UIViewNoIntrinsicMetric {
+    public var width: CGFloat = 5 {
         didSet {
             invalidateIntrinsicContentSize()
         }
     }
 
-    public var height: CGFloat = UIViewNoIntrinsicMetric{
+    public var height: CGFloat = 5 {
         didSet {
             invalidateIntrinsicContentSize()
         }
+    }
+
+    public override func setup() {
+        isUserInteractionEnabled = false
     }
 
     public init(height: CGFloat = 10) {
@@ -33,6 +37,6 @@ public class SpacerView: View {
     }
 
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: height)
+        return CGSize(width: width, height: height)
     }
 }

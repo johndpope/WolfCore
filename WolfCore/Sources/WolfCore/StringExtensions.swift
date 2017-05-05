@@ -13,6 +13,11 @@ import Foundation
     import UIKit
 #endif
 
+extension NSRange : Equatable {}
+public func == (lhs: NSRange, rhs: NSRange) -> Bool {
+    return lhs.location == rhs.location && lhs.length == rhs.length
+}
+
 public typealias Replacements = [String: String]
 
 // KLUDGE: These are causing compiler crashes under Swift 3.1.
