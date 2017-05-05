@@ -8,6 +8,9 @@
 
 import Foundation
 
+public typealias StringEditValidator = (_ string: String?) -> String?
+public typealias StringSubmitValidator = (_ value: String?) throws -> String
+
 public protocol Validation {
     associatedtype Value
     var value: Value { get }
@@ -25,6 +28,14 @@ public struct StringValidation: Validation {
 }
 
 extension StringValidation {
+    public func required(_ isRequired: Bool = true) throws -> StringValidation {
+        guard isRequired else { return self }
+        guard !value.isEmpty else {
+            throw ValidationError(message: "#{name} is required." ¶ ["name": name], violation: "required")
+        }
+        return self
+    }
+
     public func minLength(_ minLength: Int?) throws -> StringValidation {
         guard let minLength = minLength else { return self }
         guard value.characters.count >= minLength else {
@@ -52,7 +63,7 @@ extension StringValidation {
     public func pattern(_ pattern: String) throws -> StringValidation {
         let regex = try! ~/pattern
         guard (regex ~? value) else {
-            throw ValidationError(message: "#{name} contains invalid characters.", violation: "pattern")
+            throw ValidationError(message: "#{name} contains invalid characters." ¶ ["name": name], violation: "pattern")
         }
         return self
     }
@@ -61,7 +72,7 @@ extension StringValidation {
         do {
             return try pattern("^[a-zA-Z]")
         } catch is ValidationError {
-            throw ValidationError(message: "#{name} must begin with a letter.", violation: "beginsWithLetter")
+            throw ValidationError(message: "#{name} must begin with a letter." ¶ ["name": name], violation: "beginsWithLetter")
         }
     }
 
@@ -69,7 +80,7 @@ extension StringValidation {
         do {
             return try pattern("^[a-zA-Z0-9]")
         } catch is ValidationError {
-            throw ValidationError(message: "#{name} must begin with a letter or number.", violation: "beginsWithLetterOrNumber")
+            throw ValidationError(message: "#{name} must begin with a letter or number." ¶ ["name": name], violation: "beginsWithLetterOrNumber")
         }
     }
 
@@ -77,7 +88,7 @@ extension StringValidation {
         do {
             return try pattern("[a-zA-Z0-9]$")
         } catch is ValidationError {
-            throw ValidationError(message: "#{name} must end with a letter or number.", violation: "endsWithLetterOrNumber")
+            throw ValidationError(message: "#{name} must end with a letter or number." ¶ ["name": name], violation: "endsWithLetterOrNumber")
         }
     }
 
@@ -85,7 +96,7 @@ extension StringValidation {
         do {
             return try pattern("[0-9]")
         } catch is ValidationError {
-            throw ValidationError(message: "#{name} must contain a digit.", violation: "containsDigit")
+            throw ValidationError(message: "#{name} must contain a digit." ¶ ["name": name], violation: "containsDigit")
         }
     }
 
@@ -105,14 +116,14 @@ extension StringValidation {
 
     public func email() throws -> StringValidation {
         guard matchesDataDetector(type: .link, scheme: "mailto") else {
-            throw ValidationError(message: "#{name} must be a valid email address.", violation: "emailAddress")
+            throw ValidationError(message: "#{name} must be a valid email address." ¶ ["name": name], violation: "emailAddress")
         }
         return self
     }
 
     public func phoneNumber() throws -> StringValidation {
         guard matchesDataDetector(type: .phoneNumber) else {
-            throw ValidationError(message: "#{name} must be a valid phone number.", violation: "emailAddress")
+            throw ValidationError(message: "#{name} must be a valid phone number." ¶ ["name": name], violation: "emailAddress")
         }
         return self
     }
@@ -123,7 +134,7 @@ extension StringValidation {
         do {
             return try pattern("^[_+.a-zA-Z0-9@-]*$")
         } catch is ValidationError {
-            throw ValidationError(message: "#{name} contains invalid characters.", violation: "containsOnlyValidEmailCharacters")
+            throw ValidationError(message: "#{name} contains invalid characters." ¶ ["name": name], violation: "containsOnlyValidEmailCharacters")
         }
     }
 
@@ -131,37 +142,55 @@ extension StringValidation {
         do {
             return try pattern("^[() +._0-9-]*$")
         } catch is ValidationError {
-            throw ValidationError(message: "#{name} contains invalid characters.", violation: "containsOnlyValidPhoneNumberCharacters")
+            throw ValidationError(message: "#{name} contains invalid characters." ¶ ["name": name], violation: "containsOnlyValidPhoneNumberCharacters")
         }
     }
 }
 
 public struct Email {
-    public static func editValidator(_ value: String?, name: String = "Email") -> String? {
-        return try? StringValidation(value: value, name: name).trimmed().containsOnlyValidEmailCharacters().value
+    public static let defaultName = "Email"
+
+    public static func newEditValidator(name: String = defaultName) -> StringEditValidator {
+        return { value in
+            return try? StringValidation(value: value, name: name).containsOnlyValidEmailCharacters().value
+        }
     }
 
-    public static func validate(_ value: String, name: String = "Email") throws -> String {
-        return try StringValidation(value: value, name: name).email().value
+    public static func newSubmitValidator(name: String = defaultName, isRequired: Bool = true) -> StringSubmitValidator {
+        return { value in
+            return try StringValidation(value: value, name: name).required(isRequired).email().value
+        }
     }
 }
 
 public struct PhoneNumber {
-    public static func editValidator(_ value: String?, name: String = "Phone Number") -> String? {
-        return try? StringValidation(value: value, name: name).trimmed().containsOnlyValidPhoneNumberCharacters().value
+    public static let defaultName = "Phone Number"
+
+    public static func newEditValidator(name: String = defaultName) -> StringEditValidator {
+        return { value in
+            return try? StringValidation(value: value, name: name).containsOnlyValidPhoneNumberCharacters().value
+        }
     }
 
-    public static func validate(_ value: String, name: String = "Phone Number") throws -> String {
-        return try StringValidation(value: value, name: name).phoneNumber().value
+    public static func newSubmitValidator(name: String = defaultName, isRequired: Bool = true) -> StringSubmitValidator {
+        return { value in
+            return try StringValidation(value: value, name: name).required(isRequired).phoneNumber().value
+        }
     }
 }
 
 public struct Password {
-    public static func editValidator(_ value: String?, name: String = "Password") -> String? {
-        return try? StringValidation(value: value, name: name).maxLength(24).value
+    public static let defaultName = "Password"
+
+    public static func newEditValidator(name: String = defaultName) -> StringEditValidator {
+        return { value in
+            return try? StringValidation(value: value, name: name).maxLength(24).value
+        }
     }
 
-    public static func validate(_ value: String, name: String = "Password") throws -> String {
-        return try StringValidation(value: value, name: name).minLength(4).maxLength(24).containsDigit().value
+    public static func newSubmitValidator(name: String = defaultName, isRequired: Bool = true) -> StringSubmitValidator {
+        return { value in
+            return try StringValidation(value: value, name: name).required(isRequired).minLength(4).maxLength(24).containsDigit().value
+        }
     }
 }

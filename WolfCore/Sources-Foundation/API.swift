@@ -30,6 +30,7 @@ open class API {
 
         let url = URL(scheme: HTTPScheme.https, host: endpoint.host, basePath: endpoint.basePath, pathComponents: path)
         var request = URLRequest(url: url)
+        request.setClientRequestID()
         request.setMethod(method)
         if let json = json {
             request.httpBody = json.data
@@ -49,7 +50,7 @@ open class API {
             }.recover { (error, promise) in
                 self.handle(error: error, promise: promise)
             }
-        } catch(let error) {
+        } catch let error {
             return Promise<T>(error: error)
         }
     }
@@ -60,7 +61,7 @@ open class API {
             return HTTP.retrieve(with: request, successStatusCodes: successStatusCodes).succeed().recover { (error, promise) in
                 self.handle(error: error, promise: promise)
             }
-        } catch(let error) {
+        } catch let error {
             return SuccessPromise(error: error)
         }
     }

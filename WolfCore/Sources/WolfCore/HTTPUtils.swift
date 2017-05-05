@@ -100,6 +100,8 @@ extension HeaderField {
     public static let connection = HeaderField("connection")
     public static let uploadToken = HeaderField("upload-token")
     public static let contentLength = HeaderField("Content-Length")
+    public static let clientRequestID = HeaderField("X-Client-Request-ID")
+    public static let awsRequestID = HeaderField("x-amzn-RequestId")
 }
 
 public struct StatusCode: ExtensibleEnumeratedName {
@@ -295,6 +297,10 @@ extension URLRequest {
 
     public mutating func setAuthorization(_ value: String) {
         setValue(value, for: .authorization)
+    }
+
+    public mutating func setClientRequestID() {
+        setValue(UniqueID() |> String.init, for: .clientRequestID)
     }
 
     public var name: String {

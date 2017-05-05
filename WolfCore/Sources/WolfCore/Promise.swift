@@ -83,7 +83,7 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
                 do {
                     let uValue = try success(tValue)
                     uPromise2.keep(uValue)
-                } catch(let error) {
+                } catch let error {
                     uPromise2.fail(error)
                 }
             }
@@ -96,7 +96,7 @@ public class Promise<T>: Cancelable, CustomStringConvertible {
                 do {
                     let uValue = try success(self)
                     uPromise2.keep(uValue)
-                } catch(let error) {
+                } catch let error {
                     uPromise2.fail(error)
                 }
             }

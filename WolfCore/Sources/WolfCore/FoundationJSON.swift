@@ -62,7 +62,7 @@ public struct FoundationJSON {
         do {
             value = try JSONSerialization.jsonObject(with: data)
             self.data = data
-        } catch(let error) {
+        } catch let error {
             throw error
         }
     }
@@ -71,7 +71,7 @@ public struct FoundationJSON {
         do {
             data = try JSONSerialization.data(withJSONObject: value)
             self.value = value
-        } catch(let error) {
+        } catch let error {
             logError(error)
             throw error
         }

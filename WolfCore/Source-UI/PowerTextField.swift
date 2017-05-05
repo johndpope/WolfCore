@@ -115,8 +115,8 @@ public class PowerTextField: View, Editable {
 
     public var name: String = "Field"¶
 
-    public typealias EditValidator = (_ string: String?, _ name: String) -> String?
-    public var editValidator: EditValidator?
+    public var editValidator: StringEditValidator?
+    public var submitValidator: StringSubmitValidator?
 
     public var text: String? {
         get {
@@ -171,14 +171,61 @@ public class PowerTextField: View, Editable {
         }
     }
 
+    public var showsValidationMessage: Bool = false {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
+
     public var characterCountTemplate = "#{characterCount}/#{characterLimit}"
 
     private var characterCountString: String {
         return characterCountTemplate ¶ ["characterCount": String(characterCount), "characterLimit": characterLimit†, "charactersLeft": charactersLeft†]
     }
 
+    private func syncToShowsValidationMessage() {
+        switch showsValidationMessage {
+        case false:
+            validationMessageLabel.hide()
+        case true:
+            validationMessageLabel.show()
+        }
+    }
+
+    private func syncToShowsCharacterCount() {
+        switch showsCharacterCount {
+        case false:
+            characterCountLabel.hide()
+        case true:
+            characterCountLabel.show()
+        }
+    }
+
     fileprivate func updateCharacterCount() {
         characterCountLabel.text = characterCountString
+    }
+
+    public var validatedText: String?
+
+    public var validationError: ValidationError? {
+        willSet {
+            if validationError != nil && newValue == nil {
+                dispatchAnimated(options: .beginFromCurrentState) {
+                    self.validationMessageLabel.alpha = 0
+                }.run()
+            }
+        }
+
+        didSet {
+            if let validationError = validationError {
+                validationMessageLabel.text = validationError.message
+                if oldValue == nil {
+                    dispatchAnimated(options: .beginFromCurrentState) {
+                        self.validationMessageLabel.alpha = 1
+                    }.run()
+                }
+            }
+        }
     }
 
     public var disallowedCharacters: CharacterSet? = CharacterSet.controlCharacters
@@ -264,6 +311,18 @@ public class PowerTextField: View, Editable {
         return view
     }()
 
+    private lazy var topRowView: HorizontalStackView = {
+        let view = HorizontalStackView()
+        view.alignment = .center
+        return view
+    }()
+
+    private lazy var bottomRowView: HorizontalStackView = {
+        let view = HorizontalStackView()
+        view.alignment = .center
+        return view
+    }()
+
     public var frameColor: UIColor {
         get {
             return frameView.color
@@ -307,6 +366,19 @@ public class PowerTextField: View, Editable {
 
     private lazy var characterCountLabel: Label = {
         let label = Label()
+        return label
+    }()
+
+    private lazy var validationSpacerView: SpacerView = {
+        let view = SpacerView()
+        view.width = self.frameInsets.left
+        return view
+    }()
+
+    private lazy var validationMessageLabel: Label = {
+        let label = Label()
+        label.text = " "
+        label.alpha = 0
         return label
     }()
 
@@ -374,21 +446,31 @@ public class PowerTextField: View, Editable {
         didSet {
             frameView.isDebug = isDebug
             characterCountLabel.isDebug = isDebug
+            validationMessageLabel.isDebug = isDebug
             textEditor.isDebug = isDebug
             iconView.isDebug = isDebug
             clearButtonView.isDebug = isDebug
 
-            frameView.debugBackgroundColor = debugBackgroundColor
-            characterCountLabel.debugBackgroundColor = debugBackgroundColor
-            textEditor.debugBackgroundColor = debugBackgroundColor
-            iconView.debugBackgroundColor = debugBackgroundColor
+            debugBackgroundColor = .green
+            frameView.debugBackgroundColor = .blue
+            characterCountLabel.debugBackgroundColor = .gray
+            validationMessageLabel.debugBackgroundColor = .red
+            textEditor.debugBackgroundColor = .green
+            iconView.debugBackgroundColor = .blue
+            clearButtonView.debugBackgroundColor = .blue
         }
     }
+
+    private var frameInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
     private func build() {
         syncToContentType()
         self => [
             verticalStackView => [
+                topRowView => [
+                    validationSpacerView,
+                    validationMessageLabel
+                    ],
                 frameView => [
                     horizontalStackView => [
                         iconView,
@@ -396,7 +478,9 @@ public class PowerTextField: View, Editable {
                         clearButtonView
                     ]
                 ],
-                characterCountLabel
+                bottomRowView => [
+                    characterCountLabel
+                    ]
             ],
             placeholderLabel
         ]
@@ -404,12 +488,13 @@ public class PowerTextField: View, Editable {
         //activateConstraints([widthAnchor == 200 =&= UILayoutPriorityDefaultLow])
         activateConstraint(frameView.widthAnchor == verticalStackView.widthAnchor)
         verticalStackView.constrainFrame()
-        horizontalStackView.constrainFrame(insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+        horizontalStackView.constrainFrame(insets: frameInsets)
         textViewHeightConstraint = textEditorView.constrainHeight(to: 20)
         activateConstraints(
             placeholderLabel.leadingAnchor == textEditorView.leadingAnchor,
             placeholderLabel.trailingAnchor == textEditorView.trailingAnchor,
-            placeholderLabel.topAnchor == textEditorView.topAnchor
+            placeholderLabel.topAnchor == textEditorView.topAnchor,
+            textEditorView.heightAnchor >= clearButtonView.heightAnchor
         )
 
         syncClearButton(animated: false)
@@ -431,6 +516,7 @@ public class PowerTextField: View, Editable {
         super.updateConstraints()
 
         syncToIcon()
+        syncToShowsValidationMessage()
         syncToShowsCharacterCount()
         syncToFont()
     }
@@ -440,6 +526,7 @@ public class PowerTextField: View, Editable {
         guard let skin = skin else { return }
         textEditor.fontStyleName = .textFieldContent
         characterCountLabel.fontStyleName = .textFieldCounter
+        validationMessageLabel.fontStyleName = .textFieldValidationMessage
         placeholderLabel.fontStyleName = .textFieldPlaceholder
         iconView.tintColor = skin.textFieldIconTintColor
         frameColor = skin.textFieldFrameColor
@@ -452,15 +539,6 @@ public class PowerTextField: View, Editable {
             iconView.show()
         } else {
             iconView.hide()
-        }
-    }
-
-    private func syncToShowsCharacterCount() {
-        switch showsCharacterCount {
-        case false:
-            characterCountLabel.hide()
-        case true:
-            characterCountLabel.show()
         }
     }
 
@@ -555,6 +633,9 @@ public class PowerTextField: View, Editable {
             scrollToVisible()
         } else {
             (textEditorView as? TextView)?.setContentOffset(.zero, animated: true)
+            if validationError == nil {
+                restartValidationTimer()
+            }
             onEndEditing?(self)
         }
         syncToTextView(animated: animated)
@@ -565,40 +646,82 @@ public class PowerTextField: View, Editable {
         syncToAlignment()
     }
 
+    private var validationTimer: Cancelable?
+    private func restartValidationTimer() {
+        guard submitValidator != nil else { return }
+        cancelValidationTimer()
+        validationTimer = dispatchOnMain(afterDelay: 1.0) {
+            self.validate()
+        }
+    }
+
+    private func cancelValidationTimer() {
+        validationTimer?.cancel()
+        validationTimer = nil
+        validationError = nil
+    }
+
+    private func validate() {
+        guard let submitValidator = submitValidator else {
+            validatedText = text
+            return
+        }
+
+        cancelValidationTimer()
+        do {
+            validatedText = try submitValidator(text)
+            validationError = nil
+        } catch let error as ValidationError {
+            validatedText = nil
+            validationError = error
+        } catch let error {
+            validatedText = nil
+            logError(error)
+        }
+    }
+
     fileprivate func shouldChange(from startText: String, in range: NSRange, replacementText text: String) -> Bool {
-        // Don't allow any keyboard-based changes when entering dates
-        guard contentType != .date else { return false }
+        func _shouldChange() -> Bool {
+            // Don't allow any keyboard-based changes when entering dates
+            guard contentType != .date else { return false }
 
-        // Always allow deletions.
-        guard text.characters.count > 0 else { return true }
+            // Always allow deletions.
+            guard text.characters.count > 0 else { return true }
 
-        // If disallowedCharaters is provided, disallow any changes that include characters in the set.
-        if let disallowedCharacters = disallowedCharacters {
-            guard text.rangeOfCharacter(from: disallowedCharacters) == nil else { return false }
-        }
-
-        // If allowedCharacters is provided, disallow any changes that include characters not in the set.
-        if let allowedCharacters = allowedCharacters {
-            guard text.rangeOfCharacter(from: allowedCharacters.inverted) == nil else { return false }
-        }
-
-        // Determine the final string
-        let replacedString = startText.replacingCharacters(in: startText.stringRange(from: range)!, with: text)
-
-        // Enforce the character limit, if any
-        if let characterLimit = characterLimit {
-            guard replacedString.characters.count <= characterLimit else { return false }
-        }
-
-        if let editValidator = editValidator {
-            if let _ = editValidator(replacedString, name) {
-                return true
-            } else {
-                return false
+            // If disallowedCharaters is provided, disallow any changes that include characters in the set.
+            if let disallowedCharacters = disallowedCharacters {
+                guard text.rangeOfCharacter(from: disallowedCharacters) == nil else { return false }
             }
+
+            // If allowedCharacters is provided, disallow any changes that include characters not in the set.
+            if let allowedCharacters = allowedCharacters {
+                guard text.rangeOfCharacter(from: allowedCharacters.inverted) == nil else { return false }
+            }
+
+            // Determine the final string
+            let replacedString = startText.replacingCharacters(in: startText.stringRange(from: range)!, with: text)
+
+            // Enforce the character limit, if any
+            if let characterLimit = characterLimit {
+                guard replacedString.characters.count <= characterLimit else { return false }
+            }
+
+            if let editValidator = editValidator {
+                if let _ = editValidator(replacedString) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            
+            return true
         }
-        
-        return true
+
+        let result = _shouldChange()
+        if result {
+            restartValidationTimer()
+        }
+        return result
     }
 }
 
