@@ -401,7 +401,6 @@ public class PowerTextField: View, Editable {
 
     private lazy var messageSpacerView: SpacerView = {
         let view = SpacerView()
-        view.width = self.frameInsets.left
         return view
     }()
 
@@ -521,8 +520,9 @@ public class PowerTextField: View, Editable {
         case .rectangle, .rounded:
             frameInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         case .underline:
-            frameInsets = UIEdgeInsets(top: 2, left: 8, bottom: 8, right: 8)
+            frameInsets = UIEdgeInsets(top: 2, left: 0, bottom: 6, right: 0)
         }
+        messageSpacerView.width = frameInsets.left
     }
 
     private func build() {
