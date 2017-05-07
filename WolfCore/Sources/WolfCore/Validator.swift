@@ -188,9 +188,15 @@ public struct Password {
         }
     }
 
-    public static func newSubmitValidator(name: String = defaultName, isRequired: Bool = true) -> StringSubmitValidator {
+    public static func newCreateValidator(name: String = defaultName, isRequired: Bool = true) -> StringSubmitValidator {
         return { value in
             return try StringValidation(value: value, name: name).required(isRequired).minLength(4).maxLength(24).containsDigit().value
+        }
+    }
+
+    public static func newSubmitValidator(name: String = defaultName, isRequired: Bool = true) -> StringSubmitValidator {
+        return { value in
+            return try StringValidation(value: value, name: name).required(isRequired).value
         }
     }
 }

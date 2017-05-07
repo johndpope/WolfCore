@@ -248,6 +248,12 @@ public func replaceConstraint(_ constraint: inout NSLayoutConstraint?, with newC
     }
 }
 
+public func replaceConstraints(_ constraints: inout [NSLayoutConstraint], with newConstraints: [NSLayoutConstraint]) {
+    deactivateConstraints(constraints)
+    constraints.removeAll()
+    constraints.append(contentsOf: activateConstraints(newConstraints))
+}
+
 public func deactivateConstraint(_ constraint: NSLayoutConstraint) {
     constraint.isActive = false
 }

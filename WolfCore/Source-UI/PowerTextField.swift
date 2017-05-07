@@ -126,7 +126,7 @@ public class PowerTextField: View, Editable {
 
     public func setText(_ text: String?, animated: Bool) {
         textEditor.text = text
-        syncToTextView(animated: false)
+        syncToTextEditor(animated: false)
         onChanged?(self)
     }
 
@@ -137,6 +137,7 @@ public class PowerTextField: View, Editable {
 
         set {
             placeholderLabel.text = newValue
+            placeholderMessageLabel.text = newValue
         }
     }
 
@@ -177,18 +178,23 @@ public class PowerTextField: View, Editable {
         }
     }
 
+    public var showsPlaceholderMessage: Bool = false {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
+
     public var characterCountTemplate = "#{characterCount}/#{characterLimit}"
 
     private var characterCountString: String {
         return characterCountTemplate ¶ ["characterCount": String(characterCount), "characterLimit": characterLimit†, "charactersLeft": charactersLeft†]
     }
 
-    private func syncToShowsValidationMessage() {
-        switch showsValidationMessage {
-        case false:
-            validationMessageLabel.hide()
-        case true:
-            validationMessageLabel.show()
+    private func syncToShowsMessage() {
+        if showsValidationMessage || showsPlaceholderMessage {
+            messageContainerView.show()
+        } else {
+            messageContainerView.hide()
         }
     }
 
@@ -210,9 +216,7 @@ public class PowerTextField: View, Editable {
     public var validationError: ValidationError? {
         willSet {
             if validationError != nil && newValue == nil {
-                dispatchAnimated(options: .beginFromCurrentState) {
-                    self.validationMessageLabel.alpha = 0
-                }.run()
+                concealValidationMessage(animated: true)
             }
         }
 
@@ -220,12 +224,37 @@ public class PowerTextField: View, Editable {
             if let validationError = validationError {
                 validationMessageLabel.text = validationError.message
                 if oldValue == nil {
-                    dispatchAnimated(options: .beginFromCurrentState) {
-                        self.validationMessageLabel.alpha = 1
-                    }.run()
+                    revealValidationMessage(animated: true)
                 }
             }
         }
+    }
+
+    private func revealValidationMessage(animated: Bool) {
+        dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
+            self.validationMessageLabel.alpha = 1
+            self.placeholderMessageLabel.alpha = 0
+        }.run()
+    }
+
+    private func concealValidationMessage(animated: Bool) {
+        dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
+            self.validationMessageLabel.alpha = 0
+            self.placeholderMessageLabel.alpha = 1
+        }.run()
+    }
+
+    private func revealPlaceholderMessage(animated: Bool) {
+        guard validationMessageLabel.alpha == 0 else { return }
+        dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
+            self.placeholderMessageLabel.alpha = 1
+        }.run()
+    }
+
+    private func concealPlaceholderMessage(animated: Bool) {
+        dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
+            self.placeholderMessageLabel.alpha = 0
+        }.run()
     }
 
     public var disallowedCharacters: CharacterSet? = CharacterSet.controlCharacters
@@ -339,6 +368,7 @@ public class PowerTextField: View, Editable {
 
         set {
             frameView.mode = newValue
+            syncToFrameMode()
         }
     }
 
@@ -369,7 +399,7 @@ public class PowerTextField: View, Editable {
         return label
     }()
 
-    private lazy var validationSpacerView: SpacerView = {
+    private lazy var messageSpacerView: SpacerView = {
         let view = SpacerView()
         view.width = self.frameInsets.left
         return view
@@ -380,6 +410,18 @@ public class PowerTextField: View, Editable {
         label.text = " "
         label.alpha = 0
         return label
+    }()
+
+    private lazy var placeholderMessageLabel: Label = {
+        let label = Label()
+        label.text = " "
+        label.alpha = 0
+        return label
+    }()
+
+    private lazy var messageContainerView: View = {
+        let view = View()
+        return view
     }()
 
     private lazy var placeholderLabel: Label = {
@@ -407,7 +449,7 @@ public class PowerTextField: View, Editable {
     private lazy var textField: TextField = {
         let view = TextField()
         self.textChangedAction = addControlAction(to: view, for: .editingChanged) { [unowned self] field in
-            self.syncToTextView(animated: true)
+            self.syncToTextEditor(animated: true)
         }
         view.delegate = self
         return view
@@ -447,6 +489,7 @@ public class PowerTextField: View, Editable {
             frameView.isDebug = isDebug
             characterCountLabel.isDebug = isDebug
             validationMessageLabel.isDebug = isDebug
+            placeholderMessageLabel.isDebug = isDebug
             textEditor.isDebug = isDebug
             iconView.isDebug = isDebug
             clearButtonView.isDebug = isDebug
@@ -455,21 +498,43 @@ public class PowerTextField: View, Editable {
             frameView.debugBackgroundColor = .blue
             characterCountLabel.debugBackgroundColor = .gray
             validationMessageLabel.debugBackgroundColor = .red
+            placeholderMessageLabel.debugBackgroundColor = .blue
             textEditor.debugBackgroundColor = .green
             iconView.debugBackgroundColor = .blue
             clearButtonView.debugBackgroundColor = .blue
         }
     }
 
-    private var frameInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    private var frameInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) {
+        didSet {
+            syncToFrameInsets()
+        }
+    }
+
+    private var frameContentConstraints = [NSLayoutConstraint]()
+    private func syncToFrameInsets() {
+        replaceConstraints(&frameContentConstraints, with: horizontalStackView.constrainFrame(insets: frameInsets))
+    }
+
+    private func syncToFrameMode() {
+        switch frameMode {
+        case .rectangle, .rounded:
+            frameInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        case .underline:
+            frameInsets = UIEdgeInsets(top: 2, left: 8, bottom: 8, right: 8)
+        }
+    }
 
     private func build() {
         syncToContentType()
         self => [
             verticalStackView => [
                 topRowView => [
-                    validationSpacerView,
-                    validationMessageLabel
+                    messageSpacerView,
+                    messageContainerView => [
+                        validationMessageLabel,
+                        placeholderMessageLabel
+                        ],
                     ],
                 frameView => [
                     horizontalStackView => [
@@ -485,10 +550,11 @@ public class PowerTextField: View, Editable {
             placeholderLabel
         ]
 
-        //activateConstraints([widthAnchor == 200 =&= UILayoutPriorityDefaultLow])
+        validationMessageLabel.constrainFrame()
+        placeholderMessageLabel.constrainFrame()
         activateConstraint(frameView.widthAnchor == verticalStackView.widthAnchor)
         verticalStackView.constrainFrame()
-        horizontalStackView.constrainFrame(insets: frameInsets)
+        syncToFrameInsets()
         textViewHeightConstraint = textEditorView.constrainHeight(to: 20)
         activateConstraints(
             placeholderLabel.leadingAnchor == textEditorView.leadingAnchor,
@@ -516,7 +582,7 @@ public class PowerTextField: View, Editable {
         super.updateConstraints()
 
         syncToIcon()
-        syncToShowsValidationMessage()
+        syncToShowsMessage()
         syncToShowsCharacterCount()
         syncToFont()
     }
@@ -527,6 +593,7 @@ public class PowerTextField: View, Editable {
         textEditor.fontStyleName = .textFieldContent
         characterCountLabel.fontStyleName = .textFieldCounter
         validationMessageLabel.fontStyleName = .textFieldValidationMessage
+        placeholderMessageLabel.fontStyleName = .textFieldPlaceholderMessage
         placeholderLabel.fontStyleName = .textFieldPlaceholder
         iconView.tintColor = skin.textFieldIconTintColor
         frameColor = skin.textFieldFrameColor
@@ -561,8 +628,10 @@ public class PowerTextField: View, Editable {
     fileprivate lazy var placeholderHider: Locker = {
         return Locker(onLocked: { [unowned self] in
             self.concealPlaceholder(animated: true)
+            self.revealPlaceholderMessage(animated: true)
             }, onUnlocked: { [unowned self] in
                 self.revealPlaceholder(animated: true)
+                self.concealPlaceholderMessage(animated: true)
         })
     }()
 
@@ -590,7 +659,7 @@ public class PowerTextField: View, Editable {
         didSet {
             if scrollToVisibleWhenKeyboardShows {
                 keyboardNotificationActions.didShow = { [unowned self] _ in
-                    self.scrollToVisible()
+                    self.scrollEditorToVisible()
                 }
             } else {
                 keyboardNotificationActions.didShow = nil
@@ -598,7 +667,11 @@ public class PowerTextField: View, Editable {
         }
     }
 
-    private func scrollToVisible() {
+    private func scrollContentToTop() {
+        (textEditorView as? TextView)?.setContentOffset(.zero, animated: true)
+    }
+
+    private func scrollEditorToVisible() {
         func doScroll() {
             for ancestor in allAncestors() {
                 if let scrollView = ancestor as? UIScrollView {
@@ -619,7 +692,7 @@ public class PowerTextField: View, Editable {
         placeholderLabel.textAlignment = textAlignment
     }
 
-    fileprivate func syncToTextView(animated: Bool) {
+    fileprivate func syncToTextEditor(animated: Bool) {
         syncClearButton(animated: animated)
         updateCharacterCount()
         placeholderHider["editing"] = isEditing
@@ -630,15 +703,16 @@ public class PowerTextField: View, Editable {
 
     public func syncToEditing(animated: Bool) {
         if isEditing {
-            scrollToVisible()
+            scrollEditorToVisible()
+            removeValidationError()
         } else {
-            (textEditorView as? TextView)?.setContentOffset(.zero, animated: true)
+            scrollContentToTop()
             if validationError == nil {
                 restartValidationTimer()
             }
             onEndEditing?(self)
         }
-        syncToTextView(animated: animated)
+        syncToTextEditor(animated: animated)
     }
 
     public override func layoutSubviews() {
@@ -655,10 +729,14 @@ public class PowerTextField: View, Editable {
         }
     }
 
+    private func removeValidationError() {
+        validationError = nil
+    }
+
     private func cancelValidationTimer() {
         validationTimer?.cancel()
         validationTimer = nil
-        validationError = nil
+        removeValidationError()
     }
 
     private func validate() {
@@ -670,7 +748,7 @@ public class PowerTextField: View, Editable {
         cancelValidationTimer()
         do {
             validatedText = try submitValidator(text)
-            validationError = nil
+            removeValidationError()
         } catch let error as ValidationError {
             validatedText = nil
             validationError = error
@@ -750,7 +828,7 @@ extension PowerTextField: UITextViewDelegate {
     }
 
     public func textViewDidChange(_ textView: UITextView) {
-        syncToTextView(animated: true)
+        syncToTextEditor(animated: true)
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
