@@ -39,6 +39,7 @@ extension FontStyleName {
     public static let navbarTitle = FontStyleName("navbarTitle")
     public static let barbuttonTitle = FontStyleName("barbuttonTitle")
     public static let buttonTitle = FontStyleName("buttonTitle")
+    public static let buttonTitleCaps = FontStyleName("buttonTitleCaps")
 
     public static let textFieldContent = FontStyleName("textFieldContent")
     public static let textFieldPlaceholder = FontStyleName("textFieldPlaceholder")
