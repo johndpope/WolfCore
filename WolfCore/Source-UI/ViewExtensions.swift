@@ -334,6 +334,7 @@ extension UIView: AnimatedHideable { }
         static var debug = "WolfCore_debug"
         static var debugBackgroundColor = "WolfCore_debugBackgroundColor"
         static var normalBackgroundColor = "WolfCore_normalBackgroundColor"
+        static var endEditingGestureRecognizerAction = "WolfCore_endEditingTapGestureRecognizerAction"
     }
 
     extension UIView {
@@ -372,6 +373,40 @@ extension UIView: AnimatedHideable { }
 
         private func _syncBackgroundColor() {
             backgroundColor = isDebug ? (debugBackgroundColor?.withAlphaComponent(0.25) ?? normalBackgroundColor) : normalBackgroundColor
+        }
+    }
+
+    extension UIView {
+        private var endEditingAction: GestureRecognizerAction? {
+            get {
+                return getAssociatedValue(for: &AssociatedKeys.endEditingGestureRecognizerAction)
+            }
+
+            set {
+                setAssociatedValue(newValue, for: &AssociatedKeys.endEditingGestureRecognizerAction)
+            }
+        }
+
+        public var endsEditingWhenTapped: Bool {
+            get {
+                return endEditingAction != nil
+            }
+
+            set {
+                guard newValue != (endEditingAction != nil) else { return }
+                if newValue {
+                    let tapGestureRecognizer = UITapGestureRecognizer()
+                    tapGestureRecognizer.cancelsTouchesInView = false
+                    endEditingAction = addAction(forGestureRecognizer: tapGestureRecognizer) { [unowned self] _ in
+                        self.window?.endEditing(false)
+                    }
+                    endEditingAction!.shouldReceiveTouch = { touch in
+                        return !(touch.view is UIControl)
+                    }
+                } else {
+                    endEditingAction = nil
+                }
+            }
         }
     }
 #endif

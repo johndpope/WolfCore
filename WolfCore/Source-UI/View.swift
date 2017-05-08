@@ -46,25 +46,25 @@ open class View: OSView, Skinnable {
     @IBInspectable public var isTransparentToTouches: Bool = false
 
     @IBInspectable public var contentNibName: String? = nil
-
-    private var endEditingAction: GestureRecognizerAction!
-
-    @IBInspectable public var endsEditingWhenTapped: Bool = false {
-        didSet {
-            if endsEditingWhenTapped {
-                let tapGestureRecognizer = UITapGestureRecognizer()
-                tapGestureRecognizer.cancelsTouchesInView = false
-                endEditingAction = addAction(forGestureRecognizer: tapGestureRecognizer) { [unowned self] _ in
-                    self.window?.endEditing(false)
-                }
-                endEditingAction.shouldReceiveTouch = { touch in
-                    return !(touch.view is UIControl)
-                }
-            } else {
-                endEditingAction = nil
-            }
-        }
-    }
+//
+//    private var endEditingAction: GestureRecognizerAction!
+//
+//    @IBInspectable public var endsEditingWhenTapped: Bool = false {
+//        didSet {
+//            if endsEditingWhenTapped {
+//                let tapGestureRecognizer = UITapGestureRecognizer()
+//                tapGestureRecognizer.cancelsTouchesInView = false
+//                endEditingAction = addAction(forGestureRecognizer: tapGestureRecognizer) { [unowned self] _ in
+//                    self.window?.endEditing(false)
+//                }
+//                endEditingAction.shouldReceiveTouch = { touch in
+//                    return !(touch.view is UIControl)
+//                }
+//            } else {
+//                endEditingAction = nil
+//            }
+//        }
+//    }
 
     open override func awakeFromNib() {
         super.awakeFromNib()

@@ -25,4 +25,9 @@ public class PhotoSafeAreaView: View {
         )
         return safeAreaView
     }
+
+    public override func setup() {
+        super.setup()
+        isUserInteractionEnabled = false
+    }
 }

@@ -43,4 +43,9 @@ open class GradientOverlayView: View {
         get { return gradientLayer.endPoint }
         set { gradientLayer.endPoint = newValue }
     }
+
+    open override func setup() {
+        super.setup()
+        isUserInteractionEnabled = false
+    }
 }
