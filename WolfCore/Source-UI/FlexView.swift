@@ -8,9 +8,19 @@
 
 import UIKit
 
+public struct FlexImageLabel {
+    public var image: UIImage
+    public var string: String
+    public init(image: UIImage, string: String) {
+        self.image = image
+        self.string = string
+    }
+}
+
 public enum FlexContent {
     case string(String)
     case image(UIImage)
+    case imageLabel(FlexImageLabel)
 }
 
 public class FlexView: View {
@@ -22,6 +32,7 @@ public class FlexView: View {
 
     public private(set) var label: Label!
     public private(set) var imageView: ImageView!
+    public private(set) var imageLabelView: View!
     public private(set) var contentView: UIView!
 
     public init() {
@@ -62,6 +73,20 @@ public class FlexView: View {
             imageView = ImageView()
             setContentView(imageView)
             imageView.image = image
+        case .imageLabel(let imageLabel)?:
+            self.imageLabelView = View()
+            label = Label()
+            imageView = ImageView()
+            let imageLabel = FlexImageLabel(image: imageLabel.image, string: imageLabel.string)
+            label.text = imageLabel.string
+            imageView.image = imageLabel.image
+            self.imageLabelView => [
+                HorizontalStackView() => [
+                    label,
+                    imageView
+                ]
+            ]
+            setContentView(self.imageLabelView)
         case nil:
             break
         }
