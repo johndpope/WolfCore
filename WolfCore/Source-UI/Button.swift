@@ -38,6 +38,15 @@ open class Button: UIButton, Skinnable {
         _didMoveToSuperview()
     }
 
+    open override func setTitle(_ title: String?, for state: UIControlState) {
+        var title = title
+        if let skin = skin, let fontStyle = skin.fontStyles[.buttonTitle] {
+            let attributedText = fontStyle.apply(to: title)
+            title = attributedText?.string
+        }
+        super.setTitle(title, for: state)
+    }
+
     open func updateAppearance(skin: Skin?) {
         _updateAppearance(skin: skin)
         guard let skin = skin else { return }
@@ -45,6 +54,8 @@ open class Button: UIButton, Skinnable {
         setTitleColor(skin.buttonTintColor, for: .normal)
         setTitleColor(skin.buttonHighlightedTintColor, for: .highlighted)
         setTitleColor(skin.buttonDisabledColor, for: .disabled)
+
+        setTitle(title(for: .normal), for: .normal)
 
         guard let titleLabel = titleLabel, let fontStyle = skin.fontStyles[.buttonTitle] else { return }
         titleLabel.font = fontStyle.font

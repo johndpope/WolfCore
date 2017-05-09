@@ -287,7 +287,10 @@ public class PowerTextField: View, Editable {
 
     public private(set) var isSecureTextEntry: Bool {
         get { return textEditor.isSecureTextEntry }
-        set { textEditor.isSecureTextEntry = newValue }
+        set {
+            textEditor.isSecureTextEntry = newValue
+            syncToSecureTextEntry()
+        }
     }
 
     @available(iOS 10.0, *)
@@ -479,6 +482,38 @@ public class PowerTextField: View, Editable {
         return view
     }()
 
+    public var showsToggleSecureTextEntryButton = false {
+        didSet {
+            syncToSecureTextEntry()
+        }
+    }
+
+    private var onToggleSecureTextEntryAction: ControlAction<Button>!
+
+    private lazy var toggleSecureTextEntryButton: Button = {
+        let button = Button()
+        button.setContentHuggingPriority(UILayoutPriorityRequired, for: .vertical)
+        button.setContentHuggingPriority(UILayoutPriorityRequired, for: .horizontal)
+        self.onToggleSecureTextEntryAction = addTouchUpInsideAction(to: button) { [unowned self] _ in
+            self.toggleSecureTextEntry()
+        }
+        return button
+    }()
+
+    private func toggleSecureTextEntry() {
+        isSecureTextEntry = !isSecureTextEntry
+    }
+
+    private func syncToSecureTextEntry() {
+        if contentType == .password && showsToggleSecureTextEntryButton {
+            toggleSecureTextEntryButton.show()
+            let title = isSecureTextEntry ? "Show"¶ : "Hide"¶
+            toggleSecureTextEntryButton.setTitle(title, for: .normal)
+        } else {
+            toggleSecureTextEntryButton.hide()
+        }
+    }
+
     public func clear(animated: Bool) {
         setText("", animated: animated)
     }
@@ -492,6 +527,7 @@ public class PowerTextField: View, Editable {
             textEditor.isDebug = isDebug
             iconView.isDebug = isDebug
             clearButtonView.isDebug = isDebug
+            toggleSecureTextEntryButton.isDebug = isDebug
 
             debugBackgroundColor = .green
             frameView.debugBackgroundColor = .blue
@@ -501,6 +537,7 @@ public class PowerTextField: View, Editable {
             textEditor.debugBackgroundColor = .green
             iconView.debugBackgroundColor = .blue
             clearButtonView.debugBackgroundColor = .blue
+            toggleSecureTextEntryButton.debugBackgroundColor = .blue
         }
     }
 
@@ -540,7 +577,8 @@ public class PowerTextField: View, Editable {
                     horizontalStackView => [
                         iconView,
                         textEditorView,
-                        clearButtonView
+                        clearButtonView,
+                        toggleSecureTextEntryButton
                     ]
                 ],
                 bottomRowView => [
@@ -555,12 +593,14 @@ public class PowerTextField: View, Editable {
         activateConstraint(frameView.widthAnchor == verticalStackView.widthAnchor)
         verticalStackView.constrainFrame()
         syncToFrameInsets()
+        syncToSecureTextEntry()
         textViewHeightConstraint = textEditorView.constrainHeight(to: 20)
         activateConstraints(
             placeholderLabel.leadingAnchor == textEditorView.leadingAnchor,
             placeholderLabel.trailingAnchor == textEditorView.trailingAnchor,
             placeholderLabel.topAnchor == textEditorView.topAnchor,
-            textEditorView.heightAnchor >= clearButtonView.heightAnchor
+            textEditorView.heightAnchor >= clearButtonView.heightAnchor,
+            toggleSecureTextEntryButton.heightAnchor == clearButtonView.heightAnchor
         )
 
         syncClearButton(animated: false)

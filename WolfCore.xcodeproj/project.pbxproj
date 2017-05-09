@@ -124,6 +124,7 @@
 		0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */; };
 		033882241CFF97C200C8972B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033882231CFF97C200C8972B /* TextField.swift */; };
 		0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */; };
+		0339F7AC1EC1A0EB0028EC5E /* EventDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339F7AB1EC1A0EB0028EC5E /* EventDebugging.swift */; };
 		033A7AFB1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
 		033A7AFC1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
 		033A7AFD1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
@@ -655,6 +656,7 @@
 		0330867B1C1B808500105012 /* TraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraitCollectionExtensions.swift; path = "Source-UI/TraitCollectionExtensions.swift"; sourceTree = "<group>"; };
 		033882231CFF97C200C8972B /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextField.swift; path = "Source-UI/TextField.swift"; sourceTree = "<group>"; };
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = Sources/WolfCore/SequenceExtensions.swift; sourceTree = "<group>"; };
+		0339F7AB1EC1A0EB0028EC5E /* EventDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDebugging.swift; path = "Source-UI/EventDebugging.swift"; sourceTree = "<group>"; };
 		033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONRepresentable.swift; path = Sources/WolfCore/JSONRepresentable.swift; sourceTree = "<group>"; };
 		033AC3471D171703008C8B93 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interval.swift; path = Sources/WolfCore/Interval.swift; sourceTree = "<group>"; };
 		033AC34B1D17172E008C8B93 /* Frac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Frac.swift; path = Sources/WolfCore/Frac.swift; sourceTree = "<group>"; };
@@ -1079,6 +1081,7 @@
 				035553381C0F622A00E0FCA7 /* ViewDebugging.swift */,
 				033038061E5D12AB008E37F6 /* Lorem.swift */,
 				0314DCC41D08ED4D00E23C67 /* InFlight */,
+				0339F7AB1EC1A0EB0028EC5E /* EventDebugging.swift */,
 			);
 			name = Developer;
 			sourceTree = "<group>";
@@ -1889,6 +1892,7 @@
 				032418011E2AD92C00082E6A /* ReversedGraph.swift in Sources */,
 				0362A1A71C19FBD20005371F /* Log.swift in Sources */,
 				039C912D1E4D1582000AE01B /* VideoControllerView.swift in Sources */,
+				0339F7AC1EC1A0EB0028EC5E /* EventDebugging.swift in Sources */,
 				03FAF77B1C532A640045BB37 /* ASN1Parser.swift in Sources */,
 				03FAF7811C53F6DB0045BB37 /* Base64URL.swift in Sources */,
 				036B83471C431F2A00491AFF /* Color.swift in Sources */,
