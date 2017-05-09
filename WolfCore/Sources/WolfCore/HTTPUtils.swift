@@ -138,7 +138,7 @@ extension StatusCode {
 }
 
 public class HTTP {
-    public static func retrieveData(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> DataPromise {
+    public static func retrieveData(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> DataPromise {
         func perform(promise: DataPromise) {
             let name = name ?? request.name
             
@@ -204,7 +204,10 @@ public class HTTP {
                     let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
 
                     inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
-                    logError("\(token) Failure response code: \(statusCode)")
+
+                    if !expectedFailureStatusCodes.contains(statusCode) {
+                        logError("\(token) Failure response code: \(statusCode)")
+                    }
 
                     dispatchOnMain {
                         promise.fail(error)
@@ -233,23 +236,23 @@ public class HTTP {
     }
 
 
-    public static func retrieve(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> SuccessPromise {
-        return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { _ in }
+    public static func retrieve(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> SuccessPromise {
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { _ in }
     }
 
 
-    public static func retrieveJSON(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> JSONPromise {
+    public static func retrieveJSON(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> JSONPromise {
         var request = request
         request.setAcceptContentType(.json)
 
-        return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { data in
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { data in
             return try data |> JSON.init
         }
     }
 
 
-    public static func retrieveJSONDictionary(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> JSONPromise {
-        return retrieveJSON(with: request, successStatusCodes: successStatusCodes, name: name).then { json in
+    public static func retrieveJSONDictionary(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> JSONPromise {
+        return retrieveJSON(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { json in
             guard json.value is JSON.Dictionary else {
                 throw HTTPUtilsError.expectedJSONDict
             }
@@ -259,8 +262,8 @@ public class HTTP {
 
 
     #if !os(Linux)
-    public static func retrieveImage(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], name: String? = nil) -> ImagePromise {
-        return retrieveData(with: request, successStatusCodes: successStatusCodes, name: name).then { data in
+    public static func retrieveImage(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> ImagePromise {
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { data in
             guard let image = OSImage(data: data) else {
                 throw HTTPUtilsError.expectedImage
             }

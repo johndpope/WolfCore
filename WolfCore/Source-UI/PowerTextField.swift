@@ -779,7 +779,7 @@ public class PowerTextField: View, Editable {
         removeValidationError()
     }
 
-    private func validate() {
+    public func validate() {
         guard let submitValidator = submitValidator else {
             validatedText = text
             return
