@@ -26,9 +26,8 @@ public class FlexView: View {
         return view
     }()
 
-    private var label: Label!
-    private var imageView: ImageView!
-    private var imageLabelView: View!
+    public private(set) var label: Label!
+    public private(set) var imageView: ImageView!
 
     public init() {
         super.init(frame: .zero)
@@ -48,27 +47,38 @@ public class FlexView: View {
         horizontalStackView.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
     }
 
-    private func setContentViews(_ views: [UIView]) {
+    private func removeContentViews() {
         horizontalStackView.removeAllSubviews()
+        label = nil
+        imageView = nil
+    }
+
+    private func setContentViews(_ views: [UIView]) {
         horizontalStackView => views
     }
 
     private func sync() {
+        removeContentViews()
+
         switch content {
+
         case .string(let text)?:
-            let label = Label()
+            label = Label()
             label.text = text
             setContentViews([label])
+
         case .image(let image)?:
-            let imageView = ImageView()
+            imageView = ImageView()
             imageView.image = image
             setContentViews([imageView])
+
         case .imageString(let image, let string)?:
-            let label = Label()
-            let imageView = ImageView()
+            label = Label()
+            imageView = ImageView()
             label.text = string
             imageView.image = image
             setContentViews([imageView, label])
+
         case nil:
             break
         }
