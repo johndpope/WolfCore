@@ -117,6 +117,7 @@ open class DefaultSkin: Skin {
         .navbarTitle: FontStyle(font: .boldSystemFont(ofSize: 16)),
         .barbuttonTitle: FontStyle(font: .systemFont(ofSize: 16)),
         .buttonTitle: FontStyle(font: .systemFont(ofSize: 12)),
+        .buttonTitleCaps: FontStyle(font: .systemFont(ofSize: 12)),
 
         .textFieldContent: FontStyle(font: .systemFont(ofSize: 12), color: .black),
         .textFieldPlaceholder: FontStyle(font: .systemFont(ofSize: 12), color: .gray),
