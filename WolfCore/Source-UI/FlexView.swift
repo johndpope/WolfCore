@@ -8,19 +8,10 @@
 
 import UIKit
 
-public struct FlexImageLabel {
-    public var image: UIImage
-    public var string: String
-    public init(image: UIImage, string: String) {
-        self.image = image
-        self.string = string
-    }
-}
-
 public enum FlexContent {
     case string(String)
     case image(UIImage)
-    case imageLabel(FlexImageLabel)
+    case imageString(UIImage, String)
 }
 
 public class FlexView: View {
@@ -30,10 +21,14 @@ public class FlexView: View {
         }
     }
 
-    public private(set) var label: Label!
-    public private(set) var imageView: ImageView!
-    public private(set) var imageLabelView: View!
-    public private(set) var contentView: UIView!
+    private var horizontalStackView: HorizontalStackView = {
+        let view = HorizontalStackView()
+        return view
+    }()
+
+    private var label: Label!
+    private var imageView: ImageView!
+    private var imageLabelView: View!
 
     public init() {
         super.init(frame: .zero)
@@ -46,47 +41,34 @@ public class FlexView: View {
     public override func setup() {
         super.setup()
         isUserInteractionEnabled = false
-    }
-
-    private func removeContentView() {
-        guard let contentView = contentView else { return }
-        contentView.removeFromSuperview()
-        self.contentView = nil
-    }
-
-    private func setContentView(_ view: UIView) {
         self => [
-            view
+            horizontalStackView
         ]
-        view.constrainFrame()
-        view.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+        horizontalStackView.constrainFrame()
+        horizontalStackView.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
+    }
+
+    private func setContentViews(_ views: [UIView]) {
+        horizontalStackView.removeAllSubviews()
+        horizontalStackView => views
     }
 
     private func sync() {
-        removeContentView()
         switch content {
         case .string(let text)?:
-            label = Label()
-            setContentView(label)
+            let label = Label()
             label.text = text
+            setContentViews([label])
         case .image(let image)?:
-            imageView = ImageView()
-            setContentView(imageView)
+            let imageView = ImageView()
             imageView.image = image
-        case .imageLabel(let imageLabel)?:
-            self.imageLabelView = View()
-            label = Label()
-            imageView = ImageView()
-            let imageLabel = FlexImageLabel(image: imageLabel.image, string: imageLabel.string)
-            label.text = imageLabel.string
-            imageView.image = imageLabel.image
-            self.imageLabelView => [
-                HorizontalStackView() => [
-                    label,
-                    imageView
-                ]
-            ]
-            setContentView(self.imageLabelView)
+            setContentViews([imageView])
+        case .imageString(let image, let string)?:
+            let label = Label()
+            let imageView = ImageView()
+            label.text = string
+            imageView.image = image
+            setContentViews([imageView, label])
         case nil:
             break
         }
