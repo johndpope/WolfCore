@@ -10,9 +10,10 @@ import Foundation
 
 public protocol Credentials: JSONModel {
     static var name: String { get }
-    var authorization: String { get }
-    static func load() -> Self?
+    var authorization: String { get set }
     func save()
+    static func load() -> Self?
+    static func delete()
     func delete()
 }
 
@@ -26,7 +27,11 @@ extension Credentials {
         return Self(json: json)
     }
 
+    public static func delete() {
+        try! KeyChain.delete(key: name)
+    }
+
     public func delete() {
-        try! KeyChain.delete(key: Self.name)
+        Self.delete()
     }
 }

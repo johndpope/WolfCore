@@ -125,6 +125,9 @@
 		033882241CFF97C200C8972B /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033882231CFF97C200C8972B /* TextField.swift */; };
 		0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */; };
 		0339F7AC1EC1A0EB0028EC5E /* EventDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339F7AB1EC1A0EB0028EC5E /* EventDebugging.swift */; };
+		0339F7B21EC282C50028EC5E /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339F7B11EC282C50028EC5E /* Mock.swift */; };
+		0339F7B31EC282C50028EC5E /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339F7B11EC282C50028EC5E /* Mock.swift */; };
+		0339F7B41EC282C50028EC5E /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339F7B11EC282C50028EC5E /* Mock.swift */; };
 		033A7AFB1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
 		033A7AFC1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
 		033A7AFD1E90963A000624D3 /* JSONRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */; };
@@ -657,6 +660,7 @@
 		033882231CFF97C200C8972B /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextField.swift; path = "Source-UI/TextField.swift"; sourceTree = "<group>"; };
 		0339DFA11CAF905E00D6C8C4 /* SequenceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceExtensions.swift; path = Sources/WolfCore/SequenceExtensions.swift; sourceTree = "<group>"; };
 		0339F7AB1EC1A0EB0028EC5E /* EventDebugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDebugging.swift; path = "Source-UI/EventDebugging.swift"; sourceTree = "<group>"; };
+		0339F7B11EC282C50028EC5E /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mock.swift; path = Sources/WolfCore/Mock.swift; sourceTree = "<group>"; };
 		033A7AFA1E90963A000624D3 /* JSONRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONRepresentable.swift; path = Sources/WolfCore/JSONRepresentable.swift; sourceTree = "<group>"; };
 		033AC3471D171703008C8B93 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interval.swift; path = Sources/WolfCore/Interval.swift; sourceTree = "<group>"; };
 		033AC34B1D17172E008C8B93 /* Frac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Frac.swift; path = Sources/WolfCore/Frac.swift; sourceTree = "<group>"; };
@@ -1057,6 +1061,7 @@
 				035553221C0F622A00E0FCA7 /* HTTPError.swift */,
 				03CF07F91DF5367400B7AD7E /* HTTPActions.swift */,
 				035553211C0F622A00E0FCA7 /* HTTPUtils.swift */,
+				0339F7B11EC282C50028EC5E /* Mock.swift */,
 				03ECD61D1C60AE5800173FD1 /* IPAddress4.swift */,
 				03ECD61E1C60AE5800173FD1 /* IPAddress6.swift */,
 				032D6B151E9C5E760034ED63 /* NetworkUtils.swift */,
@@ -1776,6 +1781,7 @@
 				033F5EA81CA3096700647A0A /* Vector.swift in Sources */,
 				033F5EA91CA3096700647A0A /* ColorFunc.swift in Sources */,
 				03C9AA1D1E65D26500ED449B /* CoreImageFilters.swift in Sources */,
+				0339F7B31EC282C50028EC5E /* Mock.swift in Sources */,
 				033F5EAB1CA3096700647A0A /* ISO8601.swift in Sources */,
 				034D31241DF7A70F004ADC34 /* InFlightView.swift in Sources */,
 				033F5EAC1CA3096700647A0A /* Serializer.swift in Sources */,
@@ -2094,6 +2100,7 @@
 				036B83491C431FDF00491AFF /* Random.swift in Sources */,
 				035AD78E1C9B66DA00BFEC4A /* Result.swift in Sources */,
 				0303BCB01E3E8C3D00B196CA /* PhotoView.swift in Sources */,
+				0339F7B21EC282C50028EC5E /* Mock.swift in Sources */,
 				0355534F1C0F622A00E0FCA7 /* ImageUtils.swift in Sources */,
 				0384578F1CED30980012BCCE /* ViewControllerDebugging.swift in Sources */,
 				0314DD0D1D08FFFC00E23C67 /* KeyChain.swift in Sources */,
@@ -2211,6 +2218,7 @@
 				03E173161CF1C8FB0073F383 /* TVControllerActions.swift in Sources */,
 				034DCA6E1E8E3B810073DFD3 /* JSONModel.swift in Sources */,
 				03E172F81CF1C8CC0073F383 /* CGUtils.swift in Sources */,
+				0339F7B41EC282C50028EC5E /* Mock.swift in Sources */,
 				03E172D71CF1C8B60073F383 /* CryptoUtils.swift in Sources */,
 				03CF07E01DF531BE00B7AD7E /* TransferValue.swift in Sources */,
 				03B0D9B91DF385F20073AF42 /* DescriptiveError.swift in Sources */,

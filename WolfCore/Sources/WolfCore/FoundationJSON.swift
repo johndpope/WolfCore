@@ -12,6 +12,10 @@ public typealias JSON = FoundationJSON
 
 public typealias JSONPromise = Promise<JSON>
 
+public class Cached<T> {
+    var value: T?
+}
+
 public struct FoundationJSON {
     private typealias `Self` = FoundationJSON
 
@@ -22,8 +26,36 @@ public struct FoundationJSON {
     public typealias ArrayOfStrings = [String]
     public typealias ArrayOfDictionaries = [Dictionary]
 
-    public let value: Value
-    public let data: Data!
+    private var _value = Cached<Value>()
+    private var _data = Cached<Data>()
+
+    public private(set) var value: Value {
+        get {
+            if _value.value == nil {
+                _value.value = try! JSONSerialization.jsonObject(with: _data.value!)
+            }
+            return _value.value!
+        }
+
+        set {
+            _value.value = newValue
+            _data.value = nil
+        }
+    }
+
+    public private(set) var data: Data {
+        get {
+            if _data.value == nil {
+                _data.value = try! JSONSerialization.data(withJSONObject: _value.value!)
+            }
+            return _data.value!
+        }
+
+        set {
+            _data.value = newValue
+            _value.value = nil
+        }
+    }
 
     public var string: String {
         return try! data |> UTF8.init |> String.init
@@ -60,8 +92,8 @@ public struct FoundationJSON {
 
     public init(data: Data) throws {
         do {
-            value = try JSONSerialization.jsonObject(with: data)
-            self.data = data
+            _value.value = try JSONSerialization.jsonObject(with: data)
+            _data.value = data
         } catch let error {
             throw error
         }
@@ -69,8 +101,8 @@ public struct FoundationJSON {
 
     public init(value: Value) throws {
         do {
-            data = try JSONSerialization.data(withJSONObject: value)
-            self.value = value
+            _data.value = try JSONSerialization.data(withJSONObject: value)
+            _value.value = value
         } catch let error {
             logError(error)
             throw error
@@ -78,8 +110,7 @@ public struct FoundationJSON {
     }
 
     private init(fragment: Value) {
-        self.value = fragment
-        self.data = nil
+        _value.value = fragment
     }
 
     public init(_ n: Int) {
@@ -156,7 +187,21 @@ public struct FoundationJSON {
     public static func isNull(_ value: Value) -> Bool {
         return value is NSNull
     }
-    
+
+    public mutating func setValue(_ value: JSONRepresentable, for key: String) {
+        var d = dictionary
+        d[key] = value.json.value
+        _value.value = d
+        _data.value = nil
+    }
+
+    public mutating func setValue(_ value: JSONRepresentable, for index: Int) {
+        var a = array
+        a[index] = value.json.value
+        _value.value = a
+        _data.value = nil
+    }
+
     public static let null = NSNull()
 }
 

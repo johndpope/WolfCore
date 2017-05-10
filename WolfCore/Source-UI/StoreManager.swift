@@ -33,7 +33,7 @@ extension StoreManager: SKProductsRequestDelegate {
     public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         productsResponse = response
 
-        print(response.json.prettyString)
+        //print(response.json.prettyString)
 
         productsCompletionBlock(response)
         productsCompletionBlock = nil

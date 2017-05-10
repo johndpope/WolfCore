@@ -138,12 +138,86 @@ extension StatusCode {
 }
 
 public class HTTP {
-    public static func retrieveData(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> DataPromise {
-        func perform(promise: DataPromise) {
-            let name = name ?? request.name
-            
-            let token: InFlightToken! = inFlightTracker?.start(withName: name)
+    public static func retrieveData(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], mock: Mock? = nil, name: String? = nil) -> DataPromise {
 
+        let name = name ?? request.name
+        let token: InFlightToken! = inFlightTracker?.start(withName: name)
+
+        func onComplete(promise: DataPromise, task: Cancelable?, error: Error?, response: URLResponse?, data: Data?) {
+            guard error == nil else {
+                switch error {
+                case let error as DescriptiveError:
+                    if error.isCancelled {
+                        inFlightTracker?.end(withToken: token, result: Result<Void>.canceled)
+                        logTrace("\(token) retrieveData was cancelled")
+                    }
+                    dispatchOnMain {
+                        promise.fail(error)
+                    }
+                default:
+                    inFlightTracker?.end(withToken: token, result: Result<Error>.failure(error!))
+                    logError("\(token) retrieveData returned error")
+
+                    dispatchOnMain {
+                        promise.fail(error!)
+                    }
+                }
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                fatalError("\(token) improper response type: \(response†)")
+            }
+
+            guard data != nil else {
+                let error = HTTPError(request: request, response: httpResponse)
+
+                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
+                logError("\(token) No data returned")
+
+                dispatchOnMain {
+                    promise.fail(error)
+                }
+                return
+            }
+
+            guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
+                let error = HTTPError(request: request, response: httpResponse, data: data)
+
+                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
+                logError("\(token) Unknown response code: \(httpResponse.statusCode)")
+
+                dispatchOnMain {
+                    promise.fail(error)
+                }
+                return
+            }
+
+            guard successStatusCodes.contains(statusCode) else {
+                let error = HTTPError(request: request, response: httpResponse, data: data)
+
+                inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
+
+                if !expectedFailureStatusCodes.contains(statusCode) {
+                    logError("\(token) Failure response code: \(statusCode)")
+                }
+
+                dispatchOnMain {
+                    promise.fail(error)
+                }
+                return
+            }
+
+            inFlightTracker?.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
+
+            let inFlightData = data!
+            dispatchOnMain {
+                promise.task = task
+                promise.keep(inFlightData)
+            }
+        }
+
+        func perform(promise: DataPromise) {
             let _sessionActions = HTTPActions()
 
             _sessionActions.didReceiveResponse = { (sessionActions, session, dataTask, response, completionHandler) in
@@ -151,77 +225,7 @@ public class HTTP {
             }
 
             _sessionActions.didComplete = { (sessionActions, session, task, error) in
-                guard error == nil else {
-                    switch error {
-                    case let error as DescriptiveError:
-                        if error.isCancelled {
-                            inFlightTracker?.end(withToken: token, result: Result<Void>.canceled)
-                            logTrace("\(token) retrieveData was cancelled")
-                        }
-                        dispatchOnMain {
-                            promise.fail(error)
-                        }
-                    default:
-                        inFlightTracker?.end(withToken: token, result: Result<Error>.failure(error!))
-                        logError("\(token) retrieveData returned error")
-
-                        dispatchOnMain {
-                            promise.fail(error!)
-                        }
-                    }
-                    return
-                }
-
-                guard let httpResponse = sessionActions.response as? HTTPURLResponse else {
-                    fatalError("\(token) improper response type: \(sessionActions.response†)")
-                }
-
-                guard sessionActions.data != nil else {
-                    let error = HTTPError(request: request, response: httpResponse)
-
-                    inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
-                    logError("\(token) No data returned")
-
-                    dispatchOnMain {
-                        promise.fail(error)
-                    }
-                    return
-                }
-
-                guard let statusCode = StatusCode(rawValue: httpResponse.statusCode) else {
-                    let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
-
-                    inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
-                    logError("\(token) Unknown response code: \(httpResponse.statusCode)")
-
-                    dispatchOnMain {
-                        promise.fail(error)
-                    }
-                    return
-                }
-
-                guard successStatusCodes.contains(statusCode) else {
-                    let error = HTTPError(request: request, response: httpResponse, data: sessionActions.data)
-
-                    inFlightTracker?.end(withToken: token, result: Result<HTTPError>.failure(error))
-
-                    if !expectedFailureStatusCodes.contains(statusCode) {
-                        logError("\(token) Failure response code: \(statusCode)")
-                    }
-
-                    dispatchOnMain {
-                        promise.fail(error)
-                    }
-                    return
-                }
-
-                inFlightTracker?.end(withToken: token, result: Result<HTTPURLResponse>.success(httpResponse))
-
-                let inFlightData = sessionActions.data!
-                dispatchOnMain {
-                    promise.task = task
-                    promise.keep(inFlightData)
-                }
+                onComplete(promise: promise, task: task, error: error, response: sessionActions.response, data: sessionActions.data)
             }
 
             let sharedSession = URLSession.shared
@@ -232,27 +236,45 @@ public class HTTP {
             task.resume()
         }
 
-        return DataPromise(with: perform)
+        func mockPerform(promise: DataPromise) {
+            let mock = mock!
+            dispatchOnBackground(afterDelay: mock.delay) {
+                dispatchOnMain {
+                    let response = HTTPURLResponse(url: request.url!, statusCode: mock.statusCode.rawValue, httpVersion: nil, headerFields: nil)!
+                    var error: Error?
+                    if !successStatusCodes.contains(mock.statusCode) {
+                        error = HTTPError(request: request, response: response)
+                    }
+                    onComplete(promise: promise, task: nil, error: error, response: response, data: mock.data)
+                }
+            }
+        }
+
+        if mock != nil {
+            return DataPromise(with: mockPerform)
+        } else {
+            return DataPromise(with: perform)
+        }
     }
 
 
-    public static func retrieve(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> SuccessPromise {
-        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { _ in }
+    public static func retrieve(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], mock: Mock? = nil, name: String? = nil) -> SuccessPromise {
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, mock: mock, name: name).then { _ in }
     }
 
 
-    public static func retrieveJSON(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> JSONPromise {
+    public static func retrieveJSON(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], mock: Mock? = nil, name: String? = nil) -> JSONPromise {
         var request = request
         request.setAcceptContentType(.json)
 
-        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { data in
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, mock: mock, name: name).then { data in
             return try data |> JSON.init
         }
     }
 
 
-    public static func retrieveJSONDictionary(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> JSONPromise {
-        return retrieveJSON(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { json in
+    public static func retrieveJSONDictionary(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], mock: Mock? = nil, name: String? = nil) -> JSONPromise {
+        return retrieveJSON(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, mock: mock, name: name).then { json in
             guard json.value is JSON.Dictionary else {
                 throw HTTPUtilsError.expectedJSONDict
             }
@@ -262,8 +284,8 @@ public class HTTP {
 
 
     #if !os(Linux)
-    public static func retrieveImage(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], name: String? = nil) -> ImagePromise {
-        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, name: name).then { data in
+    public static func retrieveImage(with request: URLRequest, successStatusCodes: [StatusCode] = [.ok], expectedFailureStatusCodes: [StatusCode] = [], mock: Mock? = nil, name: String? = nil) -> ImagePromise {
+        return retrieveData(with: request, successStatusCodes: successStatusCodes, expectedFailureStatusCodes: expectedFailureStatusCodes, mock: mock, name: name).then { data in
             guard let image = OSImage(data: data) else {
                 throw HTTPUtilsError.expectedImage
             }

@@ -104,7 +104,7 @@ extension UIViewController {
     public func presentAlert(forError errorType: Error, didAppear: Block? = nil, didDisappear: Block? = nil) {
         switch errorType {
         case let error as DescriptiveError:
-            presentAlert(forError: error, withMessage: error.message, identifier: error.identifier, didAppear: didAppear)
+            presentAlert(forError: error, withMessage: error.message, identifier: error.identifier, didAppear: didAppear, didDisappear: didDisappear)
         default:
             presentAlert(forError: errorType, withTitle: "Something Went Wrong"¶, message: "Please try again later."¶, identifier: "error", didAppear: didAppear, didDisappear: didDisappear)
         }
