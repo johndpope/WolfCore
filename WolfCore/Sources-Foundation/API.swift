@@ -8,19 +8,50 @@
 
 import Foundation
 
-open class API {
-    private typealias `Self` = API
+extension Notification.Name {
+    public static let loggedOut = Notification.Name("loggedOut")
+}
+
+open class API<C: Credentials> {
+    public typealias CredentialsType = C
 
     private let endpoint: Endpoint
-    public var credentials: Credentials?
-    public static let loggedOut = NSNotification.Name("loggedOut")
+    private let authorizationHeaderField: HeaderField
 
-    public init(endpoint: Endpoint) {
+    public var debugPrintRequests = false
+
+    public var credentials: CredentialsType? {
+        didSet {
+            if credentials != nil {
+                credentials!.save()
+            } else {
+                CredentialsType.delete()
+            }
+        }
+    }
+
+    public init(endpoint: Endpoint, authorizationHeaderField: HeaderField = .authorization) {
         self.endpoint = endpoint
+        self.authorizationHeaderField = authorizationHeaderField
+        self.credentials = CredentialsType.load()
+    }
+
+    public var hasCredentials: Bool {
+        return credentials != nil
     }
 
     public enum Error: Swift.Error {
         case credentialsRequired
+    }
+
+    public var authorization: String {
+        get {
+            return credentials!.authorization
+        }
+
+        set {
+            credentials!.authorization = newValue
+        }
     }
 
     public func newRequest(method: HTTPMethod, path: [Any]? = nil, isAuth: Bool, body json: JSON? = nil) throws -> URLRequest {
@@ -36,9 +67,13 @@ open class API {
             request.httpBody = json.data
         }
         if isAuth {
-            request.setAuthorization(credentials!.authorization)
+            request.setValue(authorization, for: authorizationHeaderField)
         }
-        //request.printRequest()
+
+        if debugPrintRequests {
+            request.printRequest()
+        }
+
         return request
     }
 
@@ -76,8 +111,7 @@ open class API {
     }
 
     public func logout() {
-        credentials?.delete()
         credentials = nil
-        notificationCenter.post(name: Self.loggedOut, object: self)
+        notificationCenter.post(name: .loggedOut, object: self)
     }
 }

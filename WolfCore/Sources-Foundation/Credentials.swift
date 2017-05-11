@@ -14,7 +14,6 @@ public protocol Credentials: JSONModel {
     func save()
     static func load() -> Self?
     static func delete()
-    func delete()
 }
 
 extension Credentials {
@@ -28,10 +27,10 @@ extension Credentials {
     }
 
     public static func delete() {
-        try! KeyChain.delete(key: name)
-    }
-
-    public func delete() {
-        Self.delete()
+        do {
+            try KeyChain.delete(key: name)
+        } catch {
+            // Do nothing
+        }
     }
 }
