@@ -13,7 +13,6 @@ open class PhotoView: View {
 
     public private(set) lazy var gradientView: GradientOverlayView = {
         let view = GradientOverlayView()
-        view.alpha = 0.8
         return view
     }()
 
