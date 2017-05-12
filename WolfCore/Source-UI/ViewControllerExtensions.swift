@@ -44,7 +44,7 @@ extension UIViewController {
 
     private func presentAlertController(withPreferredStyle style: UIAlertControllerStyle, title: String?, message: String?, identifier: String, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, actions: [AlertAction], didAppear: Block?, didDisappear: Block?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-        alert.view.tintColor = view.skin.viewControllerTintColor
+        alert.view.tintColor = view.skin.alertTintColor
         if let popover = alert.popoverPresentationController {
             if let popoverSourceView = popoverSourceView {
                 popover.sourceView = popoverSourceView

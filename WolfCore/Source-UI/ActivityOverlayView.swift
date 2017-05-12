@@ -9,6 +9,34 @@
 import UIKit
 
 public class ActivityOverlayView: View {
+    private var hysteresis: Hysteresis!
+
+    public init() {
+        super.init(frame: .zero)
+        hysteresis = Hysteresis(
+            onEffectStart: {
+                dispatchOnMain {
+                    self.show(animated: true)
+                }
+        },
+            onEffectEnd: {
+                dispatchOnMain {
+                    self.hide(animated: true)
+                }
+        },
+            effectStartLag: 0.5,
+            effectEndLag: 0.4
+        )
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func newActivity() -> Locker.Ref {
+        return hysteresis.newCause()
+    }
+
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
         let view = ~UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         view.hidesWhenStopped = false
@@ -49,21 +77,8 @@ public class ActivityOverlayView: View {
         hide()
     }
 
-    override public func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        if superview != nil {
-            constrainFrame()
-        }
+    public func show(animated: Bool) {
+        superview?.bringSubview(toFront: self)
+        super.show(animated: animated)
     }
 }
-
-//class LoadingViewController: ViewController {
-//    private lazy var mainView: LoadingOverlayView = {
-//        let view = LoadingOverlayView()
-//        return view
-//    }()
-//
-//    override func loadView() {
-//        self.view = mainView
-//    }
-//}

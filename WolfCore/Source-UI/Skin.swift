@@ -19,9 +19,14 @@ public protocol Skin {
     var statusBarStyle: UIStatusBarStyle { get }
     var navigationBarHidden: Bool { get }
 
+    var lightBackgroundTintColor: UIColor { get }
+    var darkBackgroundTintColor: UIColor { get }
+
     var viewControllerBackgroundColor: UIColor { get }
     var viewControllerTintColor: UIColor { get }
     var viewControllerHighlightedTintColor: UIColor { get }
+
+    var alertTintColor: UIColor { get }
 
     var buttonTintColor: UIColor { get }
     var buttonHighlightedTintColor: UIColor { get }
@@ -76,9 +81,14 @@ open class DefaultSkin: Skin {
     open var statusBarStyle: UIStatusBarStyle { return .default }
     open var navigationBarHidden: Bool { return false }
 
+    open var lightBackgroundTintColor: UIColor { return defaultTintColor }
+    open var darkBackgroundTintColor: UIColor { return defaultTintColor }
+
     open var viewControllerBackgroundColor: UIColor { return .white }
-    open var viewControllerTintColor: UIColor { return defaultTintColor }
+    open var viewControllerTintColor: UIColor { return lightBackgroundTintColor }
     open var viewControllerHighlightedTintColor: UIColor { return viewControllerTintColor.lightened(by: 0.5) }
+
+    open var alertTintColor: UIColor { return lightBackgroundTintColor }
 
     open var buttonTintColor: UIColor { return viewControllerTintColor }
     open var buttonHighlightedTintColor: UIColor { return viewControllerHighlightedTintColor }
@@ -134,6 +144,7 @@ open class DefaultDarkSkin: DefaultSkin {
     override open var statusBarStyle: UIStatusBarStyle { return .lightContent }
 
     override open var viewControllerBackgroundColor: UIColor { return .black }
+    override open var viewControllerTintColor: UIColor { return darkBackgroundTintColor }
     override open var textColor: UIColor { return .white }
 
     override open var navbarTitleColor: UIColor { return .white }
@@ -161,9 +172,14 @@ open class InterpolateSkin: Skin {
     open lazy var statusBarStyle: UIStatusBarStyle = { return self.frac.ledge(self.skin1.statusBarStyle, self.skin2.statusBarStyle) }()
     open lazy var navigationBarHidden: Bool = { return self.frac.ledge(self.skin1.navigationBarHidden, self.skin2.navigationBarHidden) }()
 
+    open lazy var lightBackgroundTintColor: UIColor = { return self.blend(from: self.skin1.lightBackgroundTintColor, to: self.skin2.lightBackgroundTintColor) }()
+    open lazy var darkBackgroundTintColor: UIColor = { return self.blend(from: self.skin1.darkBackgroundTintColor, to: self.skin2.darkBackgroundTintColor) }()
+
     open lazy var viewControllerBackgroundColor: UIColor = { return self.blend(from: self.skin1.viewControllerBackgroundColor, to: self.skin2.viewControllerBackgroundColor) }()
     open lazy var viewControllerTintColor: UIColor = { return self.blend(from: self.skin1.viewControllerTintColor, to: self.skin2.viewControllerTintColor) }()
     open lazy var viewControllerHighlightedTintColor: UIColor = { return self.blend(from: self.skin1.viewControllerHighlightedTintColor, to: self.skin2.viewControllerHighlightedTintColor) }()
+
+    open lazy var alertTintColor: UIColor = { return self.blend(from: self.skin1.alertTintColor, to: self.skin2.alertTintColor) }()
 
     open lazy var buttonTintColor: UIColor = { return self.blend(from: self.skin1.buttonTintColor, to: self.skin2.buttonTintColor) }()
     open lazy var buttonHighlightedTintColor: UIColor = { return self.blend(from: self.skin1.buttonHighlightedTintColor, to: self.skin2.buttonHighlightedTintColor) }()

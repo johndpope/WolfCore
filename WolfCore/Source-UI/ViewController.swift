@@ -23,16 +23,12 @@ open class ViewController: UIViewController, Skinnable {
         self.view => [
             activityView
         ]
+        activityView.constrainFrame()
         return activityView
     }()
 
-    public func showActivityOverlay(animated: Bool) {
-        self.view.bringSubview(toFront: activityOverlayView)
-        activityOverlayView.show(animated: animated)
-    }
-
-    public func hideActivityOverlay(animated: Bool) {
-        activityOverlayView.hide(animated: animated)
+    public func newActivity() -> Locker.Ref {
+        return activityOverlayView.newActivity()
     }
 
     public required init?(coder aDecoder: NSCoder) {
