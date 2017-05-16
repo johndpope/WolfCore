@@ -7,6 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03023A151ECA5D34002AF4A6 /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A141ECA5D34002AF4A6 /* EmailValidator.swift */; };
+		03023A161ECA5D34002AF4A6 /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A141ECA5D34002AF4A6 /* EmailValidator.swift */; };
+		03023A171ECA5D34002AF4A6 /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A141ECA5D34002AF4A6 /* EmailValidator.swift */; };
+		03023A191ECA60A5002AF4A6 /* PhoneNumberValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A181ECA60A5002AF4A6 /* PhoneNumberValidator.swift */; };
+		03023A1A1ECA60A5002AF4A6 /* PhoneNumberValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A181ECA60A5002AF4A6 /* PhoneNumberValidator.swift */; };
+		03023A1B1ECA60A5002AF4A6 /* PhoneNumberValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A181ECA60A5002AF4A6 /* PhoneNumberValidator.swift */; };
+		03023A1D1ECA62F7002AF4A6 /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A1C1ECA62F7002AF4A6 /* PasswordValidator.swift */; };
+		03023A1E1ECA62F7002AF4A6 /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A1C1ECA62F7002AF4A6 /* PasswordValidator.swift */; };
+		03023A1F1ECA62F7002AF4A6 /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A1C1ECA62F7002AF4A6 /* PasswordValidator.swift */; };
+		03023A211ECA840A002AF4A6 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A201ECA840A002AF4A6 /* Validation.swift */; };
+		03023A221ECA840A002AF4A6 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A201ECA840A002AF4A6 /* Validation.swift */; };
+		03023A231ECA840A002AF4A6 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A201ECA840A002AF4A6 /* Validation.swift */; };
+		03023A251ECA8430002AF4A6 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A241ECA8430002AF4A6 /* StringValidation.swift */; };
+		03023A261ECA8430002AF4A6 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A241ECA8430002AF4A6 /* StringValidation.swift */; };
+		03023A271ECA8430002AF4A6 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A241ECA8430002AF4A6 /* StringValidation.swift */; };
+		03023A2D1ECA87D9002AF4A6 /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A2C1ECA87D9002AF4A6 /* Facebook.swift */; };
+		03023A2E1ECA87D9002AF4A6 /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A2C1ECA87D9002AF4A6 /* Facebook.swift */; };
+		03023A2F1ECA87D9002AF4A6 /* Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A2C1ECA87D9002AF4A6 /* Facebook.swift */; };
+		03023A311ECA87E7002AF4A6 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A301ECA87E7002AF4A6 /* Instagram.swift */; };
+		03023A321ECA87E7002AF4A6 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A301ECA87E7002AF4A6 /* Instagram.swift */; };
+		03023A331ECA87E7002AF4A6 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A301ECA87E7002AF4A6 /* Instagram.swift */; };
+		03023A351ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
+		03023A361ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
+		03023A371ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
 		0302D2F81CF8F34300717170 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302D2F71CF8F34300717170 /* TextView.swift */; };
 		0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */; };
 		0303BCB01E3E8C3D00B196CA /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */; };
@@ -277,7 +301,7 @@
 		035E520E1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */; };
 		035EB4551CF3CC2D006D73ED /* EmailUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4541CF3CC2D006D73ED /* EmailUtils.swift */; };
 		035EB4571CF3CEE1006D73ED /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */; };
-		03604A441E79C6C100CA8C89 /* SocialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A431E79C6C100CA8C89 /* SocialUtils.swift */; };
+		03604A441E79C6C100CA8C89 /* SocialMediaPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A431E79C6C100CA8C89 /* SocialMediaPlatform.swift */; };
 		03604A461E7E0F4B00CA8C89 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A451E7E0F4B00CA8C89 /* Validator.swift */; };
 		03604A471E7E0F4B00CA8C89 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A451E7E0F4B00CA8C89 /* Validator.swift */; };
 		03604A481E7E0F4B00CA8C89 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03604A451E7E0F4B00CA8C89 /* Validator.swift */; };
@@ -593,6 +617,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03023A141ECA5D34002AF4A6 /* EmailValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailValidator.swift; path = Sources/WolfCore/EmailValidator.swift; sourceTree = "<group>"; };
+		03023A181ECA60A5002AF4A6 /* PhoneNumberValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhoneNumberValidator.swift; path = Sources/WolfCore/PhoneNumberValidator.swift; sourceTree = "<group>"; };
+		03023A1C1ECA62F7002AF4A6 /* PasswordValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordValidator.swift; path = Sources/WolfCore/PasswordValidator.swift; sourceTree = "<group>"; };
+		03023A201ECA840A002AF4A6 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Sources/WolfCore/Validation.swift; sourceTree = "<group>"; };
+		03023A241ECA8430002AF4A6 /* StringValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringValidation.swift; path = Sources/WolfCore/StringValidation.swift; sourceTree = "<group>"; };
+		03023A2C1ECA87D9002AF4A6 /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Sources/WolfCore/Facebook.swift; sourceTree = "<group>"; };
+		03023A301ECA87E7002AF4A6 /* Instagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Instagram.swift; path = Sources/WolfCore/Instagram.swift; sourceTree = "<group>"; };
+		03023A341ECA87F3002AF4A6 /* Snapchat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Snapchat.swift; path = Sources/WolfCore/Snapchat.swift; sourceTree = "<group>"; };
 		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = "Source-UI/TextView.swift"; sourceTree = "<group>"; };
 		0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientOverlayView.swift; path = "Source-UI/GradientOverlayView.swift"; sourceTree = "<group>"; };
 		0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoView.swift; path = "Source-UI/PhotoView.swift"; sourceTree = "<group>"; };
@@ -715,7 +747,7 @@
 		035E520D1DF5261B00D6C8A5 /* StackViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackViewExtensions.swift; path = "Source-UI/StackViewExtensions.swift"; sourceTree = "<group>"; };
 		035EB4541CF3CC2D006D73ED /* EmailUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailUtils.swift; path = "Source-UI/EmailUtils.swift"; sourceTree = "<group>"; };
 		035EB4561CF3CEE1006D73ED /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerExtensions.swift; path = "Source-UI/ViewControllerExtensions.swift"; sourceTree = "<group>"; };
-		03604A431E79C6C100CA8C89 /* SocialUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialUtils.swift; path = "Source-UI/SocialUtils.swift"; sourceTree = "<group>"; };
+		03604A431E79C6C100CA8C89 /* SocialMediaPlatform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialMediaPlatform.swift; path = "Source-UI/SocialMediaPlatform.swift"; sourceTree = "<group>"; };
 		03604A451E7E0F4B00CA8C89 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = Sources/WolfCore/Validator.swift; sourceTree = "<group>"; };
 		03604A491E7F6ED300CA8C89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Source-UI/Assets.xcassets"; sourceTree = "<group>"; };
 		03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClearFieldButtonView.swift; path = "Source-UI/ClearFieldButtonView.swift"; sourceTree = "<group>"; };
@@ -899,6 +931,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03023A281ECA84D8002AF4A6 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				03604A451E7E0F4B00CA8C89 /* Validator.swift */,
+				03023A201ECA840A002AF4A6 /* Validation.swift */,
+				03023A241ECA8430002AF4A6 /* StringValidation.swift */,
+				03023A141ECA5D34002AF4A6 /* EmailValidator.swift */,
+				03023A181ECA60A5002AF4A6 /* PhoneNumberValidator.swift */,
+				03023A1C1ECA62F7002AF4A6 /* PasswordValidator.swift */,
+			);
+			name = Validation;
+			sourceTree = "<group>";
+		};
+		03023A2B1ECA879C002AF4A6 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				03604A431E79C6C100CA8C89 /* SocialMediaPlatform.swift */,
+				03023A2C1ECA87D9002AF4A6 /* Facebook.swift */,
+				03023A301ECA87E7002AF4A6 /* Instagram.swift */,
+				03023A341ECA87F3002AF4A6 /* Snapchat.swift */,
+			);
+			name = Social;
+			sourceTree = "<group>";
+		};
 		03106F601D40D7BC00E21F82 /* Runes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1068,7 +1124,6 @@
 				032D6B171E9C65910034ED63 /* SSLUtils.swift */,
 				03D3FA3B1E542CB500C8E550 /* URLComponentsExtensions.swift */,
 				03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */,
-				03604A431E79C6C100CA8C89 /* SocialUtils.swift */,
 				03CB8C731EB9726600FBC3A6 /* API.swift */,
 			);
 			name = Internet;
@@ -1319,7 +1374,6 @@
 				03604A491E7F6ED300CA8C89 /* Assets.xcassets */,
 				03768C371E83AA4C00C934CA /* Localizable.strings */,
 				038765401D2464CB0082FC79 /* Framework.swift */,
-				03604A451E7E0F4B00CA8C89 /* Validator.swift */,
 				032D777C1E256C1F0058CF1B /* Graph */,
 				03B0D9B51DF33AA40073AF42 /* Appearance */,
 				0314DD091D08FC9A00E23C67 /* Autolayout */,
@@ -1332,12 +1386,14 @@
 				0359AF561D1B18E4001F71DC /* Keyboard */,
 				0314DD061D08FC1500E23C67 /* Interaction */,
 				0314DCFD1D08F9CC00E23C67 /* Internet */,
+				03023A2B1ECA879C002AF4A6 /* Social */,
 				0314DD011D08FAB800E23C67 /* IO */,
 				0314DD001D08FA5700E23C67 /* Numeric */,
 				0314DCEF1D08F76E00E23C67 /* Persistence */,
 				0378EC791DF4D72A00E6A875 /* Cache */,
 				0314DCFC1D08F9A800E23C67 /* Security */,
 				0314DCFF1D08F9F400E23C67 /* String */,
+				03023A281ECA84D8002AF4A6 /* Validation */,
 				0314DD071D08FC3700E23C67 /* Views */,
 				0314DD0A1D08FD2200E23C67 /* View Controllers */,
 				037BB9651EA99ADC00028A33 /* StoreManager.swift */,
@@ -1732,10 +1788,12 @@
 				03D3FA481E550A8F00C8E550 /* Timeline.swift in Sources */,
 				033F5E931CA3096700647A0A /* OutputStreamUtils.swift in Sources */,
 				03106F671D40D8F900E21F82 /* RunesOptional.swift in Sources */,
+				03023A1A1ECA60A5002AF4A6 /* PhoneNumberValidator.swift in Sources */,
 				033F5E941CA3096700647A0A /* SizeExtensions.swift in Sources */,
 				033F5E961CA3096700647A0A /* HTTPUtils.swift in Sources */,
 				034D312E1DF7AB42004ADC34 /* Label.swift in Sources */,
 				033F5E981CA3096700647A0A /* Matrix.swift in Sources */,
+				03023A361ECA87F3002AF4A6 /* Snapchat.swift in Sources */,
 				0387653E1D245BB60082FC79 /* Reference.swift in Sources */,
 				033F5E991CA3096700647A0A /* GeometryUtils.swift in Sources */,
 				033F5E9A1CA3096700647A0A /* RangeExtensions.swift in Sources */,
@@ -1769,6 +1827,7 @@
 				033F5EA51CA3096700647A0A /* NotificationCenterExtensions.swift in Sources */,
 				031631A41D09C1DE00DCBB3B /* FontExtensions.swift in Sources */,
 				034D31201DF7A6BD004ADC34 /* InFlightTracker.swift in Sources */,
+				03023A261ECA8430002AF4A6 /* StringValidation.swift in Sources */,
 				0359AF5F1D1B21DE001F71DC /* ExtensibleEnumeratedName.swift in Sources */,
 				03749FC61E9F13F5005328D6 /* AspectRatio.swift in Sources */,
 				032417FA1E2AD84000082E6A /* GraphProtocol.swift in Sources */,
@@ -1784,12 +1843,14 @@
 				0339F7B31EC282C50028EC5E /* Mock.swift in Sources */,
 				033F5EAB1CA3096700647A0A /* ISO8601.swift in Sources */,
 				034D31241DF7A70F004ADC34 /* InFlightView.swift in Sources */,
+				03023A161ECA5D34002AF4A6 /* EmailValidator.swift in Sources */,
 				033F5EAC1CA3096700647A0A /* Serializer.swift in Sources */,
 				033F5EAD1CA3096700647A0A /* Gradient.swift in Sources */,
 				033F5EAE1CA3096700647A0A /* ValidationError.swift in Sources */,
 				033F5EAF1CA3096700647A0A /* FoundationJSON.swift in Sources */,
 				03E31D601EB1BBE700498CAC /* Promise.swift in Sources */,
 				034D311E1DF7A0F9004ADC34 /* DeviceUtils.swift in Sources */,
+				03023A221ECA840A002AF4A6 /* Validation.swift in Sources */,
 				033F5EB01CA3096700647A0A /* Rect.swift in Sources */,
 				033A7AFC1E90963A000624D3 /* JSONRepresentable.swift in Sources */,
 				033F5EB21CA3096700647A0A /* ImageExtensions.swift in Sources */,
@@ -1810,6 +1871,7 @@
 				03E1732F1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
 				033F5EB91CA3096700647A0A /* MathUtils.swift in Sources */,
 				033F5EBA1CA3096700647A0A /* CryptoUtils.swift in Sources */,
+				03023A1E1ECA62F7002AF4A6 /* PasswordValidator.swift in Sources */,
 				0378EC801DF4D78A00E6A875 /* MemoryCacheLayer.swift in Sources */,
 				037BB95B1EA880B900028A33 /* MD5.swift in Sources */,
 				033F5EBC1CA3096700647A0A /* PointExtensions.swift in Sources */,
@@ -1824,6 +1886,7 @@
 				03B0D9B31DF33A6A0073AF42 /* Skin.swift in Sources */,
 				033F5EC11CA3096700647A0A /* Point.swift in Sources */,
 				033F5EC21CA3096700647A0A /* IntPoint.swift in Sources */,
+				03023A2E1ECA87D9002AF4A6 /* Facebook.swift in Sources */,
 				033038081E5D12AB008E37F6 /* Lorem.swift in Sources */,
 				033F5EC51CA3096700647A0A /* Size.swift in Sources */,
 				033F5EC61CA3096700647A0A /* VectorExtensions.swift in Sources */,
@@ -1843,6 +1906,7 @@
 				039AD2831E6A222300776D7B /* Credentials.swift in Sources */,
 				033F5ECD1CA3096700647A0A /* UserDefaultsExtensions.swift in Sources */,
 				033F5ECE1CA3096700647A0A /* ErrorExtensions.swift in Sources */,
+				03023A321ECA87E7002AF4A6 /* Instagram.swift in Sources */,
 				032D6B1A1E9C6A420034ED63 /* DispatchUtils.swift in Sources */,
 				034D31281DF7A96E004ADC34 /* NetworkActivity.swift in Sources */,
 				0322E8A31D13FB8900EFF3F6 /* Canceler.swift in Sources */,
@@ -1890,6 +1954,7 @@
 				0314DD151D09044D00E23C67 /* NavigationBarExtensions.swift in Sources */,
 				0302D2F81CF8F34300717170 /* TextView.swift in Sources */,
 				03749FC51E9F13F5005328D6 /* AspectRatio.swift in Sources */,
+				03023A351ECA87F3002AF4A6 /* Snapchat.swift in Sources */,
 				03D064E81E5412AE0049D61B /* FlexView.swift in Sources */,
 				03E006CA1E5D662D00AA8C3F /* ModelViewController.swift in Sources */,
 				035553521C0F622A00E0FCA7 /* KeyboardAvoidantView.swift in Sources */,
@@ -1905,6 +1970,7 @@
 				033B52DF1E31E8E40052E396 /* PagingViewController.swift in Sources */,
 				03EB6FEC1E3A8D7F00446F07 /* FontStyle.swift in Sources */,
 				0324AEFA1CF81F0F0080DFF6 /* InFlightView.swift in Sources */,
+				03023A2D1ECA87D9002AF4A6 /* Facebook.swift in Sources */,
 				0330867C1C1B808500105012 /* TraitCollectionExtensions.swift in Sources */,
 				03CF07FA1DF5367400B7AD7E /* HTTPActions.swift in Sources */,
 				036307D01CB6DA7F00DC7070 /* NotificationActions.swift in Sources */,
@@ -1925,6 +1991,7 @@
 				030540F31EBC0D9000D52AE0 /* FrameView.swift in Sources */,
 				036307D21CB6DAA500DC7070 /* ApplicationNotificationActions.swift in Sources */,
 				03FC68551E9475C20088AB1B /* DeviceOrientationAction.swift in Sources */,
+				03023A211ECA840A002AF4A6 /* Validation.swift in Sources */,
 				036307D81CB6DB3E00DC7070 /* KeyboardNotificationActions.swift in Sources */,
 				033E14FD1C7CC71C00BA3E63 /* Matrix.swift in Sources */,
 				0355534A1C0F622A00E0FCA7 /* GeometryUtils.swift in Sources */,
@@ -1939,7 +2006,7 @@
 				03D3FA361E542C5600C8E550 /* ObjectExtensions.swift in Sources */,
 				031D33871E5AA3E9005D4FFF /* VectorNode.swift in Sources */,
 				039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */,
-				03604A441E79C6C100CA8C89 /* SocialUtils.swift in Sources */,
+				03604A441E79C6C100CA8C89 /* SocialMediaPlatform.swift in Sources */,
 				03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */,
 				035E520E1DF5261B00D6C8A5 /* StackViewExtensions.swift in Sources */,
 				0389BD311CF5130600390914 /* AlertControllerExtensions.swift in Sources */,
@@ -1967,6 +2034,7 @@
 				03BC18CF1CF104D9005AF3C3 /* AppInfo.swift in Sources */,
 				03F5A8BA1C4970DF00B124A3 /* Vector.swift in Sources */,
 				036B834B1C4320AC00491AFF /* ColorFunc.swift in Sources */,
+				03023A251ECA8430002AF4A6 /* StringValidation.swift in Sources */,
 				03106F661D40D8F900E21F82 /* RunesOptional.swift in Sources */,
 				032418051E2AD99300082E6A /* GraphVisitor.swift in Sources */,
 				03B0D9B71DF385F20073AF42 /* DescriptiveError.swift in Sources */,
@@ -1974,11 +2042,14 @@
 				03D064EA1E54130C0049D61B /* Associated.swift in Sources */,
 				032417F91E2AD84000082E6A /* GraphProtocol.swift in Sources */,
 				035553501C0F622A00E0FCA7 /* ImageView.swift in Sources */,
+				03023A1D1ECA62F7002AF4A6 /* PasswordValidator.swift in Sources */,
+				03023A151ECA5D34002AF4A6 /* EmailValidator.swift in Sources */,
 				03604A4E1E7FB15700CA8C89 /* Slider.swift in Sources */,
 				0339DFA21CAF905E00D6C8C4 /* SequenceExtensions.swift in Sources */,
 				03FAF78B1C53FF9F0045BB37 /* ISO8601.swift in Sources */,
 				0362A1A91C1A22710005371F /* Serializer.swift in Sources */,
 				03E31D5F1EB1BBE700498CAC /* Promise.swift in Sources */,
+				03023A191ECA60A5002AF4A6 /* PhoneNumberValidator.swift in Sources */,
 				036B834D1C4320F300491AFF /* Gradient.swift in Sources */,
 				03749FC01E9EB1A3005328D6 /* ActivityOverlayView.swift in Sources */,
 				0314DD171D09048C00E23C67 /* TableViewCell.swift in Sources */,
@@ -2029,6 +2100,7 @@
 				03D3FA3C1E542CB500C8E550 /* URLComponentsExtensions.swift in Sources */,
 				036307D61CB6DB0D00DC7070 /* OrientationNotificationActions.swift in Sources */,
 				0324181D1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
+				03023A311ECA87E7002AF4A6 /* Instagram.swift in Sources */,
 				038B8C631E7111800073E770 /* DividerView.swift in Sources */,
 				035553571C0F622A00E0FCA7 /* NotificationAction.swift in Sources */,
 				03ECD61F1C60AE5800173FD1 /* IPAddress4.swift in Sources */,
@@ -2142,6 +2214,7 @@
 				0324181F1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
 				03CF07E81DF5340A00B7AD7E /* Skinnable.swift in Sources */,
 				034F48961D0249180010ED1B /* HTTPDebugging.swift in Sources */,
+				03023A371ECA87F3002AF4A6 /* Snapchat.swift in Sources */,
 				0309573E1E397DF80065F374 /* FontDebugging.swift in Sources */,
 				03E1731C1CF1C8FB0073F383 /* ImageExtensions.swift in Sources */,
 				037BB9641EA8A34F00028A33 /* HMACSHA256.swift in Sources */,
@@ -2169,6 +2242,7 @@
 				03E172E01CF1C8B60073F383 /* IPAddress6.swift in Sources */,
 				032418171E2C468100082E6A /* GraphError.swift in Sources */,
 				03E173201CF1C8FB0073F383 /* ViewExtensions.swift in Sources */,
+				03023A1B1ECA60A5002AF4A6 /* PhoneNumberValidator.swift in Sources */,
 				03E172C61CF1C8AD0073F383 /* Grid.swift in Sources */,
 				03CF07FC1DF5367400B7AD7E /* HTTPActions.swift in Sources */,
 				03E172DC1CF1C8B60073F383 /* HashIDs.swift in Sources */,
@@ -2192,6 +2266,7 @@
 				03E172D91CF1C8B60073F383 /* DictionaryExtensions.swift in Sources */,
 				034D31291DF7A96F004ADC34 /* NetworkActivity.swift in Sources */,
 				032418031E2AD92C00082E6A /* ReversedGraph.swift in Sources */,
+				03023A1F1ECA62F7002AF4A6 /* PasswordValidator.swift in Sources */,
 				03E172C41CF1C8AD0073F383 /* Vector.swift in Sources */,
 				0378EC941DF4F8E200E6A875 /* HTTPCacheLayer.swift in Sources */,
 				03E172EC1CF1C8B60073F383 /* RegexUtils.swift in Sources */,
@@ -2237,6 +2312,7 @@
 				03E173261CF1C8FB0073F383 /* Label.swift in Sources */,
 				03E1730B1CF1C8FB0073F383 /* ApplicationNotificationActions.swift in Sources */,
 				03E006C61E5D65AE00AA8C3F /* ModelObject.swift in Sources */,
+				03023A171ECA5D34002AF4A6 /* EmailValidator.swift in Sources */,
 				03E173231CF1C8FB0073F383 /* Button.swift in Sources */,
 				03E172FA1CF1C8CC0073F383 /* PointExtensions.swift in Sources */,
 				03E172F11CF1C8B60073F383 /* UTF8.swift in Sources */,
@@ -2254,6 +2330,7 @@
 				034D31271DF7A7A5004ADC34 /* StackView.swift in Sources */,
 				03E172F71CF1C8CC0073F383 /* CGColorUtils.swift in Sources */,
 				03E173101CF1C8FB0073F383 /* BarButtonItemAction.swift in Sources */,
+				03023A231ECA840A002AF4A6 /* Validation.swift in Sources */,
 				032D6B1B1E9C6A420034ED63 /* DispatchUtils.swift in Sources */,
 				03E172D81CF1C8B60073F383 /* DateExtensions.swift in Sources */,
 				03E173041CF1C8E70073F383 /* AppInfo.swift in Sources */,
@@ -2286,6 +2363,7 @@
 				03CB8C721EB9723A00FBC3A6 /* Endpoint.swift in Sources */,
 				03E172BF1CF1C8AD0073F383 /* GeneralError.swift in Sources */,
 				032418131E2C440600082E6A /* TopologicalSort.swift in Sources */,
+				03023A2F1ECA87D9002AF4A6 /* Facebook.swift in Sources */,
 				03106F6C1D40D96800E21F82 /* RunesArray.swift in Sources */,
 				03E1730F1CF1C8FB0073F383 /* AutolayoutUtils.swift in Sources */,
 				03E1731F1CF1C8FB0073F383 /* TraitCollectionExtensions.swift in Sources */,
@@ -2294,9 +2372,11 @@
 				034D31231DF7A706004ADC34 /* InFlightToken.swift in Sources */,
 				0378EC891DF4D96C00E6A875 /* LocalStorageCacheLayer.swift in Sources */,
 				033AC34E1D17172E008C8B93 /* Frac.swift in Sources */,
+				03023A331ECA87E7002AF4A6 /* Instagram.swift in Sources */,
 				0314DCBE1D08ECEC00E23C67 /* TabBarController.swift in Sources */,
 				038765431D2464CB0082FC79 /* Framework.swift in Sources */,
 				03E173271CF1C8FB0073F383 /* RunLoopUtils.swift in Sources */,
+				03023A271ECA8430002AF4A6 /* StringValidation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

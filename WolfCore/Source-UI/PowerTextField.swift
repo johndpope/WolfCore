@@ -115,8 +115,8 @@ public class PowerTextField: View, Editable {
 
     public var name: String = "Field"¶
 
-    public var editValidator: StringEditValidator?
-    public var submitValidator: StringSubmitValidator?
+    public var validator: Validator?
+    private var currentRemoteValidation: SuccessPromise?
 
     public var text: String? {
         get {
@@ -762,7 +762,7 @@ public class PowerTextField: View, Editable {
 
     private var validationTimer: Cancelable?
     private func restartValidationTimer() {
-        guard submitValidator != nil else { return }
+        guard validator != nil else { return }
         cancelValidationTimer()
         validationTimer = dispatchOnMain(afterDelay: 1.0) {
             self.validate()
@@ -780,15 +780,16 @@ public class PowerTextField: View, Editable {
     }
 
     public func validate() {
-        guard let submitValidator = submitValidator else {
+        guard let validator = validator else {
             validatedText = text
             return
         }
 
         cancelValidationTimer()
         do {
-            validatedText = try submitValidator(text)
+            validatedText = try validator.submitValidate(text)
             removeValidationError()
+            remoteValidate()
         } catch let error as ValidationError {
             validatedText = nil
             validationError = error
@@ -796,6 +797,21 @@ public class PowerTextField: View, Editable {
             validatedText = nil
             logError(error)
         }
+    }
+
+    public func remoteValidate() {
+        guard let validator = validator else { return }
+
+        currentRemoteValidation?.cancel()
+
+        currentRemoteValidation = validator.remoteValidate(validatedText).then {
+
+        }.catch { error in
+            if let error = error as? ValidationError {
+                self.validatedText = nil
+                self.validationError = error
+            }
+        }.run()
     }
 
     fileprivate func shouldChange(from startText: String, in range: NSRange, replacementText text: String) -> Bool {
@@ -824,8 +840,8 @@ public class PowerTextField: View, Editable {
                 guard replacedString.characters.count <= characterLimit else { return false }
             }
 
-            if let editValidator = editValidator {
-                if let _ = editValidator(replacedString) {
+            if let validator = validator {
+                if let _ = validator.editValidate(replacedString) {
                     return true
                 } else {
                     return false
