@@ -44,7 +44,8 @@ extension FontStyleName {
     public static let textFieldPlaceholder = FontStyleName("textFieldPlaceholder")
     public static let textFieldCounter = FontStyleName("textFieldCounter")
     public static let textFieldPlaceholderMessage = FontStyleName("textFieldPlaceholderMessage")
-    public static let textFieldValidationMessage = FontStyleName("textFieldValidationMessage")
+    public static let textFieldValidationFailureMessage = FontStyleName("textFieldValidationFailureMessage")
+    public static let textFieldValidationSuccessMessage = FontStyleName("textFieldValidationSuccessMessage")
 }
 
 public struct FontFamilyName: ExtensibleEnumeratedName {

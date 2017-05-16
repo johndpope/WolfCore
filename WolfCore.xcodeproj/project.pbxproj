@@ -31,6 +31,7 @@
 		03023A351ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
 		03023A361ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
 		03023A371ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
+		03023A391ECABAEE002AF4A6 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A381ECABAEE002AF4A6 /* ActivityIndicatorView.swift */; };
 		0302D2F81CF8F34300717170 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302D2F71CF8F34300717170 /* TextView.swift */; };
 		0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */; };
 		0303BCB01E3E8C3D00B196CA /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */; };
@@ -625,6 +626,7 @@
 		03023A2C1ECA87D9002AF4A6 /* Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Facebook.swift; path = Sources/WolfCore/Facebook.swift; sourceTree = "<group>"; };
 		03023A301ECA87E7002AF4A6 /* Instagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Instagram.swift; path = Sources/WolfCore/Instagram.swift; sourceTree = "<group>"; };
 		03023A341ECA87F3002AF4A6 /* Snapchat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Snapchat.swift; path = Sources/WolfCore/Snapchat.swift; sourceTree = "<group>"; };
+		03023A381ECABAEE002AF4A6 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityIndicatorView.swift; path = "Source-UI/ActivityIndicatorView.swift"; sourceTree = "<group>"; };
 		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = "Source-UI/TextView.swift"; sourceTree = "<group>"; };
 		0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientOverlayView.swift; path = "Source-UI/GradientOverlayView.swift"; sourceTree = "<group>"; };
 		0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoView.swift; path = "Source-UI/PhotoView.swift"; sourceTree = "<group>"; };
@@ -1245,6 +1247,7 @@
 			children = (
 				03F0EBEE1E63BC0E00309C8D /* Direct Subclasses */,
 				03749FBF1E9EB1A3005328D6 /* ActivityOverlayView.swift */,
+				03023A381ECABAEE002AF4A6 /* ActivityIndicatorView.swift */,
 				039C912E1E4D1D67000AE01B /* BounceButton.swift */,
 				03604A4B1E7F6FE100CA8C89 /* ClearFieldButtonView.swift */,
 				0378EC981DF516C200E6A875 /* CollectionViewExtensions.swift */,
@@ -2061,6 +2064,7 @@
 				03F5A8BC1C49746500B124A3 /* Rect.swift in Sources */,
 				0314DD111D09032400E23C67 /* Serializable.swift in Sources */,
 				0303BCB21E3E8C9B00B196CA /* PhotoSafeAreaView.swift in Sources */,
+				03023A391ECABAEE002AF4A6 /* ActivityIndicatorView.swift in Sources */,
 				032D77841E256F210058CF1B /* Node.swift in Sources */,
 				035024751E76468300BAEFF9 /* PowerTextField.swift in Sources */,
 				0355534E1C0F622A00E0FCA7 /* ImageExtensions.swift in Sources */,

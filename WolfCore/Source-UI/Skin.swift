@@ -132,7 +132,8 @@ open class DefaultSkin: Skin {
         .textFieldPlaceholder: FontStyle(font: .systemFont(ofSize: 12), color: .gray),
         .textFieldCounter: FontStyle(font: .italicSystemFont(ofSize: 8), color: .darkGray),
         .textFieldPlaceholderMessage: FontStyle(font: .italicSystemFont(ofSize: 8), color: .gray),
-        .textFieldValidationMessage: FontStyle(font: .italicSystemFont(ofSize: 8), color: .red),
+        .textFieldValidationFailureMessage: FontStyle(font: .italicSystemFont(ofSize: 8), color: .red),
+        .textFieldValidationSuccessMessage: FontStyle(font: .italicSystemFont(ofSize: 8), color: .green),
     ]
 
     open func interpolated(to skin: Skin, at frac: Frac) -> Skin {

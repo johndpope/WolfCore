@@ -116,7 +116,16 @@ public class PowerTextField: View, Editable {
     public var name: String = "Field"¶
 
     public var validator: Validator?
-    private var currentRemoteValidation: SuccessPromise?
+    private var remoteValidationActivity: Locker.Ref?
+    private var currentRemoteValidation: SuccessPromise? {
+        didSet {
+            if currentRemoteValidation == nil {
+                remoteValidationActivity = nil
+            } else {
+                remoteValidationActivity = activityIndicatorView.newActivity()
+            }
+        }
+    }
 
     public var text: String? {
         get {
@@ -213,16 +222,38 @@ public class PowerTextField: View, Editable {
 
     public var validatedText: String?
 
-    public var validationError: ValidationError? {
+    public private(set) var validationError: ValidationError? {
+        didSet {
+            if let validationError = validationError {
+                validationMessage = .failure(validationError.message)
+            } else {
+                validationMessage = nil
+            }
+        }
+    }
+
+    private enum ValidationMessage {
+        case failure(String)
+        case success(String)
+    }
+
+    private var validationMessage: ValidationMessage? {
         willSet {
-            if validationError != nil && newValue == nil {
+            if validationMessage != nil && newValue == nil {
                 concealValidationMessage(animated: true)
             }
         }
 
         didSet {
-            if let validationError = validationError {
-                validationMessageLabel.text = validationError.message
+            if let validationMessage = validationMessage {
+                switch validationMessage {
+                case .failure(let message):
+                    validationMessageLabel.text = message
+                    validationMessageLabel.fontStyleName = .textFieldValidationFailureMessage
+                case .success(let message):
+                    validationMessageLabel.text = message
+                    validationMessageLabel.fontStyleName = .textFieldValidationSuccessMessage
+                }
                 if oldValue == nil {
                     revealValidationMessage(animated: true)
                 }
@@ -233,27 +264,27 @@ public class PowerTextField: View, Editable {
     private func revealValidationMessage(animated: Bool) {
         dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
             self.validationMessageLabel.alpha = 1
-            self.placeholderMessageLabel.alpha = 0
+            self.placeholderMessageContainer.alpha = 0
         }.run()
     }
 
     private func concealValidationMessage(animated: Bool) {
         dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
             self.validationMessageLabel.alpha = 0
-            self.placeholderMessageLabel.alpha = 1
+            self.placeholderMessageContainer.alpha = 1
         }.run()
     }
 
     private func revealPlaceholderMessage(animated: Bool) {
         guard validationMessageLabel.alpha == 0 else { return }
         dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
-            self.placeholderMessageLabel.alpha = 1
+            self.placeholderMessageContainer.alpha = 1
         }.run()
     }
 
     private func concealPlaceholderMessage(animated: Bool) {
         dispatchAnimated(animated, delay: 0.1, options: .beginFromCurrentState) {
-            self.placeholderMessageLabel.alpha = 0
+            self.placeholderMessageContainer.alpha = 0
         }.run()
     }
 
@@ -306,7 +337,7 @@ public class PowerTextField: View, Editable {
         case always
     }
 
-    public var clearButtonMode: ClearButtonMode = .never {
+    public var clearButtonMode: ClearButtonMode = .whileEditing {
         didSet {
             syncClearButton(animated: false)
         }
@@ -346,6 +377,14 @@ public class PowerTextField: View, Editable {
     private lazy var topRowView: HorizontalStackView = {
         let view = HorizontalStackView()
         view.alignment = .center
+        return view
+    }()
+
+    private lazy var placeholderMessageContainer: HorizontalStackView = {
+        let view = HorizontalStackView()
+        view.alignment = .center
+        view.spacing = 10
+        view.alpha = 0
         return view
     }()
 
@@ -404,20 +443,20 @@ public class PowerTextField: View, Editable {
 
     private lazy var messageSpacerView: SpacerView = {
         let view = SpacerView()
+        view.setContentHuggingPriority(UILayoutPriorityDefaultHigh, for: .horizontal)
         return view
     }()
 
     private lazy var validationMessageLabel: Label = {
         let label = Label()
-        label.text = " "
+        label.text = "A"
         label.alpha = 0
         return label
     }()
 
     private lazy var placeholderMessageLabel: Label = {
         let label = Label()
-        label.text = " "
-        label.alpha = 0
+        label.text = "A"
         return label
     }()
 
@@ -516,7 +555,14 @@ public class PowerTextField: View, Editable {
 
     public func clear(animated: Bool) {
         setText("", animated: animated)
+        removeValidation()
+        needsValidation = true
     }
+
+    private lazy var activityIndicatorView: ActivityIndicatorView = {
+        let view = ActivityIndicatorView()
+        return view
+    }()
 
     public override var isDebug: Bool {
         didSet {
@@ -524,20 +570,24 @@ public class PowerTextField: View, Editable {
             characterCountLabel.isDebug = isDebug
             validationMessageLabel.isDebug = isDebug
             placeholderMessageLabel.isDebug = isDebug
+            placeholderMessageContainer.isDebug = isDebug
             textEditor.isDebug = isDebug
             iconView.isDebug = isDebug
             clearButtonView.isDebug = isDebug
             toggleSecureTextEntryButton.isDebug = isDebug
+            activityIndicatorView.isDebug = isDebug
 
             debugBackgroundColor = .green
             frameView.debugBackgroundColor = .blue
             characterCountLabel.debugBackgroundColor = .gray
             validationMessageLabel.debugBackgroundColor = .red
             placeholderMessageLabel.debugBackgroundColor = .blue
+            placeholderMessageContainer.debugBackgroundColor = .blue
             textEditor.debugBackgroundColor = .green
             iconView.debugBackgroundColor = .blue
             clearButtonView.debugBackgroundColor = .blue
             toggleSecureTextEntryButton.debugBackgroundColor = .blue
+            activityIndicatorView.debugBackgroundColor = .blue
         }
     }
 
@@ -570,9 +620,13 @@ public class PowerTextField: View, Editable {
                     messageSpacerView,
                     messageContainerView => [
                         validationMessageLabel,
-                        placeholderMessageLabel
+                        placeholderMessageContainer => [
+                            placeholderMessageLabel,
+                            activityIndicatorView,
+                            View()
                         ],
                     ],
+                ],
                 frameView => [
                     horizontalStackView => [
                         iconView,
@@ -583,13 +637,13 @@ public class PowerTextField: View, Editable {
                 ],
                 bottomRowView => [
                     characterCountLabel
-                    ]
+                ]
             ],
             placeholderLabel
         ]
 
         validationMessageLabel.constrainFrame()
-        placeholderMessageLabel.constrainFrame()
+        placeholderMessageContainer.constrainFrame()
         activateConstraint(frameView.widthAnchor == verticalStackView.widthAnchor)
         verticalStackView.constrainFrame()
         syncToFrameInsets()
@@ -600,7 +654,9 @@ public class PowerTextField: View, Editable {
             placeholderLabel.trailingAnchor == textEditorView.trailingAnchor,
             placeholderLabel.topAnchor == textEditorView.topAnchor,
             textEditorView.heightAnchor >= clearButtonView.heightAnchor,
-            toggleSecureTextEntryButton.heightAnchor == clearButtonView.heightAnchor
+            toggleSecureTextEntryButton.heightAnchor == clearButtonView.heightAnchor,
+            messageContainerView.widthAnchor == topRowView.widthAnchor,
+            topRowView.widthAnchor == verticalStackView.widthAnchor
         )
 
         syncClearButton(animated: false)
@@ -632,8 +688,8 @@ public class PowerTextField: View, Editable {
         guard let skin = skin else { return }
         textEditor.fontStyleName = .textFieldContent
         characterCountLabel.fontStyleName = .textFieldCounter
-        validationMessageLabel.fontStyleName = .textFieldValidationMessage
         placeholderMessageLabel.fontStyleName = .textFieldPlaceholderMessage
+        validationMessageLabel.fontStyleName = .textFieldValidationFailureMessage
         placeholderLabel.fontStyleName = .textFieldPlaceholder
         iconView.tintColor = skin.textFieldIconTintColor
         frameColor = skin.textFieldFrameColor
@@ -744,11 +800,11 @@ public class PowerTextField: View, Editable {
     public func syncToEditing(animated: Bool) {
         if isEditing {
             scrollEditorToVisible()
-            removeValidationError()
+            removeValidation()
         } else {
             scrollContentToTop()
-            if validationError == nil {
-                restartValidationTimer()
+            if !hasValidation {
+                validateIfNeeded()
             }
             onEndEditing?(self)
         }
@@ -765,21 +821,37 @@ public class PowerTextField: View, Editable {
         guard validator != nil else { return }
         cancelValidationTimer()
         validationTimer = dispatchOnMain(afterDelay: 1.0) {
-            self.validate()
+            self.validateIfNeeded()
         }
     }
 
-    private func removeValidationError() {
+    private func removeValidation() {
         validationError = nil
+    }
+
+    private var hasValidation: Bool {
+        return validationMessage != nil
     }
 
     private func cancelValidationTimer() {
         validationTimer?.cancel()
         validationTimer = nil
-        removeValidationError()
+        removeValidation()
     }
 
-    public func validate() {
+    private var needsValidation = true {
+        didSet {
+            //print("needsValidation: \(needsValidation)")
+        }
+    }
+
+    public func validateIfNeeded() {
+        guard needsValidation else { return }
+
+        defer {
+            needsValidation = false
+        }
+
         guard let validator = validator else {
             validatedText = text
             return
@@ -788,7 +860,7 @@ public class PowerTextField: View, Editable {
         cancelValidationTimer()
         do {
             validatedText = try validator.submitValidate(text)
-            removeValidationError()
+            removeValidation()
             remoteValidate()
         } catch let error as ValidationError {
             validatedText = nil
@@ -804,58 +876,61 @@ public class PowerTextField: View, Editable {
 
         currentRemoteValidation?.cancel()
 
-        currentRemoteValidation = validator.remoteValidate(validatedText).then {
-
+        currentRemoteValidation = validator.remoteValidate(validatedText)?.then {
+            if let remoteValidationSuccessMessage = validator.remoteValidationSuccessMessage {
+                self.validationMessage = .success(remoteValidationSuccessMessage)
+            }
         }.catch { error in
             if let error = error as? ValidationError {
                 self.validatedText = nil
                 self.validationError = error
             }
+        }.finally {
+            self.currentRemoteValidation = nil
         }.run()
     }
 
     fileprivate func shouldChange(from startText: String, in range: NSRange, replacementText text: String) -> Bool {
-        func _shouldChange() -> Bool {
+        func _shouldChange() -> String? {
             // Don't allow any keyboard-based changes when entering dates
-            guard contentType != .date else { return false }
+            guard contentType != .date else { return nil }
+
+            // Determine the final string
+            let endText = startText.replacingCharacters(in: startText.stringRange(from: range)!, with: text)
 
             // Always allow deletions.
-            guard text.characters.count > 0 else { return true }
+            guard !text.isEmpty else { return endText }
 
             // If disallowedCharaters is provided, disallow any changes that include characters in the set.
             if let disallowedCharacters = disallowedCharacters {
-                guard text.rangeOfCharacter(from: disallowedCharacters) == nil else { return false }
+                guard text.rangeOfCharacter(from: disallowedCharacters) == nil else { return nil }
             }
 
             // If allowedCharacters is provided, disallow any changes that include characters not in the set.
             if let allowedCharacters = allowedCharacters {
-                guard text.rangeOfCharacter(from: allowedCharacters.inverted) == nil else { return false }
+                guard text.rangeOfCharacter(from: allowedCharacters.inverted) == nil else { return nil }
             }
-
-            // Determine the final string
-            let replacedString = startText.replacingCharacters(in: startText.stringRange(from: range)!, with: text)
 
             // Enforce the character limit, if any
             if let characterLimit = characterLimit {
-                guard replacedString.characters.count <= characterLimit else { return false }
+                guard endText.characters.count <= characterLimit else { return nil }
             }
 
-            if let validator = validator {
-                if let _ = validator.editValidate(replacedString) {
-                    return true
-                } else {
-                    return false
-                }
-            }
-            
-            return true
+            guard let validator = validator else { return endText }
+
+            return validator.editValidate(endText)
         }
 
-        let result = _shouldChange()
-        if result {
+        guard let endText = _shouldChange() else { return false }
+
+        if endText.isEmpty {
+            removeValidation()
+        } else {
+            needsValidation = true
             restartValidationTimer()
         }
-        return result
+
+        return true
     }
 }
 

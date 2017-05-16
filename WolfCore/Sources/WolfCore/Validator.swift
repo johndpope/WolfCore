@@ -36,9 +36,9 @@ open class Validator {
     }
 
     /// This is use to validate the entire string asynchronously, typically via a remote API call. If the validation succeeds, the promise is kept. If the validation fails, the promise fails with a `ValidationError`. If some other error occurs, the promise fails with an `Error`.
-    open func remoteValidate(_ value: String?) -> SuccessPromise {
-        return SuccessPromise { promise in
-            promise.keep()
-        }
+    open func remoteValidate(_ value: String?) -> SuccessPromise? {
+        return nil
     }
+
+    public var remoteValidationSuccessMessage: String?
 }
