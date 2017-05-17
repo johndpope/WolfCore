@@ -17,7 +17,8 @@ public class LocationManager: CLLocationManager {
 
     public var didUpdateLocations: (([CLLocation]) -> Void)?
     public var didFail: ErrorBlock?
-    public var didFinishDeferredUpdates: ((Error?) -> Void)?
+    public var didFailDeferredUpdates: ErrorBlock?
+    public var didFinishDeferredUpdates: Block?
     public var didUpdateTo: ((_ to: CLLocation, _ from: CLLocation) -> Void)?
     public var didUpdateHeading: ((CLHeading) -> Void)?
     public var shouldDisplayHeadingCalibration: (() -> Bool)?
@@ -45,10 +46,12 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 
     public func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
-        if let error = error {
-            logError(error)
+        guard let error = error else {
+            didFinishDeferredUpdates?()
+            return
         }
-        didFinishDeferredUpdates?(error)
+        logError(error)
+        didFailDeferredUpdates?(error)
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
