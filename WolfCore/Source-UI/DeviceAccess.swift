@@ -67,7 +67,7 @@ public struct DeviceAccess {
         }
     }
     
-    public static func checkCameraNeedsAuthorization() -> Bool {
+    public static var cameraNeedsAuthorization: Bool {
         Item.camera.checkUsageDescription()
         
         let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
@@ -92,7 +92,7 @@ public struct DeviceAccess {
         }
     }
     
-    public static func checkPhotoLibraryNeedsAuthorization() -> Bool {
+    public static var photoLibraryNeedsAuthorization: Bool {
         Item.photoLibrary.checkUsageDescription()
         
         let status = PHPhotoLibrary.authorizationStatus()
@@ -119,7 +119,7 @@ public struct DeviceAccess {
         }
     }
 
-    public static func checkLocationAlwaysNeedsAuthorization() -> Bool {
+    public static var locationAlwaysNeedsAuthorization: Bool {
         Item.locationAlways.checkUsageDescription()
 
         let status = CLLocationManager.authorizationStatus()
@@ -144,7 +144,7 @@ public struct DeviceAccess {
         }
     }
 
-    public static func checkLocationWhenInUseNeedsAuthorization() -> Bool {
+    public static var locationWhenInUseNeedsAuthorization: Bool {
         Item.locationWhenInUse.checkUsageDescription()
 
         let status = CLLocationManager.authorizationStatus()

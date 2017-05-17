@@ -32,6 +32,7 @@
 		03023A361ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
 		03023A371ECA87F3002AF4A6 /* Snapchat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A341ECA87F3002AF4A6 /* Snapchat.swift */; };
 		03023A391ECABAEE002AF4A6 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A381ECABAEE002AF4A6 /* ActivityIndicatorView.swift */; };
+		03023A401ECC42D0002AF4A6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03023A3F1ECC42D0002AF4A6 /* LocationManager.swift */; };
 		0302D2F81CF8F34300717170 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0302D2F71CF8F34300717170 /* TextView.swift */; };
 		0303BCAE1E3E8BD500B196CA /* GradientOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */; };
 		0303BCB01E3E8C3D00B196CA /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */; };
@@ -627,6 +628,7 @@
 		03023A301ECA87E7002AF4A6 /* Instagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Instagram.swift; path = Sources/WolfCore/Instagram.swift; sourceTree = "<group>"; };
 		03023A341ECA87F3002AF4A6 /* Snapchat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Snapchat.swift; path = Sources/WolfCore/Snapchat.swift; sourceTree = "<group>"; };
 		03023A381ECABAEE002AF4A6 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityIndicatorView.swift; path = "Source-UI/ActivityIndicatorView.swift"; sourceTree = "<group>"; };
+		03023A3F1ECC42D0002AF4A6 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationManager.swift; path = "Source-UI/LocationManager.swift"; sourceTree = "<group>"; };
 		0302D2F71CF8F34300717170 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextView.swift; path = "Source-UI/TextView.swift"; sourceTree = "<group>"; };
 		0303BCAD1E3E8BD500B196CA /* GradientOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientOverlayView.swift; path = "Source-UI/GradientOverlayView.swift"; sourceTree = "<group>"; };
 		0303BCAF1E3E8C3D00B196CA /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoView.swift; path = "Source-UI/PhotoView.swift"; sourceTree = "<group>"; };
@@ -955,6 +957,14 @@
 				03023A341ECA87F3002AF4A6 /* Snapchat.swift */,
 			);
 			name = Social;
+			sourceTree = "<group>";
+		};
+		03023A3E1ECC42AF002AF4A6 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				03023A3F1ECC42D0002AF4A6 /* LocationManager.swift */,
+			);
+			name = Location;
 			sourceTree = "<group>";
 		};
 		03106F601D40D7BC00E21F82 /* Runes */ = {
@@ -1373,6 +1383,7 @@
 		035552FA1C0F5F4200E0FCA7 /* WolfCore */ = {
 			isa = PBXGroup;
 			children = (
+				03023A3E1ECC42AF002AF4A6 /* Location */,
 				03FC34431EA8051500F1E9BC /* AWS */,
 				03604A491E7F6ED300CA8C89 /* Assets.xcassets */,
 				03768C371E83AA4C00C934CA /* Localizable.strings */,
@@ -2163,6 +2174,7 @@
 				031D33931E5B9D1A005D4FFF /* ConicalGradient.swift in Sources */,
 				032D6B191E9C6A420034ED63 /* DispatchUtils.swift in Sources */,
 				035553461C0F622A00E0FCA7 /* DateExtensions.swift in Sources */,
+				03023A401ECC42D0002AF4A6 /* LocationManager.swift in Sources */,
 				03CFAC021C2F1DA6007DAAC2 /* HashIDs.swift in Sources */,
 				0384578A1CED0C810012BCCE /* ObjectAliaser.swift in Sources */,
 				03F2614E1D48B1D800523640 /* ImageViewerDismissGestureRecognizer.swift in Sources */,
