@@ -131,6 +131,11 @@ public class PowerTextField: View, Editable {
         get {
             return textEditor.text
         }
+
+        set {
+            textEditor.text = newValue
+            syncToTextEditor(animated: false)
+        }
     }
 
     public func setText(_ text: String?, animated: Bool) {
