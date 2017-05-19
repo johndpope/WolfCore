@@ -11,7 +11,12 @@ import UIKit
 open class PagingViewController: ViewController {
     @IBOutlet public weak var bottomView: UIView!
 
-    public private(set) var pagingView = PagingView()
+    public private(set) lazy var pagingView: PagingView = {
+        let view = PagingView()
+        view.hidesPagingControlForOnePage = true
+        return view
+    }()
+
     private var bottomViewToPageControlConstraint: NSLayoutConstraint!
 
     open override func setup() {

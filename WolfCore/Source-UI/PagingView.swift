@@ -25,6 +25,12 @@ open class PagingView: View {
     public private(set) var scrollingFrac: Frac = 0.0
     public private(set) var pageControl: PageControl!
 
+    public var hidesPagingControlForOnePage = false {
+        didSet {
+            syncPageControlToContentView()
+        }
+    }
+
     private var scrollView: ScrollView!
     private var contentView: PagingContentView!
     private var contentWidthConstraint: NSLayoutConstraint!
@@ -219,8 +225,26 @@ open class PagingView: View {
         )
     }
 
+    private func concealPageControl(animated: Bool) {
+        if !pageControl.isHidden {
+            pageControl.hide(animated: animated)
+        }
+    }
+
+    private func revealPageControl(animated: Bool) {
+        if pageControl.isHidden {
+            pageControl.show(animated: animated)
+        }
+    }
+
     private func syncPageControlToContentView() {
-        pageControl.numberOfPages = arrangedViews.count
+        let numberOfPages = arrangedViews.count
+        pageControl.numberOfPages = numberOfPages
+        if hidesPagingControlForOnePage && numberOfPages <= 1 {
+            concealPageControl(animated: true)
+        } else {
+            revealPageControl(animated: true)
+        }
     }
 
     private func updateArrangedViewConstraints() {
