@@ -96,7 +96,7 @@ public class ImageViewerViewController: ViewController {
     }
 
     private func setupNavigationItem() {
-        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+        let doneItem = UIBarButtonItem(barButtonSystemItem: .done)
         doneAction = doneItem.addAction { [unowned self] in
             self.dismiss()
         }
@@ -217,9 +217,9 @@ public class ImageViewerViewController: ViewController {
         scrollView.zoom(to: rect, animated: animated)
     }
 
-    private func dismiss() {
+    public override func dismiss() {
         willDismissAction?()
-        dismiss(animated: true)
+        super.dismiss()
     }
 }
 

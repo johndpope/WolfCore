@@ -32,7 +32,7 @@ public class ImagePickerViewController: UIImagePickerController, Skinnable {
 
     public static func present(from presentingViewController: UIViewController, sourceView: UIView, requestedMediaTypes: [ImagePickerViewController.MediaType], allowsCropping: Bool, cancel cancelAction: Block? = nil, remove removeAction: Block?, success successAction: @escaping ImagePickerSuccessAction) {
         var actions = [
-            AlertAction(title: "Take Photo"¶, style: .default, identifier: "takePhoto") { _ in
+            AlertAction(title: "Take Photo"¶, identifier: "takePhoto") { _ in
                 if DeviceAccess.checkCameraAuthorized(from: presentingViewController) {
                     ImagePickerViewController.present(fromViewController: presentingViewController, sourceType: .camera, requestedMediaTypes: requestedMediaTypes, allowsCropping: allowsCropping, cancel: cancelAction, success: successAction)
                 }
@@ -141,11 +141,11 @@ public class ImagePickerViewController: UIImagePickerController, Skinnable {
 
     fileprivate func success(withImage image: UIImage) {
         self.successAction(image)
-        dismiss(animated: true) { }
+        dismiss()
     }
 
     fileprivate func cancel() {
-        dismiss(animated: true) {
+        dismiss() {
             self.cancelAction?()
         }
     }

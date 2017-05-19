@@ -8,15 +8,39 @@
 
 import UIKit
 
+extension UIViewController {
+    public func presentModal(from presentingViewController: UIViewController) -> Self {
+        let navigationController = NavigationController(rootViewController: self)
+        presentingViewController.present(navigationController, animated: true)
+        return self
+    }
+}
+
+extension UIViewController {
+    public func newCancelDismissAction() -> BarButtonItemAction {
+        return BarButtonItemAction(item: UIBarButtonItem(barButtonSystemItem: .cancel)) { [unowned self] in
+            self.dismiss()
+        }
+    }
+
+    open func dismiss(completion: Block?) {
+        dismiss(animated: true, completion: completion)
+    }
+
+    open func dismiss() {
+        dismiss(completion: nil)
+    }
+}
+
 public typealias AlertActionBlock = (UIAlertAction) -> Void
 
 public struct AlertAction {
     public let title: String
     public let style: UIAlertActionStyle
-    public let identifier: String
+    public let identifier: String?
     public let handler: AlertActionBlock?
 
-    public init(title: String, style: UIAlertActionStyle, identifier: String, handler: AlertActionBlock? = nil) {
+    public init(title: String, style: UIAlertActionStyle = .default, identifier: String? = nil, handler: AlertActionBlock? = nil) {
         self.title = title
         self.style = style
         self.identifier = identifier
@@ -28,12 +52,12 @@ public struct AlertAction {
     }
 
     public static func newOKAction(handler: AlertActionBlock? = nil) -> AlertAction {
-        return AlertAction(title: "OK"¶, style: .default, identifier: "ok", handler: handler)
+        return AlertAction(title: "OK"¶, identifier: "ok", handler: handler)
     }
 }
 
 extension UIViewController {
-    public func present(alertController: UIAlertController, animated: Bool = true, withIdentifier identifier: String, buttonIdentifiers: [String], didAppear: Block? = nil) {
+    public func present(alertController: UIAlertController, animated: Bool = true, withIdentifier identifier: String? = nil, buttonIdentifiers: [String?], didAppear: Block? = nil) {
         alertController.view.accessibilityIdentifier = identifier
         present(alertController, animated: animated, completion: didAppear)
         RunLoop.current.runOnce()
@@ -42,7 +66,7 @@ extension UIViewController {
         }
     }
 
-    private func presentAlertController(withPreferredStyle style: UIAlertControllerStyle, title: String?, message: String?, identifier: String, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, actions: [AlertAction], didAppear: Block?, didDisappear: Block?) {
+    private func presentAlertController(withPreferredStyle style: UIAlertControllerStyle, title: String?, message: String?, identifier: String? = nil, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, actions: [AlertAction], didAppear: Block?, didDisappear: Block?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         alert.view.tintColor = view.skin.alertTintColor
         if let popover = alert.popoverPresentationController {
@@ -58,7 +82,7 @@ extension UIViewController {
             }
             popover.permittedArrowDirections = popoverPermittedArrowDirections
         }
-        var buttonIdentifiers = [String]()
+        var buttonIdentifiers = [String?]()
         for action in actions {
             let alertAction = UIAlertAction(title: action.title, style: action.style, handler: { alertAction in
                 didDisappear?()
@@ -71,32 +95,32 @@ extension UIViewController {
         present(alertController: alert, withIdentifier: identifier, buttonIdentifiers: buttonIdentifiers, didAppear: didAppear)
     }
 
-    public func presentAlert(withTitle title: String, message: String? = nil, identifier: String, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentAlert(withTitle title: String, message: String? = nil, identifier: String? = nil, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
         presentAlertController(withPreferredStyle: .alert, title: title, message: message, identifier: identifier, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(withMessage message: String, identifier: String, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentAlert(withMessage message: String, identifier: String? = nil, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
         presentAlertController(withPreferredStyle: .alert, title: nil, message: message, identifier: identifier, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentSheet(withTitle title: String? = nil, message: String? = nil, identifier: String, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentSheet(withTitle title: String? = nil, message: String? = nil, identifier: String? = nil, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, actions: [AlertAction], didAppear: Block? = nil, didDisappear: Block? = nil) {
         presentAlertController(withPreferredStyle: .actionSheet, title: title, message: message, identifier: identifier, popoverSourceView: popoverSourceView, popoverSourceRect: popoverSourceRect, popoverBarButtonItem: popoverBarButtonItem, popoverPermittedArrowDirections: popoverPermittedArrowDirections, actions: actions, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentOKAlert(withTitle title: String, message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentOKAlert(withTitle title: String, message: String, identifier: String? = nil, didAppear: Block? = nil, didDisappear: Block? = nil) {
         presentAlert(withTitle: title, message: message, identifier: identifier, actions: [AlertAction.newOKAction()], didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentOKAlert(withMessage message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentOKAlert(withMessage message: String, identifier: String? = nil, didAppear: Block? = nil, didDisappear: Block? = nil) {
         presentAlert(withMessage: message, identifier: identifier, actions: [AlertAction.newOKAction()], didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: Error, withTitle title: String, message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentAlert(forError errorType: Error, withTitle title: String, message: String, identifier: String? = nil, didAppear: Block? = nil, didDisappear: Block? = nil) {
         logError(errorType)
         presentOKAlert(withTitle: title, message: message, identifier: identifier, didAppear: didAppear, didDisappear: didDisappear)
     }
 
-    public func presentAlert(forError errorType: Error, withMessage message: String, identifier: String, didAppear: Block? = nil, didDisappear: Block? = nil) {
+    public func presentAlert(forError errorType: Error, withMessage message: String, identifier: String? = nil, didAppear: Block? = nil, didDisappear: Block? = nil) {
         logError(errorType)
         presentOKAlert(withMessage: message, identifier: identifier, didAppear: didAppear, didDisappear: didDisappear)
     }

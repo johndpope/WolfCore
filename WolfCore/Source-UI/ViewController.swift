@@ -53,6 +53,7 @@ open class ViewController: UIViewController, Skinnable {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.debugIdentifier = "\(typeName(of: self)).view"
+        setupNavBarActions()
     }
 
     open override func awakeFromNib() {
@@ -83,6 +84,36 @@ open class ViewController: UIViewController, Skinnable {
     }
 
     open func setup() { }
+
+    public var leftItemAction: BarButtonItemAction? {
+        didSet {
+            navigationItem.leftBarButtonItem = leftItemAction?.item
+        }
+    }
+
+    public var rightItemAction: BarButtonItemAction? {
+        didSet {
+            navigationItem.rightBarButtonItem = rightItemAction?.item
+        }
+    }
+
+    private func setupNavBarActions() {
+        if let leftItemAction = newLeftItemAction() {
+            self.leftItemAction = leftItemAction
+        }
+
+        if let rightItemAction = newRightItemAction() {
+            self.rightItemAction = rightItemAction
+        }
+    }
+
+    open func newLeftItemAction() -> BarButtonItemAction? {
+        return nil
+    }
+
+    open func newRightItemAction() -> BarButtonItemAction? {
+        return nil
+    }
 }
 
 extension UIViewController {

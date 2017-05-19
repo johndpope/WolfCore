@@ -11,12 +11,12 @@ import Foundation
 public struct Mock {
     public let statusCode: StatusCode
     public let delay: TimeInterval
-    public let data: Data?
+    public let data: Data
 
     public init(statusCode: StatusCode = .ok, delay: TimeInterval = 0.5, data: Data? = nil) {
         self.statusCode = statusCode
         self.delay = delay
-        self.data = data
+        self.data = data ?? Data()
     }
 
     public init(statusCode: StatusCode = .ok, delay: TimeInterval = 0.5, json: JSON) {

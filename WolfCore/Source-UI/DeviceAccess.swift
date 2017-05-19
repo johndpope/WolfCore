@@ -159,7 +159,7 @@ public struct DeviceAccess {
 
 extension UIViewController {
     public func presentAccessSheet(for accessItem: DeviceAccess.Item, popoverSourceView: UIView? = nil, popoverSourceRect: CGRect? = nil, popoverBarButtonItem: UIBarButtonItem? = nil, popoverPermittedArrowDirections: UIPopoverArrowDirection = .any, didAppear: Block? = nil, didDisappear: Block? = nil) {
-        let openSettingsAction = AlertAction(title: "Open Settings"¶, style: .default, identifier: "openSettings") { _ in
+        let openSettingsAction = AlertAction(title: "Open Settings"¶, identifier: "openSettings") { _ in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
         }
         let actions = [

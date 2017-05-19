@@ -75,10 +75,6 @@ open class WebViewController: ViewController {
         onDone?()
     }
 
-    public func dismiss() {
-        dismiss(animated: true)
-    }
-
     func syncToWebView() {
         backItem.isEnabled = webView.canGoBack
         forwardItem.isEnabled = webView.canGoForward

@@ -32,3 +32,9 @@ extension UIBarButtonItem {
         return BarButtonItemAction(item: self, action: action)
     }
 }
+
+extension UIBarButtonItem {
+    public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem) {
+        self.init(barButtonSystemItem: systemItem, target: nil, action: nil)
+    }
+}

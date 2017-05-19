@@ -13,7 +13,8 @@
 #if os(iOS) || os(tvOS)
     extension UIAlertController {
         /// This is a hack to set the accessibilityIdentifier attribute of a button created by a UIAlertAction on a UIAlertController. It is coded conservatively so as not to crash if Apple changes the view hierarchy of UIAlertController.view at some future date.
-        public func setAction(identifier: String, at index: Int) {
+        public func setAction(identifier: String?, at index: Int) {
+            guard let identifier = identifier else { return }
             let collectionViews: [UICollectionView] = view.descendantViews()
             if collectionViews.count > 0 {
                 let collectionView = collectionViews[0]
