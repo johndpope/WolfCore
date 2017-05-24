@@ -173,7 +173,9 @@ open class BannerViewController: ViewController {
         return view
     }()
 
-    private func build() {
+    open override func build() {
+        super.build()
+
         view => [
             contentViewContainer,
             bannersContainer
@@ -203,11 +205,6 @@ open class BannerViewController: ViewController {
                 contentViewContainer.topAnchor == view.topAnchor
             )
         }
-    }
-
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        build()
     }
 
     public var contentViewController: UIViewController? {

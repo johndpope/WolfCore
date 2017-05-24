@@ -23,6 +23,12 @@ extension UIViewController {
         }
     }
 
+    public func newDoneDismissAction() -> BarButtonItemAction {
+        return BarButtonItemAction(item: UIBarButtonItem(barButtonSystemItem: .done)) { [unowned self] in
+            self.dismiss()
+        }
+    }
+
     open func dismiss(completion: Block?) {
         dismiss(animated: true, completion: completion)
     }

@@ -618,7 +618,9 @@ public class PowerTextField: View, Editable {
         messageSpacerView.width = frameInsets.left
     }
 
-    private func build() {
+    public override func setup() {
+        super.setup()
+
         syncToContentType()
         self => [
             verticalStackView => [
@@ -667,11 +669,6 @@ public class PowerTextField: View, Editable {
 
         syncClearButton(animated: false)
         //isDebug = true
-    }
-
-    public override func setup() {
-        super.setup()
-        build()
     }
 
     private var textViewHeightConstraint: NSLayoutConstraint!

@@ -54,6 +54,10 @@ open class ViewController: UIViewController, Skinnable {
         super.viewDidLoad()
         view.debugIdentifier = "\(typeName(of: self)).view"
         setupNavBarActions()
+        build()
+    }
+
+    open func build() {
     }
 
     open override func awakeFromNib() {
