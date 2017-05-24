@@ -370,6 +370,7 @@ public class PowerTextField: View, Editable {
     }
 
     public typealias ResponseBlock = (PowerTextField) -> Void
+    public var onBeginEditing: ResponseBlock?
     public var onEndEditing: ResponseBlock?
     public var onChanged: ResponseBlock?
 
@@ -806,6 +807,7 @@ public class PowerTextField: View, Editable {
         if isEditing {
             scrollEditorToVisible()
             removeValidation()
+            onBeginEditing?(self)
         } else {
             scrollContentToTop()
             if !hasValidation {
