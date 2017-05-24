@@ -420,9 +420,8 @@
 		03BC18D01CF1054C005AF3C3 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18CE1CF104D9005AF3C3 /* AppInfo.swift */; };
 		03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
 		03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
-		03C19AEF1ECF9EB4003379BF /* Flyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C19AEE1ECF9EB4003379BF /* Flyer.swift */; };
-		03C19AF51ECFA5E6003379BF /* FlyerBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C19AF41ECFA5E6003379BF /* FlyerBarViewController.swift */; };
-		03C486C11ED09D2F00BFA144 /* FlyerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C486C01ED09D2F00BFA144 /* FlyerView.swift */; };
+		03C19AF51ECFA5E6003379BF /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C19AF41ECFA5E6003379BF /* BannerViewController.swift */; };
+		03C486C11ED09D2F00BFA144 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C486C01ED09D2F00BFA144 /* BannerView.swift */; };
 		03C9AA1C1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03C9AA1D1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03C9AA1E1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
@@ -829,9 +828,8 @@
 		03B7BDEC1D40B8D900177066 /* Base64Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64Tests.swift; sourceTree = "<group>"; };
 		03BC18CE1CF104D9005AF3C3 /* AppInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppInfo.swift; path = "Sources-Foundation/AppInfo.swift"; sourceTree = "<group>"; };
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
-		03C19AEE1ECF9EB4003379BF /* Flyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Flyer.swift; path = "Source-UI/Flyer.swift"; sourceTree = "<group>"; };
-		03C19AF41ECFA5E6003379BF /* FlyerBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlyerBarViewController.swift; path = "Source-UI/FlyerBarViewController.swift"; sourceTree = "<group>"; };
-		03C486C01ED09D2F00BFA144 /* FlyerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlyerView.swift; path = "Source-UI/FlyerView.swift"; sourceTree = "<group>"; };
+		03C19AF41ECFA5E6003379BF /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerViewController.swift; path = "Source-UI/BannerViewController.swift"; sourceTree = "<group>"; };
+		03C486C01ED09D2F00BFA144 /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerView.swift; path = "Source-UI/BannerView.swift"; sourceTree = "<group>"; };
 		03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreImageFilters.swift; path = "Source-UI/CoreImageFilters.swift"; sourceTree = "<group>"; };
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
 		03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endpoint.swift; path = Sources/WolfCore/Endpoint.swift; sourceTree = "<group>"; };
@@ -1326,7 +1324,7 @@
 		0314DD0A1D08FD2200E23C67 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				03C19AED1ECF9C64003379BF /* FlyerViewController */,
+				03C19AED1ECF9C64003379BF /* BannerViewController */,
 				033B52DE1E31E8E40052E396 /* PagingViewController.swift */,
 				035EB4541CF3CC2D006D73ED /* EmailUtils.swift */,
 				0389BD301CF5130600390914 /* AlertControllerExtensions.swift */,
@@ -1505,14 +1503,13 @@
 			name = Appearance;
 			sourceTree = "<group>";
 		};
-		03C19AED1ECF9C64003379BF /* FlyerViewController */ = {
+		03C19AED1ECF9C64003379BF /* BannerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				03C19AEE1ECF9EB4003379BF /* Flyer.swift */,
-				03C486C01ED09D2F00BFA144 /* FlyerView.swift */,
-				03C19AF41ECFA5E6003379BF /* FlyerBarViewController.swift */,
+				03C486C01ED09D2F00BFA144 /* BannerView.swift */,
+				03C19AF41ECFA5E6003379BF /* BannerViewController.swift */,
 			);
-			name = FlyerViewController;
+			name = BannerViewController;
 			sourceTree = "<group>";
 		};
 		03E172B61CF1C8020073F383 /* WolfCore */ = {
@@ -2013,7 +2010,7 @@
 				03604A541E82498F00CA8C89 /* ImageCropper.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
 				039AD2821E6A222300776D7B /* Credentials.swift in Sources */,
-				03C486C11ED09D2F00BFA144 /* FlyerView.swift in Sources */,
+				03C486C11ED09D2F00BFA144 /* BannerView.swift in Sources */,
 				03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
 				031D337F1E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */,
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
@@ -2038,7 +2035,7 @@
 				0355535D1C0F622A00E0FCA7 /* StringExtensions.swift in Sources */,
 				037BB95E1EA89B6700028A33 /* SHA1.swift in Sources */,
 				033AC3481D171703008C8B93 /* Interval.swift in Sources */,
-				03C19AF51ECFA5E6003379BF /* FlyerBarViewController.swift in Sources */,
+				03C19AF51ECFA5E6003379BF /* BannerViewController.swift in Sources */,
 				03D3FA361E542C5600C8E550 /* ObjectExtensions.swift in Sources */,
 				031D33871E5AA3E9005D4FFF /* VectorNode.swift in Sources */,
 				039C91291E4CFCE2000AE01B /* OverlayWindow.swift in Sources */,
@@ -2096,7 +2093,6 @@
 				03E1732E1CF8CC350073F383 /* AttributedStringExtensions.swift in Sources */,
 				03FAF7851C53F6FF0045BB37 /* FoundationJSON.swift in Sources */,
 				03F5A8BC1C49746500B124A3 /* Rect.swift in Sources */,
-				03C19AEF1ECF9EB4003379BF /* Flyer.swift in Sources */,
 				0314DD111D09032400E23C67 /* Serializable.swift in Sources */,
 				0303BCB21E3E8C9B00B196CA /* PhotoSafeAreaView.swift in Sources */,
 				03023A391ECABAEE002AF4A6 /* ActivityIndicatorView.swift in Sources */,

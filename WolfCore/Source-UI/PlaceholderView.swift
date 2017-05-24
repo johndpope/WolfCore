@@ -51,15 +51,18 @@ open class PlaceholderView: View {
 
     open override func updateConstraints() {
         super.updateConstraints()
-        guard let height = height else { return }
-        replaceConstraint(&heightConstraint, with: heightAnchor == height =&= UILayoutPriorityDefaultHigh)
+        if let height = height {
+            replaceConstraint(&heightConstraint, with: heightAnchor == height =&= UILayoutPriorityDefaultHigh)
+        } else {
+            replaceConstraint(&heightConstraint, with: nil)
+        }
     }
 
     private func syncHeight() {
         setNeedsUpdateConstraints()
     }
 
-    public init(title: String, fontStyleName: FontStyleName? = nil, height: CGFloat, backgroundColor: UIColor = .clear) {
+    public init(title: String, fontStyleName: FontStyleName? = nil, height: CGFloat? = nil, backgroundColor: UIColor = .clear) {
         super.init(frame: .zero)
         self.title = title
         self.fontStyleName = fontStyleName

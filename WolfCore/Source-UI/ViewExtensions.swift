@@ -108,16 +108,16 @@ extension OSView {
         return constraints
     }
 
-    @discardableResult public func constrainWidth(to width: CGFloat, active: Bool = true, idenifier: String? = nil) -> NSLayoutConstraint {
-        return activateConstraint(widthAnchor == width)
+    @discardableResult public func constrainWidth(to width: CGFloat, priority: UILayoutPriority = UILayoutPriorityRequired, active: Bool = true, idenifier: String? = nil) -> NSLayoutConstraint {
+        return activateConstraint(widthAnchor == width =&= priority)
     }
 
-    @discardableResult public func constrainHeight(to height: CGFloat, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
-        return activateConstraint(heightAnchor == height)
+    @discardableResult public func constrainHeight(to height: CGFloat, priority: UILayoutPriority = UILayoutPriorityRequired, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+        return activateConstraint(heightAnchor == height =&= priority)
     }
 
-    @discardableResult public func constrainAspect(to aspect: CGFloat = 1.0, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
-        return activateConstraint(widthAnchor == heightAnchor * aspect)
+    @discardableResult public func constrainAspect(to aspect: CGFloat = 1.0, priority: UILayoutPriority = UILayoutPriorityRequired, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {
+        return activateConstraint(widthAnchor == heightAnchor * aspect =&= priority)
     }
 
     @discardableResult @nonobjc public func constrainAspect(to aspectSize: CGSize, active: Bool = true, identifier: String? = nil) -> NSLayoutConstraint {

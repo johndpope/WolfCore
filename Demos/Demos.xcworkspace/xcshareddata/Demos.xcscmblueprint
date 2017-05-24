@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B421D34A853AA7298AEEE2A7DF0A0DF1D4B98CAE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B421D34A853AA7298AEEE2A7DF0A0DF1D4B98CAE" : 9223372036854775807,
+    "71192E6EF86D22160EFAA3922C17C4D482DB6F54" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "376EE940-99C6-4BF4-BE76-23B5A15026CB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B421D34A853AA7298AEEE2A7DF0A0DF1D4B98CAE" : "WolfCore\/",
+    "71192E6EF86D22160EFAA3922C17C4D482DB6F54" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Demos",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Demos\/Demos.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/leftfieldlabs\/toneitup-IOS",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "71192E6EF86D22160EFAA3922C17C4D482DB6F54"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/arciem\/wolfcore.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B421D34A853AA7298AEEE2A7DF0A0DF1D4B98CAE"
+    }
+  ]
+}
