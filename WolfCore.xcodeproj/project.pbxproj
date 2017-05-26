@@ -327,6 +327,9 @@
 		036B83491C431FDF00491AFF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B83481C431FDF00491AFF /* Random.swift */; };
 		036B834B1C4320AC00491AFF /* ColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834A1C4320AC00491AFF /* ColorFunc.swift */; };
 		036B834D1C4320F300491AFF /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036B834C1C4320F300491AFF /* Gradient.swift */; };
+		036C869E1ED7CAD300013578 /* Flyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C869D1ED7CAD300013578 /* Flyer.swift */; };
+		036C86A01ED7CB2D00013578 /* BannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C869F1ED7CB2D00013578 /* BannersView.swift */; };
+		036C86A21ED7DC6700013578 /* MessageFlyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C86A11ED7DC6700013578 /* MessageFlyer.swift */; };
 		036FECB11C766E6B00B09489 /* BarButtonItemAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036FECB01C766E6B00B09489 /* BarButtonItemAction.swift */; };
 		037016041E0CC8A1006505EF /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037016031E0CC8A1006505EF /* OptionalExtensions.swift */; };
 		037016051E0CC8A1006505EF /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037016031E0CC8A1006505EF /* OptionalExtensions.swift */; };
@@ -421,7 +424,7 @@
 		03BC18D21CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
 		03BC18D31CF19AA2005AF3C3 /* CGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */; };
 		03C19AF51ECFA5E6003379BF /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C19AF41ECFA5E6003379BF /* BannerViewController.swift */; };
-		03C486C11ED09D2F00BFA144 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C486C01ED09D2F00BFA144 /* BannerView.swift */; };
+		03C486C11ED09D2F00BFA144 /* MessageFlyerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C486C01ED09D2F00BFA144 /* MessageFlyerView.swift */; };
 		03C9AA1C1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03C9AA1D1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
 		03C9AA1E1E65D26500ED449B /* CoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */; };
@@ -775,6 +778,9 @@
 		036B83481C431FDF00491AFF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Sources/WolfCore/Random.swift; sourceTree = "<group>"; };
 		036B834A1C4320AC00491AFF /* ColorFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorFunc.swift; path = Sources/WolfCore/ColorFunc.swift; sourceTree = "<group>"; };
 		036B834C1C4320F300491AFF /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gradient.swift; path = Sources/WolfCore/Gradient.swift; sourceTree = "<group>"; };
+		036C869D1ED7CAD300013578 /* Flyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Flyer.swift; path = "Source-UI/Flyer.swift"; sourceTree = "<group>"; };
+		036C869F1ED7CB2D00013578 /* BannersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannersView.swift; path = "Source-UI/BannersView.swift"; sourceTree = "<group>"; };
+		036C86A11ED7DC6700013578 /* MessageFlyer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageFlyer.swift; path = "Source-UI/MessageFlyer.swift"; sourceTree = "<group>"; };
 		036FEC9E1C73CEA800B09489 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SQLite.swift; path = Utilities/SQLite.swift; sourceTree = "<group>"; };
 		036FECA31C73CFB100B09489 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		036FECB01C766E6B00B09489 /* BarButtonItemAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarButtonItemAction.swift; path = "Source-UI/BarButtonItemAction.swift"; sourceTree = "<group>"; };
@@ -829,7 +835,7 @@
 		03BC18CE1CF104D9005AF3C3 /* AppInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppInfo.swift; path = "Sources-Foundation/AppInfo.swift"; sourceTree = "<group>"; };
 		03BC18D11CF19AA2005AF3C3 /* CGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGUtils.swift; path = "Sources-CoreGraphics/CGUtils.swift"; sourceTree = "<group>"; };
 		03C19AF41ECFA5E6003379BF /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerViewController.swift; path = "Source-UI/BannerViewController.swift"; sourceTree = "<group>"; };
-		03C486C01ED09D2F00BFA144 /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerView.swift; path = "Source-UI/BannerView.swift"; sourceTree = "<group>"; };
+		03C486C01ED09D2F00BFA144 /* MessageFlyerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageFlyerView.swift; path = "Source-UI/MessageFlyerView.swift"; sourceTree = "<group>"; };
 		03C9AA1B1E65D26500ED449B /* CoreImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreImageFilters.swift; path = "Source-UI/CoreImageFilters.swift"; sourceTree = "<group>"; };
 		03CA5A3F1E39195E00A7D3C6 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageControl.swift; path = "Source-UI/PageControl.swift"; sourceTree = "<group>"; };
 		03CB8C6F1EB9723A00FBC3A6 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endpoint.swift; path = Sources/WolfCore/Endpoint.swift; sourceTree = "<group>"; };
@@ -1506,8 +1512,11 @@
 		03C19AED1ECF9C64003379BF /* BannerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				03C486C01ED09D2F00BFA144 /* BannerView.swift */,
+				036C869D1ED7CAD300013578 /* Flyer.swift */,
+				036C86A11ED7DC6700013578 /* MessageFlyer.swift */,
+				03C486C01ED09D2F00BFA144 /* MessageFlyerView.swift */,
 				03C19AF41ECFA5E6003379BF /* BannerViewController.swift */,
+				036C869F1ED7CB2D00013578 /* BannersView.swift */,
 			);
 			name = BannerViewController;
 			sourceTree = "<group>";
@@ -1968,6 +1977,7 @@
 				033882241CFF97C200C8972B /* TextField.swift in Sources */,
 				032418191E2EDE0400082E6A /* StrongComponents.swift in Sources */,
 				032D77881E256F370058CF1B /* Edge.swift in Sources */,
+				036C86A01ED7CB2D00013578 /* BannersView.swift in Sources */,
 				0322E8A21D13FB8900EFF3F6 /* Canceler.swift in Sources */,
 				03206B3B1C3CBB36001A463B /* TextCheckingResultExtensions.swift in Sources */,
 				035553431C0F622A00E0FCA7 /* ColorExtensions.swift in Sources */,
@@ -2010,7 +2020,7 @@
 				03604A541E82498F00CA8C89 /* ImageCropper.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
 				039AD2821E6A222300776D7B /* Credentials.swift in Sources */,
-				03C486C11ED09D2F00BFA144 /* BannerView.swift in Sources */,
+				03C486C11ED09D2F00BFA144 /* MessageFlyerView.swift in Sources */,
 				03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
 				031D337F1E5A88C3005D4FFF /* FrameBasedSimulator.swift in Sources */,
 				03CEACF91C5FB9860014A07A /* OutputStreamUtils.swift in Sources */,
@@ -2050,6 +2060,7 @@
 				03E13B841C4FEE720074E447 /* Grid.swift in Sources */,
 				03F5A8B21C485F6000B124A3 /* UniqueID.swift in Sources */,
 				038457971CED57E80012BCCE /* WindowExtensions.swift in Sources */,
+				036C869E1ED7CAD300013578 /* Flyer.swift in Sources */,
 				03E3C7331D10E3120004DF98 /* Monad.swift in Sources */,
 				03F9860F1E57B3EC00728A3D /* SpriteKitExtensions.swift in Sources */,
 				035553411C0F622A00E0FCA7 /* Button.swift in Sources */,
@@ -2065,6 +2076,7 @@
 				036B83401C40909700491AFF /* DictionaryExtensions.swift in Sources */,
 				03206B2D1C3B1B02001A463B /* BSON.swift in Sources */,
 				03BC18CF1CF104D9005AF3C3 /* AppInfo.swift in Sources */,
+				036C86A21ED7DC6700013578 /* MessageFlyer.swift in Sources */,
 				03F5A8BA1C4970DF00B124A3 /* Vector.swift in Sources */,
 				036B834B1C4320AC00491AFF /* ColorFunc.swift in Sources */,
 				03023A251ECA8430002AF4A6 /* StringValidation.swift in Sources */,

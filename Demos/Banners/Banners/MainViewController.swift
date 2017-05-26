@@ -10,9 +10,15 @@ import UIKit
 import WolfCore
 
 class MainViewController: BannerViewController {
+    var tapAction: GestureRecognizerAction!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         contentViewController = ContentViewController.instantiate()
+
+        tapAction = contentViewController!.view.addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in
+            self.perform()
+        }
     }
 
     override func updateAppearance(skin: Skin?) {
@@ -26,46 +32,51 @@ class MainViewController: BannerViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        perform()
+    }
 
-        var banner1: Banner!
-        var banner2: Banner!
-        var banner3: Banner!
-        var banner4: Banner!
+    private func perform() {
+        var flyer1: MessageFlyer!
+        var flyer2: MessageFlyer!
+        var flyer3: MessageFlyer!
+        var flyer4: MessageFlyer!
 
-        dispatchOnMain(afterDelay: 1.0) {
-            let bannerView = BannerView(title: "Banner 1", message: Lorem.shortSentence, backgroundColor: UIColor.green.lightened(by: 0.8))
-            banner1 = self.addBanner(view: bannerView)
+        let multiplier: TimeInterval = 1.0
+
+        dispatchOnMain(afterDelay: 0 * multiplier) {
+            flyer1 = MessageFlyer(title: "Banner 1", message: Lorem.shortSentence, backgroundColor: UIColor.green.lightened(by: 0.8))
+            self.addView(MessageFlyerView(flyer: flyer1), for: flyer1)
         }
 
-        dispatchOnMain(afterDelay: 2.0) {
-            let bannerView = BannerView(title: "Banner 2", message: Lorem.sentences(3), backgroundColor: UIColor.yellow.lightened(by: 0.8))
-            banner2 = self.addBanner(view: bannerView)
+        dispatchOnMain(afterDelay: 1 * multiplier) {
+            flyer2 = MessageFlyer(title: "Banner 2", message: Lorem.sentences(3), backgroundColor: UIColor.yellow.lightened(by: 0.8))
+            self.addView(MessageFlyerView(flyer: flyer2), for: flyer2)
         }
 
-        dispatchOnMain(afterDelay: 3.0) {
-            let bannerView = BannerView(title: "Banner 3", message: Lorem.sentences(2), backgroundColor: UIColor.red.lightened(by: 0.8))
-            banner3 = self.addBanner(view: bannerView, priority: 600)
+        dispatchOnMain(afterDelay: 2 * multiplier) {
+            flyer3 = MessageFlyer(title: "Banner 3", message: Lorem.sentences(2), backgroundColor: UIColor.red.lightened(by: 0.8), priority: 600)
+            self.addView(MessageFlyerView(flyer: flyer3), for: flyer3)
         }
 
-        dispatchOnMain(afterDelay: 4.0) {
-            let bannerView = BannerView(title: "Banner 4", message: Lorem.shortSentence, backgroundColor: UIColor.purple.lightened(by: 0.8))
-            banner4 = self.addBanner(view: bannerView, priority: 400)
+        dispatchOnMain(afterDelay: 3 * multiplier) {
+            flyer4 = MessageFlyer(title: "Banner 4", message: Lorem.shortSentence, backgroundColor: UIColor.purple.lightened(by: 0.8), priority: 400)
+            self.addView(MessageFlyerView(flyer: flyer4), for: flyer4)
         }
 
-        dispatchOnMain(afterDelay: 5.0) { 
-            self.removeBanner(banner3)
+        dispatchOnMain(afterDelay: 4 * multiplier) {
+            self.removeView(for: flyer3)
         }
 
-        dispatchOnMain(afterDelay: 6.0) {
-            self.removeBanner(banner2)
+        dispatchOnMain(afterDelay: 5 * multiplier) {
+            self.removeView(for: flyer2)
         }
 
-        dispatchOnMain(afterDelay: 7.0) {
-            self.removeBanner(banner1)
+        dispatchOnMain(afterDelay: 6 * multiplier) {
+            self.removeView(for: flyer1)
         }
 
-        dispatchOnMain(afterDelay: 8.0) {
-            self.removeBanner(banner4)
+        dispatchOnMain(afterDelay: 7 * multiplier) {
+            self.removeView(for: flyer4)
         }
     }
 }
@@ -84,9 +95,10 @@ class ContentViewController: ViewController {
     }
 
     private lazy var placeholderView: PlaceholderView = {
-        let view = PlaceholderView(title: "Content")
+        let view = PlaceholderView(title: "Tap for More Banners")
         return view
     }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,9 +107,4 @@ class ContentViewController: ViewController {
         ]
         placeholderView.constrainFrame()
     }
-    
-    //override func viewWillAppear(_ animated: Bool) {
-    //    super.viewWillAppear(animated)
-    //    view.normalBackgroundColor = .red
-    //}
 }

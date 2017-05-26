@@ -1,5 +1,5 @@
 //
-//  BannerView.swift
+//  MessageFlyerView.swift
 //  WolfCore
 //
 //  Created by Wolf McNally on 5/20/17.
@@ -8,11 +8,8 @@
 
 import UIKit
 
-public class BannerView: View {
-    private let title: String?
-    private let message: String?
-    private let foregroundColor: UIColor
-    private let contentBackgroundColor: UIColor
+public class MessageFlyerView: View {
+    private let flyer: MessageFlyer
 
     private lazy var contentView: View = {
         let view = View()
@@ -42,11 +39,8 @@ public class BannerView: View {
         return label
     }()
 
-    public init(title: String?, message: String?, foregroundColor: UIColor = .black, backgroundColor: UIColor = .white) {
-        self.title = title
-        self.message = message
-        self.foregroundColor = foregroundColor
-        self.contentBackgroundColor = backgroundColor
+    public init(flyer: MessageFlyer) {
+        self.flyer = flyer
         super.init(frame: .zero)
     }
 
@@ -56,8 +50,6 @@ public class BannerView: View {
 
     public override func setup() {
         super.setup()
-
-//        constrainHeight(to: 44)
 
         setupContentView()
         setupStackView()
@@ -94,21 +86,21 @@ public class BannerView: View {
     public override func updateAppearance(skin: Skin?) {
         super.updateAppearance(skin: skin)
 
-        contentView.backgroundColor = contentBackgroundColor
+        contentView.backgroundColor = flyer.backgroundColor
 
-        if title != nil {
-            titleLabel.textColor = foregroundColor
-            titleLabel.font = .boldSystemFont(ofSize: 10)
+        if flyer.title != nil {
+            titleLabel.textColor = flyer.textColor
+            titleLabel.font = .boldSystemFont(ofSize: 12)
         }
 
-        if message != nil {
-            messageLabel.font = .systemFont(ofSize: 10)
-            messageLabel.textColor = foregroundColor
+        if flyer.message != nil {
+            messageLabel.font = .systemFont(ofSize: 12)
+            messageLabel.textColor = flyer.textColor
         }
     }
 
     private func setupTitle() {
-        guard let title = title else { return }
+        guard let title = flyer.title else { return }
         stackView => [
             titleLabel
         ]
@@ -116,7 +108,7 @@ public class BannerView: View {
     }
 
     private func setupMessage() {
-        guard let message = message else { return }
+        guard let message = flyer.message else { return }
         stackView => [
             messageLabel
         ]
