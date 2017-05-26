@@ -25,6 +25,7 @@ public struct FoundationJSON {
     public typealias DictionaryOfStrings = [String: String]
     public typealias ArrayOfStrings = [String]
     public typealias ArrayOfDictionaries = [Dictionary]
+    public typealias Null = NSNull
 
     private var _value = Cached<Value>()
     private var _data = Cached<Data>()
@@ -133,6 +134,10 @@ public struct FoundationJSON {
         self.init(fragment: b)
     }
 
+    public init(_ n: Null) {
+        self.init(fragment: n)
+    }
+
     public init() {
         self.init(fragment: Self.null)
     }
@@ -185,7 +190,7 @@ public struct FoundationJSON {
     }
 
     public static func isNull(_ value: Value) -> Bool {
-        return value is NSNull
+        return value is Null
     }
 
     public mutating func setValue(_ value: JSONRepresentable, for key: String) {
@@ -202,7 +207,23 @@ public struct FoundationJSON {
         _data.value = nil
     }
 
-    public static let null = NSNull()
+    public mutating func setValue(_ value: JSONRepresentable?, for key: String) {
+        if let value = value {
+            setValue(value, for: key)
+        } else {
+            setValue(Self.null, for: key)
+        }
+    }
+
+    public mutating func setValue(_ value: JSONRepresentable?, for index: Int) {
+        if let value = value {
+            setValue(value, for: index)
+        } else {
+            setValue(Self.null, for: index)
+        }
+    }
+
+    public static let null = Null()
 }
 
 extension FoundationJSON: CustomStringConvertible {

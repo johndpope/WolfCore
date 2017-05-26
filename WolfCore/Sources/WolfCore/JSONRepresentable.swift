@@ -51,3 +51,7 @@ extension NSNumber: JSONRepresentable {
 extension Locale: JSONRepresentable {
     public var json: JSON { return JSON("\(self)") }
 }
+
+extension NSNull: JSONRepresentable {
+    public var json: JSON { return JSON(JSON.null) }
+}
