@@ -9,17 +9,7 @@
 import UIKit
 
 class BannersView: View {
-    private struct FlyerView {
-        let flyer: Flyer
-        let view: UIView
-
-        init(flyer: Flyer, view: UIView) {
-            self.flyer = flyer
-            self.view = view
-        }
-    }
-
-    private var flyerViews = [FlyerView]()
+    private var bulletinViews = [BulletinView]()
     private var heightConstraint: NSLayoutConstraint!
 
     private var stackView: VerticalStackView = {
@@ -43,18 +33,20 @@ class BannersView: View {
         )
     }
 
-    private func index(of flyer: Flyer) -> Int? {
-        return flyerViews.index { return $0.flyer.uuid == flyer.uuid }
+    private func index(of bulletin: Bulletin) -> Int? {
+        return bulletinViews.index { return $0.bulletin === bulletin }
     }
 
-    func addView(_ view: UIView, for flyer: Flyer, animated: Bool, animations: @escaping Block) {
+    func addBulletinView(_ bulletinView: BulletinView, animated: Bool, animations: @escaping Block) {
+        let bulletin = bulletinView.bulletin
+        let view = bulletinView.view
+
         assert(view.superview == nil)
 
-        let flyerView = FlyerView(flyer: flyer, view: view)
-        flyerViews.append(flyerView)
-        flyerViews.sort { $0.flyer.priority == $1.flyer.priority ? $0.flyer.date < $1.flyer.date : $0.flyer.priority < $1.flyer.priority }
+        bulletinViews.append(bulletinView)
+        bulletinViews.sort { $0.bulletin.priority == $1.bulletin.priority ? $0.bulletin.date < $1.bulletin.date : $0.bulletin.priority < $1.bulletin.priority }
 
-        let viewIndex = index(of: flyer)!
+        let viewIndex = index(of: bulletin)!
 
         stackView.insertArrangedSubview(view, at: viewIndex)
         stackView.layoutIfNeeded()
@@ -78,10 +70,10 @@ class BannersView: View {
         }.run()
     }
 
-    func removeView(for flyer: Flyer, animated: Bool, animations: @escaping Block) {
-        guard let viewIndex = index(of: flyer) else { return }
-        let flyerView = flyerViews[viewIndex]
-        let view = flyerView.view
+    func removeView(for bulletin: Bulletin, animated: Bool, animations: @escaping Block) {
+        guard let viewIndex = index(of: bulletin) else { return }
+        let bulletinView = bulletinViews[viewIndex]
+        let view = bulletinView.view
         view.removeFromSuperview()
         stackView.insertSubview(view, at: 0)
         activateConstraints(
@@ -89,7 +81,7 @@ class BannersView: View {
             view.trailingAnchor == stackView.trailingAnchor,
             view.bottomAnchor == stackView.bottomAnchor - (stackView.frame.height - view.frame.maxY)
         )
-        flyerViews.remove(at: viewIndex)
+        bulletinViews.remove(at: viewIndex)
         dispatchAnimated(animated, options: [.allowUserInteraction, .beginFromCurrentState]) {
             view.alpha = 0
             animations()
@@ -100,7 +92,7 @@ class BannersView: View {
 
     func heightForBanners(count: Int) -> CGFloat {
         var height: CGFloat = 0
-        for (viewIndex, banner) in flyerViews.reversed().enumerated() {
+        for (viewIndex, banner) in bulletinViews.reversed().enumerated() {
             guard viewIndex < count else { break }
             height += banner.view.frame.height
         }

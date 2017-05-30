@@ -8,15 +8,42 @@
 
 import UIKit
 
+public struct BulletinView {
+    let bulletin: Bulletin
+    let view: UIView
+
+    init(bulletin: Bulletin, view: UIView) {
+        self.bulletin = bulletin
+        self.view = view
+    }
+}
+
 open class BannerViewController: ViewController {
+    public typealias PublishableType = Bulletin
+    public typealias PublisherType = Publisher<PublishableType>
+
     public enum PresentationStyle {
-        case overlayFlyerViews
+        case overlayBulletinViews
         case compressMainView
     }
+
+    private var subscriber = Subscriber<PublishableType>()
 
     private var bannersContainerHeightConstraint: NSLayoutConstraint!
     private var presentationStyle: PresentationStyle! = .compressMainView
     private var maxBannersVisible: Int! = 5
+
+    open override func setup() {
+        super.setup()
+
+        subscriber.onAddedItem = { [unowned self] item in
+            self.addView(for: item)
+        }
+
+        subscriber.onRemovedItem = { [unowned self] item in
+            self.removeView(for: item)
+        }
+    }
 
     public init(presentationStyle: PresentationStyle = .compressMainView, maxBannersVisible: Int = 1) {
         super.init(nibName: nil, bundle: nil)
@@ -28,14 +55,26 @@ open class BannerViewController: ViewController {
         super.init(coder: aDecoder)
     }
 
-    public func addView(_ bannerView: UIView, for flyer: Flyer) {
-        bannersView.addView(bannerView, for: flyer, animated: true) {
+    public func subscribe(to publisher: PublisherType) {
+        subscriber.subscribe(to: publisher)
+    }
+
+    public func unsubscribe(from publisher: PublisherType) {
+        subscriber.unsubscribe(from: publisher)
+    }
+
+    private func addView(for bulletin: Bulletin) {
+        addBulletinView(bulletin.newBulletinView())
+    }
+
+    private func addBulletinView(_ bulletinView: BulletinView) {
+        bannersView.addBulletinView(bulletinView, animated: true) {
             self.syncToVisibleBanners()
         }
     }
 
-    public func removeView(for flyer: Flyer) {
-        bannersView.removeView(for: flyer, animated: true) {
+    private func removeView(for bulletin: Bulletin) {
+        bannersView.removeView(for: bulletin, animated: true) {
             self.syncToVisibleBanners()
         }
     }
@@ -132,7 +171,7 @@ open class BannerViewController: ViewController {
             activateConstraints(
                 contentViewContainer.topAnchor == bannersView.bottomAnchor
             )
-        case .overlayFlyerViews:
+        case .overlayBulletinViews:
             activateConstraints(
                 contentViewContainer.topAnchor == view.topAnchor
             )

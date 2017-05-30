@@ -17,14 +17,16 @@ extension UIViewController {
 }
 
 extension UIViewController {
-    public func newCancelDismissAction() -> BarButtonItemAction {
+    public func newCancelDismissAction(onCancel: Block? = nil) -> BarButtonItemAction {
         return BarButtonItemAction(item: UIBarButtonItem(barButtonSystemItem: .cancel)) { [unowned self] in
+            onCancel?()
             self.dismiss()
         }
     }
 
-    public func newDoneDismissAction() -> BarButtonItemAction {
+    public func newDoneDismissAction(onDone: Block? = nil) -> BarButtonItemAction {
         return BarButtonItemAction(item: UIBarButtonItem(barButtonSystemItem: .done)) { [unowned self] in
+            onDone?()
             self.dismiss()
         }
     }

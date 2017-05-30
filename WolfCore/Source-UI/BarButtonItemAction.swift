@@ -37,4 +37,8 @@ extension UIBarButtonItem {
     public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem) {
         self.init(barButtonSystemItem: systemItem, target: nil, action: nil)
     }
+
+    public convenience init(title: String, style: UIBarButtonItemStyle = .plain) {
+        self.init(title: title, style: style, target: nil, action: nil)
+    }
 }

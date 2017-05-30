@@ -11,6 +11,7 @@ import WolfCore
 
 class MainViewController: BannerViewController {
     var tapAction: GestureRecognizerAction!
+    private var publisher = Publisher<Bulletin>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,7 @@ class MainViewController: BannerViewController {
         tapAction = contentViewController!.view.addAction(forGestureRecognizer: UITapGestureRecognizer()) { [unowned self] _ in
             self.perform()
         }
+        subscribe(to: publisher)
     }
 
     override func updateAppearance(skin: Skin?) {
@@ -36,47 +38,43 @@ class MainViewController: BannerViewController {
     }
 
     private func perform() {
-        var flyer1: MessageFlyer!
-        var flyer2: MessageFlyer!
-        var flyer3: MessageFlyer!
-        var flyer4: MessageFlyer!
+        let bulletin1 = MessageBulletin(title: "Banner 1", message: Lorem.shortSentence, backgroundColor: Color.green.lightened(by: 0.8))
+        let bulletin2 = MessageBulletin(title: "Banner 2", message: Lorem.sentences(3), backgroundColor: Color.yellow.lightened(by: 0.8))
+        let bulletin3 = MessageBulletin(title: "Banner 3", message: Lorem.sentences(2), backgroundColor: Color.red.lightened(by: 0.8), priority: 600)
+        let bulletin4 = MessageBulletin(title: "Banner 4", message: Lorem.shortSentence, backgroundColor: Color.purple.lightened(by: 0.8), priority: 400)
 
         let multiplier: TimeInterval = 1.0
 
         dispatchOnMain(afterDelay: 0 * multiplier) {
-            flyer1 = MessageFlyer(title: "Banner 1", message: Lorem.shortSentence, backgroundColor: UIColor.green.lightened(by: 0.8))
-            self.addView(MessageFlyerView(flyer: flyer1), for: flyer1)
+            self.publisher.publish(bulletin1)
         }
 
         dispatchOnMain(afterDelay: 1 * multiplier) {
-            flyer2 = MessageFlyer(title: "Banner 2", message: Lorem.sentences(3), backgroundColor: UIColor.yellow.lightened(by: 0.8))
-            self.addView(MessageFlyerView(flyer: flyer2), for: flyer2)
+            self.publisher.publish(bulletin2)
         }
 
         dispatchOnMain(afterDelay: 2 * multiplier) {
-            flyer3 = MessageFlyer(title: "Banner 3", message: Lorem.sentences(2), backgroundColor: UIColor.red.lightened(by: 0.8), priority: 600)
-            self.addView(MessageFlyerView(flyer: flyer3), for: flyer3)
+            self.publisher.publish(bulletin3)
         }
 
         dispatchOnMain(afterDelay: 3 * multiplier) {
-            flyer4 = MessageFlyer(title: "Banner 4", message: Lorem.shortSentence, backgroundColor: UIColor.purple.lightened(by: 0.8), priority: 400)
-            self.addView(MessageFlyerView(flyer: flyer4), for: flyer4)
+            self.publisher.publish(bulletin4)
         }
 
         dispatchOnMain(afterDelay: 4 * multiplier) {
-            self.removeView(for: flyer3)
+            self.publisher.unpublish(bulletin3)
         }
 
         dispatchOnMain(afterDelay: 5 * multiplier) {
-            self.removeView(for: flyer2)
+            self.publisher.unpublish(bulletin2)
         }
 
         dispatchOnMain(afterDelay: 6 * multiplier) {
-            self.removeView(for: flyer1)
+            self.publisher.unpublish(bulletin1)
         }
 
         dispatchOnMain(afterDelay: 7 * multiplier) {
-            self.removeView(for: flyer4)
+            self.publisher.unpublish(bulletin4)
         }
     }
 }

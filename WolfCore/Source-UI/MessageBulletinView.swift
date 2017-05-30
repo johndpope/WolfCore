@@ -1,5 +1,5 @@
 //
-//  MessageFlyerView.swift
+//  MessageBulletinView.swift
 //  WolfCore
 //
 //  Created by Wolf McNally on 5/20/17.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-public class MessageFlyerView: View {
-    private let flyer: MessageFlyer
+public class MessageBulletinView: View {
+    private let bulletin: MessageBulletin
 
     private lazy var contentView: View = {
         let view = View()
@@ -39,8 +39,8 @@ public class MessageFlyerView: View {
         return label
     }()
 
-    public init(flyer: MessageFlyer) {
-        self.flyer = flyer
+    public init(bulletin: MessageBulletin) {
+        self.bulletin = bulletin
         super.init(frame: .zero)
     }
 
@@ -86,21 +86,21 @@ public class MessageFlyerView: View {
     public override func updateAppearance(skin: Skin?) {
         super.updateAppearance(skin: skin)
 
-        contentView.backgroundColor = flyer.backgroundColor
+        contentView.backgroundColor = bulletin.backgroundColor.uiColor
 
-        if flyer.title != nil {
-            titleLabel.textColor = flyer.textColor
+        if bulletin.title != nil {
+            titleLabel.textColor = bulletin.textColor.uiColor
             titleLabel.font = .boldSystemFont(ofSize: 12)
         }
 
-        if flyer.message != nil {
+        if bulletin.message != nil {
             messageLabel.font = .systemFont(ofSize: 12)
-            messageLabel.textColor = flyer.textColor
+            messageLabel.textColor = bulletin.textColor.uiColor
         }
     }
 
     private func setupTitle() {
-        guard let title = flyer.title else { return }
+        guard let title = bulletin.title else { return }
         stackView => [
             titleLabel
         ]
@@ -108,7 +108,7 @@ public class MessageFlyerView: View {
     }
 
     private func setupMessage() {
-        guard let message = flyer.message else { return }
+        guard let message = bulletin.message else { return }
         stackView => [
             messageLabel
         ]
