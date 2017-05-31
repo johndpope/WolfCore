@@ -9,8 +9,8 @@
 import UIKit
 
 public struct BulletinView {
-    let bulletin: Bulletin
-    let view: UIView
+    public let bulletin: Bulletin
+    public let view: UIView
 
     init(bulletin: Bulletin, view: UIView) {
         self.bulletin = bulletin
@@ -176,5 +176,16 @@ open class BannerViewController: ViewController {
                 contentViewContainer.topAnchor == view.topAnchor
             )
         }
+    }
+
+    override open func updateAppearance(skin: Skin?) {
+        super.updateAppearance(skin: skin)
+        guard let skin = skin else { return }
+        view.normalBackgroundColor = skin.bannerBarBackgroundColor
+        setNeedsStatusBarAppearanceUpdate()
+    }
+
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+        return skin.bannerBarStyle
     }
 }

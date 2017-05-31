@@ -46,6 +46,9 @@ extension FontStyleName {
     public static let textFieldPlaceholderMessage = FontStyleName("textFieldPlaceholderMessage")
     public static let textFieldValidationFailureMessage = FontStyleName("textFieldValidationFailureMessage")
     public static let textFieldValidationSuccessMessage = FontStyleName("textFieldValidationSuccessMessage")
+
+    public static let bulletinTitle = FontStyleName("bulletinTitle")
+    public static let bulletinMessage = FontStyleName("bulletinMessage")
 }
 
 public struct FontFamilyName: ExtensibleEnumeratedName {
@@ -79,9 +82,9 @@ public struct FontFaceName: ExtensibleEnumeratedName {
 }
 
 public struct FontStyle {
-    public let descriptor: UIFontDescriptor
-    public let color: UIColor?
-    public let allCaps: Bool
+    public var descriptor: UIFontDescriptor
+    public var color: UIColor?
+    public var allCaps: Bool
 
     public var font: UIFont {
         return UIFont(descriptor: descriptor, size: 0)

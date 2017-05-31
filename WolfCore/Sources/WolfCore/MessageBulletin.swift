@@ -11,22 +11,18 @@ import Foundation
     import UIKit
 #endif
 
-public class MessageBulletin: Bulletin {
+open class MessageBulletin: Bulletin {
     public let title: String?
     public let message: String?
-    public let textColor: Color
-    public let backgroundColor: Color
 
-    public init(title: String? = nil, message: String? = nil, textColor: Color = .black, backgroundColor: Color = .gray, priority: Int = 500, duration: TimeInterval? = nil) {
+    public init(title: String? = nil, message: String? = nil, priority: Int = normalPriority, duration: TimeInterval? = nil) {
         self.title = title
         self.message = message
-        self.textColor = textColor
-        self.backgroundColor = backgroundColor
         super.init(priority: priority, duration: duration)
     }
 
     #if os(iOS)
-    public override func newBulletinView() -> BulletinView {
+    open override func newBulletinView() -> BulletinView {
         let view = MessageBulletinView(bulletin: self)
         return BulletinView(bulletin: self, view: view)
     }

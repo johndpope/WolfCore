@@ -33,6 +33,10 @@ public class Publisher<T: Publishable>: PublisherProtocol {
         for subscriber in subscribers {
             subscriber.addPublishable(item)
         }
+        guard let duration = item.duration else { return }
+        dispatchOnMain(afterDelay: duration) { [weak self] in
+            self?.unpublish(item)
+        }
     }
 
     public func unpublish(_ item: PublishableType) {

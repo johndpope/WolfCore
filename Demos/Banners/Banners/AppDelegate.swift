@@ -14,6 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        setup()
         return true
+    }
+
+    private func setup() {
+        setupLogging()
+    }
+
+    private func setupLogging() {
+        guard let logger = logger else { return }
+        logger.level = .trace
+        logger.set(group: .reachability, active: true)
     }
 }

@@ -29,6 +29,7 @@ public class MessageBulletinView: View {
         let label = Label()
         label.numberOfLines = 1
         label.textAlignment = .left
+        label.fontStyleName = .bulletinTitle
         return label
     }()
 
@@ -36,6 +37,7 @@ public class MessageBulletinView: View {
         let label = Label()
         label.numberOfLines = 0
         label.textAlignment = .left
+        label.fontStyleName = .bulletinMessage
         return label
     }()
 
@@ -85,18 +87,9 @@ public class MessageBulletinView: View {
 
     public override func updateAppearance(skin: Skin?) {
         super.updateAppearance(skin: skin)
+        guard let skin = skin else { return }
 
-        contentView.backgroundColor = bulletin.backgroundColor.uiColor
-
-        if bulletin.title != nil {
-            titleLabel.textColor = bulletin.textColor.uiColor
-            titleLabel.font = .boldSystemFont(ofSize: 12)
-        }
-
-        if bulletin.message != nil {
-            messageLabel.font = .systemFont(ofSize: 12)
-            messageLabel.textColor = bulletin.textColor.uiColor
-        }
+        contentView.backgroundColor = skin.bulletinBackgroundColor
     }
 
     private func setupTitle() {

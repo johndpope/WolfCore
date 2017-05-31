@@ -59,6 +59,10 @@ public protocol Skin {
     var sliderMinTrackColor: UIColor { get }
     var sliderMaxTrackColor: UIColor { get }
 
+    var bannerBarBackgroundColor: UIColor { get }
+    var bannerBarStyle: UIStatusBarStyle { get }
+    var bulletinBackgroundColor: UIColor { get }
+
     func interpolated(to skin: Skin, at frac: Frac) -> Skin
 }
 
@@ -119,6 +123,10 @@ open class DefaultSkin: Skin {
     open var sliderMinTrackColor: UIColor { return .lightGray }
     open var sliderMaxTrackColor: UIColor { return .darkGray }
 
+    open var bannerBarBackgroundColor: UIColor { return UIColor(white: 0.2, alpha: 1.0) }
+    open var bannerBarStyle: UIStatusBarStyle { return .lightContent }
+    open var bulletinBackgroundColor: UIColor { return .gray }
+
     public var fontStyles: FontStyles = [
         .display: FontStyle(family: .zapfino, size: 48.0),
         .title: FontStyle(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1)),
@@ -134,6 +142,9 @@ open class DefaultSkin: Skin {
         .textFieldPlaceholderMessage: FontStyle(font: .italicSystemFont(ofSize: 8), color: .gray),
         .textFieldValidationFailureMessage: FontStyle(font: .italicSystemFont(ofSize: 8), color: .red),
         .textFieldValidationSuccessMessage: FontStyle(font: .italicSystemFont(ofSize: 8), color: .green),
+
+        .bulletinTitle: FontStyle(font: .boldSystemFont(ofSize: 12), color: .black),
+        .bulletinMessage: FontStyle(font: .systemFont(ofSize: 12), color: .black),
     ]
 
     open func interpolated(to skin: Skin, at frac: Frac) -> Skin {
@@ -211,6 +222,10 @@ open class InterpolateSkin: Skin {
     open lazy var sliderThumbColor: UIColor = { return self.blend(from: self.skin1.sliderThumbColor, to: self.skin2.sliderThumbColor) }()
     open lazy var sliderMinTrackColor: UIColor = { return self.blend(from: self.skin1.sliderMinTrackColor, to: self.skin2.sliderMinTrackColor) }()
     open lazy var sliderMaxTrackColor: UIColor = { return self.blend(from: self.skin1.sliderMaxTrackColor, to: self.skin2.sliderMaxTrackColor) }()
+
+    open lazy var bannerBarBackgroundColor: UIColor = { return self.blend(from: self.skin1.bannerBarBackgroundColor, to: self.skin2.bannerBarBackgroundColor) }()
+    open lazy var bannerBarStyle: UIStatusBarStyle = { return self.frac.ledge(self.skin1.bannerBarStyle, self.skin2.bannerBarStyle) }()
+    open lazy var bulletinBackgroundColor: UIColor = { return self.blend(from: self.skin1.bulletinBackgroundColor, to: self.skin2.bulletinBackgroundColor) }()
 
     public var fontStyles: FontStyles { return self.skin1.fontStyles }
 

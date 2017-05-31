@@ -60,6 +60,10 @@
 		030F1AE31EDCFEF600CCDEB2 /* MessageBulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1AE21EDCFEF600CCDEB2 /* MessageBulletin.swift */; };
 		030F1AE41EDCFEF600CCDEB2 /* MessageBulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1AE21EDCFEF600CCDEB2 /* MessageBulletin.swift */; };
 		030F1AE51EDCFEF600CCDEB2 /* MessageBulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1AE21EDCFEF600CCDEB2 /* MessageBulletin.swift */; };
+		030F1AE71EDE1FA500CCDEB2 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1AE61EDE1FA500CCDEB2 /* Reachability.swift */; };
+		030F1AE81EDE1FA500CCDEB2 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1AE61EDE1FA500CCDEB2 /* Reachability.swift */; };
+		030F1AE91EDE1FA500CCDEB2 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1AE61EDE1FA500CCDEB2 /* Reachability.swift */; };
+		030F1AEB1EDE55FD00CCDEB2 /* ReachabilityBulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1AEA1EDE55FD00CCDEB2 /* ReachabilityBulletin.swift */; };
 		03106F5F1D40CD6500E21F82 /* Base64URLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */; };
 		03106F621D40D81F00E21F82 /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03106F611D40D81F00E21F82 /* Runes.swift */; };
 		03106F631D40D81F00E21F82 /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03106F611D40D81F00E21F82 /* Runes.swift */; };
@@ -668,6 +672,8 @@
 		030F1ADA1EDCFE1800CCDEB2 /* Subscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscriber.swift; path = Sources/WolfCore/Subscriber.swift; sourceTree = "<group>"; };
 		030F1ADE1EDCFE7700CCDEB2 /* Bulletin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bulletin.swift; path = Sources/WolfCore/Bulletin.swift; sourceTree = "<group>"; };
 		030F1AE21EDCFEF600CCDEB2 /* MessageBulletin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageBulletin.swift; path = Sources/WolfCore/MessageBulletin.swift; sourceTree = "<group>"; };
+		030F1AE61EDE1FA500CCDEB2 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = "Source-UI/Reachability.swift"; sourceTree = "<group>"; };
+		030F1AEA1EDE55FD00CCDEB2 /* ReachabilityBulletin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReachabilityBulletin.swift; path = "Source-UI/ReachabilityBulletin.swift"; sourceTree = "<group>"; };
 		03106F5E1D40CD6500E21F82 /* Base64URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64URLTests.swift; sourceTree = "<group>"; };
 		03106F611D40D81F00E21F82 /* Runes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Runes.swift; path = WolfCore/Runes.swift; sourceTree = "<group>"; };
 		03106F651D40D8F900E21F82 /* RunesOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunesOptional.swift; path = WolfCore/RunesOptional.swift; sourceTree = "<group>"; };
@@ -1189,6 +1195,8 @@
 				03D3FA3B1E542CB500C8E550 /* URLComponentsExtensions.swift */,
 				03D3FA3F1E542CF000C8E550 /* URLExtensions.swift */,
 				03CB8C731EB9726600FBC3A6 /* API.swift */,
+				030F1AE61EDE1FA500CCDEB2 /* Reachability.swift */,
+				030F1AEA1EDE55FD00CCDEB2 /* ReachabilityBulletin.swift */,
 			);
 			name = Internet;
 			sourceTree = "<group>";
@@ -1552,8 +1560,8 @@
 			isa = PBXGroup;
 			children = (
 				03C486C01ED09D2F00BFA144 /* MessageBulletinView.swift */,
-				03C19AF41ECFA5E6003379BF /* BannerViewController.swift */,
 				036C869F1ED7CB2D00013578 /* BannersView.swift */,
+				03C19AF41ECFA5E6003379BF /* BannerViewController.swift */,
 			);
 			name = BannerViewController;
 			sourceTree = "<group>";
@@ -1857,6 +1865,7 @@
 				033F5E8A1CA3096700647A0A /* GeneralError.swift in Sources */,
 				033F5E8C1CA3096700647A0A /* Log.swift in Sources */,
 				033F5E8D1CA3096700647A0A /* ASN1Parser.swift in Sources */,
+				030F1AE81EDE1FA500CCDEB2 /* Reachability.swift in Sources */,
 				031631A31D0969C600DCBB3B /* ObjectAliaser.swift in Sources */,
 				033F5E8E1CA3096700647A0A /* Base64URL.swift in Sources */,
 				034D312F1DF7F5E3004ADC34 /* AnimationUtils.swift in Sources */,
@@ -2028,6 +2037,7 @@
 				03AC919C1CEB3DF3006AED00 /* PagingView.swift in Sources */,
 				0378EC991DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */,
 				03F261501D48B1D800523640 /* ImageViewerViewController.swift in Sources */,
+				030F1AEB1EDE55FD00CCDEB2 /* ReachabilityBulletin.swift in Sources */,
 				03E006C41E5D65AE00AA8C3F /* ModelObject.swift in Sources */,
 				035553401C0F622A00E0FCA7 /* BundleExtensions.swift in Sources */,
 				0314DCC11D08ED2200E23C67 /* NavigationController.swift in Sources */,
@@ -2175,6 +2185,7 @@
 				035553441C0F622A00E0FCA7 /* ControlAction.swift in Sources */,
 				035C36651C500333000C04D0 /* LifeHash.swift in Sources */,
 				033AC34C1D17172E008C8B93 /* Frac.swift in Sources */,
+				030F1AE71EDE1FA500CCDEB2 /* Reachability.swift in Sources */,
 				039AD2781E6913F600776D7B /* JSONUtils.swift in Sources */,
 				038457911CED55690012BCCE /* RunLoopUtils.swift in Sources */,
 				0303BCD31E404E6200B196CA /* PlaceholderView.swift in Sources */,
@@ -2376,6 +2387,7 @@
 				03A1C3041EDAB78000350E81 /* WeakSet.swift in Sources */,
 				032418071E2AD99300082E6A /* GraphVisitor.swift in Sources */,
 				032417FF1E2AD8F700082E6A /* AdapterGraph.swift in Sources */,
+				030F1AE91EDE1FA500CCDEB2 /* Reachability.swift in Sources */,
 				03F50B4E1EDB6BB200DB38FD /* Weak.swift in Sources */,
 				0314DD131D09032400E23C67 /* Serializable.swift in Sources */,
 				03E172E41CF1C8B60073F383 /* LifeHash.swift in Sources */,

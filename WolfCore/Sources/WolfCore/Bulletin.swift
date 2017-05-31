@@ -11,10 +11,14 @@ import Foundation
     import UIKit
 #endif
 
-public class Bulletin: Publishable {
+open class Bulletin: Publishable {
     private typealias `Self` = Bulletin
 
     private static var _nextID: Int = 1
+
+    public static let minimumPriority = 0
+    public static let normalPriority = 500
+    public static let maximumPriority = 1000
 
     private static func nextID() -> Int {
         defer { _nextID += 1 }
@@ -26,7 +30,7 @@ public class Bulletin: Publishable {
     public let priority: Int
     public let duration: TimeInterval?
 
-    public init(priority: Int, duration: TimeInterval?) {
+    public init(priority: Int = normalPriority, duration: TimeInterval? = nil) {
         self.id = Self.nextID()
         self.date = Date()
         self.priority = priority

@@ -6,5 +6,8 @@
 //  Copyright © 2017 Arciem. All rights reserved.
 //
 
+import Foundation
+
 public protocol Publishable: Hashable {
+    var duration: TimeInterval? { get }
 }

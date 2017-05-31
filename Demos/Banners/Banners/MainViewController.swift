@@ -23,25 +23,51 @@ class MainViewController: BannerViewController {
         subscribe(to: publisher)
     }
 
-    override func updateAppearance(skin: Skin?) {
-        super.updateAppearance(skin: skin)
-        view.normalBackgroundColor = .blue
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
+    var reachability: Reachability!
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        let endpoint = Endpoint(name: "Google", host: "google.com", basePath: "")
+        reachability = Reachability(endpoint: endpoint)
+        subscribe(to: reachability.publisher)
+        reachability.start()
+
         perform()
     }
 
+    private class MyMessageBulletin: MessageBulletin {
+        private let backgroundColor: UIColor
+
+        init(title: String, message: String, priority: Int = normalPriority, duration: TimeInterval? = nil, backgroundColor: UIColor) {
+            self.backgroundColor = backgroundColor
+            super.init(title: title, message: message, priority: priority, duration: nil)
+        }
+
+        override func newBulletinView() -> BulletinView {
+            let bulletinView = super.newBulletinView()
+            let skin = MessageSkin(backgroundColor: backgroundColor)
+            bulletinView.view.skin = skin
+            return bulletinView
+        }
+    }
+
+    public class MessageSkin: DefaultSkin {
+        private let _bulletinBackgroundColor: UIColor
+        public override var bulletinBackgroundColor: UIColor {
+            return _bulletinBackgroundColor
+        }
+
+        public init(backgroundColor: UIColor) {
+            _bulletinBackgroundColor = backgroundColor
+            super.init()
+        }
+    }
+
     private func perform() {
-        let bulletin1 = MessageBulletin(title: "Banner 1", message: Lorem.shortSentence, backgroundColor: Color.green.lightened(by: 0.8))
-        let bulletin2 = MessageBulletin(title: "Banner 2", message: Lorem.sentences(3), backgroundColor: Color.yellow.lightened(by: 0.8))
-        let bulletin3 = MessageBulletin(title: "Banner 3", message: Lorem.sentences(2), backgroundColor: Color.red.lightened(by: 0.8), priority: 600)
-        let bulletin4 = MessageBulletin(title: "Banner 4", message: Lorem.shortSentence, backgroundColor: Color.purple.lightened(by: 0.8), priority: 400)
+        let bulletin1 = MyMessageBulletin(title: "Banner 1", message: Lorem.shortSentence, backgroundColor: UIColor.green.lightened(by: 0.8))
+        let bulletin2 = MyMessageBulletin(title: "Banner 2", message: Lorem.sentences(3), backgroundColor: UIColor.yellow.lightened(by: 0.8))
+        let bulletin3 = MyMessageBulletin(title: "Banner 3", message: Lorem.sentences(2), priority: 600, backgroundColor: UIColor.red.lightened(by: 0.8))
+        let bulletin4 = MyMessageBulletin(title: "Banner 4", message: Lorem.shortSentence, priority: 400, backgroundColor: UIColor.purple.lightened(by: 0.8))
 
         let multiplier: TimeInterval = 1.0
 
