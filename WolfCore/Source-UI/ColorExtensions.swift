@@ -98,9 +98,6 @@ public struct NamedColor: ExtensibleEnumeratedName, Reference {
         self.color = color
     }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: (name: String, color: OSColor)) { self.init(rawValue.name, rawValue.color) }
     public var rawValue: (name: String, color: OSColor) { return (name: name, color: color) }

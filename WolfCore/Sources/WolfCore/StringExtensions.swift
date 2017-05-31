@@ -421,12 +421,8 @@ public struct StringName: ExtensibleEnumeratedName, Reference {
         self.name = name
     }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 
     // Reference
     public var referent: String {

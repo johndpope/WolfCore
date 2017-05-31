@@ -186,12 +186,8 @@ public struct ImageReference: ExtensibleEnumeratedName, Reference {
         self.bundle = bundle ?? Bundle.main
     }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 
     // Reference
     public var referent: OSImage {

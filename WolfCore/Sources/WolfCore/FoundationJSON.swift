@@ -142,14 +142,28 @@ public struct FoundationJSON {
         self.init(fragment: Self.null)
     }
 
-    public init(_ inArray: [Any?]) {
+    //
+    // This constructor includes a label for the first argument to prevent confusion between:
+    //
+    // let json = JSON(["email": email])
+    //
+    // and:
+    //
+    // let json = JSON(["email", email]) // illegal
+    //
+    // The second case must be stated like this:
+    //
+    // let json = JSON(array: ["email", email])
+    //
+
+    public init(array inArray: [Any?]) {
         var outArray = [Value]()
         for inValue in inArray {
             if let inValue = inValue {
                 if let v = inValue as? JSONRepresentable {
                     outArray.append(v.json.value)
                 } else if let a = inValue as? [Any?] {
-                    let j = JSON(a)
+                    let j = JSON(array: a)
                     outArray.append(j.value)
                 } else if let d = inValue as? [AnyHashable: Any?] {
                     let j = JSON(d)
@@ -164,15 +178,15 @@ public struct FoundationJSON {
         try! self.init(value: outArray)
     }
 
-    public init(_ dict: [AnyHashable: Any?]) {
+    public init(_ inDict: [AnyHashable: Any?]) {
         var outDict = [String : Value]()
-        for (name, inValue) in dict {
+        for (name, inValue) in inDict {
             let name = "\(name)"
             if let inValue = inValue {
                 if let v = inValue as? JSONRepresentable {
                     outDict[name] = v.json.value
                 } else if let a = inValue as? [Any?] {
-                    let j = JSON(a)
+                    let j = JSON(array: a)
                     outDict[name] = j.value
                 } else if let d = inValue as? [AnyHashable: Any?] {
                     let j = JSON(d)

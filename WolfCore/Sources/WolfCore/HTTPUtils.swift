@@ -15,14 +15,11 @@ public enum HTTPUtilsError: Error {
 
 public struct HTTPScheme: ExtensibleEnumeratedName {
     public let name: String
-    public init(_ name: String) { self.name = name }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
+    public init(_ name: String) { self.name = name }
 
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 }
 
 extension HTTPScheme {
@@ -35,12 +32,8 @@ public struct HTTPMethod: ExtensibleEnumeratedName {
 
     public init(_ name: String) { self.name = name }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 }
 
 extension HTTPMethod {
@@ -58,14 +51,10 @@ extension HTTPMethod {
 public struct ContentType: ExtensibleEnumeratedName {
     public let name: String
 
-    public init(_ name: String) { self.name = name}
-
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
+    public init(_ name: String) { self.name = name }
 
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 }
 
 extension ContentType {
@@ -78,27 +67,36 @@ extension ContentType {
     public static let pdf = ContentType("application/pdf")
 }
 
+public struct Charset: ExtensibleEnumeratedName {
+    public let name: String
+
+    public init(_ name: String) { self.name = name }
+
+    // RawRepresentable
+    public init?(rawValue: String) { self.init(rawValue) }
+}
+
+extension Charset {
+    public static let utf8 = Charset("utf-8")
+}
+
 public struct HeaderField: ExtensibleEnumeratedName {
     public let name: String
 
     public init(_ name: String) { self.name = name}
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 }
 
 extension HeaderField {
     public static let accept = HeaderField("Accept")
     public static let contentType = HeaderField("Content-Type")
     public static let encoding = HeaderField("Encoding")
+    public static let connection = HeaderField("Connection")
     public static let authorization = HeaderField("Authorization")
     public static let contentRange = HeaderField("Content-Range")
-    public static let connection = HeaderField("connection")
-    public static let uploadToken = HeaderField("upload-token")
+    public static let uploadToken = HeaderField("Upload-Token")
     public static let contentLength = HeaderField("Content-Length")
     public static let clientRequestID = HeaderField("X-Client-Request-ID")
     public static let awsRequestID = HeaderField("x-amzn-RequestId")
@@ -109,12 +107,8 @@ public struct StatusCode: ExtensibleEnumeratedName {
 
     public init(_ name: Int) { self.name = name }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: Int) { self.init(rawValue) }
-    public var rawValue: Int { return name }
 }
 
 extension StatusCode {
@@ -135,6 +129,18 @@ extension StatusCode {
     public static let badGateway = StatusCode(502)
     public static let serviceUnavailable = StatusCode(503)
     public static let gatewayTimeout = StatusCode(504)
+}
+
+public struct ConnectionType: ExtensibleEnumeratedName {
+    public let name: String
+
+    public init(_ name: String) { self.name = name }
+    public init?(rawValue: String) { self.init(rawValue) }
+}
+
+extension ConnectionType {
+    public static let close = ConnectionType("close")
+    public static let keepAlive = ConnectionType("keep-alive")
 }
 
 public class HTTP {
@@ -318,6 +324,26 @@ extension URLRequest {
 
     public mutating func setAcceptContentType(_ contentType: ContentType) {
         setValue(contentType.rawValue, for: .accept)
+    }
+
+    public mutating func setContentType(_ contentType: ContentType, charset: Charset? = nil) {
+        if let charset = charset {
+            setValue("\(contentType.rawValue); charset=\(charset.rawValue)", for: .contentType)
+        } else {
+            setValue(contentType.rawValue, for: .contentType)
+        }
+    }
+
+    public mutating func setContentTypeJSON() {
+        setValue("\(ContentType.json.rawValue); charset=utf-8", for: .contentType)
+    }
+
+    public mutating func setContentLength(_ length: Int) {
+        setValue(String(length), for: .contentLength)
+    }
+
+    public mutating func setConnection(_ connection: ConnectionType) {
+        setValue(connection.rawValue, for: .connection)
     }
 
     public mutating func setAuthorization(_ value: String) {

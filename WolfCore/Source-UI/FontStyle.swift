@@ -23,12 +23,8 @@ public struct FontStyleName: ExtensibleEnumeratedName {
         }
     }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 }
 
 extension FontStyleName {
@@ -58,12 +54,8 @@ public struct FontFamilyName: ExtensibleEnumeratedName {
         self.name = name
     }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 }
 
 public struct FontFaceName: ExtensibleEnumeratedName {
@@ -73,12 +65,8 @@ public struct FontFaceName: ExtensibleEnumeratedName {
         self.name = name
     }
 
-    // Hashable
-    public var hashValue: Int { return name.hashValue }
-
     // RawRepresentable
     public init?(rawValue: String) { self.init(rawValue) }
-    public var rawValue: String { return name }
 }
 
 public struct FontStyle {

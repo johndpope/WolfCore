@@ -61,10 +61,14 @@ open class API<C: Credentials> {
 
         let url = URL(scheme: HTTPScheme.https, host: endpoint.host, basePath: endpoint.basePath, pathComponents: path)
         var request = URLRequest(url: url)
+        request.cachePolicy = .reloadIgnoringLocalCacheData
         request.setClientRequestID()
         request.setMethod(method)
+        request.setConnection(.close)
         if let json = json {
             request.httpBody = json.data
+            request.setContentType(.json, charset: .utf8)
+            request.setContentLength(json.data.count)
         }
         if isAuth {
             request.setValue(authorization, for: authorizationHeaderField)
