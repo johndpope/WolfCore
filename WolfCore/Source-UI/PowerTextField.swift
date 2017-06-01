@@ -134,14 +134,26 @@ public class PowerTextField: View, Editable {
 
         set {
             textEditor.text = newValue
+            validatedText = newValue
             syncToTextEditor(animated: false)
         }
     }
 
-    public func setText(_ text: String?, animated: Bool) {
+    private func setText(_ text: String?, animated: Bool) {
+        guard textEditor.text != text else { return }
         textEditor.text = text
         syncToTextEditor(animated: false)
-        onChanged?(self)
+        setNeedsOnChanged()
+    }
+
+    private lazy var syncOnChanged: Asynchronizer = {
+        return Asynchronizer(name: "onChanged", delay: 0.1) {
+            self.onChanged?(self)
+        }
+    }()
+
+    private func setNeedsOnChanged() {
+        syncOnChanged.setNeedsSync()
     }
 
     public var placeholder: String? {
@@ -207,6 +219,8 @@ public class PowerTextField: View, Editable {
     private func syncToShowsMessage() {
         if showsValidationMessage || showsPlaceholderMessage {
             messageContainerView.show()
+            validationMessageLabel.isShown = showsValidationMessage
+            placeholderMessageLabel.isShown = showsPlaceholderMessage
         } else {
             messageContainerView.hide()
         }
@@ -455,6 +469,8 @@ public class PowerTextField: View, Editable {
 
     private lazy var validationMessageLabel: Label = {
         let label = Label()
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.text = "A"
         label.alpha = 0
         return label
@@ -462,6 +478,8 @@ public class PowerTextField: View, Editable {
 
     private lazy var placeholderMessageLabel: Label = {
         let label = Label()
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.text = "A"
         return label
     }()
@@ -473,7 +491,12 @@ public class PowerTextField: View, Editable {
 
     private lazy var placeholderLabel: Label = {
         let label = Label()
-        label.numberOfLines = 0
+        if self.numberOfLines > 1 {
+            label.numberOfLines = 0
+        } else {
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.5
+        }
         return label
     }()
 
@@ -808,7 +831,7 @@ public class PowerTextField: View, Editable {
         } else {
             scrollContentToTop()
             if !hasValidation {
-                validateIfNeeded()
+                validate()
             }
             onEndEditing?(self)
         }
@@ -851,7 +874,10 @@ public class PowerTextField: View, Editable {
 
     public func validateIfNeeded() {
         guard needsValidation else { return }
+        validate()
+    }
 
+    private func validate() {
         defer {
             needsValidation = false
         }
@@ -932,6 +958,10 @@ public class PowerTextField: View, Editable {
         } else {
             needsValidation = true
             restartValidationTimer()
+        }
+
+        if startText != endText {
+            setNeedsOnChanged()
         }
 
         return true

@@ -26,8 +26,8 @@ public typealias Replacements = [String: String]
 //public typealias StringRange = Range<StringIndex>
 //public typealias RangeReplacement = (Range<String.Index>, String)
 
-extension Log.GroupName {
-    public static let localization = Log.GroupName("localization")
+extension LogGroup {
+    public static let localization = LogGroup("localization")
 }
 
 // Provide concise versions of NSLocalizedString.

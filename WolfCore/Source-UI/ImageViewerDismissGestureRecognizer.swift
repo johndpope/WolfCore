@@ -8,8 +8,8 @@
 
 import UIKit.UIGestureRecognizerSubclass
 
-extension Log.GroupName {
-    public static let imageDismissRecognizer = Log.GroupName("imageDismissRecognizer")
+extension LogGroup {
+    public static let imageDismissRecognizer = LogGroup("imageDismissRecognizer")
 }
 
 /// Implements a UIGestureRecognizer that is compatible with a UIScrollView containing a UIImageView, and detects a gesture similar to a swipe down.

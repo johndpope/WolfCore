@@ -427,6 +427,9 @@
 		03A1C3031EDAB78000350E81 /* WeakSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1C3011EDAB78000350E81 /* WeakSet.swift */; };
 		03A1C3041EDAB78000350E81 /* WeakSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1C3011EDAB78000350E81 /* WeakSet.swift */; };
 		03A3DF361E767BA200F4023C /* EditableContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A3DF351E767BA200F4023C /* EditableContainerView.swift */; };
+		03A9A4FC1EDF70790010DD50 /* Asynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A4FB1EDF70790010DD50 /* Asynchronizer.swift */; };
+		03A9A4FD1EDF70790010DD50 /* Asynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A4FB1EDF70790010DD50 /* Asynchronizer.swift */; };
+		03A9A4FE1EDF70790010DD50 /* Asynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A4FB1EDF70790010DD50 /* Asynchronizer.swift */; };
 		03AB94D11CB4869800F25335 /* GestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D01CB4869800F25335 /* GestureActions.swift */; };
 		03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */; };
 		03AC919C1CEB3DF3006AED00 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC919B1CEB3DF3006AED00 /* PagingView.swift */; };
@@ -852,6 +855,7 @@
 		03A146791CAF5E3900FD6261 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
 		03A1C3011EDAB78000350E81 /* WeakSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeakSet.swift; path = Sources/WolfCore/WeakSet.swift; sourceTree = "<group>"; };
 		03A3DF351E767BA200F4023C /* EditableContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditableContainerView.swift; path = "Source-UI/EditableContainerView.swift"; sourceTree = "<group>"; };
+		03A9A4FB1EDF70790010DD50 /* Asynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Asynchronizer.swift; path = Sources/WolfCore/Asynchronizer.swift; sourceTree = "<group>"; };
 		03AB94D01CB4869800F25335 /* GestureActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GestureActions.swift; path = "Source-UI/GestureActions.swift"; sourceTree = "<group>"; };
 		03AB94D21CB486BC00F25335 /* ViewGestureActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewGestureActions.swift; path = "Source-UI/ViewGestureActions.swift"; sourceTree = "<group>"; };
 		03AC919B1CEB3DF3006AED00 /* PagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingView.swift; path = "Source-UI/PagingView.swift"; sourceTree = "<group>"; };
@@ -1294,6 +1298,7 @@
 				038457901CED55690012BCCE /* RunLoopUtils.swift */,
 				0362A1A81C1A22710005371F /* Serializer.swift */,
 				03E31D5E1EB1BBE700498CAC /* Promise.swift */,
+				03A9A4FB1EDF70790010DD50 /* Asynchronizer.swift */,
 			);
 			name = Concurrency;
 			sourceTree = "<group>";
@@ -1941,6 +1946,7 @@
 				033A7AFC1E90963A000624D3 /* JSONRepresentable.swift in Sources */,
 				030F1AD31EDCFDA000CCDEB2 /* Publishable.swift in Sources */,
 				033F5EB21CA3096700647A0A /* ImageExtensions.swift in Sources */,
+				03A9A4FD1EDF70790010DD50 /* Asynchronizer.swift in Sources */,
 				0378EC841DF4D89900E6A875 /* Cache.swift in Sources */,
 				0324181E1E2F12D800082E6A /* TransitiveClosure.swift in Sources */,
 				039AD2791E6913F600776D7B /* JSONUtils.swift in Sources */,
@@ -2075,6 +2081,7 @@
 				03FAF7891C53F7340045BB37 /* Hex.swift in Sources */,
 				03604A541E82498F00CA8C89 /* ImageCropper.swift in Sources */,
 				03AB94D31CB486BC00F25335 /* ViewGestureActions.swift in Sources */,
+				03A9A4FC1EDF70790010DD50 /* Asynchronizer.swift in Sources */,
 				039AD2821E6A222300776D7B /* Credentials.swift in Sources */,
 				03C486C11ED09D2F00BFA144 /* MessageBulletinView.swift in Sources */,
 				03CF07DE1DF531BE00B7AD7E /* TransferValue.swift in Sources */,
@@ -2391,6 +2398,7 @@
 				03F50B4E1EDB6BB200DB38FD /* Weak.swift in Sources */,
 				0314DD131D09032400E23C67 /* Serializable.swift in Sources */,
 				03E172E41CF1C8B60073F383 /* LifeHash.swift in Sources */,
+				03A9A4FE1EDF70790010DD50 /* Asynchronizer.swift in Sources */,
 				0378EC9B1DF516C200E6A875 /* CollectionViewExtensions.swift in Sources */,
 				03E172F01CF1C8B60073F383 /* ValidationError.swift in Sources */,
 				03D3FA421E542CF000C8E550 /* URLExtensions.swift in Sources */,

@@ -31,7 +31,7 @@ public class InFlightView: View {
 
     public override var isHidden: Bool {
         didSet {
-            if !isHidden {
+            if isShown {
                 layoutTokenViews(animated: false)
             }
         }
@@ -39,7 +39,7 @@ public class InFlightView: View {
 
     private var needsTokenViewLayout = false {
         didSet {
-            guard !isHidden else { return }
+            guard isShown else { return }
 
             if needsTokenViewLayout {
                 if layoutCanceler == nil {

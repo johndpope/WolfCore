@@ -13,6 +13,11 @@ public protocol Hideable: class {
 }
 
 extension Hideable {
+    public var isShown: Bool {
+        get { return !isHidden }
+        set { isHidden = !newValue }
+    }
+
     public func show() {
         isHidden = false
     }

@@ -8,8 +8,8 @@
 
 public internal(set) var inFlightTracker: InFlightTracker?
 
-extension Log.GroupName {
-    public static let inFlight = Log.GroupName("inFlight")
+extension LogGroup {
+    public static let inFlight = LogGroup("inFlight")
 }
 
 public class InFlightTracker {

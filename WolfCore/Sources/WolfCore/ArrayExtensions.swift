@@ -40,6 +40,22 @@ extension Array {
     }
 }
 
+extension Sequence {
+    public func flatJoined(separator: String = "") -> String {
+        let a = flatMap { (i) -> String? in
+            if let o = i as? OptionalProtocol {
+                if o.isSome() {
+                    return o.unwrappedString()
+                } else {
+                    return nil
+                }
+            }
+            return String(describing: i)
+        }
+        return a.joined(separator: separator)
+    }
+}
+
 extension Array {
     public func split(by size: Int) -> [[Element]] {
         return stride(from: 0, to: self.count, by: size).map { start in

@@ -9,8 +9,8 @@
 import Foundation
 import SystemConfiguration
 
-extension Log.GroupName {
-    public static let reachability = Log.GroupName("reachability")
+extension LogGroup {
+    public static let reachability = LogGroup("reachability")
 }
 
 public class Reachability {

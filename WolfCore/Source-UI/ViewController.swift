@@ -11,8 +11,8 @@ import UIKit
 
 public typealias ViewControllerBlock = (UIViewController) -> Void
 
-extension Log.GroupName {
-    public static let viewControllerLifecycle = Log.GroupName("viewControllers")
+extension LogGroup {
+    public static let viewControllerLifecycle = LogGroup("viewControllers")
 }
 
 open class ViewController: UIViewController, Skinnable {

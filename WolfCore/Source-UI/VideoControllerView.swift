@@ -8,8 +8,8 @@
 
 import UIKit
 
-extension Log.GroupName {
-    public static let video = Log.GroupName("video")
+extension LogGroup {
+    public static let video = LogGroup("video")
 }
 
 open class VideoControllerView: View {

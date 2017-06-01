@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension Log.GroupName {
-    public static let skin = Log.GroupName("skin")
-    public static let statusBar = Log.GroupName("statusBar")
+extension LogGroup {
+    public static let skin = LogGroup("skin")
+    public static let statusBar = LogGroup("statusBar")
 }
 
 public protocol Skin {

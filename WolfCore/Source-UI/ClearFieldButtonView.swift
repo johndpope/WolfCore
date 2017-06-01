@@ -31,7 +31,7 @@ public class ClearFieldButtonView: View {
     }
 
     public func conceal(animated: Bool) {
-        if !isHidden {
+        if isShown {
             dispatchAnimated(animated) {
                 self.button.alpha = 0
             }.then { _ in

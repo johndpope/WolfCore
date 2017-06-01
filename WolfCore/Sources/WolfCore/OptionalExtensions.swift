@@ -22,18 +22,42 @@ import Foundation
 //    print("\(a)")     // prints "Optional(5)"
 //    print(a†)         // prints "5"
 
-fileprivate protocol _Optional {
+public protocol OptionalProtocol {
     func unwrappedString() -> String
+    func isSome() -> Bool
+    func unwrap() -> Any
 }
 
-extension Optional: _Optional {
-    fileprivate func unwrappedString() -> String {
+extension Optional: OptionalProtocol {
+    public func unwrappedString() -> String {
         switch self {
-        case .some(let wrapped as _Optional): return wrapped.unwrappedString()
+        case .some(let wrapped as OptionalProtocol): return wrapped.unwrappedString()
         case .some(let wrapped): return String(describing: wrapped)
         case .none: return String(describing: self)
         }
     }
+
+    public func isSome() -> Bool {
+        switch self {
+        case .none: return false
+        case .some: return true
+        }
+    }
+
+    public func unwrap() -> Any {
+        switch self {
+        case .none: preconditionFailure("trying to unwrap nil")
+        case .some(let unwrapped): return unwrapped
+        }
+    }
+}
+
+public func unwrap<T>(_ any: T) -> Any
+{
+    guard let optional = any as? OptionalProtocol, optional.isSome() else {
+        return any
+    }
+    return optional.unwrap()
 }
 
 postfix operator †

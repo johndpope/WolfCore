@@ -28,6 +28,7 @@ open class PagingViewController: ViewController {
     }
 
     open func didLayoutPagingView(fromIndex: Int, toIndex: Int, frac: Frac) {
+        guard (0..<pagedViewControllers.count).contains(fromIndex) else { return }
         let fromController = pagedViewControllers[fromIndex]
         let fromSkin = fromController.skin!
         let skin: Skin

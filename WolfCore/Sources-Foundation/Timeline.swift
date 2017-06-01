@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension Log.GroupName {
-    public static let timeline = Log.GroupName("timeline")
+extension LogGroup {
+    public static let timeline = LogGroup("timeline")
 }
 
 public class Timeline {

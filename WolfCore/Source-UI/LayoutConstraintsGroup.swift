@@ -12,8 +12,8 @@
     import Cocoa
 #endif
 
-extension Log.GroupName {
-    public static let layout = Log.GroupName("layout")
+extension LogGroup {
+    public static let layout = LogGroup("layout")
 }
 
 public class LayoutConstraintsGroup {

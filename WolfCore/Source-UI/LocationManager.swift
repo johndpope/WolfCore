@@ -9,8 +9,8 @@
 import Foundation
 import CoreLocation
 
-extension Log.GroupName {
-    public static let location = Log.GroupName("location")
+extension LogGroup {
+    public static let location = LogGroup("location")
 }
 
 public class LocationManager: CLLocationManager {

@@ -24,8 +24,8 @@ extension Error {
     }
 }
 
-extension Log.GroupName {
-    public static let cache = Log.GroupName("cache")
+extension LogGroup {
+    public static let cache = LogGroup("cache")
 }
 
 public class Cache<T: Serializable> {
