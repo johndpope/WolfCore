@@ -20,6 +20,16 @@ open class ScrollingStackView: View {
     public let hasKeyboardAvoidantView: Bool
     public let axis: UILayoutConstraintAxis
     public let snapsToDetent: Bool
+    public var showsHorizontalScrollIndicator: Bool = false {
+        didSet {
+            scrollView.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator
+        }
+    }
+    public var showsVerticalScrollIndicator: Bool = false {
+        didSet {
+            scrollView.showsVerticalScrollIndicator = showsVerticalScrollIndicator
+        }
+    }
     private var showsDetentIndicator: Bool {
         return false // snapsToDetent
     }
